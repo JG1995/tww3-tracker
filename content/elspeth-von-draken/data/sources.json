@@ -1,0 +1,212 @@
+[
+  {
+    "id": "vco-guide",
+    "title": "VCO • author’s route objectives",
+    "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084",
+    "note": "Primary author reference, labelled 25 September 2026 and rechecked 30 September. The Elspeth Immortal Empires lists supply the objectives here. The public guide uses route numbers, not her in-game narrative titles. This atlas’s subtitles are its own strategic themes. The guide does not expose Route III’s exact search trigger or the precise treaty test for diplomatic control."
+  },
+  {
+    "id": "vco",
+    "title": "VCO • Workshop setup",
+    "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3140200173",
+    "note": "Enable VCO before starting a campaign and keep it active. Completing one route is a campaign victory; completing all three is an optional continuation. The atlas is a manual reference, not a mod or a save-game reader."
+  },
+  {
+    "id": "vco-changes",
+    "title": "VCO • 9.0 compatibility & reward fix",
+    "url": "https://steamcommunity.com/sharedfiles/filedetails/changelog/3140200173",
+    "note": "6.8.4, 27 September 2026, fixes missing victory rewards. The author specifies loading before the victory trigger for an affected existing campaign; the fix is not retroactive. 6.8.1 notes vanilla objectives run alongside VCO under 9.0. Do not merge the two checklists."
+  },
+  {
+    "id": "ca",
+    "title": "Creative Assembly • Elspeth & Empire mechanics",
+    "url": "https://community.creative-assembly.com/total-war/total-war-warhammer/blogs/14-thrones-of-decay-introducing-elspeth-von-draken",
+    "note": "Primary design reference: Imperial Gunnery School, Field Testing, Amethyst units, Gardens in visible friendly/neutral Empire-owned settlements, and Elspeth-only fast travel. Also distinguishes all-Empire Imperial Authority from Karl Franz’s Elector Counts / Fealty / Decrees."
+  },
+  {
+    "id": "patch9",
+    "title": "Creative Assembly • update 9.0",
+    "url": "https://community.creative-assembly.com/total-war/total-war-warhammer/blogs/110",
+    "note": "The update includes revised Warrior Priest and Arch Lector skill trees. The Priest reference has been rebuilt around the updated extracted tree; Arch Lectors are not required by this guide."
+  },
+  {
+    "id": "school",
+    "title": "Gunnery School • field tests & upgrades",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Imperial_Gunnery_School",
+    "note": "Community transcription of Field Testing and upgrade panels, not a live 9.0 test. Useful for names and baseline gates; displayed in-game requirements, costs and counters take precedence. No claim that Smart Autoresolve activates abilities or credits every mission."
+  },
+  {
+    "id": "gardens",
+    "title": "Gardens of Morr • branches & travel",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Gardens_of_Morr",
+    "note": "Community reference for Black Tower, Militia, Temple and College. It reports a discrepancy between the displayed five-Garden limit and actual construction. This atlas does not depend on unlimited Gardens, and does not claim five is a verified hard cap in every build. Use the live capacity and cooldown."
+  },
+  {
+    "id": "theodore-quest",
+    "title": "Theodore • Trials by Combat",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Theodore_Bruckner:_Trials_by_Combat",
+    "note": "The final quest follows The Countess’ Champion and asks for 1,000 kills by melee cavalry or Demigryph units. Do not substitute general army kills or assume autoresolve events count without checking."
+  },
+  {
+    "id": "theodore-start",
+    "title": "Theodore • The Countess’ Champion",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Theodore_Bruckner:_The_Countess%27_Champion",
+    "note": "Recruitment-chain reference. Construct the required Livery, then follow Trials by Combat. A Captain is the temporary army substitute; Theodore is a unique hero, not a repeatable recruit."
+  },
+  {
+    "id": "skills-elspeth",
+    "title": "Game data • Elspeth skill tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/emp_empire/wh3_dlc25_skill_node_set_emp_elspeth_von_draken.json",
+    "note": "Extracted vanilla game data. Skills below are priority blocks, not a promise that every named node can be bought at the immediately following character rank. Follow the visible rank and point gates; mounts and Immortality can be automatic. A personal modifier is not an army-wide modifier."
+  },
+  {
+    "id": "skills-master",
+    "title": "Game data • Master Engineer skill tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/emp_empire/wh3_dlc25_skill_node_set_emp_master_engineer.json",
+    "note": "Extracted vanilla game data. Skills below are priority blocks, not a promise that every named node can be bought at the immediately following character rank. Follow the visible rank and point gates; mounts and Immortality can be automatic. A personal modifier is not an army-wide modifier."
+  },
+  {
+    "id": "skills-engineer",
+    "title": "Game data • Engineer skill tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/emp_empire/wh3_dlc25_skill_node_set_emp_engineer.json",
+    "note": "Extracted vanilla game data. Skills below are priority blocks, not a promise that every named node can be bought at the immediately following character rank. Follow the visible rank and point gates; mounts and Immortality can be automatic. A personal modifier is not an army-wide modifier."
+  },
+  {
+    "id": "skills-theodore",
+    "title": "Game data • Theodore skill tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/emp_empire/wh3_dlc25_skill_node_set_emp_theodore_bruckner.json",
+    "note": "Extracted vanilla game data. Skills below are priority blocks, not a promise that every named node can be bought at the immediately following character rank. Follow the visible rank and point gates; mounts and Immortality can be automatic. A personal modifier is not an army-wide modifier."
+  },
+  {
+    "id": "skills-priest",
+    "title": "Game data • Updated Warrior Priest skill tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/emp_empire/wh2_main_skill_node_set_emp_warrior_priest.json",
+    "note": "Extracted vanilla game data. Skills below are priority blocks, not a promise that every named node can be bought at the immediately following character rank. Follow the visible rank and point gates; mounts and Immortality can be automatic. A personal modifier is not an army-wide modifier."
+  },
+  {
+    "id": "skills-captain",
+    "title": "Game data • Captain skill tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/emp_empire/wh2_main_skill_node_set_emp_captain.json",
+    "note": "Extracted vanilla game data. Skills below are priority blocks, not a promise that every named node can be bought at the immediately following character rank. Follow the visible rank and point gates; mounts and Immortality can be automatic. A personal modifier is not an army-wide modifier."
+  },
+  {
+    "id": "skills-light",
+    "title": "Game data • Light Wizard skill tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/emp_empire/wh_main_skill_node_set_emp_light_wizard.json",
+    "note": "Extracted vanilla game data. Skills below are priority blocks, not a promise that every named node can be bought at the immediately following character rank. Follow the visible rank and point gates; mounts and Immortality can be automatic. A personal modifier is not an army-wide modifier."
+  },
+  {
+    "id": "skills-death",
+    "title": "Game data • Amethyst Wizard skill tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/emp_empire/wh2_pro07_skill_node_set_emp_amethyst_wizard.json",
+    "note": "Extracted vanilla game data. Skills below are priority blocks, not a promise that every named node can be bought at the immediately following character rank. Follow the visible rank and point gates; mounts and Immortality can be automatic. A personal modifier is not an army-wide modifier."
+  },
+  {
+    "id": "skills-hunter",
+    "title": "Game data • Witch Hunter skill tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/emp_empire/wh2_main_skill_node_set_emp_witch_hunter.json",
+    "note": "Extracted vanilla game data. Skills below are priority blocks, not a promise that every named node can be bought at the immediately following character rank. Follow the visible rank and point gates; mounts and Immortality can be automatic. A personal modifier is not an army-wide modifier."
+  },
+  {
+    "id": "life-wizard",
+    "title": "Life magic • Jade Wizard",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Jade_Wizard",
+    "note": "Lore and role reference. Battle healing preserves surviving models; it is not campaign casualty replenishment or a promise to resurrect dead infantry. No assumption that the autoresolve mod models manual spellcasting."
+  },
+  {
+    "id": "tech",
+    "title": "Game data • Empire technologies",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/techs/vanilla3/emp_civ_reworkd.json",
+    "note": "Current extracted general Empire tree. Checked names and prerequisite examples include Grain Silos, State Troop Standards → State-Issued Infantry Armour, and Ordnance Canisters → Refined Schematics. The generic export does not show every faction-specific script/technology. The Amethyst Armourer is separately sourced to its faction mechanic reference."
+  },
+  {
+    "id": "b-marksmen",
+    "title": "Buildings • Gunnery School (ordinary, T3)",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_dlc25_emp_shooting_range_3/",
+    "note": "Game-data reference for the named chain. Capital tier requirements, recruiting a hero and increasing hero capacity are distinct. Main-settlement, port and landmark slots reduce the spare space available for the suggested role."
+  },
+  {
+    "id": "b-guns",
+    "title": "Buildings • Gunsmith (T2)",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh_main_emp_forges_1/",
+    "note": "Game-data reference for the named chain. Capital tier requirements, recruiting a hero and increasing hero capacity are distinct. Main-settlement, port and landmark slots reduce the spare space available for the suggested role."
+  },
+  {
+    "id": "b-foundry",
+    "title": "Buildings • Foundry (T3)",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh_main_emp_forges_2/",
+    "note": "Game-data reference for the named chain. Capital tier requirements, recruiting a hero and increasing hero capacity are distinct. Main-settlement, port and landmark slots reduce the spare space available for the suggested role."
+  },
+  {
+    "id": "b-workshop",
+    "title": "Buildings • Engineer’s Workshop (T4)",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh_main_emp_forges_3/",
+    "note": "Game-data reference for the named chain. Capital tier requirements, recruiting a hero and increasing hero capacity are distinct. Main-settlement, port and landmark slots reduce the spare space available for the suggested role."
+  },
+  {
+    "id": "b-nuln3",
+    "title": "Buildings • Nuln Cannon Foundry (landmark, T3)",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh_main_special_nuln_cannon_foundry/",
+    "note": "Game-data reference for the named chain. Capital tier requirements, recruiting a hero and increasing hero capacity are distinct. Main-settlement, port and landmark slots reduce the spare space available for the suggested role."
+  },
+  {
+    "id": "b-nuln5",
+    "title": "Buildings • Nuln Gunnery School (landmark, T5)",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh_main_special_nuln_gunnery_school/",
+    "note": "Game-data reference for the named chain. Capital tier requirements, recruiting a hero and increasing hero capacity are distinct. Main-settlement, port and landmark slots reduce the spare space available for the suggested role."
+  },
+  {
+    "id": "b-livery",
+    "title": "Buildings • Livery (T3)",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh_main_emp_stables_2/",
+    "note": "Game-data reference for the named chain. Capital tier requirements, recruiting a hero and increasing hero capacity are distinct. Main-settlement, port and landmark slots reduce the spare space available for the suggested role."
+  },
+  {
+    "id": "b-barracks",
+    "title": "Buildings • Rally Field (T2)",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh_main_emp_barracks_2/",
+    "note": "Game-data reference for the named chain. Capital tier requirements, recruiting a hero and increasing hero capacity are distinct. Main-settlement, port and landmark slots reduce the spare space available for the suggested role."
+  },
+  {
+    "id": "b-priest",
+    "title": "Buildings • Temple of Sigmar (T3)",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh_main_emp_worship_2/",
+    "note": "Game-data reference for the named chain. Capital tier requirements, recruiting a hero and increasing hero capacity are distinct. Main-settlement, port and landmark slots reduce the spare space available for the suggested role."
+  },
+  {
+    "id": "b-wizard",
+    "title": "Buildings • Wizard’s Conclave (T2)",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh_main_emp_wizards_1/",
+    "note": "Game-data reference for the named chain. Capital tier requirements, recruiting a hero and increasing hero capacity are distinct. Main-settlement, port and landmark slots reduce the spare space available for the suggested role."
+  },
+  {
+    "id": "b-industry",
+    "title": "Buildings • Weaving House",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh_main_emp_industry_basic_1/",
+    "note": "Game-data reference for the named chain. Capital tier requirements, recruiting a hero and increasing hero capacity are distinct. Main-settlement, port and landmark slots reduce the spare space available for the suggested role."
+  },
+  {
+    "id": "b-farm",
+    "title": "Buildings • Fields",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh_main_emp_farm_basic_1/",
+    "note": "Game-data reference for the named chain. Capital tier requirements, recruiting a hero and increasing hero capacity are distinct. Main-settlement, port and landmark slots reduce the spare space available for the suggested role."
+  },
+  {
+    "id": "b-tavern",
+    "title": "Buildings • Tavern",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh_main_emp_tavern_2/",
+    "note": "Game-data reference for the named chain. Capital tier requirements, recruiting a hero and increasing hero capacity are distinct. Main-settlement, port and landmark slots reduce the spare space available for the suggested role."
+  },
+  {
+    "id": "b-pasture",
+    "title": "Buildings • Grazing Pastures",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh_main_emp_resource_pastures_1/",
+    "note": "Game-data reference for the named chain. Capital tier requirements, recruiting a hero and increasing hero capacity are distinct. Main-settlement, port and landmark slots reduce the spare space available for the suggested role."
+  },
+  {
+    "id": "smart",
+    "title": "Smart Autoresolve • evidence boundary",
+    "url": "https://steamcommunity.com/workshop/browse/?appid=1142710&searchtext=Smart+Autoresolve",
+    "note": "User-specified mod: Smart Autoresolve – Matchup-Aware, No More Ranged Bias. Its exact current formula and mission-event handling were not independently verified. This guide recommends balanced, recoverable armies rather than claiming tested autoresolve scores, immunity to losses, or automatic spell/ability credit. This link is a Workshop search, not a verified unique mod page."
+  }
+]

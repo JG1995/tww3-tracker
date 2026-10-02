@@ -246,7 +246,7 @@ Commit 1 (tokens + toolchain) → Commit 2 (content model on fixtures) → Commi
 
 #### Package `elspeth-skeleton` — Commit 5: Committed Elspeth content skeleton
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 4
 
