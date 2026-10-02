@@ -1,12 +1,15 @@
 /**
- * Lord view (DESIGN §2/§6): the shared-fundamentals markdown (rendered once at
- * boot, cached in the tree) plus the route list — number, official VCO title
- * or an explicit "unresearched" marker when `vcoTitle` is null, the thematic
- * subtitle (dimmed), and the objective line, each row linking to the route
- * page. Presentational: everything comes from the immutable tree.
+ * Lord view (DESIGN §2/§6): the Route Tab Strip at the top (active tab =
+ * "shared", derived from the hash — the lord page IS the Shared surface),
+ * the shared-fundamentals markdown (rendered once at boot, cached in the
+ * tree) plus the route list — number, official VCO title or an explicit
+ * "unresearched" marker when `vcoTitle` is null, the thematic subtitle
+ * (dimmed), and the objective line, each row linking to the route page.
+ * Presentational: everything comes from the immutable tree.
  */
 
 import { h, type JSX } from "preact";
+import { TabStrip } from "../components/TabStrip.ts";
 import type { Lord, Route } from "../content/types.ts";
 
 export function LordView(props: { lord: Lord }): JSX.Element {
@@ -14,6 +17,7 @@ export function LordView(props: { lord: Lord }): JSX.Element {
   return h(
     "article",
     { className: "lord-page" },
+    h(TabStrip, { lordSlug: lord.slug, routes: lord.routes, activeId: "shared" }),
     h(
       "header",
       { className: "lord-page__header" },

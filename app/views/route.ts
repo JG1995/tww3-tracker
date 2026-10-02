@@ -1,16 +1,20 @@
 /**
- * Route view (feature DESIGN §2/§3 — the F1 route form): the identity block
- * from frontmatter (number, official VCO title or an explicit "unresearched"
- * marker, thematic subtitle, objective and reward each with a mono uppercase
- * confidence label + claim text + src ids, plus interpretation/bottleneck
- * when present), the markdown body rendered at boot (its `::claim` callouts
- * arrive as labelled `<aside class="claim …">` blocks, styled in app.css),
- * and the declared content-gap list. Body H2s carry the section ids from the
- * tree so the router's section anchor can scroll them into view.
+ * Route view (feature DESIGN §2/§3 — the F1 route form): the Route Tab Strip
+ * at the top (DESIGN §2 — the active tab is this route's own id, derived from
+ * the hash; the view receives the lord for the strip's manifest routes), the
+ * identity block from frontmatter (number, official VCO title or an explicit
+ * "unresearched" marker, thematic subtitle, objective and reward each with a
+ * mono uppercase confidence label + claim text + src ids, plus
+ * interpretation/bottleneck when present), the markdown body rendered at boot
+ * (its `::claim` callouts arrive as labelled `<aside class="claim …">` blocks,
+ * styled in app.css), and the declared content-gap list. Body H2s carry the
+ * section ids from the tree so the router's section anchor can scroll them
+ * into view.
  */
 
 import { h, type JSX } from "preact";
-import type { Claim, ClaimState, Route, Section } from "../content/types.ts";
+import { TabStrip } from "../components/TabStrip.ts";
+import type { Claim, ClaimState, Lord, Route, Section } from "../content/types.ts";
 
 /** The DESIGN confidence-table display labels; always shown, never colour alone. */
 export const STATE_LABELS: Record<ClaimState, string> = {
@@ -20,11 +24,12 @@ export const STATE_LABELS: Record<ClaimState, string> = {
   "verify-in-campaign": "VERIFY",
 };
 
-export function RouteView(props: { route: Route }): JSX.Element {
-  const route = props.route;
+export function RouteView(props: { lord: Lord; route: Route }): JSX.Element {
+  const { lord, route } = props;
   return h(
     "article",
     { className: "route-page" },
+    h(TabStrip, { lordSlug: lord.slug, routes: lord.routes, activeId: route.id }),
     identityBlock(route),
     routeBody(route.sections),
     gapList(route.gaps),

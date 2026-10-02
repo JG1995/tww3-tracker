@@ -229,7 +229,7 @@ Commit 1 (stub reshape) → Commit 2 (confidence badge) → Commit 3 (typed data
 
 #### Package `route-tab-strip` — Commit 4: Route tab strip on lord and route pages
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 3
 

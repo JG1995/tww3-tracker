@@ -11,6 +11,11 @@
  * with the same text helper the views tests use; the callout output is the
  * `load.ts`-rendered HTML string over the same filesystem-reader trees the
  * content-model tests use.
+ *
+ * It also carries the route tab strip contract (package `route-tab-strip`,
+ * commit 4 — feature DESIGN §2/§6): the exported pure `tabNav` keyboard
+ * decision helper plus the rendered-tab VNode assertions over the committed
+ * tree.
  */
 
 import { test } from "node:test";
@@ -20,9 +25,10 @@ import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { loadContentTree } from "../app/content/load.ts";
-import { getRoute } from "../app/content/query.ts";
-import { CLAIM_STATES, type ContentReader, type Source } from "../app/content/types.ts";
+import { getLord, getRoute } from "../app/content/query.ts";
+import { CLAIM_STATES, type ContentReader, type Route, type Source } from "../app/content/types.ts";
 import { ConfidenceBadge } from "../app/components/ConfidenceBadge.ts";
+import { TabStripMarkup, tabNav } from "../app/components/TabStrip.ts";
 
 const CONTENT = fileURLToPath(new URL("../content", import.meta.url));
 const FIXTURES = fileURLToPath(new URL("fixtures/content", import.meta.url));
@@ -224,4 +230,113 @@ test("the committed content (no callouts) renders unchanged by the badge work", 
       }
     }
   }
+});
+
+// ─── 5. The route tab strip: keyboard decision helper (package `route-tab-strip`) ─
+
+test("tabNav wraps left/right around the strip's ends and stays on a single tab", () => {
+  assert.equal(tabNav("left", 0, 4), 3, "left from the first tab wraps to the last");
+  assert.equal(tabNav("right", 3, 4), 0, "right from the last tab wraps to the first");
+  assert.equal(tabNav("left", 2, 4), 1, "left in the middle steps down");
+  assert.equal(tabNav("right", 1, 4), 2, "right in the middle steps up");
+  assert.equal(tabNav("left", 0, 1), 0, "a single tab wraps onto itself");
+  assert.equal(tabNav("right", 0, 1), 0, "a single tab wraps onto itself the other way");
+});
+
+test("tabNav bounds home/end to the first and last tabs", () => {
+  assert.equal(tabNav("home", 2, 4), 0, "Home always lands on the first tab");
+  assert.equal(tabNav("home", 0, 4), 0, "Home from the first tab stays put");
+  assert.equal(tabNav("end", 0, 4), 3, "End always lands on the last tab");
+  assert.equal(tabNav("end", 3, 4), 3, "End from the last tab stays put");
+});
+
+// ─── 6. The route tab strip: rendered-tab VNode assertions ────────────────────
+
+test("the tab strip renders Shared then the manifest routes in order, marking the active tab", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found, "the committed lord loads");
+
+  const nodes = recordVNodes(
+    TabStripMarkup({ lordSlug: lord.value.slug, routes: lord.value.routes, activeId: "route-2" }),
+  );
+  const tablist = nodes.find((n) => n.props.role === "tablist");
+  assert.ok(tablist !== undefined, "the container carries role=tablist");
+  assert.equal(tablist.props["aria-label"], "Routes", "the tablist has an accessible name");
+
+  const tabs = nodes.filter((n) => n.tag === "a" && n.props.role === "tab");
+  assert.equal(tabs.length, 4, "Shared plus one tab per manifest route");
+  assert.deepEqual(
+    tabs.map((t) => t.props.href),
+    [
+      "#/elspeth-von-draken",
+      "#/elspeth-von-draken/route/route-1",
+      "#/elspeth-von-draken/route/route-2",
+      "#/elspeth-von-draken/route/route-3",
+    ],
+    "tabs link to the existing hash routes in manifest order (never re-sorted); Shared links to the lord page",
+  );
+
+  // Roving tabindex + aria-selected: only the hash-derived active tab is
+  // tabbable; every other tab roves at tabIndex −1.
+  assert.equal(tabs[2].props.tabIndex, 0, "the active route-2 tab is tabbable");
+  assert.equal(tabs[2].props["aria-selected"], true, "the active tab carries aria-selected");
+  for (const [index, tab] of tabs.entries()) {
+    if (index === 2) continue;
+    assert.equal(tab.props.tabIndex, -1, `tab ${index} roves out of tab order`);
+    assert.equal(tab.props["aria-selected"], false, `tab ${index} is not selected`);
+  }
+});
+
+test("the tab strip marks the Shared tab active for the lord page", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const tabs = recordVNodes(
+    TabStripMarkup({ lordSlug: lord.value.slug, routes: lord.value.routes, activeId: "shared" }),
+  ).filter((n) => n.props.role === "tab");
+  assert.equal(tabs[0].props.tabIndex, 0, "Shared is tabbable on the lord page");
+  assert.equal(tabs[0].props["aria-selected"], true, "the Shared tab is selected on the lord page");
+  assert.ok(
+    tabs.slice(1).every((t) => t.props.tabIndex === -1 && t.props["aria-selected"] === false),
+    "route tabs rove at −1 when Shared is active",
+  );
+});
+
+test("each route tab carries the code + title label line with the VCO line beneath (unresearched marker when null)", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const text = vnodeText(
+    TabStripMarkup({ lordSlug: lord.value.slug, routes: lord.value.routes, activeId: "route-2" }),
+  );
+  assert.ok(text.includes("SHARED"), "the Shared tab label");
+  assert.ok(text.includes("I The Graveyard Watch"), "route I: mono code + proportional title on the label line");
+  assert.ok(text.includes("II The Southern Charter"), "route II: mono code + proportional title on the label line");
+  assert.ok(text.includes("III Fozzrik’s Legacy"), "route III: mono code + proportional title on the label line");
+  assert.ok(text.includes("The Graveyard Watch UNRESEARCHED"), "committed vcoTitle null ⇒ the explicit unresearched marker beneath route I");
+  assert.ok(text.includes("The Southern Charter UNRESEARCHED"), "…and beneath route II");
+  assert.ok(text.includes("Fozzrik’s Legacy UNRESEARCHED"), "…and beneath route III");
+  assert.ok(text.indexOf("SHARED") < text.indexOf("I The Graveyard Watch"), "Shared first, then routes");
+  assert.ok(text.indexOf("I The Graveyard Watch") < text.indexOf("II The Southern Charter"), "manifest order I → II");
+  assert.ok(text.indexOf("II The Southern Charter") < text.indexOf("III Fozzrik’s Legacy"), "manifest order II → III");
+});
+
+test("a researched route tab renders its official VCO title instead of the marker", () => {
+  const researched: Route = {
+    id: "route-2",
+    number: "II",
+    name: "The Southern Charter",
+    vcoTitle: "Written in the Charter",
+    objective: { text: "", state: "confirmed", src: [] },
+    reward: { text: "", state: "confirmed", src: [] },
+    gaps: [],
+    sections: [],
+    claims: [],
+  };
+  const text = vnodeText(
+    TabStripMarkup({ lordSlug: "elspeth-von-draken", routes: [researched], activeId: "route-2" }),
+  );
+  assert.ok(text.includes("Written in the Charter"), "the researched official title renders beneath the label line");
+  assert.ok(!text.includes("UNRESEARCHED"), "no marker for a researched route");
 });

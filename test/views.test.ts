@@ -1,7 +1,8 @@
 /**
  * Contract proof for the data-driven views (package `home-real`, commit 6):
  * the home card list, the lord page, and the F1 route page rendered from the
- * REAL committed Elspeth tree.
+ * REAL committed Elspeth tree; and (package `route-tab-strip`, commit 4) the
+ * route tab strip the lord/route views mount over the committed tree.
  *
  * Seam: zero-DOM. The committed `content/` loads through the same
  * `app/content/load.ts` pass the CLI and the site boot use (filesystem
@@ -10,7 +11,10 @@
  * `LordView`/`RouteView` get query results — and the returned Preact VNode
  * tree is flattened to text with the small helper below. Views stay plain
  * `.ts` modules built from `h()`, so node:test can import them without a DOM
- * library (see the plan-revision discovery on `.tsx` under node:test).
+ * library (see the plan-revision discovery on `.tsx` under node:test). The
+ * strip is asserted at the view seam (the `TabStrip` VNode's props) and then
+ * expanded through the same pure `TabStripMarkup` builder with those props,
+ * because the mounted wrapper's focus effect only runs under a real render.
  */
 
 import { test } from "node:test";
@@ -21,7 +25,8 @@ import { fileURLToPath } from "node:url";
 
 import { loadContentTree } from "../app/content/load.ts";
 import { getLord, getRoute } from "../app/content/query.ts";
-import type { ContentReader } from "../app/content/types.ts";
+import type { ContentReader, Route } from "../app/content/types.ts";
+import { TabStripMarkup, type TabStripProps } from "../app/components/TabStrip.ts";
 import { HomeView } from "../app/views/home.ts";
 import { LordView } from "../app/views/lord.ts";
 import { RouteView } from "../app/views/route.ts";
@@ -89,6 +94,57 @@ function countOccurrences(haystack: string, needle: string): number {
   return count;
 }
 
+/** Records every VNode in a tree as a flat { tag, props, children } list for structural asserts. */
+interface VNodeRecord {
+  readonly tag: string;
+  readonly props: Record<string, unknown>;
+  readonly children: ReadonlyArray<unknown>;
+}
+
+function recordVNodes(node: unknown, into: VNodeRecord[] = []): VNodeRecord[] {
+  if (node === null || node === undefined || typeof node === "boolean") return into;
+  if (typeof node === "string" || typeof node === "number") return into;
+  if (Array.isArray(node)) {
+    for (const child of node) recordVNodes(child, into);
+    return into;
+  }
+  const props = (node as { props?: Record<string, unknown> }).props ?? {};
+  const children = props.children;
+  const kids: unknown[] =
+    Array.isArray(children)
+      ? children
+      : children === null || children === undefined || typeof children === "boolean"
+        ? []
+        : [children];
+  into.push({
+    tag: String((node as { type?: unknown }).type),
+    props,
+    children: kids,
+  });
+  for (const child of kids) recordVNodes(child, into);
+  return into;
+}
+
+/**
+ * The strip exactly as the view mounts it: the `TabStrip` VNode's props at
+ * the view seam, then the same props expanded through the pure
+ * `TabStripMarkup` builder at the component seam (the zero-DOM equivalent of
+ * letting the view's child component render — the mounted wrapper's focus
+ * effect only runs under a real preact render).
+ */
+function mountedTabStrip(view: unknown): { props: TabStripProps; tabs: VNodeRecord[]; text: string } {
+  const nodes = recordVNodes(view);
+  const strip = nodes.find((n) => typeof n.props.activeId === "string");
+  assert.ok(strip !== undefined, "the view mounts the route tab strip");
+  const props: TabStripProps = {
+    lordSlug: String(strip.props.lordSlug),
+    routes: strip.props.routes as readonly Route[],
+    activeId: String(strip.props.activeId),
+  };
+  const tabs = recordVNodes(TabStripMarkup(props)).filter((n) => n.props.role === "tab");
+  return { props, tabs, text: vnodeText(TabStripMarkup(props)) };
+}
+
 test("home renders one card per lord with faction and the patch · VCO version context", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
   const text = vnodeText(HomeView({ tree }));
@@ -142,9 +198,11 @@ test("lord page renders shared fundamentals and all three routes with the unrese
 
 test("route page shows the identity claims verbatim with state labels and seven declared gaps", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
   const route = getRoute(tree, "elspeth-von-draken", "route-1");
   assert.ok(route.found);
-  const text = vnodeText(RouteView({ route: route.value }));
+  const text = vnodeText(RouteView({ lord: lord.value, route: route.value }));
 
   // identity block: display number, thematic title, explicit unresearched marker
   assert.ok(text.includes("ROUTE I"), "route number eyebrow");
@@ -188,4 +246,59 @@ test("route page shows the identity claims verbatim with state labels and seven 
       `gap entry names the "${gap}" section as declared`,
     );
   }
+});
+
+test("the lord page mounts the route tab strip over the committed tree with Shared active", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const { props, tabs, text } = mountedTabStrip(LordView({ lord: lord.value }));
+
+  assert.equal(props.activeId, "shared", "the lord page derives the Shared tab as active");
+  assert.equal(props.lordSlug, "elspeth-von-draken");
+  assert.deepEqual(
+    tabs.map((t) => t.props.href),
+    [
+      "#/elspeth-von-draken",
+      "#/elspeth-von-draken/route/route-1",
+      "#/elspeth-von-draken/route/route-2",
+      "#/elspeth-von-draken/route/route-3",
+    ],
+    "the strip links the existing hash routes in manifest order; Shared links the lord page",
+  );
+  assert.ok(text.includes("SHARED"), "the strip carries the Shared tab over the committed tree");
+  assert.ok(text.includes("I The Graveyard Watch"), "…and route I");
+  assert.ok(text.includes("II The Southern Charter"), "…and route II");
+  assert.ok(text.includes("III Fozzrik’s Legacy"), "…and route III");
+  assert.ok(text.indexOf("SHARED") < text.indexOf("I The Graveyard Watch"), "Shared first, then routes in manifest order");
+  assert.equal(tabs[0].props.tabIndex, 0, "the Shared-derived active tab is tabbable");
+  assert.equal(tabs[0].props["aria-selected"], true, "…and is the selected tab");
+  assert.ok(tabs.slice(1).every((t) => t.props.tabIndex === -1), "route tabs rove at −1 on the lord page");
+});
+
+test("the route page mounts the route tab strip with its own route tab active", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "elspeth-von-draken", "route-2");
+  assert.ok(route.found);
+  const { props, tabs, text } = mountedTabStrip(RouteView({ lord: lord.value, route: route.value }));
+
+  assert.equal(props.activeId, "route-2", "a route page derives its own route id as the active tab");
+  assert.equal(props.lordSlug, "elspeth-von-draken");
+  assert.ok(text.includes("SHARED"), "the strip sits over the committed route page");
+  assert.ok(text.includes("II The Southern Charter"), "…carrying the committed routes");
+  const active = tabs.find((t) => t.props.tabIndex === 0);
+  assert.equal(
+    active?.props.href,
+    "#/elspeth-von-draken/route/route-2",
+    "only the route-2 tab is tabbable",
+  );
+  assert.equal(active?.props["aria-selected"], true, "…and is the selected tab");
+  assert.ok(
+    tabs
+      .filter((t) => t.props.href !== "#/elspeth-von-draken/route/route-2")
+      .every((t) => t.props.tabIndex === -1 && t.props["aria-selected"] === false),
+    "the other tabs rove at −1 and are not selected",
+  );
 });

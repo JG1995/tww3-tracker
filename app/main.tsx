@@ -161,8 +161,9 @@ function routeView(tree: ContentTree, route: HashRoute): VNode {
       return lord.found ? <LordView lord={lord.value} /> : <NotFoundView />;
     }
     case "route": {
+      const lord = getLord(tree, route.lordSlug);
       const found = getRoute(tree, route.lordSlug, route.routeId);
-      return found.found ? <RouteView route={found.value} /> : <NotFoundView />;
+      return lord.found && found.found ? <RouteView lord={lord.value} route={found.value} /> : <NotFoundView />;
     }
     case "not-found":
       return <NotFoundView />;

@@ -148,6 +148,89 @@ button {
   border-bottom-color: var(--color-primary);
 }
 
+/* ─── Route tab strip — under the sticky nav on lord and route pages ─────── */
+
+/* Carbon bar (DESIGN.md Route Tab Strip): surface-container fill, hairline
+   bottom border, 10px top radius, clamped to the content column. The strip
+   recovers the shared stack-lg top padding so its natural position sits
+   flush under the nav, and it rides the z-10 sticky layer alongside the nav
+   (z-index scale: base 0 / sticky 10) while the page scrolls beneath. Tabs
+   transition colour/border only (the --transition-standard band; disabled
+   by the reduced-motion block below), so no state change shifts layout. */
+.route-tab-strip {
+  position: sticky;
+  top: var(--space-header-height);
+  z-index: 10;
+  margin-block-start: calc(-1 * var(--space-stack-lg));
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-stack-sm);
+  padding: var(--space-stack-xs) var(--space-stack-sm);
+  background: var(--color-surface-container);
+  border-bottom: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md) var(--radius-md) var(--radius-none) var(--radius-none);
+}
+
+/* Tab states: default on-surface-variant; hover on-surface (colour only);
+   active on-surface + the 2px primary underline (a constant transparent
+   border that only changes colour). The focus ring is the global
+   :focus-visible rule (2px primary, 3px offset — DESIGN.md Shapes). */
+.route-tab {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: calc(var(--space-unit) / 2);
+  padding: calc(var(--space-unit) / 2) var(--space-stack-sm);
+  border-bottom: 2px solid transparent;
+  color: var(--color-on-surface-variant);
+  transition: var(--transition-standard);
+}
+
+.route-tab:hover {
+  color: var(--color-on-surface);
+}
+
+.route-tab--active {
+  color: var(--color-on-surface);
+  border-bottom-color: var(--color-primary);
+}
+
+.route-tab__label {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-stack-xs);
+}
+
+/* Mono uppercase route code — the instrument voice (label-md). */
+.route-tab__code {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+}
+
+/* Proportional route title — campaign content (body-md), never Mono. */
+.route-tab__title {
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+}
+
+/* Official VCO title dimmed beneath the label line (label-sm) — always
+   distinguished from the guide-created thematic subtitle, so it stays
+   on-surface-variant in every tab state (DESIGN.md Route Tab Strip). */
+.route-tab__vco {
+  font-family: var(--font-label-sm-family), var(--font-mono-fallback);
+  font-size: var(--font-label-sm-size);
+  font-weight: var(--font-label-sm-weight);
+  line-height: var(--font-label-sm-line-height);
+  letter-spacing: var(--font-label-sm-letter-spacing);
+  color: var(--color-on-surface-variant);
+}
+
 /* Reserved F6 search slot: an empty carbon well, never interactive in F1. */
 .search-well {
   display: flex;
