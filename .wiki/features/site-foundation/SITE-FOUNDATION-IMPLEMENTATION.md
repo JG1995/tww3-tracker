@@ -216,7 +216,7 @@ Commit 1 (tokens + toolchain) → Commit 2 (content model on fixtures) → Commi
 
 #### Package `app-shell` — Commit 4: Preact shell, router, views, boot error
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 3
 

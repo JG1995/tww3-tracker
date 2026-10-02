@@ -1,0 +1,846 @@
+/* App shell styles (DESIGN.md Layout & Spacing / Components — app-shell commit).
+
+   Token-only rule: every colour, radius, font, and spacing value references a
+   `tokens.css` custom property. The only non-token values are dimensions and
+   numeric constants DESIGN.md pins in words: 1px hairlines, the 2px primary
+   underline / focus ring at 3px offset, the 0.15s transition band with the
+   DESIGN easing curve, and the DESIGN-prescribed font fallback stacks. */
+
+:root {
+  /* DESIGN.md Typography "Loading" fallback stacks; families come from tokens. */
+  --font-sans-fallback: ui-sans-serif, system-ui;
+  --font-mono-fallback: ui-monospace, "JetBrains Mono", "IBM Plex Mono";
+  /* DESIGN.md Animations & Transitions: one mechanical switch, colour/border/opacity only. */
+  --transition-standard:
+    color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Base ─────────────────────────────────────────────────────────────── */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-on-surface);
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-block: 0;
+  font-family: var(--font-headline-md-family), var(--font-sans-fallback);
+  font-weight: var(--font-headline-md-weight);
+}
+
+p {
+  margin-block: 0;
+}
+
+a {
+  color: var(--color-on-surface);
+  text-decoration: none;
+  transition: var(--transition-standard);
+}
+
+a:hover {
+  color: var(--color-on-background);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  transition: var(--transition-standard);
+}
+
+/* Focus is a state, never a style request: ring only via :focus-visible. */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* ─── Skip link — first in DOM (index.html's wordmark slot is moved inside the nav) ─── */
+
+.skip-link {
+  position: absolute;
+  top: calc(var(--space-header-height) + var(--space-stack-sm));
+  left: var(--space-gutter);
+  transform: translateY(-200%);
+  background: var(--color-surface-container);
+  border: 1px solid var(--color-outline);
+  border-radius: var(--radius-xs);
+  padding: var(--space-stack-xs) var(--space-stack-sm);
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* ─── Top navigation — sticky 64px bar (z-index scale: base 0 / sticky 10) ─── */
+
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: var(--space-header-height);
+  background: var(--color-background);
+  border-bottom: 1px solid var(--color-outline-variant);
+}
+
+.top-nav__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-stack-md);
+  height: 100%;
+  max-width: var(--space-content-max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+/* Wordmark slot from index.html: instrument voice, left side of the bar. */
+#wordmark {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface);
+  white-space: nowrap;
+}
+
+.top-nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-stack-md);
+}
+
+.top-nav__link {
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-on-surface);
+  border-bottom: 2px solid transparent;
+}
+
+.top-nav__link:hover {
+  color: var(--color-on-background);
+}
+
+.top-nav__link--active {
+  border-bottom-color: var(--color-primary);
+}
+
+/* Reserved F6 search slot: an empty carbon well, never interactive in F1. */
+.search-well {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: calc(var(--space-unit) * 18);
+  margin-inline-start: auto;
+  padding-block: calc(var(--space-unit) / 2);
+  padding-inline: var(--space-stack-sm);
+  background: var(--color-surface-container);
+  border: 1px solid var(--color-outline);
+  border-radius: var(--radius-xs);
+}
+
+.search-well__placeholder {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+/* ─── Content column — starts at the 64px nav + stack-lg, clamped to 1200px ─── */
+
+.site-main {
+  max-width: var(--space-content-max-width);
+  margin-inline: auto;
+  padding: var(--space-stack-lg) var(--space-gutter) var(--space-stack-2xl);
+}
+
+/* ─── Instrument typography ─────────────────────────────────────────────── */
+
+/* Mono uppercase section eyebrow / status line. */
+.eyebrow {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+/* `patch <X> · VCO <version>` — mono label style, copy never uppercased. */
+.version-context {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  color: var(--color-on-surface-variant);
+}
+
+/* Confidence-state labels: mono uppercase text always present; the border
+   carries the state colour so colour is never the sole indicator. */
+.state-label {
+  display: inline-block;
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  padding: calc(var(--space-unit) / 4) calc(var(--space-unit) / 2);
+  border-radius: var(--radius-xs);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.state-label--confirmed {
+  border-color: var(--color-secondary);
+}
+
+.state-label--historical {
+  border-color: var(--color-info);
+}
+
+.state-label--inferred {
+  border-color: var(--color-on-surface-variant);
+}
+
+.state-label--verify-in-campaign {
+  border-color: var(--color-warning);
+}
+
+/* ─── Buttons — 3px radius, no chromatic fills ─────────────────────────── */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  padding: calc(var(--space-unit) / 2) var(--space-stack-sm);
+  border-radius: var(--radius-xs);
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  cursor: pointer;
+}
+
+/* Dark filled (carbon) — the F1 shell has exactly the Retry control. */
+.button--primary {
+  background: var(--color-surface-container);
+  color: var(--color-on-surface);
+  border: 0;
+}
+
+.button--primary:hover {
+  background: var(--color-surface-container-high);
+}
+
+/* Ghost — flat (0px radius), hairline outline only. */
+.button--ghost {
+  background: transparent;
+  color: var(--color-on-surface);
+  border: 1px solid var(--color-outline);
+  border-radius: var(--radius-none);
+}
+
+.button--ghost:hover {
+  color: var(--color-on-background);
+  border-color: var(--color-on-surface);
+}
+
+/* ─── Home: lord cards / explicit empty state ──────────────────────────── */
+
+.lords {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-md);
+}
+
+.lord-card {
+  display: block;
+  background: transparent;
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md);
+  padding: var(--space-stack-md);
+}
+
+.lord-card:hover {
+  border-color: var(--color-outline);
+}
+
+.lord-card__name {
+  font-family: var(--font-headline-md-family), var(--font-sans-fallback);
+  font-size: var(--font-headline-md-size);
+  font-weight: var(--font-headline-md-weight);
+  line-height: var(--font-headline-md-line-height);
+  letter-spacing: var(--font-headline-md-letter-spacing);
+  color: var(--color-on-surface);
+}
+
+.lord-card__faction {
+  margin-top: var(--space-stack-xs);
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-on-surface-variant);
+}
+
+.lord-card .version-context {
+  margin-top: var(--space-stack-xs);
+}
+
+.empty-state {
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md);
+  padding: var(--space-stack-lg);
+}
+
+.empty-state__label {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+.empty-state__copy {
+  max-width: 60ch;
+  margin-top: var(--space-stack-sm);
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-on-surface-variant);
+}
+
+/* ─── Loading (boot only) ──────────────────────────────────────────────── */
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-stack-xs);
+  padding-block: var(--space-stack-lg);
+}
+
+.loading__label {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+.loading__bar {
+  width: calc(var(--space-unit) * 20);
+  height: 1px;
+  background: var(--color-primary);
+}
+
+/* ─── Boot error / not found: explicit states, never blank space ───────── */
+
+.boot-error {
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-md);
+  padding: var(--space-stack-md);
+}
+
+.boot-error__eyebrow {
+  color: var(--color-error);
+}
+
+.boot-error__title {
+  margin-top: var(--space-stack-xs);
+  font-family: var(--font-headline-md-family), var(--font-sans-fallback);
+  font-size: var(--font-headline-md-size);
+  font-weight: var(--font-headline-md-weight);
+  line-height: var(--font-headline-md-line-height);
+  letter-spacing: var(--font-headline-md-letter-spacing);
+  color: var(--color-on-surface);
+}
+
+.boot-error__detail {
+  margin-top: var(--space-stack-sm);
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-on-surface-variant);
+}
+
+.boot-error__file,
+.boot-error__field {
+  font-family: var(--font-mono-md-family), var(--font-mono-fallback);
+  font-size: var(--font-mono-md-size);
+  font-weight: var(--font-mono-md-weight);
+  line-height: var(--font-mono-md-line-height);
+  color: var(--color-on-surface);
+}
+
+.boot-error .button {
+  margin-top: var(--space-stack-md);
+}
+
+.not-found {
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md);
+  padding: var(--space-stack-lg);
+}
+
+.not-found__title {
+  margin-top: var(--space-stack-xs);
+  font-family: var(--font-headline-md-family), var(--font-sans-fallback);
+  font-size: var(--font-headline-md-size);
+  font-weight: var(--font-headline-md-weight);
+  line-height: var(--font-headline-md-line-height);
+  letter-spacing: var(--font-headline-md-letter-spacing);
+  color: var(--color-on-surface);
+}
+
+.not-found__copy {
+  margin-top: var(--space-stack-sm);
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-on-surface-variant);
+}
+
+.not-found .button {
+  margin-top: var(--space-stack-md);
+}
+
+/* ─── Lord page ────────────────────────────────────────────────────────── */
+
+.lord-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-xl);
+}
+
+.lord-page__title {
+  margin-top: var(--space-stack-xs);
+  font-family: var(--font-headline-lg-family), var(--font-sans-fallback);
+  font-size: var(--font-headline-lg-size);
+  font-weight: var(--font-headline-lg-weight);
+  line-height: var(--font-headline-lg-line-height);
+  letter-spacing: var(--font-headline-lg-letter-spacing);
+  color: var(--color-on-surface);
+}
+
+.lord-page .version-context {
+  margin-top: var(--space-stack-xs);
+}
+
+.shared-fundamentals {
+  max-width: var(--space-gutter) + var(--space-content-max-width);
+}
+
+.route-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-md);
+}
+
+.route-list__title,
+.gap-list__title {
+  font-family: var(--font-headline-md-family), var(--font-sans-fallback);
+  font-size: var(--font-headline-md-size);
+  font-weight: var(--font-headline-md-weight);
+  line-height: var(--font-headline-md-line-height);
+  letter-spacing: var(--font-headline-md-letter-spacing);
+  color: var(--color-on-surface);
+}
+
+.route-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  column-gap: var(--space-stack-md);
+  row-gap: var(--space-stack-xs);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md);
+  padding: var(--space-stack-md);
+}
+
+.route-row:hover {
+  border-color: var(--color-outline);
+}
+
+.route-row__number {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  color: var(--color-on-surface-variant);
+}
+
+.route-row__vco {
+  font-family: var(--font-label-sm-family), var(--font-mono-fallback);
+  font-size: var(--font-label-sm-size);
+  font-weight: var(--font-label-sm-weight);
+  line-height: var(--font-label-sm-line-height);
+  letter-spacing: var(--font-label-sm-letter-spacing);
+  color: var(--color-on-surface);
+}
+
+.route-row__vco--unresearched {
+  color: var(--color-on-surface-variant);
+}
+
+.route-row__name {
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-on-surface-variant);
+}
+
+.route-row__objective {
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-on-surface-variant);
+}
+
+/* ─── Route page: identity card (bone), body, declared gaps ────────────── */
+
+.route-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-xl);
+}
+
+/* The one bright object per view: bone card, no shadow (DESIGN Elevation Level 2). */
+.route-identity {
+  background: var(--color-inverse-surface);
+  border-radius: var(--radius-md);
+  padding: var(--space-stack-md);
+  color: var(--color-inverse-on-surface);
+}
+
+.route-identity__eyebrow {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-inverse-on-surface);
+}
+
+.route-identity__vco {
+  display: flex;
+  align-items: center;
+  gap: var(--space-stack-xs);
+  margin-top: var(--space-stack-sm);
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  color: var(--color-inverse-on-surface);
+}
+
+/* Primary dot: a state accent stroke on data, not chrome. */
+.route-identity__dot {
+  width: var(--space-stack-xs);
+  height: var(--space-stack-xs);
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+}
+
+.route-identity__vco--unresearched {
+  color: var(--color-inverse-on-surface);
+}
+
+.route-identity__title {
+  margin-top: var(--space-stack-sm);
+  font-family: var(--font-headline-lg-family), var(--font-sans-fallback);
+  font-size: var(--font-headline-lg-size);
+  font-weight: var(--font-headline-lg-weight);
+  line-height: var(--font-headline-lg-line-height);
+  letter-spacing: var(--font-headline-lg-letter-spacing);
+  color: var(--color-inverse-on-surface);
+}
+
+.route-identity__claims {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-sm);
+  margin-top: var(--space-stack-md);
+}
+
+.route-identity__note {
+  margin-top: var(--space-stack-sm);
+}
+
+.claim-block__label {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  color: var(--color-inverse-on-surface);
+}
+
+.claim-block__row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  column-gap: var(--space-stack-sm);
+  row-gap: var(--space-stack-xs);
+  margin-top: var(--space-stack-xs);
+}
+
+.claim-block__text {
+  font-family: var(--font-body-lg-family), var(--font-sans-fallback);
+  font-size: var(--font-body-lg-size);
+  font-weight: var(--font-body-lg-weight);
+  line-height: var(--font-body-lg-line-height);
+  color: var(--color-inverse-on-surface);
+}
+
+.claim-block__src {
+  font-family: var(--font-mono-sm-family), var(--font-mono-fallback);
+  font-size: var(--font-mono-sm-size);
+  font-weight: var(--font-mono-sm-weight);
+  line-height: var(--font-mono-sm-line-height);
+  color: var(--color-inverse-on-surface);
+}
+
+.route-identity__note-text {
+  margin-top: var(--space-stack-xs);
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-inverse-on-surface);
+}
+
+/* Body sections: H2 headings carry the tree's section ids as stable anchors. */
+
+.route-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-xl);
+}
+
+.route-body__empty {
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-on-surface-variant);
+}
+
+.route-section__heading {
+  font-family: var(--font-headline-md-family), var(--font-sans-fallback);
+  font-size: var(--font-headline-md-size);
+  font-weight: var(--font-headline-md-weight);
+  line-height: var(--font-headline-md-line-height);
+  letter-spacing: var(--font-headline-md-letter-spacing);
+  color: var(--color-on-surface);
+  /* Anchor targets clear the 64px sticky nav when scrolled into view. */
+  scroll-margin-top: calc(var(--space-header-height) + var(--space-stack-sm));
+}
+
+/* Rendered Markdown prose (shared fundamentals + route section bodies). */
+
+.prose {
+  font-family: var(--font-body-lg-family), var(--font-sans-fallback);
+  font-size: var(--font-body-lg-size);
+  font-weight: var(--font-body-lg-weight);
+  line-height: var(--font-body-lg-line-height);
+  color: var(--color-on-surface);
+}
+
+.prose p {
+  margin-block: 0 var(--space-stack-sm);
+}
+
+.prose ul,
+.prose ol {
+  margin-block: 0 var(--space-stack-sm);
+  padding-inline-start: var(--space-stack-lg);
+}
+
+.prose li {
+  margin-block: var(--space-stack-xs);
+}
+
+.prose a {
+  text-decoration: underline;
+  text-underline-offset: var(--space-stack-xs);
+}
+
+.prose strong {
+  font-weight: var(--font-label-lg-weight);
+}
+
+.prose blockquote {
+  margin-inline: 0;
+  padding-inline-start: var(--space-stack-md);
+  border-inline-start: 1px solid var(--color-outline-variant);
+  color: var(--color-on-surface-variant);
+}
+
+.prose code {
+  font-family: var(--font-mono-md-family), var(--font-mono-fallback);
+  font-size: var(--font-mono-md-size);
+  font-weight: var(--font-mono-md-weight);
+  line-height: var(--font-mono-md-line-height);
+  background: var(--color-surface-container);
+  border-radius: var(--radius-xs);
+  padding-inline: calc(var(--space-unit) / 4);
+}
+
+/* `::claim` callouts — labelled blocks: the mono uppercase state label and
+   the src ids are always rendered (never colour alone), one bordered block
+   per claim, border + label colour per the state's token. */
+
+aside.claim {
+  margin-block: var(--space-stack-sm) var(--space-stack-md);
+  padding: var(--space-stack-md);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md);
+}
+
+aside.claim::before {
+  display: block;
+  margin-bottom: var(--space-stack-xs);
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+}
+
+aside.claim::after {
+  display: block;
+  margin-top: var(--space-stack-xs);
+  font-family: var(--font-label-sm-family), var(--font-mono-fallback);
+  font-size: var(--font-label-sm-size);
+  font-weight: var(--font-label-sm-weight);
+  line-height: var(--font-label-sm-line-height);
+  letter-spacing: var(--font-label-sm-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+aside.claim[data-src=""]::after {
+  content: none;
+}
+
+aside.claim--confirmed {
+  border-color: var(--color-success);
+}
+
+aside.claim--confirmed::before {
+  content: "CONFIRMED";
+  color: var(--color-success);
+}
+
+aside.claim--historical {
+  border-color: var(--color-info);
+}
+
+aside.claim--historical::before {
+  content: "HISTORICAL";
+  color: var(--color-info);
+}
+
+aside.claim--inferred {
+  border-color: var(--color-on-surface-variant);
+}
+
+aside.claim--inferred::before {
+  content: "INFERRED";
+  color: var(--color-on-surface-variant);
+}
+
+aside.claim--verify-in-campaign {
+  border-color: var(--color-warning);
+}
+
+aside.claim--verify-in-campaign::before {
+  content: "VERIFY";
+  color: var(--color-warning);
+}
+
+/* ─── Declared content gaps (Content Gap Marker style) ─────────────────── */
+
+.gap-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-md);
+}
+
+.gap-marker {
+  border: 1px dashed var(--color-outline);
+  border-radius: var(--radius-md);
+  padding: var(--space-stack-md);
+}
+
+.gap-marker__eyebrow {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+.gap-marker__copy {
+  margin-top: var(--space-stack-xs);
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-on-surface-variant);
+}
+
+/* ─── Motion: mechanical 0.15s transitions; reduced motion disables all ─── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
