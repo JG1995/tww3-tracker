@@ -28,6 +28,12 @@ Concretely:
 - A small dependency-free local server script (static files plus ledger JSON writes with a path-safety check) is used for development and the ledger write path (browser `fetch` of local files requires an HTTP origin).
 - Rebuilding happens only when application *code* changes; content edits require only a page reload.
 
+## Correction (2026-10-02)
+
+Headless-Chromium verification on this host disproved the *no-server* claims in the Decision and consequences above: under `file://`, an external `<script type="module">` fails with a CORS `null`-origin block, `fetch()` of `content/index.json` fails, and `XMLHttpRequest` fails (verified via Playwright against a static document; recorded in the site-foundation ledger, 2026-10-02). By developer decision, the **HTTP server is the reading path**: build once (`npm run build`), then read over `http://127.0.0.1` via `node tools/server.mjs` (`npm run serve`) or the Vite dev server (`npm run dev`).
+
+What is retained: content is still runtime-fetched plain text, so **content edits never require a build step** — edit a `content/` file, reload the page. The Vite + Preact runtime-loaded architecture, the ADR-pinned dependency set, and the server's future ledger-write role are unchanged. What is void is only the serverless form of the reading path: "a production build produces a static `dist/` that is readable in a browser with no server" and "a static `dist/` plus `content/` satisfies 'read with no server'".
+
 ## Alternatives considered
 
 ### Static site generator (Astro content collections, Eleventy)

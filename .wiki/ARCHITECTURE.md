@@ -12,7 +12,7 @@ For the product purpose and domain model, see [CONCEPT.md](./CONCEPT.md). For th
 
 ### 1.1 Target architecture (approved proposal)
 
-> Status: approved 2026-10-02, **not yet implemented**. This subsection records the approved target stack and direction only; it does not describe the current system (see 1.2). Rationale: [ADR-0001](adr/0001-vite-preact-runtime-loaded-site.md), [ADR-0002](adr/0002-content-as-markdown-json.md).
+> Status: approved 2026-10-02, **partially implemented** — F1 (site foundation) is implemented; the dashboard (F2), ledger (F5), and search (F6) layers remain approved-but-unbuilt. This subsection records the approved target stack and direction; §2 and §3 describe the currently implemented system. Rationale: [ADR-0001](adr/0001-vite-preact-runtime-loaded-site.md), [ADR-0002](adr/0002-content-as-markdown-json.md).
 
 A local, single-user web app. One Preact SPA in TypeScript, built by Vite, with no static site generator and no backend. Guide content is never compiled into the bundle — it is fetched at runtime from the repository as Markdown and JSON files.
 
@@ -23,14 +23,14 @@ A local, single-user web app. One Preact SPA in TypeScript, built by Vite, with 
 | Dev tooling | `vite`, `typescript` (`tsc --noEmit`), small esbuild-based content lint script; Node ≥ 22 |
 | Content | Markdown + YAML frontmatter (prose, confidence states) and JSON (structured dashboard data) in `content/`, git-versioned, loaded at runtime |
 | Ledger state | JSON files in a gitignored local directory (e.g. `.local/state/ledgers/`); SQLite deferred per PRD F8 |
-| Serving | Small dependency-free local server script (static files + ledger JSON writes); static `dist/` is readable with no server |
+| Serving | Small dependency-free local server script — the reading path. `node tools/server.mjs` serves `dist/` at `/` and `content/` under `/content/` over `http://127.0.0.1`; F5 adds ledger JSON writes to the same script. A direct `file://` open of `dist/index.html` is blocked in Chromium (verified 2026-10-02: module scripts, fetch, and XHR fail; see the ADR-0001 correction) |
 | Design system | `.wiki/DESIGN.md` oklch tokens as CSS custom properties; no UI library |
 | Testing | Node built-in `node:test`; tests cover content-schema validation and ledger logic (pure functions) |
 
 ```text
- Browser (Preact SPA, static dist/ or Vite dev)
-   │  HTTP fetch (local server; dist/ + content/ readable with none)
-   ├──► content/<faction>/<lord>/   Markdown + JSON  (read path; git-versioned)
+ Browser (Preact SPA, served dist/ or Vite dev)
+   │  HTTP fetch over the local origin — the reading path (file:// is blocked in Chromium)
+   ├──► content/<lord-slug>/        Markdown + JSON  (read path; git-versioned; served under /content/)
    └──► .local/state/ledgers/*.json (write path; gitignored; plain-text exportable)
 
  Local server: small dependency-free Node script — static serving +
@@ -89,88 +89,101 @@ Cross-campaign querying/analysis (comparisons, history stats across many campaig
 
 ### 1.2 Current state
 
-No application code exists. The repository contains this `.wiki/` documentation, `README.md`, the gitignored raw guide archive (`.work/references/`), and gitignored workflow scripts (`scripts/`). Sections 2–11 of this document are unfilled and will be written as implementation lands.
+F1 (site foundation) is implemented: the Preact shell (`app/`), the content model / loader / lint / query layer, the committed git-versioned Elspeth skeleton (`content/`), the content-lint CLI and dependency-free static server (`tools/`), and their `node:test` suite (`test/`). §2 (Project Layout) and §3 (Build, Test, and Gate Pipeline) describe this implemented system; the F2–F8 layers (dashboard, Elspeth migration, ledger, search) are not implemented, and the sections that belong to them (parts of §1.1's module layout, §4–§11) remain unfilled placeholders to be written as those layers land.
 
 ---
 
 ## 2. Project Layout
 
-[Describe the top-level directory structure. Every project is different — adapt this template to yours.
-
-Common categories to document:
-
-- Application entry point(s)
-- Domain / feature modules
-- Shared libraries or utilities
-- Configuration files
-- Tooling and scripts
-- Tests and test infrastructure
-
-Name the path aliases or import conventions and the file that declares them.]
+The F1 (site-foundation) tree, as implemented:
 
 ```text
-[Directory tree showing the major branches of the project, annotated with what each directory contains and what its responsibilities are.]
+tww3-tracker/
+├── index.html            # bare document shell: #wordmark slot, #app mount node,
+│                         #   app/styles/tokens.css, the entry module script
+├── vite.config.ts        # build config only: defineConfig({ base: "./" }), no plugins
+├── tsconfig.json         # strict; module nodenext; the tsc --noEmit gate covers app/, tools/, test/
+├── package.json          # scripts (see §3.1); the ADR-0001/0002-pinned dependency set — preact +
+│                         #   markdown-it (runtime), vite + typescript + esbuild + @types/node (dev)
+├── app/
+│   ├── main.tsx          # sole JSX entry (Vite-loaded only): one load.ts boot pass over real
+│   │                     #   fetch → immutable tree → render the shell (nav + router view)
+│   ├── router.ts         # pure hash → HashRoute parsing plus the useHashRoute hook
+│   ├── views/            # presentational h()-based views: home, lord, route, not-found, boot-error
+│   ├── content/          # the content contract — pure over an injected ContentReader
+│   │   ├── types.ts      # ContentTree/lord/route/dataset types — the contract F2–F8 import
+│   │   ├── load.ts       # the only I/O file in the content domain: fetch the manifest + every
+│   │   │                 #   named file in one parallel pass; parse (frontmatter subset, JSON,
+│   │   │                 #   markdown-it); validate via lint.ts; build the immutable tree
+│   │   ├── lint.ts       # every DESIGN §4 rule → { file, field, message } violations (no I/O)
+│   │   └── query.ts      # pure typed reads over the tree: listLords, getLord, getRoute,
+│   │                     #   getSection, getSource, each with a typed not-found result
+│   └── styles/
+│       ├── tokens.css    # every DESIGN.md frontmatter token as a CSS custom property
+│       └── app.css       # shell layout, nav, cards, claim blocks, gap list, empty/error/not-found
+├── content/              # the git-versioned content root — the committed source of truth
+│                         #   (ADR-0002); the site never writes here. One directory per lord:
+│   └── elspeth-von-draken/   # guide.json manifest + routes/ route docs + shared.md + data/ datasets
+├── tools/
+│   ├── content-lint.mjs  # esbuild-bundled content lint CLI over app/content/lint.ts
+│   └── server.mjs        # dependency-free Node http static server (dist/ at /, content/ at /content/)
+├── test/                 # node:test suites
+│   ├── fixtures/content/ # the valid two-lord fixture root (content-model + lint-cli tests)
+│   └── *.test.ts         # tokens, content-model, lint-cli, router, elspeth-skeleton, views, server
+└── dist/                 # gitignored Vite build output (npm run build; served at /)
 ```
 
 ### 2.1 Source layout rules
 
-[Table of naming and placement conventions that shape the architecture:]
-
-| Rule                               | Enforcement                                     | Effect on code                        |
-| ---------------------------------- | ----------------------------------------------- | ------------------------------------- |
-| [Rule description]                 | [Linter, type checker, or convention]           | [What happens when someone breaks it] |
-| [Rule description]                 | [Linter, type checker, or convention]           | [What happens when someone breaks it] |
+| Rule | Enforcement | Effect on code |
+| ---- | ----------- | -------------- |
+| No TypeScript parameter properties (`constructor(public …)`) | Code review; the class constructors (FrontmatterError, ContentBootError) assign parameters explicitly | Constructor shape lives in one visible place; no implicit fields |
+| Views are plain `.ts` modules built with Preact's `h()` | `node --test` discovery: Node cannot execute `.tsx` (`ERR_UNKNOWN_FILE_EXTENSION`) and skips it | `test/*.test.ts` can import and assert every view's VNode output; only the Vite-loaded `main.tsx` may use JSX |
+| Relative imports carry explicit `.ts` extensions | `allowImportingTsExtensions` + `module: nodenext` in tsconfig; Node ESM requires them at runtime | Every import resolves identically under Vite, node:test, and the bundled CLI |
+| `markdown-it` is confined to `app/content/load.ts` | No other module imports it (type-check/grep surface any new one) | One rendering seam; tools and tests never bundle markdown-it |
+| Views are presentational — no I/O, no fetch, no localStorage, no writes | Code review; `load.ts` is the content domain's only I/O file | Views render a plain in-memory tree; node:test needs no DOM |
+| CSS values are token-only | `test/tokens.test.ts` pins tokens.css to DESIGN.md; app.css only references `--…` custom properties (the known exceptions are DESIGN-fixed: 1px/2px hairlines, 3px radius offsets, the 0.15s transition, font fallback stacks) | No raw colour/radius/type values in app.css |
+| Dependency set is exactly the ADR-pinned manifest | `package.json` is stable from the design-tokens commit; later packages never extend it | New project-level dependencies require an ADR-level decision |
 
 ### 2.2 State and reactivity patterns
 
-[Describe how the application manages state — the patterns and tools for each concern:]
-
-- **Component-local state** — [pattern or tool for state scoped to one component]
-- **Derived state** — [pattern for values computed from other state]
-- **Server / remote state** — [caching layer, invalidation strategy, request lifecycle]
-- **Client-only shared state** — [global stores, UI-only state, transient data]
-- **Side effects** — [effect handling: subscriptions, listeners, timers. Cleanup rules.]
+- **Content tree (the only shared state):** one immutable `ContentTree` is built exactly once at boot (`main.tsx` → `load.ts` over real `fetch`) and sealed with `deepFreeze`. Every post-boot read is a synchronous in-memory lookup — no per-view fetching, no loading states after boot.
+- **Reads:** `query.ts` selectors are pure functions returning typed results (`{ found: false, kind: "not-found" }` or `{ found: true, value }`); views never reach into the tree directly.
+- **Boot edge cases:** a 404/absent `content/index.json` yields the empty tree (a fresh checkout is valid); any parse/validate failure throws a `ContentBootError` naming file and field, rendered by the boot-error view.
+- **No store, no localStorage:** the URL hash is the only external state (`useHashRoute`); reload rebuilds the tree and restores the exact page/section. Ledger state (localStorage or a store) is deliberately F5 scope.
+- **Side effects:** `app/content/load.ts` is the content domain's only I/O file; when F5 lands, ledger I/O joins it as a second, isolated module.
 
 ### 2.3 Interface contract
 
-[Describe how the layers communicate — the boundary between the frontend and backend, or between modules. Name the transport, the data format, and where the contracts are defined.]
+The layers communicate through three small seams — no framework message bus:
 
-Every call follows this pattern:
-
-- `[domain]_[action]` — [what it does]
-- `[domain]_[action]` — [what it does]
-- `[domain]_[action]` — [what it does]
-
-[How you keep types in sync across the boundary: manual sync, code generation, shared schema.]
+- **`ContentReader`** (`app/content/types.ts`) — `readFile(path): Promise<string>` (throws when missing) plus `listFiles(): Promise<string[] | null>`. `load.ts` and `lint.ts` accept any reader: browser `fetch` at boot, `node:fs` in tests, the filesystem in the CLI. One contract, three implementations, no drift.
+- **`loadContentTree`** (`app/content/load.ts`) — `(ContentReader) → Promise<ContentTree>`, throwing `ContentBootError { file, field, message }` on invalid content.
+- **Views** receive tree-shaped data in props and return VNodes; they never fetch, never write, and never make routing decisions.
+- **Hash routing** — `router.ts` parses `location.hash` into the `HashRoute` union (`home` / `lord` / `route` / `route` + section anchor / `not-found`); garbage hashes map to the explicit not-found view.
 
 ---
 
 ## 3. Build, Test, and Gate Pipeline
 
-### 3.1 Build commands
-
-[Table mapping each command to its purpose. Omit package manager prefixes.]
+### 3.1 Build and check commands
 
 | Command | Purpose |
 | ------- | ------- |
-| `[command name]` | [Install dependencies] |
-| `[command name]` | [Development server / watch mode] |
-| `[command name]` | [Production build] |
-| `[command name]` | [Run tests] |
-| `[command name]` | [Lint / typecheck] |
-| `[command name]` | [Format check] |
+| `npm test` | `node --test` over `test/*.test.ts` — tokens, content model (loader + lint rules on the fixture tree), lint CLI (spawned process), router table, committed-skeleton load, view VNode output, server HTTP shapes |
+| `npx tsc --noEmit` | Hard type gate: strict TypeScript over `app/`, `tools/`, `test/` (module `nodenext`, preact JSX) |
+| `npm run build` | `vite build` → static `dist/` with relative (`base: "./"`) asset URLs |
+| `npm run serve` | `node tools/server.mjs` — serves `dist/` at `/` and `content/` under `/content/`; binds `127.0.0.1:8123` (`PORT` overrides; `PORT=0` prints the bound port) |
+| `npm run dev` | Vite dev server with HMR — the same SPA over HTTP for content/code iteration |
+| `npm run lint:content` | `node tools/content-lint.mjs` — the content gate over the committed `content/`; exit 0 clean or "no content yet", 1 violations, 2 usage/environment error |
 
 ### 3.2 Validation gate
 
-[Describe the gate phases in order. Every enforced check belongs here:]
-
-1. **[Phase name]** — [what runs, what it checks, auto-fix or fail]
-2. **[Phase name]** — [what runs, what it checks]
-3. **[Phase name]** — [what runs, what it checks]
+Feature-gate order (feature ledger, "Final validation"): 1 `npm test` green → 2 `npx tsc --noEmit` clean → 3 `node tools/content-lint.mjs` exits 0 → 4 `npm run build` → 5 HTTP boot — headless Chromium against `npm run serve` (or `npm run dev`) shows the Elspeth home card, the lord page, route identity/claim states/declared gaps, not-found for unknown hashes, and the boot error naming a corrupted `content/` file → 6 `node tools/server.mjs` serves the same site over HTTP (its GET shapes are covered by `test/server.test.ts`). Step 5's original `file://` form was voided on 2026-10-02: Chromium blocks module scripts, fetch, and XHR under `file://`, so the server is the reading path (see the ADR-0001 correction).
 
 ### 3.3 Commit message convention
 
-[Convention, tool that enforces it, link to the spec, and any exceptions.]
+Conventional Commits — `type(scope): subject` in lowercase imperative (e.g. `feat(app): add Preact shell with hash router and views`, `feat(content): add content model, loader and query layer`, `feat(tools): add content lint CLI`, `docs(wiki): …`, `chore(scaffold): …`). No commitlint/husky enforces it in this repo (`package.json` adds no commit tooling); the convention is applied by the delivery workflow and checked in review. Transport/scratch commits made by delivery tooling are never part of trunk history.
 
 ---
 

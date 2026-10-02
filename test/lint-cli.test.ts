@@ -12,7 +12,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
-import { cp, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { cp, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -63,7 +63,32 @@ test("broken fixture copy exits 1 and prints a file:field — message line", asy
   }
 });
 
-// ─── 3. No-content: empty and absent roots are a pass with the notice ───────
+// ─── 3. Fail: a frontmatter number diverging from the manifest is caught ────
+
+test("route frontmatter number diverging from guide.json routes[] fails with a number violation", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "lint-cli-number-"));
+  try {
+    await cp(FIXTURES, dir, { recursive: true });
+    // The als-rhyn manifest pins route "dark-conduits" as number "I"; give the
+    // frontmatter another valid number so only the cross-check can fail it.
+    const routePath = join(dir, "als-rhyn-of-lorek", "routes", "route-1.md");
+    const body = await readFile(routePath, "utf8");
+    await writeFile(routePath, body.replace("number: I", "number: II"));
+
+    const { code, stdout } = await runCli(dir);
+    assert.equal(code, 1);
+    assert.ok(
+      stdout.includes(
+        'als-rhyn-of-lorek/routes/route-1.md:number — route number "II" does not match guide.json routes[] number "I"',
+      ),
+      `expected a route number cross-check violation; got: ${JSON.stringify(stdout)}`,
+    );
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
+// ─── 4. No-content: empty and absent roots are a pass with the notice ───────
 
 test("empty content root is the no-content-yet pass: exit 0 with the notice", async () => {
   const dir = await mkdtemp(join(tmpdir(), "lint-cli-empty-"));

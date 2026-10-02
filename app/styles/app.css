@@ -751,6 +751,7 @@ aside.claim::before {
 
 aside.claim::after {
   display: block;
+  content: "SRC " attr(data-src);
   margin-top: var(--space-stack-xs);
   font-family: var(--font-label-sm-family), var(--font-mono-fallback);
   font-size: var(--font-label-sm-size);

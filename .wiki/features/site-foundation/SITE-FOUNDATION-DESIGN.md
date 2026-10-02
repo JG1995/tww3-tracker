@@ -42,16 +42,18 @@ None.
 
 ## 3. The User Journey (Step-by-Step)
 
-### Journey A — Reader (no server)
+### Journey A — Reader
 
-1. **Entry Point:** opens `dist/index.html` directly in a desktop browser (`file://`), no server, no build step to read.
+*Correction note (2026-10-02):* the reading path is the local HTTP server, `npm run build` once then `npm run serve` (or `npm run dev`) over `http://127.0.0.1` — a direct `file://` open of `dist/index.html` is blocked in Chromium (module scripts, fetch, and XHR fail; verified 2026-10-02, see ADR-0001). Steps 2–7 read exactly as written over that origin.
+
+1. **Entry Point:** opens the served site in a desktop browser at `http://127.0.0.1:<port>`; the reader runs no build and no other tooling — only the local server stays up.
 2. **Action 1:** boot runs — fetch `content/index.json`, then each named `guide.json`, then all referenced content files in one parallel pass; parse and validate.
 3. **System Response 1:** immutable `ContentTree` in memory; home renders one card per lord with lord name, faction, and patch + VCO version context.
 4. **Action 2:** clicks a lord card → `#/<lord-slug>`.
 5. **System Response 2:** lord page — shared fundamentals + route list, all synchronous in-memory reads.
 6. **Action 3:** clicks a route → `#/<lord-slug>/route/<route-id>`.
 7. **System Response 3:** route page — identity block, markdown body, declared-gap list.
-8. **Success State:** any guide section reachable as home → lord → route → section without a running server or build step.
+8. **Success State:** any guide section reachable as home → lord → route → section with the server running and no build step per read.
 
 ### Journey B — Content developer
 
@@ -67,7 +69,7 @@ None.
 1. **Entry Point:** needs the HTTP origin for development (or later, ledger writes — F5).
 2. **Action 1:** `node tools/server.mjs` → serves `dist/` and `content/` statically at a fixed local port.
 3. **System Response:** same app, HTTP-backed; no other server code exists.
-4. **Success State:** the server is optional for reading; required only for the ledger write path that F5 adds to the same script.
+4. **Success State:** the server is the reading path for everyone in F1; the ledger write path arrives in F5, extending this same script.
 
 ## 4. Logical Constraints (The "Rules of the Road")
 
@@ -75,7 +77,7 @@ None.
 
 - **IF** a guide exists, **THEN** it lives at `content/<lord-slug>/` exactly, and is listed in `content/index.json` (`{ "lords": [...] }`).
 - **IF** a lord directory exists, **THEN** it contains a `guide.json` manifest naming everything the loader must fetch: identity (id, lord, faction), `version { patch, vco, checked }`, `routes[]` (id, file, display number), `shared` (file), `datasets[]` (names under `data/`).
-- **IF** a file exists under `content/` **AND** no manifest names it, **THEN** it is an orphan and the lint fails. Manifests are hand-written and committed because `file://` has no directory listing.
+- **IF** a file exists under `content/` **AND** no manifest names it, **THEN** it is an orphan and the lint fails. Manifests are hand-written and committed because the loader fetches only manifest-named files — no directory listing drives it (the original `file://` path provided none either; the HTTP server serves the same explicit manifests, ADR-0001 correction 2026-10-02).
 - One guide is lord-grained, not faction-grained: no `faction/` hierarchy level exists in F1. Home cards display "Lord — Faction". (Revisit only if a second lord of the same faction joins with genuinely shared routes — the seed atlases, VCO routes, and the PRD's own pilot decision are all lord-grained.)
 
 ### Route documents
@@ -154,7 +156,7 @@ Single column, 1200px max on full-bleed canvas, sticky 64px top nav (wordmark + 
 
 ## 7. Acceptance Criteria (The "Mission Accomplished" Checklist)
 
-- [ ] `npm run build` produces a static `dist/` that opens via `file://` with no server; reading requires no build step.
+- [ ] `npm run build` produces a static `dist/` that `npm run serve` (or `npm run dev`) serves over `http://127.0.0.1`; reading requires no build step after the one-time build. *(The original `file://`-open form of this criterion was voided on 2026-10-02 — see ADR-0001.)*
 - [ ] Home shows one card per lord in `content/index.json` with lord, faction, and `patch · VCO version` context; zero lords shows the explicit empty state.
 - [ ] Hash routes `#/`, `#/<lord-slug>`, `#/<lord-slug>/route/<route-id>` resolve to home, lord page, and route page; section anchors scroll; unknown routes show the not-found view.
 - [ ] Boot fetches the index, each manifest, and all referenced files in one parallel pass and builds the immutable `ContentTree`; a corrupted fixture fails to boot with the file and field named (covered by `node:test` fixtures).

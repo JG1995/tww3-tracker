@@ -247,7 +247,7 @@ Two voices, one family — carried over from the reference: **Geist** carries al
 
 **Scale principle:** display (44px) and headline roles set section identity with tight tracking (−0.025em → −0.01em as size drops); body sits at 16px/1.5 for long-session comfort (line-height never exceeds 1.5 — anything looser reads editorial, not technical); label and mono roles compress to 12–14px for dense instrument surfaces.
 
-**Loading:** Geist and Geist Mono are self-hosted (bundled with the Vite build via `@fontsource`), not fetched from a CDN — the site must stay readable offline with no server, and a font fetch failure is not an acceptable way to find out. Fallback stacks: `ui-sans-serif, system-ui` for Geist; `ui-monospace, 'JetBrains Mono', 'IBM Plex Mono'` for Geist Mono.
+**Loading:** Geist and Geist Mono are self-hosted (bundled with the Vite build via `@fontsource`), not fetched from a CDN — a font fetch failure is not an acceptable way to find out, and a served page must stay readable offline (no internet). Reading runs over the local HTTP server (`npm run build` once, then `npm run serve` or `npm run dev` at `http://127.0.0.1`). A direct `file://` open of `dist/index.html` is blocked in Chromium — module scripts, fetch, and XHR fail (verified 2026-10-02; see ADR-0001). *Correction note:* the reader needs no build step once the server is up; the server itself is never optional for reading. Fallback stacks: `ui-sans-serif, system-ui` for Geist; `ui-monospace, 'JetBrains Mono', 'IBM Plex Mono'` for Geist Mono.
 
 ### Value & Number Formatting
 

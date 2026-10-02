@@ -779,6 +779,7 @@ function assertRouteDocument(
   if (!isNonEmptyString(meta.id)) push("id", "route frontmatter requires id (string)");
   else if (meta.id !== ref.id) push("id", `route id "${meta.id}" does not match guide.json routes[] id "${ref.id}"`);
   if (!isRouteNumber(meta.number)) push("number", 'route frontmatter requires number, one of "I"/"II"/"III"');
+  else if (meta.number !== ref.number) push("number", `route number "${meta.number}" does not match guide.json routes[] number "${ref.number}"`);
   if (!isNonEmptyString(meta.name)) push("name", "route frontmatter requires name (string)");
   if (typeof meta.vcoTitle !== "string" && meta.vcoTitle !== null) {
     push("vcoTitle", "route frontmatter requires vcoTitle (string or null)");

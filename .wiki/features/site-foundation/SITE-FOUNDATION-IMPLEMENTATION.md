@@ -354,7 +354,7 @@ Exact gates, in order:
 
 ## Documentation impact
 
-Complete during reconciliation.
+Feature close-out reconciliation (Item 3): the `file://` reading claims were corrected to the implemented HTTP-server reading path in `.wiki/DESIGN.md` (fonts-loading line), `.wiki/adr/0001-vite-preact-runtime-loaded-site.md` (dated 2026-10-02 correction entry), `.wiki/features/site-foundation/SITE-FOUNDATION-DESIGN.md` (Journey A, manifest rationale, Journey C, acceptance criterion), and `.wiki/ARCHITECTURE.md` §1.1 (Serving row, diagram lines, status line, current-state line). `.wiki/ARCHITECTURE.md` §2 (Project Layout) and §3 (Build, Test, and Gate Pipeline) were rewritten from the implemented system (Item 4).
 
 ## Abandonment record
 
