@@ -265,7 +265,7 @@ Commit 1 (stub reshape) → Commit 2 (confidence badge) → Commit 3 (typed data
 
 **Depends on:** ["confidence-badge", "dataset-contracts"]
 
-**Write scope:** ["app/views/route.ts", "app/content/query.ts", "app/styles/app.css", "test/fixtures/content/als-rhyn-of-lorek/data/vco.json", "test/views.test.ts"]
+**Write scope:** ["app/views/route.ts", "app/content/query.ts", "app/styles/app.css", "test/fixtures/content/als-rhyn-of-lorek/data/vco.json", "test/views.test.ts", "test/content-model.test.ts"]
 
 **Provisional commit:** `feat(app): render the route identity card and VCO objectives`
 
@@ -277,7 +277,7 @@ Commit 1 (stub reshape) → Commit 2 (confidence badge) → Commit 3 (typed data
 
 **Implementation packet:** The identity card replaces the F1 identity block's inline state labels with `<ConfidenceBadge state=… sources=…/>`; claim text and src ids keep rendering verbatim from the same frontmatter. The unresearched marker keeps the F1 copy ("unresearched" meaning per DESIGN §6, F1 copy may be retained). `getVcoObjectives` returns the route's typed `VcoItem[]` (empty when the entry or dataset is absent — the undercard renders nothing then, per the DESIGN's "optional"); the fixture `vco.json` gains `{"dark-conduits": [{ id, text, state: <one of the four>, src: ["vco-guide"] }]}` — lint-clean under Commit 3's rules. CSS: identity card (bone `inverse-surface`, 10px radius, `stack-md` padding, no shadow), official-title eyebrow + primary dot, dimmed subtitle, and the VCO undercard as a hairline-bordered panel with a mono eyebrow; token-only.
 
-**Files and responsibilities:** `app/views/route.ts` — identity card markup + VCO undercard (replaces the F1 identity block + `STATE_LABELS` map). `app/content/query.ts` — `getVcoObjectives`, `resolveSources` (pure, lord-scoped). `app/styles/app.css` — identity card and undercard styling. `test/fixtures/…/data/vco.json` — one valid fixture entry. `test/views.test.ts` — the committed route shows eyebrow/subtitle/unresearched marker/claim texts with badge anatomy (labels + colour classes + src links), interpretation/bottleneck/motto when present, and NO VCO undercard (empty committed entry); a fixture-loaded assertion renders the undercard with badge'd items and src links.
+**Files and responsibilities:** `app/views/route.ts` — identity card markup + VCO undercard (replaces the F1 identity block + `STATE_LABELS` map). `app/content/query.ts` — `getVcoObjectives`, `resolveSources` (pure, lord-scoped). `app/styles/app.css` — identity card and undercard styling. `test/fixtures/…/data/vco.json` — one valid fixture entry. `test/views.test.ts` — the committed route shows eyebrow/subtitle/unresearched marker/claim texts with badge anatomy (labels + colour classes + src links), interpretation/bottleneck/motto when present, and NO VCO undercard (empty committed entry); a fixture-loaded assertion renders the undercard with badge'd items and src links. `test/content-model.test.ts` — the valid-fixture tree test's "every non-source dataset is the typed empty form `{}`" loop must stop asserting `vco` is `{}` once this package populates the fixture `vco.json` (skip `vco` in that empty-form loop, mirroring the `sources` skip; the populated vco is proven by `test/views.test.ts`); keep the five item/army datasets asserted as `{}` and every other assertion verbatim.
 
 **Tests and proof:** Observable: committed route-1 renders the identity card content with badge anatomy and no VCO section; the fixture route (loaded via `load.ts`) renders the VCO undercard with each item's label/state/src link; query helpers return typed values and not-found/empty results. Seam: zero-DOM VNode flatten over the committed and fixture trees.
 
@@ -379,7 +379,7 @@ Commit 1 (stub reshape) → Commit 2 (confidence badge) → Commit 3 (typed data
 
 ## Discoveries and replanning
 
-No material deviations yet. Record blockers, decisions that change remaining work, and replaced packages here during execution; preserve stable IDs and never reuse an ID for a different outcome.
+- **route-identity scope amendment (bounded in-scope replan, unchanged DESIGN):** populating the fixture `test/fixtures/content/als-rhyn-of-lorek/data/vco.json` (mandated by `route-identity` to make the VCO undercard provable) invalidates a Commit 3 assertion in `test/content-model.test.ts` ("valid fixture loads into a complete tree" — the loop asserting every non-source dataset value is the typed empty form `{}`), which was not in the original `route-identity` write scope. The DESIGN is unchanged; the fixture population is in-mandate. Resolution: add `test/content-model.test.ts` to `route-identity`'s write scope for the single assertion update (skip `vco` in the empty-form loop; the populated vco is proven by `test/views.test.ts`). Recorded here per the in-scope replan procedure; `route-identity` is not yet integrated, so its ID, dependencies, wave and order are preserved — only the write scope and the files-and-responsibilities line change. Plan digest changes accordingly; the revision passed independent plan review before the build resumed.
 
 ## Final validation
 
