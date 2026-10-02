@@ -169,7 +169,7 @@ Commit 1 (stub reshape) → Commit 2 (confidence badge) → Commit 3 (typed data
 
 #### Package `confidence-badge` — Commit 2: Render confidence states as the Confidence Badge
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 1
 

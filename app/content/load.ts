@@ -29,7 +29,9 @@ import {
   type Route,
   type Section,
   type Source,
+  CLAIM_STATES,
 } from "./types.ts";
+import { CONFIDENCE_BADGES } from "../badges.ts";
 import {
   lintContent,
   parseFrontmatter,
@@ -77,6 +79,18 @@ export class ContentBootError extends Error {
 
 const md = new MarkdownIt();
 
+/**
+ * Render env for boot-time Markdown: the lord's parsed sources, so the
+ * `claim_callout_open` rule can resolve each claim `src` id to its link
+ * (feature DESIGN §"Confidence Badges": a `src`-carrying claim shows source
+ * links). markdown-it stays confined to this module. (A type alias, not an
+ * interface: object-literal types are the ones assignable to markdown-it's
+ * index-signature `Env`.)
+ */
+type ClaimRenderEnv = {
+  readonly sources: readonly Source[];
+};
+
 /** Renders the inner HTML of a `::claim … ::` block, sharing the lint's opener grammar. */
 function claimCalloutBlock(state: StateBlock, startLine: number, endLine: number, silent: boolean): boolean {
   const start = state.bMarks[startLine] + state.tShift[startLine];
@@ -118,14 +132,49 @@ md.block.ruler.before("fence", "claim_callout", claimCalloutBlock, {
   alt: ["paragraph", "reference", "blockquote", "list"],
 });
 
-/** The callout HTML carries the state label + src ids as class/data attributes for app.css. */
-md.renderer.rules.claim_callout_open = (tokens, idx) => {
+/**
+ * The callout HTML keeps the existing classed-aside contract
+ * (`class="claim"`, `data-state`, `data-src` — the content-model callout
+ * assertions depend on them) and adds the Confidence Badge anatomy (icon +
+ * mono uppercase label + one trailing link per `src` id) inside it, matching
+ * the data-driven `ConfidenceBadge` component. Per-`src` links resolve at
+ * boot against the lord's sources carried in the render env.
+ */
+md.renderer.rules.claim_callout_open = (tokens, idx, _options, env) => {
   const meta = tokens[idx].meta as { state: string; src: readonly string[] } | null;
   const stateWord = meta?.state ?? "claim";
   const srcIds = meta?.src ?? [];
   const esc = (s: string): string =>
     s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  return `<aside class="claim claim--${esc(stateWord)}" data-state="${esc(stateWord)}" data-src="${esc(srcIds.join(","))}">\n`;
+  const aside = `<aside class="claim claim--${esc(stateWord)}" data-state="${esc(stateWord)}" data-src="${esc(srcIds.join(","))}">`;
+
+  // The badge anatomy exists only for the four lint-validated states. Any other
+  // word (reachable only from the shared-fundamentals callout, which the lint's
+  // claim scanners do not cover) keeps the existing classed-aside contract.
+  const state: ClaimState | null = CLAIM_STATES.find((s) => s === stateWord) ?? null;
+  if (state === null) return `${aside}\n`;
+
+  const sources = (env?.sources as readonly Source[] | undefined) ?? [];
+  // A src id that the dangling-src lint missed (shared-fundamentals callouts are
+  // not scanned) simply gets no link rather than breaking boot.
+  const srcLinks = srcIds
+    .map((id) => {
+      const source = sources.find((s) => s.id === id);
+      return source === undefined
+        ? ""
+        : `<a class="confidence-badge__src" href="${esc(source.url)}">${esc(source.title)}</a>`;
+    })
+    .join("");
+  const badge = CONFIDENCE_BADGES[state];
+  const svg =
+    `<svg class="confidence-badge__icon" width="12" height="12" viewBox="0 0 12 12" ` +
+    `fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" ` +
+    `stroke-linejoin="round" aria-hidden="true">${badge.iconSvg}</svg>`;
+  return (
+    `${aside}\n` +
+    `<span class="confidence-badge confidence-badge--${esc(stateWord)}">${svg}` +
+    `<span class="confidence-badge__label">${esc(badge.label)}</span>${srcLinks}</span>\n`
+  );
 };
 md.renderer.rules.claim_callout_close = () => "</aside>\n";
 
@@ -268,22 +317,25 @@ export async function loadContentTree(reader: ContentReader): Promise<ContentTre
 
 function buildLord(slug: string, manifest: GuideManifest, cache: Map<string, string>): Lord {
   const datasets: LordDataset[] = [];
+  let sources: readonly Source[] = [];
   for (const name of manifest.datasets) {
     const path = `${slug}/data/${name}.json`;
     const value = parseDataset(path, cache.get(path) ?? "");
     if ((name as string) === "sources") {
       // SAFETY: lintContent has already validated this array as `Source[]` (id/title/url/note).
-      datasets.push({ name: "sources", value: value as unknown as readonly Source[] });
+      sources = value as unknown as readonly Source[];
+      datasets.push({ name: "sources", value: sources });
     } else {
       datasets.push({ name: name as DatasetName, value });
     }
   }
+  const env: ClaimRenderEnv = { sources };
   const routes: Route[] = [];
   for (const ref of manifest.routes) {
     const text = cache.get(`${slug}/${ref.file}`) ?? "";
-    routes.push(buildRoute(ref, text));
+    routes.push(buildRoute(ref, text, env));
   }
-  const sharedHtml = md.render(cache.get(`${slug}/${manifest.shared}`) ?? "");
+  const sharedHtml = md.render(cache.get(`${slug}/${manifest.shared}`) ?? "", env);
   return { slug, guide: manifest, sharedHtml, routes, datasets };
 }
 
@@ -310,14 +362,14 @@ function optionalString(value: FmValue | undefined): string | undefined {
   return typeof value === "string" ? value : undefined;
 }
 
-function buildRoute(ref: GuideRouteRef, text: string): Route {
+function buildRoute(ref: GuideRouteRef, text: string, env: ClaimRenderEnv): Route {
   const scan = splitFrontmatter(text);
   const meta = parseFrontmatter(scan.frontmatter ?? "");
   const sectionScan = extractSections(scan.body);
   const sections: Section[] = sectionScan.sections.map((s) => ({
     id: slugify(s.title),
     title: s.title,
-    html: md.render(s.body),
+    html: md.render(s.body, env),
   }));
   const claims = extractClaimMarkers(scan.body).map((m) => ({
     state: m.state as ClaimState,

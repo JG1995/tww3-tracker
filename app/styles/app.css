@@ -727,9 +727,91 @@ button {
   padding-inline: calc(var(--space-unit) / 4);
 }
 
-/* `::claim` callouts — labelled blocks: the mono uppercase state label and
-   the src ids are always rendered (never colour alone), one bordered block
-   per claim, border + label colour per the state's token. */
+/* ─── Confidence Badge (DESIGN.md Confidence Badge) ─────────────────────── */
+
+/* One badge treatment for every confidence state — the data-driven
+   `ConfidenceBadge` component and the boot-time `::claim` callouts (which
+   emit the same span inside the classed aside) share these classes. Each
+   badge pairs a 1px state-colour border at 3px radius with the state's
+   container tint as its background and always renders icon + mono uppercase
+   label, so colour is never the sole indicator (PRD accessibility baseline).
+   Transitions ride the `--transition-standard` band and are disabled by the
+   `prefers-reduced-motion` block at the end of this file. */
+
+.confidence-badge {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: calc(var(--space-unit) / 2);
+  padding: var(--space-stack-xs) calc(var(--space-unit) / 2);
+  border: 1px solid;
+  border-radius: var(--radius-xs);
+}
+
+.confidence-badge__icon {
+  width: 12px;
+  height: 12px;
+  flex: none;
+}
+
+.confidence-badge__label {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface);
+}
+
+.confidence-badge__src {
+  font-family: var(--font-body-sm-family), var(--font-sans-fallback);
+  font-size: var(--font-body-sm-size);
+  font-weight: var(--font-body-sm-weight);
+  line-height: var(--font-body-sm-line-height);
+  text-decoration: underline;
+  text-underline-offset: var(--space-stack-xs);
+  color: var(--color-on-surface);
+  transition: var(--transition-standard);
+}
+
+.confidence-badge--confirmed {
+  border-color: var(--color-success);
+  background: color-mix(in srgb, transparent 85%, var(--color-success-container));
+}
+
+.confidence-badge--confirmed .confidence-badge__icon {
+  color: var(--color-success);
+}
+
+.confidence-badge--historical {
+  border-color: var(--color-info);
+  background: color-mix(in srgb, transparent 85%, var(--color-info-container));
+}
+
+.confidence-badge--historical .confidence-badge__icon {
+  color: var(--color-info);
+}
+
+.confidence-badge--inferred {
+  border-color: var(--color-on-surface-variant);
+  background: color-mix(in srgb, transparent 85%, var(--color-tertiary-container));
+}
+
+.confidence-badge--inferred .confidence-badge__icon {
+  color: var(--color-on-surface-variant);
+}
+
+.confidence-badge--verify-in-campaign {
+  border-color: var(--color-warning);
+  background: color-mix(in srgb, transparent 85%, var(--color-warning-container));
+}
+
+.confidence-badge--verify-in-campaign .confidence-badge__icon {
+  color: var(--color-warning);
+}
+
+/* ─── `::claim` callouts — the block container around the badged treatment ── */
 
 aside.claim {
   margin-block: var(--space-stack-sm) var(--space-stack-md);
@@ -738,68 +820,9 @@ aside.claim {
   border-radius: var(--radius-md);
 }
 
-aside.claim::before {
-  display: block;
-  margin-bottom: var(--space-stack-xs);
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
-  text-transform: uppercase;
-}
-
-aside.claim::after {
-  display: block;
-  content: "SRC " attr(data-src);
-  margin-top: var(--space-stack-xs);
-  font-family: var(--font-label-sm-family), var(--font-mono-fallback);
-  font-size: var(--font-label-sm-size);
-  font-weight: var(--font-label-sm-weight);
-  line-height: var(--font-label-sm-line-height);
-  letter-spacing: var(--font-label-sm-letter-spacing);
-  text-transform: uppercase;
-  color: var(--color-on-surface-variant);
-}
-
-aside.claim[data-src=""]::after {
-  content: none;
-}
-
-aside.claim--confirmed {
-  border-color: var(--color-success);
-}
-
-aside.claim--confirmed::before {
-  content: "CONFIRMED";
-  color: var(--color-success);
-}
-
-aside.claim--historical {
-  border-color: var(--color-info);
-}
-
-aside.claim--historical::before {
-  content: "HISTORICAL";
-  color: var(--color-info);
-}
-
-aside.claim--inferred {
-  border-color: var(--color-on-surface-variant);
-}
-
-aside.claim--inferred::before {
-  content: "INFERRED";
-  color: var(--color-on-surface-variant);
-}
-
-aside.claim--verify-in-campaign {
-  border-color: var(--color-warning);
-}
-
-aside.claim--verify-in-campaign::before {
-  content: "VERIFY";
-  color: var(--color-warning);
+/* The in-aside badge sits above the callout body. */
+aside.claim > .confidence-badge {
+  margin-bottom: var(--space-stack-sm);
 }
 
 /* ─── Declared content gaps (Content Gap Marker style) ─────────────────── */
