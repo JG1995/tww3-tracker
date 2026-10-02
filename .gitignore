@@ -3,3 +3,5 @@ scripts/
 .pi/work/
 .wiki/adr/templates/
 .wiki/features/templates/
+node_modules/
+dist/

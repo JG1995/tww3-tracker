@@ -125,7 +125,7 @@ Commit 1 (tokens + toolchain) → Commit 2 (content model on fixtures) → Commi
 
 #### Package `design-tokens` — Commit 1: Toolchain scaffold and design tokens
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 1
 
