@@ -259,7 +259,7 @@ Commit 1 (stub reshape) → Commit 2 (confidence badge) → Commit 3 (typed data
 
 #### Package `route-identity` — Commit 5: Route identity card and VCO objectives
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 4
 

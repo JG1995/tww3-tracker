@@ -12,6 +12,7 @@ import {
   type Route,
   type Section,
   type Source,
+  type VcoItem,
 } from "./types.ts";
 
 const NOT_FOUND = { found: false, kind: "not-found" } as const;
@@ -56,4 +57,29 @@ export function getSource(tree: ContentTree, lordSlug: string, sourceId: string)
   if (sources === undefined) return NOT_FOUND;
   const source = sources.value.find((s) => s.id === sourceId);
   return source === undefined ? NOT_FOUND : { found: true, value: source };
+}
+
+/**
+ * One route's ordered VCO objective items (DESIGN §4 vco schema), or `[]`
+ * when the `vco` dataset or that route's entry is absent — the DESIGN's
+ * "optional" list, so the view renders no undercard then. A list-shaped read:
+ * the empty list is its not-found. Never throws.
+ */
+export function getVcoObjectives(lord: Lord, routeId: string): readonly VcoItem[] {
+  const vco = lord.datasets.find((d) => d.name === "vco");
+  if (vco === undefined) return [];
+  return vco.value[routeId] ?? [];
+}
+
+/**
+ * Resolves source ids against the lord's `data/sources.json`: known ids in
+ * the given order, unknown ids dropped (pure and never throws — a dangling id
+ * simply resolves to no link, keeping the badge presentational).
+ */
+export function resolveSources(lord: Lord, sourceIds: readonly string[]): readonly Source[] {
+  const sources = lord.datasets.find((d) => d.name === "sources");
+  if (sources === undefined) return [];
+  return sourceIds
+    .map((id) => sources.value.find((s) => s.id === id))
+    .filter((s): s is Source => s !== undefined);
 }

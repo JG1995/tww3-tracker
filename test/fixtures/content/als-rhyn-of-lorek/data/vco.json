@@ -1,1 +1,16 @@
-{}
+{
+  "dark-conduits": [
+    {
+      "id": "obj-conduits",
+      "text": "Secure all three southeast dark conduit settlements.",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "obj-casket",
+      "text": "Unlock the Casket of Souls quest chain.",
+      "state": "historical",
+      "src": ["ca"]
+    }
+  ]
+}

@@ -92,7 +92,7 @@ test("valid fixture loads into a complete tree: lords, routes, sections, claims,
 
   // every non-source dataset value is the typed DESIGN §4 empty form {}
   for (const dataset of als.datasets) {
-    if (dataset.name === "sources") continue;
+    if (dataset.name === "sources" || dataset.name === "vco") continue;
     assert.deepEqual(dataset.value, {}, `${dataset.name} carries the typed empty value`);
   }
 

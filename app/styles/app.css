@@ -286,38 +286,6 @@ button {
   color: var(--color-on-surface-variant);
 }
 
-/* Confidence-state labels: mono uppercase text always present; the border
-   carries the state colour so colour is never the sole indicator. */
-.state-label {
-  display: inline-block;
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
-  text-transform: uppercase;
-  padding: calc(var(--space-unit) / 4) calc(var(--space-unit) / 2);
-  border-radius: var(--radius-xs);
-  border: 1px solid transparent;
-  white-space: nowrap;
-}
-
-.state-label--confirmed {
-  border-color: var(--color-secondary);
-}
-
-.state-label--historical {
-  border-color: var(--color-info);
-}
-
-.state-label--inferred {
-  border-color: var(--color-on-surface-variant);
-}
-
-.state-label--verify-in-campaign {
-  border-color: var(--color-warning);
-}
-
 /* ─── Buttons — 3px radius, no chromatic fills ─────────────────────────── */
 
 .button {
@@ -634,7 +602,12 @@ button {
   color: var(--color-inverse-on-surface);
 }
 
+/* The eyebrow row carries the primary dot (DESIGN.md Route Identity Card: the
+   mono X uppercase eyebrow with a primary dot) before the route number. */
 .route-identity__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-stack-xs);
   font-family: var(--font-label-md-family), var(--font-mono-fallback);
   font-size: var(--font-label-md-size);
   font-weight: var(--font-label-md-weight);
@@ -644,10 +617,9 @@ button {
   color: var(--color-inverse-on-surface);
 }
 
+/* The official VCO title: the mono instrument voice on the bone ink — always a
+   distinct element (and class) from the proportional thematic subtitle. */
 .route-identity__vco {
-  display: flex;
-  align-items: center;
-  gap: var(--space-stack-xs);
   margin-top: var(--space-stack-sm);
   font-family: var(--font-label-md-family), var(--font-mono-fallback);
   font-size: var(--font-label-md-size);
@@ -669,6 +641,10 @@ button {
   color: var(--color-inverse-on-surface);
 }
 
+/* The thematic subtitle: a proportional headline (headline-lg), guide-created
+   and clearly secondary — dimmed to a muted step of the bone ink via the
+   card's own ink/surface tokens, never interchangeable with the official
+   title's mono instrument line (DESIGN.md Route Identity Card). */
 .route-identity__title {
   margin-top: var(--space-stack-sm);
   font-family: var(--font-headline-lg-family), var(--font-sans-fallback);
@@ -676,7 +652,20 @@ button {
   font-weight: var(--font-headline-lg-weight);
   line-height: var(--font-headline-lg-line-height);
   letter-spacing: var(--font-headline-lg-letter-spacing);
+  color: color-mix(in srgb, var(--color-inverse-on-surface) 62%, var(--color-inverse-surface));
+}
+
+/* The badge on the bone card keeps the component's anatomy untouched but takes
+   the bone ink scale: the component's default canvas-scale ink (on-surface,
+   near-white) would vanish on the light card, so label and source links use
+   the inverse ink, and a hovered link stays readable on the bone background. */
+.route-identity .confidence-badge__label,
+.route-identity .confidence-badge__src {
   color: var(--color-inverse-on-surface);
+}
+
+.route-identity .confidence-badge__src:hover {
+  color: var(--color-primary);
 }
 
 .route-identity__claims {
@@ -716,14 +705,6 @@ button {
   color: var(--color-inverse-on-surface);
 }
 
-.claim-block__src {
-  font-family: var(--font-mono-sm-family), var(--font-mono-fallback);
-  font-size: var(--font-mono-sm-size);
-  font-weight: var(--font-mono-sm-weight);
-  line-height: var(--font-mono-sm-line-height);
-  color: var(--color-inverse-on-surface);
-}
-
 .route-identity__note-text {
   margin-top: var(--space-stack-xs);
   font-family: var(--font-body-md-family), var(--font-sans-fallback);
@@ -731,6 +712,60 @@ button {
   font-weight: var(--font-body-md-weight);
   line-height: var(--font-body-md-line-height);
   color: var(--color-inverse-on-surface);
+}
+
+/* ─── VCO objective undercard — the optional list beneath the identity ──────
+
+   A hairline-bordered Content Panel (DESIGN.md "Content Panel") with a mono
+   eyebrow; each row pairs the stable objective id and its text with the item's
+   Confidence Badge (state + the optional resolved source link). Renders only
+   when the route's `data/vco.json` entry exists — the DESIGN §4 "optional"
+   list, so an absent entry leaves no trace on the page. */
+
+.vco-undercard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-sm);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md);
+  padding: var(--space-stack-md);
+}
+
+.vco-undercard__eyebrow {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+.vco-undercard__item {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  column-gap: var(--space-stack-sm);
+  row-gap: var(--space-stack-xs);
+}
+
+/* The stable objective id — instrument voice (mono label, 12px uppercase). */
+.vco-undercard__id {
+  font-family: var(--font-label-sm-family), var(--font-mono-fallback);
+  font-size: var(--font-label-sm-size);
+  font-weight: var(--font-label-sm-weight);
+  line-height: var(--font-label-sm-line-height);
+  letter-spacing: var(--font-label-sm-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+.vco-undercard__text {
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-on-surface);
 }
 
 /* Body sections: H2 headings carry the tree's section ids as stable anchors. */

@@ -1,8 +1,11 @@
 /**
  * Contract proof for the data-driven views (package `home-real`, commit 6):
  * the home card list, the lord page, and the F1 route page rendered from the
- * REAL committed Elspeth tree; and (package `route-tab-strip`, commit 4) the
- * route tab strip the lord/route views mount over the committed tree.
+ * REAL committed Elspeth tree; (package `route-tab-strip`, commit 4) the
+ * route tab strip the lord/route views mount over the committed tree; and
+ * (package `route-identity`, commit 5) the identity card's badged claims,
+ * notes, distinct official-title/subtitle classes, and the optional VCO
+ * undercard proven over the test fixtures.
  *
  * Seam: zero-DOM. The committed `content/` loads through the same
  * `app/content/load.ts` pass the CLI and the site boot use (filesystem
@@ -15,6 +18,9 @@
  * strip is asserted at the view seam (the `TabStrip` VNode's props) and then
  * expanded through the same pure `TabStripMarkup` builder with those props,
  * because the mounted wrapper's focus effect only runs under a real render.
+ * The badge components (no hooks) expand through the pure `ConfidenceBadge`
+ * function the same way, so the badge anatomy — label, state colour class,
+ * resolved src links — is assertable without a DOM.
  */
 
 import { test } from "node:test";
@@ -24,8 +30,9 @@ import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { loadContentTree } from "../app/content/load.ts";
-import { getLord, getRoute } from "../app/content/query.ts";
-import type { ContentReader, Route } from "../app/content/types.ts";
+import { getLord, getRoute, getVcoObjectives, resolveSources } from "../app/content/query.ts";
+import { CLAIM_STATES, type ClaimState, type ContentReader, type Route, type Source } from "../app/content/types.ts";
+import { ConfidenceBadge } from "../app/components/ConfidenceBadge.ts";
 import { TabStripMarkup, type TabStripProps } from "../app/components/TabStrip.ts";
 import { HomeView } from "../app/views/home.ts";
 import { LordView } from "../app/views/lord.ts";
@@ -33,6 +40,9 @@ import { RouteView } from "../app/views/route.ts";
 
 /** The committed content root, resolved from this test file's own location. */
 const CONTENT = fileURLToPath(new URL("../content", import.meta.url));
+
+/** The test-owned fixture content root (holds the seeded VCO objectives). */
+const FIXTURES = fileURLToPath(new URL("fixtures/content", import.meta.url));
 
 /** A filesystem `ContentReader` over the committed content root — the CLI's shape. */
 function fsReader(root: string): ContentReader {
@@ -145,6 +155,32 @@ function mountedTabStrip(view: unknown): { props: TabStripProps; tabs: VNodeReco
   return { props, tabs, text: vnodeText(TabStripMarkup(props)) };
 }
 
+/**
+ * The ConfidenceBadge VNodes at the view seam. The badge is a pure component
+ * with no hooks, so — exactly like `TabStripMarkup` — it expands through the
+ * component function with the recorded props, keeping the zero-DOM seam.
+ */
+function badgeVNodes(view: unknown): VNodeRecord[] {
+  return recordVNodes(view).filter(
+    (n) =>
+      typeof n.props.state === "string" &&
+      CLAIM_STATES.some((s) => s === n.props.state) &&
+      Array.isArray(n.props.sources),
+  );
+}
+
+/** One view badge expanded through the pure `ConfidenceBadge` component. */
+function expandBadge(n: VNodeRecord): unknown {
+  return ConfidenceBadge({ state: n.props.state as ClaimState, sources: n.props.sources as readonly Source[] });
+}
+
+/** The flattened text of every badge in a view, expanded at the component seam. */
+function badgeText(view: unknown): string {
+  return badgeVNodes(view)
+    .map((n) => vnodeText(expandBadge(n)))
+    .join(" ");
+}
+
 test("home renders one card per lord with faction and the patch · VCO version context", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
   const text = vnodeText(HomeView({ tree }));
@@ -196,15 +232,17 @@ test("lord page renders shared fundamentals and all three routes with the unrese
   assert.ok(text.includes("patch 9.0 · VCO 2026.09.30.1"), "version context on the lord page");
 });
 
-test("route page shows the identity claims verbatim with state labels and seven declared gaps", async () => {
+test("route page identity card: badged claims, notes, distinct title classes, no VCO undercard on the committed tree", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
   const lord = getLord(tree, "elspeth-von-draken");
   assert.ok(lord.found);
   const route = getRoute(tree, "elspeth-von-draken", "route-1");
   assert.ok(route.found);
-  const text = vnodeText(RouteView({ lord: lord.value, route: route.value }));
+  const view = RouteView({ lord: lord.value, route: route.value });
+  const text = vnodeText(view);
+  const nodes = recordVNodes(view);
 
-  // identity block: display number, thematic title, explicit unresearched marker
+  // identity card: number eyebrow, thematic subtitle, explicit unresearched marker
   assert.ok(text.includes("ROUTE I"), "route number eyebrow");
   assert.ok(text.includes("The Graveyard Watch"), "thematic subtitle");
   assert.ok(
@@ -212,17 +250,53 @@ test("route page shows the identity claims verbatim with state labels and seven 
     "the null vcoTitle slot is explicitly marked unresearched",
   );
 
-  // objective and reward, verbatim from the committed frontmatter, each with
-  // its mono uppercase state label and its src ids
+  // objective and reward claims verbatim from the committed frontmatter, each
+  // rendered as a Confidence Badge: mono uppercase label + state colour class
+  // + the resolved source link
   assert.ok(text.includes("Defeat the five listed factions and win 35 battles."), "objective claim text");
+  assert.ok(text.includes("give her army movement after battle"), "reward claim text");
+  const claims = badgeVNodes(view);
+  assert.equal(claims.length, 2, "objective and reward are the only badges — the committed vco dataset is the empty {} form");
+  for (const claim of claims) {
+    const badge = recordVNodes(expandBadge(claim));
+    assert.ok(
+      badge.some((n) => String(n.props.className).includes("confidence-badge--verify-in-campaign")),
+      "each claim badge carries its state colour class",
+    );
+    const label = badge.find((n) => n.props.className === "confidence-badge__label");
+    assert.equal(label?.children[0], "VERIFY", "the mono uppercase state label renders");
+    const link = badge.find((n) => n.tag === "a" && n.props.className === "confidence-badge__src");
+    assert.ok(link !== undefined, "the src-carrying claim trails a source link");
+    assert.equal(
+      link.props.href,
+      "https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084",
+      "the src id resolves to the committed source url",
+    );
+    assert.ok(String(link.children[0]).includes("VCO • author"), "…with the committed source title");
+  }
+
+  // official title and thematic subtitle stay distinct elements and classes —
+  // never interchangeable (DESIGN §4)
+  const official = nodes.find((n) => n.props.className === "route-identity__vco route-identity__vco--unresearched");
+  const subtitle = nodes.find((n) => n.props.className === "route-identity__title");
+  assert.ok(official !== undefined && official.tag === "p", "the official-title slot is its own element");
+  assert.ok(subtitle !== undefined && subtitle.tag === "h1", "the thematic subtitle is its own headline element");
+  assert.notEqual(official.props.className, subtitle.props.className, "official title and subtitle use distinct classes");
+
+  // notes: interpretation, bottleneck and motto all render when present
   assert.ok(
-    text.includes(
-      "Published rewards strengthen Elspeth’s magic and personal combat, and give her army movement after battle. The author lists +20% spell intensity, +25% targeting range, +10% weapon strength, and “+15” post-battle movement; check the live unit/scope of that last value.",
-    ),
-    "reward claim text",
+    text.includes("Elspeth goes where the next dangerous enemy is"),
+    "the interpretation note renders when present",
   );
-  assert.equal(countOccurrences(text, "VERIFY"), 2, "both claims carry the verify-in-campaign state label");
-  assert.equal(countOccurrences(text, "SRC vco-guide"), 2, "both claims cite the vco-guide source");
+  assert.ok(
+    text.includes("Finishing the last surviving faction, not simply winning its first battle"),
+    "the bottleneck note renders when present",
+  );
+  assert.ok(text.includes("Protect Nuln. Break the predators. Let the dead rest."), "the motto note renders when present");
+
+  // no VCO undercard: the committed vco.json is the typed empty {} form
+  assert.ok(!text.includes("VCO OBJECTIVES"), "no undercard eyebrow on the committed tree");
+  assert.ok(!text.includes("obj-conduits"), "no undercard item ids on the committed tree");
 
   // body: the skeleton declares every section as a gap, so the F1 route page
   // renders the explicit empty-body message, not a blank
@@ -246,6 +320,116 @@ test("route page shows the identity claims verbatim with state labels and seven 
       `gap entry names the "${gap}" section as declared`,
     );
   }
+});
+
+test("the fixture route renders the VCO undercard beneath the identity with per-item badges and src links", async () => {
+  const tree = await loadContentTree(fsReader(FIXTURES));
+  const lord = getLord(tree, "als-rhyn-of-lorek");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "als-rhyn-of-lorek", "dark-conduits");
+  assert.ok(route.found);
+  const view = RouteView({ lord: lord.value, route: route.value });
+  const text = vnodeText(view);
+
+  // the fixture identity also renders its notes when present
+  assert.ok(text.includes("Dust and bone are patient."), "motto renders when present");
+  assert.ok(
+    text.includes("Early growth stalls without the Book of the Dead economy."),
+    "bottleneck renders when present",
+  );
+  assert.ok(
+    text.includes("Conduit towns make the opener a race against the first doomstack."),
+    "interpretation renders when present",
+  );
+
+  // the undercard: mono eyebrow + one row per item with the id, text and badge
+  assert.ok(text.includes("VCO OBJECTIVES"), "the undercard's mono eyebrow");
+  assert.ok(text.includes("obj-conduits"), "the first stable objective id");
+  assert.ok(text.includes("Secure all three southeast dark conduit settlements."), "the first item's text");
+  assert.ok(text.includes("obj-casket"), "the second stable objective id");
+  assert.ok(text.includes("Unlock the Casket of Souls quest chain."), "the second item's text");
+
+  // every vco item is a Confidence Badge-carrying row: the fixture's two items
+  // render alongside the two identity claims, with per-item labels + state
+  // colour classes + resolved source links
+  const badges = badgeVNodes(view);
+  assert.equal(badges.length, 4, "objective + reward claims and both vco items are Confidence Badged");
+  const flat = badgeText(view);
+  assert.ok(flat.includes("CONFIRMED"), "the confirmed item renders its mono uppercase label");
+  assert.ok(flat.includes("HISTORICAL"), "the historical item renders its mono uppercase label");
+  const stateClasses = badges.map((n) => String(n.props.state)).sort();
+  assert.deepEqual(
+    stateClasses,
+    ["confirmed", "confirmed", "historical", "historical"],
+    "each row's badge carries its own state colour class (claims + items)",
+  );
+  const srcLinks = badges.flatMap((n) =>
+    recordVNodes(expandBadge(n)).filter((m) => m.tag === "a" && m.props.className === "confidence-badge__src"),
+  );
+  assert.equal(srcLinks.length, 4, "each src-carrying claim and item trails its resolved source link");
+  assert.equal(
+    srcLinks.filter((l) => l.props.href === "https://example.test/vco-guide").length,
+    2,
+    "vco-guide resolves for the objective claim and obj-conduits",
+  );
+  assert.equal(
+    srcLinks.filter((l) => l.props.href === "https://example.test/casket").length,
+    2,
+    "ca resolves for the reward claim and obj-casket",
+  );
+});
+
+test("the query helpers are pure lord-scoped reads: typed objectives, empty/absent results, unknown src ids dropped", async () => {
+  const fixtures = await loadContentTree(fsReader(FIXTURES));
+  const committed = await loadContentTree(fsReader(CONTENT));
+  const als = getLord(fixtures, "als-rhyn-of-lorek");
+  const second = getLord(fixtures, "second-lord");
+  const elspeth = getLord(committed, "elspeth-von-draken");
+  assert.ok(als.found && second.found && elspeth.found);
+
+  // a present route entry returns the typed VcoItem[] in file order
+  const objectives = getVcoObjectives(als.value, "dark-conduits");
+  assert.deepEqual(
+    objectives.map((o) => ({ id: o.id, text: o.text, state: o.state, src: o.src })),
+    [
+      { id: "obj-conduits", text: "Secure all three southeast dark conduit settlements.", state: "confirmed", src: ["vco-guide"] },
+      { id: "obj-casket", text: "Unlock the Casket of Souls quest chain.", state: "historical", src: ["ca"] },
+    ],
+    "typed objective items with their state and src ids",
+  );
+
+  // absent entry / absent dataset / empty committed entry are empty lists
+  assert.deepEqual(getVcoObjectives(als.value, "ghost-route"), [], "unknown route id → empty list");
+  assert.deepEqual(getVcoObjectives(second.value, "lone-route"), [], "a lord without a vco dataset → empty list");
+  assert.deepEqual(getVcoObjectives(elspeth.value, "route-1"), [], "the committed empty {} vco entry → empty list");
+
+  // resolveSources: known ids in order, unknown ids dropped, never throws
+  assert.deepEqual(
+    resolveSources(als.value, ["vco-guide", "ghost", "ca"]).map((s) => s.id),
+    ["vco-guide", "ca"],
+    "known src ids resolve in order; unknown ids are dropped",
+  );
+  assert.deepEqual(resolveSources(als.value, ["ghost"]), [], "all-unknown ids → empty, no throw");
+  assert.deepEqual(resolveSources(als.value, []), [], "no ids → empty");
+});
+
+test("a route without notes renders the identity card without them and no undercard", async () => {
+  const tree = await loadContentTree(fsReader(FIXTURES));
+  const second = getLord(tree, "second-lord");
+  assert.ok(second.found);
+  const route = getRoute(tree, "second-lord", "lone-route");
+  assert.ok(route.found);
+  const view = RouteView({ lord: second.value, route: route.value });
+  const text = vnodeText(view);
+
+  // the researched-title branch of the identity card, with no notes and no
+  // vco dataset: the undercard leaves no trace
+  assert.ok(text.includes("ROUTE II"), "the identity card still renders");
+  assert.ok(text.includes("Sun-Priest of the Lost"), "a researched vcoTitle renders as the official title");
+  assert.ok(!text.includes("Interpretation"), "no interpretation note when absent");
+  assert.ok(!text.includes("Bottleneck"), "no bottleneck note when absent");
+  assert.ok(!text.includes("Motto"), "no motto note when absent");
+  assert.ok(!text.includes("VCO OBJECTIVES"), "second-lord has no vco dataset → no undercard");
 });
 
 test("the lord page mounts the route tab strip over the committed tree with Shared active", async () => {
