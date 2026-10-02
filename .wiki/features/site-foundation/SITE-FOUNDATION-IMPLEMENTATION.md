@@ -276,7 +276,7 @@ Commit 1 (tokens + toolchain) → Commit 2 (content model on fixtures) → Commi
 
 #### Package `home-real` — Commit 6: Render the Elspeth tree through the views
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 5
 
