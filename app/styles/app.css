@@ -523,8 +523,7 @@ button {
   gap: var(--space-stack-md);
 }
 
-.route-list__title,
-.gap-list__title {
+.route-list__title {
   font-family: var(--font-headline-md-family), var(--font-sans-fallback);
   font-size: var(--font-headline-md-size);
   font-weight: var(--font-headline-md-weight);
@@ -768,7 +767,12 @@ button {
   color: var(--color-on-surface);
 }
 
-/* Body sections: H2 headings carry the tree's section ids as stable anchors. */
+/* Body sections — the registry walk (DESIGN §2/§6): each present section is
+   a Content Panel (DESIGN.md "Content Panel": transparent on canvas with a
+   1px outline-variant hairline border, 10px radius, stack-md padding), and
+   the H2 heading reads as the panel's mono eyebrow (label-md,
+   on-surface-variant, uppercase). The heading stays an H2 so the tree's
+   section id remains the router's scroll anchor target. */
 
 .route-body {
   display: flex;
@@ -776,21 +780,20 @@ button {
   gap: var(--space-stack-xl);
 }
 
-.route-body__empty {
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface-variant);
+.route-section {
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md);
+  padding: var(--space-stack-md);
 }
 
 .route-section__heading {
-  font-family: var(--font-headline-md-family), var(--font-sans-fallback);
-  font-size: var(--font-headline-md-size);
-  font-weight: var(--font-headline-md-weight);
-  line-height: var(--font-headline-md-line-height);
-  letter-spacing: var(--font-headline-md-letter-spacing);
-  color: var(--color-on-surface);
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
   /* Anchor targets clear the 64px sticky nav when scrolled into view. */
   scroll-margin-top: calc(var(--space-header-height) + var(--space-stack-sm));
 }
@@ -943,13 +946,11 @@ aside.claim > .confidence-badge {
   margin-bottom: var(--space-stack-sm);
 }
 
-/* ─── Declared content gaps (Content Gap Marker style) ─────────────────── */
-
-.gap-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-stack-md);
-}
+/* ─── In-flow Content Gap Marker (DESIGN.md "Content Gap Marker") ────────────
+   The dashed hairline panel (dashed 1px outline border, 10px radius,
+   stack-md padding, no fill) rendered at the slot's registry position. The
+   entry styles are F1's trailing-list marker, kept for the in-flow
+   replacement — only the `.gap-list` container and its heading are gone. */
 
 .gap-marker {
   border: 1px dashed var(--color-outline);

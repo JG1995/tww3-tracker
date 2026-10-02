@@ -289,7 +289,7 @@ Commit 1 (stub reshape) → Commit 2 (confidence badge) → Commit 3 (typed data
 
 #### Package `gap-markers` — Commit 6: Place content gap markers in the section registry
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 5
 

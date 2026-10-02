@@ -5,8 +5,10 @@
  * route tab strip the lord/route views mount over the committed tree; and
  * (package `route-identity`, commit 5) the identity card's badged claims,
  * notes, distinct official-title/subtitle classes, and the optional VCO
- * undercard proven over the test fixtures.
- *
+ * undercard proven over the test fixtures; and (package `gap-markers`,
+ * commit 6) the section region as the registry walk — in-flow Content Gap
+ * Markers at registry positions and present sections interleaved, with the
+ * F1 trailing gap list and the empty-body fallback gone.
  * Seam: zero-DOM. The committed `content/` loads through the same
  * `app/content/load.ts` pass the CLI and the site boot use (filesystem
  * `ContentReader`, one immutable tree), then each view function is called
@@ -25,10 +27,12 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readdir, readFile } from "node:fs/promises";
+import { cp, mkdtemp, readdir, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { lintContent } from "../app/content/lint.ts";
 import { loadContentTree } from "../app/content/load.ts";
 import { getLord, getRoute, getVcoObjectives, resolveSources } from "../app/content/query.ts";
 import { CLAIM_STATES, type ClaimState, type ContentReader, type Route, type Source } from "../app/content/types.ts";
@@ -64,6 +68,27 @@ function fsReader(root: string): ContentReader {
       return files.sort();
     },
   };
+}
+
+/**
+ * Copies the committed content into a fresh temp dir, runs `mutate`, then
+ * `run` — the `inBrokenCopy` convention from content-model.test.ts applied
+ * to the committed tree, so a mixed (present + gapped) route can be proven
+ * without ever touching the committed content.
+ */
+async function inContentCopy(
+  mutate: (root: string) => Promise<void>,
+  run: (root: string) => Promise<void>,
+): Promise<string> {
+  const dir = await mkdtemp(join(tmpdir(), "views-content-"));
+  await cp(CONTENT, dir, { recursive: true });
+  try {
+    await mutate(dir);
+    await run(dir);
+    return dir;
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
 }
 
 /**
@@ -298,13 +323,12 @@ test("route page identity card: badged claims, notes, distinct title classes, no
   assert.ok(!text.includes("VCO OBJECTIVES"), "no undercard eyebrow on the committed tree");
   assert.ok(!text.includes("obj-conduits"), "no undercard item ids on the committed tree");
 
-  // body: the skeleton declares every section as a gap, so the F1 route page
-  // renders the explicit empty-body message, not a blank
-  assert.ok(text.includes("This route has no sections yet."), "all sections declared as gaps is a meaningful page");
-
-  // declared-gap list: one entry per declared gap, naming the section and
-  // that it is declared (not accidentally empty)
-  const declaredGaps = [
+  // body: the all-gap skeleton renders exactly seven in-flow Content Gap
+  // Markers at their registry positions (required, then optional, then the
+  // declared transition) — never the F1 empty-body fallback, and never F1's
+  // trailing gap list
+  const markerCopy = (title: string): string => `"${title}" is a declared gap — it has not been written yet.`;
+  const registryOrder = [
     "Opening",
     "Early → Mid",
     "Mid → Late",
@@ -313,13 +337,94 @@ test("route page identity card: badged claims, notes, distinct title classes, no
     "Diplomacy",
     "Transition → route-2",
   ];
-  assert.equal(countOccurrences(text, "CONTENT GAP"), declaredGaps.length, "one entry per declared gap");
-  for (const gap of declaredGaps) {
-    assert.ok(
-      text.includes(`"${gap}" is a declared gap — it has not been written yet.`),
-      `gap entry names the "${gap}" section as declared`,
-    );
+  assert.equal(countOccurrences(text, "CONTENT GAP"), registryOrder.length, "one in-flow marker per declared gap");
+  for (let i = 0; i < registryOrder.length; i++) {
+    const title = registryOrder[i] as string;
+    assert.ok(text.includes(markerCopy(title)), `the "${title}" marker names its section as declared`);
+    if (i > 0) {
+      assert.ok(
+        text.indexOf(markerCopy(registryOrder[i - 1] as string)) < text.indexOf(markerCopy(title)),
+        `the "${title}" marker follows "${registryOrder[i - 1] as string}" in registry order`,
+      );
+    }
   }
+  assert.ok(
+    text.indexOf("ROUTE I") < text.indexOf(markerCopy("Opening")),
+    "the markers run in-flow after the identity card, not in a trailing list",
+  );
+  assert.ok(!text.includes("This route has no sections yet."), "the F1 empty-body fallback is gone");
+  assert.ok(!text.includes("Content gaps"), "the F1 trailing gap-list heading is gone");
+  assert.ok(
+    !nodes.some((n) => String(n.props.className ?? "").includes("gap-list")),
+    "no gap-list container wraps the markers",
+  );
+});
+
+test("a mixed route renders present sections interleaved with gap markers at registry positions", async () => {
+  await inContentCopy(
+    async (root) => {
+      // route-1 keeps one real H2 body and declares the rest as gaps — the
+      // "present or declared" mix the lint treats as a valid route document.
+      const routeOne = await readFile(join(root, "elspeth-von-draken/routes/route-1.md"), "utf8");
+      const mixed = routeOne
+        .replace("  - Opening\n", "")
+        .replace(
+          /---\n$/,
+          "---\n\n## Opening\n\nMixed-case opening prose proves the present section renders.\n",
+        );
+      await writeFile(join(root, "elspeth-von-draken/routes/route-1.md"), mixed);
+    },
+    async (root) => {
+      assert.deepEqual(await lintContent(fsReader(root)), [], "the mixed copy is valid per the shared lint");
+
+      const tree = await loadContentTree(fsReader(root));
+      const lord = getLord(tree, "elspeth-von-draken");
+      assert.ok(lord.found);
+      const route = getRoute(tree, "elspeth-von-draken", "route-1");
+      assert.ok(route.found);
+      const view = RouteView({ lord: lord.value, route: route.value });
+      const nodes = recordVNodes(view);
+      const text = vnodeText(view);
+
+      const markerFor = (title: string): string => `"${title}" is a declared gap — it has not been written yet.`;
+      const afterSection = [
+        "Early → Mid",
+        "Mid → Late",
+        "Victory push",
+        "Territory policy",
+        "Diplomacy",
+        "Transition → route-2",
+      ];
+      const body = "Mixed-case opening prose proves the present section renders.";
+
+      // the present section renders its written body at its registry position —
+      // before the first marker — and keeps its scroll anchor
+      assert.ok(text.includes(body), "the present section renders its written body");
+      assert.ok(
+        text.indexOf(body) < text.indexOf(markerFor("Early → Mid")),
+        "the present Opening section sits before the Early → Mid marker in registry order",
+      );
+      assert.ok(
+        nodes.some((n) => typeof n.props["data-section-id"] === "string"),
+        "the present section keeps its data-section-id anchor for the router",
+      );
+
+      // the declared remainder renders exactly its markers, in registry order
+      for (let i = 1; i < afterSection.length; i++) {
+        assert.ok(
+          text.indexOf(markerFor(afterSection[i - 1] as string)) < text.indexOf(markerFor(afterSection[i] as string)),
+          `the "${afterSection[i] as string}" marker follows "${afterSection[i - 1] as string}" in registry order`,
+        );
+      }
+      assert.equal(
+        countOccurrences(text, "CONTENT GAP"),
+        afterSection.length,
+        "exactly the declared remainder renders markers",
+      );
+      assert.ok(!text.includes("This route has no sections yet."), "no empty-body fallback when a section is present");
+      assert.ok(!text.includes("Content gaps"), "no trailing gap-list heading on the mixed route");
+    },
+  );
 });
 
 test("the fixture route renders the VCO undercard beneath the identity with per-item badges and src links", async () => {

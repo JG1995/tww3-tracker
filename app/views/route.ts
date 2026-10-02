@@ -9,18 +9,25 @@
  * interpretation/bottleneck/motto when present), the optional VCO
  * objective-item undercard from `data/vco.json`'s per-route entry (each item a
  * Confidence Badge-carrying row; nothing renders when the entry is absent —
- * DESIGN §4's "optional" list), the markdown body rendered at boot (its
- * `::claim` callouts arrive as labelled `<aside class="claim …">` blocks,
- * styled in app.css), and the declared content-gap list. Body H2s carry the
- * section ids from the tree so the router's section anchor can scroll them
- * into view.
+ * DESIGN §4's "optional" list), and the section region as the registry walk
+ * (DESIGN §2/§6): required sections, optional sections, then the declared
+ * transition gaps — each slot rendered at its fixed registry position as the
+ * present section (a Content Panel whose H2 reads as the panel's mono eyebrow
+ * and keeps the tree's section id for the router's section anchor) or an
+ * in-flow Content Gap Marker for a declared gap; the F1 trailing gap list and
+ * its "no sections yet" fallback are gone. Body H2s carry the section ids
+ * from the tree so the router's section anchor can scroll them into view.
  */
 
 import { h, type JSX } from "preact";
 import { TabStrip } from "../components/TabStrip.ts";
 import { ConfidenceBadge } from "../components/ConfidenceBadge.ts";
-import type { Claim, Lord, Route, Section } from "../content/types.ts";
+import { OPTIONAL_SECTIONS, REQUIRED_SECTIONS } from "../content/lint.ts";
+import type { Claim, Lord, Route } from "../content/types.ts";
 import { getVcoObjectives, resolveSources } from "../content/query.ts";
+
+/** Declared transition gaps are those titles the route authors as `Transition → <route>`. */
+const TRANSITION_PREFIX = "Transition → ";
 
 export function RouteView(props: { lord: Lord; route: Route }): JSX.Element {
   const { lord, route } = props;
@@ -30,8 +37,7 @@ export function RouteView(props: { lord: Lord; route: Route }): JSX.Element {
     h(TabStrip, { lordSlug: lord.slug, routes: lord.routes, activeId: route.id }),
     identityCard(lord, route),
     vcoUndercard(lord, route),
-    routeBody(route.sections),
-    gapList(route.gaps),
+    routeBody(route),
   );
 }
 
@@ -120,22 +126,45 @@ function vcoUndercard(lord: Lord, route: Route): JSX.Element | null {
   );
 }
 
-function routeBody(sections: readonly Section[]): JSX.Element {
-  if (sections.length === 0) {
-    return h("p", { className: "route-body__empty" }, "This route has no sections yet.");
-  }
+/**
+ * The section region (DESIGN §2 Displayed Data / §6 Layout): a registry walk
+ * over the fixed slot order — the required sections, then the optional
+ * sections (both in the `lint.ts` registry order), then the route's declared
+ * transition gaps in declared order — with present sections and Content Gap
+ * Markers interleaved at each slot's position. The lint guarantees every
+ * required section is present or declared, so a slot that is neither is
+ * unreachable for required sections; an absent, undeclared optional section
+ * simply renders nothing. The committed all-gap content therefore renders
+ * exactly the registry markers in order, never a blank page.
+ */
+function routeBody(route: Route): JSX.Element {
+  const transitionSlots = route.gaps.filter((title) => title.startsWith(TRANSITION_PREFIX));
+  const slots = [...REQUIRED_SECTIONS, ...OPTIONAL_SECTIONS, ...transitionSlots];
   return h(
     "div",
     { className: "route-body" },
-    sections.map((section) =>
-      h(
-        "section",
-        { className: "route-section", "data-section-id": section.id },
-        h("h2", { id: section.id, className: "route-section__heading" }, section.title),
-        h("div", { className: "prose", dangerouslySetInnerHTML: { __html: sectionInnerHtml(section.html) } }),
-      ),
-    ),
+    slots.map((title) => slotAt(route, title)).filter((node) => node !== null),
   );
+}
+
+/**
+ * One registry slot: the route's section at that exact title renders in
+ * place; otherwise the title is a declared gap and renders its marker.
+ */
+function slotAt(route: Route, title: string): JSX.Element | null {
+  const section = route.sections.find((s) => s.title === title);
+  if (section !== undefined) {
+    return h(
+      "section",
+      { className: "route-section", "data-section-id": section.id },
+      h("h2", { id: section.id, className: "route-section__heading" }, section.title),
+      h("div", { className: "prose", dangerouslySetInnerHTML: { __html: sectionInnerHtml(section.html) } }),
+    );
+  }
+  if (route.gaps.includes(title)) {
+    return contentGapMarker(title);
+  }
+  return null;
 }
 
 /**
@@ -149,19 +178,17 @@ function sectionInnerHtml(html: string): string {
   return close === -1 ? html : html.slice(close + "</h2>".length);
 }
 
-function gapList(gaps: readonly string[]): JSX.Element | null {
-  if (gaps.length === 0) return null;
+/**
+ * The in-flow Content Gap Marker (DESIGN.md "Content Gap Marker"): a dashed
+ * hairline panel with the mono "CONTENT GAP" eyebrow and F1's explanatory
+ * line, rendered at the slot's registry position instead of F1's trailing
+ * list. Present sections own the router anchors; a marker does not.
+ */
+function contentGapMarker(title: string): JSX.Element {
   return h(
-    "section",
-    { className: "gap-list", "aria-label": "Declared content gaps" },
-    h("h2", { className: "gap-list__title" }, "Content gaps"),
-    gaps.map((title) =>
-      h(
-        "div",
-        { className: "gap-marker" },
-        h("p", { className: "gap-marker__eyebrow" }, "CONTENT GAP"),
-        h("p", { className: "gap-marker__copy" }, `"${title}" is a declared gap — it has not been written yet.`),
-      ),
-    ),
+    "div",
+    { className: "gap-marker" },
+    h("p", { className: "gap-marker__eyebrow" }, "CONTENT GAP"),
+    h("p", { className: "gap-marker__copy" }, `"${title}" is a declared gap — it has not been written yet.`),
   );
 }
