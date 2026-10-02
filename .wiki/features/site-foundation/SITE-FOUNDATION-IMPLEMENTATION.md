@@ -306,7 +306,7 @@ Commit 1 (tokens + toolchain) → Commit 2 (content model on fixtures) → Commi
 
 #### Package `static-server` — Commit 7: Static local server
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 6
 
