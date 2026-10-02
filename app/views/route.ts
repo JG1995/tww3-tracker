@@ -22,9 +22,10 @@
 import { h, type JSX } from "preact";
 import { TabStrip } from "../components/TabStrip.ts";
 import { ConfidenceBadge } from "../components/ConfidenceBadge.ts";
+import { Dashboard } from "../components/dashboard.ts";
 import { OPTIONAL_SECTIONS, REQUIRED_SECTIONS } from "../content/lint.ts";
 import type { Claim, Lord, Route } from "../content/types.ts";
-import { getVcoObjectives, resolveSources } from "../content/query.ts";
+import { getPanelEntries, getVcoObjectives, resolveSources } from "../content/query.ts";
 
 /** Declared transition gaps are those titles the route authors as `Transition → <route>`. */
 const TRANSITION_PREFIX = "Transition → ";
@@ -38,6 +39,10 @@ export function RouteView(props: { lord: Lord; route: Route }): JSX.Element {
     identityCard(lord, route),
     vcoUndercard(lord, route),
     routeBody(route),
+    // Keyed by route id: navigating between routes remounts the dashboard and
+    // resets its component-local panel selection to the first panel (a
+    // within-route section-anchor hash change does not).
+    h(Dashboard, { key: route.id, ...getPanelEntries(lord, route) }),
   );
 }
 

@@ -319,7 +319,7 @@ Commit 1 (stub reshape) → Commit 2 (confidence badge) → Commit 3 (typed data
 
 #### Package `dashboard-shell` — Commit 7: Five-tab dashboard region with empty states
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 6
 

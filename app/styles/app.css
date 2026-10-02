@@ -977,6 +977,103 @@ aside.claim > .confidence-badge {
   color: var(--color-on-surface-variant);
 }
 
+/* ─── Dashboard region — the five-tab panel block after the route sections ────
+
+   One block of tabbed panels (DESIGN §2 Displayed Data / §6 Layout): a carbon
+   tab bar with a hairline bottom border and the active tab's 2px primary
+   underline, over one visible tabpanel (24px padding, 10px radius, hairline
+   border). Selection is component-local; the inactive tabpanels stay in the
+   DOM with the native `hidden` attribute — exactly one visible panel at a
+   time, and the committed tree's five explicit empty states are never blank
+   space (DESIGN §5 Empty States). */
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-sm);
+}
+
+.dashboard__tabbar {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-stack-sm);
+  padding: var(--space-stack-xs) var(--space-stack-sm);
+  background: var(--color-surface-container);
+  border-bottom: 1px solid var(--color-outline-variant);
+}
+
+/* One mono uppercase panel tab — the instrument voice; the active tab pairs
+   on-surface ink with the 2px primary underline (a constant transparent
+   border that only changes colour, like the route strip's tabs). The focus
+   ring is the global :focus-visible rule (2px primary, 3px offset). */
+.dashboard__tab {
+  display: flex;
+  align-items: center;
+  padding: calc(var(--space-unit) / 2) var(--space-stack-sm);
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+  cursor: pointer;
+}
+
+.dashboard__tab:hover {
+  color: var(--color-on-surface);
+}
+
+.dashboard__tab--active {
+  color: var(--color-on-surface);
+  border-bottom-color: var(--color-primary);
+}
+
+/* The visible panel: Content Panel anatomy (24px padding, 10px radius,
+   hairline outline-variant border — DESIGN §6 Layout). Block layout, no
+   display override, so the native `hidden` attribute is the one-visibility
+   switch. */
+.dashboard__panel {
+  padding: var(--space-stack-md);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md);
+}
+
+/* Explicit empty state: the mono uppercase label plus one proportional
+   sentence (DESIGN §6 Copywriting) — the pattern of the home empty state. */
+.dashboard-empty__label {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+.dashboard-empty__copy {
+  max-width: 60ch;
+  margin-top: var(--space-stack-xs);
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-on-surface-variant);
+}
+
+/* Non-empty placeholder: a plain count line until the panel-items commit
+   renders the per-group atlas anatomy (Commit 8). */
+.dashboard-panel__placeholder {
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-on-surface-variant);
+}
+
 /* ─── Motion: mechanical 0.15s transitions; reduced motion disables all ─── */
 
 @media (prefers-reduced-motion: reduce) {

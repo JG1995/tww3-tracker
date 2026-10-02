@@ -6,8 +6,12 @@
  */
 
 import {
+  type Army,
   type ContentTree,
+  type Item,
+  type ItemDatasetName,
   type Lord,
+  type LordDataset,
   type QueryResult,
   type Route,
   type Section,
@@ -57,6 +61,68 @@ export function getSource(tree: ContentTree, lordSlug: string, sourceId: string)
   if (sources === undefined) return NOT_FOUND;
   const source = sources.value.find((s) => s.id === sourceId);
   return source === undefined ? NOT_FOUND : { found: true, value: source };
+}
+
+/**
+ * One dashboard panel's resolved `panelOrder` entries per group (DESIGN §4
+ * "Panel selection and order"): the armies ids resolve against the route's
+ * own `armies[route.id]` map, the four item groups against the lord-wide
+ * typed datasets — each in `panelOrder` order, with unlisted and unknown ids
+ * omitted. The committed tree's empty lists drive the panels' explicit empty
+ * states. The shape is also the dashboard's props contract (`Dashboard` in
+ * `app/components/dashboard.ts` spreads it directly).
+ */
+export interface PanelEntries {
+  readonly armies: readonly Army[];
+  readonly skills: readonly Item[];
+  readonly research: readonly Item[];
+  readonly buildings: readonly Item[];
+  readonly mechanics: readonly Item[];
+}
+
+/**
+ * Resolves one flat item group's `panelOrder` ids against the lord's typed
+ * dataset (DESIGN §4): known ids in the listed order, unknown ids dropped,
+ * an absent dataset or list an empty result. Pure and never throws.
+ */
+function resolveItemEntries(
+  lord: Lord,
+  name: ItemDatasetName,
+  ids: readonly string[] | undefined,
+): readonly Item[] {
+  if (ids === undefined) return [];
+  // The literal-scoped find narrows to the item members (the variable-name
+  // lookup defeats TS's inferred type predicates, leaving `readonly Source[]`
+  // unindexable in the union — the explicit predicate keeps the typed read).
+  const dataset = lord.datasets.find(
+    (d): d is Extract<LordDataset, { readonly name: ItemDatasetName }> => d.name === name,
+  );
+  if (dataset === undefined) return [];
+  return ids.map((id) => dataset.value[id]).filter((item): item is Item => item !== undefined);
+}
+
+/**
+ * The five dashboard panel entry lists for one route (DESIGN §4 "Panel
+ * selection and order"): each group's `panelOrder` ids resolve to their
+ * typed entries in listed order — armies against the route's own armies map
+ * `armies[route.id]`, skills/research/buildings/mechanics against the
+ * lord-wide item datasets. A group with an empty or absent list yields `[]`;
+ * unknown ids are omitted, never an error (the lint catches unresolvable ids
+ * pre-boot). Pure: reads the immutable tree, never throws.
+ */
+export function getPanelEntries(lord: Lord, route: Route): PanelEntries {
+  const order = route.panelOrder ?? {};
+  const routeArmies = lord.datasets.find((d) => d.name === "armies")?.value[route.id];
+  const armiesEntries = (order.armies ?? [])
+    .map((id) => routeArmies?.[id])
+    .filter((army): army is Army => army !== undefined);
+  return {
+    armies: armiesEntries,
+    skills: resolveItemEntries(lord, "skills", order.skills),
+    research: resolveItemEntries(lord, "research", order.research),
+    buildings: resolveItemEntries(lord, "buildings", order.buildings),
+    mechanics: resolveItemEntries(lord, "mechanics", order.mechanics),
+  };
 }
 
 /**

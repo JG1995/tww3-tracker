@@ -25,9 +25,10 @@ import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { loadContentTree } from "../app/content/load.ts";
-import { getLord, getRoute } from "../app/content/query.ts";
-import { CLAIM_STATES, type ContentReader, type Route, type Source } from "../app/content/types.ts";
+import { getLord, getPanelEntries, getRoute } from "../app/content/query.ts";
+import { CLAIM_STATES, PANEL_GROUPS, type ContentReader, type Route, type Source } from "../app/content/types.ts";
 import { ConfidenceBadge } from "../app/components/ConfidenceBadge.ts";
+import { DashboardMarkup } from "../app/components/dashboard.ts";
 import { TabStripMarkup, tabNav } from "../app/components/TabStrip.ts";
 
 const CONTENT = fileURLToPath(new URL("../content", import.meta.url));
@@ -339,4 +340,93 @@ test("a researched route tab renders its official VCO title instead of the marke
   );
   assert.ok(text.includes("Written in the Charter"), "the researched official title renders beneath the label line");
   assert.ok(!text.includes("UNRESEARCHED"), "no marker for a researched route");
+});
+
+// ─── 7. The dashboard region: five fixed panel tabs, local selection, empty states ──
+
+const DASHBOARD_EMPTY_LABELS: readonly string[] = [
+  "NO ARMY TEMPLATES YET",
+  "NO SKILLS YET",
+  "NO RESEARCH YET",
+  "NO SETTLEMENTS YET",
+  "NO MECHANICS YET",
+];
+
+/** The committed tree's lord + route-1, the inputs every dashboard test renders. */
+async function committedDashboardInputs() {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found, "the committed lord loads");
+  const route = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(route.found, "the committed route loads");
+  return { lord: lord.value, route: route.value };
+}
+
+test("the dashboard renders the five fixed panel tabs in DESIGN order with their labels", async () => {
+  const { lord, route } = await committedDashboardInputs();
+  const nodes = recordVNodes(DashboardMarkup({ ...getPanelEntries(lord, route), activeIndex: 0 }));
+
+  const tablist = nodes.find((n) => n.props.role === "tablist");
+  assert.ok(tablist !== undefined, "the tab bar carries role=tablist");
+  assert.equal(tablist.props["aria-label"], "Panels", "the tablist has an accessible name");
+
+  const tabs = nodes.filter((n) => n.props.role === "tab");
+  assert.equal(tabs.length, PANEL_GROUPS.length, "exactly the five fixed panel groups render as tabs");
+  assert.deepEqual(
+    tabs.map((t) => t.children[0]),
+    ["ARMY TEMPLATES", "SKILLS", "RESEARCH", "SETTLEMENTS", "MECHANICS"],
+    "labels follow the DESIGN's panel order: armies, skills, research, buildings, mechanics",
+  );
+});
+
+test("the dashboard's initial selection is the first panel: it is tabbable and its panel is the only visible one", async () => {
+  const { lord, route } = await committedDashboardInputs();
+  // The mounted `Dashboard` seeds its local selection at index 0
+  // (`useState<number>(0)`); at that initial index the markup must show the
+  // first tab selected with roving tabindex and exactly one visible panel.
+  const nodes = recordVNodes(DashboardMarkup({ ...getPanelEntries(lord, route), activeIndex: 0 }));
+
+  const tabs = nodes.filter((n) => n.props.role === "tab");
+  assert.equal(tabs[0].props.tabIndex, 0, "the first tab is tabbable at the initial selection");
+  assert.equal(tabs[0].props["aria-selected"], true, "the first tab is the selected one");
+  for (const [index, tab] of tabs.entries()) {
+    if (index === 0) continue;
+    assert.equal(tab.props.tabIndex, -1, `tab ${index} roves out of tab order`);
+    assert.equal(tab.props["aria-selected"], false, `tab ${index} is not selected`);
+  }
+
+  const panels = nodes.filter((n) => n.props.role === "tabpanel");
+  assert.equal(panels.length, PANEL_GROUPS.length, "every panel is present (one visible, the rest hidden)");
+  assert.equal(panels[0].props.hidden, false, "the first panel is the visible one at the initial selection");
+  assert.ok(panels.slice(1).every((p) => p.props.hidden === true), "every other panel is hidden");
+});
+
+test("every dashboard panel renders its explicit empty state on the committed tree, never blank", async () => {
+  const { lord, route } = await committedDashboardInputs();
+  const nodes = recordVNodes(DashboardMarkup({ ...getPanelEntries(lord, route), activeIndex: 0 }));
+
+  const panels = nodes.filter((n) => n.props.role === "tabpanel");
+  for (let index = 0; index < panels.length; index++) {
+    const panelText = vnodeText(panels[index]);
+    assert.ok(
+      panelText.includes(DASHBOARD_EMPTY_LABELS[index] as string),
+      `panel ${index} shows its own explicit empty label; got: "${panelText}"`,
+    );
+    assert.ok(panelText.trim().length > 0, `panel ${index} is never blank space`);
+  }
+
+  const text = vnodeText(DashboardMarkup({ ...getPanelEntries(lord, route), activeIndex: 0 }));
+  assert.ok(text.includes("No army templates are listed for this route yet."), "armies: the 'no content yet' sentence");
+  assert.ok(text.includes("No skills are listed for this route yet."), "skills: the 'no content yet' sentence");
+  assert.ok(text.includes("No research is listed for this route yet."), "research: the 'no content yet' sentence");
+  assert.ok(text.includes("No settlements are listed for this route yet."), "buildings: the 'no content yet' sentence");
+  assert.ok(text.includes("No mechanics are listed for this route yet."), "mechanics: the 'no content yet' sentence");
+});
+
+test("the dashboard keyboard selection wraps and bounds at the fixed five-tab count", () => {
+  const count = PANEL_GROUPS.length;
+  assert.equal(tabNav("left", 0, count), count - 1, "left from the first panel wraps to the last");
+  assert.equal(tabNav("right", count - 1, count), 0, "right from the last panel wraps to the first");
+  assert.equal(tabNav("home", 3, count), 0, "home jumps to the first panel");
+  assert.equal(tabNav("end", 0, count), count - 1, "end jumps to the last panel");
 });

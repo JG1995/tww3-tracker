@@ -34,9 +34,17 @@ import { fileURLToPath } from "node:url";
 
 import { lintContent } from "../app/content/lint.ts";
 import { loadContentTree } from "../app/content/load.ts";
-import { getLord, getRoute, getVcoObjectives, resolveSources } from "../app/content/query.ts";
-import { CLAIM_STATES, type ClaimState, type ContentReader, type Route, type Source } from "../app/content/types.ts";
+import {
+  getLord,
+  getPanelEntries,
+  getRoute,
+  getVcoObjectives,
+  resolveSources,
+  type PanelEntries,
+} from "../app/content/query.ts";
+import { CLAIM_STATES, PANEL_GROUPS, type Army, type ClaimState, type ContentReader, type Item, type Lord, type Route, type Source } from "../app/content/types.ts";
 import { ConfidenceBadge } from "../app/components/ConfidenceBadge.ts";
+import { DashboardMarkup } from "../app/components/dashboard.ts";
 import { TabStripMarkup, type TabStripProps } from "../app/components/TabStrip.ts";
 import { HomeView } from "../app/views/home.ts";
 import { LordView } from "../app/views/lord.ts";
@@ -134,6 +142,8 @@ interface VNodeRecord {
   readonly tag: string;
   readonly props: Record<string, unknown>;
   readonly children: ReadonlyArray<unknown>;
+  /** Preact extracts `key` out of `props` onto the VNode itself. */
+  readonly key?: unknown;
 }
 
 function recordVNodes(node: unknown, into: VNodeRecord[] = []): VNodeRecord[] {
@@ -155,6 +165,7 @@ function recordVNodes(node: unknown, into: VNodeRecord[] = []): VNodeRecord[] {
     tag: String((node as { type?: unknown }).type),
     props,
     children: kids,
+    key: (node as { key?: unknown }).key,
   });
   for (const child of kids) recordVNodes(child, into);
   return into;
@@ -518,6 +529,101 @@ test("the query helpers are pure lord-scoped reads: typed objectives, empty/abse
   assert.deepEqual(resolveSources(als.value, []), [], "no ids → empty");
 });
 
+test("getPanelEntries resolves each panel group in panelOrder order, omitting unlisted and unknown ids", () => {
+  const army = (id: string): Army => ({
+    label: id,
+    name: id,
+    units: [],
+    legendary: [],
+    generic: [],
+    notes: [],
+    plan: [],
+    size: 1,
+    sources: [],
+  });
+  const item = (id: string): Item => ({
+    label: id,
+    title: id,
+    intro: id,
+    steps: [],
+    sources: [],
+  });
+  const lord: Lord = {
+    slug: "sample",
+    guide: {
+      id: "sample",
+      lord: "Sample",
+      faction: "Faction",
+      version: { patch: "1", vco: "1", checked: "2026-01-01" },
+      routes: [],
+      shared: "shared.md",
+      datasets: ["armies", "skills", "research", "buildings", "mechanics"],
+    },
+    sharedHtml: "",
+    routes: [],
+    datasets: [
+      {
+        name: "armies",
+        value: { "route-a": { a1: army("a1"), a2: army("a2"), a3: army("a3"), a4: army("a4") } },
+      },
+      { name: "skills", value: { s1: item("s1"), s2: item("s2"), s3: item("s3") } },
+      { name: "research", value: { r1: item("r1") } },
+      { name: "buildings", value: { b1: item("b1") } },
+      { name: "mechanics", value: {} },
+    ],
+  };
+  const route: Route = {
+    id: "route-a",
+    number: "I",
+    name: "Router",
+    vcoTitle: null,
+    objective: { text: "", state: "confirmed", src: [] },
+    reward: { text: "", state: "confirmed", src: [] },
+    gaps: [],
+    sections: [],
+    claims: [],
+    panelOrder: {
+      // re-ordered with an unknown id interleaved; a3 exists but is unlisted
+      armies: ["a2", "ghost-army", "a4", "a1"],
+      // s1 exists but is unlisted
+      skills: ["s2", "s3"],
+      // an empty list
+      research: [],
+      // every id unknown
+      buildings: ["ghost-item"],
+      // mechanics key absent
+    },
+  };
+
+  const entries = getPanelEntries(lord, route);
+
+  assert.deepEqual(
+    entries.armies.map((a) => a.label),
+    ["a2", "a4", "a1"],
+    "armies resolve in panelOrder order against the route's own armies map; unknown ids omitted; unlisted entries not rendered",
+  );
+  assert.deepEqual(
+    entries.skills.map((i) => i.label),
+    ["s2", "s3"],
+    "skills resolve in panelOrder order from the lord-wide item dataset",
+  );
+  assert.deepEqual(entries.research, [], "an empty panelOrder list stays empty");
+  assert.deepEqual(entries.buildings, [], "all-unknown ids resolve to nothing, never a throw");
+  assert.deepEqual(entries.mechanics, [], "an absent panelOrder group key resolves to the empty list");
+
+  // pure and mutation-free: a second call yields the same result and leaves the route untouched
+  assert.deepEqual(
+    getPanelEntries(lord, route).armies.map((a) => a.label),
+    ["a2", "a4", "a1"],
+    "repeated calls return equal results",
+  );
+  assert.deepEqual(
+    route.panelOrder?.armies,
+    ["a2", "ghost-army", "a4", "a1"],
+    "the route's panelOrder is not mutated",
+  );
+});
+
 test("a route without notes renders the identity card without them and no undercard", async () => {
   const tree = await loadContentTree(fsReader(FIXTURES));
   const second = getLord(tree, "second-lord");
@@ -563,6 +669,89 @@ test("the lord page mounts the route tab strip over the committed tree with Shar
   assert.equal(tabs[0].props.tabIndex, 0, "the Shared-derived active tab is tabbable");
   assert.equal(tabs[0].props["aria-selected"], true, "…and is the selected tab");
   assert.ok(tabs.slice(1).every((t) => t.props.tabIndex === -1), "route tabs rove at −1 on the lord page");
+});
+
+/**
+ * The dashboard exactly as the view mounts it: the `Dashboard` VNode's props
+ * and key at the view seam, then the same props expanded through the pure
+ * `DashboardMarkup` builder at the component seam — the zero-DOM equivalent
+ * of letting the view's child component render (the mounted wrapper's local
+ * selection and focus effect only run under a real preact render).
+ */
+function mountedDashboard(view: unknown, activeIndex = 0): { key: unknown; markup: VNodeRecord[]; text: string } {
+  const nodes = recordVNodes(view);
+  const dashboard = nodes.find((n) => Array.isArray(n.props.armies));
+  assert.ok(dashboard !== undefined, "the route view mounts the dashboard region");
+  const props: PanelEntries = {
+    armies: dashboard.props.armies as readonly Army[],
+    skills: dashboard.props.skills as readonly Item[],
+    research: dashboard.props.research as readonly Item[],
+    buildings: dashboard.props.buildings as readonly Item[],
+    mechanics: dashboard.props.mechanics as readonly Item[],
+  };
+  const markup = DashboardMarkup({ ...props, activeIndex });
+  return { key: dashboard.key, markup: recordVNodes(markup), text: vnodeText(markup) };
+}
+
+test("the route view mounts the dashboard after the sections with five tabs in DESIGN order and per-panel empty states", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(route.found);
+
+  const view = RouteView({ lord: lord.value, route: route.value });
+  const { key, markup, text } = mountedDashboard(view);
+  assert.equal(
+    key,
+    "route-1",
+    "the dashboard is keyed by route id so navigating between routes remounts it and resets selection",
+  );
+
+  // five tabs in the DESIGN's panel order — the dashboard renders as one block after the sections
+  const tabs = markup.filter((n) => n.props.role === "tab");
+  assert.equal(tabs.length, PANEL_GROUPS.length, "exactly five fixed tabs over the committed tree");
+  assert.deepEqual(
+    tabs.map((t) => t.children[0]),
+    ["ARMY TEMPLATES", "SKILLS", "RESEARCH", "SETTLEMENTS", "MECHANICS"],
+    "tab labels follow the DESIGN's panel order",
+  );
+  assert.ok(
+    text.indexOf("CONTENT GAP") < text.indexOf("ARMY TEMPLATES"),
+    "the dashboard mounts after the section region (the registry gap markers precede the tab bar)",
+  );
+
+  // the committed tree: each of the five panels shows its explicit empty state — never blank
+  const panels = markup.filter((n) => n.props.role === "tabpanel");
+  const emptyLabels = [
+    "NO ARMY TEMPLATES YET",
+    "NO SKILLS YET",
+    "NO RESEARCH YET",
+    "NO SETTLEMENTS YET",
+    "NO MECHANICS YET",
+  ];
+  for (let index = 0; index < panels.length; index++) {
+    const panelText = vnodeText(panels[index]);
+    assert.ok(
+      panelText.includes(emptyLabels[index] as string),
+      `panel ${index} shows its own explicit empty state; got: "${panelText}"`,
+    );
+    assert.ok(panelText.trim().length > 0, `panel ${index} is never blank space`);
+  }
+});
+
+test("the dashboard keeps each route's own id as its key across route views", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+
+  for (const routeId of ["route-1", "route-2", "route-3"]) {
+    const route = getRoute(tree, "elspeth-von-draken", routeId);
+    assert.ok(route.found);
+    const view = RouteView({ lord: lord.value, route: route.value });
+    const { key } = mountedDashboard(view);
+    assert.equal(key, routeId, `the ${routeId} view keys the dashboard by its own route id`);
+  }
 });
 
 test("the route page mounts the route tab strip with its own route tab active", async () => {
