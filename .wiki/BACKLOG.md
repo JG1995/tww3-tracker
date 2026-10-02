@@ -24,6 +24,8 @@ This is the parking lot — aspirational work, deferred features, technical debt
 
 Each debt entry should capture the current evidence, the target state, the risk of leaving it, and the completion criteria. See [ARCHITECTURE.md](./ARCHITECTURE.md) for the current system description.
 
+- **2026-10-02 — site-foundation accepted NITPICK debt (5 items, non-blocking, recorded during delivery).** Evidence: five NITPICKs from the feature's independent commit reviews + feature review (all recorded as accepted debt, feature verdict APPROVE): dead calc-less `max-width` declaration in `app/styles/app.css` (~line 465, no-op either way); dead duplicate guard in `app/router.ts` (~line 54, subsumed by line 49); version formatter duplicated in `app/views/lord.ts` (~line 39) vs the exported `versionContext` in `app/views/home.ts` (~line 35); raw `60ch` line length in `app/styles/app.css` (~line 335) outside the token rule; stale `file://` comment in `vite.config.ts` (lines 3-5) — should read "relative asset URLs so the built `dist/` serves cleanly from any local origin path". Risk: cosmetic/confusion only, zero behavior impact; the `vite.config.ts` comment actively misleads (direct `file://` open gives a blank page). Completion criteria: all five removed or corrected in one small commit with `npm test` + `npx tsc --noEmit` green. Best folded into the first F2 commit that touches those files (the views and CSS are F2's main surface).
+
 ---
 
 ## Maintenance

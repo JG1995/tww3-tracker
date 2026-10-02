@@ -6,7 +6,7 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
-- **site-foundation** — [IMPLEMENTATION](features/site-foundation/SITE-FOUNDATION-IMPLEMENTATION.md) · [DESIGN](features/site-foundation/SITE-FOUNDATION-DESIGN.md) — plan proposed 2026-06-07; independent plan review clear (plan + correction passes); awaiting developer acceptance. Single PR `site-foundation`, 7 packages, waves 1–6.
+None currently — the next candidate is F2 (route-first rendering, order 2 below); plan it via `/skill:jay-pi-design-feature` when starting.
 
 ## Next
 
@@ -16,7 +16,7 @@ Resolved at approval: pilot is **Elspeth von Draken**; the ledger tracks **one a
 
 | Order | Feature | Confidence | Why this position |
 | --- | --- | --- | --- |
-| 1 | **site-foundation** — … (moved to Active — see ledger) | high | Everything else is content or rendering of this model; the model is CONCEPT risk 3 and must be designed before any migration |
+| 1 | ~~**site-foundation**~~ — **Completed 2026-10-02** (see Completed below) | high | Everything else is content or rendering of this model; the model is CONCEPT risk 3 and must be designed before any migration |
 | 2 | **F2 — route-first rendering** (views, tabs, dashboard panels, content-gap markers, confidence-state badges) | medium-high | Needs the schema; must exist before migration so content lands in a rendering target |
 | 3 | **F4 — Elspeth migration** (content-only) | medium | First real validation of the model against actual content; model corrected once, before any second faction copies it |
 | 4 | **F3 — verification notes UI** (version banner, source panels, flagged-items view) | medium | Small once badges render; after F4 so the re-check view has real flagged items to show |
@@ -43,10 +43,10 @@ F4 (Elspeth) + F4 (Alith or Zhao) + F2 ──► F6 cross-guide search          
 
 **Parallel note:** solo project — after order 3, orders 4–6 are mutually independent and can be reordered around a live campaign (pull F5 forward if an Elspeth campaign starts mid-build). In v1.1, the Alith/Zhao migrations are independent of F6.
 
-**Plan next:** site-foundation plan proposed 2026-06-07, in independent plan review (first pass: REQUEST CHANGES — corrections applied, correction review pending). On a clear verdict and developer acceptance, hand off to `/skill:jay-pi-deliver-feature`. Provisional — revisit the order after the content model is specced.
+**Plan next:** F2 — route-first rendering (order 2). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order after F2's content-facing surfaces are specced.
 
 ## Completed
 
-No completed feature records are currently documented.
+- **site-foundation** (F1 — guide site with shared structure) — delivered 2026-10-02 · [IMPLEMENTATION](features/site-foundation/SITE-FOUNDATION-IMPLEMENTATION.md) · [DESIGN](features/site-foundation/SITE-FOUNDATION-DESIGN.md) — Preact + Vite + TypeScript SPA shell, content model + loader + query, content lint, dependency-free static server, lint-clean Elspeth content skeleton. Seven reviewed package commits + close-out; merged to `main` (feature close `94fa333`); feature-mode review APPROVE with no blocking findings. Reading path: `npm run build` once, then `npm run serve` (the original `file://` claim was voided by a verified 2026-10-02 developer decision).
 
 When multi-commit work begins, add a feature-level entry here that links to `features/<feature-name>/<FEATURE-NAME>-IMPLEMENTATION.md`; keep slice details in that ledger. Keep completed records in the same feature directory.
