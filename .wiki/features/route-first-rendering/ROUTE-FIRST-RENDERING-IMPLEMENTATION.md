@@ -355,7 +355,9 @@ Commit 1 (stub reshape) → Commit 2 (confidence badge) → Commit 3 (typed data
 
 **Depends on:** ["dashboard-shell", "confidence-badge", "dataset-contracts"]
 
-**Write scope:** ["app/components/dashboard.ts", "app/styles/app.css", "test/components.test.ts", "test/views.test.ts", "test/fixtures/content/als-rhyn-of-lorek/data/armies.json", "test/fixtures/content/als-rhyn-of-lorek/data/skills.json", "test/fixtures/content/als-rhyn-of-lorek/data/research.json", "test/fixtures/content/als-rhyn-of-lorek/data/buildings.json", "test/fixtures/content/als-rhyn-of-lorek/data/mechanics.json", "test/fixtures/content/als-rhyn-of-lorek/routes/route-1.md"]
+**Write scope:** ["app/components/dashboard.ts", "app/views/route.ts", "app/styles/app.css", "test/components.test.ts", "test/views.test.ts", "test/content-model.test.ts", "test/fixtures/content/als-rhyn-of-lorek/data/armies.json", "test/fixtures/content/als-rhyn-of-lorek/data/skills.json", "test/fixtures/content/als-rhyn-of-lorek/data/research.json", "test/fixtures/content/als-rhyn-of-lorek/data/buildings.json", "test/fixtures/content/als-rhyn-of-lorek/data/mechanics.json", "test/fixtures/content/als-rhyn-of-lorek/routes/route-1.md"]
+
+**Discovery (scope amendment):** The anatomy renderers resolve source links through `resolveSources(lord, ids)` (Commit 5), so `app/views/route.ts` threads the already-available `lord` prop into `Dashboard` (one line — main.tsx is not touched); and populating the five fixture datasets invalidates `test/content-model.test.ts`'s "every non-source dataset is the typed empty form `{}`" loop, so that one loop stops asserting the five item/army datasets are `{}` (mirroring the `sources` skip — the committed-tree empty form stays proven by `test/elspeth-skeleton.test.ts`). Both are the exact prior-test / prop-threading class of bounded change the `route-identity` amendment precedent authorized; no new module or dependency.
 
 **Provisional commit:** `feat(app): render dashboard panel items from the typed datasets`
 
