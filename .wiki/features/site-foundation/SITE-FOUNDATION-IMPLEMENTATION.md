@@ -8,13 +8,15 @@ Accepted
 
 **Ledger schema:** 4
 
+**Feature complete:** merged to `main` as `94fa333` on 2026-10-02 after developer approval at the Local integration gate (all seven packages Integrated; close-out commit reviewed in feature mode — APPROVE, no blocking findings).
+
 ## Intent
 
 Ship the site foundation in one PR: the Preact + Vite + TypeScript app shell, the complete content model (file layout, manifests, route document schema, confidence-marker syntax, gap policy), the content loader/query layer, the content lint, a dependency-free static server, and a lint-clean Elspeth content skeleton — so that every later feature is either content or rendering of this model.
 
 ## User-visible behavior
 
-- `dist/index.html` opens via `file://` with no server; reading never requires a build step.
+- The site is read over the local HTTP server (`npm run build` once, then `npm run serve` or `npm run dev` at `http://127.0.0.1`); reading never requires a build step on content edits. (`file://` boot is blocked in Chromium — verified 2026-10-02, developer decision; see Discoveries.)
 - Hash navigation: home (`#/`) → lord (`#/<lord-slug>`) → route (`#/<lord-slug>/route/<route-id>`) → section anchor; unknown routes show an explicit not-found.
 - Home lists one card per lord with lord name, faction, and `patch · VCO version` context; zero lords shows an explicit empty state.
 - The committed Elspeth skeleton renders: home card, lord page (shared fundamentals + route list), route page (identity block with typed objective/reward claims, markdown body, declared-gap list).
