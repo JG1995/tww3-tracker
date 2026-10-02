@@ -221,7 +221,7 @@ Commit 1 (tokens + toolchain) → Commit 2 (content model on fixtures) → Commi
 
 **Depends on:** ["design-tokens", "content-model"]
 
-**Write scope:** ["app/main.tsx", "app/router.ts", "app/views/home.tsx", "app/views/lord.tsx", "app/views/route.tsx", "app/views/not-found.tsx", "app/views/boot-error.tsx", "app/styles/app.css", "test/router.test.ts"]
+**Write scope:** ["app/main.tsx", "app/router.ts", "app/views/home.ts", "app/views/lord.ts", "app/views/route.ts", "app/views/not-found.ts", "app/views/boot-error.ts", "app/styles/app.css", "test/router.test.ts"]
 
 **Provisional commit:** `feat(app): add Preact shell with hash router and views`
 
@@ -231,9 +231,9 @@ Commit 1 (tokens + toolchain) → Commit 2 (content model on fixtures) → Commi
 
 **Out of scope:** Real content (commit 5) — the shell must complete with zero content (empty-state home) and with invalid content (boot error); no F2 components (no Route Tab Strip, no dashboard panels, no Confidence Badge styling — the route page is deliberately the plain F1 form per DESIGN §3).
 
-**Implementation packet:** Views are composable presentational components over `query.ts` results; `main.tsx` owns the tree and passes data down; no global state store. `app.css` uses only token variables — no raw colour values. Claim callouts render as blocks whose header line is the state label (mono uppercase per DESIGN.md) plus `src` ids — colour per the token for that state, but the label is always present (PRD: colour never sole indicator).
+**Implementation packet:** Views are composable presentational components over `query.ts` results; `main.tsx` owns the tree and passes data down; no global state store. Views are plain `.ts` modules built with Preact's `h()` (not `.tsx` JSX) so the commit-6 node:test render assertions can import them — Node's `node --test` cannot load `.tsx` (see Discoveries); the entry `main.tsx` stays JSX since only Vite loads it. `app.css` uses only token variables — no raw colour values. Claim callouts render as blocks whose header line is the state label (mono uppercase per DESIGN.md) plus `src` ids — colour per the token for that state, but the label is always present (PRD: colour never sole indicator).
 
-**Files and responsibilities:** `main.tsx` — boot + render root. `router.ts` — pure hash parsing + `useHashRoute` hook. The five views under `app/views/`. `app/styles/app.css` — shell layout, nav, cards, claim blocks, gap list, error/empty/not-found styling. `test/router.test.ts` — hash-string → route-model cases (all valid shapes, section anchors, every garbage shape → not-found).
+**Files and responsibilities:** `main.tsx` — boot + render root (JSX; Vite-loaded only). `router.ts` — pure hash parsing + `useHashRoute` hook. The five `.ts` views under `app/views/` (h-based, no JSX). `app/styles/app.css` — shell layout, nav, cards, claim blocks, gap list, error/empty/not-found styling. `test/router.test.ts` — hash-string → route-model cases (all valid shapes, section anchors, every garbage shape → not-found).
 
 **Tests and proof:** Observable: every hash shape maps to the right view model; boot against the (still absent) `content/` renders the empty-state home; boot against a broken tree renders boot-error with file + field. Seam: `test/router.test.ts` for routing; boot paths proven by the existing content-model tests driving `load.ts` plus a minimal render assertion if the test environment supports it — otherwise the final validation's manual `file://` boot covers it and the test asset stays the router table.
 
@@ -281,7 +281,7 @@ Commit 1 (tokens + toolchain) → Commit 2 (content model on fixtures) → Commi
 
 **Depends on:** ["app-shell", "elspeth-skeleton"]
 
-**Write scope:** ["app/views/home.tsx", "app/views/lord.tsx", "app/views/route.tsx", "test/views.test.tsx"]
+**Write scope:** ["app/views/home.ts", "app/views/lord.ts", "app/views/route.ts", "test/views.test.ts"]
 
 **Provisional commit:** `feat(app): render guide content in home, lord and route views`
 
@@ -293,7 +293,7 @@ Commit 1 (tokens + toolchain) → Commit 2 (content model on fixtures) → Commi
 
 **Implementation packet:** Card/list rows are plain presentational components; version context formats as `patch <X> · VCO <version>` per DESIGN.md. Gap list entries name the section and that it is declared.
 
-**Files and responsibilities:** The three view files (commit 4's shapes, completed). `test/views.test.tsx` — zero-DOM output-model assertions over the view components (no DOM library — one would require `package.json`, which is outside this commit's write scope).
+**Files and responsibilities:** The three view files (commit 4's h-based shapes, completed). `test/views.test.ts` — zero-DOM output-model assertions over the VNode trees the view functions return (no DOM library — one would require `package.json`, which is outside this commit's write scope).
 
 **Tests and proof:** Observable: given the loaded Elspeth tree, home output contains the Elspeth card with `patch · VCO 2026.09.30.1`; lord output lists 3 routes with objectives; route output contains the identity claim texts and 7 declared gaps. Seam: the view render test over the real tree.
 
@@ -335,7 +335,7 @@ Commit 1 (tokens + toolchain) → Commit 2 (content model on fixtures) → Commi
 
 ## Discoveries and replanning
 
-- (none yet)
+- **2026-10-02 (delivery preflight) — Node `node --test` cannot execute `.tsx` files.** Verified on Node v24.18.0: importing a `.tsx` module throws `ERR_UNKNOWN_FILE_EXTENSION` (including with `--experimental-transform-types`), and `node --test` silently skips `.tsx` candidates during discovery. Consequence: the planned `app/views/*.tsx` could not be imported by the commit-6 render test and `test/views.test.tsx` would never run, breaking the required `npm test` green check ("views" item). Bounded revision (requirements, feature scope, architecture, and all other packages unchanged): packages `app-shell` and `home-real` now write `app/views/*.ts` and `test/views.test.ts`; views are built with Preact's `h()` so node:test can import and assert their VNode output, while the Vite-loaded entry `main.tsx` remains JSX. Reviewed and committed as a plan revision before wave 1 dispatch.
 
 ## Final validation
 
