@@ -1,0 +1,14 @@
+[
+  {
+    "id": "vco-guide",
+    "title": "VCO Campaign Guide",
+    "url": "https://example.test/vco-guide",
+    "note": "Official victory-conditions overview."
+  },
+  {
+    "id": "ca",
+    "title": "Community archive",
+    "url": "https://example.test/ca",
+    "note": "General reference."
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "vco-guide",
+    "title": "VCO Campaign Guide",
+    "url": "https://example.test/vco-guide",
+    "note": "Official victory-conditions overview."
+  },
+  {
+    "id": "ca",
+    "title": "Casket of Souls deep dive",
+    "url": "https://example.test/casket",
+    "note": "Community analysis of the casket economy."
+  }
+]

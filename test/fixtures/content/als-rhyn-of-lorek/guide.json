@@ -1,0 +1,9 @@
+{
+  "id": "als-rhyn-of-lorek",
+  "lord": "Als-Rhyn of Lorek",
+  "faction": "Tomb Kings",
+  "version": { "patch": "Warhammer 9.0", "vco": "2026.09.30.1", "checked": "2026-09-30" },
+  "routes": [{ "id": "dark-conduits", "file": "routes/route-1.md", "number": "I" }],
+  "shared": "shared.md",
+  "datasets": ["sources", "armies", "skills", "research", "buildings", "mechanics", "vco"]
+}

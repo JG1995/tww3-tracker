@@ -156,7 +156,7 @@ Commit 1 (tokens + toolchain) → Commit 2 (content model on fixtures) → Commi
 
 #### Package `content-model` — Commit 2: Content loader, query layer, fixtures
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 2
 
