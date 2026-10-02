@@ -1,4 +1,5 @@
 .work/
 scripts/
+.pi/work/
 .wiki/adr/templates/
 .wiki/features/templates/
