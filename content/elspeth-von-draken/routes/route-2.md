@@ -18,11 +18,11 @@ interpretation: Elspeth’s engineers and escorts build a durable southern spher
 bottleneck: Maintained control of every region in the required provinces
 transitions: To route-1: Leave a regional commander protecting the Charter’s valuable ports and recruiting hub. Return Elspeth to a safe homeland Garden, inspect which of the five targets are still alive, and bring the escort/artillery mix appropriate to that threat. Your earlier victories may already help the 35-battle requirement; trust the live count. To route-3: The Border Princes and southern production already supply the expedition. Preserve valuable alliances, move the main column east into the nearest candidates and use the existing hub for replacements. Diplomatic provincial control and a successful search interaction are not automatically the same event.
 panelOrder:
-  skills: [elspeth, master, engineer, theodore, priest, captain, death, light, life, hunter]
-  research: [opening, firepower, economy, arcane]
-  mechanics: [testing, armoury, gardens, theodore, authority]
-  builds: [nuln, charter, resource, income, frontier, temporary]
-  armies: [early, mid, late, amethyst, home]
+  skills: []
+  research: []
+  mechanics: []
+  buildings: []
+  armies: []
 gaps:
   - Opening
   - Early → Mid

@@ -18,11 +18,11 @@ interpretation: A travelling field laboratory rather than a map-painting crusade
 bottleneck: Finding the mission’s actual search result while sustaining a distant army
 transitions: To route-1: Do not dismantle the expedition before a safe return is arranged. Leave a cheap holding force or transfer expendable footholds, then return Elspeth to the homeland Garden network. Identify live targets, restore a two-knight escort if desired, and use the army’s existing guns rather than rebuying a new theme. To route-2: Promote the best foothold to a permanent Charter hub and shift from selective searching to maintained province control. A visited candidate does not mean its entire province is secured. Build the additional line/replacement capacity and coastal defence needed to hold seven provinces together.
 panelOrder:
-  skills: [elspeth, master, engineer, theodore, priest, captain, death, light, life, hunter]
-  research: [opening, firepower, economy, arcane]
-  mechanics: [testing, armoury, gardens, theodore, authority]
-  builds: [nuln, survey, military, income, recovery, temporary]
-  armies: [early, mid, late, amethyst, home]
+  skills: []
+  research: []
+  mechanics: []
+  buildings: []
+  armies: []
 gaps:
   - Opening
   - Early → Mid

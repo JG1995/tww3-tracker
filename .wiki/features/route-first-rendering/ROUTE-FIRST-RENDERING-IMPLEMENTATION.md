@@ -139,7 +139,7 @@ Commit 1 (stub reshape) → Commit 2 (confidence badge) → Commit 3 (typed data
 
 #### Package `stub-reshape` — Commit 1: Reshape the Elspeth stubs to the typed empty forms
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 1
 

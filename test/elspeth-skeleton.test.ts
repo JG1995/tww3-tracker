@@ -6,7 +6,8 @@
  * (`app/content/load.ts`) with a filesystem `ContentReader` — the same shape
  * the content-lint CLI provides. This proves the loader (not just the lint)
  * accepts the skeleton: one lord, three routes with typed claims, all seven
- * datasets present and empty-valid, and all seven declared gaps per route.
+ * datasets present as the typed empty objects, canonical `panelOrder` blocks
+ * with empty lists, and all seven declared gaps per route.
  */
 
 import { test } from "node:test";
@@ -87,7 +88,7 @@ test("the sources dataset round-trips the extract's 35 sources including vco-gui
   }
 });
 
-test("all seven datasets are present and the six non-source datasets are empty stubs", async () => {
+test("all seven datasets are present and the six non-source datasets are the typed empty objects", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
 
   const datasets = tree.lords[0].datasets;
@@ -98,7 +99,25 @@ test("all seven datasets are present and the six non-source datasets are empty s
   );
   for (const dataset of datasets) {
     if (dataset.name === "sources") continue; // proven above
-    assert.deepEqual(dataset.value, [], `${dataset.name} is an empty stub`);
+    assert.deepEqual(dataset.value, {}, `${dataset.name} is the typed empty object`);
+  }
+});
+
+test("every route's panelOrder has exactly the five canonical group keys with empty lists", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const routes = tree.lords[0].routes;
+
+  const canonicalGroups = ["armies", "skills", "research", "buildings", "mechanics"];
+  for (const route of routes) {
+    assert.ok(route.panelOrder, `${route.id} declares a panelOrder block`);
+    assert.deepEqual(
+      Object.keys(route.panelOrder).sort(),
+      [...canonicalGroups].sort(),
+      `${route.id} panelOrder keys are exactly the five canonical group keys`,
+    );
+    for (const group of canonicalGroups) {
+      assert.deepEqual(route.panelOrder[group], [], `${route.id} panelOrder.${group} is an empty list`);
+    }
   }
 });
 
