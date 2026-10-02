@@ -18,8 +18,10 @@
 import {
   CLAIM_STATES,
   DATASET_NAMES,
+  PANEL_GROUPS,
   type ContentReader,
   type GuideRouteRef,
+  type ItemDatasetName,
 } from "./types.ts";
 
 // ─── Frontmatter subset ─────────────────────────────────────────────────────
@@ -435,9 +437,11 @@ export interface ContentViolation {
 }
 
 const STATE_SET: ReadonlySet<string> = new Set<string>(CLAIM_STATES);
-const REQUIRED_SECTIONS: readonly string[] = ["Opening", "Early → Mid", "Mid → Late", "Victory push"];
-const OPTIONAL_SECTIONS: readonly string[] = ["Territory policy", "Diplomacy"];
+/** The registry order views import to render sections (exported for Commit 6). */
+export const REQUIRED_SECTIONS: readonly string[] = ["Opening", "Early → Mid", "Mid → Late", "Victory push"];
+export const OPTIONAL_SECTIONS: readonly string[] = ["Territory policy", "Diplomacy"];
 const ALLOWED_DATASETS: ReadonlySet<string> = new Set(["sources", ...DATASET_NAMES]);
+const PANEL_GROUP_SET: ReadonlySet<string> = new Set<string>(PANEL_GROUPS);
 const TRANSITION_PREFIX = "Transition → ";
 
 function isNonEmptyString(v: unknown): v is string {
@@ -618,6 +622,7 @@ async function lintLord(
 
   const srcRefs: Array<{ file: string; id: string }> = [];
   let sourceIds: Set<string> | null = null; // null = sources dataset broken/missing
+  const panelDatasets: PanelDatasets = {};
 
   // shared fundamentals file
   if (typeof g.shared === "string" && g.shared !== "") {
@@ -646,7 +651,10 @@ async function lintLord(
     if (name === "sources") {
       sourceIds = lintSources(out, path, value);
     } else {
+      // The generic state/src vocabulary rule covers every dataset (DESIGN §4);
+      // the per-schema rule proves the DESIGN §4 shape of the named dataset.
       lintDataItems(out, path, name, value, srcRefs);
+      lintDatasetShape(out, path, name, value, panelDatasets);
     }
   }
 
@@ -688,7 +696,7 @@ async function lintLord(
 
   for (const doc of docs) {
     const other = identities.filter((i) => i.id !== doc.ref.id);
-    assertRouteDocument(out, doc, other, srcRefs);
+    assertRouteDocument(out, doc, other, srcRefs, panelDatasets);
   }
 
   // resolve every collected src id against this lord's sources
@@ -758,12 +766,303 @@ function lintDataItems(
   visit(value, name);
 }
 
+// ─── Dataset schema rules (DESIGN §4, one-for-one) ─────────────────────────
+
+/**
+ * The shape-validated panel datasets of one lord, so `panelOrder` ids can
+ * resolve against them (DESIGN §4 "Panel selection and order"): armies ids
+ * resolve in the route's own armies map; flat item ids in the lord-wide map.
+ * `vco` is not a panel group and is validated, not collected.
+ */
+interface PanelDatasets {
+  armies?: Readonly<Record<string, Readonly<Record<string, unknown>>>>;
+  skills?: Readonly<Record<string, unknown>>;
+  research?: Readonly<Record<string, unknown>>;
+  buildings?: Readonly<Record<string, unknown>>;
+  mechanics?: Readonly<Record<string, unknown>>;
+}
+
+function isRecord(v: unknown): v is Record<string, unknown> {
+  return typeof v === "object" && v !== null && !Array.isArray(v);
+}
+
+function isStringList(v: unknown): v is readonly string[] {
+  return Array.isArray(v) && v.every((x) => typeof x === "string");
+}
+
+/** Validates a `units`/`legendary`/`generic` column: rows of `{ n, name, role, kind }`. */
+function lintUnitRows(out: ContentViolation[], path: string, where: string, rows: unknown): void {
+  if (!Array.isArray(rows)) {
+    out.push({ file: path, field: "datasets", message: `${where} must be a list of unit rows { n, name, role, kind }` });
+    return;
+  }
+  rows.forEach((row, i) => {
+    if (!isRecord(row)) {
+      out.push({ file: path, field: "datasets", message: `${where}[${i}] must be a unit row { n, name, role, kind }` });
+      return;
+    }
+    if (typeof row.n !== "number") {
+      out.push({ file: path, field: "datasets", message: `${where}[${i}].n must be a number` });
+    }
+    for (const key of ["name", "role", "kind"] as const) {
+      if (!isNonEmptyString(row[key])) {
+        out.push({ file: path, field: "datasets", message: `${where}[${i}].${key} must be a non-empty string` });
+      }
+    }
+  });
+}
+
+/** Validates a list of `[title, body]` string pairs (`notes`/`plan`/`details`). */
+function lintTitleBodyList(out: ContentViolation[], path: string, where: string, value: unknown): void {
+  if (!Array.isArray(value)) {
+    out.push({ file: path, field: "datasets", message: `${where} must be a list of [title, body] pairs` });
+    return;
+  }
+  value.forEach((entry, i) => {
+    if (!Array.isArray(entry) || entry.length !== 2 || typeof entry[0] !== "string" || typeof entry[1] !== "string") {
+      out.push({ file: path, field: "datasets", message: `${where}[${i}] must be a [title, body] string pair` });
+    }
+  });
+}
+
+/** Validates `data/armies.json`: route id → entry id → army (DESIGN §4). */
+function lintArmiesDataset(
+  out: ContentViolation[],
+  path: string,
+  value: unknown,
+  panels: PanelDatasets,
+): void {
+  if (!isRecord(value)) {
+    out.push({ file: path, field: "datasets", message: "data/armies.json must be a map of route id → army entry map" });
+    return;
+  }
+  const routeMaps: Record<string, Record<string, unknown>> = {};
+  for (const routeId of Object.keys(value)) {
+    const map = value[routeId];
+    if (!isRecord(map)) {
+      out.push({ file: path, field: "datasets", message: `armies.${routeId} must be a map of entry id → army` });
+      continue;
+    }
+    const entries: Record<string, unknown> = {};
+    for (const entryId of Object.keys(map)) {
+      const army = map[entryId];
+      if (!isRecord(army)) {
+        out.push({ file: path, field: "datasets", message: `armies.${routeId}.${entryId} must be an army object` });
+        continue;
+      }
+      entries[entryId] = army;
+      const where = `armies.${routeId}.${entryId}`;
+      for (const key of ["label", "name"] as const) {
+        if (!isNonEmptyString(army[key])) {
+          out.push({ file: path, field: "datasets", message: `${where}.${key} must be a non-empty string` });
+        }
+      }
+      if ("supportName" in army && !isNonEmptyString(army.supportName)) {
+        out.push({ file: path, field: "datasets", message: `${where}.supportName must be a non-empty string when present` });
+      }
+      lintUnitRows(out, path, `${where}.units`, army.units);
+      lintUnitRows(out, path, `${where}.legendary`, army.legendary);
+      lintUnitRows(out, path, `${where}.generic`, army.generic);
+      if ("context" in army && !isNonEmptyString(army.context)) {
+        out.push({ file: path, field: "datasets", message: `${where}.context must be a non-empty string when present` });
+      }
+      lintTitleBodyList(out, path, `${where}.notes`, army.notes);
+      lintTitleBodyList(out, path, `${where}.plan`, army.plan);
+      if (typeof army.size !== "number") {
+        out.push({ file: path, field: "datasets", message: `${where}.size must be a number` });
+      }
+      if (!isStringList(army.sources) || army.sources.some((s) => s === "")) {
+        out.push({ file: path, field: "datasets", message: `${where}.sources must be a list of source ids` });
+      }
+    }
+    routeMaps[routeId] = entries;
+  }
+  panels.armies = routeMaps;
+}
+
+/** Validates one flat item dataset: entry id → item (DESIGN §4). */
+function lintItemDataset(
+  out: ContentViolation[],
+  path: string,
+  name: ItemDatasetName,
+  value: unknown,
+  panels: PanelDatasets,
+): void {
+  if (!isRecord(value)) {
+    out.push({ file: path, field: "datasets", message: `data/${name}.json must be a map of entry id → item` });
+    return;
+  }
+  const entries: Record<string, unknown> = {};
+  for (const entryId of Object.keys(value)) {
+    const item = value[entryId];
+    if (!isRecord(item)) {
+      out.push({ file: path, field: "datasets", message: `${name}.${entryId} must be an item object` });
+      continue;
+    }
+    entries[entryId] = item;
+    const where = `${name}.${entryId}`;
+    for (const key of ["label", "title", "intro"] as const) {
+      if (!isNonEmptyString(item[key])) {
+        out.push({ file: path, field: "datasets", message: `${where}.${key} must be a non-empty string` });
+      }
+    }
+    if (!Array.isArray(item.steps)) {
+      out.push({ file: path, field: "datasets", message: `${where}.steps must be a list of steps { title, note, gate?, short? }` });
+    } else {
+      item.steps.forEach((step, i) => {
+        const stepWhere = `${where}.steps[${i}]`;
+        if (!isRecord(step)) {
+          out.push({ file: path, field: "datasets", message: `${stepWhere} must be a step { title, note, gate?, short? }` });
+          return;
+        }
+        for (const key of ["title", "note"] as const) {
+          if (!isNonEmptyString(step[key])) {
+            out.push({ file: path, field: "datasets", message: `${stepWhere}.${key} must be a non-empty string` });
+          }
+        }
+        for (const key of ["gate", "short"] as const) {
+          if (key in step && !isNonEmptyString(step[key])) {
+            out.push({ file: path, field: "datasets", message: `${stepWhere}.${key} must be a non-empty string when present` });
+          }
+        }
+      });
+    }
+    if ("details" in item) lintTitleBodyList(out, path, `${where}.details`, item.details);
+    if (!isStringList(item.sources) || item.sources.some((s) => s === "")) {
+      out.push({ file: path, field: "datasets", message: `${where}.sources must be a list of source ids` });
+    }
+  }
+  panels[name] = entries;
+}
+
+/** Validates `data/vco.json`: route id → ordered objective items (DESIGN §4). */
+function lintVcoDataset(out: ContentViolation[], path: string, value: unknown): void {
+  if (!isRecord(value)) {
+    out.push({ file: path, field: "datasets", message: "data/vco.json must be a map of route id → objective item list" });
+    return;
+  }
+  for (const routeId of Object.keys(value)) {
+    const items = value[routeId];
+    if (!Array.isArray(items)) {
+      out.push({ file: path, field: "datasets", message: `vco.${routeId} must be an ordered list of { id, text, state, src? }` });
+      continue;
+    }
+    items.forEach((item, i) => {
+      const where = `vco.${routeId}[${i}]`;
+      if (!isRecord(item)) {
+        out.push({ file: path, field: "datasets", message: `${where} must be an objective item { id, text, state, src? }` });
+        return;
+      }
+      if (!isNonEmptyString(item.id)) {
+        out.push({ file: path, field: "datasets", message: `${where}.id must be a non-empty string` });
+      }
+      if (!isNonEmptyString(item.text)) {
+        out.push({ file: path, field: "datasets", message: `${where}.text must be a non-empty string` });
+      }
+      if (typeof item.state !== "string" || !STATE_SET.has(item.state)) {
+        out.push({
+          file: path,
+          field: "datasets",
+          message: `${where}.state is required and must be one of confirmed, historical, inferred, verify-in-campaign`,
+        });
+      }
+    });
+  }
+}
+
+/**
+ * Dispatches one named non-source dataset to its DESIGN §4 schema validator.
+ * `sources` is linted by `lintSources`; the manifest vocabulary check already
+ * ran on every name, so an unknown name never reaches this dispatch.
+ */
+function lintDatasetShape(
+  out: ContentViolation[],
+  path: string,
+  name: string,
+  value: unknown,
+  panels: PanelDatasets,
+): void {
+  if (name === "armies") {
+    lintArmiesDataset(out, path, value, panels);
+  } else if (name === "vco") {
+    lintVcoDataset(out, path, value);
+  } else if (name === "skills" || name === "research" || name === "buildings" || name === "mechanics") {
+    lintItemDataset(out, path, name, value, panels);
+  }
+}
+
+/**
+ * Validates one route's `panelOrder` block (DESIGN §4 "Panel selection and
+ * order"): group keys are exactly the five canonical panel dataset names,
+ * every listed id resolves into the parsed entries (armies ids in the route's
+ * own armies map, flat-dataset ids in the lord-wide map), and groups whose
+ * dataset is absent or whose list is empty/absent are valid empty states.
+ * `vco` is not a panel group and never appears here.
+ */
+function lintPanelOrder(
+  out: ContentViolation[],
+  path: string,
+  routeId: string,
+  po: unknown,
+  panels: PanelDatasets,
+): void {
+  if (!isRecord(po)) {
+    out.push({ file: path, field: "panelOrder", message: "panelOrder must be a map of panel group keys to id lists" });
+    return;
+  }
+  for (const group of Object.keys(po)) {
+    if (!PANEL_GROUP_SET.has(group)) {
+      out.push({
+        file: path,
+        field: "panelOrder",
+        message: `unknown panel-order group "${group}" (expected one of armies, skills, research, buildings, mechanics)`,
+      });
+      continue;
+    }
+    const list = po[group];
+    if (!Array.isArray(list) || !list.every((x) => typeof x === "string")) {
+      out.push({ file: path, field: "panelOrder", message: `panelOrder group "${group}" must be a list of entry ids` });
+      continue;
+    }
+    // SAFETY: every element was checked to be a string above; the cast is that check's contract.
+    const ids = list as readonly string[];
+    if (group === "armies") {
+      // Armies ids resolve in the route's own armies map.
+      const routeMap = panels.armies?.[routeId];
+      for (const id of ids) {
+        if (routeMap === undefined || !(id in routeMap)) {
+          out.push({
+            file: path,
+            field: "panelOrder",
+            message: `panelOrder id "${id}" (group "armies") does not resolve to an army entry for route "${routeId}"`,
+          });
+        }
+      }
+    } else {
+      // Flat item ids resolve in the lord-wide map for that dataset.
+      // SAFETY: the vocabulary check constrained `group` to the four flat item
+      // datasets (this is the non-armies branch), all of which are keys of `panels`.
+      const map = panels[group as ItemDatasetName];
+      for (const id of ids) {
+        if (map === undefined || !(id in map)) {
+          out.push({
+            file: path,
+            field: "panelOrder",
+            message: `panelOrder id "${id}" (group "${group}") does not resolve to an entry in the lord's "${group}" dataset`,
+          });
+        }
+      }
+    }
+  }
+}
+
 /** Validates one route document against the DESIGN §4 route/section/claim rules. */
 function assertRouteDocument(
   out: ContentViolation[],
   doc: { path: string; ref: GuideRouteRef; meta: FmMap; metaError: string | null; sections: SectionScan; markers: ClaimMarker[] },
   otherRoutes: readonly { id: string; name: string }[],
   srcRefs: Array<{ file: string; id: string }>,
+  panels: PanelDatasets,
 ): void {
   const { path, ref, meta } = doc;
   const push = (field: string, message: string): void => {
@@ -812,15 +1111,7 @@ function assertRouteDocument(
     }
   }
   if ("panelOrder" in meta) {
-    const po = meta.panelOrder;
-    const isScalar = (x: unknown): boolean =>
-      typeof x === "string" || typeof x === "number" || typeof x === "boolean" || x === null;
-    const valid =
-      typeof po === "object" &&
-      po !== null &&
-      !Array.isArray(po) &&
-      Object.values(po).every((l) => Array.isArray(l) && l.every(isScalar));
-    if (!valid) push("panelOrder", "panelOrder must be a map of lists of scalars");
+    lintPanelOrder(out, path, ref.id, meta.panelOrder, panels);
   }
 
   // gaps: declared missing sections, each a registry section title

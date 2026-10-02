@@ -199,7 +199,7 @@ Commit 1 (stub reshape) → Commit 2 (confidence badge) → Commit 3 (typed data
 
 #### Package `dataset-contracts` — Commit 3: Typed dataset schemas and panel-order rules
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 2
 

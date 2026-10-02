@@ -15,13 +15,14 @@ import MarkdownIt from "markdown-it";
 import type { StateBlock } from "markdown-it";
 
 import {
+  type ArmiesDataset,
   type Claim,
   type ClaimState,
   type ContentReader,
   type ContentTree,
-  type DatasetName,
   type GuideManifest,
   type GuideRouteRef,
+  type ItemDataset,
   type JsonValue,
   type Lord,
   type LordDataset,
@@ -29,6 +30,7 @@ import {
   type Route,
   type Section,
   type Source,
+  type VcoDataset,
   CLAIM_STATES,
 } from "./types.ts";
 import { CONFIDENCE_BADGES } from "../badges.ts";
@@ -320,14 +322,9 @@ function buildLord(slug: string, manifest: GuideManifest, cache: Map<string, str
   let sources: readonly Source[] = [];
   for (const name of manifest.datasets) {
     const path = `${slug}/data/${name}.json`;
-    const value = parseDataset(path, cache.get(path) ?? "");
-    if ((name as string) === "sources") {
-      // SAFETY: lintContent has already validated this array as `Source[]` (id/title/url/note).
-      sources = value as unknown as readonly Source[];
-      datasets.push({ name: "sources", value: sources });
-    } else {
-      datasets.push({ name: name as DatasetName, value });
-    }
+    const dataset = buildDataset(name, parseDataset(path, cache.get(path) ?? ""));
+    if (dataset.name === "sources") sources = dataset.value;
+    datasets.push(dataset);
   }
   const env: ClaimRenderEnv = { sources };
   const routes: Route[] = [];
@@ -345,6 +342,36 @@ function parseDataset(path: string, raw: string): JsonValue {
     return JSON.parse(raw) as JsonValue;
   } catch (e) {
     throw new Error(`internal invariant: ${path} passed the lint but does not parse: ${(e as Error).message}`);
+  }
+}
+
+/**
+ * Casts one parsed dataset to its typed DESIGN §4 value. SAFETY: `lintContent`
+ * has already validated every manifest-named dataset against its schema (the
+ * per-schema dataset validators plus the sources shape rule) before the tree
+ * is built, so each cast below is the post-validation contract — exactly like
+ * the sources cast it replaces. The default is unreachable: the lint also
+ * validated the manifest's `datasets[]` vocabulary.
+ */
+function buildDataset(name: string, value: JsonValue): LordDataset {
+  switch (name) {
+    case "sources":
+      // SAFETY: lintContent validated this value as `Source[]` (id/title/url/note).
+      return { name: "sources", value: value as unknown as readonly Source[] };
+    case "armies":
+      // SAFETY: the armies schema validator ran on this value.
+      return { name: "armies", value: value as unknown as ArmiesDataset };
+    case "vco":
+      // SAFETY: the vco schema validator ran on this value.
+      return { name: "vco", value: value as unknown as VcoDataset };
+    case "skills":
+    case "research":
+    case "buildings":
+    case "mechanics":
+      // SAFETY: the item schema validator ran on this value.
+      return { name, value: value as unknown as ItemDataset };
+    default:
+      throw new Error(`internal invariant: dataset "${name}" passed the vocabulary lint`);
   }
 }
 
@@ -380,7 +407,12 @@ function buildRoute(ref: GuideRouteRef, text: string, env: ClaimRenderEnv): Rout
   const panelOrder: PanelOrder | undefined =
     typeof po === "object" && po !== null && !Array.isArray(po)
       ? Object.fromEntries(
-          Object.entries(po).map(([k, v]) => [k, Object.freeze(Array.isArray(v) ? v : [])]),
+          Object.entries(po).map(([k, v]) => {
+            // SAFETY: the panelOrder rule validated every group value as a
+            // list of entry-id strings before the tree is built.
+            const ids = Array.isArray(v) ? (v as unknown as readonly string[]) : [];
+            return [k, Object.freeze(ids)];
+          }),
         )
       : undefined;
   return {

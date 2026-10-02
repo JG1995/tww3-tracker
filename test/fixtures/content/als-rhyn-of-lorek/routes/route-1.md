@@ -18,9 +18,11 @@ reward:
   src:
     - ca
 panelOrder:
-  intro: [title, overview, objective]
-  army: [lord, template]
-  economy: [gold, books]
+  armies: []
+  skills: []
+  research: []
+  buildings: []
+  mechanics: []
 gaps: []
 ---
 ## Opening

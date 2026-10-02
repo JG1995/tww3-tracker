@@ -88,7 +88,68 @@ test("route frontmatter number diverging from guide.json routes[] fails with a n
   }
 });
 
-// ─── 4. No-content: empty and absent roots are a pass with the notice ───────
+// ─── 4. Fail: the new dataset-schema and panel-order rules at the CLI seam ──
+
+test("a schema-invalid army dataset exits 1 with a datasets field violation line", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "lint-cli-army-"));
+  try {
+    await cp(FIXTURES, dir, { recursive: true });
+    // One seeded violation: an army unit row with a non-numeric count.
+    await writeFile(
+      join(dir, "als-rhyn-of-lorek", "data", "armies.json"),
+      JSON.stringify({
+        "dark-conduits": {
+          early: {
+            label: "Early",
+            name: "The first column",
+            units: [{ n: "8", name: "Spearmen", role: "Holding line", kind: "line" }],
+            legendary: [],
+            generic: [],
+            notes: [],
+            plan: [],
+            size: 20,
+            sources: [],
+          },
+        },
+      }),
+    );
+
+    const { code, stdout } = await runCli(dir);
+    assert.equal(code, 1);
+    assert.ok(
+      stdout.includes(
+        "als-rhyn-of-lorek/data/armies.json:datasets — armies.dark-conduits.early.units[0].n must be a number",
+      ),
+      `expected an army unit-row violation line; got: ${JSON.stringify(stdout)}`,
+    );
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
+test("an unresolvable panel-order id exits 1 with a panelOrder violation naming the id", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "lint-cli-panel-"));
+  try {
+    await cp(FIXTURES, dir, { recursive: true });
+    // One seeded violation: a skills id no entry in the lord-wide map exists for.
+    const routePath = join(dir, "als-rhyn-of-lorek", "routes", "route-1.md");
+    const body = await readFile(routePath, "utf8");
+    await writeFile(routePath, body.replace("  skills: []", "  skills: [ghost-skill]"));
+
+    const { code, stdout } = await runCli(dir);
+    assert.equal(code, 1);
+    assert.ok(
+      stdout.includes(
+        'als-rhyn-of-lorek/routes/route-1.md:panelOrder — panelOrder id "ghost-skill" (group "skills") does not resolve to an entry in the lord\'s "skills" dataset',
+      ),
+      `expected an unresolvable panel-order id violation; got: ${JSON.stringify(stdout)}`,
+    );
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
+// ─── 5. No-content: empty and absent roots are a pass with the notice ───────
 
 test("empty content root is the no-content-yet pass: exit 0 with the notice", async () => {
   const dir = await mkdtemp(join(tmpdir(), "lint-cli-empty-"));

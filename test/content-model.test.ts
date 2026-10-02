@@ -90,6 +90,12 @@ test("valid fixture loads into a complete tree: lords, routes, sections, claims,
   assert.equal(als.datasets.length, 7, "all seven datasets loaded");
   assert.equal(als.routes.length, 1);
 
+  // every non-source dataset value is the typed DESIGN §4 empty form {}
+  for (const dataset of als.datasets) {
+    if (dataset.name === "sources") continue;
+    assert.deepEqual(dataset.value, {}, `${dataset.name} carries the typed empty value`);
+  }
+
   const route = als.routes[0];
   assert.equal(route.id, "dark-conduits");
   assert.equal(route.number, "I");
@@ -232,6 +238,96 @@ test("unparseable JSON in a named dataset", async () => {
   assert.ok(hit !== undefined, `expected a parse violation; got ${JSON.stringify(violations)}`);
 });
 
+test("bad army unit row: a units row with a non-numeric n violates the armies schema", async () => {
+  const violations = await lintBroken(async (root) => {
+    await rewrite(
+      root,
+      "als-rhyn-of-lorek/data/armies.json",
+      JSON.stringify({
+        "dark-conduits": {
+          early: {
+            label: "Early",
+            name: "The first column",
+            units: [{ n: "8", name: "Spearmen", role: "Holding line", kind: "line" }],
+            legendary: [],
+            generic: [],
+            notes: [],
+            plan: [],
+            size: 20,
+            sources: [],
+          },
+        },
+      }),
+    );
+  });
+  const hit = violations.find(
+    (v) => v.file === "als-rhyn-of-lorek/data/armies.json" && v.field === "datasets" && v.message.includes("units[0].n"),
+  );
+  assert.ok(hit !== undefined, `expected an army unit-row violation; got ${JSON.stringify(violations)}`);
+});
+
+test("malformed item: a step missing its note violates the item schema", async () => {
+  const violations = await lintBroken(async (root) => {
+    await rewrite(
+      root,
+      "als-rhyn-of-lorek/data/skills.json",
+      JSON.stringify({
+        early: {
+          label: "Early",
+          title: "Raise the conduit towns",
+          intro: "Construction savings arrive before the programme.",
+          steps: [{ title: "Conduit Silos", gate: "Opening option" }],
+          sources: [],
+        },
+      }),
+    );
+  });
+  const hit = violations.find(
+    (v) => v.file === "als-rhyn-of-lorek/data/skills.json" && v.field === "datasets" && v.message.includes("steps[0].note"),
+  );
+  assert.ok(hit !== undefined, `expected a step violation; got ${JSON.stringify(violations)}`);
+});
+
+test("malformed vco item: an objective item without a state violates the vco schema", async () => {
+  const violations = await lintBroken(async (root) => {
+    await rewrite(
+      root,
+      "als-rhyn-of-lorek/data/vco.json",
+      JSON.stringify({ "dark-conduits": [{ id: "obj-1", text: "Secure the conduits." }] }),
+    );
+  });
+  const hit = violations.find(
+    (v) => v.file === "als-rhyn-of-lorek/data/vco.json" && v.field === "datasets" && v.message.includes("state is required"),
+  );
+  assert.ok(hit !== undefined, `expected a vco item violation; got ${JSON.stringify(violations)}`);
+});
+
+test("unknown panel-order group key fails the panel group vocabulary", async () => {
+  const violations = await lintBroken(async (root) => {
+    const text = await readFile(join(root, "als-rhyn-of-lorek/routes/route-1.md"), "utf8");
+    await rewrite(root, "als-rhyn-of-lorek/routes/route-1.md", text.replace("  mechanics: []", "  mechanics: []\n  souls: []"));
+  });
+  const hit = violations.find(
+    (v) => v.file === "als-rhyn-of-lorek/routes/route-1.md" && v.field === "panelOrder" && v.message.includes('"souls"'),
+  );
+  assert.ok(hit !== undefined, `expected a group-key violation; got ${JSON.stringify(violations)}`);
+});
+
+test("unresolvable panel-order id fails id resolution in the route's own armies map", async () => {
+  const violations = await lintBroken(async (root) => {
+    const text = await readFile(join(root, "als-rhyn-of-lorek/routes/route-1.md"), "utf8");
+    await rewrite(root, "als-rhyn-of-lorek/routes/route-1.md", text.replace("  armies: []", "  armies: [ghost-column]"));
+  });
+  const hit = violations.find(
+    (v) =>
+      v.file === "als-rhyn-of-lorek/routes/route-1.md" &&
+      v.field === "panelOrder" &&
+      v.message.includes("ghost-column") &&
+      v.message.includes('"armies"'),
+  );
+  assert.ok(hit !== undefined, `expected an unresolvable-id violation; got ${JSON.stringify(violations)}`);
+});
+
 // ─── 4. Boot: structured error naming file + field, never a partial tree ────
 
 test("boot rejects broken content with ContentBootError naming file and field", async () => {
@@ -253,6 +349,31 @@ test("boot rejects broken content with ContentBootError naming file and field", 
   assert.equal(err.file, "als-rhyn-of-lorek/data/armies.json");
   assert.equal(err.field, "datasets");
   assert.ok(err.message.includes("armies.json"));
+});
+
+test("boot rejects a schema-invalid dataset with ContentBootError naming file and field", async () => {
+  let err: unknown;
+  await inBrokenCopy(
+    async (root) => {
+      await rewrite(
+        root,
+        "als-rhyn-of-lorek/data/vco.json",
+        JSON.stringify({ "dark-conduits": [{ id: "obj-1", text: "Secure the conduits." }] }),
+      );
+    },
+    async (root) => {
+      try {
+        await loadContentTree(fsReader(root));
+        assert.fail("expected boot to reject");
+      } catch (e) {
+        err = e;
+      }
+    },
+  );
+  assert.ok(err instanceof ContentBootError, `expected ContentBootError, got ${String(err)}`);
+  assert.equal(err.file, "als-rhyn-of-lorek/data/vco.json");
+  assert.equal(err.field, "datasets");
+  assert.ok(err.message.includes("state is required"));
 });
 
 test("boot rejects a manifest-named missing file with its path and manifest field", async () => {
@@ -299,6 +420,11 @@ test("mutating the loaded tree throws: the tree is deeply frozen", async () => {
   assert.throws(() => {
     (route.objective as { text: string }).text = "rewritten";
   }, TypeError);
+
+  // dataset values (typed by the loader) are deeply frozen too
+  for (const dataset of tree.lords[0].datasets) {
+    assert.ok(Object.isFrozen(dataset.value), `dataset ${dataset.name} value is frozen`);
+  }
 });
 
 // ─── 6. Query layer: typed not-found results, never throws ──────────────────

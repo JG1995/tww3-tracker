@@ -38,6 +38,21 @@ export const DATASET_NAMES: readonly ["armies", "skills", "research", "buildings
 
 export type DatasetName = (typeof DATASET_NAMES)[number];
 
+/**
+ * The five dashboard panel dataset names, in the DESIGN's fixed panel order
+ * (DESIGN §4 "Panel selection and order"). `vco` is not a panel group: its
+ * per-route objective list renders under the route identity, not in a panel.
+ */
+export const PANEL_GROUPS: readonly ["armies", "skills", "research", "buildings", "mechanics"] = [
+  "armies",
+  "skills",
+  "research",
+  "buildings",
+  "mechanics",
+];
+
+export type PanelGroup = (typeof PANEL_GROUPS)[number];
+
 /** A claim: prose or structured assertion with an explicit confidence state and evidence. */
 export interface Claim {
   readonly text: string;
@@ -53,6 +68,87 @@ export interface Source {
   readonly url: string;
   readonly note: string;
 }
+
+/** One unit row of an army template (DESIGN §4 armies schema). */
+export interface UnitRow {
+  /** Number of units of this type. */
+  readonly n: number;
+  readonly name: string;
+  readonly role: string;
+  readonly kind: string;
+}
+
+/**
+ * A [title, body] string pair — the atlas's structured note/plan/detail line.
+ * Books render the title and the body as separate lines.
+ */
+export type TitleBody = readonly [title: string, body: string];
+
+/** One army template entry of `data/armies.json` (DESIGN §4 armies schema). */
+export interface Army {
+  readonly label: string;
+  readonly name: string;
+  /** The same template expressed as the supporting army. */
+  readonly supportName?: string;
+  readonly units: readonly UnitRow[];
+  /** The legendary-lord column — the same unit-row shape as `units`. */
+  readonly legendary: readonly UnitRow[];
+  /** The generic-lord column — the same unit-row shape as `units`. */
+  readonly generic: readonly UnitRow[];
+  readonly context?: string;
+  readonly notes: readonly TitleBody[];
+  readonly plan: readonly TitleBody[];
+  readonly size: number;
+  /** Source ids resolving against the lord's `data/sources.json`. */
+  readonly sources: readonly string[];
+  readonly state?: ClaimState;
+  readonly src?: readonly string[];
+}
+
+/** One step of an item (DESIGN §4 items schema). */
+export interface ItemStep {
+  readonly title: string;
+  readonly note: string;
+  /** An optional prerequisite or selectable option label. */
+  readonly gate?: string;
+  /** An optional short label. */
+  readonly short?: string;
+}
+
+/** One item of the flat skills/research/buildings/mechanics datasets (DESIGN §4). */
+export interface Item {
+  readonly label: string;
+  readonly title: string;
+  readonly intro: string;
+  readonly steps: readonly ItemStep[];
+  readonly details?: readonly TitleBody[];
+  /** Source ids resolving against the lord's `data/sources.json`. */
+  readonly sources: readonly string[];
+  readonly state?: ClaimState;
+  readonly src?: readonly string[];
+}
+
+/** One objective item of `data/vco.json` (DESIGN §4): a VCO claim the F5 ledger will tick. */
+export interface VcoItem {
+  /** The stable objective id, unchanged across routes of the same lord. */
+  readonly id: string;
+  readonly text: string;
+  /** VCO claims carry a confidence state by the same rule as objective/reward claims. */
+  readonly state: ClaimState;
+  readonly src?: readonly string[];
+}
+
+/** `data/armies.json`: route id → entry id → army (DESIGN §4 armies schema). */
+export type ArmiesDataset = Readonly<Record<string, Readonly<Record<string, Army>>>>;
+
+/** The four flat per-lord item dataset names (DESIGN §4 items schema). */
+export type ItemDatasetName = "skills" | "research" | "buildings" | "mechanics";
+
+/** `data/skills|research|buildings|mechanics.json`: entry id → item (DESIGN §4). */
+export type ItemDataset = Readonly<Record<string, Item>>;
+
+/** `data/vco.json`: route id → ordered objective items (DESIGN §4). */
+export type VcoDataset = Readonly<Record<string, readonly VcoItem[]>>;
 
 /** `version { patch, vco, checked }` from `guide.json`. */
 export interface GuideVersion {
@@ -101,8 +197,8 @@ export interface RouteCallout {
   readonly text: string;
 }
 
-/** `panelOrder` frontmatter: a one-level map of lists of scalars. */
-export type PanelOrder = Readonly<Record<string, readonly (string | number | boolean | null)[]>>;
+/** `panelOrder` frontmatter: a one-level map of string id lists. */
+export type PanelOrder = Readonly<Record<string, readonly string[]>>;
 
 /** A loaded route document (frontmatter contract plus body sections and callouts). */
 export interface Route {
@@ -136,10 +232,12 @@ export type JsonValue =
   | JsonValue[]
   | { readonly [key: string]: JsonValue };
 
-/** One loaded dataset: `sources` is typed as `Source[]`, the six as raw JSON. */
+/** One loaded dataset: `sources` stays `Source[]`; the six carry typed values (DESIGN §4). */
 export type LordDataset =
   | { readonly name: "sources"; readonly value: readonly Source[] }
-  | { readonly name: DatasetName; readonly value: JsonValue };
+  | { readonly name: "armies"; readonly value: ArmiesDataset }
+  | { readonly name: ItemDatasetName; readonly value: ItemDataset }
+  | { readonly name: "vco"; readonly value: VcoDataset };
 
 /** One loaded lord: manifest, rendered shared fundamentals, routes, and datasets. */
 export interface Lord {
