@@ -6,7 +6,7 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
-None currently — the next candidate is F2 (route-first rendering, order 2 below); plan it via `/skill:jay-pi-design-feature` when starting.
+- **route-first-rendering** (F2 — route-first content rendering) — plan accepted; delivery pending. [IMPLEMENTATION](features/route-first-rendering/ROUTE-FIRST-RENDERING-IMPLEMENTATION.md) · [DESIGN](features/route-first-rendering/ROUTE-FIRST-RENDERING-DESIGN.md)
 
 ## Next
 
@@ -43,7 +43,7 @@ F4 (Elspeth) + F4 (Alith or Zhao) + F2 ──► F6 cross-guide search          
 
 **Parallel note:** solo project — after order 3, orders 4–6 are mutually independent and can be reordered around a live campaign (pull F5 forward if an Elspeth campaign starts mid-build). In v1.1, the Alith/Zhao migrations are independent of F6.
 
-**Plan next:** F2 — route-first rendering (order 2). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order after F2's content-facing surfaces are specced.
+**Plan next:** F4 — Elspeth migration (order 3) once F2 delivers; F2 (route-first rendering) is now Active (see Active above). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order after F2 delivers.
 
 ## Completed
 
