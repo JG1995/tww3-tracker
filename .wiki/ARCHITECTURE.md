@@ -23,22 +23,69 @@ A local, single-user web app. One Preact SPA in TypeScript, built by Vite, with 
 | Dev tooling | `vite`, `typescript` (`tsc --noEmit`), small esbuild-based content lint script; Node ≥ 22 |
 | Content | Markdown + YAML frontmatter (prose, confidence states) and JSON (structured dashboard data) in `content/`, git-versioned, loaded at runtime |
 | Ledger state | JSON files in a gitignored local directory (e.g. `.local/state/ledgers/`); SQLite deferred per PRD F8 |
-| Serving | One-line local static server for development and ledger writes; static `dist/` is readable with no server |
+| Serving | Small dependency-free local server script (static files + ledger JSON writes); static `dist/` is readable with no server |
 | Design system | `.wiki/DESIGN.md` oklch tokens as CSS custom properties; no UI library |
 | Testing | Node built-in `node:test`; tests cover content-schema validation and ledger logic (pure functions) |
 
 ```text
  Browser (Preact SPA, static dist/ or Vite dev)
-   │  HTTP fetch (local static server; dist/ readable with none)
+   │  HTTP fetch (local server; dist/ + content/ readable with none)
    ├──► content/<faction>/<lord>/   Markdown + JSON  (read path; git-versioned)
    └──► .local/state/ledgers/*.json (write path; gitignored; plain-text exportable)
+
+ Local server: small dependency-free Node script — static serving +
+ PUT .local/state/ledgers/<campaign>.json with a path-safety check. No other server code.
 
  Raw archive (read-only reference, gitignored): .work/references/*.html
 ```
 
-Planned top-level shape: `index.html` shell, `app/` (router, views, components, `content.ts` loader, `search.ts`, `ledger.ts`), `content/` (per-faction guide files), `.local/state/` (ledger state, gitignored).
+#### Module layout
 
-Dependency direction: views → app modules → a thin file I/O boundary. Ledger logic is pure functions over JSON with I/O isolated at the edge — the seam a future store swap (PRD F8) cuts through. Rebuilding happens only for app-code changes; content edits require a reload, never a build (ADR-0001). Content conventions are enforced by the lint script plus shared TypeScript types, not by a build-time schema.
+```text
+app/
+├── main.ts            # bootstrap: build the content tree, mount the router
+├── router.ts          # hash router (~50 lines): #/faction/elspeth/route-ii → view
+├── views/             # one file per page; owns layout and page-local state
+│   ├── home.tsx  faction.tsx  lord.tsx  route.tsx
+│   ├── dashboard.tsx  ledger.tsx  search.tsx
+├── components/        # dumb reusable panels: TabStrip, Panel, ConfidenceBadge,
+│                      # SourceChip, LedgerTable, SearchResults — plain props in, UI out
+├── content/
+│   ├── types.ts       # the content model: Faction, Lord, Route, Claim, Army, …
+│   ├── load.ts        # side effect: fetch + parse Markdown/JSON → immutable ContentTree
+│   └── query.ts       # pure selectors: byRoute(), flaggedClaims(), search corpus
+├── ledger/
+│   ├── types.ts
+│   ├── logic.ts       # pure: tickItem(), markConfirmed(), newCampaign() — unit-tested
+│   └── io.ts          # side effect: the only code that reads/writes .local/state
+└── styles/            # tokens.css (DESIGN.md oklch tokens as custom properties), components.css
+```
+
+#### Readability rules
+
+1. **Side effects only in `content/load.ts` and `ledger/io.ts`.** Everything else is pure functions or dumb components; those two files are the only places where "something else happens".
+2. **State lives where it is rendered.** No state library, no global store. Tabs, sections, and search text are component-local. The only shared mutable documents are ledger documents (owned by `ledger/`) plus a small in-memory ledger index (id, lord, route, status, last updated) derived from them.
+3. **Views compose, components do not decide.** Panels receive data and emit events; they know nothing about factions, routes, or VCO. Reusability across factions comes from rendering data, not topics.
+
+#### Data flow
+
+- **Boot (once):** fetch the manifest, fetch all guide files in one parallel pass, parse and validate, build the immutable `ContentTree` in memory (tens of ms over a few MB). Markdown is rendered to HTML once at load and cached in the tree.
+- **After boot:** every page, tab, and search hit is a synchronous in-memory read — no per-view fetching, no loading states, no cache invalidation.
+- **Ledgers load on demand**, never at boot: opening a campaign loads its document via `io.ts`. Boot cost is independent of the number of campaigns, so the file-based store stays adequate at 100+ campaigns.
+- **Ledger write path:** `logic.ts` computes the next document → `io.ts` PUTs it → optimistic in-memory update, visible error and rollback on failure. Single user; no conflict handling.
+
+#### Performance expectations
+
+- One small bundle, no code splitting. Sub-100 ms in-browser search over the loaded corpus (naive tokenized matching in `query.ts`; MiniSearch is the named upgrade inside the same file).
+- The expensive work (fetch + parse) happens once at boot; everything the user touches afterwards is memory-bound.
+
+#### Deliberately absent
+
+No service worker, virtualization, event bus, DI, ORM, WebSocket, code splitting, state library, or cross-campaign analytics layer. New-faction extensibility is met by the content schema, not by framework indirection.
+
+#### When this direction stops being optimal
+
+Cross-campaign querying/analysis (comparisons, history stats across many campaigns) is the trigger for the PRD F8 store step: the local server gains a local database and serves the same document-level get/put surface; `ledger/io.ts` internals change, and nothing above it does. Until that usage appears, the file-based design carries the project.
 
 ### 1.2 Current state
 

@@ -25,7 +25,7 @@ Concretely:
 
 - Runtime dependencies: `preact`, `markdown-it`. Dev tooling: `vite`, `typescript`, a small esbuild-based content lint script.
 - A production build produces a static `dist/` that is readable in a browser with no server.
-- A one-line local static server is used for development and for the ledger write path (browser `fetch` of local files requires an HTTP origin).
+- A small dependency-free local server script (static files plus ledger JSON writes with a path-safety check) is used for development and the ledger write path (browser `fetch` of local files requires an HTTP origin).
 - Rebuilding happens only when application *code* changes; content edits require only a page reload.
 
 ## Alternatives considered
@@ -44,7 +44,7 @@ Plausible for a small site, and zero-framework purity has real appeal. Not chose
 
 - The repository is the site: content edits are instant, fully git-diffable, and never a build event.
 - Real component model for the tab/panel UI at a ~4 KB runtime.
-- A static `dist/` satisfies "read with no server"; the local server is only needed for development and ledger writes.
+- A static `dist/` plus `content/` satisfies "read with no server"; the local server is only needed for development and ledger writes.
 - The toolchain (Vite + tsc) provides fast HMR and a hard type gate without platform opinions.
 
 ### Negative
