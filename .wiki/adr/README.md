@@ -33,9 +33,5 @@ Use **Related work** to link relevant feature design and implementation document
 
 ## Recorded decisions
 
-- [0001 — Parallel implementation waves with serial integration](0001-parallel-implementation-waves.md) — Accepted
-- [0002 — Kandev-primary delivery with native fallback](0002-kandev-primary-delivery.md) — Superseded by 0004
-- [0003 — Paseo role runtime with repository-owned prompts](0003-paseo-role-runtime.md) — Accepted; evidence-role refusal superseded by 0005
-- [0004 — Pi-coordinated delivery with Paseo-managed worktrees](0004-paseo-managed-pi-delivery.md) — Accepted; evidence-role refusal superseded by 0005
-- [0005 — Dispatch prompt-bounded Paseo evidence roles](0005-prompt-bounded-paseo-evidence-roles.md) — Accepted
-- [0006 — Bounded worker concurrency with batched wave dispatch](0006-bounded-worker-concurrency.md) — Accepted
+- [0001 — Vite + Preact SPA with runtime-loaded plain-text content](0001-vite-preact-runtime-loaded-site.md) — Accepted
+- [0002 — Guide content as Markdown prose plus JSON structured data](0002-content-as-markdown-json.md) — Accepted

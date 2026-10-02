@@ -10,17 +10,39 @@ For the product purpose and domain model, see [CONCEPT.md](./CONCEPT.md). For th
 
 ## 1. Top-Level Shape
 
-[Describe the stack, the process model, the layers, and how they communicate. Add a diagram that shows the system structure.]
+### 1.1 Target architecture (approved proposal)
+
+> Status: approved 2026-10-02, **not yet implemented**. This subsection records the approved target stack and direction only; it does not describe the current system (see 1.2). Rationale: [ADR-0001](adr/0001-vite-preact-runtime-loaded-site.md), [ADR-0002](adr/0002-content-as-markdown-json.md).
+
+A local, single-user web app. One Preact SPA in TypeScript, built by Vite, with no static site generator and no backend. Guide content is never compiled into the bundle — it is fetched at runtime from the repository as Markdown and JSON files.
+
+| Layer | Choice |
+| ----- | ------ |
+| UI | Preact SPA, TypeScript, hash routing, single HTML shell |
+| Runtime dependencies | `preact`, `markdown-it` |
+| Dev tooling | `vite`, `typescript` (`tsc --noEmit`), small esbuild-based content lint script; Node ≥ 22 |
+| Content | Markdown + YAML frontmatter (prose, confidence states) and JSON (structured dashboard data) in `content/`, git-versioned, loaded at runtime |
+| Ledger state | JSON files in a gitignored local directory (e.g. `.local/state/ledgers/`); SQLite deferred per PRD F8 |
+| Serving | One-line local static server for development and ledger writes; static `dist/` is readable with no server |
+| Design system | `.wiki/DESIGN.md` oklch tokens as CSS custom properties; no UI library |
+| Testing | Node built-in `node:test`; tests cover content-schema validation and ledger logic (pure functions) |
 
 ```text
-[ASCII diagram or text outline that shows:
- - layers (frontend, backend, data store, third-party services)
- - communication boundaries and protocols (IPC, HTTP, shared memory, message queue)
- - process boundaries (single binary, client-server, edge workers)
- - deployment boundary (desktop, web, mobile, embedded)]
+ Browser (Preact SPA, static dist/ or Vite dev)
+   │  HTTP fetch (local static server; dist/ readable with none)
+   ├──► content/<faction>/<lord>/   Markdown + JSON  (read path; git-versioned)
+   └──► .local/state/ledgers/*.json (write path; gitignored; plain-text exportable)
+
+ Raw archive (read-only reference, gitignored): .work/references/*.html
 ```
 
-[State the architecture rules for dependency direction, interface boundaries, and layer separation. Note which rules are enforced by tooling.]
+Planned top-level shape: `index.html` shell, `app/` (router, views, components, `content.ts` loader, `search.ts`, `ledger.ts`), `content/` (per-faction guide files), `.local/state/` (ledger state, gitignored).
+
+Dependency direction: views → app modules → a thin file I/O boundary. Ledger logic is pure functions over JSON with I/O isolated at the edge — the seam a future store swap (PRD F8) cuts through. Rebuilding happens only for app-code changes; content edits require a reload, never a build (ADR-0001). Content conventions are enforced by the lint script plus shared TypeScript types, not by a build-time schema.
+
+### 1.2 Current state
+
+No application code exists. The repository contains this `.wiki/` documentation, `README.md`, the gitignored raw guide archive (`.work/references/`), and gitignored workflow scripts (`scripts/`). Sections 2–11 of this document are unfilled and will be written as implementation lands.
 
 ---
 
