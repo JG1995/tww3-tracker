@@ -100,7 +100,7 @@ Commit 1 (tokens + toolchain) → Commit 2 (content model on fixtures) → Commi
 
 ### PR `site-foundation` — Foundation: app shell, content model, Elspeth skeleton
 
-**Status:** Planned
+**Status:** Delivered (merged to `main` as `94fa333`, 2026-10-02)
 
 **Depends on:** []
 
