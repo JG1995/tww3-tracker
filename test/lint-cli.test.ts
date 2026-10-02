@@ -1,0 +1,83 @@
+/**
+ * Spawned-process proof for the content lint CLI (package lint-cli, commit 3).
+ *
+ * The CLI is the product surface, so these tests run the real script with
+ * node:child_process over fixture roots: the committed two-lord fixtures pass
+ * (exit 0), a broken temp-dir copy fails (exit 1 plus a formatted violation
+ * line), and an empty or absent root is the "no content yet" pass (exit 0
+ * with the notice). Broken variants only ever touch temp-dir copies — the
+ * committed fixtures are never mutated.
+ */
+
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { execFile } from "node:child_process";
+import { cp, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const CLI = fileURLToPath(new URL("../tools/content-lint.mjs", import.meta.url));
+const FIXTURES = fileURLToPath(new URL("fixtures/content", import.meta.url));
+
+/** Runs the CLI over a content root; resolves the exit code and captured output. */
+function runCli(root: string): Promise<{ code: number | null; stdout: string; stderr: string }> {
+  return new Promise((resolve) => {
+    execFile(process.execPath, [CLI, root], { encoding: "utf8" }, (err, stdout, stderr) => {
+      if (err === null) {
+        resolve({ code: 0, stdout, stderr });
+      } else {
+        // A non-zero exit surfaces as an error whose .code is the exit code.
+        resolve({ code: typeof err.code === "number" ? err.code : null, stdout, stderr });
+      }
+    });
+  });
+}
+
+// ─── 1. Pass: the valid two-lord fixture is clean ───────────────────────────
+
+test("valid fixture root exits 0 with no violation output", async () => {
+  const { code, stdout, stderr } = await runCli(FIXTURES);
+  assert.equal(code, 0);
+  assert.equal(stdout, "");
+  assert.equal(stderr, "");
+});
+
+// ─── 2. Fail: a broken fixture copy exits 1 with a formatted violation ──────
+
+test("broken fixture copy exits 1 and prints a file:field — message line", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "lint-cli-fail-"));
+  try {
+    await cp(FIXTURES, dir, { recursive: true });
+    // One seeded violation: an orphan file no manifest names.
+    await writeFile(join(dir, "als-rhyn-of-lorek", "stray.md"), "not named by any manifest\n");
+
+    const { code, stdout } = await runCli(dir);
+    assert.equal(code, 1);
+    assert.ok(
+      stdout.includes("als-rhyn-of-lorek/stray.md:orphan — "),
+      `expected an orphan violation line naming file and field; got: ${JSON.stringify(stdout)}`,
+    );
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
+// ─── 3. No-content: empty and absent roots are a pass with the notice ───────
+
+test("empty content root is the no-content-yet pass: exit 0 with the notice", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "lint-cli-empty-"));
+  try {
+    const { code, stdout } = await runCli(dir);
+    assert.equal(code, 0);
+    assert.ok(stdout.includes("no content yet"), `expected the no-content notice; got: ${JSON.stringify(stdout)}`);
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
+test("absent content root is the no-content-yet pass: exit 0 with the notice", async () => {
+  const { code, stdout } = await runCli(join(tmpdir(), "lint-cli-absent-", "never-created"));
+  assert.equal(code, 0);
+  assert.ok(stdout.includes("no content yet"), `expected the no-content notice; got: ${JSON.stringify(stdout)}`);
+});

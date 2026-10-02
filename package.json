@@ -6,7 +6,8 @@
   "scripts": {
     "test": "node --test",
     "build": "vite build",
-    "dev": "vite"
+    "dev": "vite",
+    "lint:content": "node tools/content-lint.mjs"
   },
   "dependencies": {
     "markdown-it": "^15.0.2",

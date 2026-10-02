@@ -186,7 +186,7 @@ Commit 1 (tokens + toolchain) → Commit 2 (content model on fixtures) → Commi
 
 #### Package `lint-cli` — Commit 3: Content lint CLI
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 3
 
