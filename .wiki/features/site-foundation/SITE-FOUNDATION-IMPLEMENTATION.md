@@ -74,13 +74,14 @@ Ship the site foundation in one PR: the Preact + Vite + TypeScript app shell, th
 ### Decisions
 
 - One PR (no clear merge boundary justifies two); seven maximal-atomic commits in waves 1–6.
+- **Developer decision (2026-10-02):** the reading path is the HTTP server (`node tools/server.mjs` / `npm run dev`); the `file://` boot claim is unachievable in Chromium (verified) and is corrected in the docs at close-out. The Jev overengineering gate on the `content-model` candidate settled at an uncertain `suitable` (0.7 → 0.67 after one verified simplification pass); the developer directed proceeding to independent commit review.
 - `tools/` for committed product tooling; gitignored `scripts/` stays reserved for jay-pi workflow scripts.
 - `npm test` runs `node --test`; `tsc --noEmit` is the type gate; `content-lint` gates content commits; `npm run build` gates the final validation.
 - The server test uses an ephemeral port (`port: 0`) and the built `dist/` from package 7's own validation run.
 
 ### Unknowns
 
-- Whether the pinned Vite version's default output is fully `file://`-ready — expected to need a `base`/asset-path adjustment; package 7 verifies by loading `dist/index.html` without a server and booting from `content/`. If an unavoidable origin-dependent fetch remains, replan (this would invalidate ADR-0001's file:// claim and needs a developer decision).
+- ~~Whether the pinned Vite version's default output is fully `file://`-ready~~ — **Resolved 2026-10-02 (developer decision):** headless Chromium verification (see Discoveries) proved `file://` runtime loading unachievable in Chromium-based browsers; the feature ships with the HTTP server (`tools/server.mjs`, or `npm run dev`) as the reading path. Final validation step 5 verifies the boot over HTTP. The DESIGN/ADR `file://` claims receive a verified-limitation correction at feature close-out.
 
 ### Risks
 
@@ -336,6 +337,7 @@ Commit 1 (tokens + toolchain) → Commit 2 (content model on fixtures) → Commi
 ## Discoveries and replanning
 
 - **2026-10-02 (delivery preflight) — Node `node --test` cannot execute `.tsx` files.** Verified on Node v24.18.0: importing a `.tsx` module throws `ERR_UNKNOWN_FILE_EXTENSION` (including with `--experimental-transform-types`), and `node --test` silently skips `.tsx` candidates during discovery. Consequence: the planned `app/views/*.tsx` could not be imported by the commit-6 render test and `test/views.test.tsx` would never run, breaking the required `npm test` green check ("views" item). Bounded revision (requirements, feature scope, architecture, and all other packages unchanged): packages `app-shell` and `home-real` now write `app/views/*.ts` and `test/views.test.ts`; views are built with Preact's `h()` so node:test can import and assert their VNode output, while the Vite-loaded entry `main.tsx` remains JSX. Reviewed and committed as a plan revision before wave 1 dispatch.
+- **2026-10-02 (wave 2 pre-dispatch, coordinator-verified) — Chromium blocks all runtime loading under `file://`.** Verified with headless Chromium (Playwright, this host) against a static document: an external `<script type="module">` from a `file://` page fails with a CORS `null`-origin block; `fetch('./content/index.json')` from `file://` fails; `XMLHttpRequest` fails. Consequence: "open `dist/index.html` via `file://` with no server" (DESIGN Journey A, ADR-0001, final validation step 5) is unachievable in Chromium-based browsers regardless of `base: "./"`. This is the replan trigger the Uncertainty register pre-declared; changing the loading strategy alters feature scope, so it is a developer decision — presented with the Local integration gate. All other gates and the HTTP server path are unaffected by this fact.
 - **2026-10-02 (wave 1, pre-integration) — `.gitignore` owned by no package.** The pre-existing `.gitignore` has no `node_modules/` or `dist/` entry, so the toolchain scaffold (commit 1) and every later build/validation would leave the worktree permanently non-clean — a trunk-safety and hygiene defect no planned package could fix without scope drift. Bounded revision (requirements, feature scope, architecture unchanged): `.gitignore` added to `design-tokens`' write scope with a single-line responsibility (add `node_modules/` and `dist/` to the existing ignore set). Reviewed and committed as a plan revision before commit 1's scratch transport commit.
 
 ## Final validation
@@ -346,7 +348,7 @@ Exact gates, in order:
 2. `npx tsc --noEmit` — clean.
 3. `node tools/content-lint.mjs` — exit 0 on the committed `content/`.
 4. `npm run build` — static `dist/` produced.
-5. Manual: open `dist/index.html` via `file://` (no server) → home shows the Elspeth card with version context → lord page → route 1 renders identity, claim states, and the declared-gap list; an unknown hash shows not-found; corrupting a `content/` file and reloading shows the boot error naming it.
+5. Manual: boot the built site over HTTP (headless Chromium against `npm run serve`, or `npm run dev`) → home shows the Elspeth card with version context → lord page → route 1 renders identity, claim states, and the declared-gap list; an unknown hash shows not-found; corrupting a `content/` file and reloading shows the boot error naming it. (The original `file://` form of this step was voided by the 2026-10-02 developer decision — see Uncertainty register / Discoveries.)
 6. Manual: `node tools/server.mjs` serves the same site over HTTP.
 7. DESIGN §7 acceptance criteria checked item by item; DESIGN.md Pre-Delivery Checklist applicable to F1 surfaces (keyboard nav, focus-visible, contrast, reduced-motion).
 
