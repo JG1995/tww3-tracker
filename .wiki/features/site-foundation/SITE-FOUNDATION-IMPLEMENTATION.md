@@ -131,7 +131,7 @@ Commit 1 (tokens + toolchain) → Commit 2 (content model on fixtures) → Commi
 
 **Depends on:** []
 
-**Write scope:** ["package.json", "package-lock.json", "tsconfig.json", "vite.config.ts", "index.html", "app/styles/tokens.css", "test/tokens.test.ts"]
+**Write scope:** ["package.json", "package-lock.json", "tsconfig.json", "vite.config.ts", "index.html", "app/styles/tokens.css", "test/tokens.test.ts", ".gitignore"]
 
 **Provisional commit:** `chore(scaffold): add toolchain and design token stylesheet`
 
@@ -143,7 +143,7 @@ Commit 1 (tokens + toolchain) → Commit 2 (content model on fixtures) → Commi
 
 **Implementation packet:** `index.html` is a bare document shell (wordmark slot + mount node) linking `app/styles/tokens.css` and the entry module. `vite.config.ts` pre-sets the `file://`-hostile defaults toward static output (relative `base`) — package 7 verifies the full property. The dependency manifest is exactly the ADR-pinned set — `preact`, `markdown-it` (dependencies) and `vite`, `typescript`, `esbuild`, `@types/node` (devDependencies) — pinned once here because ADR-0001/0002 pin the project's whole third-party surface; later packages consume it but never extend it.
 
-**Files and responsibilities:** `package.json` — scripts (`test`, `build`, `dev`) + the complete ADR-pinned dependency manifest. `package-lock.json` — committed lockfile for that manifest. `tsconfig.json` — strict TS config for `app/`, `tools/`, `test/`. `vite.config.ts` — build config only. `index.html` — document shell + mount. `app/styles/tokens.css` — every DESIGN.md frontmatter token as a CSS custom property, grouped by the DESIGN.md categories. `test/tokens.test.ts` — node:test: parses `tokens.css` and asserts every token key from a locally listed set (derived from DESIGN.md frontmatter) exists with a non-empty value.
+**Files and responsibilities:** `package.json` — scripts (`test`, `build`, `dev`) + the complete ADR-pinned dependency manifest. `package-lock.json` — committed lockfile for that manifest. `tsconfig.json` — strict TS config for `app/`, `tools/`, `test/`. `vite.config.ts` — build config only. `index.html` — document shell + mount. `app/styles/tokens.css` — every DESIGN.md frontmatter token as a CSS custom property, grouped by the DESIGN.md categories. `test/tokens.test.ts` — node:test: parses `tokens.css` and asserts every token key from a locally listed set (derived from DESIGN.md frontmatter) exists with a non-empty value. `.gitignore` — add the toolchain's untracked artifacts (`node_modules/`, `dist/`) to the existing ignore set so the committed scaffold leaves the worktree clean.
 
 **Tests and proof:** Observable: `npx tsc --noEmit` passes; `npm test` runs the token test green. Seam: the node:test run itself (no app boot yet).
 
@@ -336,6 +336,7 @@ Commit 1 (tokens + toolchain) → Commit 2 (content model on fixtures) → Commi
 ## Discoveries and replanning
 
 - **2026-10-02 (delivery preflight) — Node `node --test` cannot execute `.tsx` files.** Verified on Node v24.18.0: importing a `.tsx` module throws `ERR_UNKNOWN_FILE_EXTENSION` (including with `--experimental-transform-types`), and `node --test` silently skips `.tsx` candidates during discovery. Consequence: the planned `app/views/*.tsx` could not be imported by the commit-6 render test and `test/views.test.tsx` would never run, breaking the required `npm test` green check ("views" item). Bounded revision (requirements, feature scope, architecture, and all other packages unchanged): packages `app-shell` and `home-real` now write `app/views/*.ts` and `test/views.test.ts`; views are built with Preact's `h()` so node:test can import and assert their VNode output, while the Vite-loaded entry `main.tsx` remains JSX. Reviewed and committed as a plan revision before wave 1 dispatch.
+- **2026-10-02 (wave 1, pre-integration) — `.gitignore` owned by no package.** The pre-existing `.gitignore` has no `node_modules/` or `dist/` entry, so the toolchain scaffold (commit 1) and every later build/validation would leave the worktree permanently non-clean — a trunk-safety and hygiene defect no planned package could fix without scope drift. Bounded revision (requirements, feature scope, architecture unchanged): `.gitignore` added to `design-tokens`' write scope with a single-line responsibility (add `node_modules/` and `dist/` to the existing ignore set). Reviewed and committed as a plan revision before commit 1's scratch transport commit.
 
 ## Final validation
 
