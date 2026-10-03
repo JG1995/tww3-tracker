@@ -58,7 +58,7 @@ Restructure the pilot atlas (`.work/references/Elspeth_VCO_Expedition_Atlas.html
 ## Feature architecture
 
 - **Atlas → model mapping layer (content authorship):** every atlas block resolves to exactly one home in the committed model — route frontmatter fields the frontmatter contract already owns (verified against `assertRouteDocument`: `id`, `number`, `name`, `vcoTitle`, `motto`, `objective`/`reward` claims, `interpretation`/`bottleneck` (already seeded), `gaps`, `panelOrder`), route registry H2 body sections (phases, territory, diplomacy, transitions), the six typed datasets (`armies`, `skills`, `research`, `buildings`, `mechanics`, `vco`), `shared.md` H2 sections, or an explicit exclusion with reason (browser-local interactive state only).
-- **Datasets:** `data/armies.json` holds the per-route maps (three routes × five entries) with the atlas's `elspeth` column renamed to the F2 `legendary` column (verify-only rename; the atlas's `generic` column and all other fields map field-for-field); the four flat item datasets hold lord-wide entry maps with the atlas's entry ids (`skills` 10, `research` 4, `buildings` 9 — the atlas `builds` block, `mechanics` 5); `data/vco.json` holds per-route ordered objective items.
+- **Datasets:** `data/armies.json` holds the per-route maps (three routes × five entries) with the atlas's `elspeth` column renamed to the F2 `legendary` column (verify-only rename; the atlas's `generic` column and all other fields map field-for-field); the four flat item datasets hold lord-wide entry maps with the atlas's entry ids (`skills` 10, `research` 4 base groups + 4 per-route override entries under distinct ids, `buildings` 9 — the atlas `builds` block, `mechanics` 5); `data/vco.json` holds per-route ordered objective items.
 - **Folding (no new datasets):** the 15 techs fold into the research entries as step titles/notes/gates (their content is already the steps); the 4 field tests fold into the `testing` mechanic entry as gated steps; the 8 upgrades and 4 Amethyst paths fold into the `armoury` mechanic entry (steps/details) or, where the design says, the referencing army's notes; the 7 evidence notes fold into the claims/items they support via their `src` ids.
 - **Route documents:** each route body carries the four phase sections (design phase mapping: `Opening` → `Opening`, `Early` → `Early → Mid`, `Mid-game` + `Late` → `Mid → Late`, `Victory` → `Victory push`), the two optional sections, and the two `Transition → route-<x>` sections (from the atlas `transitions` map, one section per target route); the six content-gap entries leave `gaps`; the two transition titles stay declared in `gaps` because the F2 `routeBody` walk uses declared transition gaps as its slot registry — that is the only way the sections render.
 - **Route-level prose weave:** `type`, `avoid`, `armyIdentity`, `recommended`, the army/economy/mechanics priorities, and the per-item `use` notes weave into the most relevant registry section body — kept as recognizable prose, one home, never dropped and never restated; per-item `use` notes are route-specific and cannot live in the lord-wide item entries, so they land in the owning route's section prose.
@@ -74,7 +74,7 @@ Restructure the pilot atlas (`.work/references/Elspeth_VCO_Expedition_Atlas.html
 - The frontmatter contract permits exactly `id`, `number`, `name`, `vcoTitle`, `objective`, `reward`, `interpretation`, `bottleneck`, `motto`, `transitions`, `panelOrder`, `gaps` (all optional-when-typed except the id/number/name/vcoTitle/claims set). The atlas's `type`, `avoid`, `armyIdentity`, `recommended`, `armyPriority`, `economyPriority`, `mechanicsPriority`, and the `use` maps have no frontmatter home (DESIGN §4 weaves them into sections/dataset items).
 - Research steps in the atlas carry `checkId: "tech:<short-id>"`; `techs` is a 15-entry short-id index and `legacyResearch` is the same 15 entries keyed by display name. `ItemStep` (F2) is `{ title, note, gate?, short? }` and the lint tolerates extra keys but the typed contract does not include `checkId`. The tech *content* (name/why/prereq) is already the research step title/note/gate; `checkId` and both index blocks are the atlas's tick-tracker linkage (which checkbox matched which tech, for its localStorage checklist) — the interactive-state class, not guide content.
 - Every route's atlas `defaults` map is exactly the first `panelOrder` entry of each group; the F2 dashboard renders lists in order with no per-group default selection, so excluding `defaults` loses nothing observable.
-- The atlas `panelOrder.builds` group is the F2 `buildings` dataset (rename already canonical since F2's `stub-reshape`). The committed route `panelOrder` lists are empty (F2's `stub-reshape` emptied every id list and `test/elspeth-skeleton.test.ts` asserts the empty lists); the atlas's route panel lists are the authority, and Commits 8–10 fill the committed lists from them.
+- The atlas `panelOrder.builds` group is the F2 `buildings` dataset (rename already canonical since F2's `stub-reshape`). The committed route `panelOrder` lists are empty (F2's `stub-reshape` emptied every id list and `test/elspeth-skeleton.test.ts` asserts the empty lists); the atlas's route panel lists are the authority, and Commits 9–11 fill the committed lists from them (Route II/III `research` lists carry the override ids — see Discoveries, `researchOverrides`).
 - Army `kind` values are open strings (`line`, `ranged`, `artillery`, `cavalry`, `character`, …); the lint enforces only a non-empty string — no closed vocabulary to adjust.
 - Phase blocks carry an optional `checkpoint` string; registry section bodies accept prose, so a checkpoint folds in as a paragraph of its section — no schema field needed.
 - Route-level prose weave placements are migration authorship; the weave-to-section and state/src assignments per block follow the DESIGN policy and are recorded in Discoveries (see Decisions).
@@ -119,11 +119,11 @@ Restructure the pilot atlas (`.work/references/Elspeth_VCO_Expedition_Atlas.html
 
 ## Walking skeleton
 
-Commits 1–8 (the W1 pair, the five remaining datasets, then Route I): once `shared-content`, all five panel datasets, `vco-dataset`, and `route-1-content` land, one route renders the complete migrated guide through the existing F1/F2 code — identity card unchanged with the unresearched marker, eight registry sections with atlas content and no gap markers, the VCO undercard, and five populated dashboard panels. Commits 9–10 complete the other two routes; the last commit also completes the committed-content test reconciliation. Intermediate commits keep every committed prefix lint-clean with the not-yet-migrated routes still rendering their explicit gap markers and empty panels — correct, DESIGN-valid intermediate states, not regressions.
+Commits 1–9 (the W1 pair, the five remaining datasets, the research overrides, then Route I): once `shared-content`, all five panel datasets, `vco-dataset`, `research-overrides`, and `route-1-content` land, one route renders the complete migrated guide through the existing F1/F2 code — identity card unchanged with the unresearched marker, eight registry sections with atlas content and no gap markers, the VCO undercard, and five populated dashboard panels. Commits 10–11 complete the other two routes; the last commit also completes the committed-content test reconciliation. Intermediate commits keep every committed prefix lint-clean with the not-yet-migrated routes still rendering their explicit gap markers and empty panels — correct, DESIGN-valid intermediate states, not regressions.
 
 ## Delivery plan
 
-**Commit packages:** 10
+**Commit packages:** 11
 
 ### PR `elspeth-migration` — Migrate the Elspeth atlas content into the committed guide
 
@@ -231,7 +231,7 @@ Commits 1–8 (the W1 pair, the five remaining datasets, then Route I): once `sh
 
 **Out of scope:** The other five datasets, route documents (their `panelOrder.research` fills later), and any `app/*.ts` change.
 
-**Implementation packet:** `lintItemDataset` accepts any number of steps per entry (the DESIGN's "long lists are long"); every step must carry non-empty `title`/`note`, optional `gate`/`short`. The techs' `prereq` text ("Opening option", "Grain Silos", …) becomes the step `gate` — the atlas's own gate wording, preserved. Research facts (tech names, prerequisites, sources `tech`/`school`) are `confirmed`-state content per the DESIGN policy where the entries carry states; otherwise the optional state is absent. The F2 per-route-variant rule stays available (fixture-proven) but the atlas declares no research overrides — all three routes share the same four groups (their `panelOrder.research` lists are identical in the atlas) — so no override entry is created (recorded in Discoveries).
+**Implementation packet:** `lintItemDataset` accepts any number of steps per entry (the DESIGN's "long lists are long"); every step must carry non-empty `title`/`note`, optional `gate`/`short`. The techs' `prereq` text ("Opening option", "Grain Silos", …) becomes the step `gate` — the atlas's own gate wording, preserved. Research facts (tech names, prerequisites, sources `tech`/`school`) are `confirmed`-state content per the DESIGN policy where the entries carry states; otherwise the optional state is absent. The F2 per-route-variant rule is fixture-proven. **Corrected by the 2026-10-03 replan (see Discoveries):** the atlas declares four per-route `researchOverrides` (route2: `opening`, `economy`; route3: `opening`, `arcane`); they are carried by the separate `research-overrides` package as distinct entries, and this packet's base-group scope stands as integrated.
 
 **Files and responsibilities:** `content/elspeth-von-draken/data/research.json` — the four-entry map with folded tech steps. `test/elspeth-skeleton.test.ts` — the empty-form loop stops asserting `research` is `{}` and asserts the migrated contract (four entries, steps-with-gates load as typed items); the other still-empty datasets keep their `{}` assertions.
 
@@ -363,11 +363,41 @@ Commits 1–8 (the W1 pair, the five remaining datasets, then Route I): once `sh
 
 **Review mandate:** exact item counts and atlas texts; stable id scheme applied and recorded in Discoveries (never renumbered); every item has a state and `src`; the F5 tick surface is the ids F5 will import — flag any provisional id; no progress fields of any kind; `views.test.ts` update is the undercard flip only.
 
-#### Package `route-1-content` — Commit 8: Fill Route I body sections and panel order
+#### Package `research-overrides` — Commit 8: Add the four per-route research override entries
 
 **Status:** Planned
 
 **Wave:** 7
+
+**Depends on:** ["research-dataset"]
+
+**Write scope:** ["content/elspeth-von-draken/data/research.json", "test/elspeth-skeleton.test.ts"]
+
+**Provisional commit:** `feat(content): add the four per-route research override entries`
+
+**Work:** `data/research.json` (the four base groups, landed by `research-dataset`) gains four additional lord-wide entries — the atlas's per-route `researchOverrides` as distinct entry ids per DESIGN §4's per-route-variant rule: `route-2-opening` (atlas `routes.route2.researchOverrides.opening`, label "Opening", title "Prepare a long southern campaign"), `route-2-economy` (label "Economy", title "Support a durable southern sphere"), `route-3-opening` (atlas `routes.route3.researchOverrides.opening`, label "Opening", title "A durable survey column"), `route-3-arcane` (label "Special", title "The expedition's practical research"). Each maps field-for-field exactly as the base groups did: `label`/`title`/`intro` verbatim, `steps[]` `title`/`note`/`gate`/`short` verbatim with empty strings omitted and the atlas `checkId` key dropped (tick-tracker linkage — the same exclusion as `research-dataset`; the referenced tech atoms are already folded into the base groups), `details` pairs verbatim, `sources` verbatim. The four base-group entries stay byte-identical. `state`/`src` per the DESIGN §4 policy (route-3 `arcane`'s "Check the active technology tree"/"follow the live gate" hedges are `verify-in-campaign`; pure tech facts `confirmed`), recorded in the report.
+
+**Atomicity:** One outcome: "the four per-route research variants exist as distinct entries so the owning routes' `panelOrder` lists can name them" — one file, one atlas block family (`researchOverrides`), one user-visible consequence (Route II/III research panels showing the variant content); splitting by route would fragment the same dataset's contract on shared test files without an independent outcome. ~0 counted code lines (pure JSON data); content volume ~230 lines + ~35 test lines.
+
+**Out of scope:** The other datasets, all route documents (the `panelOrder.research` lists that name the new ids land in `route-2-content`/`route-3-content`), the four base-group entries, and any `app/*.ts` change.
+
+**Implementation packet:** The F2 per-route-variant rule is fixture-proven (a distinct research id listed only in one route's `panelOrder`); the lint resolves every listed id in the lord-wide research map, so the four ids need no rendering change. The skeleton test's existing 15-tech fold assertion is scoped to the four base groups' steps — keep it exactly so (the override steps reuse the same tech atoms in a different selection; asserting them into the base set would corrupt the fold contract) and add the override assertions (four ids present, exact id set of all eight entries, typed items via the loader, sources resolution, the route-3 arcane hedge wording preserved). `checkId` stays absent from committed content.
+
+**Files and responsibilities:** `content/elspeth-von-draken/data/research.json` — the four base entries plus the four override entries. `test/elspeth-skeleton.test.ts` — the research contract extends to eight entries with the base fold assertion untouched.
+
+**Tests and proof:** Observable: the committed tree loads eight typed research entries; the four override ids exist with their atlas wording; the base four are unchanged. Seam: loader-based skeleton test + the lint CLI.
+
+**Validation:** `npm test`, `npx tsc --noEmit`, `node tools/content-lint.mjs` (exit 0). No services.
+
+**Stop conditions:** An override entry the F2 `Item` shape cannot carry without loss (report the forcing field); an override step whose tech atom is not present in the base groups (evidence of drift — report).
+
+**Review mandate:** exactly four new entries with the ledger's ids and the atlas's wording verbatim; the four base-group entries byte-identical; `checkId` nowhere; the base 15-tech fold assertion uncorrupted; no `app/*.ts` change; skeleton-test edit extends research only.
+
+#### Package `route-1-content` — Commit 9: Fill Route I body sections and panel order
+
+**Status:** Planned
+
+**Wave:** 8
 
 **Depends on:** ["skills-dataset", "research-dataset", "buildings-dataset", "mechanics-dataset", "armies-dataset"]
 
@@ -393,69 +423,75 @@ Commits 1–8 (the W1 pair, the five remaining datasets, then Route I): once `sh
 
 **Review mandate:** frontmatter identity byte-identical; exactly eight sections; six content-gap entries removed and the two transition titles retained in `gaps` (the mechanism rationale); `panelOrder` uses the atlas's Route I lists under the canonical group keys; woven prose one-home (cross-check the atlas `use`/`type`/priority blocks appear recognizably once); callout states and `src` per policy; no H3; `transitions` frontmatter field dropped with the decision recorded; tests updated with the route.
 
-#### Package `route-2-content` — Commit 9: Fill Route II body sections and panel order
-
-**Status:** Planned
-
-**Wave:** 8
-
-**Depends on:** ["skills-dataset", "research-dataset", "buildings-dataset", "mechanics-dataset", "armies-dataset"]
-
-**Write scope:** ["content/elspeth-von-draken/routes/route-2.md", "test/elspeth-skeleton.test.ts", "test/views.test.ts"]
-
-**Provisional commit:** `feat(content): fill Route II body sections and panel order`
-
-**Work:** The same outcome as Commit 8 applied to `route-2.md`: eight body sections from the atlas's `route2` phases/territory/diplomacy/`transitions` (to `route-1` and `route-3`), the six content gaps removed with the two transition titles retained in `gaps`, the atlas's Route II `panelOrder` lists (skills 10, research 4, mechanics 5, buildings: `nuln, charter, resource, income, frontier, temporary`, armies 5), and the route-level prose weave (its own `type` "Territorial coalition", `armyIdentity`, priorities, `avoid`, `recommended`, and its own `use` notes — e.g. skills `elspeth` "Prioritise recovery and the rank-12 economic support…") with `::claim` callouts per policy.
-
-**Atomicity:** One outcome: "Route II's route page renders its full migrated body and resolved panel content" — same single-document reasoning as Commit 8; independent of Commit 8 (different file, panels already resolvable), but serialized on the shared committed-content tests rather than paired. ~0 counted code lines; content volume ~360 lines + ~45 test lines.
-
-**Out of scope:** Routes I and III, datasets, shared.md, and any `app/*.ts` change.
-
-**Implementation packet:** Same constraints as Commit 8 (H2-only, registry order, transitions-in-gaps, one-home weave, `buildings` panel subset per Route II's list, `vco` undercard untouched — the `route-3` transition target is the atlas's own). The seeded frontmatter claims stay byte-identical; Route II's `transitions` prose split into `Transition → route-1` and `Transition → route-3` sections. Record weave homes in Discoveries.
-
-**Files and responsibilities:** `content/elspeth-von-draken/routes/route-2.md` — as Commit 8. `test/elspeth-skeleton.test.ts`, `test/views.test.ts` — Route II's committed-tree assertions flip to the migrated state (route-1's already flipped ones stay).
-
-**Tests and proof:** Observable: the committed Route II view renders the eight sections, no CONTENT GAP markers, resolved panels (buildings showing Route II's six roles), undercard with seven items, badge anatomy; lint exit 0 with resolved `panelOrder`. Seam: zero-DOM VNode flatten + the lint CLI.
-
-**Validation:** `npm test`, `npx tsc --noEmit`, `node tools/content-lint.mjs` (exit 0). No services.
-
-**Stop conditions:** As Commit 8.
-
-**Review mandate:** As Commit 8 for Route II; the buildings subset is Route II's atlas list; the shared entry `use` notes differ from Route I's and each lives once in Route II's prose.
-
-#### Package `route-3-content` — Commit 10: Fill Route III body sections and panel order
+#### Package `route-2-content` — Commit 10: Fill Route II body sections and panel order
 
 **Status:** Planned
 
 **Wave:** 9
 
-**Depends on:** ["skills-dataset", "research-dataset", "buildings-dataset", "mechanics-dataset", "armies-dataset"]
+**Depends on:** ["skills-dataset", "research-dataset", "research-overrides", "buildings-dataset", "mechanics-dataset", "armies-dataset"]
+
+**Write scope:** ["content/elspeth-von-draken/routes/route-2.md", "test/elspeth-skeleton.test.ts", "test/views.test.ts"]
+
+**Provisional commit:** `feat(content): fill Route II body sections and panel order`
+
+**Work:** The same outcome as Commit 9 applied to `route-2.md`: eight body sections from the atlas's `route2` phases/territory/diplomacy/`transitions` (to `route-1` and `route-3`), the six content gaps removed with the two transition titles retained in `gaps`, the atlas's Route II `panelOrder` lists (skills 10, research 4 as `[route-2-opening, firepower, route-2-economy, arcane]` — the two override ids in the owning route's positions, mechanics 5, buildings: `nuln, charter, resource, income, frontier, temporary`, armies 5), and the route-level prose weave (its own `type` "Territorial coalition", `armyIdentity`, priorities, `avoid`, `recommended`, and its own `use` notes — e.g. skills `elspeth` "Prioritise recovery and the rank-12 economic support…") with `::claim` callouts per policy.
+
+**Atomicity:** One outcome: "Route II's route page renders its full migrated body and resolved panel content" — same single-document reasoning as Commit 9; independent of Commit 9 (different file, panels already resolvable), but serialized on the shared committed-content tests rather than paired. ~0 counted code lines; content volume ~360 lines + ~45 test lines.
+
+**Out of scope:** Routes I and III, datasets, shared.md, and any `app/*.ts` change.
+
+**Implementation packet:** Same constraints as Commit 9 (H2-only, registry order, transitions-in-gaps, one-home weave, `buildings` panel subset per Route II's list, `vco` undercard untouched — the `route-3` transition target is the atlas's own). The seeded frontmatter claims stay byte-identical; Route II's `transitions` prose split into `Transition → route-1` and `Transition → route-3` sections. The `panelOrder.research` list carries the two `route-2-*` override ids (they exist since `research-overrides`; the base `opening`/`economy` entries are Route I's and stay unlisted here). Record weave homes in Discoveries.
+
+**Files and responsibilities:** `content/elspeth-von-draken/routes/route-2.md` — as Commit 9. `test/elspeth-skeleton.test.ts`, `test/views.test.ts` — Route II's committed-tree assertions flip to the migrated state (route-1's already flipped ones stay).
+
+**Tests and proof:** Observable: the committed Route II view renders the eight sections, no CONTENT GAP markers, resolved panels (buildings showing Route II's six roles), undercard with seven items, badge anatomy; lint exit 0 with resolved `panelOrder`. Seam: zero-DOM VNode flatten + the lint CLI.
+
+**Validation:** `npm test`, `npx tsc --noEmit`, `node tools/content-lint.mjs` (exit 0). No services.
+
+**Stop conditions:** As Commit 9.
+
+**Review mandate:** As Commit 9 for Route II; the buildings subset is Route II's atlas list; the research list carries exactly the two `route-2-*` override ids in the atlas's positions; the shared entry `use` notes differ from Route I's and each lives once in Route II's prose.
+
+#### Package `route-3-content` — Commit 11: Fill Route III body sections and panel order
+
+**Status:** Planned
+
+**Wave:** 10
+
+**Depends on:** ["skills-dataset", "research-dataset", "research-overrides", "buildings-dataset", "mechanics-dataset", "armies-dataset"]
 
 **Write scope:** ["content/elspeth-von-draken/routes/route-3.md", "test/elspeth-skeleton.test.ts", "test/views.test.ts"]
 
 **Provisional commit:** `feat(content): fill Route III body sections and panel order`
 
-**Work:** The same outcome as Commits 8–9 applied to `route-3.md` — the atlas's `route3` phases/territory/diplomacy/`transitions` (to `route-1` and `route-2`), `gaps` keeping the two transition titles, the atlas's Route III `panelOrder` lists (skills 10, research 4, mechanics 5, buildings: `nuln, survey, military, income, recovery, temporary`, armies 5), the route-level prose weave (its own `type` "Arcane expedition", priorities, `avoid` — "not every candidate is a settlement to annex", `recommended`, `use` notes), `::claim` callouts per policy, and the committed-content test reconciliation that completes the migration (this package empties the last empty-dataset/no-section assertions — the skeleton test's remaining "typed empty objects" contract becomes the "fully migrated committed tree" contract with the DESIGN §7 counts asserted explicitly).
+**Work:** The same outcome as Commits 9–10 applied to `route-3.md` — the atlas's `route3` phases/territory/diplomacy/`transitions` (to `route-1` and `route-2`), `gaps` keeping the two transition titles, the atlas's Route III `panelOrder` lists (skills 10, research 4 as `[route-3-opening, firepower, economy, route-3-arcane]` — the two override ids in the owning route's positions, mechanics 5, buildings: `nuln, survey, military, income, recovery, temporary`, armies 5), the route-level prose weave (its own `type` "Arcane expedition", priorities, `avoid` — "not every candidate is a settlement to annex", `recommended`, `use` notes), `::claim` callouts per policy, and the committed-content test reconciliation that completes the migration (this package empties the last empty-dataset/no-section assertions — the skeleton test's remaining "typed empty objects" contract becomes the "fully migrated committed tree" contract with the DESIGN §7 counts asserted explicitly).
 
 **Atomicity:** One outcome: "Route III's route page renders its full migrated body and resolved panel content, completing the migrated committed tree" — the single-document reasoning of the prior route packages plus the end-of-migration reconciliation that no committed-content test still asserts the empty skeleton (an intermediate assertion removed now would have made an earlier package non-reviewable, and keeping it here makes the final committed prefix the complete DESIGN §7 state). ~0 counted code lines; content volume ~360 lines + ~50 test lines.
 
 **Out of scope:** Any remaining datasets (all landed), `app/*.ts` (never in scope), and any non-committed-content feature (F3/F5/F7).
 
-**Implementation packet:** Same constraints as Commits 8–9; Route III's `_candidates_`-specific weave (search trigger integrity — the atlas deliberately leaves the search result unexposed) renders as `verify-in-campaign`/`inferred` policy states with `vco-guide` src; the undercard's twenty items come from `vco-dataset`. The final committed prefix must satisfy each DESIGN §7 acceptance item verifiable from the committed tree and tests (counts 15 armies / 10 skills / 4 research / 9 building roles in per-route subsets / 5 mechanics, vco 6/7/20 items with states and src, `gaps` = transitions only, `vcoTitle` null, no gap markers, panels populated).
+**Implementation packet:** Same constraints as Commits 9–10; the `panelOrder.research` list carries the two `route-3-*` override ids (the base `opening`/`arcane` entries are Route I's and stay unlisted here); Route III's `_candidates_`-specific weave (search trigger integrity — the atlas deliberately leaves the search result unexposed) renders as `verify-in-campaign`/`inferred` policy states with `vco-guide` src; the undercard's twenty items come from `vco-dataset`. The final committed prefix must satisfy each DESIGN §7 acceptance item verifiable from the committed tree and tests (counts 15 armies / 10 skills / 4 research groups + 4 overrides / 9 building roles in per-route subsets / 5 mechanics, vco 6/7/20 items with states and src, `gaps` = transitions only, `vcoTitle` null, no gap markers, panels populated).
 
-**Files and responsibilities:** `content/elspeth-von-draken/routes/route-3.md` — as Commits 8–9. `test/elspeth-skeleton.test.ts`, `test/views.test.ts` — Route III's committed-tree assertions flip; the skeleton test's residual `{}` loop assertions are deleted (its migration-contract assertions now fully replace them).
+**Files and responsibilities:** `content/elspeth-von-draken/routes/route-3.md` — as Commits 9–10. `test/elspeth-skeleton.test.ts`, `test/views.test.ts` — Route III's committed-tree assertions flip; the skeleton test's residual `{}` loop assertions are deleted (its migration-contract assertions now fully replace them).
 
 **Tests and proof:** Observable: the committed Route III view renders eight sections, no markers, resolved panels (buildings showing its six roles), undercard with twenty items; the full committed tree satisfies the DESIGN §7 counts; lint exit 0 with every `panelOrder` id resolving. Seam: zero-DOM VNode flatten over the committed tree + the lint CLI.
 
 **Validation:** `npm test`, `npx tsc --noEmit`, `node tools/content-lint.mjs` (exit 0), `npm run build`. No services.
 
-**Stop conditions:** As Commits 8–9; a DESIGN §7 count the committed tree cannot satisfy from the atlas (report — evidence of a dropped block or drift).
+**Stop conditions:** As Commits 9–10; a DESIGN §7 count the committed tree cannot satisfy from the atlas (report — evidence of a dropped block or drift).
 
-**Review mandate:** As Commits 8–9 for Route III; the residual empty-skeleton assertions are gone; the DESIGN §7 acceptance counts are asserted by tests; the migration's committed-tree contract is complete and lint-clean.
+**Review mandate:** As Commits 9–10 for Route III; the research list carries exactly the two `route-3-*` override ids in the atlas's positions; the residual empty-skeleton assertions are gone; the DESIGN §7 acceptance counts are asserted by tests; the migration's committed-tree contract is complete and lint-clean.
 
 ## Discoveries and replanning
 
 Record material deviations, blockers, and decisions that change remaining work. State what was planned, what changed, and why. Preserve unchanged IDs. Mark replaced packages or PRs `Removed — <reason>` and add new stable IDs; never reuse an old ID for a different outcome.
+
+### Discovery (2026-10-03, during Commit 3 integration review): the atlas declares four per-route `researchOverrides`
+
+- **What was planned:** the accepted plan asserted "the atlas declares no research overrides — all three routes share the same four groups", so `research-dataset` landed the four base groups only and no override entry was created (recorded at the time as a Known/Decision).
+- **What changed:** the Commit 3 independent reviewer found, against the atlas `guide-data` bytes, that `routes.route2.researchOverrides` carries `opening` and `economy` and `routes.route3.researchOverrides` carries `opening` and `arcane`, and the atlas's own `lookup()` substitutes them (`g==='research'?(R().researchOverrides?.[k]||D.research[k])`) — the research panel visibly differs per route tab. The DESIGN already prescribes exactly this case (§4: "a route's `researchOverrides` entry is a distinct entry id (the F2 per-route-variant rule) and is listed only in that route's `panelOrder`"; §7 acceptance: "the research groups plus per-route overrides as distinct entries under the right `panelOrder`"), and the per-route-variant rule is fixture-proven — so the correction stays inside the unchanged DESIGN requirements and feature scope (bounded in-scope replan, no developer decision required).
+- **Plan change:** new package `research-overrides` (Commit 8, wave 7) adds the four override entries under the distinct ids `route-2-opening`, `route-2-economy`, `route-3-opening`, `route-3-arcane`; `route-2-content`/`route-3-content` (renumbered Commits 10/11, waves 9/10) depend on it and fill their `panelOrder.research` lists with the override ids in the atlas's positions; `route-1-content` is Commit 9, wave 8 (its `panelOrder.research` stays the four base ids). The integrated `research-dataset` commit (four base groups) remains correct and untouched; the seeded inventory gains a `researchOverrides` row. No requirement, outcome, trust boundary, public contract, or feature-scope change.
 
 The DESIGN acceptance criterion 1 requires the atlas→model content inventory and mapping table in this ledger. Seeded at planning from the raw archive (extracted read-only from the embedded `guide-data` JSON island); workers append per-entry placement records (weave homes, folded-item homes, per-item states, vco id assignments) during execution. Any atlas block absent from this table or from an exclusion is a violation of the migration contract.
 
@@ -478,12 +514,13 @@ Every top-level atlas block, its count, and its committed target or explicit exc
 |  · `diplomacy` | 1/route | `Diplomacy` section | migrate |
 |  · `transitions` (map to 2 other routes/route) | 2/route | `Transition → route-<x>` section per map entry (rendered because the title stays declared in `gaps`) | migrate |
 |  · `armies` (5/route: early, mid, late, amethyst, home) | 15 | `data/armies.json` per-route maps (package `armies-dataset`; `elspeth` column → `legendary`) | migrate |
-|  · `panelOrder` | 1/route | frontmatter `panelOrder` (group `builds` → `buildings`; committed lists are empty — Commits 8–10 fill them from the atlas route panel lists) | migrate |
+|  · `panelOrder` | 1/route | frontmatter `panelOrder` (group `builds` → `buildings`; committed lists are empty — Commits 9–11 fill them from the atlas route panel lists) | migrate |
 |  · `defaults` | 1/route | — | **excluded**: browser-local initial view preference (F5-class); equals `panelOrder`-first entry on every route; no F2 rendering surface |
 |  · `use` (skill/build/mechanic notes) | 3 maps/route | woven into the owning route's section prose (route-specific text; never into the lord-wide entries) | weave |
 |  · `sources` | 2/route | references only; the committed `data/sources.json` already covers them | preserve |
 | `skills` | 10 | `data/skills.json` (package `skills-dataset`; ids are the atlas's own, as named by the atlas route panel lists) | migrate |
 | `research` | 4 | `data/research.json` (package `research-dataset`) | migrate |
+| `researchOverrides` (route2: `opening`, `economy`; route3: `opening`, `arcane`) | 4 | `data/research.json` as distinct entries `route-2-opening`, `route-2-economy`, `route-3-opening`, `route-3-arcane`, listed only in the owning route's `panelOrder.research` (package `research-overrides`) | migrate |
 | `techs` | 15 | folded into research steps as title/note/gate (content present; short-ids are tick keys) | fold |
 | `legacyResearch` | 15 | reverse index of the same techs (name → short-id) | **excluded**: index linkage of the same interactive tick surface; content already present in research steps |
 | `builds` | 9 | `data/buildings.json` (package `buildings-dataset`; group rename `builds`→`buildings` already canonical) | migrate |
@@ -500,7 +537,7 @@ Every top-level atlas block, its count, and its committed target or explicit exc
 | `date` / `version` | 1 | `guide.json` version block — already committed (`2026.09.30.1` / checked `2026-09-30`) | preserve (no change) |
 | localStorage state (page notes, checklist ticks, view prefs) | n/a | — | **excluded**: browser-local interactive state (F5-class), per the DESIGN's sole accepted exclusion |
 
-Route `panelOrder` id lists (the atlas's route panel lists, verified from the raw archive — the committed route `panelOrder` blocks are empty and Commits 8–10 fill them from these lists): skills all routes `[elspeth, master, engineer, theodore, priest, captain, death, light, life, hunter]`; research all routes `[opening, firepower, economy, arcane]`; mechanics all routes `[testing, armoury, gardens, theodore, authority]`; armies all routes `[early, mid, late, amethyst, home]`; buildings Route I `[nuln, military, income, recovery, frontier, temporary]`, Route II `[nuln, charter, resource, income, frontier, temporary]`, Route III `[nuln, survey, military, income, recovery, temporary]`.
+Route `panelOrder` id lists (the atlas's route panel lists, verified from the raw archive — the committed route `panelOrder` blocks are empty and Commits 9–11 fill them from these lists): skills all routes `[elspeth, master, engineer, theodore, priest, captain, death, light, life, hunter]`; research Route I `[opening, firepower, economy, arcane]`, Route II `[route-2-opening, firepower, route-2-economy, arcane]`, Route III `[route-3-opening, firepower, economy, route-3-arcane]` (the atlas applies its `researchOverrides` through `lookup()`; the committed model lists the override ids in the owning route's positions per DESIGN §4); mechanics all routes `[testing, armoury, gardens, theodore, authority]`; armies all routes `[early, mid, late, amethyst, home]`; buildings Route I `[nuln, military, income, recovery, frontier, temporary]`, Route II `[nuln, charter, resource, income, frontier, temporary]`, Route III `[nuln, survey, military, income, recovery, temporary]`.
 
 ## Final validation
 
@@ -510,8 +547,8 @@ Exact gates, in order, before final feature review:
 2. `npx tsc --noEmit` — clean over `app/`, `tools/`, `test/`.
 3. `node tools/content-lint.mjs` — exit 0 on the committed `content/` (every `panelOrder` id resolves; every `src` id resolves; every dataset matches its schema; four required sections per route in order; no H3; callout states valid).
 4. `npm run build` — static `dist/` produced; `package.json` diff empty (no new dependencies); the `app/` and `tools/` trees show no diff (content-only verdict — any diff is evidence of an unapproved code change).
-5. Manual HTTP boot (`npm run serve`; headless Chromium or a real browser against the local server): home → Elspeth lord page shows the intro plus the four shared H2 blocks; each route tab renders the identity card (with the explicit unresearched marker, never an invented title), the eight registry sections in order with the atlas's content — no CONTENT GAP marker where content landed — the VCO undercard with 6/7/20 badged items, and five populated panels (15 armies with unit rows, roles, kinds, legendary vs generic columns, notes, plans; 10 skills; 4 research groups; the route's 6 settlement roles; 5 mechanics with the gated field-test steps), each item with its source links; badge labels + icons remain distinguishable; a deliberately corrupted `content/` file still boots into the F1 boot-error state naming file and field.
-6. The DESIGN §7 acceptance criteria checked item by item: every atlas block present or excluded with the accepted reason (inventory above + execution Discoveries); `.work/references/` byte-for-byte unchanged (the archive remains gitignored and untouched; `git status` shows no path outside the committed `content/` + this feature's planning documents); all three route bodies carry the eight sections with `gaps` = transitions only; `vcoTitle` null ×3; panel counts 15/10/4(+no invented overrides)/9-in-subsets/5; `data/vco.json` 5+1/7/20 with states and `src`; every VCO/patch-dependent claim carries one of the four states per the DESIGN policy; the seven evidence notes folded with their `src` ids; no fabricated trigger or completion claim; `shared.md` carries the intro + four blocks; `package.json` unchanged; no rendering component or schema file modified.
+5. Manual HTTP boot (`npm run serve`; headless Chromium or a real browser against the local server): home → Elspeth lord page shows the intro plus the four shared H2 blocks; each route tab renders the identity card (with the explicit unresearched marker, never an invented title), the eight registry sections in order with the atlas's content — no CONTENT GAP marker where content landed — the VCO undercard with 6/7/20 badged items, and five populated panels (15 armies with unit rows, roles, kinds, legendary vs generic columns, notes, plans; 10 skills; 4 research entries per route (the base groups on Route I, the owning overrides on Routes II/III); the route's 6 settlement roles; 5 mechanics with the gated field-test steps), each item with its source links; badge labels + icons remain distinguishable; a deliberately corrupted `content/` file still boots into the F1 boot-error state naming file and field.
+6. The DESIGN §7 acceptance criteria checked item by item: every atlas block present or excluded with the accepted reason (inventory above + execution Discoveries); `.work/references/` byte-for-byte unchanged (the archive remains gitignored and untouched; `git status` shows no path outside the committed `content/` + this feature's planning documents); all three route bodies carry the eight sections with `gaps` = transitions only; `vcoTitle` null ×3; panel counts 15/10/4 (four base research groups plus four per-route overrides as distinct entries under the owning route's `panelOrder`)/9-in-subsets/5; `data/vco.json` 5+1/7/20 with states and `src`; every VCO/patch-dependent claim carries one of the four states per the DESIGN policy; the seven evidence notes folded with their `src` ids; no fabricated trigger or completion claim; `shared.md` carries the intro + four blocks; `package.json` unchanged; no rendering component or schema file modified.
 
 Report any skipped or unsupported validation step as a gap, never as a pass.
 
