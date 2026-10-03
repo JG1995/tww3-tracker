@@ -12,7 +12,7 @@ For the product purpose and domain model, see [CONCEPT.md](./CONCEPT.md). For th
 
 ### 1.1 Target architecture (approved proposal)
 
-> Status: approved 2026-10-02, **partially implemented** — F1 (site foundation), F2 (route-first rendering), F4 (Elspeth migration), and F3 (verification notes UI) are implemented and merged to `main` (F4 and F3 on 2026-10-03); F5 (ledger), F6 (search), and F7 (route transitions) remain approved-but-unbuilt. This subsection records the approved target stack and direction; §2 and §3 describe the currently implemented system. Rationale: [ADR-0001](adr/0001-vite-preact-runtime-loaded-site.md), [ADR-0002](adr/0002-content-as-markdown-json.md).
+> Status: approved 2026-10-02, **partially implemented** — F1 (site foundation), F2 (route-first rendering), F4 (Elspeth migration), and F3 (verification notes UI) are implemented and merged to `main` (F4 and F3 on 2026-10-03); F7 (route transitions) is implemented on `feat/route-transitions`, awaiting local integration to `main`; F5 (ledger) and F6 (search) remain approved-but-unbuilt. This subsection records the approved target stack and direction; §2 and §3 describe the currently implemented system. Rationale: [ADR-0001](adr/0001-vite-preact-runtime-loaded-site.md), [ADR-0002](adr/0002-content-as-markdown-json.md).
 
 A local, single-user web app. One Preact SPA in TypeScript, built by Vite, with no static site generator and no backend. Guide content is never compiled into the bundle — it is fetched at runtime from the repository as Markdown and JSON files.
 
@@ -89,7 +89,7 @@ Cross-campaign querying/analysis (comparisons, history stats across many campaig
 
 ### 1.2 Current state
 
-F1 (site foundation), F2 (route-first rendering), F4 (Elspeth migration), and F3 (verification notes UI) are implemented and merged to `main`: the committed `content/` includes the migrated Elspeth guide, with its shared introduction and four blocks, six populated datasets, and three fully sectioned route documents. F3 adds the `getFlaggedEntries` selector and `FlaggedEntry` type in `query.ts`, the lord-page Version Banner and flagged-items section, and per-section Source panels. F5 (ledger), F6 (search), and F7 (route transitions) remain approved-but-unbuilt. §2 (Project Layout) and §3 (Build, Test, and Gate Pipeline) describe the implemented system; the sections that belong to unbuilt layers (parts of §1.1's module layout, §4–§11) remain unfilled placeholders.
+F1 (site foundation), F2 (route-first rendering), F4 (Elspeth migration), and F3 (verification notes UI) are implemented and merged to `main`: the committed `content/` includes the migrated Elspeth guide, with its shared introduction and four blocks, six populated datasets, and three fully sectioned route documents. F3 adds the `getFlaggedEntries` selector and `FlaggedEntry` type in `query.ts`, the lord-page Version Banner and flagged-items section, and per-section Source panels. F7 is implemented on `feat/route-transitions` and awaits local integration to `main`: `app/views/route.ts` renders present `Transition → <route>` sections as same-lord cross-links to the target route's `Opening`, or to the route page top when that `Opening` is a declared gap; `app/styles/app.css` adds one token-only link class. F5 (ledger) and F6 (search) remain approved-but-unbuilt. §2 (Project Layout) and §3 (Build, Test, and Gate Pipeline) describe the implemented system; the sections that belong to unbuilt layers (parts of §1.1's module layout, §4–§11) remain unfilled placeholders.
 
 ---
 

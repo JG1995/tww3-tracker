@@ -6,7 +6,7 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
-- **route-transitions** (F7 — route transition views) — design accepted 2026-10-03; schema-4 plan drafted, pending independent plan review and developer acceptance: [IMPLEMENTATION](features/route-transitions/ROUTE-TRANSITIONS-IMPLEMENTATION.md) · [DESIGN](features/route-transitions/ROUTE-TRANSITIONS-DESIGN.md). One PR, one package: the six committed transition sections render as same-lord cross-links to each target route's `Opening` (route page top when the `Opening` is a declared gap); link labels stay the authored heading text verbatim.
+- **route-transitions** (F7 — route transition views) — delivered on `feat/route-transitions`: one package; feature review clear. Awaiting developer approval for local ff-only integration to `main`: [IMPLEMENTATION](features/route-transitions/ROUTE-TRANSITIONS-IMPLEMENTATION.md) · [DESIGN](features/route-transitions/ROUTE-TRANSITIONS-DESIGN.md).
 
 ## Next
 
@@ -20,7 +20,7 @@ Resolved at approval: pilot is **Elspeth von Draken**; the ledger tracks **one a
 | 2 | ~~**F2 — route-first rendering**~~ — **Completed 2026-10-03** (see Completed below) | medium-high | Needs the schema; must exist before migration so content lands in a rendering target |
 | 3 | ~~**F4 — Elspeth migration** (content-only)~~ — **Completed 2026-10-03** (see Completed below) | medium | First real validation of the model against actual content; model corrected once, before any second faction copies it |
 | 4 | ~~**F3 — verification notes UI**~~ — **Completed 2026-10-03** (see Completed below) | medium | Small once badges render; after F4 so the re-check view has real flagged items to show |
-| 5 | **F7 — route transitions** (bidirectional cross-links) | high | Mechanical; needs F2 route pages + F4 transition sections |
+| 5 | **F7 — route transitions** (bidirectional cross-links) — delivered; pending integration | high | Mechanical; needs F2 route pages + F4 transition sections |
 | 6 | **F5 — VCO campaign ledger** (types, logic, io, server PUT, ledger index; one active campaign) | medium | Should (not Must) and the only feature touching the write path; keeping it last leaves the entire Must path shippable without it |
 | 7 (v1.1) | **F4 × 3 — Alith, Zhao, + one more** — start with the two shared-skeleton migrations | high | Cheapest; proves "second faction is content-only" |
 | 8 (v1.1) | **F6 — cross-guide search** | medium | Meaningful only with ≥ 2 migrated guides; corpus exists in `query.ts` from order 1 |
@@ -43,7 +43,7 @@ F4 (Elspeth) + F4 (Alith or Zhao) + F2 ──► F6 cross-guide search          
 
 **Parallel note:** solo project — after order 3, orders 4–6 are mutually independent and can be reordered around a live campaign (pull F5 forward if an Elspeth campaign starts mid-build). In v1.1, the Alith/Zhao migrations are independent of F6.
 
-**Plan next:** F7 — route transitions (order 5) is now **Active** (planned 2026-10-03; see Active for the ledger and delivery plan). F5 (VCO campaign ledger, order 6) is next in sequence after F7 integrates; per the parallel note, orders 5–6 are mutually independent and F5 may be pulled forward if an Elspeth campaign starts mid-build. F3 was delivered and merged to `main` 2026-10-03 (see Completed below). F2 (route-first rendering) was delivered and merged to `main` 2026-10-03 (see Completed below). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order.
+**Plan next:** F7 — route transitions (order 5) is delivered on `feat/route-transitions` and awaits developer approval for local ff-only integration to `main` (see Active for the ledger). F5 (VCO campaign ledger, order 6) is next in sequence after F7 integrates; per the parallel note, orders 5–6 are mutually independent and F5 may be pulled forward if an Elspeth campaign starts mid-build. F3 was delivered and merged to `main` 2026-10-03 (see Completed below). F2 (route-first rendering) was delivered and merged to `main` 2026-10-03 (see Completed below). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order.
 
 ## Completed
 

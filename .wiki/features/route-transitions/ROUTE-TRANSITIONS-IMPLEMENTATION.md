@@ -112,7 +112,7 @@ The whole feature is one atomic commit on the sole Local PR: after integration, 
 
 **Required checks:** `npm test` green, `npx tsc --noEmit` clean, `node tools/content-lint.mjs` exits 0, `npm run build` succeeds
 
-**Feature close-out:** Not run
+**Feature close-out:** Current
 
 **Provisional PR title:** `feat(app): render transition sections as same-lord cross-links`
 
@@ -152,7 +152,7 @@ The whole feature is one atomic commit on the sole Local PR: after integration, 
 
 Record material deviations, blockers, and decisions that change remaining work. State what was planned, what changed, and why. Preserve unchanged IDs. Mark replaced packages or PRs `Removed — <reason>` and add new stable IDs; never reuse an old ID for a different outcome.
 
-- None so far. (No committed content change, no contract change, no seam collapse expected for this bounded rendering feature.)
+- The package Jev overengineering gate cleared (`suitable` @ 0.94), and the Jev review passed @ 0.67 (below 0.9), so a fresh independent commit reviewer ran and returned Accept with no findings. The fresh feature review (Mode: feature) also returned Accept with no findings; Test portfolio: Pass; Project fit: Conforms. The ledger packet's “on-surface → primary” hover phrasing was implementation-resolved to the shared global `a:hover` treatment, identical to the two cited link precedents; this is wording-only and does not change behavior.
 
 ## Final validation
 
