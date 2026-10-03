@@ -4,7 +4,7 @@
 
 ## Status
 
-Accepted
+Completed
 
 **Ledger schema:** 4
 
@@ -100,13 +100,13 @@ Commit 1 (tokens + toolchain) → Commit 2 (content model on fixtures) → Commi
 
 ### PR `site-foundation` — Foundation: app shell, content model, Elspeth skeleton
 
-**Status:** Delivered (merged to `main` as `94fa333`, 2026-10-02)
+**Status:** Planned
 
 **Depends on:** []
 
 **PR ref:** Not applicable
 
-**Merge ref:** Not merged
+**Merge ref:** 94fa3336a6919e1c9cbb65a9634d229bf08adce2
 
 **Branch:** `feat/site-foundation`
 

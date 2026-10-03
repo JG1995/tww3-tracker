@@ -4,7 +4,7 @@
 
 ## Status
 
-Accepted
+Completed
 
 **Ledger schema:** 4
 
@@ -113,13 +113,13 @@ Commit 1 (stub reshape) → Commit 2 (confidence badge) → Commit 3 (typed data
 
 ### PR `route-first-rendering` — Render the route-first content model
 
-**Status:** Delivered (merged to `main` as `65384cf`, 2026-10-03)
+**Status:** Planned
 
 **Depends on:** []
 
 **PR ref:** Not applicable
 
-**Merge ref:** Not merged
+**Merge ref:** 65384cf76a7b330ff572d9af4245f2c508f37f6a
 
 **Branch:** `feat/route-first-rendering`
 
