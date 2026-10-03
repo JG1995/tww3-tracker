@@ -6,7 +6,7 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
-- **elspeth-migration** (F4 — Elspeth migration (content-only)) — implementation complete (all 11 packages integrated on `feat/elspeth-migration`); feature review Accept, no blocking, with one advisory MEDIUM retained; awaiting final local ff-only integration. [IMPLEMENTATION](features/elspeth-migration/ELSPETH-MIGRATION-IMPLEMENTATION.md) · [DESIGN](features/elspeth-migration/ELSPETH-MIGRATION-DESIGN.md)
+_No active features — F4 (elspeth-migration) completed 2026-10-03; F3 (verification notes UI) is next in sequence (see Completed and the development sequence below)._
 
 ## Next
 
@@ -17,8 +17,8 @@ Resolved at approval: pilot is **Elspeth von Draken**; the ledger tracks **one a
 | Order | Feature | Confidence | Why this position |
 | --- | --- | --- | --- |
 | 1 | ~~**site-foundation**~~ — **Completed 2026-10-02** (see Completed below) | high | Everything else is content or rendering of this model; the model is CONCEPT risk 3 and must be designed before any migration |
-| 2 | **F2 — route-first rendering** (views, tabs, dashboard panels, content-gap markers, confidence-state badges) | medium-high | Needs the schema; must exist before migration so content lands in a rendering target |
-| 3 | **F4 — Elspeth migration** (content-only) | medium | First real validation of the model against actual content; model corrected once, before any second faction copies it |
+| 2 | ~~**F2 — route-first rendering**~~ — **Completed 2026-10-03** (see Completed below) | medium-high | Needs the schema; must exist before migration so content lands in a rendering target |
+| 3 | ~~**F4 — Elspeth migration** (content-only)~~ — **Completed 2026-10-03** (see Completed below) | medium | First real validation of the model against actual content; model corrected once, before any second faction copies it |
 | 4 | **F3 — verification notes UI** (version banner, source panels, flagged-items view) | medium | Small once badges render; after F4 so the re-check view has real flagged items to show |
 | 5 | **F7 — route transitions** (bidirectional cross-links) | high | Mechanical; needs F2 route pages + F4 transition sections |
 | 6 | **F5 — VCO campaign ledger** (types, logic, io, server PUT, ledger index; one active campaign) | medium | Should (not Must) and the only feature touching the write path; keeping it last leaves the entire Must path shippable without it |
@@ -43,10 +43,11 @@ F4 (Elspeth) + F4 (Alith or Zhao) + F2 ──► F6 cross-guide search          
 
 **Parallel note:** solo project — after order 3, orders 4–6 are mutually independent and can be reordered around a live campaign (pull F5 forward if an Elspeth campaign starts mid-build). In v1.1, the Alith/Zhao migrations are independent of F6.
 
-**Plan next:** F3 — verification notes UI (order 4) is next in sequence now that F4 (Elspeth migration) is Active (see Active above). F2 (route-first rendering) was delivered and merged to `main` 2026-10-03 (see Completed below). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order.
+**Plan next:** F3 — verification notes UI (order 4) is next in sequence now that F4 (Elspeth migration) is complete (see Completed below). F2 (route-first rendering) was delivered and merged to `main` 2026-10-03 (see Completed below). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order.
 
 ## Completed
 
+- **elspeth-migration** (F4 — Elspeth migration (content-only)) — delivered 2026-10-03 · [IMPLEMENTATION](features/elspeth-migration/ELSPETH-MIGRATION-IMPLEMENTATION.md) · [DESIGN](features/elspeth-migration/ELSPETH-MIGRATION-DESIGN.md) — the read-only Elspeth VCO Expedition Atlas migrated into the committed content model with zero code change: `shared.md` intro + four shared blocks, the six typed datasets populated (15 armies, 10 skills, 8 research entries = 4 base groups + 4 per-route overrides, 9 building roles in per-route subsets, 5 mechanics with field-test/upgrade/Amethyst folds, 33 VCO items with states and `src`), and all three route bodies filled (eight registry sections each, `gaps` = the two transition titles, resolved `panelOrder`, `vcoTitle` null, atlas `::claim` callouts with the seven evidence notes folded). Eleven reviewed package commits + close-out; merged to `main` (feature close `cafe6a66`); feature-mode review Accept with no blocking findings (one advisory MEDIUM retained — a Helstorm test-assertion substring collision, content verified complete).
 - **route-first-rendering** (F2 — route-first content rendering) — delivered 2026-10-03 · [IMPLEMENTATION](features/route-first-rendering/ROUTE-FIRST-RENDERING-IMPLEMENTATION.md) · [DESIGN](features/route-first-rendering/ROUTE-FIRST-RENDERING-DESIGN.md) — route tab strip (hash-derived, keyboard), route identity card + optional VCO objectives, in-flow content-gap markers at the registry positions, the five-tab dashboard (component-local selection, explicit empty states, atlas anatomy), the Confidence Badge for all four states, and typed dataset schemas for the six structured datasets (committed Elspeth stays all-gap; F4 fills it). Eight reviewed package commits + close-out; merged to `main` (feature close `65384cf`); feature-mode review APPROVE with no blocking findings.
 - **site-foundation** (F1 — guide site with shared structure) — delivered 2026-10-02 · [IMPLEMENTATION](features/site-foundation/SITE-FOUNDATION-IMPLEMENTATION.md) · [DESIGN](features/site-foundation/SITE-FOUNDATION-DESIGN.md) — Preact + Vite + TypeScript SPA shell, content model + loader + query, content lint, dependency-free static server, lint-clean Elspeth content skeleton. Seven reviewed package commits + close-out; merged to `main` (feature close `94fa333`); feature-mode review APPROVE with no blocking findings. Reading path: `npm run build` once, then `npm run serve` (the original `file://` claim was voided by a verified 2026-10-02 developer decision).
 

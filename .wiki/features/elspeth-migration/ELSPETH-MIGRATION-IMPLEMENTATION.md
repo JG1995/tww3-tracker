@@ -4,9 +4,11 @@
 
 ## Status
 
-Accepted
+Completed
 
 **Ledger schema:** 4
+
+**Feature complete:** merged to `main` as `cafe6a66` on 2026-10-03 after developer approval at the Local integration gate (all eleven packages Integrated; close-out reviewed in feature mode — Accept, no blocking findings, one advisory MEDIUM retained).
 
 ## Intent
 
@@ -133,7 +135,7 @@ Commits 1–9 (the W1 pair, the five remaining datasets, the research overrides,
 
 **PR ref:** Not applicable
 
-**Merge ref:** Not merged
+**Merge ref:** cafe6a66ceda2ceb06f41328982b30b9bd8c89f2
 
 **Branch:** `feat/elspeth-migration`
 
@@ -575,4 +577,4 @@ Final validation: all six ledger gates are green, including the headless-Chromiu
 
 Documentation reconciliation: `.wiki/TODO.md` and `.wiki/ARCHITECTURE.md` were reconciled as recorded above. No other approved documentation owner required a change.
 
-Remaining action: developer approval and local ff-only integration of `feat/elspeth-migration` (source `a4dc7e04`, base `07f39e43`). Feature status remains `Accepted`; feature close-out remains pre-merge and is not `Completed`.
+Integration: the developer approved the exact source/base pair (source `cafe6a66`, base `main` @ `07f39e43`); `git merge --ff-only` to `main` on 2026-10-03 (merge ref `cafe6a66ceda2ceb06f41328982b30b9bd8c89f2`), re-verified green on `main` (85/85 tests, tsc clean, content-lint exit 0, build exit 0, worktree clean, atlas byte-for-byte untouched) and pushed to `origin/main`. Feature is `Completed`; the `Completed` status reconciliation and the retained advisory MEDIUM (Helstorm test assertion) are the follow-up items recorded in the post-merge documentation update.
