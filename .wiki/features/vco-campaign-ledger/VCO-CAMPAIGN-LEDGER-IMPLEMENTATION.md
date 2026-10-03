@@ -229,7 +229,7 @@ Commit 1 (server ledger root + gitignore) → Commit 2 (pure model) → Commit 4
 
 #### Package `ledger-io-client` — Commit 4: The ledger I/O client
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 2
 
