@@ -198,7 +198,7 @@ Commit 1 (callout section attribution) → Commit 2 (flagged selector) → Commi
 
 #### Package `source-panels` — Commit 3: Source panels under citing route sections
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 2
 

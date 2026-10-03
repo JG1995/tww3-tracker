@@ -1244,3 +1244,145 @@ test("the fixture route's dashboard renders the DESIGN §4 atlas anatomy with ba
   assert.ok(hrefs.includes("https://example.test/casket"), "the early army's ca source resolves");
   assert.ok(hrefs.includes("https://example.test/vco-guide"), "the listed skill's vco-guide source resolves");
 });
+
+/** The recorded VNode subtree of one route section by its tree id (scoped panel asserts). */
+function sectionSubtree(view: unknown, sectionId: string): VNodeRecord[] {
+  const nodes = recordVNodes(view);
+  const section = nodes.find((n) => n.props["data-section-id"] === sectionId);
+  assert.ok(section !== undefined, `the ${sectionId} section renders`);
+  return recordVNodes(section);
+}
+
+test("source panels render under citing route sections with the source as a title link and its note", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const routeOne = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(routeOne.found);
+  const viewOne = RouteView({ lord: lord.value, route: routeOne.value });
+
+  const vcoGuideTitle = "VCO • author’s route objectives";
+  const vcoGuideUrl = "https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084";
+  const vcoGuideNote = "Primary author reference, labelled 25 September 2026 and rechecked 30 September";
+
+  // route-1's Opening cites vco-guide (its `::claim inferred src=vco-guide`):
+  // the panel renders inside that section, after the prose, with the fixed
+  // SOURCE eyebrow and one entry per distinct source
+  const opening = sectionSubtree(viewOne, "opening");
+  const openingPanel = opening.find((n) => n.props.className === "source-panel");
+  assert.ok(openingPanel !== undefined, "the citing Opening section renders the source panel");
+  assert.ok(
+    opening.some(
+      (n) => n.tag === "p" && n.props.className === "source-panel__eyebrow" && n.children[0] === "SOURCE",
+    ),
+    "the fixed SOURCE mono eyebrow renders in the panel",
+  );
+  assert.equal(
+    opening.filter((n) => n.props.className === "source-panel__entry").length,
+    1,
+    "one distinct cited source ⇒ one panel entry",
+  );
+  const openingTitleLink = opening.find((n) => n.tag === "a" && n.props.className === "source-panel__title");
+  assert.equal(openingTitleLink?.props.href, vcoGuideUrl, "the source title links to its url");
+  assert.equal(String(openingTitleLink?.children[0]), vcoGuideTitle, "the link text is the source title itself");
+  const openingUrl = opening.find((n) => n.tag === "p" && n.props.className === "source-panel__url");
+  assert.equal(String(openingUrl?.children[0]), vcoGuideUrl, "the panel lists the source url");
+  const openingNote = opening.find((n) => n.tag === "p" && n.props.className === "source-panel__note");
+  assert.ok(
+    openingNote !== undefined && String(openingNote.children[0]).startsWith(vcoGuideNote),
+    "the source note renders in the panel",
+  );
+
+  // a section with no callouts keeps its plain F2 anatomy: no panel markup
+  // and no SOURCE text anywhere in the section's subtree (never a blank slot)
+  const earlyMid = sectionSubtree(viewOne, "early-mid");
+  assert.ok(
+    !earlyMid.some((n) => String(n.props.className ?? "").includes("source-panel")),
+    "the no-callout Early → Mid section renders no source panel",
+  );
+  assert.ok(!vnodeText(earlyMid).includes("SOURCE"), "no SOURCE text appears for the non-citing section");
+
+  // route-2's Mid → Late, Victory push and Diplomacy each cite vco-guide;
+  // route-3's Mid → Late and Diplomacy too (their verify callouts) — one
+  // panel per citing section, each listing its single cited source once
+  const citingByRoute: Array<[routeId: string, sectionIds: string[]]> = [
+    ["route-2", ["mid-late", "victory-push", "diplomacy"]],
+    ["route-3", ["mid-late", "diplomacy"]],
+  ];
+  for (const [routeId, sectionIds] of citingByRoute) {
+    const route = getRoute(tree, "elspeth-von-draken", routeId);
+    assert.ok(route.found);
+    const view = RouteView({ lord: lord.value, route: route.value });
+    for (const sectionId of sectionIds) {
+      const subtree = sectionSubtree(view, sectionId);
+      assert.ok(
+        subtree.some((n) => n.props.className === "source-panel"),
+        `the ${routeId} "${sectionId}" section renders a source panel`,
+      );
+      assert.equal(
+        subtree.filter((n) => n.props.className === "source-panel__entry").length,
+        1,
+        `the ${routeId} "${sectionId}" panel lists its single cited source once`,
+      );
+      const link = subtree.find((n) => n.tag === "a" && n.props.className === "source-panel__title");
+      assert.equal(
+        String(link?.children[0]),
+        vcoGuideTitle,
+        `the ${routeId} "${sectionId}" entry is the vco-guide title link`,
+      );
+    }
+  }
+});
+
+test("a section citing the same source twice renders the source once in its panel (temp-copy dedupe)", async () => {
+  await inContentCopy(
+    async (root) => {
+      // The dedupe contract needs a section whose callouts list the same
+      // source twice: the committed copy's route-2 Mid → Late section gains a
+      // second `::claim` also citing vco-guide (the same block shape, so the
+      // lint and the loader see one more enclosed callout in that section).
+      const routeTwo = await readFile(join(root, "elspeth-von-draken/routes/route-2.md"), "utf8");
+      const duplicated = routeTwo.replace(
+        "::claim verify-in-campaign src=vco-guide\nA transfer is acceptable only while the game still credits the control relationship.\n::",
+        "::claim verify-in-campaign src=vco-guide\nA transfer is acceptable only while the game still credits the control relationship.\n::\n\n::claim verify-in-campaign src=vco-guide\nA second claim citing the same guide does not add a second panel entry.\n::",
+      );
+      await writeFile(join(root, "elspeth-von-draken/routes/route-2.md"), duplicated);
+    },
+    async (root) => {
+      assert.deepEqual(await lintContent(fsReader(root)), [], "the duplicated-claim copy stays valid per the shared lint");
+
+      const tree = await loadContentTree(fsReader(root));
+      const lord = getLord(tree, "elspeth-von-draken");
+      assert.ok(lord.found);
+      const route = getRoute(tree, "elspeth-von-draken", "route-2");
+      assert.ok(route.found);
+
+      // the mutant really holds two Mid → Late callouts citing vco-guide
+      const midLateClaims = route.value.claims.filter((c) => c.sectionId === "mid-late");
+      assert.equal(midLateClaims.length, 2, "the mutant Mid → Late section holds two callouts");
+      assert.deepEqual(
+        midLateClaims.map((c) => c.src),
+        [["vco-guide"], ["vco-guide"]],
+        "…both citing vco-guide",
+      );
+
+      const view = RouteView({ lord: lord.value, route: route.value });
+      const midLate = sectionSubtree(view, "mid-late");
+      assert.ok(
+        midLate.some((n) => n.props.className === "source-panel"),
+        "the mutant Mid → Late section still renders its panel",
+      );
+      assert.equal(
+        midLate.filter((n) => n.props.className === "source-panel__entry").length,
+        1,
+        "the two vco-guide claims dedupe to exactly one panel entry",
+      );
+      const link = midLate.find((n) => n.tag === "a" && n.props.className === "source-panel__title");
+      assert.equal(
+        String(link?.children[0]),
+        "VCO • author’s route objectives",
+        "the lone entry is the vco-guide title link",
+      );
+    },
+  );
+});

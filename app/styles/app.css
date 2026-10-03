@@ -977,6 +977,70 @@ aside.claim > .confidence-badge {
   color: var(--color-on-surface-variant);
 }
 
+/* ─── Source / Verification Note panel (DESIGN.md "Source / Verification
+   Note") — the research trail under route body sections whose callout claims
+   cite one or more sources: `surface-container-lowest` floor with a 1px
+   `outline-variant` border and the 3px `info` left-border accent, 10px radius,
+   `stack-sm` padding. One entry per distinct cited source (title link, URL,
+   body-sm note); renders only for citing sections — a non-citing section
+   keeps its F2 anatomy and never shows a blank slot. Transitions ride the
+   `--transition-standard` band and are disabled by the `prefers-reduced-motion`
+   block at the end of this file. */
+
+.source-panel {
+  margin-top: var(--space-stack-sm);
+  border: 1px solid var(--color-outline-variant);
+  border-inline-start: 3px solid var(--color-info);
+  border-radius: var(--radius-md);
+  padding: var(--space-stack-sm);
+  background: var(--color-surface-container-lowest);
+}
+
+.source-panel__eyebrow {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+.source-panel__entry {
+  margin-top: var(--space-stack-xs);
+}
+
+/* The source title is an ordinary link with perceivable text — the title
+   itself — styled like the badge source links (underline, `body-sm`). */
+.source-panel__title {
+  font-family: var(--font-body-sm-family), var(--font-sans-fallback);
+  font-size: var(--font-body-sm-size);
+  font-weight: var(--font-body-sm-weight);
+  line-height: var(--font-body-sm-line-height);
+  text-decoration: underline;
+  text-underline-offset: var(--space-stack-xs);
+  color: var(--color-on-surface);
+  transition: var(--transition-standard);
+}
+
+.source-panel__url {
+  margin-top: var(--space-stack-xs);
+  font-family: var(--font-body-sm-family), var(--font-sans-fallback);
+  font-size: var(--font-body-sm-size);
+  font-weight: var(--font-body-sm-weight);
+  line-height: var(--font-body-sm-line-height);
+  color: var(--color-on-surface-variant);
+}
+
+.source-panel__note {
+  margin-top: var(--space-stack-xs);
+  font-family: var(--font-body-sm-family), var(--font-sans-fallback);
+  font-size: var(--font-body-sm-size);
+  font-weight: var(--font-body-sm-weight);
+  line-height: var(--font-body-sm-line-height);
+  color: var(--color-on-surface);
+}
+
 /* ─── Dashboard region — the five-tab panel block after the route sections ────
 
    One block of tabbed panels (DESIGN §2 Displayed Data / §6 Layout): a carbon

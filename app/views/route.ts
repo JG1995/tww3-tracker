@@ -24,7 +24,7 @@ import { TabStrip } from "../components/TabStrip.ts";
 import { ConfidenceBadge } from "../components/ConfidenceBadge.ts";
 import { Dashboard } from "../components/dashboard.ts";
 import { OPTIONAL_SECTIONS, REQUIRED_SECTIONS } from "../content/lint.ts";
-import type { Claim, Lord, Route } from "../content/types.ts";
+import type { Claim, Lord, Route, Section, Source } from "../content/types.ts";
 import { getPanelEntries, getVcoObjectives, resolveSources } from "../content/query.ts";
 
 /** Declared transition gaps are those titles the route authors as `Transition → <route>`. */
@@ -38,7 +38,7 @@ export function RouteView(props: { lord: Lord; route: Route }): JSX.Element {
     h(TabStrip, { lordSlug: lord.slug, routes: lord.routes, activeId: route.id }),
     identityCard(lord, route),
     vcoUndercard(lord, route),
-    routeBody(route),
+    routeBody(lord, route),
     // Keyed by route id: navigating between routes remounts the dashboard and
     // resets its component-local panel selection to the first panel (a
     // within-route section-anchor hash change does not). The lord context is
@@ -144,21 +144,23 @@ function vcoUndercard(lord: Lord, route: Route): JSX.Element | null {
  * simply renders nothing. The committed all-gap content therefore renders
  * exactly the registry markers in order, never a blank page.
  */
-function routeBody(route: Route): JSX.Element {
+function routeBody(lord: Lord, route: Route): JSX.Element {
   const transitionSlots = route.gaps.filter((title) => title.startsWith(TRANSITION_PREFIX));
   const slots = [...REQUIRED_SECTIONS, ...OPTIONAL_SECTIONS, ...transitionSlots];
   return h(
     "div",
     { className: "route-body" },
-    slots.map((title) => slotAt(route, title)).filter((node) => node !== null),
+    slots.map((title) => slotAt(lord, route, title)).filter((node) => node !== null),
   );
 }
 
 /**
  * One registry slot: the route's section at that exact title renders in
- * place; otherwise the title is a declared gap and renders its marker.
+ * place (with the Source / Verification Note panel after its prose when the
+ * section's callout claims cite at least one distinct source); otherwise the
+ * title is a declared gap and renders its marker.
  */
-function slotAt(route: Route, title: string): JSX.Element | null {
+function slotAt(lord: Lord, route: Route, title: string): JSX.Element | null {
   const section = route.sections.find((s) => s.title === title);
   if (section !== undefined) {
     return h(
@@ -166,6 +168,7 @@ function slotAt(route: Route, title: string): JSX.Element | null {
       { className: "route-section", "data-section-id": section.id },
       h("h2", { id: section.id, className: "route-section__heading" }, section.title),
       h("div", { className: "prose", dangerouslySetInnerHTML: { __html: sectionInnerHtml(section.html) } }),
+      sourcePanel(lord, route, section),
     );
   }
   if (route.gaps.includes(title)) {
@@ -183,6 +186,58 @@ function slotAt(route: Route, title: string): JSX.Element | null {
 function sectionInnerHtml(html: string): string {
   const close = html.indexOf("</h2>");
   return close === -1 ? html : html.slice(close + "</h2>".length);
+}
+
+/**
+ * The distinct sources cited by one section's callout claims (feature DESIGN
+ * "Source panels"; DESIGN.md "Source / Verification Note"): the route
+ * callouts whose `sectionId` matches the section id — the Commit 1
+ * attribution field, reused verbatim, no second slugify — their `src` ids
+ * resolved against the lord's `data/sources.json` via `resolveSources`, then
+ * deduplicated by source id preserving first-seen order. A `::claim` with no
+ * `src` contributes nothing. Pure read over the immutable tree: a section
+ * whose callouts carry no resolvable source yields `[]`, and the view then
+ * renders no panel — the section keeps its plain F2 anatomy.
+ */
+function sectionSources(lord: Lord, route: Route, section: Section): readonly Source[] {
+  const ids = route.claims
+    .filter((c) => c.sectionId === section.id)
+    .flatMap((c) => c.src);
+  const resolved = resolveSources(lord, ids);
+  const seen = new Set<string>();
+  return resolved.filter((source) => {
+    if (seen.has(source.id)) return false;
+    seen.add(source.id);
+    return true;
+  });
+}
+
+/**
+ * The Source / Verification Note panel (DESIGN.md "Source / Verification
+ * Note"): the fixed "SOURCE" mono eyebrow and one entry per distinct cited
+ * source — the source title as an ordinary link to its URL (perceivable link
+ * text — the title itself), the URL, and the note in body-sm — mounted after
+ * the section's prose in the present-section branch. Renders only when the
+ * section's callouts resolve at least one source; nested inside the route
+ * section, never a standalone blank slot.
+ */
+function sourcePanel(lord: Lord, route: Route, section: Section): JSX.Element | null {
+  const sources = sectionSources(lord, route, section);
+  if (sources.length === 0) return null;
+  return h(
+    "section",
+    { className: "source-panel", "aria-label": "Sources cited by this section" },
+    h("p", { className: "source-panel__eyebrow" }, "SOURCE"),
+    sources.map((source) =>
+      h(
+        "div",
+        { key: source.id, className: "source-panel__entry" },
+        h("a", { className: "source-panel__title", href: source.url }, source.title),
+        h("p", { className: "source-panel__url" }, source.url),
+        h("p", { className: "source-panel__note" }, source.note),
+      ),
+    ),
+  );
 }
 
 /**
