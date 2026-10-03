@@ -310,6 +310,47 @@ test("a hand-written unparseable file is indexed as corrupt and its GET still re
   assert.equal(await res.text(), "{ not json");
 });
 
+test("a parseable file that is not a campaign document is indexed as corrupt while a valid document in the same store keeps its parsed entry", async () => {
+  // Hand-written parseable JSON that is not a campaign document (missing the
+  // document's `status`/`updatedAt`), the way manual corruption would appear
+  // on disk; the server must not stitch it into an index entry outside the
+  // client's contract — it is the same per-file corrupt class as unparseable.
+  mkdirSync(join(ledgerRoot, "mixed-lord"), { recursive: true });
+  writeFileSync(join(ledgerRoot, "mixed-lord", "route-bad.json"), '{"lordSlug":"x","items":[]}', "utf8");
+  // A valid document in the same store proves the classification is per file,
+  // not a blanket store state.
+  writeFileSync(
+    join(ledgerRoot, "mixed-lord", "route-good.json"),
+    JSON.stringify({
+      lordSlug: "mixed-lord",
+      routeId: "route-good",
+      status: "active",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+      items: { "item-1": { planned: false, confirmedStep: 0 } },
+    }),
+    "utf8",
+  );
+
+  assert.deepEqual(findEntry(await fetchLedgerIndex(), "mixed-lord", "route-bad"), {
+    lordSlug: "mixed-lord",
+    routeId: "route-bad",
+    status: "corrupt",
+    updatedAt: null,
+  });
+  assert.deepEqual(findEntry(await fetchLedgerIndex(), "mixed-lord", "route-good"), {
+    lordSlug: "mixed-lord",
+    routeId: "route-good",
+    status: "active",
+    updatedAt: "2026-01-01T00:00:00.000Z",
+  });
+
+  // The malformed file's GET still returns the raw bytes verbatim — the
+  // server never reshapes or repairs what it serves.
+  const res = await fetch(`${origin}/ledgers/mixed-lord/route-bad.json`);
+  assert.equal(res.status, 200);
+  assert.equal(await res.text(), '{"lordSlug":"x","items":[]}');
+});
+
 test("PUT/DELETE outside /ledgers/ and unknown methods keep the 405 convention", async () => {
   // PUT/DELETE anywhere outside the ledger root.
   assert.equal((await fetch(`${origin}/nope`, { method: "PUT", body: "x" })).status, 405);

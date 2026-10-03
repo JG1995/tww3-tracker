@@ -277,10 +277,13 @@ async function sendLedgerIndex(res) {
  * Derives the ledger index from exactly two store levels
  * (`<lord-slug>/<route-id>.json`): one entry per existing file, sorted by
  * lord/route, stitching each document's top-level `status`/`updatedAt`. A
- * file that cannot be read or parsed is reported as `"corrupt"` with
- * `updatedAt: null` — the index never throws and never repairs. Stray files
- * outside the two-level layout (root-level files, non-directories,
- * non-`.json` files, deeper nests) are ignored.
+ * file that cannot be read or parsed — or whose top level is not a campaign
+ * document (a non-object, a `status` other than `"active"`/`"completed"`, or
+ * a non-string `updatedAt`) — is reported as `"corrupt"` with
+ * `updatedAt: null`: the index never throws, never repairs, and never emits
+ * an entry outside the client's strict index contract. Stray files outside
+ * the two-level layout (root-level files, non-directories, non-`.json`
+ * files, deeper nests) are ignored.
  */
 async function ledgerIndex() {
   let lords;
@@ -305,12 +308,21 @@ async function ledgerIndex() {
       const routeId = file.name.slice(0, -".json".length);
       try {
         const parsed = JSON.parse(await readFile(join(LEDGER_ROOT, lord.name, file.name), "utf8"));
-        entries.push({
-          lordSlug: lord.name,
-          routeId,
-          status: parsed?.status,
-          updatedAt: parsed?.updatedAt,
-        });
+        const status = parsed?.status;
+        const updatedAt = parsed?.updatedAt;
+        if (
+          typeof parsed !== "object" ||
+          parsed === null ||
+          (status !== "active" && status !== "completed") ||
+          typeof updatedAt !== "string"
+        ) {
+          // Parseable but not a campaign document: the same per-file corrupt
+          // class as an unparseable file, so the index never emits an entry
+          // outside the client's contract. Its GET still serves raw bytes.
+          entries.push({ lordSlug: lord.name, routeId, status: "corrupt", updatedAt: null });
+          continue;
+        }
+        entries.push({ lordSlug: lord.name, routeId, status, updatedAt });
       } catch {
         entries.push({ lordSlug: lord.name, routeId, status: "corrupt", updatedAt: null });
       }

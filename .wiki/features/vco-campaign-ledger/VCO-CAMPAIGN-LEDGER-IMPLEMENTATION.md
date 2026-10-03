@@ -442,6 +442,8 @@ Commit 1 (server ledger root + gitignore) → Commit 2 (pure model) → Commit 4
 Record material deviations, blockers, and decisions that change remaining work. State what was planned, what changed, and why. Preserve unchanged IDs. Mark replaced packages or PRs `Removed — <reason>` and add new stable IDs; never reuse an old ID for a different outcome.
 
 - (Empty at plan acceptance; the coordinator appends execution discoveries here.)
+- C2 deviation (accepted at review): `createCampaign`'s `now` is a required parameter (packet showed `now?`); an optional without a `Date.now()` fallback is untypeable and the review mandate forbids the fallback. Later wiring packages inject the clock at the event site.
+- C4 discovery → bounded C1 correction (accepted, first and only correction round for `server-ledger-surface`): the Commit-1 index derivation stitched `status`/`updatedAt` verbatim from any parseable file, so a hand-edited parseable-but-not-a-document file produced an out-of-contract index entry that the strict `listLedgers()` client rejects as a whole-index typed error. Correction: the derivation now shape-validates the parsed top level (non-null object, `status` exactly `active`/`completed`, string `updatedAt`) and classifies anything else per-file `corrupt` with `updatedAt: null` — the DESIGN corrupt-file contract extended to parseable-but-shape-invalid files; the client's strictness is retained as fail-closed defense. New server regression test proves per-file classification.
 
 ## Final validation
 
