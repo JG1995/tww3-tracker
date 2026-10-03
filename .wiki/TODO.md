@@ -6,7 +6,7 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
-- **verification-notes-ui** (F3 — research & verification notes) — design accepted and reviewed plan approved 2026-10-03; plan committed, delivery not yet started: [IMPLEMENTATION](features/verification-notes-ui/VERIFICATION-NOTES-UI-IMPLEMENTATION.md) · [DESIGN](features/verification-notes-ui/VERIFICATION-NOTES-UI-DESIGN.md). One PR, five packages: callout section attribution, the single flagged-set selector, per-section source panels, the flagged-items list, and the version banner + open-flags chip. Sequence position 4 (see Next); F2's badge contract and F4's migrated content are its prerequisites.
+- **verification-notes-ui** (F3 — research & verification notes) — delivered on `feat/verification-notes-ui`: five packages + one reviewed correction; feature review clear. Awaiting developer approval for local ff-only integration to `main`: [IMPLEMENTATION](features/verification-notes-ui/VERIFICATION-NOTES-UI-IMPLEMENTATION.md) · [DESIGN](features/verification-notes-ui/VERIFICATION-NOTES-UI-DESIGN.md). Sequence position 4; F2's badge contract and F4's migrated content are its prerequisites.
 
 ## Next
 
@@ -43,7 +43,7 @@ F4 (Elspeth) + F4 (Alith or Zhao) + F2 ──► F6 cross-guide search          
 
 **Parallel note:** solo project — after order 3, orders 4–6 are mutually independent and can be reordered around a live campaign (pull F5 forward if an Elspeth campaign starts mid-build). In v1.1, the Alith/Zhao migrations are independent of F6.
 
-**Plan next:** F3 — verification notes UI (order 4) is now **Active** (planned 2026-10-03; see Active for the ledger and delivery plan). F7 (route transitions, order 5) is next in sequence after F3 integrates; per the parallel note, orders 4–6 are mutually independent and F5 may be pulled forward if an Elspeth campaign starts mid-build. F2 (route-first rendering) was delivered and merged to `main` 2026-10-03 (see Completed below). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order.
+**Plan next:** F3 — verification notes UI (order 4) is **delivered pending integration** (see Active); developer approval is awaited for local ff-only integration to `main`. F7 (route transitions, order 5) is next in sequence after F3 integrates; per the parallel note, orders 4–6 are mutually independent and F5 may be pulled forward if an Elspeth campaign starts mid-build. F2 (route-first rendering) was delivered and merged to `main` 2026-10-03 (see Completed below). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order.
 
 ## Completed
 

@@ -364,6 +364,7 @@ Per-guide research context strip.
 - **Container:** `surface-container-low`, 1px `outline-variant` border, 10px radius, `stack-sm` padding.
 - **Content / Anatomy:** mono uppercase "VERIFIED AGAINST" eyebrow + `mono-md` `patch <X> · VCO <version>` + count of open `verify-in-campaign` items as a `warning` chip (`n OPEN FLAGS`).
 - **Behaviour:** the open-flags count links to the flagged-items list; when zero, the chip renders "ALL CLEARED" in `success`.
+- **Implemented:** the lord-page banner uses the fixed VERIFIED AGAINST eyebrow and patch/VCO pairing, with an `N OPEN FLAGS` or `ALL CLEARED` chip. The flagged-items section has `tabIndex: -1` as the chip's programmatic focus target.
 
 ### Route Identity Card
 
@@ -403,6 +404,7 @@ Records the research trail next to the claims it supports.
 - **Container:** `surface-container-lowest` (panel floor) background, 1px `outline-variant` left-border accent (3px, `info` colour — neutral, not chromatic), 10px radius, `stack-sm` padding.
 - **Content / Anatomy:** mono uppercase "SOURCE" eyebrow + `body-sm` note: what was checked, against which patch/VCO version, when, and the open question if any.
 - **Behaviour:** static; one or more per section where claims depend on external documentation.
+- **Implemented:** per-section panels render the SOURCE eyebrow and each distinct source's title link, URL, and `body-sm` note.
 
 ### Empty, Loading & Error States
 

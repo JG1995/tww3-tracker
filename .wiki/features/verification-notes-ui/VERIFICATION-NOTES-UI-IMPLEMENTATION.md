@@ -130,7 +130,7 @@ Commit 1 (callout section attribution) → Commit 2 (flagged selector) → Commi
 
 **Required checks:** `npm test` green, `npx tsc --noEmit` clean, `node tools/content-lint.mjs` exits 0, `npm run build` succeeds
 
-**Feature close-out:** Not run
+**Feature close-out:** Current
 
 **Provisional PR title:** `feat(app): render the verification notes UI`
 
@@ -288,7 +288,7 @@ Commit 1 (callout section attribution) → Commit 2 (flagged selector) → Commi
 
 ## Discoveries and replanning
 
-None recorded before acceptance. During execution, the coordinator records material deviations here while preserving stable package IDs; a substantive plan change requires fresh plan review and renewed acceptance.
+- Feature review (fresh independent reviewer, Mode: feature) returned Accept. One MEDIUM — the open-flags chip's `#flagged-items` focus target was not programmatically focusable — was corrected in `8586cfd` by adding `tabIndex: -1` to the flagged-items section, with a VNode assertion. This follows the skip-link target pattern in `main.tsx`. The review also recorded one MEDIUM as keep: the view calls `getFlaggedEntries` once for the banner count and once for the list; both calls use the same pure selector, with no second definition, and threading the result would add plumbing without observable gain. Three non-blocking validation gaps remain: DOM-interaction proofs rely on the manual HTTP boot; there is no sourceless-flag mutant; and the cleared-state proof is fixture-only. The manual boot is the named completing proof for chip scroll/focus.
 
 ## Final validation
 
@@ -306,5 +306,5 @@ Exact gates, in order, before final feature review:
 Complete during reconciliation at feature close-out. Expected owners, reconciled by the coordinator/steward — not planned package work:
 - `.wiki/DESIGN.md` — Components section gains implemented-verified notes for Version Banner and Source / Verification Note (both already specified; reconcile only what implementation changed).
 - `.wiki/ARCHITECTURE.md` — §1.1 current-state notes (the query layer gains the flagged-set selector; the current-state tree gains the F3 surfaces); §1.2 status line updated from "F3 remains approved-but-unbuilt".
-- `.wiki/TODO.md` — feature-level status moved to `Completed` after verified final integration (the Active entry created at plan acceptance is moved there).
+- `.wiki/TODO.md` — F3 remains Active as delivered pending verified integration; move it to `Completed` only after final integration.
 - The accepted VERIFICATION-NOTES-UI-DESIGN.md and this ledger stay in place through completion; documented correction entries appended where the DESIGN's wording and implemented behavior resolve differently, with the ledger as the record.
