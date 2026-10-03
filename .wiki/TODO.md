@@ -6,7 +6,7 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
-_No active features — F7 (route transitions) completed 2026-10-03; F5 (VCO campaign ledger) is next in sequence (see Completed and the development sequence below)._
+- **vco-campaign-ledger** (F5 — VCO campaign ledger) — **Active** (accepted DESIGN 2026-10-03; reviewed delivery plan ready for acceptance) · [IMPLEMENTATION](features/vco-campaign-ledger/VCO-CAMPAIGN-LEDGER-IMPLEMENTATION.md) · [DESIGN](features/vco-campaign-ledger/VCO-CAMPAIGN-LEDGER-DESIGN.md) — track one active VCO campaign (derived lord + route identity, no user naming) as a plain-text JSON document in gitignored `.local/state/ledgers/`, written only through the local server's new ledger store root (GET index/doc, PUT, DELETE; same path-safety discipline); each `data/vco.json` item gets a separate planning checkbox and a 4-step game-confirmed track (`confirmedStep` 0–4, movable forward and back) rendered as separate column groups; start / complete / delete lifecycle from route pages and the ledger view; optimistic row writes with visible rollback; ledger loads on demand, never at boot. The last v1.0 feature and the only write-path work.
 
 ## Next
 
@@ -43,7 +43,7 @@ F4 (Elspeth) + F4 (Alith or Zhao) + F2 ──► F6 cross-guide search          
 
 **Parallel note:** solo project — after order 3, orders 4–6 are mutually independent and can be reordered around a live campaign (pull F5 forward if an Elspeth campaign starts mid-build). In v1.1, the Alith/Zhao migrations are independent of F6.
 
-**Plan next:** F5 — VCO campaign ledger (order 6) is next in sequence now that F7 (route transitions) is complete (see Completed below); per the parallel note, F5 may be pulled forward if an Elspeth campaign starts mid-build. F7 was delivered and merged to `main` 2026-10-03 (see Completed below). F3 was delivered and merged to `main` 2026-10-03 (see Completed below). F2 (route-first rendering) was delivered and merged to `main` 2026-10-03 (see Completed below). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order.
+**Plan next:** F5 — VCO campaign ledger (order 6) is **Active** with an accepted DESIGN and a reviewed schema-4 delivery plan (see Active above); delivery begins after developer acceptance of the plan. Per the parallel note, F5 may be pulled forward if an Elspeth campaign starts mid-build. F7 was delivered and merged to `main` 2026-10-03 (see Completed below). F3 was delivered and merged to `main` 2026-10-03 (see Completed below). F2 (route-first rendering) was delivered and merged to `main` 2026-10-03 (see Completed below). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order.
 
 ## Completed
 
