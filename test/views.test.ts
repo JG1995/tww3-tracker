@@ -8,7 +8,12 @@
  * undercard proven over the test fixtures; and (package `gap-markers`,
  * commit 6) the section region as the registry walk — in-flow Content Gap
  * Markers at registry positions and present sections interleaved, with the
- * F1 trailing gap list and the empty-body fallback gone.
+ * F1 trailing gap list and the empty-body fallback gone; and (package
+ * `ledger-view-page`, commit 7) the ledger page view over constructed props:
+ * the campaign context header (lord, route name, patch/VCO), the loading
+ * in-flight line, the composed table (committed order, fresh misses, dropped
+ * extras, passed-through statuses, progress), the exact empty state, and the
+ * error panel with its Retry wired to `onRetry`.
  * Seam: zero-DOM. The committed `content/` loads through the same
  * `app/content/load.ts` pass the CLI and the site boot use (filesystem
  * `ContentReader`, one immutable tree), then each view function is called
@@ -48,9 +53,13 @@ import { CLAIM_STATES, PANEL_GROUPS, type Army, type ClaimState, type ContentRea
 import { ConfidenceBadge } from "../app/components/ConfidenceBadge.ts";
 import { DashboardMarkup } from "../app/components/dashboard.ts";
 import { TabStripMarkup, type TabStripProps } from "../app/components/TabStrip.ts";
-import { HomeView } from "../app/views/home.ts";
+import { HomeView, versionContext } from "../app/views/home.ts";
 import { LordView } from "../app/views/lord.ts";
 import { RouteView, transitionTarget } from "../app/views/route.ts";
+import { itemsFor } from "../app/ledger/logic.ts";
+import type { CampaignDoc } from "../app/ledger/types.ts";
+import { LedgerTable, type LedgerRowStatus, type LedgerTableProps } from "../app/components/LedgerTable.ts";
+import { LedgerView } from "../app/views/ledger.ts";
 
 /** The committed content root, resolved from this test file's own location. */
 const CONTENT = fileURLToPath(new URL("../content", import.meta.url));
@@ -1994,4 +2003,203 @@ test("a lord with zero flags renders the non-link ALL CLEARED chip in the succes
   assert.equal(String(chip.children[0]), "ALL CLEARED", "the fixed cleared label renders");
   assert.equal(chip.props.href, undefined, "the cleared chip has no href");
   assert.equal(chip.props.onClick, undefined, "the cleared chip has no click handler");
+});
+
+// ─── 10. The ledger page view (package `ledger-view-page`) ─────────────────────
+
+/** The className membership check used across the structural asserts. */
+function hasClass(node: VNodeRecord, className: string): boolean {
+  return String(node.props.className ?? "").split(/\s+/).includes(className);
+}
+
+/**
+ * The LedgerTable exactly as the view composes it: its recorded props at the
+ * view seam, then the same props expanded through the pure `LedgerTable`
+ * component function — the zero-DOM equivalent of letting the view's child
+ * component render (the `mountedTabStrip` precedent).
+ */
+function mountedLedgerTable(view: unknown): { props: LedgerTableProps; nodes: VNodeRecord[]; text: string } {
+  const table = recordVNodes(view).find(
+    (n) => typeof n.props.plannedCount === "number" && typeof n.props.confirmedCount === "number",
+  );
+  assert.ok(table !== undefined, "the view composes the ledger table");
+  const props: LedgerTableProps = {
+    rows: table.props.rows as LedgerTableProps["rows"],
+    statuses: table.props.statuses as LedgerTableProps["statuses"],
+    plannedCount: table.props.plannedCount as number,
+    confirmedCount: table.props.confirmedCount as number,
+    onTick: table.props.onTick as LedgerTableProps["onTick"],
+    onStep: table.props.onStep as LedgerTableProps["onStep"],
+  };
+  const rendered = LedgerTable(props);
+  const nodes = recordVNodes(rendered);
+  return { props, nodes, text: vnodeText(rendered) };
+}
+
+/** The committed Elspeth tree resolved once for the ledger proofs. */
+async function ledgerInputs() {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found, "the committed Elspeth guide loads");
+  const route = getRoute(tree, lord.value.slug, "route-1");
+  assert.ok(route.found, "route-1 resolves");
+  return { lord: lord.value, route: route.value };
+}
+
+/**
+ * A synthetic active campaign document over route-1's committed ids: stored
+ * out of committed order, with every committed id present except one (the
+ * missing id renders fresh) and one extra stored id the reconciliation must
+ * drop — the DESIGN §4 items-follow-committed-content case. The stored
+ * states: ids[2] planned at step 3, ids[4] unplanned at step 1.
+ */
+function syntheticCampaignDoc(lord: Lord, route: Route): CampaignDoc {
+  const ids = getVcoObjectives(lord, route.id).map((item) => item.id);
+  return {
+    lordSlug: lord.slug,
+    routeId: route.id,
+    status: "active",
+    createdAt: "2026-10-03T00:00:00.000Z",
+    updatedAt: "2026-10-03T01:00:00.000Z",
+    items: {
+      [ids[2]]: { planned: true, confirmedStep: 3 },
+      [ids[4]]: { planned: false, confirmedStep: 1 },
+      "stale-extra-id": { planned: true, confirmedStep: 4 },
+    },
+  };
+}
+
+test("the ledger view loading phase renders the minimal mono in-flight line and nothing else", async () => {
+  const { lord, route } = await ledgerInputs();
+  const view = LedgerView({
+    lord,
+    route,
+    phase: { kind: "loading" },
+    rows: [],
+    statuses: {},
+    onRetry: () => {},
+    onTick: () => {},
+    onStep: () => {},
+  });
+  const text = vnodeText(view);
+  const nodes = recordVNodes(view);
+
+  assert.ok(
+    nodes.some((n) => hasClass(n, "ledger-inflight") && vnodeText(n).trim() === "LOADING"),
+    "the page in-flight mono line renders while the document loads",
+  );
+  assert.ok(!nodes.some((n) => hasClass(n, "ledger-table")), "no table while loading");
+  assert.ok(!nodes.some((n) => hasClass(n, "ledger-error")), "no error panel while loading");
+  assert.ok(!text.includes("NO ACTIVE CAMPAIGN"), "no empty state while loading");
+});
+
+test("the ledger view ready phase renders the context header, the composed table in committed order, statuses, and progress", async () => {
+  const { lord, route } = await ledgerInputs();
+  const objectives = getVcoObjectives(lord, route.id);
+  const ids = objectives.map((item) => item.id);
+  const doc = syntheticCampaignDoc(lord, route);
+  const rows = itemsFor(doc, ids);
+
+  const onTick = (): void => {};
+  const onStep = (): void => {};
+  const statuses: Record<string, LedgerRowStatus> = {
+    [ids[0]]: { phase: "saving", message: null },
+    [ids[3]]: { phase: "error", message: "The write failed" },
+  };
+  const view = LedgerView({ lord, route, phase: { kind: "ready", doc }, rows, statuses, onRetry: () => {}, onTick, onStep });
+  const text = vnodeText(view);
+
+  // the campaign context header: lord, route name, and the guide's patch/VCO
+  // pairing exactly as the shared version-context helper derives it
+  assert.ok(text.includes("Elspeth von Draken"), "the lord name renders in the context header");
+  assert.ok(text.includes("The Graveyard Watch"), "the route name renders in the context header");
+  assert.equal(countOccurrences(text, versionContext(lord)), 1, "the patch/VCO pairing renders exactly once");
+
+  // the composed LedgerTable receives the reconciled rows with committed-order
+  // labels, the passed-through statuses, the two progress counts, and the handlers
+  const mounted = mountedLedgerTable(view);
+  const rowsProp = mounted.props.rows;
+  assert.equal(rowsProp.length, ids.length, "one table row per committed objective item");
+  assert.deepEqual(
+    rowsProp.map((row) => row.label),
+    objectives.map((item) => item.text),
+    "table rows carry the committed objective labels in committed order",
+  );
+  assert.equal(rowsProp[0].state.planned, false, "a stored-missing id renders fresh (unplanned)");
+  assert.equal(rowsProp[0].state.confirmedStep, 0, "a stored-missing id renders fresh (step 0)");
+  assert.equal(rowsProp[2].state.planned, true, "the stored tick survives reconciliation");
+  assert.equal(rowsProp[2].state.confirmedStep, 3, "the stored step survives reconciliation");
+  assert.equal(mounted.props.statuses, statuses, "the per-row status map passes through");
+  assert.equal(mounted.props.plannedCount, 1, "progress counts exactly the reconciled planned rows");
+  assert.equal(mounted.props.confirmedCount, 2, "progress counts exactly the reconciled step-1-4 rows");
+  assert.equal(mounted.props.onTick, onTick, "the tick handler reaches the table");
+  assert.equal(mounted.props.onStep, onStep, "the step handler reaches the table");
+
+  // the rendered table shows the same rows in committed order — never doc
+  // order and never the stored-extra id — with the per-row status feedback
+  const rendered = mounted.nodes;
+  assert.ok(
+    mounted.text.indexOf(objectives[0].text) < mounted.text.indexOf(objectives[1].text) &&
+      mounted.text.indexOf(objectives[1].text) < mounted.text.indexOf(objectives[5].text),
+    "rows render in committed order",
+  );
+  assert.ok(!mounted.text.includes("stale-extra-id"), "a stored id removed from content renders no row");
+  const rowsRendered = rendered.filter((n) => hasClass(n, "ledger-row"));
+  assert.equal(rowsRendered.length, ids.length, "one rendered row per committed id");
+  assert.equal(countOccurrences(mounted.text, objectives[0].text), 1, "the first committed item renders once");
+  assert.ok(vnodeText(rowsRendered[0]).trim().endsWith("SAVING"), "the saving row shows the mono in-flight feedback");
+  assert.ok(vnodeText(rowsRendered[3]).includes("The write failed"), "the failed row shows its error message");
+
+  // the fixed n / m progress pairs render beside the group headers
+  assert.equal(countOccurrences(mounted.text, "1 / 6"), 1, "the planning pair reads ticked / rows");
+  assert.equal(countOccurrences(mounted.text, "2 / 6"), 1, "the confirmed pair reads reached / rows");
+});
+
+test("the ledger view renders the exact fixed empty state when the campaign document is absent — never blank", async () => {
+  const { lord, route } = await ledgerInputs();
+  const view = LedgerView({
+    lord,
+    route,
+    phase: { kind: "ready", doc: null },
+    rows: [],
+    statuses: {},
+    onRetry: () => {},
+    onTick: () => {},
+    onStep: () => {},
+  });
+  const text = vnodeText(view);
+
+  assert.ok(
+    text.includes("NO ACTIVE CAMPAIGN — start one from a route page"),
+    "the DESIGN-fixed empty copy renders exactly",
+  );
+  assert.ok(text.trim().length > 0, "the page is never blank");
+  assert.ok(!text.includes("SAVING"), "no table content in the empty state");
+  assert.ok(!recordVNodes(view).some((n) => hasClass(n, "ledger-table")), "no table when no document exists");
+});
+
+test("the ledger view error phase renders the error-bordered panel with the message and Retry wired to onRetry", async () => {
+  const { lord, route } = await ledgerInputs();
+  const onRetry = (): void => {};
+  const view = LedgerView({
+    lord,
+    route,
+    phase: { kind: "error", message: "The campaign file could not be read" },
+    rows: [],
+    statuses: {},
+    onRetry,
+    onTick: () => {},
+    onStep: () => {},
+  });
+  const nodes = recordVNodes(view);
+  const panel = nodes.find((n) => hasClass(n, "ledger-error"));
+  assert.ok(panel !== undefined, "the error panel renders");
+  assert.ok(panel.props.role === "alert", "the panel announces itself");
+  const panelNodes = recordVNodes(panel);
+  assert.ok(panelNodes.some((n) => n.tag === "svg"), "the panel carries an icon (colour is never the sole indicator)");
+  assert.ok(vnodeText(panel).includes("The campaign file could not be read"), "the body-md message renders");
+  const retry = panelNodes.find((n) => n.tag === "button" && String(n.props.className ?? "").includes("button--ghost"));
+  assert.ok(retry !== undefined, "the ghost Retry button renders");
+  assert.equal(vnodeText(retry), "Retry", "the button copy is the fixed Retry label");
+  assert.equal(retry.props.onClick, onRetry, "Retry is wired to the onRetry prop");
 });

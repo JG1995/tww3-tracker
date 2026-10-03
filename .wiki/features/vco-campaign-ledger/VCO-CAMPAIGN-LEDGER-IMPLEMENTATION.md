@@ -319,7 +319,7 @@ Commit 1 (server ledger root + gitignore) → Commit 2 (pure model) → Commit 4
 
 #### Package `ledger-view-page` — Commit 7: The ledger page view
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 4
 

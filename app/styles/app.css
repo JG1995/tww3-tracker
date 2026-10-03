@@ -1896,6 +1896,93 @@ aside.claim > .confidence-badge {
   color: var(--color-error);
 }
 
+/* ─── Ledger page (DESIGN.md Empty/Error/Loading + feature DESIGN §6; package `ledger-view-page`) ───
+   The campaign context header (lord, route name, patch/VCO pairing) followed
+   by exactly one page state: the mono in-flight line, the fixed empty state,
+   the error panel, or the composed Ledger Table. */
+
+.ledger-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-xl);
+}
+
+/* The campaign context header: lord, route name, and the patch/VCO pairing
+   (the F3 version-banner pairing — mono label style, copy never uppercased). */
+.ledger-context {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-xs);
+}
+
+.ledger-context__lord {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  color: var(--color-on-surface-variant);
+}
+
+.ledger-context__title {
+  font-family: var(--font-headline-lg-family), var(--font-sans-fallback);
+  font-size: var(--font-headline-lg-size);
+  font-weight: var(--font-headline-lg-weight);
+  line-height: var(--font-headline-lg-line-height);
+  letter-spacing: var(--font-headline-lg-letter-spacing);
+  color: var(--color-on-surface);
+}
+
+/* The page in-flight treatment: the minimal mono line while the document
+   loads (the boot loading bar is boot-only — DESIGN.md Empty, Loading & Error). */
+.ledger-inflight {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+/* The design's explicit empty state: the shared `.empty-state` surface with
+   the fixed NO ACTIVE CAMPAIGN copy — never blank space (DESIGN.md Empty,
+   Loading & Error States; the home empty state is the same surface). */
+
+/* The fixed error panel: `error` border, icon + `body-md` message, ghost
+   Retry (DESIGN.md Empty, Loading & Error States — colour never alone). */
+.ledger-error {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-md);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-md);
+  padding: var(--space-stack-md);
+}
+
+.ledger-error__body {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-stack-xs);
+}
+
+.ledger-error__icon {
+  color: var(--color-error);
+  flex: none;
+}
+
+.ledger-error__message {
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-on-surface);
+}
+
+.ledger-error .button--ghost {
+  align-self: flex-start;
+}
+
 /* ─── Motion: mechanical 0.15s transitions; reduced motion disables all ─── */
 
 @media (prefers-reduced-motion: reduce) {
