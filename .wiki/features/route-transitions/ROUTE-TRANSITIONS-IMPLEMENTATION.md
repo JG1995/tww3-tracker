@@ -120,7 +120,7 @@ The whole feature is one atomic commit on the sole Local PR: after integration, 
 
 #### Package `transition-links` — Commit 1: Render transition sections as same-lord cross-links
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 1
 

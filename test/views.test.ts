@@ -39,6 +39,7 @@ import {
   getLord,
   getPanelEntries,
   getRoute,
+  getSection,
   getVcoObjectives,
   resolveSources,
   type PanelEntries,
@@ -49,7 +50,7 @@ import { DashboardMarkup } from "../app/components/dashboard.ts";
 import { TabStripMarkup, type TabStripProps } from "../app/components/TabStrip.ts";
 import { HomeView } from "../app/views/home.ts";
 import { LordView } from "../app/views/lord.ts";
-import { RouteView } from "../app/views/route.ts";
+import { RouteView, transitionTarget } from "../app/views/route.ts";
 
 /** The committed content root, resolved from this test file's own location. */
 const CONTENT = fileURLToPath(new URL("../content", import.meta.url));
@@ -216,6 +217,11 @@ function badgeText(view: unknown): string {
   return badgeVNodes(view)
     .map((n) => vnodeText(expandBadge(n)))
     .join(" ");
+}
+
+/** The F7 transition cross-link anchors of one route view (selected by the link class). */
+function transitionAnchors(view: unknown): VNodeRecord[] {
+  return recordVNodes(view).filter((n) => n.tag === "a" && n.props.className === "route-section__heading-link");
 }
 
 test("home renders one card per lord with faction and the patch · VCO version context", async () => {
@@ -399,6 +405,19 @@ test("route page identity card: badged claims, notes, distinct title classes, an
   assert.ok(
     text.includes("The finished hunt is not a reason to annex every search site."),
     "the Transition → route-3 prose renders",
+  );
+
+  // the Transition → <route> headings render as same-lord cross-links (F7):
+  // two anchors, each carrying the authored heading verbatim and the exact
+  // href into the target's Opening section tree id
+  const transitionLinks = transitionAnchors(view);
+  assert.deepEqual(
+    transitionLinks.map((a) => [String(a.children[0]), a.props.href]),
+    [
+      ["Transition → route-2", "#/elspeth-von-draken/route/route-2/opening"],
+      ["Transition → route-3", "#/elspeth-von-draken/route/route-3/opening"],
+    ],
+    "Route I's two transition headings are anchors with their authored labels verbatim and the exact Opening hrefs",
   );
   assert.ok(!text.includes("This route has no sections yet."), "the F1 empty-body fallback is gone");
   assert.ok(!text.includes("Content gaps"), "the F1 trailing gap-list heading is gone");
@@ -936,6 +955,19 @@ test("the route view renders Route II's eight sections, its override research an
     fullText.includes("Diplomatic provincial control and a successful search interaction are not automatically the same event."),
     "the Transition → route-3 prose renders verbatim",
   );
+
+  // the Transition → <route> headings render as same-lord cross-links (F7):
+  // two anchors, each carrying the authored heading verbatim and the exact
+  // href into the target's Opening section tree id
+  const transitionLinks = transitionAnchors(view);
+  assert.deepEqual(
+    transitionLinks.map((a) => [String(a.children[0]), a.props.href]),
+    [
+      ["Transition → route-1", "#/elspeth-von-draken/route/route-1/opening"],
+      ["Transition → route-3", "#/elspeth-von-draken/route/route-3/opening"],
+    ],
+    "Route II's two transition headings are anchors with their authored labels verbatim and the exact Opening hrefs",
+  );
   assert.ok(!fullText.includes("This route has no sections yet."), "the F1 empty-body fallback is gone");
 
   // the VCO undercard renders its seven Route II items under the identity
@@ -1085,6 +1117,19 @@ test("the route view renders Route III's eight sections, its override research a
     fullText.includes("Promote the best foothold to a permanent Charter hub"),
     "the Transition → route-2 prose renders verbatim",
   );
+
+  // the Transition → <route> headings render as same-lord cross-links (F7):
+  // two anchors, each carrying the authored heading verbatim and the exact
+  // href into the target's Opening section tree id
+  const transitionLinks = transitionAnchors(view);
+  assert.deepEqual(
+    transitionLinks.map((a) => [String(a.children[0]), a.props.href]),
+    [
+      ["Transition → route-1", "#/elspeth-von-draken/route/route-1/opening"],
+      ["Transition → route-2", "#/elspeth-von-draken/route/route-2/opening"],
+    ],
+    "Route III's two transition headings are anchors with their authored labels verbatim and the exact Opening hrefs",
+  );
   assert.ok(!fullText.includes("This route has no sections yet."), "the F1 empty-body fallback is gone");
 
   // the VCO undercard renders its twenty Route III items under the identity
@@ -1155,6 +1200,215 @@ test("the route view renders Route III's eight sections, its override research a
   ]) {
     assert.ok(buildingsText.includes(probe), `buildings resolves the "${probe}" role on Route III`);
   }
+});
+
+/* ─── Transition cross-links on the route page (F7, package transition-links) ─── */
+
+test("the six committed transition anchors resolve, via getRoute/getSection, to rendered H2 ids in the same tree", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+
+  // DESIGN §7 acceptance item 1: every committed route renders its two
+  // transition sections as same-lord anchors in body order, each naming the
+  // target route's Opening section tree id
+  const anchors: VNodeRecord[] = [];
+  for (const routeId of ["route-1", "route-2", "route-3"]) {
+    const route = getRoute(tree, "elspeth-von-draken", routeId);
+    assert.ok(route.found);
+    anchors.push(...transitionAnchors(RouteView({ lord: lord.value, route: route.value })));
+  }
+  assert.deepEqual(
+    anchors.map((a) => a.props.href),
+    [
+      "#/elspeth-von-draken/route/route-2/opening",
+      "#/elspeth-von-draken/route/route-3/opening",
+      "#/elspeth-von-draken/route/route-1/opening",
+      "#/elspeth-von-draken/route/route-3/opening",
+      "#/elspeth-von-draken/route/route-1/opening",
+      "#/elspeth-von-draken/route/route-2/opening",
+    ],
+    "the six committed anchors in route/body order, each into the target's Opening",
+  );
+
+  // every href target resolves through the pure query surface and is a
+  // rendered H2 id in the same loaded tree — never an invented or stale id
+  for (const anchor of anchors) {
+    const parts = String(anchor.props.href).split("/");
+    assert.equal(parts.length, 5, "each href follows the #/<lord>/route/<id>/<section-id> grammar");
+    const lordSlug = parts[1] as string;
+    const routeId = parts[3] as string;
+    const sectionId = parts[4] as string;
+    const route = getRoute(tree, lordSlug, routeId);
+    assert.ok(route.found, `the ${String(anchor.props.href)} target route resolves`);
+    const section = getSection(tree, lordSlug, routeId, sectionId);
+    assert.ok(section.found, `the ${String(anchor.props.href)} target section resolves`);
+    assert.equal(section.value.title, "Opening", "every transition link targets the destination's Opening section");
+    assert.ok(
+      recordVNodes(RouteView({ lord: lord.value, route: route.value })).some(
+        (n) => n.tag === "h2" && n.props.id === sectionId,
+      ),
+      `the "${sectionId}" id is a rendered H2 in the ${routeId} view`,
+    );
+  }
+});
+
+test("a transition whose target Opening is a declared gap links the route page top instead (temp copy)", async () => {
+  await inContentCopy(
+    async (root) => {
+      // The target rule needs a route whose Opening is a declared gap: the
+      // copy removes route-2's required-section bodies and declares all four
+      // in gaps — the required-order rule accepts no other shape (a present
+      // Early → Mid after a missing Opening would be out of order).
+      let routeTwo = await readFile(join(root, "elspeth-von-draken/routes/route-2.md"), "utf8");
+      // the required-order rule accepts no other shape — a present Early → Mid
+      // after a missing Opening would be out of order
+      routeTwo = routeTwo
+        .replace(/## Opening\n\n[\s\S]*?(?=\n## Early → Mid)/, "")
+        .replace(/## Early → Mid\n\n[\s\S]*?(?=\n## Mid → Late)/, "")
+        .replace(/## Mid → Late\n\n[\s\S]*?(?=\n## Victory push)/, "")
+        .replace(/## Victory push\n\n[\s\S]*?(?=\n## Territory policy)/, "");
+      routeTwo = routeTwo.replace(
+        "gaps:\n  - Transition → route-1\n  - Transition → route-3\n",
+        ["gaps:", "  - Opening", "  - Early → Mid", "  - Mid → Late", "  - Victory push", "  - Transition → route-1", "  - Transition → route-3", ""].join("\n"),
+      );
+      await writeFile(join(root, "elspeth-von-draken/routes/route-2.md"), routeTwo);
+    },
+    async (root) => {
+      assert.deepEqual(await lintContent(fsReader(root)), [], "the gap-Opening copy stays valid per the shared lint");
+
+      const tree = await loadContentTree(fsReader(root));
+      const lord = getLord(tree, "elspeth-von-draken");
+      assert.ok(lord.found);
+
+      // the mutant target actually lost its Opening section (now a declared gap)
+      assert.equal(
+        getSection(tree, "elspeth-von-draken", "route-2", "opening").found,
+        false,
+        "route-2's Opening is now a declared gap — no rendered section exists",
+      );
+
+      // Route I's link into route-2 drops the section segment — the route
+      // page top — while its link into the still-present route-3 Opening
+      // keeps the section segment
+      const routeOne = getRoute(tree, "elspeth-von-draken", "route-1");
+      assert.ok(routeOne.found);
+      const links = transitionAnchors(RouteView({ lord: lord.value, route: routeOne.value }));
+      assert.deepEqual(
+        links.map((a) => [String(a.children[0]), a.props.href]),
+        [
+          ["Transition → route-2", "#/elspeth-von-draken/route/route-2"],
+          ["Transition → route-3", "#/elspeth-von-draken/route/route-3/opening"],
+        ],
+        "a gap-Opening target links the route page top; a present Opening keeps the section segment",
+      );
+    },
+  );
+});
+
+test("a transition title removed from the body but still declared in gaps keeps the inert F2 marker (temp copy)", async () => {
+  await inContentCopy(
+    async (root) => {
+      // Route I's second transition section is removed while its title stays
+      // declared in frontmatter gaps: the registry slot must then render the
+      // in-flow Content Gap Marker, never an anchor and never a broken href.
+      const routeOne = await readFile(join(root, "elspeth-von-draken/routes/route-1.md"), "utf8");
+      const truncated = routeOne.replace(/## Transition → route-3\n\n[\s\S]*$/, "");
+      await writeFile(join(root, "elspeth-von-draken/routes/route-1.md"), truncated);
+    },
+    async (root) => {
+      assert.deepEqual(await lintContent(fsReader(root)), [], "the transition-gap copy stays valid per the shared lint");
+
+      const tree = await loadContentTree(fsReader(root));
+      const lord = getLord(tree, "elspeth-von-draken");
+      assert.ok(lord.found);
+      const route = getRoute(tree, "elspeth-von-draken", "route-1");
+      assert.ok(route.found);
+      const view = RouteView({ lord: lord.value, route: route.value });
+      const text = vnodeText(view);
+
+      // the declared gap renders its inert marker at the registry slot; the
+      // surviving transition section keeps its anchor
+      const markerFor = (title: string): string => `"${title}" is a declared gap — it has not been written yet.`;
+      assert.ok(
+        text.includes(markerFor("Transition → route-3")),
+        "the body-less declared transition renders the F2 Content Gap Marker",
+      );
+      assert.equal(countOccurrences(text, "CONTENT GAP"), 1, "exactly the one declared transition renders its marker");
+      const links = transitionAnchors(view);
+      assert.deepEqual(
+        links.map((a) => [String(a.children[0]), a.props.href]),
+        [["Transition → route-2", "#/elspeth-von-draken/route/route-2/opening"]],
+        "the surviving transition section still renders its anchor — the marker branch carries none",
+      );
+    },
+  );
+});
+
+test("an unresolvable transition title renders the plain H2 with no anchor (constructed route)", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const committedRoute = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(committedRoute.found);
+
+  // The lint rejects a transition title naming no other same-lord route, so
+  // no loader-built tree can hold this shape; the view-invariant guard (a
+  // plain, non-link H2) is proven with a hand-built route over the committed
+  // lord, reusing the loaded committed claim values.
+  const route: Route = {
+    id: "ghost-route",
+    number: "I",
+    name: "The Ghost Route",
+    vcoTitle: null,
+    objective: committedRoute.value.objective,
+    reward: committedRoute.value.reward,
+    gaps: ["Transition → nosuchroute"],
+    sections: [
+      {
+        id: "transition-nosuchroute",
+        title: "Transition → nosuchroute",
+        html: "<h2>Transition → nosuchroute</h2><p>Nowhere to go.</p>",
+      },
+    ],
+    claims: [],
+  };
+  const nodes = recordVNodes(RouteView({ lord: lord.value, route }));
+
+  const heading = nodes.find((n) => n.tag === "h2" && n.props.id === "transition-nosuchroute");
+  assert.ok(heading !== undefined, "the unresolvable transition title renders its section H2");
+  assert.equal(
+    heading.props.className,
+    "route-section__heading",
+    "the plain H2 keeps the heading's anatomy (its tree id remains the router anchor)",
+  );
+  assert.ok(
+    !recordVNodes(heading).some((n) => n.tag === "a"),
+    "an unresolvable transition renders the plain H2 — no anchor element and no broken href",
+  );
+  assert.ok(
+    !nodes.some((n) => n.tag === "a" && n.props.className === "route-section__heading-link"),
+    "no transition-link markup appears anywhere in the view",
+  );
+});
+
+test("transitionTarget mirrors the lint's isKnownSectionTitle: id or name match, real Opening tree id, null otherwise", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+
+  assert.deepEqual(
+    transitionTarget(lord.value, "Transition → route-2"),
+    { targetId: "route-2", openingSectionId: "opening" },
+    "an id-named transition resolves to the target route id and its real Opening tree id",
+  );
+  assert.deepEqual(
+    transitionTarget(lord.value, "Transition → The Southern Charter"),
+    { targetId: "route-2", openingSectionId: "opening" },
+    "a name-named transition resolves the same way — the lint's id-or-name scoping",
+  );
+  assert.equal(transitionTarget(lord.value, "Transition → nosuchroute"), null, "an unmatched suffix resolves to null");
+  assert.equal(transitionTarget(lord.value, "Opening"), null, "a non-transition title is not a target");
 });
 
 test("the dashboard keeps each route's own id as its key across route views", async () => {

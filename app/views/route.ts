@@ -30,6 +30,36 @@ import { getPanelEntries, getVcoObjectives, resolveSources } from "../content/qu
 /** Declared transition gaps are those titles the route authors as `Transition → <route>`. */
 const TRANSITION_PREFIX = "Transition → ";
 
+/**
+ * One resolved `Transition → <route>` title (feature DESIGN §4 "Link
+ * derivation"): the target route's id plus that target's real `Opening`
+ * section tree id — read from the tree, never re-slugified or invented.
+ */
+export interface TransitionTarget {
+  readonly targetId: string;
+  /** The target route's own `Opening` section tree id, or null when `Opening` is a declared gap. */
+  readonly openingSectionId: string | null;
+}
+
+/**
+ * The pure transition-target resolution: when the title starts with the
+ * `Transition → ` prefix, the suffix is matched against the lord's manifest
+ * routes by id or name — exactly the `isKnownSectionTitle` scoping the lint
+ * applies in `app/content/lint.ts` (`r.id === target || r.name === target`).
+ * Returns the target route id plus its real `Opening` section tree id
+ * (`target.sections.find(s => s.title === "Opening")?.id`), or null for a
+ * non-transition title or a suffix that matches no route; the view then
+ * renders the plain H2.
+ */
+export function transitionTarget(lord: Lord, title: string): TransitionTarget | null {
+  if (!title.startsWith(TRANSITION_PREFIX)) return null;
+  const target = title.slice(TRANSITION_PREFIX.length);
+  const route = lord.routes.find((r) => r.id === target || r.name === target);
+  if (route === undefined) return null;
+  const opening = route.sections.find((s) => s.title === "Opening");
+  return { targetId: route.id, openingSectionId: opening === undefined ? null : opening.id };
+}
+
 export function RouteView(props: { lord: Lord; route: Route }): JSX.Element {
   const { lord, route } = props;
   return h(
@@ -155,10 +185,36 @@ function routeBody(lord: Lord, route: Route): JSX.Element {
 }
 
 /**
+ * One present section's H2 (feature DESIGN §6): a matching transition title
+ * renders the heading as a cross-link anchor (`route-section__heading-link`)
+ * wrapping the authored heading text verbatim — into the target's `Opening`
+ * H2 when that section is present, otherwise the target route page top. The
+ * H2 always keeps the tree's section id (the router's section anchor); the
+ * prose and Source-panel anatomy stay on the section, never the anchor.
+ * Every other title keeps its plain H2.
+ */
+function sectionHeading(lord: Lord, section: Section): JSX.Element {
+  const target = transitionTarget(lord, section.title);
+  if (target === null) {
+    return h("h2", { id: section.id, className: "route-section__heading" }, section.title);
+  }
+  const href =
+    target.openingSectionId === null
+      ? `#/${lord.slug}/route/${target.targetId}`
+      : `#/${lord.slug}/route/${target.targetId}/${target.openingSectionId}`;
+  return h(
+    "h2",
+    { id: section.id, className: "route-section__heading" },
+    h("a", { className: "route-section__heading-link", href }, section.title),
+  );
+}
+
+/**
  * One registry slot: the route's section at that exact title renders in
- * place (with the Source / Verification Note panel after its prose when the
- * section's callout claims cite at least one distinct source); otherwise the
- * title is a declared gap and renders its marker.
+ * place (its H2 as the same-lord cross-link when the title is a matching
+ * `Transition → <route>`; with the Source / Verification Note panel after its
+ * prose when the section's callout claims cite at least one distinct source);
+ * otherwise the title is a declared gap and renders its marker.
  */
 function slotAt(lord: Lord, route: Route, title: string): JSX.Element | null {
   const section = route.sections.find((s) => s.title === title);
@@ -166,7 +222,7 @@ function slotAt(lord: Lord, route: Route, title: string): JSX.Element | null {
     return h(
       "section",
       { className: "route-section", "data-section-id": section.id },
-      h("h2", { id: section.id, className: "route-section__heading" }, section.title),
+      sectionHeading(lord, section),
       h("div", { className: "prose", dangerouslySetInnerHTML: { __html: sectionInnerHtml(section.html) } }),
       sourcePanel(lord, route, section),
     );

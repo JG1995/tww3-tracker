@@ -1017,6 +1017,18 @@ button {
   scroll-margin-top: calc(var(--space-header-height) + var(--space-stack-sm));
 }
 
+/* The transition cross-link (F7): the anchor inside a `Transition → <route>`
+   heading keeps the heading's mono instrument voice by inheritance and reads
+   as an ordinary link — underline, on-surface ink, colour-only hover on the
+   global band, and the same 0.15s transition; the global :focus-visible ring
+   and the prefers-reduced-motion block below cover focus and motion. */
+.route-section__heading-link {
+  text-decoration: underline;
+  text-underline-offset: var(--space-stack-xs);
+  color: var(--color-on-surface);
+  transition: var(--transition-standard);
+}
+
 /* Rendered Markdown prose (shared fundamentals + route section bodies). */
 
 .prose {
