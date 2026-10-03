@@ -1629,6 +1629,273 @@ aside.claim > .confidence-badge {
   transition: var(--transition-standard);
 }
 
+/* ─── Ledger Table (DESIGN.md §Ledger Table; package `ledger-table-panel`) ──────
+   The fixed VCO progress surface: carbon `surface-container` floor with a 1px
+   `outline-variant` border at 10px radius, one column-group header row (the
+   two mono uppercase group headers — PLANNING over the checkbox column and
+   GAME CONFIRMED over the step track + controls — each with its explicit
+   `n / m` progress pair beside the label), then 40px hairline-divided rows.
+   One row per reconciled item: objective label (`body-md`), the planning
+   checkbox with its `mono-sm` label (ticked → the `on-surface` check), the
+   four step cells (each a `label-sm` mono cell pairing a state dot with a
+   text label — never colour alone: reached `success`, the appears-complete-
+   but-unconfirmed edge (step 1) `warning`, earlier `neutral`, later dimmed),
+   the bounds-disabled back/forward buttons (no forward past 4, no back
+   before 0), and the per-row write feedback (`SAVING` in flight, the message
+   on a failed row whose border turns `error` — the row always renders the
+   parent's document, so a rolled-back write shows its pre-write value). The
+   shared 8-column template lives on the container so every row's columns
+   align with the header groups; transitions ride the `--transition-standard`
+   band and are disabled by the `prefers-reduced-motion` block below. */
+
+.ledger-table {
+  /* The shared 8-column track: label, planning, 4 step cells, controls, feedback. */
+  --ledger-table-cols: minmax(16ch, 1.4fr) minmax(11ch, 0.8fr) repeat(4, minmax(12ch, 1fr)) minmax(12ch, 0.7fr) minmax(14ch, 0.9fr);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-container);
+  overflow: hidden;
+}
+
+.ledger-table__header,
+.ledger-row {
+  display: grid;
+  grid-template-columns: var(--ledger-table-cols);
+}
+
+.ledger-table__header {
+  border-bottom: 1px solid var(--color-outline-variant);
+  padding-block: var(--space-stack-xs);
+}
+
+/* The mono uppercase group headers, each with its explicit progress pair. */
+.ledger-table__group {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-stack-sm);
+  padding-inline: var(--space-stack-sm);
+}
+
+.ledger-table__group--planning {
+  grid-column: 2;
+}
+
+.ledger-table__group--confirmed {
+  grid-column: 3 / 8;
+}
+
+.ledger-table__group-label,
+.ledger-row__control,
+.ledger-row__feedback--saving {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+}
+
+.ledger-table__group-label {
+  color: var(--color-on-surface-variant);
+}
+
+/* The `n / m` pair beside the header — the numbers are the data (DESIGN.md
+   Value & Number Formatting), mono tabular. */
+.ledger-table__group-progress {
+  font-family: var(--font-mono-sm-family), var(--font-mono-fallback);
+  font-size: var(--font-mono-sm-size);
+  font-weight: var(--font-mono-sm-weight);
+  line-height: var(--font-mono-sm-line-height);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-on-surface);
+}
+
+/* One 40px hairline-divided row; the divider is the row's top border, and a
+   failed row's border turns `error` (the row-level border of DESIGN §5).
+
+   Row children sit on the container's shared 8-column track by explicit
+   placement — label 1, planning 2, the four step cells 3–6, controls 7,
+   feedback 8 — so every row's columns align with the header groups
+   (PLANNING over track 2, GAME CONFIRMED over tracks 3–7) instead of
+   auto-placing into tracks 1–5 and squeezing the step cells. */
+.ledger-row {
+  height: var(--space-table-row-height);
+  border-top: 1px solid transparent;
+}
+
+.ledger-row + .ledger-row {
+  border-top-color: var(--color-outline-variant);
+}
+
+.ledger-row.ledger-row--error {
+  border-top-color: var(--color-error);
+}
+
+.ledger-row__label {
+  grid-column: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  padding-inline: var(--space-stack-sm);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-on-surface);
+}
+
+/* The planning state: a real checkbox + its mono-sm label (DESIGN.md
+   Ledger Table); ticked → the on-surface check. The global :focus-visible
+   ring covers keyboard focus on the native input. */
+.ledger-row__planning {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  gap: var(--space-stack-xs);
+  padding-inline: var(--space-stack-sm);
+  cursor: pointer;
+}
+
+.ledger-row__check {
+  cursor: pointer;
+}
+
+.ledger-row__check--on-surface {
+  accent-color: var(--color-on-surface);
+}
+
+.ledger-row__plan {
+  font-family: var(--font-mono-sm-family), var(--font-mono-fallback);
+  font-size: var(--font-mono-sm-size);
+  font-weight: var(--font-mono-sm-weight);
+  line-height: var(--font-mono-sm-line-height);
+  color: var(--color-on-surface-variant);
+}
+
+/* The four-monolithic-cells track: equal-width cells under the GAME CONFIRMED
+   header; each cell centers its state dot above its label-sm text. */
+.ledger-row__track {
+  grid-column: 3 / 7;
+  display: flex;
+  min-width: 0;
+}
+
+.ledger-step {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--space-unit) / 4);
+  min-width: 0;
+}
+
+.ledger-step__dot {
+  width: var(--space-stack-xs);
+  height: var(--space-stack-xs);
+  border-radius: var(--radius-full);
+}
+
+.ledger-step__label {
+  font-family: var(--font-label-sm-family), var(--font-mono-fallback);
+  font-size: var(--font-label-sm-size);
+  font-weight: var(--font-label-sm-weight);
+  line-height: var(--font-label-sm-line-height);
+  letter-spacing: var(--font-label-sm-letter-spacing);
+  text-align: center;
+}
+
+/* Step treatments: reached success (green dot + label), the appears-complete
+   edge (step 1) warning, earlier neutral, later dimmed — always dot + label. */
+.ledger-step--success .ledger-step__dot {
+  background: var(--color-success);
+}
+
+.ledger-step--success .ledger-step__label {
+  color: var(--color-success);
+}
+
+.ledger-step--warning .ledger-step__dot {
+  background: var(--color-warning);
+}
+
+.ledger-step--warning .ledger-step__label {
+  color: var(--color-warning);
+}
+
+.ledger-step--neutral .ledger-step__dot,
+.ledger-step--future .ledger-step__dot {
+  background: var(--color-on-surface-variant);
+}
+
+.ledger-step--neutral .ledger-step__label,
+.ledger-step--future .ledger-step__label {
+  color: var(--color-on-surface-variant);
+}
+
+/* Later steps render dimmed — the DESIGN's reduced-opacity vocabulary. */
+.ledger-step--future {
+  opacity: 0.6;
+}
+
+/* The bounds-marked step controls: mono uppercase instrument buttons like the
+   dashboard tabs, disabled at step 0 / step 4 (the DESIGN disabled 40%
+   treatment). The global :focus-visible ring covers keyboard operation. */
+.ledger-row__controls {
+  grid-column: 7;
+  display: flex;
+  align-items: center;
+  gap: var(--space-stack-xs);
+  padding-inline: var(--space-stack-sm);
+}
+
+.ledger-row__control {
+  border: 0;
+  background: transparent;
+  padding: calc(var(--space-unit) / 2);
+  color: var(--color-on-surface-variant);
+  cursor: pointer;
+  transition: var(--transition-standard);
+}
+
+.ledger-row__control:hover {
+  color: var(--color-on-surface);
+}
+
+.ledger-row__control:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* The per-row write feedback: mono `SAVING` in flight, the error message in
+   `error` ink on a failed row (the message stays readable — the cell
+   truncates with the full message in its title attribute). */
+.ledger-row__feedback {
+  grid-column: 8;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: var(--transition-standard);
+}
+
+.ledger-row__feedback--saving {
+  color: var(--color-on-surface-variant);
+}
+
+.ledger-row__feedback--error {
+  font-family: var(--font-body-sm-family), var(--font-sans-fallback);
+  font-size: var(--font-body-sm-size);
+  font-weight: var(--font-body-sm-weight);
+  line-height: var(--font-body-sm-line-height);
+  color: var(--color-error);
+}
+
 /* ─── Motion: mechanical 0.15s transitions; reduced motion disables all ─── */
 
 @media (prefers-reduced-motion: reduce) {

@@ -17,6 +17,16 @@
  * commit 4 — feature DESIGN §2/§6): the exported pure `tabNav` keyboard
  * decision helper plus the rendered-tab VNode assertions over the committed
  * tree.
+ *
+ * It also carries the ledger table panel contract (package
+ * `ledger-table-panel`, commit 6 — DESIGN.md §Ledger Table): the two mono
+ * uppercase column-group headers with their `n / m` progress pairs, one
+ * 40px-classed row per reconciled item in committed order, the planning
+ * checkbox states, the four DESIGN step cells with their dot + label
+ * treatments (success reached, step-1 warning, neutral earlier, dimmed
+ * later), the bounds-disabled step controls, and the per-row saving/error
+ * feedback. The panel is data-driven, so the proofs build props directly —
+ * no content tree.
  */
 
 import { test } from "node:test";
@@ -30,6 +40,7 @@ import { getLord, getPanelEntries, getRoute } from "../app/content/query.ts";
 import { CLAIM_STATES, PANEL_GROUPS, type ContentReader, type Route, type Source } from "../app/content/types.ts";
 import { ConfidenceBadge } from "../app/components/ConfidenceBadge.ts";
 import { DashboardMarkup } from "../app/components/dashboard.ts";
+import { LedgerTable, type LedgerRowStatus, type LedgerTableRow } from "../app/components/LedgerTable.ts";
 import { TabStripMarkup, tabNav } from "../app/components/TabStrip.ts";
 
 const CONTENT = fileURLToPath(new URL("../content", import.meta.url));
@@ -727,4 +738,236 @@ test("state-carrying entries render the Confidence Badge, and unlisted entries n
   // route's panelOrder) appears in no panel
   assert.ok(!text.includes("Prepare the twin casket fleet"), "the unlisted skill's title is absent");
   assert.ok(!text.includes("The fleet sails only once the port is raised."), "the unlisted skill's intro is absent");
+});
+
+// ─── 8. The ledger table panel (package `ledger-table-panel`) ────────────────
+
+/** A hand-built reconciled row for the panel's data-driven proofs. */
+function ledgerRow(id: string, label: string, confirmedStep: 0 | 1 | 2 | 3 | 4, planned: boolean): LedgerTableRow {
+  return { id, label, state: { planned, confirmedStep } };
+}
+
+/** The per-row command status map with every row idle — the common default. */
+function idleStatuses(rows: readonly LedgerTableRow[]): Record<string, LedgerRowStatus> {
+  const statuses: Record<string, LedgerRowStatus> = {};
+  for (const row of rows) statuses[row.id] = { phase: "idle", message: null };
+  return statuses;
+}
+
+/** The four fixed DESIGN step labels, asserted literally so a wrong cell vocabulary fails. */
+const LEDGER_STEP_LABELS: readonly string[] = [
+  "APPEARS COMPLETE",
+  "MISSION COMPLETE",
+  "VICTORY REGISTERED",
+  "REWARD RECEIVED",
+];
+
+const STEP_ROWS: readonly LedgerTableRow[] = [
+  ledgerRow("item-a", "Secure the north gate", 3, true),
+  ledgerRow("item-b", "Hold the river crossing", 1, false),
+  ledgerRow("item-c", "Raze the foothold fort", 0, false),
+];
+
+/** Renders the panel with the shared fixture rows plus caller-computed counts. */
+function renderLedger(
+  plannedCount: number,
+  confirmedCount: number = 0,
+  statuses?: Record<string, LedgerRowStatus>,
+) {
+  return recordVNodes(
+    LedgerTable({
+      rows: STEP_ROWS,
+      statuses: statuses ?? idleStatuses(STEP_ROWS),
+      plannedCount,
+      confirmedCount,
+      onTick: () => {},
+      onStep: () => {},
+    }),
+  );
+}
+
+/** The className string of one VNode record (empty when absent). */
+function cls(record: { props: Record<string, unknown> }): string {
+  return String(record.props.className ?? "");
+}
+
+test("the ledger table renders the two mono group headers with the n / m progress pairs beside them", () => {
+  const nodes = renderLedger(2, 0);
+  const text = vnodeText(nodes);
+
+  const planning = nodes.find((n) => String(n.props.className).split(/\s+/).includes("ledger-table__group--planning"));
+  const confirmed = nodes.find((n) => String(n.props.className).split(/\s+/).includes("ledger-table__group--confirmed"));
+  assert.ok(planning !== undefined, "the planning column-group header renders");
+  assert.ok(confirmed !== undefined, "the game-confirmed column-group header renders");
+  assert.ok(vnodeText(planning).includes("PLANNING"), "the planning header conveys the planning track");
+  assert.ok(
+    !vnodeText(planning).toLowerCase().includes("confirmed"),
+    "the planning header never claims the confirmed track",
+  );
+  assert.ok(vnodeText(confirmed).includes("GAME CONFIRMED"), "the game-confirmed header conveys the confirmed track");
+
+  assert.ok(vnodeText(planning).includes("2 / 3"), "the planning progress pair reads ticked / rows (2 / 3)");
+  assert.ok(vnodeText(confirmed).includes("0 / 3"), "the confirmed progress pair reads reached / rows (0 / 3)");
+  assert.ok(text.indexOf("PLANNING") < text.indexOf("GAME CONFIRMED"), "planning group renders before the game-confirmed group");
+});
+
+test("an all-ticked / all-unconfirmed campaign shows its complete planning pair and the zero confirmed pair", () => {
+  const nodes = renderLedger(3, 0);
+  const text = vnodeText(nodes);
+  assert.ok(text.includes("3 / 3"), "all ticked: the planning pair reads 3 / 3");
+  assert.ok(text.includes("0 / 3"), "none confirmed: the confirmed pair reads 0 / 3 — the two facts stay visibly separate");
+});
+
+test("one 40px-classed ledger row renders per reconciled item, in committed order, with its objective label", () => {
+  const nodes = renderLedger(2, 1);
+  const rows = nodes.filter((n) => String(n.props.className).split(/\s+/).includes("ledger-row"));
+  assert.equal(rows.length, STEP_ROWS.length, "one ledger-row per reconciled item");
+  for (const [index, row] of STEP_ROWS.entries()) {
+    assert.ok(vnodeText(rows[index]).includes(row.label), `row ${index} renders its objective label (${row.label})`);
+  }
+  const text = vnodeText(nodes);
+  assert.ok(
+    text.indexOf("Secure the north gate") < text.indexOf("Hold the river crossing") &&
+      text.indexOf("Hold the river crossing") < text.indexOf("Raze the foothold fort"),
+    "rows render in committed order, never re-sorted",
+  );
+});
+
+test("the planning checkbox renders checked with the on-surface check class, and unchecked otherwise", () => {
+  const nodes = renderLedger(1, 0);
+  const checks = nodes.filter((n) => n.tag === "input" && n.props.type === "checkbox");
+  assert.equal(checks.length, STEP_ROWS.length, "one real checkbox per row");
+
+  const ticked = checks[0];
+  assert.equal(ticked.props.checked, true, "the ticked item-a row's checkbox is checked");
+  assert.ok(
+    String(ticked.props.className).split(/\s+/).includes("ledger-row__check--on-surface"),
+    "the ticked check renders the on-surface class treatment",
+  );
+
+  for (const [index, check] of checks.entries()) {
+    const expected = STEP_ROWS[index].state.planned;
+    assert.equal(check.props.checked, expected, `row ${index} checkbox matches its ItemState.planned`);
+    const hasOnSurface = String(check.props.className).split(/\s+/).includes("ledger-row__check--on-surface");
+    assert.equal(hasOnSurface, expected, `row ${index} renders the on-surface check class exactly when ticked`);
+  }
+
+  const rows = nodes.filter((n) => String(n.props.className).split(/\s+/).includes("ledger-row"));
+  const firstRowText = vnodeText(rows[0]);
+  assert.ok(firstRowText.includes("PLANNED"), "the planning state carries its mono label beside the checkbox");
+});
+
+test("each row renders the four step cells with the DESIGN step labels, each pairing a dot with a text label", () => {
+  const nodes = renderLedger(2, 1);
+  const cells = nodes.filter((n) => String(n.props.className).split(/\s+/).includes("ledger-step"));
+  assert.equal(cells.length, STEP_ROWS.length * 4, "four step cells per row");
+  for (let row = 0; row < STEP_ROWS.length; row++) {
+    for (let step = 0; step < 4; step++) {
+      const cell = cells[row * 4 + step];
+      assert.equal(
+        vnodeText(cell).includes(LEDGER_STEP_LABELS[step]),
+        true,
+        `row ${row} step ${step + 1} carries its DESIGN label (${LEDGER_STEP_LABELS[step]})`,
+      );
+      const cellNodes = recordVNodes(cell);
+      assert.ok(
+        cellNodes.some((n) => String(n.props.className).split(/\s+/).includes("ledger-step__dot")),
+        `row ${row} step ${step + 1}: the state dot is always present — the state is never colour-only`,
+      );
+      assert.ok(
+        cellNodes.some((n) => String(n.props.className).split(/\s+/).includes("ledger-step__label")),
+        `row ${row} step ${step + 1}: the text label is always present alongside the dot`,
+      );
+    }
+  }
+});
+
+test("the reached step renders the success-classed dot + label; earlier steps neutral, later steps dimmed", () => {
+  const nodes = renderLedger(2, 1);
+  const cells = nodes.filter((n) => String(n.props.className).split(/\s+/).includes("ledger-step"));
+
+  // item-a is at step 3: steps 1–2 passed (neutral), step 3 reached (success), step 4 future (dimmed)
+  const a = cells.slice(0, 4);
+  assert.ok(cls(a[2]).includes("ledger-step--success"), "the reached step-3 cell carries the success treatment");
+  assert.ok(
+    recordVNodes(a[2]).some((n) => String(n.props.className).split(/\s+/).includes("ledger-step__dot")),
+    "the reached step pairs the success dot with its label",
+  );
+  assert.ok(cls(a[0]).includes("ledger-step--neutral"), "the passed step-1 cell renders the neutral treatment");
+  assert.ok(cls(a[1]).includes("ledger-step--neutral"), "the passed step-2 cell renders the neutral treatment");
+  assert.ok(cls(a[3]).includes("ledger-step--future"), "the not-yet-reached step-4 cell renders dimmed");
+
+  // item-c is at step 0: every cell is future/dimmed — none claims a reached state
+  const c = cells.slice(8, 12);
+  for (const cell of c) {
+    assert.ok(cls(cell).includes("ledger-step--future"), "a step-0 row renders every step dimmed");
+  }
+});
+
+test("a row at step 1 (appears complete but unconfirmed) renders the warning treatment on that cell", () => {
+  const nodes = renderLedger(0, 1);
+  const cells = nodes.filter((n) => String(n.props.className).split(/\s+/).includes("ledger-step"));
+
+  // item-b is at step 1: the appears-complete edge carries the warning treatment
+  const b = cells.slice(4, 8);
+  assert.ok(cls(b[0]).includes("ledger-step--warning"), "the step-1 cell renders the warning treatment");
+  assert.ok(cls(b[1]).includes("ledger-step--future"), "steps past the edge stay dimmed");
+  assert.ok(cls(b[2]).includes("ledger-step--future"), "steps past the edge stay dimmed");
+  assert.ok(cls(b[3]).includes("ledger-step--future"), "steps past the edge stay dimmed");
+
+  // the reached-success treatment belongs to steps 2–4 only: a step-3 row shows no warning anywhere
+  const a = cells.slice(0, 4);
+  assert.ok(!cls(a[0]).includes("--warning") && !cls(a[2]).includes("--warning"), "a non-step-1 reached row never warns");
+  assert.ok(cls(a[2]).includes("ledger-step--success"), "its reached step stays success");
+});
+
+test("the step controls disable at the bounds: no back before step 0, no forward past step 4", () => {
+  const rows: readonly LedgerTableRow[] = [
+    ledgerRow("item-a", "Secure the north gate", 0, false),
+    ledgerRow("item-b", "Hold the river crossing", 2, false),
+    ledgerRow("item-c", "Raze the foothold fort", 4, false),
+  ];
+  const nodes = recordVNodes(
+    LedgerTable({ rows, statuses: idleStatuses(rows), plannedCount: 0, confirmedCount: 2, onTick: () => {}, onStep: () => {} }),
+  );
+  const backs = nodes.filter((n) => String(n.props.className).split(/\s+/).includes("ledger-row__control--back"));
+  const forwards = nodes.filter((n) => String(n.props.className).split(/\s+/).includes("ledger-row__control--forward"));
+  assert.equal(backs.length, 3, "one back control per row");
+  assert.equal(forwards.length, 3, "one forward control per row");
+  assert.equal(backs[0].props.disabled, true, "step 0: back is disabled (no retreat below 0)");
+  assert.equal(forwards[0].props.disabled, false, "step 0: forward stays enabled");
+  assert.equal(backs[1].props.disabled, false, "mid-track row: back enabled");
+  assert.equal(forwards[1].props.disabled, false, "mid-track row: forward enabled");
+  assert.equal(forwards[2].props.disabled, true, "step 4: forward is disabled (no advance past 4)");
+  assert.equal(backs[2].props.disabled, false, "step 4: back stays enabled (correction)");
+  assert.equal(backs[0].props.type, "button", "the step controls are real buttons, keyboard-operable");
+});
+
+test("a row in the saving phase shows the in-flight feedback on that row only", () => {
+  const statuses = idleStatuses(STEP_ROWS);
+  statuses["item-b"] = { phase: "saving", message: null };
+  const nodes = renderLedger(1, 1, statuses);
+  const rows = nodes.filter((n) => String(n.props.className).split(/\s+/).includes("ledger-row"));
+  assert.ok(vnodeText(rows[1]).includes("SAVING"), "the saving row shows the in-flight feedback");
+  assert.ok(!vnodeText(rows[0]).includes("SAVING"), "a settled row shows no saving feedback");
+  assert.ok(!vnodeText(rows[2]).includes("SAVING"), "a settled row shows no saving feedback");
+});
+
+test("a failed row renders the error border class with the inline message, showing the rolled-back value", () => {
+  const statuses = idleStatuses(STEP_ROWS);
+  statuses["item-b"] = { phase: "error", message: "The write failed — try again." };
+  const nodes = renderLedger(1, 1, statuses);
+  const rows = nodes.filter((n) => String(n.props.className).split(/\s+/).includes("ledger-row"));
+
+  const failed = rows[1];
+  assert.ok(cls(failed).includes("ledger-row--error"), "the failed row carries the error border class");
+  assert.ok(vnodeText(failed).includes("The write failed — try again."), "the failure message renders as inline text");
+  // the parent's document holds the pre-write value after the rollback, so the row renders it unchanged
+  const check = recordVNodes(failed).find((n) => n.tag === "input" && n.props.type === "checkbox");
+  assert.equal(check?.props.checked, false, "the failed row renders its rolled-back (pre-write) planned value");
+  const cells = recordVNodes(failed).filter((n) => String(n.props.className).split(/\s+/).includes("ledger-step"));
+  assert.ok(cls(cells[0]).includes("ledger-step--warning"), "the rolled-back step (item-b at step 1) renders as stored");
+
+  assert.ok(!cls(rows[0]).includes("ledger-row--error"), "a settled row never carries the error border");
+  assert.ok(!vnodeText(rows[0]).includes("The write failed"), "the message stays scoped to the failed row");
 });

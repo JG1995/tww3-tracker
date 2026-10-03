@@ -289,7 +289,7 @@ Commit 1 (server ledger root + gitignore) → Commit 2 (pure model) → Commit 4
 
 #### Package `ledger-table-panel` — Commit 6: The Ledger Table panel
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 3
 
