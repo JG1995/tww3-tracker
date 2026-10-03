@@ -12,7 +12,7 @@ For the product purpose and domain model, see [CONCEPT.md](./CONCEPT.md). For th
 
 ### 1.1 Target architecture (approved proposal)
 
-> Status: approved 2026-10-02, **partially implemented** — F1 (site foundation) is implemented; the dashboard (F2), ledger (F5), and search (F6) layers remain approved-but-unbuilt. This subsection records the approved target stack and direction; §2 and §3 describe the currently implemented system. Rationale: [ADR-0001](adr/0001-vite-preact-runtime-loaded-site.md), [ADR-0002](adr/0002-content-as-markdown-json.md).
+> Status: approved 2026-10-02, **partially implemented** — F1 (site foundation), F2 (route-first rendering), and F4 (Elspeth migration) are implemented; F3 (verification notes UI), F5 (ledger), F6 (search), and F7 (route transitions) remain approved-but-unbuilt. F4 awaits final local ff-only integration. This subsection records the approved target stack and direction; §2 and §3 describe the currently implemented system. Rationale: [ADR-0001](adr/0001-vite-preact-runtime-loaded-site.md), [ADR-0002](adr/0002-content-as-markdown-json.md).
 
 A local, single-user web app. One Preact SPA in TypeScript, built by Vite, with no static site generator and no backend. Guide content is never compiled into the bundle — it is fetched at runtime from the repository as Markdown and JSON files.
 
@@ -89,7 +89,7 @@ Cross-campaign querying/analysis (comparisons, history stats across many campaig
 
 ### 1.2 Current state
 
-F1 (site foundation) is implemented: the Preact shell (`app/`), the content model / loader / lint / query layer, the committed git-versioned Elspeth skeleton (`content/`), the content-lint CLI and dependency-free static server (`tools/`), and their `node:test` suite (`test/`). §2 (Project Layout) and §3 (Build, Test, and Gate Pipeline) describe this implemented system; the F2–F8 layers (dashboard, Elspeth migration, ledger, search) are not implemented, and the sections that belong to them (parts of §1.1's module layout, §4–§11) remain unfilled placeholders to be written as those layers land.
+F1 (site foundation), F2 (route-first rendering), and F4 (Elspeth migration) are implemented: the committed `content/` includes the migrated Elspeth guide, with its shared introduction and four blocks, six populated datasets, and three fully sectioned route documents. F4 awaits final local ff-only integration. §2 (Project Layout) and §3 (Build, Test, and Gate Pipeline) describe the implemented system; F3 (verification notes UI), F5 (ledger), F6 (search), and F7 (route transitions) remain approved-but-unbuilt, and the sections that belong to those layers (parts of §1.1's module layout, §4–§11) remain unfilled placeholders to be written as those layers land.
 
 ---
 

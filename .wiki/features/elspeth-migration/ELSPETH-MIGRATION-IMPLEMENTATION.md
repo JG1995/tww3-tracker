@@ -147,7 +147,7 @@ Commits 1–9 (the W1 pair, the five remaining datasets, the research overrides,
 
 **Required checks:** `npm test` green, `npx tsc --noEmit` clean, `node tools/content-lint.mjs` exits 0, `npm run build` succeeds
 
-**Feature close-out:** Not run
+**Feature close-out:** Current
 
 **Provisional PR title:** `feat(content): migrate the Elspeth atlas into the committed guide`
 
@@ -562,7 +562,17 @@ Report any skipped or unsupported validation step as a gap, never as a pass.
 
 ## Documentation impact
 
-Complete during reconciliation at feature close-out. Expected owners, reconciled by the coordinator/steward — not planned package work:
-- `.wiki/TODO.md` — feature-level status moved to `Completed` after verified final integration (this planning change already moved F4 to **Active** with the ledger link).
-- `.wiki/ARCHITECTURE.md` — §2's current-state content tree note that the committed Elspeth content is the migrated full guide (the F1 description of the empty skeleton becomes stale once the migration lands).
-- The accepted ELSPETH-MIGRATION-DESIGN.md and this ledger stay in place through completion; documented correction entries appended where the DESIGN's wording and the F2 render mechanism resolve differently (e.g. `gaps` retaining the transition slot declarations; the frontmatter `transitions` field dropped), with the ledger as the record.
+Reconciled during this pre-merge close-out; no design or code change was needed:
+- `.wiki/TODO.md` — updated the Active item to implementation complete, review cleared, and awaiting local ff-only integration; it remains Active pending verified final publication.
+- `.wiki/ARCHITECTURE.md` — updated implemented-layer status and the committed-content description; placeholder sections remain noted.
+- The accepted ELSPETH-MIGRATION-DESIGN.md and this ledger remain in place. The existing discoveries record the `gaps` transition-slot declarations and dropped frontmatter `transitions` field.
+
+## Close-out
+
+Feature review: Accept, no blocking findings. One advisory MEDIUM is retained: the Helstorm middle-tier test assertion substring collision in `test/elspeth-skeleton.test.ts`; content is verified complete, and the advisory is retained for a delegated close-out bundle.
+
+Final validation: all six ledger gates are green, including the headless-Chromium HTTP boot walk and deliberate-corruption boot-error check. The verdict is content-only; no implementation code changed.
+
+Documentation reconciliation: `.wiki/TODO.md` and `.wiki/ARCHITECTURE.md` were reconciled as recorded above. No other approved documentation owner required a change.
+
+Remaining action: developer approval and local ff-only integration of `feat/elspeth-migration` (source `a4dc7e04`, base `07f39e43`). Feature status remains `Accepted`; feature close-out remains pre-merge and is not `Completed`.

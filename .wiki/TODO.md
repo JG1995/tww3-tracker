@@ -6,7 +6,7 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
-- **elspeth-migration** (F4 — Elspeth migration (content-only)) — plan proposed; delivery pending. [IMPLEMENTATION](features/elspeth-migration/ELSPETH-MIGRATION-IMPLEMENTATION.md) · [DESIGN](features/elspeth-migration/ELSPETH-MIGRATION-DESIGN.md)
+- **elspeth-migration** (F4 — Elspeth migration (content-only)) — implementation complete (all 11 packages integrated on `feat/elspeth-migration`); feature review Accept, no blocking, with one advisory MEDIUM retained; awaiting final local ff-only integration. [IMPLEMENTATION](features/elspeth-migration/ELSPETH-MIGRATION-IMPLEMENTATION.md) · [DESIGN](features/elspeth-migration/ELSPETH-MIGRATION-DESIGN.md)
 
 ## Next
 
