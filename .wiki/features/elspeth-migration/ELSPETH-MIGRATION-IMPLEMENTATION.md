@@ -425,13 +425,13 @@ Commits 1–9 (the W1 pair, the five remaining datasets, the research overrides,
 
 #### Package `route-2-content` — Commit 10: Fill Route II body sections and panel order
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 9
 
 **Depends on:** ["skills-dataset", "research-dataset", "research-overrides", "buildings-dataset", "mechanics-dataset", "armies-dataset"]
 
-**Write scope:** ["content/elspeth-von-draken/routes/route-2.md", "test/elspeth-skeleton.test.ts", "test/views.test.ts"]
+**Write scope:** ["content/elspeth-von-draken/routes/route-2.md", "test/elspeth-skeleton.test.ts", "test/views.test.ts", "test/components.test.ts"]
 
 **Provisional commit:** `feat(content): fill Route II body sections and panel order`
 
@@ -461,7 +461,7 @@ Commits 1–9 (the W1 pair, the five remaining datasets, the research overrides,
 
 **Depends on:** ["skills-dataset", "research-dataset", "research-overrides", "buildings-dataset", "mechanics-dataset", "armies-dataset"]
 
-**Write scope:** ["content/elspeth-von-draken/routes/route-3.md", "test/elspeth-skeleton.test.ts", "test/views.test.ts"]
+**Write scope:** ["content/elspeth-von-draken/routes/route-3.md", "test/elspeth-skeleton.test.ts", "test/views.test.ts", "test/components.test.ts"]
 
 **Provisional commit:** `feat(content): fill Route III body sections and panel order`
 
@@ -492,6 +492,10 @@ Record material deviations, blockers, and decisions that change remaining work. 
 - **What was planned:** the accepted plan asserted "the atlas declares no research overrides — all three routes share the same four groups", so `research-dataset` landed the four base groups only and no override entry was created (recorded at the time as a Known/Decision).
 - **What changed:** the Commit 3 independent reviewer found, against the atlas `guide-data` bytes, that `routes.route2.researchOverrides` carries `opening` and `economy` and `routes.route3.researchOverrides` carries `opening` and `arcane`, and the atlas's own `lookup()` substitutes them (`g==='research'?(R().researchOverrides?.[k]||D.research[k])`) — the research panel visibly differs per route tab. The DESIGN already prescribes exactly this case (§4: "a route's `researchOverrides` entry is a distinct entry id (the F2 per-route-variant rule) and is listed only in that route's `panelOrder`"; §7 acceptance: "the research groups plus per-route overrides as distinct entries under the right `panelOrder`"), and the per-route-variant rule is fixture-proven — so the correction stays inside the unchanged DESIGN requirements and feature scope (bounded in-scope replan, no developer decision required).
 - **Plan change:** new package `research-overrides` (Commit 8, wave 7) adds the four override entries under the distinct ids `route-2-opening`, `route-2-economy`, `route-3-opening`, `route-3-arcane`; `route-2-content`/`route-3-content` (renumbered Commits 10/11, waves 9/10) depend on it and fill their `panelOrder.research` lists with the override ids in the atlas's positions; `route-1-content` is Commit 9, wave 8 (its `panelOrder.research` stays the four base ids). The integrated `research-dataset` commit (four base groups) remains correct and untouched; the seeded inventory gains a `researchOverrides` row. No requirement, outcome, trust boundary, public contract, or feature-scope change.
+
+### Correction (2026-10-03, during Commit 10 execution): the route-2/route-3 write scopes omit `test/components.test.ts`
+
+The route-1 worker flipped the committed-tree assertion "the rest of the committed content stays callout-free" to filter `r.id !== "route-1"` and assert the remaining routes are still skeleton (`sections.length === 0`). Migrating Route II's sections necessarily breaks that loop — but the route-2 packet's write scope named only the two other test files, so the flip had no home. Bounded correction: `test/components.test.ts` is added to the `route-2-content` and `route-3-content` write scopes (the route-1 precedent packet already lists it). No outcome, ordering, dependency, or design change — only the test-flip seam follows the mandated content, keeping every integrated prefix green at its gate. Route-3 owns the final residual removal (after it, no committed route is callout-free/skeleton).
 
 ### Discovery (2026-10-03, during Commit 6 execution): the atlas armies maps key routes `route1/2/3`; the committed model keys them `route-1/-2/-3`
 

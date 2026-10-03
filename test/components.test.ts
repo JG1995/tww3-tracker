@@ -213,9 +213,9 @@ test("the fixture callout renders the badged anatomy with resolved per-src links
   );
 });
 
-// ─── 4. The committed content: Route I's migrated callouts, the rest callout-free ──
+// ─── 4. The committed content: Routes I and II's migrated callouts, Route III callout-free ──
 
-test("Route I's migrated ::claim callouts render the badged anatomy; the rest of the committed content stays callout-free", async () => {
+test("Routes I and II's migrated ::claim callouts render the badged anatomy; the rest of the committed content stays callout-free", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
   for (const lord of tree.lords) {
     assert.ok(
@@ -272,15 +272,98 @@ test("Route I's migrated ::claim callouts render the badged anatomy; the rest of
       "the folded quest-trigger evidence text renders verbatim",
     );
 
-    // Routes II and III remain callout-free skeletons
-    for (const route of lord.routes.filter((r) => r.id !== "route-1")) {
-      assert.equal(route.sections.length, 0, `${route.id} has no sections yet`);
-      for (const section of route.sections) {
-        assert.ok(
-          !section.html.includes('<aside class="claim'),
-          `no callout in committed ${route.id}/${section.id}`,
-        );
-      }
+    // Route II's treaty-validation hedges (Mid → Late transfer-credit, Victory
+    // push no-final-battle, Diplomacy treaty wording) render the same badged
+    // anatomy with the resolved link — mirroring the Route I callout
+    // discipline route-1-worker added.
+    const routeTwo = lord.routes.find((r) => r.id === "route-2");
+    assert.ok(routeTwo !== undefined, "the committed route-2 loads");
+
+    // the transfer-credit claim (Mid → Late — the province audit) renders the
+    // verify-in-campaign badge anatomy with the resolved link
+    const midLate = routeTwo.sections.find((s) => s.id === "mid-late");
+    assert.ok(midLate !== undefined, "the Mid → Late section exists");
+    assert.ok(
+      midLate.html.includes('<aside class="claim claim--verify-in-campaign"'),
+      'the Mid → Late callout keeps class="claim claim--verify-in-campaign"',
+    );
+    assert.ok(midLate.html.includes('data-state="verify-in-campaign"'), "the Mid → Late callout keeps data-state");
+    assert.ok(midLate.html.includes('data-src="vco-guide"'), "the Mid → Late callout keeps data-src");
+    assert.ok(
+      midLate.html.includes('<span class="confidence-badge confidence-badge--verify-in-campaign">'),
+      "the badge span matches the component's class contract",
+    );
+    assert.ok(
+      midLate.html.includes('<span class="confidence-badge__label">VERIFY</span>'),
+      "the mono uppercase label is present",
+    );
+    assert.ok(
+      midLate.html.includes(
+        '<a class="confidence-badge__src" href="https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084">VCO • author’s route objectives</a>',
+      ),
+      "the src id resolves to its source link",
+    );
+    assert.ok(
+      midLate.html.includes("A transfer is acceptable only while the game still credits the control relationship."),
+      "the transfer-credit treaty-validation wording renders verbatim",
+    );
+
+    // the no-final-battle claim (Victory push — the confirm-route step) keeps
+    // the same verify-in-campaign anatomy
+    const victoryPush = routeTwo.sections.find((s) => s.id === "victory-push");
+    assert.ok(victoryPush !== undefined, "the Victory push section exists");
+    assert.ok(
+      victoryPush.html.includes('<aside class="claim claim--verify-in-campaign"'),
+      'the Victory push callout keeps class="claim claim--verify-in-campaign"',
+    );
+    assert.ok(victoryPush.html.includes('data-state="verify-in-campaign"'), "the Victory push callout keeps data-state");
+    assert.ok(victoryPush.html.includes('data-src="vco-guide"'), "the Victory push callout keeps data-src");
+    assert.ok(
+      victoryPush.html.includes('<span class="confidence-badge__label">VERIFY</span>'),
+      "the Victory push callout carries the mono uppercase label",
+    );
+    assert.ok(
+      victoryPush.html.includes(
+        '<a class="confidence-badge__src" href="https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084">VCO • author’s route objectives</a>',
+      ),
+      "the Victory push src id resolves to its source link",
+    );
+    assert.ok(
+      victoryPush.html.includes("There is no published extra Elspeth-specific final battle for this route."),
+      "the no-final-battle claim renders verbatim",
+    );
+
+    // the treaty-wording hedge (Diplomacy — what the live mission credits)
+    const diplomacySection = routeTwo.sections.find((s) => s.id === "diplomacy");
+    assert.ok(diplomacySection !== undefined, "the Diplomacy section exists");
+    assert.ok(
+      diplomacySection.html.includes('<aside class="claim claim--verify-in-campaign"'),
+      'the Diplomacy callout keeps class="claim claim--verify-in-campaign"',
+    );
+    assert.ok(
+      diplomacySection.html.includes('<span class="confidence-badge__label">VERIFY</span>'),
+      "the Diplomacy callout carries the mono uppercase label",
+    );
+    assert.ok(
+      diplomacySection.html.includes(
+        '<a class="confidence-badge__src" href="https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084">VCO • author’s route objectives</a>',
+      ),
+      "the Diplomacy src id resolves to its source link",
+    );
+    assert.ok(
+      diplomacySection.html.includes("Do not assume non-aggression or a trade agreement counts as control."),
+      "the treaty-wording hedge renders verbatim",
+    );
+
+    // Route III remains the callout-free skeleton until its own package lands
+    const routeThree = lord.routes.find((r) => r.id === "route-3");
+    assert.ok(routeThree !== undefined, "the committed route-3 loads");
+    assert.equal(routeThree.sections.length, 0, "route-3 has no sections yet");
+    for (const section of routeThree.sections) {
+      assert.ok(
+        !section.html.includes('<aside class="claim'),
+        `no callout in committed route-3/${section.id}`,
+      );
     }
   }
 });

@@ -410,18 +410,19 @@ test("route page identity card: badged claims, notes, distinct title classes, an
 test("a mixed route renders present sections interleaved with gap markers at registry positions", async () => {
   await inContentCopy(
     async (root) => {
-      // route-2 (still a committed skeleton) keeps one real H2 body and
+      // route-3 (still a committed skeleton) keeps one real H2 body and
       // declares the rest as gaps — the "present or declared" mix the lint
-      // treats as a valid route document. Route-1 is now fully migrated, so
-      // the mixed route is proven over the next still-gapped route.
-      const routeTwo = await readFile(join(root, "elspeth-von-draken/routes/route-2.md"), "utf8");
-      const mixed = routeTwo
+      // treats as a valid route document. Routes I and II are now fully
+      // migrated, so the mixed route is proven over the next still-gapped
+      // route.
+      const routeThree = await readFile(join(root, "elspeth-von-draken/routes/route-3.md"), "utf8");
+      const mixed = routeThree
         .replace("  - Opening\n", "")
         .replace(
           /---\n$/,
           "---\n\n## Opening\n\nMixed-case opening prose proves the present section renders.\n",
         );
-      await writeFile(join(root, "elspeth-von-draken/routes/route-2.md"), mixed);
+      await writeFile(join(root, "elspeth-von-draken/routes/route-3.md"), mixed);
     },
     async (root) => {
       assert.deepEqual(await lintContent(fsReader(root)), [], "the mixed copy is valid per the shared lint");
@@ -429,7 +430,7 @@ test("a mixed route renders present sections interleaved with gap markers at reg
       const tree = await loadContentTree(fsReader(root));
       const lord = getLord(tree, "elspeth-von-draken");
       assert.ok(lord.found);
-      const route = getRoute(tree, "elspeth-von-draken", "route-2");
+      const route = getRoute(tree, "elspeth-von-draken", "route-3");
       assert.ok(route.found);
       const view = RouteView({ lord: lord.value, route: route.value });
       const nodes = recordVNodes(view);
@@ -865,6 +866,149 @@ test("the route view mounts the dashboard after the sections with five tabs in D
   }
 });
 
+test("the route view renders Route II's eight sections, its override research and six settlement roles, with the seven-item undercard", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "elspeth-von-draken", "route-2");
+  assert.ok(route.found);
+
+  const view = RouteView({ lord: lord.value, route: route.value });
+  const { key, markup } = mountedDashboard(view);
+  const fullText = vnodeText(view);
+  assert.equal(key, "route-2", "the dashboard is keyed by route id so navigating between routes remounts it");
+
+  // identity card unchanged by the body migration: numeric eyebrow, thematic
+  // subtitle, the explicit unresearched marker, and the badged claims/notes
+  assert.ok(fullText.includes("ROUTE II"), "route number eyebrow");
+  assert.ok(fullText.includes("The Southern Charter"), "thematic subtitle");
+  assert.ok(
+    fullText.includes("UNRESEARCHED — no official VCO title recorded"),
+    "the null vcoTitle slot is explicitly marked unresearched",
+  );
+  assert.ok(
+    fullText.includes("Control seven specified southern provinces, directly or through qualifying diplomacy."),
+    "objective claim text verbatim",
+  );
+  assert.ok(
+    fullText.includes("Elspeth’s engineers and escorts build a durable southern sphere of influence"),
+    "the interpretation note renders",
+  );
+  assert.ok(
+    fullText.includes("Maintained control of every region in the required provinces"),
+    "the bottleneck note renders",
+  );
+  assert.ok(fullText.includes("Fund the expedition. Secure the ports. Make the charter hold."), "the motto note renders");
+
+  // the body renders the eight registry sections in order — the two
+  // transition sections included — with the atlas's wording and NO Content
+  // Gap markers anywhere on the migrated Route II
+  assert.equal(countOccurrences(fullText, "CONTENT GAP"), 0, "no gap marker anywhere on the migrated Route II");
+  const sectionOrder = [
+    "Opening",
+    "Early → Mid",
+    "Mid → Late",
+    "Victory push",
+    "Territory policy",
+    "Diplomacy",
+    "Transition → route-1",
+    "Transition → route-3",
+  ];
+  for (let i = 0; i < sectionOrder.length; i++) {
+    const title = sectionOrder[i] as string;
+    assert.ok(fullText.includes(title), `the "${title}" section heading renders`);
+    if (i > 0) {
+      assert.ok(
+        fullText.indexOf(sectionOrder[i - 1] as string) < fullText.indexOf(title),
+        `the "${title}" section follows "${sectionOrder[i - 1] as string}" in registry order`,
+      );
+    }
+  }
+  assert.ok(fullText.includes("Make the departure affordable"), "the Opening phase title renders as the bold-lead prose");
+  assert.ok(
+    fullText.includes("Build a homeland that survives Elspeth’s absence."),
+    "the Opening aim reads as the lead sentence",
+  );
+  assert.ok(
+    fullText.includes("Your earlier victories may already help the 35-battle requirement; trust the live count."),
+    "the Transition → route-1 prose renders verbatim",
+  );
+  assert.ok(
+    fullText.includes("Diplomatic provincial control and a successful search interaction are not automatically the same event."),
+    "the Transition → route-3 prose renders verbatim",
+  );
+  assert.ok(!fullText.includes("This route has no sections yet."), "the F1 empty-body fallback is gone");
+
+  // the VCO undercard renders its seven Route II items under the identity
+  assert.ok(fullText.includes("VCO OBJECTIVES"), "the undercard's mono eyebrow renders");
+  assert.ok(fullText.includes("pirates-current"), "the Route II item id renders");
+  assert.ok(fullText.includes("Pirate’s Current"), "the Route II item text renders verbatim");
+
+  // the five panels resolve Route II's atlas lists — never the empty state
+  const panels = markup.filter((n) => n.props.role === "tabpanel");
+  const emptyLabels = [
+    "NO ARMY TEMPLATES YET",
+    "NO SKILLS YET",
+    "NO RESEARCH YET",
+    "NO SETTLEMENTS YET",
+    "NO MECHANICS YET",
+  ];
+  for (let index = 0; index < panels.length; index++) {
+    const panelText = vnodeText(panels[index]);
+    assert.ok(
+      !panelText.includes(emptyLabels[index] as string),
+      `panel ${index} is not in its empty state on Route II; got: "${panelText.slice(0, 80)}"`,
+    );
+    assert.ok(panelText.trim().length > 0, `panel ${index} is never blank space`);
+  }
+  const entryCount = (panelId: string): number =>
+    recordVNodes(panels.filter((p) => p.props.id === panelId)[0]).filter(
+      (n) => n.tag === "article" && String(n.props.className).includes("panel-entry"),
+    ).length;
+  const expectedCounts: Record<string, number> = { armies: 5, skills: 10, research: 4, buildings: 6, mechanics: 5 };
+  for (const [group, count] of Object.entries(expectedCounts)) {
+    assert.equal(entryCount(`dashboard-panel-${group}`), count, `the ${group} panel shows its ${count} resolved entries`);
+  }
+
+  // research resolves the two `route-2-*` override entries in the atlas's own
+  // positions (the base `opening`/`economy` groups are Route I's and absent
+  // here); buildings shows exactly Route II's six settlement roles
+  const researchText = vnodeText(panels.filter((p) => p.props.id === "dashboard-panel-research")[0]);
+  assert.ok(
+    researchText.includes("Prepare a long southern campaign"),
+    "research resolves the route-2-opening override first",
+  );
+  assert.ok(
+    researchText.includes("Support a durable southern sphere"),
+    "research resolves the route-2-economy override in the owning route",
+  );
+  assert.ok(!researchText.includes("A working army before luxury research"), "the base opening group is Route I's, not restated here");
+  assert.ok(
+    !researchText.includes("Build the next theatre, not empty infrastructure"),
+    "the base economy group is Route I's, not restated here",
+  );
+  const researchEntries = recordVNodes(panels.filter((p) => p.props.id === "dashboard-panel-research")[0])
+    .filter((n) => n.tag === "article" && String(n.props.className).includes("panel-entry"))
+    .map((n) => vnodeText(n));
+  assert.ok(
+    researchEntries[0]?.includes("Prepare a long southern campaign") &&
+      researchEntries[1]?.includes("Infantry, artillery and the escort") &&
+      researchEntries[2]?.includes("Support a durable southern sphere") &&
+      researchEntries[3]?.includes("Magic, machines and the Garden network"),
+    "research entries render in the atlas's Route II order: override, firepower, override, arcane",
+  );
+  const buildingsText = vnodeText(panels.filter((p) => p.props.id === "dashboard-panel-buildings")[0]);
+  for (const probe of [
+    "Southern charter capital · a second production centre",
+    "Resource or valuable landmark settlement",
+    "Safe income town",
+    "A settlement that guards a real approach",
+    "Expedition capture / future handover",
+  ]) {
+    assert.ok(buildingsText.includes(probe), `buildings resolves the "${probe}" role on Route II`);
+  }
+});
+
 test("the dashboard keeps each route's own id as its key across route views", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
   const lord = getLord(tree, "elspeth-von-draken");
@@ -878,7 +1022,6 @@ test("the dashboard keeps each route's own id as its key across route views", as
     assert.equal(key, routeId, `the ${routeId} view keys the dashboard by its own route id`);
   }
 });
-
 test("the route page mounts the route tab strip with its own route tab active", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
   const lord = getLord(tree, "elspeth-von-draken");
