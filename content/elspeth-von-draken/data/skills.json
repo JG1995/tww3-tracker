@@ -1,1 +1,567 @@
-{}
+{
+  "elspeth": {
+    "label": "Elspeth",
+    "title": "Elspeth",
+    "intro": "Magic + a stronger army. Interrupt the ordinary queue for her rank-12 unique line.",
+    "steps": [
+      {
+        "title": "Route Marcher",
+        "note": "Take the movement point first. Movement helps you choose engagements and return to recover.",
+        "gate": "first"
+      },
+      {
+        "title": "Spirit Leech → Life-Leeching → Soulblight",
+        "note": "Develop a small, dependable Death toolkit. Use Spirit Leech on suitable single targets and Soulblight to support an important engagement; do not scatter early points across every spell."
+      },
+      {
+        "title": "Inspiring Presence → Pistolkorps 3/3",
+        "note": "Support the ordinary shooters and gunpowder infantry already doing the work. Bring Emperor’s Finest forward if the screen is failing."
+      },
+      {
+        "title": "Rank 12: Radiance → Advisor → Rose",
+        "note": "Unsettling Radiance opens the unique line at rank 12. Advisor of Nuln then supplies factionwide recruitment savings and +2 Engineer capacity, plus upkeep savings for her own gunnery units. The Graveyard Rose supplies army replenishment and personal regeneration. These are separate purchases; the other unique nodes require the entry, not this exact chain.",
+        "gate": "rank 12 entry",
+        "short": "Interrupt the ordinary queue."
+      },
+      {
+        "title": "Emperor’s Finest / Imperial Gunnery",
+        "note": "Infantry first for a weak screen; artillery first once several good pieces are established. These support different unit categories."
+      },
+      {
+        "title": "Shyish → Dark Lady; then finish the army",
+        "note": "Blessed by Shyish supports Death magic. The Dark Lady protects Elspeth personally. Develop a real spell toolkit for hand-played battles; then pursue veteran red-line effects for units of the required rank, or blue logistics when travel/upkeep is the actual constraint. Do not abandon an almost-finished route to perfect her level-50 tree.",
+        "gate": "after unique entry",
+        "short": "Magic, resilience, then useful red/blue nodes."
+      }
+    ],
+    "details": [
+      [
+        "A priority queue, not six consecutive levels",
+        "Each row may require several points. Spend the prerequisites shown by your tree; a later row with a rank gate is an instruction to take that opportunity when it opens, not to leave points unused until then."
+      ],
+      [
+        "Magic route for manually fought battles",
+        "After four qualifying points in the first magic block, take Evasion, develop The Purple Sun of Xereus and useful later magic, then reach Arcane Conduit through its displayed gate. Bring this forward when you regularly fight battles manually; the active spells have not been benchmarked in your autoresolve mod."
+      ],
+      [
+        "Veterans and the blue line",
+        "Rally! requires six points in its preceding red block. Add Sharpshooter or Artillery Master when the corresponding units meet their rank-7 requirement. For campaign utility, take Route Marcher → four points in the first blue block → Draftmaster → Lightning Strike 3/3 and/or Quartermaster. Complete the displayed second-block requirement for Renowned & Feared. Do not pretend one Lightning Strike point isolates armies."
+      ],
+      [
+        "Mounts are not purchases",
+        "The public skill data auto-unlocks Barded Warhorse at rank 7 and Carmine Dragon at rank 16. Do not reserve a skill point for either. The large dragon is powerful, but also an obvious target for missiles and anti-large attackers."
+      ],
+      [
+        "The rank-12 interruption",
+        "My default order after the entry is Advisor of Nuln, The Graveyard Rose, Blessed by Shyish, then The Dark Lady. On a magic-led expedition, swap Shyish and Rose when recovery is already comfortable. Do not interpret a displayed rank-1 subnode as bypassing the rank-12 entry."
+      ],
+      [
+        "The Carmine Dragon is not a twenty-first unit",
+        "Her horse unlocks automatically at rank 7 and the Carmine Dragon at rank 16 in the extracted tree. A mount changes the Lord’s unit, not the army’s slot count. Keep her out of concentrated missiles and anti-large mobs."
+      ]
+    ],
+    "sources": [
+      "skills-elspeth"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "skills-elspeth"
+    ]
+  },
+  "master": {
+    "label": "Master Engineer",
+    "title": "Master Engineer",
+    "intro": "The repeatable expedition commander: support the army, improve logistics, and add a Wizard when the army becomes independent.",
+    "steps": [
+      {
+        "title": "Route Marcher",
+        "note": "Take movement first for any marching army. It makes distant reinforcement, pursuit and safe staging easier; a stationary emergency defender can buy immediate combat support first.",
+        "gate": "first"
+      },
+      {
+        "title": "Presence → Pistolkorps → Emperor’s Finest",
+        "note": "This gives the ordinary gunline and infantry meaningful support. Your existing composition determines which three-point block comes first."
+      },
+      {
+        "title": "Master of Ballistics",
+        "note": "Take it once selectable; keep the lord near the artillery during manual battles. It is a local battle aura, not an automatic buff to every unit anywhere on the map."
+      },
+      {
+        "title": "Cartography Innovations",
+        "note": "Choose this at the rank-12 fork. It blocks Pigeon Bomb; do not follow a guide that tells you to take both.",
+        "gate": "rank 12 · exclusive"
+      },
+      {
+        "title": "Repair & Maintain → Stockpiles → Instructor",
+        "note": "Repair & Maintain supports artillery/war-machine upkeep and recovery. Two qualifying points in the branch unlock Ballistics Instructor."
+      },
+      {
+        "title": "Imperial Gunnery; then useful logistics",
+        "note": "Add Quartermaster/Lightning Strike through the correct blue-line gates. With multiple tanks, consider Mighty Forge instead of another unused infantry branch.",
+        "gate": "later"
+      }
+    ],
+    "details": [
+      [
+        "Why this branch",
+        "For your compact campaign I prefer movement, war-machine upkeep/replenishment, ammunition support and the range passive over adding another active bombardment to supervise."
+      ],
+      [
+        "A lord is not a replacement Engineer hero in every respect",
+        "The hero brings Increase Mobility and Triangulation. The early generic army can omit that slot for cost and simplicity; the late template adds it back. Identical Master of Ballistics auras should not be assumed to stack."
+      ],
+      [
+        "Keep the wizard",
+        "A Master Engineer is not a spellcaster. The generic army needs its own Light or Jade Wizard; it does not inherit Elspeth’s Death magic or dragon."
+      ]
+    ],
+    "sources": [
+      "skills-master"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "skills-master"
+    ]
+  },
+  "engineer": {
+    "label": "Engineer",
+    "title": "Engineer",
+    "intro": "A mobile campaign support hero who makes the gunline better. Do not build him primarily as a duellist.",
+    "steps": [
+      {
+        "title": "Increase Mobility I / II / III",
+        "note": "Take upgrades as the hero qualifies; higher levels are gated. It helps the whole embedded army move, unlike a purely personal stat.",
+        "gate": "ranks 1 / 5 / 10"
+      },
+      {
+        "title": "Shooting or survival while rank-gated",
+        "note": "Take a cheap entry into his shooting/combat line rather than scattering points into unused agent actions. Return to the army-support line when it opens."
+      },
+      {
+        "title": "Master of Ballistics",
+        "note": "The support branch opens at rank 8 in the extracted tree. Keep him within aura range of the weapons he is supporting.",
+        "gate": "rank 8"
+      },
+      {
+        "title": "Triangulation 3/3",
+        "note": "A high-priority army missile-strength improvement after its prerequisite."
+      },
+      {
+        "title": "Blackpowder Discipline; personal defence",
+        "note": "The named discipline is personal here. Do not describe it as giving every unit in his army the Ironsides passive."
+      },
+      {
+        "title": "All-Terrain Vehicle for machine armies",
+        "note": "Take it when its affected vehicles justify the point; otherwise finish useful ranged/survival skills, then Mentor much later.",
+        "gate": "situational"
+      }
+    ],
+    "details": [
+      [
+        "Do not confuse the skill roles",
+        "Increase Mobility is campaign support. Triangulation is an army missile modifier. Master of Ballistics is a nearby battle aura. Blackpowder Discipline on the hero is a personal passive. They are not four versions of the same bonus."
+      ],
+      [
+        "Embedding and capacity",
+        "The tier-2 Gunsmith unlocks Engineer recruitment; the tier-3 Foundry adds capacity. An unlock button and an available hero-capacity slot are different requirements. Advisor of Nuln is another source of Engineer capacity."
+      ],
+      [
+        "Survival before heroics",
+        "Keep the Engineer behind the screen. You lose valuable support when an enemy cavalry unit reaches him, regardless of whether his personal rifle has good damage."
+      ]
+    ],
+    "sources": [
+      "skills-engineer"
+    ],
+    "state": "confirmed",
+    "src": [
+      "skills-engineer"
+    ]
+  },
+  "theodore": {
+    "label": "Theodore",
+    "title": "Theodore",
+    "intro": "One unique melee troubleshooter. Keep a Captain in his slot until his mission chain is complete.",
+    "steps": [
+      {
+        "title": "Combat entry; useful early durability",
+        "note": "Buy the prerequisite points needed to reach the durable part of his melee tree rather than unrelated agent actions."
+      },
+      {
+        "title": "Hold the Line!",
+        "note": "Use him near a threatened part of the formation, where his support and presence actually help.",
+        "gate": "rank 6"
+      },
+      {
+        "title": "Sigmar’s Ward",
+        "note": "A useful personal missile-resistance pickup when enemy shooting is a danger. It does not protect the entire army.",
+        "gate": "rank 8"
+      },
+      {
+        "title": "Savage Soldier",
+        "note": "The unique line’s entry supplies Frenzy and sundering attacks. Take it when it becomes available.",
+        "gate": "rank 12"
+      },
+      {
+        "title": "Hard to Hit / Scarred Veteran via gates",
+        "note": "These are later combat nodes, not necessarily immediately clickable from level one. Durability suits an interceptor who must survive until help arrives."
+      },
+      {
+        "title": "Finish unique line; then personal damage",
+        "note": "Add damage once he can survive his assignments. Do not buy abilities because they sound dramatic if you never activate them.",
+        "gate": "later"
+      }
+    ],
+    "details": [
+      [
+        "Unlocking him",
+        "Complete the Livery construction mission, then the cavalry-kill follow-up. The documented Trials by Combat objective is 1,000 kills by melee cavalry or Demigryph units; your current mission text wins over an old guide. Check that the counter actually moves. He is not a normal recruit in the Captain menu."
+      ],
+      [
+        "Low-maintenance way to work on the quest",
+        "Use a pair of Knights of the Black Rose against suitable weak infantry and exposed targets. Do not throw them into spears simply to farm kills. The mid template already includes this pair, so you do not need a separate cavalry army."
+      ],
+      [
+        "Reaper and uniqueness",
+        "The public tree auto-unlocks Reaper at rank 11. Theodore can serve only one army; every generic army needs its own ordinary character replacement."
+      ],
+      [
+        "If the follow-up does not appear",
+        "Historical reports describe a broken mission transition. Keep a save before the Livery finishes, but do not assume every current campaign has that bug or destroy half your infrastructure chasing an unverified fix."
+      ]
+    ],
+    "sources": [
+      "skills-theodore",
+      "theodore-quest"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "skills-theodore",
+      "theodore-quest"
+    ]
+  },
+  "captain": {
+    "label": "Captain",
+    "title": "Captain",
+    "intro": "A dependable screen-support hero. He is your temporary Theodore, not an autonomous one-man army.",
+    "steps": [
+      {
+        "title": "Combat entry → armour / defence",
+        "note": "Follow the actual entry gate and buy the early durability nodes that protect him in his interception role."
+      },
+      {
+        "title": "Hold the Line!",
+        "note": "Prioritise this support tool when selectable; remain near the infantry instead of chasing one enemy across the map."
+      },
+      {
+        "title": "Sparring Practice → Guardian",
+        "note": "The unique branch starts at rank 10. Guardian protects nearby characters; it is not army-wide protection for your Halberdiers.",
+        "gate": "rank 10"
+      },
+      {
+        "title": "Admired Infantryman",
+        "note": "Take this for a normal gunline’s melee screen. It is mutually exclusive with his cavalry-oriented alternative.",
+        "gate": "rank 16 · exclusive"
+      },
+      {
+        "title": "Health / melee defence via gates",
+        "note": "Finish the durable frontline role before investing heavily in personal damage."
+      },
+      {
+        "title": "Damage and Mentor last",
+        "note": "Useful optional growth, not a reason to delay a functioning support build.",
+        "gate": "later"
+      }
+    ],
+    "details": [
+      [
+        "Why the infantry choice",
+        "The default templates always keep melee infantry. Admired Infantryman supports their upkeep and combat statistics, so it remains relevant even when the rest of the army changes."
+      ],
+      [
+        "Recruitment",
+        "Rally Field at tier 2 unlocks the Captain; the tier-3 Barracks adds capacity. Use another soldier until you have both the budget and an available hero slot."
+      ],
+      [
+        "Reserve discipline",
+        "Send him to the breakthrough you can reinforce. Do not issue a distant attack order that pulls him beyond the formation and leaves both flanks unprotected."
+      ]
+    ],
+    "sources": [
+      "skills-captain"
+    ],
+    "state": "confirmed",
+    "src": [
+      "skills-captain"
+    ]
+  },
+  "priest": {
+    "label": "Priest",
+    "title": "Warrior Priest · recovery & protection",
+    "intro": "Campaign replenishment is the job; prayers and the revised 9.0 unique line help him survive doing it.",
+    "steps": [
+      {
+        "title": "Replenish Troops I / II / III",
+        "note": "Buy the next embedded replenishment rank when available (ranks 1, 5 and 10 in the reference). This affects recovery on the campaign map, not healing during the fight.",
+        "gate": "ranks 1 / 5 / 10",
+        "short": "Embed him in the army."
+      },
+      {
+        "title": "Shield of Faith → Soulfire",
+        "note": "Hammer of Sigmar starts with a point in the current extracted tree. Prioritise Shield of Faith for nearby troops, then Soulfire for a busy infantry fight. You do not need to spend a point to relearn a starter prayer.",
+        "short": "Protect the screen; punish a melee clump."
+      },
+      {
+        "title": "Ceremonial Vestments",
+        "note": "The updated unique entry at rank 10 adds personal armour and hit points. It fits a Priest who stands with the line.",
+        "gate": "rank 10",
+        "short": "Armour and health, not more damage."
+      },
+      {
+        "title": "War Oaths",
+        "note": "Follow Ceremonial Vestments to War Oaths when its rank gate permits. These benefits are personal; they are not a permanent army-wide Shield of Faith.",
+        "gate": "rank 12 + entry",
+        "short": "Personal ward save and experience."
+      },
+      {
+        "title": "Sigmar’s Presence; durable combat nodes",
+        "note": "Continue the new line when selectable. Use remaining combat prerequisites on defence and health. An encouraging hero cannot compensate for an army attacked simultaneously on every side.",
+        "short": "Leadership support before luxury offence."
+      },
+      {
+        "title": "Devoted to Sigmar; later Mentor",
+        "note": "Round out the prayers you actually use. Immortality is automatic at rank 20 in the extracted tree, as is the horse at rank 4. Spend skill points elsewhere.",
+        "short": "Useful prayers before spare agent actions."
+      }
+    ],
+    "details": [
+      [
+        "Not an Arch Lector",
+        "This is the base-roster Warrior Priest hero. No paid WH1 Arch Lector or Flagellant content is needed. The outdated Faith’s Bastion → Tenacity sequence from the previous file is not used as the new build."
+      ],
+      [
+        "A Priest and a Life Wizard are different investments",
+        "The Priest helps replace campaign losses and supports a local melee with prayers. The Wizard spends shared Winds of Magic to heal surviving models in manual battles. An Engineer does not replace the Priest’s replenishment action."
+      ]
+    ],
+    "sources": [
+      "skills-priest",
+      "patch9"
+    ],
+    "state": "confirmed",
+    "src": [
+      "skills-priest",
+      "patch9"
+    ]
+  },
+  "light": {
+    "label": "Light",
+    "title": "Light · control",
+    "intro": "A simple gunline assistant: stop one dangerous enemy, then shoot it.",
+    "steps": [
+      {
+        "title": "Shem’s Burning Gaze → Net of Amyntok",
+        "note": "Open the spell tree, then prioritise Net. Its basic version already provides the immobilisation you need."
+      },
+      {
+        "title": "Develop Net; add useful first-block support",
+        "note": "Use Net upgrades and a useful passive/support spell to meet the displayed first-block requirement. Do not blindly buy every spell."
+      },
+      {
+        "title": "Evasion",
+        "note": "The first magic gate needs four qualifying points in the preceding block."
+      },
+      {
+        "title": "Banishment or Birona’s Timewarp as needed",
+        "note": "Choose a useful advanced spell and enough qualifying points to reach the next gate. Avoid an uncontrolled vortex through your own melee."
+      },
+      {
+        "title": "Magical Reserves → Arcane Conduit",
+        "note": "Conduit needs four qualifying points in its preceding advanced block. An arrow alone is not enough."
+      },
+      {
+        "title": "Defensive skills; optional agent work last",
+        "note": "Keep him protected. His spells and mana are not a verified autoresolve optimisation.",
+        "gate": "later"
+      }
+    ],
+    "details": [
+      [
+        "My default use",
+        "Pin a monster, cavalry unit or enemy character in a good firing lane. The rest of the army does the killing. You do not need an elaborate sequence of five different spells."
+      ],
+      [
+        "Cost of an extra caster",
+        "Generic armies need their own magic. Elspeth already supplies Death, so a Light Wizard in her army is an optional slot trade, not a fifth compulsory character."
+      ]
+    ],
+    "sources": [
+      "skills-light"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "skills-light"
+    ]
+  },
+  "life": {
+    "label": "Life",
+    "title": "Life · healing",
+    "intro": "Best justified when keeping tanks, monsters or important characters healthy matters in your manual battles.",
+    "steps": [
+      {
+        "title": "Awakening of the Wood → Earth Blood",
+        "note": "Open the lore and develop your basic group-healing tool."
+      },
+      {
+        "title": "Life Bloom + useful first-block points",
+        "note": "Build through the displayed gate with healing/support skills you intend to use."
+      },
+      {
+        "title": "Evasion → Regrowth",
+        "note": "Unlock the advanced block and obtain targeted recovery for a valuable single unit."
+      },
+      {
+        "title": "The Dwellers Below",
+        "note": "A useful offensive option against a concentrated enemy formation; do not spend all your magic while an important ally needs healing."
+      },
+      {
+        "title": "Magical Reserves → Arcane Conduit",
+        "note": "Complete the actual advanced-block requirement, rather than treating this as an immediately selectable chain."
+      },
+      {
+        "title": "Personal protection and later utility",
+        "note": "Healing living models is not the same thing as replacing the casualties an infantry unit already lost.",
+        "gate": "later"
+      }
+    ],
+    "details": [
+      [
+        "When I would switch from Light",
+        "With two tanks and several valuable characters, healing becomes attractive. With a conventional fragile gunline, preventing contact with Net may be simpler. This is a manual-battle preference, not a tested ranking under Smart Autoresolve."
+      ],
+      [
+        "Not paid WH1 DLC",
+        "The Jade Wizard is free Empire content. The core templates avoid Free Company Militia, Arch Lectors, paid WH2 units and paid WH1/WH2 Regiments of Renown."
+      ]
+    ],
+    "sources": [
+      "life-wizard"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "life-wizard"
+    ]
+  },
+  "death": {
+    "label": "Death",
+    "title": "Amethyst Wizard · a travelling College envoy",
+    "intro": "The natural companion to a Master Engineer’s Morrian army. Elspeth already supplies Death magic herself.",
+    "steps": [
+      {
+        "title": "Spirit Leech",
+        "note": "Use the opening spell on a vulnerable character or dangerous single entity; do not throw every cast into a heavily protected Lord.",
+        "short": "A reliable single-target tool."
+      },
+      {
+        "title": "Life-Leeching → Soulblight",
+        "note": "Improve the spell/passive combination that supports sustained gunfire and a decisive melee. Spend the minimum useful prerequisites, not points in every spell.",
+        "short": "Support the army’s damage."
+      },
+      {
+        "title": "Evasion through the first spell gate",
+        "note": "Follow the tree’s required four qualifying points. The named order is a priority, not permission to ignore parents.",
+        "short": "Complete the required earlier investment."
+      },
+      {
+        "title": "Purple Sun / Fate of Bjuna as needed",
+        "note": "Purple Sun is dangerous near friendly infantry. Bjuna is not the Gunnery School’s separate Bjuna Bombard army ability.",
+        "short": "One purposeful advanced damage tool."
+      },
+      {
+        "title": "Magical Reserves → Arcane Conduit",
+        "note": "Build the preceding advanced block with useful spells and reserve support; Conduit is not instantly available after Evasion.",
+        "short": "Reach the advanced spell-point gate."
+      },
+      {
+        "title": "Protection; agent utility only on assignment",
+        "note": "For a detached scout use useful campaign actions instead. Do not spend army-caster points on an action he will never perform.",
+        "short": "Keep the caster alive."
+      }
+    ],
+    "details": [
+      [
+        "Use one principal caster per generic army",
+        "Elspeth + another Death Wizard is usually unnecessary. A Light Wizard gives a control alternative; a Jade Wizard is justified by tanks and ships. Choose a role rather than filling every hero slot with a different lore."
+      ],
+      [
+        "Magic and autoresolve",
+        "These are useful manual-battle toolkits. No claim is made that Smart Autoresolve reproduces their spell sequencing, healing, or pin-and-shoot combinations."
+      ]
+    ],
+    "sources": [
+      "skills-death",
+      "ca",
+      "smart"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "skills-death",
+      "ca",
+      "smart"
+    ]
+  },
+  "hunter": {
+    "label": "Agent",
+    "title": "Witch Hunter · reconnaissance",
+    "intro": "An optional campaign agent, not a compulsory twentieth slot in every army.",
+    "steps": [
+      {
+        "title": "Choose the campaign job first",
+        "note": "Reveal the route, enemy armies and settlement ownership. Scouting is not a substitute for conquest/diplomacy credit in VCO.",
+        "short": "Scout ahead of the next operation."
+      },
+      {
+        "title": "Specialise in the action you will use",
+        "note": "Improve a selected army-disruption, character or settlement action through its actual tree. Avoid buying three weak jobs at once.",
+        "short": "One useful action before scattered points."
+      },
+      {
+        "title": "Follow success-chance prerequisites",
+        "note": "An agent’s success chance is conditional. Budget gold for an attempt and do not base the whole offensive on guaranteed success.",
+        "short": "Check the action preview."
+      },
+      {
+        "title": "Investigate suspicious homeland settlements",
+        "note": "Use available discovery tools, nearby agents and revealed cult information. Low corruption alone is not proof that The Deceivers have been destroyed.",
+        "short": "Support the Route I cult hunt."
+      },
+      {
+        "title": "Keep him ahead, not in the gunline",
+        "note": "Embed only when his battle role matters more than visibility. A field army generally benefits more directly from its Engineer, Priest or caster.",
+        "short": "Protect the scout’s campaign value."
+      },
+      {
+        "title": "Defence / immortality status; then extras",
+        "note": "Review automatic unlocks and survivability. When his assignment is finished, use another real task instead of paying for idle upkeep.",
+        "short": "Do not overinvest to reach an arbitrary rank."
+      }
+    ],
+    "details": [
+      [
+        "A simple, bounded use of agents",
+        "One scout is plenty to start. Rotate him between reconnaissance and a useful action while the army catches up. This is meant to reduce walking into trouble, not create another administrative minigame."
+      ]
+    ],
+    "sources": [
+      "skills-hunter",
+      "b-marksmen",
+      "vco-guide"
+    ],
+    "state": "confirmed",
+    "src": [
+      "skills-hunter",
+      "b-marksmen",
+      "vco-guide"
+    ]
+  }
+}

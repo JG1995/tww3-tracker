@@ -6,8 +6,9 @@
  * (`app/content/load.ts`) with a filesystem `ContentReader` — the same shape
  * the content-lint CLI provides. This proves the loader (not just the lint)
  * accepts the skeleton: one lord, three routes with typed claims, all seven
- * datasets present as the typed empty objects, canonical `panelOrder` blocks
- * with empty lists, and all seven declared gaps per route.
+ * datasets present — `skills` as the atlas's ten typed entries (package
+ * `skills-dataset`), the other five still the typed empty objects — canonical
+ * `panelOrder` blocks with empty lists, and all seven declared gaps per route.
  */
 
 import { test } from "node:test";
@@ -88,7 +89,7 @@ test("the sources dataset round-trips the extract's 35 sources including vco-gui
   }
 });
 
-test("all seven datasets are present and the six non-source datasets are the typed empty objects", async () => {
+test("all seven datasets are present and the five non-source datasets are still the typed empty objects", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
 
   const datasets = tree.lords[0].datasets;
@@ -99,7 +100,61 @@ test("all seven datasets are present and the six non-source datasets are the typ
   );
   for (const dataset of datasets) {
     if (dataset.name === "sources") continue; // proven above
+    if (dataset.name === "skills") continue; // migrated — asserted by the next test
     assert.deepEqual(dataset.value, {}, `${dataset.name} is the typed empty object`);
+  }
+});
+
+test("the committed skills dataset is the atlas's ten typed item entries", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const datasets = tree.lords[0].datasets;
+
+  const sources = datasets.find((d) => d.name === "sources");
+  assert.ok(sources !== undefined && sources.name === "sources");
+  const sourceIds = new Set(sources.value.map((s) => s.id));
+
+  const skills = datasets.find((d) => d.name === "skills");
+  assert.ok(skills !== undefined && skills.name === "skills");
+  const entries = skills.value;
+  assert.deepEqual(
+    Object.keys(entries),
+    ["elspeth", "master", "engineer", "theodore", "captain", "priest", "light", "life", "death", "hunter"],
+    "skills holds exactly the atlas's ten entry ids in atlas order",
+  );
+  const states = new Set(["confirmed", "historical", "inferred", "verify-in-campaign"]);
+  for (const [id, item] of Object.entries(entries)) {
+    for (const key of ["label", "title", "intro"] as const) {
+      assert.equal(typeof item[key], "string", `${id}.${key} is a string`);
+      assert.ok(item[key].length > 0, `${id}.${key} is non-empty`);
+    }
+    assert.ok(Array.isArray(item.steps) && item.steps.length > 0, `${id} carries at least one step`);
+    for (const step of item.steps) {
+      assert.equal(typeof step.title, "string", `${id} step title is a string`);
+      assert.equal(typeof step.note, "string", `${id} step note is a string`);
+      assert.ok(step.title !== "" && step.note !== "", `${id} step title and note are non-empty`);
+      if (step.gate !== undefined) assert.ok(step.gate !== "", `${id} step gate is non-empty when present`);
+      if (step.short !== undefined) assert.ok(step.short !== "", `${id} step short is non-empty when present`);
+    }
+    if (item.details !== undefined) {
+      assert.ok(Array.isArray(item.details), `${id} details is a list of [title, body] pairs`);
+      for (const pair of item.details) {
+        assert.ok(Array.isArray(pair) && pair.length === 2, `${id} details entries are [title, body] pairs`);
+        assert.equal(typeof pair[0], "string");
+        assert.equal(typeof pair[1], "string");
+      }
+    }
+    assert.ok(Array.isArray(item.sources) && item.sources.length > 0, `${id} lists its sources`);
+    for (const src of item.sources) {
+      assert.equal(typeof src, "string", `${id} source ids are strings`);
+      assert.ok(sourceIds.has(src), `${id} source id "${src}" resolves against data/sources.json`);
+    }
+    if (item.state !== undefined) {
+      assert.ok(states.has(item.state), `${id} state is one of the four confidence states`);
+      assert.ok(Array.isArray(item.src) && item.src.length > 0, `${id} state/src travel together`);
+      for (const src of item.src ?? []) {
+        assert.ok(sourceIds.has(src), `${id} src id "${src}" resolves against data/sources.json`);
+      }
+    }
   }
 });
 

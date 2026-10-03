@@ -185,7 +185,7 @@ Commits 1–8 (the W1 pair, the five remaining datasets, then Route I): once `sh
 
 #### Package `skills-dataset` — Commit 2: Migrate the atlas skills dataset
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 1
 
