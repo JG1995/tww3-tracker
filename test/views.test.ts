@@ -1697,6 +1697,15 @@ test("the lord page header renders the version banner: VERIFIED AGAINST, the pat
   assert.equal(String(chip.children[0]), "36 OPEN FLAGS", "the chip labels the selector's committed count");
   assert.equal(chip.props.href, "#/elspeth-von-draken", "the chip href is the same-lord hash");
   assert.equal(typeof chip.props.onClick, "function", "the chip's click handler preventDefaults and scrolls to the flagged section");
+  // the chip's focus lands only on a programmatically focusable element, so
+  // the flagged-items section must carry the same tabIndex −1 precondition
+  // the skip-link target `#main` carries in main.tsx
+  const target = nodes.find((n) => n.props.id === "flagged-items");
+  assert.equal(
+    target?.props.tabIndex,
+    -1,
+    "the flagged-items section is programmatically focusable — the chip's .focus() shows the :focus-visible ring",
+  );
   assert.ok(
     !nodes.some((n) => typeof n.props.href === "string" && String(n.props.href).includes("flagged")),
     "no flag-hash href shape is ever emitted",

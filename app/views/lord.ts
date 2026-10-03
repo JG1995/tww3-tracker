@@ -145,7 +145,7 @@ function flaggedSection(lord: Lord): JSX.Element {
   const entries = getFlaggedEntries(lord);
   return h(
     "section",
-    { className: "flagged-items", id: "flagged-items", "aria-label": "Verify in campaign flags" },
+    { className: "flagged-items", id: "flagged-items", tabIndex: -1, "aria-label": "Verify in campaign flags" },
     h("h2", { className: "flagged-items__title" }, "VERIFY IN CAMPAIGN"),
     entries.length === 0 ? clearedState() : flaggedGroups(lord, entries),
   );
