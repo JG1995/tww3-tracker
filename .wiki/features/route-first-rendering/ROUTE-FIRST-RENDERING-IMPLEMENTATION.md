@@ -349,7 +349,7 @@ Commit 1 (stub reshape) → Commit 2 (confidence badge) → Commit 3 (typed data
 
 #### Package `panel-items` — Commit 8: Render dashboard panel items from the typed datasets
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 7
 
