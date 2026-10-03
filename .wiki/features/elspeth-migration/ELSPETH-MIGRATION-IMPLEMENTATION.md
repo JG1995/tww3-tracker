@@ -275,7 +275,7 @@ Commits 1–9 (the W1 pair, the five remaining datasets, the research overrides,
 
 #### Package `mechanics-dataset` — Commit 5: Migrate the atlas mechanics dataset
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 4
 

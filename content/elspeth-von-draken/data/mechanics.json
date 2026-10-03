@@ -1,1 +1,356 @@
-{}
+{
+  "testing": {
+    "label": "Field tests",
+    "title": "Field Testing · unlock what the army will use",
+    "intro": "Permanent upgrades, elite recruitment and one-use army abilities are three different purchases.",
+    "steps": [
+      {
+        "title": "Keep three ordinary Handgunners",
+        "note": "The published opening test names Handgunners and a Firearms Academy. Check the exact active unit requirement. I · Gunnery Training Grounds: Maintain 3 Handgunners; Construct Firearms Academy; Perform 3 Gunnery School upgrades. Reward: Tier-two ordinary upgrades; Experimental Explosive and recruitment support.",
+        "gate": "first test",
+        "short": "Do this before replacing every gunner."
+      },
+      {
+        "title": "Buy three useful school upgrades",
+        "note": "Start Gunnery Infantry I, then the relevant existing artillery/machine family. Unlocking the next tier has value, but a purchase for a unit you never use is still an opportunity cost.",
+        "short": "Infantry, then weapons already fielded."
+      },
+      {
+        "title": "Foundry + gunnery kills + upgrades",
+        "note": "The published stage lists 1,500 gunnery kills, a Foundry and five upgrades. Read the live count rather than guessing whether every objective is cumulative. II · Engineering Workshops: 1,500 kills with Gunnery School units; Construct Foundry; Perform 5 Gunnery School upgrades. Reward: Amethyst Ironsides and Outriders; Bjuna Bombard; Enhanced Scope.",
+        "gate": "Armoury unlock",
+        "short": "Complete the active second checklist."
+      },
+      {
+        "title": "Field three Amethyst Ironsides",
+        "note": "The next published checklist asks for three Amethyst Ironsides and 1,000 Amethyst kills. Complete that work with protection and campaign recovery. III · Laboratorium Magi: 1,000 kills with Amethyst units; Maintain 3 Amethyst Ironsides; Use Bjuna Bombard. Reward: Amethyst Helstorm, Spirit Barrage, tier-three ordinary upgrades and Ominous Powder.",
+        "short": "Develop elite units without discarding veterans."
+      },
+      {
+        "title": "Actually use Bjuna Bombard",
+        "note": "This is a named army ability, not the Fate of Bjuna spell. Fight a manageable battle manually, use the ability and verify mission credit; do not assume an autoresolve click activates it.",
+        "short": "Unlock the next magical artillery tier."
+      },
+      {
+        "title": "T5 Nuln landmark + Spirit Barrage",
+        "note": "The published last stage asks for Nuln Gunnery School, seven upgrades and use of Spirit Barrage. The advanced Land Ship reward is optional for VCO victory. IV · Academy of Excellence: Construct the Nuln Gunnery School landmark; Perform 7 Gunnery School upgrades; Use Spirit Barrage. Reward: Amethyst Land Ship and The Purple Eclipse; additional upkeep support.",
+        "gate": "late / optional",
+        "short": "Final test, only when useful."
+      }
+    ],
+    "details": [
+      [
+        "Field tests are milestones, not your VCO route",
+        "All three campaigns can develop the school, but their victory objectives differ. Do not delay a final enemy, provincial treaty or search interaction because the school is not maxed."
+      ],
+      [
+        "Spend for results, not a perfect interface",
+        "Upgrade the families represented several times in your army. Keep some gunpowder damage working in real battles, but never remove the melee screen just to maximise a resource source."
+      ]
+    ],
+    "sources": [
+      "ca",
+      "school",
+      "b-foundry",
+      "b-nuln5",
+      "smart"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "ca",
+      "school",
+      "b-foundry",
+      "b-nuln5",
+      "smart"
+    ]
+  },
+  "armoury": {
+    "label": "Armoury",
+    "title": "Amethyst Armoury · a signature detachment",
+    "intro": "Use a few treasured units; the supporting armies do not all need purple replacements.",
+    "steps": [
+      {
+        "title": "Permanent family upgrades first",
+        "note": "Infantry upgrades support Handgunners, Ironsides and the relevant Amethyst variant. Rocket and machine upgrades should follow actual use.",
+        "short": "Most regular armies also benefit."
+      },
+      {
+        "title": "Three Amethyst Ironsides for the test",
+        "note": "Move displaced regular Ironsides to another army when practical rather than discarding experienced troops.",
+        "short": "One-for-one roster substitutions."
+      },
+      {
+        "title": "Add the route’s signature artillery",
+        "note": "One Amethyst Helstorm is already a substantial thematic centrepiece. Add a second only if it fits both the route and the available protection.",
+        "short": "Rockets first for dense infantry battles."
+      },
+      {
+        "title": "Protect the expensive purchases",
+        "note": "Published costs rise with purchases and do not fall when units die. Repeated elite losses can stall the programme. The live price is the budget input, not a forever-fixed base cost.",
+        "short": "Recover before the next difficult fight."
+      },
+      {
+        "title": "Five per army; eight for Elspeth later",
+        "note": "The Amethyst Armourer adds three slots to Elspeth’s five, not to every army. The templates stay at five without depending on this research.",
+        "gate": "faction-specific tech",
+        "short": "Use the cap the game actually displays."
+      },
+      {
+        "title": "Buy ability charges with a purpose",
+        "note": "Bjuna Bombard and Spirit Barrage can be progression purchases. Outside that need, recurring disposable abilities should not starve permanent upgrades or replacements.",
+        "short": "Reserve test charges before spare damage."
+      },
+      {
+        "title": "Gunnery Infantry",
+        "note": "The first priority in every route: it benefits several units in your regular and elite gunline. Tiers: More missile damage; More ammunition and reload support; Explosive ammunition"
+      },
+      {
+        "title": "Mortars",
+        "note": "Invest while two Mortars remain useful. The public reference table mixes a Mortar label with Helblaster effects, so these are purchase priorities, not claimed exact modifier names. Check each live tooltip. Tiers: First tier: an opening field-test investment; Second tier: only for a persistent mortar battery; Final tier: usually behind your later artillery"
+      },
+      {
+        "title": "Great Cannons",
+        "note": "A useful anti-large and counter-battery family, especially in the Badlands. Exact current tier modifiers were not confirmed in the available table; the sequence below is purchasing advice. Use the live panel for effects. Tiers: First tier: support the cannon you actually field; Second tier: after the main infantry upgrade; Final tier: when sustained cannon use justifies it"
+      },
+      {
+        "title": "Helstorm Rocket Battery",
+        "note": "Bring forward once tier-four recruitment or a useful starting battery makes it relevant. Includes the Amethyst counterpart. Tiers: Additional projectile; Further projectile; Further projectile and ammunition"
+      },
+      {
+        "title": "Land Ships",
+        "note": "Route II/III signature investment only once a ship is actually fielded. Not an opening requirement. Tiers: Spearports; Missile-block support; Land Mine"
+      },
+      {
+        "title": "Steam Tanks",
+        "note": "Late expedition support, not a reason to delay victory. Do not confuse the Lord’s mount with buying a whole extra unit. Tiers: More Power!; Explosive ammunition; Emergency Repairs"
+      },
+      {
+        "title": "Gunnery Cavalry",
+        "note": "Optional mobile-shooter branch. Black Rose melee knights are not gunnery cavalry and do not justify this purchase. Tiers: Mobility and Strider; Restock!; Disorientating attacks"
+      },
+      {
+        "title": "Helblaster Volley Guns",
+        "note": "A situational replacement for a matching damage job, not automatically superior to the planned cannon or rockets. Tiers: Better mobility; Suppression; More piercing"
+      }
+    ],
+    "details": [
+      [
+        "Why no Amethyst doomstack",
+        "Normal/Normal does not require spending every Schematic on the strongest possible stack. A characteristic detachment with ordinary soldiers, a real escort and route-appropriate war machines is the intended result."
+      ],
+      [
+        "The optional eighth-slot allowance",
+        "After The Amethyst Armourer, Elspeth may replace more ordinary units within the same twenty slots. It is not an instruction to buy three extra units outside the roster, nor evidence every additional Amethyst purchase is efficient."
+      ],
+      [
+        "Ironsides",
+        "Frontline Training → Ballistics Plating → Debilitating Shots → Iron Resolve. With three in the army, their survivability and Soulblight shots can be worthwhile. Do not mistake the special Armoury improvements for the ordinary Gunnery Infantry upgrade track."
+      ],
+      [
+        "Helstorm",
+        "Improved Trajectories → Extended Training Drills → Greater Infusions → Last Rites. For the main battery, buy enough range/ammunition and damage support to make repeated use worthwhile. Preserve a large-target answer elsewhere in the stack."
+      ],
+      [
+        "Land Ship",
+        "Sails of Shyish → Catacomb Cannon → Amethyst Admiral → Cremation Engines. The late signature for the southern or survey column. Expensive optional bound spells should not displace basic line/recovery upgrades."
+      ],
+      [
+        "Outriders",
+        "Cycle Charge Drills → Guerrilla Warfare → Dreadknight → Flared Muzzles. Optional mobile theme: swap one Black Rose slot for an Amethyst Outrider only when the extra missile-cavalry management is enjoyable. It is not required in the default low-micro templates."
+      ]
+    ],
+    "sources": [
+      "school",
+      "ca",
+      "smart"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "school",
+      "ca",
+      "smart"
+    ]
+  },
+  "gardens": {
+    "label": "Gardens",
+    "title": "Gardens of Morr · a service network",
+    "intro": "Elspeth travels; the other armies use the local support. Do not confuse either with universal faction teleportation.",
+    "steps": [
+      {
+        "title": "First safe Garden: Militia of Morr",
+        "note": "Once available, start with a node you expect to retain. The default is Militia for an army that needs cheap recovery and replacement access.",
+        "short": "Nuln or a durable nearby Empire node."
+      },
+      {
+        "title": "Connect to a real second theatre",
+        "note": "Route I favours a safe homeland forward node; Route II a southern Empire-held hub; Route III a legal expedition foothold or a nearer departure node.",
+        "short": "Choose a place you can still defend."
+      },
+      {
+        "title": "Choose ONE supporting branch per node",
+        "note": "These are alternative auxiliary buildings, not three consecutive tiers you install together. Match the choice to the node’s purpose.",
+        "short": "Militia / Temple / Amethyst College."
+      },
+      {
+        "title": "Spend movement before travel safely",
+        "note": "Published travel consumes Elspeth’s remaining movement. Avoid teleporting in forced march into danger; a safe arrival matters more than saving a small fee.",
+        "short": "Check stance, cooldown and landing threats."
+      },
+      {
+        "title": "Temple once for the undead campaign",
+        "note": "Temple of Morr provides the Knights of Morr route and anti-undead support. The College supports Battle Wizards and magical reserves. Militia remains the usual recovery-station choice.",
+        "short": "College for a safe magic-support node."
+      },
+      {
+        "title": "Audit ownership before another investment",
+        "note": "Only eligible Empire-owned sites can host Gardens. Loss of the settlement or hostile ownership can remove the node. Use the live panel’s capacity rather than an unlimited-Garden exploit.",
+        "short": "Keep a gold and cooldown reserve."
+      }
+    ],
+    "details": [
+      [
+        "Which Garden building fits which job?",
+        "Militia: army service station, replacement access and regional upkeep support. Temple: Morrian cavalry and undead opposition. Amethyst College: caster capacity and magical reserves at a secure site. The basic Black Tower already enables Elspeth’s travel and regional replenishment support."
+      ],
+      [
+        "Do not assume a Dwarf ally is a teleport destination",
+        "VCO may accept a Dwarf-held search location through diplomacy; Gardens require an eligible Empire settlement. These conditions are independent."
+      ],
+      [
+        "Timing and capacity",
+        "The community baseline is availability at turn 5, a five-turn construction interval and five-turn travel cooldown. It reports an apparent capacity discrepancy. This plan uses a modest network and works without exploiting it; all timing and spending decisions follow your active tooltip."
+      ]
+    ],
+    "sources": [
+      "ca",
+      "gardens"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "ca",
+      "gardens"
+    ]
+  },
+  "theodore": {
+    "label": "Theodore",
+    "title": "The Countess’s champion · earn him naturally",
+    "intro": "A pair of Black Rose knights lets you progress without turning the whole campaign into a cavalry farm.",
+    "steps": [
+      {
+        "title": "Build the required Livery",
+        "note": "Use a tier-three support town when its recruitment purpose fits. The live mission specifies any location restriction; follow that rather than moving production for an assumed one.",
+        "gate": "tier 3",
+        "short": "Meet The Countess’ Champion task."
+      },
+      {
+        "title": "Keep two melee cavalry units",
+        "note": "They are a practical reserve even after the quest, rather than temporary units recruited solely to satisfy a checklist.",
+        "short": "Black Rose knights fit Nuln’s identity."
+      },
+      {
+        "title": "Earn 1,000 qualifying kills",
+        "note": "Track the active Trials by Combat counter. Total army kills, missile-cavalry shooting and the named character’s personal kills are not interchangeable categories.",
+        "short": "Melee cavalry or Demigryphs."
+      },
+      {
+        "title": "Choose safe prey for the escort",
+        "note": "Use the cavalry as one reserve group. Avoid feeding expensive knights into braced anti-large infantry solely to chase a counter.",
+        "short": "Exposed archers, artillery and routed units."
+      },
+      {
+        "title": "Replace the temporary Captain",
+        "note": "Recruit/embed him when the reward grants access. Transfer the veteran Captain to a supporting army if possible instead of adding a twenty-first character.",
+        "short": "Theodore still occupies one army slot."
+      },
+      {
+        "title": "Reaper at rank 11; develop resilience",
+        "note": "The mount is automatic in the extracted tree. Do not deliberately lose him for a death-triggered item effect; winning intact is the goal.",
+        "gate": "auto mount",
+        "short": "Keep the champion with Elspeth."
+      }
+    ],
+    "details": [
+      [
+        "What can be copied?",
+        "The ordinary units, Master Engineer and generic heroes can be reproduced as economy and hero capacity allow. Theodore is unique. Amethyst units require separate purchases and respect per-army caps."
+      ],
+      [
+        "Autoresolve and the quest",
+        "Observe the kill counter after the first autoresolved battle with cavalry. When it fails to move as expected, use a hand-played battle for the relevant kills. Do not assume a particular mod implementation from its name."
+      ]
+    ],
+    "sources": [
+      "theodore-quest",
+      "theodore-start",
+      "skills-theodore",
+      "b-livery",
+      "ca",
+      "smart"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "theodore-quest",
+      "theodore-start",
+      "skills-theodore",
+      "b-livery",
+      "ca",
+      "smart"
+    ]
+  },
+  "authority": {
+    "label": "Authority",
+    "title": "Imperial Authority · support the realm",
+    "intro": "Empire territory in Empire hands matters. It does not all have to be painted in your own colour.",
+    "steps": [
+      {
+        "title": "Keep useful Empire neighbours alive",
+        "note": "Trade, non-aggression and sensible common wars help stabilise the homeland while you build the army. Do not join every remote war for a small payment.",
+        "short": "Secure the Nuln approach."
+      },
+      {
+        "title": "Reclaim important lost homeland regions",
+        "note": "Imperial Authority concerns the Empire’s collective homeland control. A competent friendly Empire owner can be useful without confederation.",
+        "short": "Keep or restore them intentionally."
+      },
+      {
+        "title": "Leave Karl Franz’s systems out",
+        "note": "The Elector Counts, Fealty and Emperor’s Decrees system is Karl’s special mechanic. Do not apply its thresholds to Elspeth.",
+        "short": "No Elector Count / Fealty build order."
+      },
+      {
+        "title": "Use one real defensive reserve",
+        "note": "An enemy can bypass a fort or attack while Elspeth’s travel is on cooldown. A modest local force and reconnaissance cover the gap.",
+        "short": "A Garden is not a field army."
+      },
+      {
+        "title": "Separate a treaty from VCO credit",
+        "note": "Trade and non-aggression are useful but do not establish VCO diplomatic control. Use the qualifying relationship shown by the mission.",
+        "short": "Read the objective, then check its tick."
+      },
+      {
+        "title": "Confederate only what you can administer",
+        "note": "Inspect inherited armies and fronts. Keep useful troops, consolidate duplicate roles, and do not accidentally create a new theatre while finishing a route.",
+        "short": "Recruitment access is not a reason to bankrupt the realm."
+      }
+    ],
+    "details": [
+      [
+        "Other Empire characters are not required",
+        "You do not need Karl, Gelt or Malakai in your faction to follow these plans. Alliance opportunities can be valuable, but their personal campaigns and interfaces are not prerequisites."
+      ],
+      [
+        "Military allies are not free provinces",
+        "An alliance can bring wars and an AI owner can lose a required region. Check borders before offering it. A diplomatic shortcut is useful only while it remains a shortcut."
+      ]
+    ],
+    "sources": [
+      "ca",
+      "vco-guide"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "ca",
+      "vco-guide"
+    ]
+  }
+}

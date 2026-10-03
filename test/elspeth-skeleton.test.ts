@@ -8,8 +8,10 @@
  * accepts the skeleton: one lord, three routes with typed claims, all seven
  * datasets present — `skills` as the atlas's ten typed entries (package
  * `skills-dataset`), `research` as the atlas's four typed research groups (package
- * `research-dataset`), and `buildings` as the atlas's nine typed settlement-role
- * entries (package `buildings-dataset`), the other three still the typed empty
+ * `research-dataset`), `buildings` as the atlas's nine typed settlement-role
+ * entries (package `buildings-dataset`), and `mechanics` as the atlas's five
+ * typed mechanic entries with the folded field tests, upgrades and Amethyst
+ * paths (package `mechanics-dataset`), the other two still the typed empty
  * objects — canonical `panelOrder` blocks with empty lists, and all seven
  * declared gaps per route.
  */
@@ -21,7 +23,7 @@ import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { loadContentTree } from "../app/content/load.ts";
-import type { ContentReader } from "../app/content/types.ts";
+import type { ContentReader, TitleBody } from "../app/content/types.ts";
 
 /** The committed content root, resolved from this test file's own location. */
 const CONTENT = fileURLToPath(new URL("../content", import.meta.url));
@@ -92,7 +94,7 @@ test("the sources dataset round-trips the extract's 35 sources including vco-gui
   }
 });
 
-test("all seven datasets are present and the four non-source datasets are still the typed empty objects", async () => {
+test("all seven datasets are present and the two non-source datasets are still the typed empty objects", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
 
   const datasets = tree.lords[0].datasets;
@@ -106,6 +108,7 @@ test("all seven datasets are present and the four non-source datasets are still 
     if (dataset.name === "skills") continue; // migrated — asserted by its own test below
     if (dataset.name === "research") continue; // migrated — asserted by its own test below
     if (dataset.name === "buildings") continue; // migrated — asserted by its own test below
+    if (dataset.name === "mechanics") continue; // migrated — asserted by its own test below
     assert.deepEqual(dataset.value, {}, `${dataset.name} is the typed empty object`);
   }
 });
@@ -332,6 +335,234 @@ test("the committed buildings dataset is the atlas's nine typed settlement-role 
     ["Income", "Safe income town", "Interior settlement with no unique recruiting or strategic job."],
     "the income entry carries the atlas label/title/intro verbatim",
   );
+});
+
+test("the committed mechanics dataset is the atlas's five typed item entries with the folded field tests", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const datasets = tree.lords[0].datasets;
+
+  const sources = datasets.find((d) => d.name === "sources");
+  assert.ok(sources !== undefined && sources.name === "sources");
+  const sourceIds = new Set(sources.value.map((s) => s.id));
+
+  const mechanics = datasets.find((d) => d.name === "mechanics");
+  assert.ok(mechanics !== undefined && mechanics.name === "mechanics");
+  const entries = mechanics.value;
+  assert.deepEqual(
+    Object.keys(entries),
+    ["testing", "armoury", "gardens", "theodore", "authority"],
+    "mechanics holds exactly the atlas's five entry ids in atlas order",
+  );
+  const states = new Set(["confirmed", "historical", "inferred", "verify-in-campaign"]);
+  for (const [id, item] of Object.entries(entries)) {
+    for (const key of ["label", "title", "intro"] as const) {
+      assert.equal(typeof item[key], "string", `${id}.${key} is a string`);
+      assert.ok(item[key].length > 0, `${id}.${key} is non-empty`);
+    }
+    assert.ok(Array.isArray(item.steps) && item.steps.length > 0, `${id} carries at least one step`);
+    for (const step of item.steps) {
+      assert.equal(typeof step.title, "string", `${id} step title is a string`);
+      assert.equal(typeof step.note, "string", `${id} step note is a string`);
+      assert.ok(step.title !== "" && step.note !== "", `${id} step title and note are non-empty`);
+      if (step.gate !== undefined) assert.ok(step.gate !== "", `${id} step gate is non-empty when present`);
+      if (step.short !== undefined) assert.ok(step.short !== "", `${id} step short is non-empty when present`);
+    }
+    if (item.details !== undefined) {
+      assert.ok(Array.isArray(item.details), `${id} details is a list of [title, body] pairs`);
+      for (const pair of item.details) {
+        assert.ok(Array.isArray(pair) && pair.length === 2, `${id} details entries are [title, body] pairs`);
+        assert.equal(typeof pair[0], "string");
+        assert.equal(typeof pair[1], "string");
+      }
+    }
+    assert.ok(Array.isArray(item.sources) && item.sources.length > 0, `${id} lists its sources`);
+    for (const src of item.sources) {
+      assert.equal(typeof src, "string", `${id} source ids are strings`);
+      assert.ok(sourceIds.has(src), `${id} source id "${src}" resolves against data/sources.json`);
+    }
+    if (item.state !== undefined) {
+      assert.ok(states.has(item.state), `${id} state is one of the four confidence states`);
+      assert.ok(Array.isArray(item.src) && item.src.length > 0, `${id} state/src travel together`);
+      for (const src of item.src ?? []) {
+        assert.ok(sourceIds.has(src), `${id} src id "${src}" resolves against data/sources.json`);
+      }
+    }
+  }
+
+  // The atlas's four field-test records fold into the `testing` entry's steps as
+  // their gated requirements: each test name, every req display text and each
+  // reward appears exactly once there (never dropped, never duplicated). Only the
+  // display texts fold in — the atlas short-id keys (`handguns3`, `academy`, …)
+  // are tick-tracker linkage and stay excluded from committed content.
+  const fieldTests = [
+    {
+      name: "I · Gunnery Training Grounds",
+      reqs: ["Maintain 3 Handgunners", "Construct Firearms Academy", "Perform 3 Gunnery School upgrades"],
+      reward: "Tier-two ordinary upgrades; Experimental Explosive and recruitment support.",
+    },
+    {
+      name: "II · Engineering Workshops",
+      reqs: ["1,500 kills with Gunnery School units", "Construct Foundry", "Perform 5 Gunnery School upgrades"],
+      reward: "Amethyst Ironsides and Outriders; Bjuna Bombard; Enhanced Scope.",
+    },
+    {
+      name: "III · Laboratorium Magi",
+      reqs: ["1,000 kills with Amethyst units", "Maintain 3 Amethyst Ironsides", "Use Bjuna Bombard"],
+      reward: "Amethyst Helstorm, Spirit Barrage, tier-three ordinary upgrades and Ominous Powder.",
+    },
+    {
+      name: "IV · Academy of Excellence",
+      reqs: ["Construct the Nuln Gunnery School landmark", "Perform 7 Gunnery School upgrades", "Use Spirit Barrage"],
+      reward: "Amethyst Land Ship and The Purple Eclipse; additional upkeep support.",
+    },
+  ];
+  const countOccurrences = (haystack: string, needle: string): number => haystack.split(needle).length - 1;
+  const testingText = entries.testing.steps
+    .flatMap((step) => [step.title, step.note, step.short ?? "", step.gate ?? ""])
+    .join("\n");
+  for (const fieldTest of fieldTests) {
+    assert.equal(
+      countOccurrences(testingText, fieldTest.name),
+      1,
+      `field test "${fieldTest.name}" appears exactly once in the testing entry`,
+    );
+    for (const req of fieldTest.reqs) {
+      assert.equal(
+        countOccurrences(testingText, req),
+        1,
+        `field test "${fieldTest.name}" req "${req}" appears exactly once in the testing entry`,
+      );
+    }
+    assert.equal(
+      countOccurrences(testingText, fieldTest.reward),
+      1,
+      `field test "${fieldTest.name}" reward appears exactly once in the testing entry`,
+    );
+  }
+  assert.ok(!testingText.includes("handguns3"), "no field-test short-id tick keys in the testing entry");
+
+  // Spot-check the fold homes: each test record sits in the step the atlas
+  // cross-references it through, so a count-only check cannot miss a record
+  // folded into the wrong step.
+  const foldHomes = [
+    "Keep three ordinary Handgunners",
+    "Foundry + gunnery kills + upgrades",
+    "Field three Amethyst Ironsides",
+    "T5 Nuln landmark + Spirit Barrage",
+  ];
+  for (const [index, fieldTest] of fieldTests.entries()) {
+    const home = entries.testing.steps.find((step) => step.title === foldHomes[index]);
+    assert.ok(home !== undefined, `field test "${fieldTest.name}" has a fold home step`);
+    assert.ok(
+      home!.note.includes(fieldTest.name) && home!.note.includes(fieldTest.reward),
+      `field test "${fieldTest.name}" folds into the "${foldHomes[index]}" step note`,
+    );
+  }
+
+  // The 8 upgrades fold into the `armoury` entry as steps appended after its six
+  // base steps, in atlas order; each keeps its summary and tier text verbatim.
+  const upgrades: Array<[name: string, summary: string, tiers: string[]]> = [
+    [
+      "Gunnery Infantry",
+      "The first priority in every route: it benefits several units in your regular and elite gunline.",
+      ["More missile damage", "More ammunition and reload support", "Explosive ammunition"],
+    ],
+    [
+      "Mortars",
+      "Invest while two Mortars remain useful. The public reference table mixes a Mortar label with Helblaster effects, so these are purchase priorities, not claimed exact modifier names. Check each live tooltip.",
+      ["First tier: an opening field-test investment", "Second tier: only for a persistent mortar battery", "Final tier: usually behind your later artillery"],
+    ],
+    [
+      "Great Cannons",
+      "A useful anti-large and counter-battery family, especially in the Badlands. Exact current tier modifiers were not confirmed in the available table; the sequence below is purchasing advice. Use the live panel for effects.",
+      ["First tier: support the cannon you actually field", "Second tier: after the main infantry upgrade", "Final tier: when sustained cannon use justifies it"],
+    ],
+    [
+      "Helstorm Rocket Battery",
+      "Bring forward once tier-four recruitment or a useful starting battery makes it relevant. Includes the Amethyst counterpart.",
+      ["Additional projectile", "Further projectile", "Further projectile and ammunition"],
+    ],
+    [
+      "Land Ships",
+      "Route II/III signature investment only once a ship is actually fielded. Not an opening requirement.",
+      ["Spearports", "Missile-block support", "Land Mine"],
+    ],
+    [
+      "Steam Tanks",
+      "Late expedition support, not a reason to delay victory. Do not confuse the Lord’s mount with buying a whole extra unit.",
+      ["More Power!", "Explosive ammunition", "Emergency Repairs"],
+    ],
+    [
+      "Gunnery Cavalry",
+      "Optional mobile-shooter branch. Black Rose melee knights are not gunnery cavalry and do not justify this purchase.",
+      ["Mobility and Strider", "Restock!", "Disorientating attacks"],
+    ],
+    [
+      "Helblaster Volley Guns",
+      "A situational replacement for a matching damage job, not automatically superior to the planned cannon or rockets.",
+      ["Better mobility", "Suppression", "More piercing"],
+    ],
+  ];
+  assert.deepEqual(
+    entries.armoury.steps.map((step) => step.title),
+    [
+      "Permanent family upgrades first",
+      "Three Amethyst Ironsides for the test",
+      "Add the route’s signature artillery",
+      "Protect the expensive purchases",
+      "Five per army; eight for Elspeth later",
+      "Buy ability charges with a purpose",
+      ...upgrades.map(([name]) => name),
+    ],
+    "armoury steps are the six base steps followed by the eight upgrades in atlas order",
+  );
+  for (const [name, summary, tiers] of upgrades) {
+    const step = entries.armoury.steps.find((s) => s.title === name);
+    assert.ok(step !== undefined, `upgrade "${name}" is an armoury step`);
+    assert.ok(step!.note.includes(summary), `upgrade "${name}" note carries its atlas summary verbatim`);
+    for (const tier of tiers) {
+      assert.ok(step!.note.includes(tier), `upgrade "${name}" note carries tier "${tier}" verbatim`);
+    }
+  }
+
+  // The 4 Amethyst paths fold into the `armoury` entry's details (their home here
+  // while the referencing armies still land later); each keeps its name, path
+  // chain and note text from the atlas.
+  const amethystPaths: Array<[name: string, chain: string, note: string]> = [
+    [
+      "Ironsides",
+      "Frontline Training → Ballistics Plating → Debilitating Shots → Iron Resolve",
+      "With three in the army, their survivability and Soulblight shots can be worthwhile. Do not mistake the special Armoury improvements for the ordinary Gunnery Infantry upgrade track.",
+    ],
+    [
+      "Helstorm",
+      "Improved Trajectories → Extended Training Drills → Greater Infusions → Last Rites",
+      "For the main battery, buy enough range/ammunition and damage support to make repeated use worthwhile. Preserve a large-target answer elsewhere in the stack.",
+    ],
+    [
+      "Land Ship",
+      "Sails of Shyish → Catacomb Cannon → Amethyst Admiral → Cremation Engines",
+      "The late signature for the southern or survey column. Expensive optional bound spells should not displace basic line/recovery upgrades.",
+    ],
+    [
+      "Outriders",
+      "Cycle Charge Drills → Guerrilla Warfare → Dreadknight → Flared Muzzles",
+      "Optional mobile theme: swap one Black Rose slot for an Amethyst Outrider only when the extra missile-cavalry management is enjoyable. It is not required in the default low-micro templates.",
+    ],
+  ];
+  const armouryDetails = entries.armoury.details;
+  assert.ok(armouryDetails !== undefined, "armoury carries its details rows");
+  assert.deepEqual(
+    armouryDetails.map(([title]) => title),
+    ["Why no Amethyst doomstack", "The optional eighth-slot allowance", ...amethystPaths.map(([name]) => name)],
+    "armoury details are the two base rows plus the four Amethyst paths in atlas order",
+  );
+  for (const [name, chain, note] of amethystPaths) {
+    const pair: TitleBody | undefined = armouryDetails.find((entry) => entry[0] === name);
+    assert.ok(pair !== undefined, `amethyst path "${name}" has an armoury detail row`);
+    assert.ok(pair[1].includes(chain), `amethyst path "${name}" keeps its atlas path chain verbatim`);
+    assert.ok(pair[1].includes(note), `amethyst path "${name}" keeps its atlas note verbatim`);
+  }
 });
 
 test("every route's panelOrder has exactly the five canonical group keys with empty lists", async () => {
