@@ -6,7 +6,7 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
-_No active features — F3 (verification notes UI) completed 2026-10-03; F7 (route transitions) is next in sequence (see Completed and the development sequence below)._
+- **route-transitions** (F7 — route transition views) — design accepted 2026-10-03; schema-4 plan drafted, pending independent plan review and developer acceptance: [IMPLEMENTATION](features/route-transitions/ROUTE-TRANSITIONS-IMPLEMENTATION.md) · [DESIGN](features/route-transitions/ROUTE-TRANSITIONS-DESIGN.md). One PR, one package: the six committed transition sections render as same-lord cross-links to each target route's `Opening` (route page top when the `Opening` is a declared gap); link labels stay the authored heading text verbatim.
 
 ## Next
 
@@ -43,7 +43,7 @@ F4 (Elspeth) + F4 (Alith or Zhao) + F2 ──► F6 cross-guide search          
 
 **Parallel note:** solo project — after order 3, orders 4–6 are mutually independent and can be reordered around a live campaign (pull F5 forward if an Elspeth campaign starts mid-build). In v1.1, the Alith/Zhao migrations are independent of F6.
 
-**Plan next:** F7 — route transitions (order 5) is next in sequence now that F3 (verification notes UI) is complete (see Completed below); per the parallel note, orders 5–6 are mutually independent and F5 may be pulled forward if an Elspeth campaign starts mid-build. F3 was delivered and merged to `main` 2026-10-03 (see Completed below). F2 (route-first rendering) was delivered and merged to `main` 2026-10-03 (see Completed below). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order.
+**Plan next:** F7 — route transitions (order 5) is now **Active** (planned 2026-10-03; see Active for the ledger and delivery plan). F5 (VCO campaign ledger, order 6) is next in sequence after F7 integrates; per the parallel note, orders 5–6 are mutually independent and F5 may be pulled forward if an Elspeth campaign starts mid-build. F3 was delivered and merged to `main` 2026-10-03 (see Completed below). F2 (route-first rendering) was delivered and merged to `main` 2026-10-03 (see Completed below). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order.
 
 ## Completed
 
