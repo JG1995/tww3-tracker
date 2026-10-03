@@ -17,7 +17,7 @@ import { fileURLToPath } from "node:url";
 
 import { ContentBootError, createFetchReader, loadContentTree } from "../app/content/load.ts";
 import { lintContent, type ContentViolation } from "../app/content/lint.ts";
-import { getLord, getRoute, getSection, getSource, listLords } from "../app/content/query.ts";
+import { getFlaggedEntries, getLord, getRoute, getSection, getSource, listLords } from "../app/content/query.ts";
 import type { ContentReader, Section } from "../app/content/types.ts";
 
 const FIXTURES = fileURLToPath(new URL("fixtures/content", import.meta.url));
@@ -478,4 +478,67 @@ test("createFetchReader is a ContentReader and cannot list files", async () => {
   const reader = createFetchReader("https://example.test/content/");
   assert.deepEqual(await reader.listFiles(), null);
   await assert.rejects(reader.readFile("index.json")); // no server in tests — rejects like a missing file
+});
+
+// ─── 9. The flagged-set selector over the fixture lords (package flagged-query) ──
+
+// als-rhyn-of-lorek's populated datasets use inferred/confirmed/historical
+// states only and its objective/reward are confirmed/historical: the cleared
+// state — the selector returns no entry.
+test("getFlaggedEntries: als-rhyn-of-lorek carries no verify-in-campaign claims", async () => {
+  const tree = await loadContentTree(fsReader(FIXTURES));
+  assert.deepEqual(getFlaggedEntries(tree.lords[0]), []);
+});
+
+test("getFlaggedEntries: second-lord returns exactly its one verify-in-campaign reward claim with the resolved source note", async () => {
+  const tree = await loadContentTree(fsReader(FIXTURES));
+  const flagged = getFlaggedEntries(tree.lords[1]);
+
+  assert.equal(flagged.length, 1);
+  assert.deepEqual(flagged[0], {
+    kind: "identity",
+    routeId: "lone-route",
+    claimKind: "reward",
+    text: "Unlock the Slann temple rites.",
+    state: "verify-in-campaign",
+    sources: [
+      {
+        id: "vco-guide",
+        title: "VCO Campaign Guide",
+        url: "https://example.test/vco-guide",
+        note: "Official victory-conditions overview.",
+      },
+    ],
+  });
+});
+
+// A valid-content mutant (the `inBrokenCopy` temp-copy convention): flipping
+// the fixture's listed skills item to `verify-in-campaign` on the copy surfaces
+// exactly one dataset entry located to its panel — nothing else in the fixture
+// carries the state.
+test("getFlaggedEntries: a verify-in-campaign dataset item listed in panelOrder yields a dataset entry located to its panel", async () => {
+  await inBrokenCopy(
+    async (root) => {
+      const skills = JSON.parse(await readFile(join(root, "als-rhyn-of-lorek/data/skills.json"), "utf8"));
+      skills["conduit-rites"].state = "verify-in-campaign";
+      await rewrite(root, "als-rhyn-of-lorek/data/skills.json", JSON.stringify(skills));
+    },
+    async (root) => {
+      const tree = await loadContentTree(fsReader(root));
+      const flagged = getFlaggedEntries(tree.lords[0]);
+
+      assert.equal(flagged.length, 1, "exactly the one mutated dataset item is flagged");
+      const entry = flagged[0];
+      if (entry.kind !== "dataset") assert.fail(`expected a dataset entry, got ${entry.kind}`);
+      assert.equal(entry.group, "skills");
+      assert.equal(entry.entryId, "conduit-rites");
+      assert.equal(entry.routeId, "dark-conduits");
+      assert.equal(entry.state, "verify-in-campaign");
+      assert.equal(entry.text, "Raise the conduit towns");
+      assert.deepEqual(
+        entry.sources.map((s) => s.id),
+        ["vco-guide"],
+      );
+    },
+  );
 });

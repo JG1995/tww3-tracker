@@ -168,7 +168,7 @@ Commit 1 (callout section attribution) → Commit 2 (flagged selector) → Commi
 
 #### Package `flagged-query` — Commit 2: The single flagged-set selector
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 2
 

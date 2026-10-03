@@ -48,6 +48,7 @@ import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { loadContentTree } from "../app/content/load.ts";
+import { getFlaggedEntries } from "../app/content/query.ts";
 import type { ContentReader, TitleBody } from "../app/content/types.ts";
 
 /** The committed content root, resolved from this test file's own location. */
@@ -1038,5 +1039,121 @@ test("every route keeps exactly its two transition gaps and its eight registry s
   assert.ok(
     routes.every((r) => r.gaps.length === 2 && r.gaps.every((g) => g.startsWith("Transition → "))),
     "every committed route declares exactly the two transition gaps and no content gap",
+  );
+});
+
+test("getFlaggedEntries returns the committed 36-entry flagged set: family counts, sections, and flat dedupe", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const elspeth = tree.lords[0];
+  const flagged = getFlaggedEntries(elspeth);
+
+  assert.equal(flagged.length, 36);
+  assert.ok(flagged.every((e) => e.state === "verify-in-campaign"), "only the flagged state ever appears");
+  assert.ok(flagged.every((e) => e.text.length > 0 && e.sources.length > 0), "every entry carries text and resolved sources");
+
+  const byKind: Record<string, number> = { identity: 0, callout: 0, dataset: 0, vco: 0 };
+  for (const entry of flagged) byKind[entry.kind] += 1;
+  assert.deepEqual(byKind, { identity: 6, callout: 5, dataset: 22, vco: 3 });
+
+  // routes contribute their flagged sets in manifest order (each route's
+  // entries form one contiguous block), matching the committed counts
+  const perRoute: Record<string, Record<string, number>> = {};
+  for (const entry of flagged) {
+    const kinds = (perRoute[entry.routeId] ??= {});
+    kinds[entry.kind] = (kinds[entry.kind] ?? 0) + 1;
+  }
+  assert.deepEqual(perRoute, {
+    "route-1": { identity: 2, dataset: 15, vco: 3 },
+    "route-2": { identity: 2, callout: 3, dataset: 3 },
+    "route-3": { identity: 2, callout: 2, dataset: 4 },
+  });
+
+  // Each callout entry carries its committed section attribution (the Commit 1
+  // fields), in body/section order, and the attributed section is one the route
+  // actually renders.
+  const callouts = flagged.filter((e) => e.kind === "callout");
+  assert.equal(callouts.length, 5);
+  assert.deepEqual(
+    callouts.map((e) => [e.routeId, e.sectionId, e.sectionTitle]),
+    [
+      ["route-2", "mid-late", "Mid → Late"],
+      ["route-2", "victory-push", "Victory push"],
+      ["route-2", "diplomacy", "Diplomacy"],
+      ["route-3", "mid-late", "Mid → Late"],
+      ["route-3", "diplomacy", "Diplomacy"],
+    ],
+  );
+  for (const callout of callouts) {
+    const route = elspeth.routes.find((r) => r.id === callout.routeId);
+    assert.ok(route !== undefined, `route ${callout.routeId} loads`);
+    const section = route.sections.find((s) => s.id === callout.sectionId);
+    assert.ok(section !== undefined, `section ${callout.sectionId} loads`);
+    assert.equal(section.title, callout.sectionTitle);
+  }
+
+  // Dataset family: 19 flat lord-wide entries in the four item groups plus 3
+  // per-route armies entries; flat entry ids are unique across all routes'
+  // panelOrder lists; armies entries stay distinct per (route, entry).
+  const datasetEntries = flagged.filter((e) => e.kind === "dataset");
+  assert.equal(datasetEntries.length, 22);
+  const byGroup: Record<string, number> = {};
+  for (const entry of datasetEntries) byGroup[entry.group] = (byGroup[entry.group] ?? 0) + 1;
+  assert.deepEqual(byGroup, { armies: 3, skills: 6, research: 4, buildings: 4, mechanics: 5 });
+  const flatKeys = datasetEntries.filter((e) => e.group !== "armies").map((e) => `${e.group}:${e.entryId}`);
+  assert.equal(
+    new Set(flatKeys).size,
+    flatKeys.length,
+    "no flat dataset entry is repeated across the routes that list it",
+  );
+  assert.deepEqual(
+    datasetEntries.filter((e) => e.group === "skills").map((e) => `${e.routeId}/${e.entryId}`),
+    [
+      "route-1/elspeth",
+      "route-1/master",
+      "route-1/theodore",
+      "route-1/death",
+      "route-1/light",
+      "route-1/life",
+    ],
+    "the six verify-in-campaign skills each appear once although every route's panelOrder lists them",
+  );
+  assert.deepEqual(
+    datasetEntries.filter((e) => e.group === "armies").map((e) => `${e.routeId}/${e.entryId}`),
+    ["route-1/mid", "route-2/mid", "route-3/mid"],
+    "armies entries are distinct per (route, entry)",
+  );
+
+  // Stable order: routes in manifest order; within a route identity, then
+  // callouts, then dataset entries in PANEL_GROUPS order, then VCO in list order.
+  assert.deepEqual([...new Set(flagged.map((e) => e.routeId))], ["route-1", "route-2", "route-3"]);
+  assert.deepEqual(
+    datasetEntries.filter((e) => e.routeId === "route-1").map((e) => e.group),
+    [
+      "armies",
+      "skills",
+      "skills",
+      "skills",
+      "skills",
+      "skills",
+      "skills",
+      "research",
+      "buildings",
+      "buildings",
+      "mechanics",
+      "mechanics",
+      "mechanics",
+      "mechanics",
+      "mechanics",
+    ],
+    "dataset entries run in PANEL_GROUPS order",
+  );
+  assert.deepEqual(
+    flagged.filter((e) => e.kind === "vco").map((e) => [e.routeId, e.itemId]),
+    [
+      ["route-1", "deceivers"],
+      ["route-1", "drycha"],
+      ["route-1", "khazrak"],
+    ],
+    "VCO entries run in list order",
   );
 });

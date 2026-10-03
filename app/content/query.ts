@@ -12,14 +12,19 @@ import {
   type ItemDatasetName,
   type Lord,
   type LordDataset,
+  type PanelGroup,
   type QueryResult,
   type Route,
   type Section,
   type Source,
   type VcoItem,
+  PANEL_GROUPS,
 } from "./types.ts";
 
 const NOT_FOUND = { found: false, kind: "not-found" } as const;
+
+/** The flagged state: the only confidence state the flagged set ever carries. */
+const VERIFY_IN_CAMPAIGN = "verify-in-campaign";
 
 /** Every lord in `index.json` order. */
 export function listLords(tree: ContentTree): readonly Lord[] {
@@ -148,4 +153,160 @@ export function resolveSources(lord: Lord, sourceIds: readonly string[]): readon
   return sourceIds
     .map((id) => sources.value.find((s) => s.id === id))
     .filter((s): s is Source => s !== undefined);
+}
+
+/**
+ * One flagged-set entry (DESIGN §4 "Flagged entry"): one
+ * `verify-in-campaign` claim with the navigation structure the view needs to
+ * name and link its place. `kind` discriminates the four claim families;
+ * `state` is always `verify-in-campaign` in every member — the other three
+ * confidence states never appear here (the union narrows on it). `sources`
+ * holds the claim's resolved source notes (`resolveSources`: known ids in
+ * order, dangling ids dropped). No hrefs or label strings live here — those
+ * are the view's presentation.
+ */
+export type FlaggedEntry =
+  | {
+      readonly kind: "identity";
+      readonly routeId: string;
+      /** Which guide identity claim this is. */
+      readonly claimKind: "objective" | "reward";
+      readonly text: string;
+      readonly state: "verify-in-campaign";
+      readonly sources: readonly Source[];
+    }
+  | {
+      readonly kind: "callout";
+      readonly routeId: string;
+      /** The enclosing section's router-anchor id and H2 title (the Commit 1 fields). */
+      readonly sectionId: string;
+      readonly sectionTitle: string;
+      readonly text: string;
+      readonly state: "verify-in-campaign";
+      readonly sources: readonly Source[];
+    }
+  | {
+      readonly kind: "dataset";
+      readonly routeId: string;
+      /** The dashboard panel group the entry belongs to (PANEL_GROUPS order). */
+      readonly group: PanelGroup;
+      /** The entry id within that group's panelOrder list. */
+      readonly entryId: string;
+      readonly text: string;
+      readonly state: "verify-in-campaign";
+      readonly sources: readonly Source[];
+    }
+  | {
+      readonly kind: "vco";
+      readonly routeId: string;
+      /** The vco item id from `data/vco.json`. */
+      readonly itemId: string;
+      readonly text: string;
+      readonly state: "verify-in-campaign";
+      readonly sources: readonly Source[];
+    };
+
+/**
+ * The ONE definition of a guide's flagged set (DESIGN §5 "Flagged set"):
+ * every `verify-in-campaign` claim — route objective/reward identity claims,
+ * route body `::claim` callouts, `panelOrder`-listed dataset items, and VCO
+ * objective items. The banner count and the flagged list both read this
+ * selector, so they cannot disagree; views never compute a second set.
+ *
+ * Order is stable (views group without re-sorting): routes in manifest
+ * order; within a route, identity claims, then callouts in document order,
+ * then dataset entries in PANEL_GROUPS order, then VCO items in list order.
+ * Dataset entries resolve with the same scopes as `getPanelEntries` — armies
+ * ids against the route's own `armies[route.id]` map (distinct per route and
+ * entry), flat item ids against the lord-wide item datasets. A flat item
+ * shared by several routes' `panelOrder` appears once, located to its panel;
+ * the dedupe key is (group, id) because the same id may name entries in
+ * different item groups (skills `theodore` and mechanics `theodore`). Pure:
+ * reads the immutable tree, never throws.
+ */
+export function getFlaggedEntries(lord: Lord): readonly FlaggedEntry[] {
+  const entries: FlaggedEntry[] = [];
+  const seenFlat = new Set<string>();
+  for (const route of lord.routes) {
+    for (const [claimKind, claim] of [
+      ["objective", route.objective],
+      ["reward", route.reward],
+    ] as const) {
+      if (claim.state !== VERIFY_IN_CAMPAIGN) continue;
+      entries.push({
+        kind: "identity",
+        routeId: route.id,
+        claimKind,
+        text: claim.text,
+        state: VERIFY_IN_CAMPAIGN,
+        sources: resolveSources(lord, claim.src),
+      });
+    }
+
+    for (const callout of route.claims) {
+      if (callout.state !== VERIFY_IN_CAMPAIGN) continue;
+      entries.push({
+        kind: "callout",
+        routeId: route.id,
+        sectionId: callout.sectionId,
+        sectionTitle: callout.sectionTitle,
+        text: callout.text,
+        state: VERIFY_IN_CAMPAIGN,
+        sources: resolveSources(lord, callout.src),
+      });
+    }
+
+    for (const group of PANEL_GROUPS) {
+      const order = route.panelOrder?.[group] ?? [];
+      if (group === "armies") {
+        const routeArmies = lord.datasets.find((d) => d.name === "armies")?.value[route.id];
+        for (const id of order) {
+          const army = routeArmies?.[id];
+          if (army === undefined || army.state !== VERIFY_IN_CAMPAIGN) continue;
+          entries.push({
+            kind: "dataset",
+            routeId: route.id,
+            group,
+            entryId: id,
+            text: army.name,
+            state: VERIFY_IN_CAMPAIGN,
+            sources: resolveSources(lord, army.src ?? []),
+          });
+        }
+      } else {
+        // Flat item groups resolve lord-wide, exactly like `resolveItemEntries`.
+        const items = lord.datasets.find(
+          (d): d is Extract<LordDataset, { readonly name: ItemDatasetName }> => d.name === group,
+        )?.value;
+        for (const id of order) {
+          const key = `${group}\u0000${id}`;
+          const item = items?.[id];
+          if (item === undefined || item.state !== VERIFY_IN_CAMPAIGN || seenFlat.has(key)) continue;
+          seenFlat.add(key);
+          entries.push({
+            kind: "dataset",
+            routeId: route.id,
+            group,
+            entryId: id,
+            text: item.title,
+            state: VERIFY_IN_CAMPAIGN,
+            sources: resolveSources(lord, item.src ?? []),
+          });
+        }
+      }
+    }
+
+    for (const item of getVcoObjectives(lord, route.id)) {
+      if (item.state !== VERIFY_IN_CAMPAIGN) continue;
+      entries.push({
+        kind: "vco",
+        routeId: route.id,
+        itemId: item.id,
+        text: item.text,
+        state: VERIFY_IN_CAMPAIGN,
+        sources: resolveSources(lord, item.src ?? []),
+      });
+    }
+  }
+  return entries;
 }
