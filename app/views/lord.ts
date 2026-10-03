@@ -5,6 +5,11 @@
  * tree) plus the route list — number, official VCO title or an explicit
  * "unresearched" marker when `vcoTitle` is null, the thematic subtitle
  * (dimmed), and the objective line, each row linking to the route page —
+ * the Version Banner under the page header (DESIGN.md "Version Banner";
+ * package `version-banner`): the fixed VERIFIED AGAINST eyebrow, the guide's
+ * `patch <X> · VCO <version>` pairing always both together, and the
+ * open-flags chip — the warning-role anchor scrolling to the flagged section
+ * when flags are open, or the non-link success chip at zero —
  * and the flagged-items section at the end of the page (DESIGN §5/§6): the
  * guide's complete `verify-in-campaign` re-check list rendered once from
  * the single flagged selector, grouped by location in the selector's stable
@@ -12,7 +17,7 @@
  * Presentational: everything comes from the immutable tree.
  */
 
-import { h, type JSX } from "preact";
+import { h, type JSX, type TargetedMouseEvent } from "preact";
 import { TabStrip } from "../components/TabStrip.ts";
 import { ConfidenceBadge } from "../components/ConfidenceBadge.ts";
 import { getFlaggedEntries, type FlaggedEntry } from "../content/query.ts";
@@ -43,7 +48,7 @@ export function LordView(props: { lord: Lord }): JSX.Element {
       { className: "lord-page__header" },
       h("p", { className: "eyebrow" }, lord.guide.faction.toUpperCase()),
       h("h1", { className: "lord-page__title" }, lord.guide.lord),
-      h("p", { className: "version-context" }, versionLabel(lord)),
+      versionBanner(lord),
     ),
     h(
       "section",
@@ -64,6 +69,54 @@ export function LordView(props: { lord: Lord }): JSX.Element {
 function versionLabel(lord: Lord): string {
   const v = lord.guide.version;
   return `patch ${v.patch} · VCO ${v.vco}`;
+}
+
+/**
+ * The Version Banner (DESIGN.md "Version Banner"; package `version-banner`),
+ * replacing the header's plain version line: the fixed VERIFIED AGAINST mono
+ * eyebrow, the guide's version pairing, and the open-flags chip. The count is
+ * `getFlaggedEntries(lord).length` — the SAME array the flagged-items section
+ * renders, so the count and the list cannot disagree; never computed again.
+ */
+function versionBanner(lord: Lord): JSX.Element {
+  const count = getFlaggedEntries(lord).length;
+  return h(
+    "div",
+    { className: "version-banner" },
+    h("p", { className: "version-banner__eyebrow" }, "VERIFIED AGAINST"),
+    h("p", { className: "version-banner__version" }, versionLabel(lord)),
+    count === 0 ? clearedChip() : flagsChip(lord, count),
+  );
+}
+
+/**
+ * The open-flags chip — a warning-role anchor whose href is the same-lord
+ * hash (the router grammar is unchanged), with the skip-link click idiom so
+ * the click never emits a new hash shape: `preventDefault` the hash change,
+ * then scroll to (and focus) the `flagged-items` section Commit 4 rendered.
+ */
+function flagsChip(lord: Lord, count: number): JSX.Element {
+  return h(
+    "a",
+    {
+      className: "version-chip version-chip--warning",
+      href: `#/${lord.slug}`,
+      onClick: (event: TargetedMouseEvent<HTMLAnchorElement>) => {
+        // A same-lord hash would re-route; scroll and focus the flagged
+        // section instead (the skip-link click idiom in main.tsx).
+        event.preventDefault();
+        const target = document.getElementById("flagged-items");
+        target?.scrollIntoView();
+        target?.focus({ preventScroll: true });
+      },
+    },
+    `${count} OPEN FLAGS`,
+  );
+}
+
+/** The cleared state — a non-link success chip, no href, no handler. */
+function clearedChip(): JSX.Element {
+  return h("span", { className: "version-chip version-chip--success" }, "ALL CLEARED");
 }
 
 function routeRow(lordSlug: string, route: Route): JSX.Element {

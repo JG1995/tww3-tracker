@@ -1624,3 +1624,111 @@ test("a lord with zero flags renders the explicit cleared flagged section — ne
   assert.equal(badgeVNodes(view).length, 0, "no badge vocabulary leaks into the cleared state");
   assert.ok(section.length > 1, "the cleared statement fills the section — never blank space");
 });
+
+/* ─── The Version Banner on the lord page header (package version-banner) ──── */
+
+/** The recorded subtree of the lord page's version banner (the replaced header version line). */
+function versionBannerNode(view: unknown): VNodeRecord[] {
+  const nodes = recordVNodes(view);
+  const banner = nodes.find((n) => n.props.className === "version-banner");
+  assert.ok(banner !== undefined, "the lord page renders the version banner");
+  return recordVNodes(banner);
+}
+
+/** The banner's chip node — the warning anchor or the cleared span. */
+function versionChipNode(view: unknown): VNodeRecord {
+  const banner = versionBannerNode(view);
+  const chip = banner.find((n) => String(n.props.className ?? "").includes("version-chip"));
+  assert.ok(chip !== undefined, "the banner renders its open-flags chip");
+  return chip;
+}
+
+test("the lord page header renders the version banner: VERIFIED AGAINST, the patch · VCO pairing, and the 36 OPEN FLAGS warning chip", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const view = LordView({ lord: lord.value });
+  const text = vnodeText(view);
+  const nodes = recordVNodes(view);
+
+  // the fixed eyebrow and the guide's version pairing render in the banner;
+  // the count comes from the one selector — the same array the flagged list
+  // renders, never recomputed elsewhere
+  assert.ok(text.includes("VERIFIED AGAINST"), "the fixed banner eyebrow renders");
+  assert.equal(
+    countOccurrences(text, "patch 9.0 · VCO 2026.09.30.1"),
+    1,
+    "the patch · VCO pairing renders exactly once on the lord page",
+  );
+
+  // the banner sits inside the page header, between the title and the shared
+  // fundamentals, replacing the plain version-context paragraph — the old
+  // element is gone, not duplicated
+  const banner = versionBannerNode(view);
+  const headerAt = nodes.findIndex((n) => n.props.className === "lord-page__header");
+  const fundamentalsAt = nodes.findIndex((n) => n.props.className === "shared-fundamentals");
+  const bannerAt = nodes.findIndex((n) => n.props.className === "version-banner");
+  assert.ok(headerAt < bannerAt && bannerAt < fundamentalsAt, "the banner replaces the header's version line");
+  assert.ok(
+    !nodes.some((n) => String(n.props.className ?? "").includes("version-context")),
+    "the plain header version-context paragraph is gone",
+  );
+  assert.equal(
+    banner.filter((n) => n.props.className === "version-banner__eyebrow").length,
+    1,
+    "the banner carries the fixed mono eyebrow",
+  );
+  assert.equal(
+    banner.filter((n) => n.props.className === "version-banner__version").length,
+    1,
+    "the banner carries the mono patch · VCO pairing",
+  );
+
+  // the chip: the committed count as an anchor with the same-lord hash — the
+  // router grammar is untouched, so the href is never a #flagged-style hash
+  // and the click handler owns the scroll instead
+  const chip = versionChipNode(view);
+  assert.equal(chip.tag, "a", "the open-flags chip renders as an anchor");
+  assert.equal(
+    String(chip.props.className),
+    "version-chip version-chip--warning",
+    "the open-flags chip carries the warning role",
+  );
+  assert.equal(String(chip.children[0]), "36 OPEN FLAGS", "the chip labels the selector's committed count");
+  assert.equal(chip.props.href, "#/elspeth-von-draken", "the chip href is the same-lord hash");
+  assert.equal(typeof chip.props.onClick, "function", "the chip's click handler preventDefaults and scrolls to the flagged section");
+  assert.ok(
+    !nodes.some((n) => typeof n.props.href === "string" && String(n.props.href).includes("flagged")),
+    "no flag-hash href shape is ever emitted",
+  );
+  assert.equal(countOccurrences(text, "36 OPEN FLAGS"), 1, "the committed count appears exactly once, in the chip");
+});
+
+test("a lord with a single flag renders the chip as the 1 OPEN FLAGS warning anchor to its own hash", async () => {
+  const tree = await loadContentTree(fsReader(FIXTURES));
+  const lord = getLord(tree, "second-lord");
+  assert.ok(lord.found);
+  assert.equal(getFlaggedEntries(lord.value).length, 1, "the second-lord fixture carries exactly one flag");
+  const view = LordView({ lord: lord.value });
+  const chip = versionChipNode(view);
+
+  assert.equal(chip.tag, "a", "the one-flag chip renders as an anchor");
+  assert.equal(String(chip.children[0]), "1 OPEN FLAGS", "the chip labels the single open flag");
+  assert.equal(chip.props.href, "#/second-lord", "the chip href is second-lord's own hash");
+  assert.equal(typeof chip.props.onClick, "function", "…with the scroll/focus click handler");
+});
+
+test("a lord with zero flags renders the non-link ALL CLEARED chip in the success role", async () => {
+  const tree = await loadContentTree(fsReader(FIXTURES));
+  const lord = getLord(tree, "als-rhyn-of-lorek");
+  assert.ok(lord.found);
+  assert.deepEqual(getFlaggedEntries(lord.value), [], "the fixture guide carries no flags");
+  const view = LordView({ lord: lord.value });
+  const chip = versionChipNode(view);
+
+  assert.equal(chip.tag, "span", "the cleared state is a non-link span");
+  assert.equal(String(chip.props.className), "version-chip version-chip--success", "the cleared chip carries the success role");
+  assert.equal(String(chip.children[0]), "ALL CLEARED", "the fixed cleared label renders");
+  assert.equal(chip.props.href, undefined, "the cleared chip has no href");
+  assert.equal(chip.props.onClick, undefined, "the cleared chip has no click handler");
+});

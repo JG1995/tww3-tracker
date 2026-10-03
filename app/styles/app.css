@@ -509,8 +509,83 @@ button {
   color: var(--color-on-surface);
 }
 
-.lord-page .version-context {
-  margin-top: var(--space-stack-xs);
+/* ─── Version Banner (DESIGN.md "Version Banner"; package `version-banner`) ───
+   The survey-proof strip in the page header, replacing the plain
+   version-context line: `surface-container-low` floor with a 1px
+   `outline-variant` border, 10px radius, `stack-sm` padding; the fixed
+   VERIFIED AGAINST mono eyebrow over the `mono-md` `patch <X> · VCO
+   <version>` pairing, and the open-flags chip — one rounded-full chip in
+   both roles: the warning-role anchor while flags are open (a same-lord
+   hash whose click scrolls to the flagged section, so the router grammar
+   stays untouched) or the non-link success chip at zero. The label is mono
+   uppercase in both roles, with the state palette exactly like the
+   Confidence Badge/cleared-state treatments. Transitions ride the
+   `--transition-standard` band and are disabled by the
+   `prefers-reduced-motion` block at the end of this file. */
+
+.version-banner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-xs);
+  margin-top: var(--space-stack-sm);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md);
+  padding: var(--space-stack-sm);
+  background: var(--color-surface-container-low);
+}
+
+.version-banner__eyebrow {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+.version-banner__version {
+  font-family: var(--font-mono-md-family), var(--font-mono-fallback);
+  font-size: var(--font-mono-md-size);
+  font-weight: var(--font-mono-md-weight);
+  line-height: var(--font-mono-md-line-height);
+  color: var(--color-on-surface);
+}
+
+.version-chip {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  padding: calc(var(--space-unit) / 2) var(--space-stack-sm);
+  border: 1px solid;
+  border-radius: var(--radius-full);
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface);
+  transition: var(--transition-standard);
+}
+
+/* The warning role — the open-flags anchor keeps its state ink and border on
+   hover (the global a:hover would otherwise mute the label's state colour). */
+.version-chip--warning {
+  border-color: var(--color-warning);
+  background: color-mix(in srgb, transparent 85%, var(--color-warning-container));
+  color: var(--color-warning);
+}
+
+.version-chip--warning:hover {
+  color: var(--color-warning);
+}
+
+/* The success role — the cleared state is a plain span, never a link. */
+.version-chip--success {
+  border-color: var(--color-success);
+  background: color-mix(in srgb, transparent 85%, var(--color-success-container));
+  color: var(--color-success);
 }
 
 .shared-fundamentals {

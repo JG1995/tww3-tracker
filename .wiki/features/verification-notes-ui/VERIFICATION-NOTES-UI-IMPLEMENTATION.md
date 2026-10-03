@@ -258,7 +258,7 @@ Commit 1 (callout section attribution) → Commit 2 (flagged selector) → Commi
 
 #### Package `version-banner` — Commit 5: Version Banner and open-flags chip
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 4
 
