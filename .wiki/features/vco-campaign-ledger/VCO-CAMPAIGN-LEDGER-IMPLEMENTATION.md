@@ -169,7 +169,7 @@ Commit 1 (server ledger root + gitignore) → Commit 2 (pure model) → Commit 4
 
 #### Package `ledger-logic-model` — Commit 2: The pure campaign model
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 1
 
