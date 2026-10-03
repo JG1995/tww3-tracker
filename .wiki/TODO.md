@@ -6,7 +6,7 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
-- **route-first-rendering** (F2 — route-first content rendering) — plan accepted; delivery pending. [IMPLEMENTATION](features/route-first-rendering/ROUTE-FIRST-RENDERING-IMPLEMENTATION.md) · [DESIGN](features/route-first-rendering/ROUTE-FIRST-RENDERING-DESIGN.md)
+- **route-first-rendering** (F2 — route-first content rendering) — delivered on `feat/route-first-rendering` (8 packages integrated; feature-mode review APPROVE, no blocking findings); awaiting developer approval for local integration to `main`. [IMPLEMENTATION](features/route-first-rendering/ROUTE-FIRST-RENDERING-IMPLEMENTATION.md) · [DESIGN](features/route-first-rendering/ROUTE-FIRST-RENDERING-DESIGN.md)
 
 ## Next
 
@@ -43,7 +43,7 @@ F4 (Elspeth) + F4 (Alith or Zhao) + F2 ──► F6 cross-guide search          
 
 **Parallel note:** solo project — after order 3, orders 4–6 are mutually independent and can be reordered around a live campaign (pull F5 forward if an Elspeth campaign starts mid-build). In v1.1, the Alith/Zhao migrations are independent of F6.
 
-**Plan next:** F4 — Elspeth migration (order 3) once F2 delivers; F2 (route-first rendering) is now Active (see Active above). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order after F2 delivers.
+**Plan next:** F4 — Elspeth migration (order 3) once F2 is integrated; F2 (route-first rendering) is delivered on `feat/route-first-rendering` and awaiting local integration (see Active above). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order after F2 integrates.
 
 ## Completed
 

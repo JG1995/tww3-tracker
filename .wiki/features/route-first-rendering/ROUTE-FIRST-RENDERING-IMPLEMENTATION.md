@@ -131,7 +131,7 @@ Commit 1 (stub reshape) → Commit 2 (confidence badge) → Commit 3 (typed data
 
 **Required checks:** `npm test` green, `npx tsc --noEmit` clean, `node tools/content-lint.mjs` exits 0, `npm run build` succeeds
 
-**Feature close-out:** Not run
+**Feature close-out:** Current
 
 **Provisional PR title:** `feat(app): render the route-first content model`
 
