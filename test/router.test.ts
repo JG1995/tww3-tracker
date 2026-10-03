@@ -4,13 +4,14 @@
  * `parseHash` is the pure hash → route-model mapping: `#/` (or empty hash) →
  * home, `#/<lord-slug>` → lord, `#/<lord-slug>/route/<route-id>` → route,
  * `#/<lord-slug>/route/<route-id>/<section-id>` → route with a section
- * anchor; EVERY other shape is garbage and maps to `not-found` (DESIGN §5 —
- * the site never guesses). The hook (`useHashRoute`) is covered indirectly by
- * the browser boot in final validation; node:test cannot host a DOM.
+ * anchor, `#/<lord-slug>/ledger/<route-id>` → ledger; EVERY other shape is
+ * garbage and maps to `not-found` (DESIGN §5 — the site never guesses). The
+ * hook (`useHashRoute`) is covered indirectly by the browser boot in final
+ * validation; node:test cannot host a DOM.
  *
  * Garbage categories exercised below: empty segments, unknown extra depth,
  * punctuation, whitespace, single segment, double slashes, traversal dots,
- * and the wrong shapes around a route hash.
+ * and the wrong shapes around a route or ledger hash.
  */
 
 import { test } from "node:test";
@@ -45,6 +46,37 @@ test("a route hash with a section id resolves to the route with an anchor", () =
     routeId: "dark-conduits",
     sectionId: "early-mid",
   });
+});
+
+test("a ledger hash resolves to the ledger route with and without the leading hash", () => {
+  assert.deepEqual(parseHash("#/elspeth-von-draken/ledger/route-1"), {
+    name: "ledger",
+    lordSlug: "elspeth-von-draken",
+    routeId: "route-1",
+  });
+  assert.deepEqual(parseHash("/elspeth-von-draken/ledger/route-1"), {
+    name: "ledger",
+    lordSlug: "elspeth-von-draken",
+    routeId: "route-1",
+  });
+});
+
+test("the ledger shape stays not-found when its dedicated 3-segment grammar is violated", () => {
+  const garbage: readonly string[] = [
+    // 2 segments — the ledger route needs a route id
+    "#/lord/ledger",
+    // empty trailing segment
+    "#/lord/ledger/",
+    // 4 segments — the ledger has no section anchor (the section grammar belongs to routes)
+    "#/lord/ledger/route-1/opening",
+    // empty first segment
+    "#//ledger/route-1",
+    // traversal dots
+    "#/lord/ledger/../x",
+  ];
+  for (const hash of garbage) {
+    assert.deepEqual(parseHash(hash), { name: "not-found" }, `hash ${JSON.stringify(hash)} must be not-found`);
+  }
 });
 
 test("every garbage shape resolves to not-found", () => {

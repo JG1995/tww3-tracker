@@ -199,7 +199,7 @@ Commit 1 (server ledger root + gitignore) → Commit 2 (pure model) → Commit 4
 
 #### Package `ledger-hash-route` — Commit 3: The ledger hash route
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 2
 

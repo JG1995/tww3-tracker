@@ -165,6 +165,11 @@ function routeView(tree: ContentTree, route: HashRoute): VNode {
       const found = getRoute(tree, route.lordSlug, route.routeId);
       return lord.found && found.found ? <RouteView lord={lord.value} route={found.value} /> : <NotFoundView />;
     }
+    case "ledger":
+      // The routed shape is truthful and trunk-safe today, but the ledger view
+      // lands in the ledger feature wiring (Commit 8 replaces this stub); render
+      // the not-found view explicitly — never a fallthrough.
+      return <NotFoundView />;
     case "not-found":
       return <NotFoundView />;
   }

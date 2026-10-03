@@ -4,8 +4,9 @@
  *
  * Grammar: `#/` (or empty hash) → home; `#/<lord-slug>` → lord;
  * `#/<lord-slug>/route/<route-id>` → route; `#/<lord-slug>/route/<route-id>/<section-id>`
- * → route with a section anchor. Every other shape is garbage and maps to the
- * explicit not-found route (DESIGN §5): the site never guesses.
+ * → route with a section anchor; `#/<lord-slug>/ledger/<route-id>` → ledger
+ * (the dedicated 3-segment shape). Every other shape is garbage and maps to
+ * the explicit not-found route (DESIGN §5): the site never guesses.
  *
  * `parseHash` is pure and exported so `node --test` can drive it without a
  * DOM; the hook below is the only part that touches the browser, so tests can
@@ -14,7 +15,7 @@
 
 import { useEffect, useState } from "preact/hooks";
 
-/** The four supported routes plus the explicit garbage bucket. */
+/** The five supported routes plus the explicit garbage bucket. */
 export type HashRoute =
   | { readonly name: "home" }
   | { readonly name: "lord"; readonly lordSlug: string }
@@ -24,6 +25,11 @@ export type HashRoute =
       readonly routeId: string;
       /** Section anchor id (a route body H2), or null when the hash carries none. */
       readonly sectionId: string | null;
+    }
+  | {
+      readonly name: "ledger";
+      readonly lordSlug: string;
+      readonly routeId: string;
     }
   | { readonly name: "not-found" };
 
@@ -55,6 +61,13 @@ export function parseHash(hash: string): HashRoute {
     return NOT_FOUND;
   }
   if (parts.length === 1) return { name: "lord", lordSlug: parts[0] };
+  // A ledger hash is exactly the dedicated 3-segment `lord/ledger/route-id`
+  // shape (second segment `ledger`, never `route`); a 4-segment ledger path
+  // is not-found — the ledger has no section anchor.
+  if (parts[1] === "ledger") {
+    if (parts.length !== 3) return NOT_FOUND;
+    return { name: "ledger", lordSlug: parts[0], routeId: parts[2] };
+  }
   // A route hash is exactly `lord/route/id` or `lord/route/id/section`.
   if (parts.length < 3 || parts.length > 4 || parts[1] !== "route") return NOT_FOUND;
   return {
