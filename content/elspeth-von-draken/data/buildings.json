@@ -1,1 +1,499 @@
-{}
+{
+  "income": {
+    "label": "Income",
+    "title": "Safe income town",
+    "intro": "Interior settlement with no unique recruiting or strategic job.",
+    "steps": [
+      {
+        "title": "Weaving House",
+        "note": "Get a straightforward income source running before paying for optional infrastructure."
+      },
+      {
+        "title": "Fields while developing",
+        "note": "Build growth while developing the province. The farm chain also supports local army replenishment."
+      },
+      {
+        "title": "Upgrade main settlement for useful slots",
+        "note": "Do not upgrade only to stare at another empty slot you cannot afford to fill."
+      },
+      {
+        "title": "Industry → resource / control utility",
+        "note": "Resource, basic recruitment or public order depending on the province—not a complete second military complex."
+      },
+      {
+        "title": "Retain recovery; replace surplus growth",
+        "note": "Keep a farm in a recovery province where its replenishment still matters.",
+        "gate": "mature town"
+      }
+    ],
+    "details": [
+      [
+        "A three-slot working plan",
+        "Industry + Fields + resource/utility is the default, counting buildable slots rather than the settlement’s main building. A port or landmark changes the available space; do not force an impossible layout."
+      ],
+      [
+        "No Bretonnian farm/industry balancing",
+        "This guide does not apply Bretonnia’s peasant economy to the Empire. Choose buildings for their actual income, growth and replenishment effects."
+      ]
+    ],
+    "sources": [
+      "b-industry",
+      "tech"
+    ],
+    "state": "confirmed",
+    "src": [
+      "b-industry",
+      "tech"
+    ]
+  },
+  "resource": {
+    "label": "Resource",
+    "title": "Resource or valuable landmark settlement",
+    "intro": "The local resource can be the main reason this place deserves a permanent slot in your realm.",
+    "steps": [
+      {
+        "title": "Repair resource / valuable landmark",
+        "note": "Compare its income and useful modifiers with a generic industry investment."
+      },
+      {
+        "title": "Fields while its province develops",
+        "note": "Growth helps unlock the next valuable tier; do not add redundant growth just to follow a pattern."
+      },
+      {
+        "title": "Industry in the spare economic slot",
+        "note": "Use remaining space to produce income rather than duplicate advanced recruitment."
+      },
+      {
+        "title": "Upgrade the valuable chain",
+        "note": "A resource on an undefended border is not guaranteed income."
+      },
+      {
+        "title": "Defence or utility if the location needs it",
+        "note": "Protect a mine town if losing it would collapse the budget.",
+        "gate": "threat dependent"
+      }
+    ],
+    "details": [
+      [
+        "Pastures are a useful exception",
+        "The Empire’s Grazing Pastures combine income with growth and replenishment. Treat their own benefits as part of your growth/recovery plan; do not count the town as having no growth simply because you did not build generic Fields."
+      ],
+      [
+        "Keep or transfer",
+        "A useful resource still has to pass your border test. A disconnected outpost that needs its own army can be worse than a smaller safe realm."
+      ]
+    ],
+    "sources": [
+      "b-pasture",
+      "b-industry"
+    ],
+    "state": "confirmed",
+    "src": [
+      "b-pasture",
+      "b-industry"
+    ]
+  },
+  "recovery": {
+    "label": "Recovery",
+    "title": "Provincial recovery and support base",
+    "intro": "Especially useful in newly secured Sylvania or at the near end of an expedition.",
+    "steps": [
+      {
+        "title": "Repair the settlement and working income",
+        "note": "Avoid developing a city you intend to give away immediately."
+      },
+      {
+        "title": "Fields for recovery",
+        "note": "Adds growth and local army replenishment; use this as a place to recover after costly autoresolves."
+      },
+      {
+        "title": "Shrine → Temple of Sigmar if needed",
+        "note": "Temple of Sigmar is a tier-3 destination providing Warrior Priest recruitment and capacity.",
+        "gate": "tier 3 destination"
+      },
+      {
+        "title": "Inn / Tavern when locally useful",
+        "note": "Tavern upkeep applies to armies in its region, not automatically to every army in the province or faction."
+      },
+      {
+        "title": "One support chain; then income",
+        "note": "A local Captain, Priest or Wizard source can be worthwhile; four redundant military chains usually are not."
+      }
+    ],
+    "details": [
+      [
+        "Recovery and attrition are different",
+        "Reducing incoming attrition is not the same as increasing replenishment. Elspeth’s personal protections also do not automatically belong to every new army."
+      ],
+      [
+        "Replenish before the next commitment",
+        "A narrow victory that cripples the force may require a return here. That turn of recovery is part of campaign tempo, not a failed build."
+      ],
+      [
+        "A Garden is an additional system",
+        "Black Tower regional replenishment support is especially useful outside your own lands. Militia support and other bonuses have explicit scopes; do not silently apply local effects factionwide."
+      ]
+    ],
+    "sources": [
+      "b-industry",
+      "b-priest",
+      "b-wizard"
+    ],
+    "state": "confirmed",
+    "src": [
+      "b-industry",
+      "b-priest",
+      "b-wizard"
+    ]
+  },
+  "frontier": {
+    "label": "Frontier",
+    "title": "A settlement that guards a real approach",
+    "intro": "Choose a few defensive anchors rather than fortifying every quiet interior town.",
+    "steps": [
+      {
+        "title": "Repair; inspect the enemy’s real approach",
+        "note": "Estimate which enemy army can reach it next turn before starting luxury construction."
+      },
+      {
+        "title": "Useful garrison / defence chain",
+        "note": "Read the actual garrison it provides. Do not assume every defensive building creates walls in a minor settlement."
+      },
+      {
+        "title": "Fields or other local recovery",
+        "note": "Useful when a responding army must replenish here between attacks."
+      },
+      {
+        "title": "Industry after credible defence",
+        "note": "A border settlement must eventually support its own cost."
+      },
+      {
+        "title": "Keep a responding field force in reach",
+        "note": "Buildings buy time; they do not defeat every full stack without help."
+      }
+    ],
+    "details": [
+      [
+        "Fort Soll is a special case",
+        "Treat a fort’s unique main building and garrison as its own defensive system, not as a normal town with this exact three-building recipe. Defend the southern approach without automatically marching into a new southern conquest."
+      ],
+      [
+        "Keep strategic depth",
+        "Defensible terrain is useful, but mobile enemies, alternative routes and special movement can still bypass a single position. Retain a small response force rather than declaring the border invulnerable."
+      ]
+    ],
+    "sources": [
+      "b-industry"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "b-industry"
+    ]
+  },
+  "temporary": {
+    "label": "Temporary",
+    "title": "Expedition capture / future handover",
+    "intro": "Winning a battle does not automatically make the captured settlement part of your permanent realm.",
+    "steps": [
+      {
+        "title": "Read the live VCO requirement",
+        "note": "Confirm whether this is an objective settlement, a search candidate or merely a staging point."
+      },
+      {
+        "title": "Repair only for the next operation",
+        "note": "Avoid expensive multi-tier development before a planned transfer."
+      },
+      {
+        "title": "Stage, replenish and scout",
+        "note": "A temporary capture can be useful without becoming a distant recruitment centre."
+      },
+      {
+        "title": "Keep or transfer to a trusted partner",
+        "note": "Use the settlement-trading options actually available in your game. This guide does not assume Trade Any Settlement is installed."
+      },
+      {
+        "title": "Recheck credit after any handover",
+        "note": "Especially important when a route accepts diplomatic control. Do not equate an ordinary trade agreement with objective ownership."
+      }
+    ],
+    "details": [
+      [
+        "An explicit budget boundary",
+        "No automatic landmark upgrades, no second military complex, and no confederation solely because the button becomes available. Spend to achieve the operation’s purpose."
+      ],
+      [
+        "Route 3 warning",
+        "The author lists possible search locations but not a universal numerical quota. Do not turn a candidate list into an invented requirement to own every candidate simultaneously."
+      ]
+    ],
+    "sources": [
+      "vco-guide"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "vco-guide"
+    ]
+  },
+  "nuln": {
+    "label": "Nuln",
+    "title": "Nuln · foundry and field-test centre",
+    "intro": "Concentrate expensive advanced production here. Distribute basic recruiting and growth into the rest of the province.",
+    "steps": [
+      {
+        "title": "Protect Nuln; growth + income nearby",
+        "note": "Keep useful starting military buildings until another settlement can do their job. Repair or build industry and Fields nearby. A strict demolition plan is worse than using your actual starting assets.",
+        "gate": "opening",
+        "short": "Keep the existing army functional."
+      },
+      {
+        "title": "T2: Firearms Academy + Gunsmith",
+        "note": "These are two separate chains. Field Testing needs the named Firearms Academy and three Handgunners; do not immediately replace every Handgunner with an Ironside.",
+        "gate": "tier 2",
+        "short": "Handgunners, Mortars and an Engineer."
+      },
+      {
+        "title": "T3: Gunnery School + Foundry",
+        "note": "The shooting chain also supplies Witch Hunter capacity. The Forges chain supplies Engineer recruitment/capacity and meets the named Foundry test.",
+        "gate": "tier 3",
+        "short": "Ironsides, Long Rifles and Great Cannons."
+      },
+      {
+        "title": "Nuln Cannon Foundry landmark",
+        "note": "Build the tier-three landmark when the treasury can support it without cancelling your working army or response force. It has a different slot from ordinary Forges and the Marksman chain.",
+        "gate": "tier 3 landmark",
+        "short": "A passive Schematics investment."
+      },
+      {
+        "title": "T4: Engineer’s Workshop",
+        "note": "The tier-four Forges upgrade unlocks the main late-game artillery/machine transition. Take units that solve the route’s job; a Land Ship is not an obligatory purchase.",
+        "gate": "tier 4",
+        "short": "Helstorms, Volley Guns and Land Ships."
+      },
+      {
+        "title": "T5: landmark; advanced machines as needed",
+        "note": "Nuln Gunnery School is the tier-five LANDMARK, needed by the final published Field Testing stage. Ordinary tier-three Gunnery School does not satisfy it. Advanced Steam Tank production follows the higher Forges tier.",
+        "gate": "tier 5 / optional finish",
+        "short": "Finish Field Testing only when worthwhile."
+      }
+    ],
+    "details": [
+      [
+        "Three different “schools”",
+        "The ordinary Gunnery School is a tier-three recruiting building. Nuln Gunnery School is a tier-five landmark. Imperial Gunnery School is the faction interface with Field Testing and upgrade tiers. They are not interchangeable."
+      ],
+      [
+        "What leaves the capital",
+        "A tier-three minor can host a Livery for Black Rose knights and Theodore’s initial task, or a Temple of Sigmar for Priests. A Rally Field can handle the basic infantry. Plan one role per town around available slots; do not assume unlimited room."
+      ],
+      [
+        "Growth timing",
+        "Accelerate Nuln to tier three for the working army and tier four for the artillery/machine transition. Tier five is a separate late investment, not the point at which the campaign is finally allowed to begin."
+      ]
+    ],
+    "sources": [
+      "b-guns",
+      "b-foundry",
+      "b-marksmen",
+      "b-workshop",
+      "b-nuln3",
+      "b-nuln5",
+      "b-livery",
+      "school"
+    ],
+    "state": "confirmed",
+    "src": [
+      "b-guns",
+      "b-foundry",
+      "b-marksmen",
+      "b-workshop",
+      "b-nuln3",
+      "b-nuln5",
+      "b-livery",
+      "school"
+    ]
+  },
+  "military": {
+    "label": "Support town",
+    "title": "Military support town · the missing profession",
+    "intro": "Use a tier-three settlement in the recruiting province to provide what Nuln’s limited slots cannot.",
+    "steps": [
+      {
+        "title": "Choose ONE support job",
+        "note": "Do not reproduce all four jobs in every minor. First inspect what the province already offers.",
+        "short": "Infantry, cavalry, Priest or Wizard."
+      },
+      {
+        "title": "Rally Field for infantry support",
+        "note": "Upgrade the Barracks chain only when the extra troop or hero capacity is useful. A tier-two destination can already support a practical gunline.",
+        "gate": "tier 2",
+        "short": "Halberdiers and basic line replacements."
+      },
+      {
+        "title": "OR Livery for the Black Rose escort",
+        "note": "The tier-three Livery is a sensible cavalry investment when two Black Rose units will accompany your main army. It is an alternative role, not the next slot in every town.",
+        "gate": "tier 3",
+        "short": "Useful for Theodore’s chain."
+      },
+      {
+        "title": "OR Temple of Sigmar / Wizard’s Conclave",
+        "note": "The Temple is a tier-three Priest recruitment/capacity destination; Wizard’s Conclave is the initial wizard chain. Check hero capacity separately from the recruit button.",
+        "short": "Supply the planned hero, not a collection."
+      },
+      {
+        "title": "Industry in the next spare slot",
+        "note": "Retain a resource or useful port rather than demolishing it to follow a generic recipe.",
+        "short": "Let the support town help pay for itself."
+      },
+      {
+        "title": "Fields or defence in the last slot",
+        "note": "Once growth is no longer useful, switch only when its recovery benefits are also unnecessary.",
+        "short": "Growth until developed; defence if exposed."
+      }
+    ],
+    "details": [
+      [
+        "These are alternatives",
+        "Steps two to four name mutually competing town roles, not a requirement to put all three chains into one minor. Choose the role once, then develop that building to its stated useful tier."
+      ],
+      [
+        "Hero acquisition is staged",
+        "One Engineer and a Priest in the first developed army are useful. Additional capacity matters when you can actually recruit and embed the next hero. Theodore’s arrival replaces a Captain; it does not expand the twenty-slot limit."
+      ]
+    ],
+    "sources": [
+      "b-barracks",
+      "b-livery",
+      "b-priest",
+      "b-wizard"
+    ],
+    "state": "confirmed",
+    "src": [
+      "b-barracks",
+      "b-livery",
+      "b-priest",
+      "b-wizard"
+    ]
+  },
+  "charter": {
+    "label": "Charter hub",
+    "title": "Southern charter capital · a second production centre",
+    "intro": "A permanent regional hub is justified when the southern theatre is too far from Nuln for convenient replacements.",
+    "steps": [
+      {
+        "title": "Keep the whole strategic province",
+        "note": "Prefer a connected capital with a port/resource and defensible approach. Miragliano is a natural candidate when held safely, not an instruction to attack a friendly owner.",
+        "short": "Confirm ownership and the route checklist."
+      },
+      {
+        "title": "Repair income / port → Fields",
+        "note": "Do not spend all conquest proceeds on new production before control, corruption and the garrison are stable.",
+        "short": "Make occupation pay and recover."
+      },
+      {
+        "title": "Gunnery School to T3",
+        "note": "Add the ordinary Marksman chain. This is the minimum regional recruiting upgrade; not another rush to Nuln’s unique landmark.",
+        "short": "Recruit Ironsides near the operation."
+      },
+      {
+        "title": "Forges to T3; T4 only for demand",
+        "note": "Build advanced Forges when several nearby armies or persistent casualties justify the travel saved. A one-off expedition does not need a second complete industrial capital.",
+        "short": "Cannons now; local rockets/ships later."
+      },
+      {
+        "title": "A legal Garden: Militia by default",
+        "note": "Select it only if the settlement is actually eligible in the Gardens panel. Non-Empire allied ports are not automatically eligible.",
+        "short": "Support recovery and regional forces."
+      },
+      {
+        "title": "Defence + route-specific utility",
+        "note": "Build garrison, temple or control support for the actual threat. Keep peripheral treaty partners rather than annexing them for neat map colours.",
+        "short": "Protect access to the production centre."
+      }
+    ],
+    "details": [
+      [
+        "Two army roles, not two luxury stacks",
+        "Elspeth leads the hard push; the regional Master Engineer takes over cleared fronts and protects production. Upgrade their army cores before adding a third expedition you cannot support."
+      ],
+      [
+        "Why this is route-specific",
+        "Route II asks for maintained provincial control. Investing in one southern centre is therefore much more attractive than building the same infrastructure at every Route III search stop."
+      ]
+    ],
+    "sources": [
+      "vco-guide",
+      "b-marksmen",
+      "b-foundry",
+      "b-workshop",
+      "gardens"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "vco-guide",
+      "b-marksmen",
+      "b-foundry",
+      "b-workshop",
+      "gardens"
+    ]
+  },
+  "survey": {
+    "label": "Foothold",
+    "title": "Survey foothold · an expedition service station",
+    "intro": "Keep the northern Badlands expedition alive without turning every candidate into a five-tier project.",
+    "steps": [
+      {
+        "title": "Select access, safety and a useful location",
+        "note": "Pick a place that supports the next candidate cluster and has a believable route back. A ruin is not good merely because it appears on the VCO list.",
+        "short": "One connected foothold first."
+      },
+      {
+        "title": "Repair settlement → Fields",
+        "note": "Check actual replenishment and attrition in the province. Do not assume an alliance alone grants recovery everywhere.",
+        "short": "Replenishment before an ornamental capital."
+      },
+      {
+        "title": "Income or resource that pays back",
+        "note": "Low-climate profitability, control and future ownership affect whether this investment is worthwhile.",
+        "short": "Fund the operation while it is present."
+      },
+      {
+        "title": "Basic line and gun replacements",
+        "note": "Advanced Forges are optional only after the expedition becomes a persistent theatre. Global recruitment is an expensive but valid bridge.",
+        "short": "Rally Field / Marksman if staying."
+      },
+      {
+        "title": "A Garden only in an eligible Empire town",
+        "note": "Dwarf ownership can help VCO diplomatic search without permitting a Garden. Keep the two systems separate.",
+        "short": "Militia for recovery; College for a safe node."
+      },
+      {
+        "title": "Reassess when the fortress is found",
+        "note": "Confirm any remaining VCO instructions before transferring. Do not continue buying infrastructure just because construction space exists.",
+        "short": "Keep, hand over, or consolidate deliberately."
+      }
+    ],
+    "details": [
+      [
+        "Do not make the reward a prerequisite",
+        "The Route III reward includes a follower and research/loot benefits, not a verified flying-fortress unit. The expedition must work before any reward appears."
+      ],
+      [
+        "Conquest is one way to investigate",
+        "An appropriate alliance may satisfy the live mission. When it does, do not declare war on the same Dwarf partner to duplicate already-credited work."
+      ]
+    ],
+    "sources": [
+      "vco-guide",
+      "gardens",
+      "b-farm",
+      "b-marksmen"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "vco-guide",
+      "gardens",
+      "b-farm",
+      "b-marksmen"
+    ]
+  }
+}

@@ -7,9 +7,11 @@
  * the content-lint CLI provides. This proves the loader (not just the lint)
  * accepts the skeleton: one lord, three routes with typed claims, all seven
  * datasets present — `skills` as the atlas's ten typed entries (package
- * `skills-dataset`) and `research` as the atlas's four typed research groups (package
- * `research-dataset`), the other four still the typed empty objects — canonical
- * `panelOrder` blocks with empty lists, and all seven declared gaps per route.
+ * `skills-dataset`), `research` as the atlas's four typed research groups (package
+ * `research-dataset`), and `buildings` as the atlas's nine typed settlement-role
+ * entries (package `buildings-dataset`), the other three still the typed empty
+ * objects — canonical `panelOrder` blocks with empty lists, and all seven
+ * declared gaps per route.
  */
 
 import { test } from "node:test";
@@ -102,7 +104,8 @@ test("all seven datasets are present and the four non-source datasets are still 
   for (const dataset of datasets) {
     if (dataset.name === "sources") continue; // proven above
     if (dataset.name === "skills") continue; // migrated — asserted by its own test below
-    if (dataset.name === "research") continue; // migrated — asserted by the next test
+    if (dataset.name === "research") continue; // migrated — asserted by its own test below
+    if (dataset.name === "buildings") continue; // migrated — asserted by its own test below
     assert.deepEqual(dataset.value, {}, `${dataset.name} is the typed empty object`);
   }
 });
@@ -255,6 +258,79 @@ test("the committed research dataset is the atlas's four typed item entries with
       "Replenishment and growth: keep the first army moving while opening useful settlement tiers.",
     ],
     "the Grain Silos step carries the atlas's prereq gate and why-note verbatim",
+  );
+});
+
+test("the committed buildings dataset is the atlas's nine typed settlement-role entries", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const datasets = tree.lords[0].datasets;
+
+  const sources = datasets.find((d) => d.name === "sources");
+  assert.ok(sources !== undefined && sources.name === "sources");
+  const sourceIds = new Set(sources.value.map((s) => s.id));
+
+  const buildings = datasets.find((d) => d.name === "buildings");
+  assert.ok(buildings !== undefined && buildings.name === "buildings");
+  const entries = buildings.value;
+  assert.deepEqual(
+    Object.keys(entries),
+    ["income", "resource", "recovery", "frontier", "temporary", "nuln", "military", "charter", "survey"],
+    "buildings holds exactly the atlas's nine settlement-role ids in atlas order",
+  );
+  const states = new Set(["confirmed", "historical", "inferred", "verify-in-campaign"]);
+  for (const [id, item] of Object.entries(entries)) {
+    for (const key of ["label", "title", "intro"] as const) {
+      assert.equal(typeof item[key], "string", `${id}.${key} is a string`);
+      assert.ok(item[key].length > 0, `${id}.${key} is non-empty`);
+    }
+    assert.ok(Array.isArray(item.steps) && item.steps.length > 0, `${id} carries at least one step`);
+    for (const step of item.steps) {
+      assert.equal(typeof step.title, "string", `${id} step title is a string`);
+      assert.equal(typeof step.note, "string", `${id} step note is a string`);
+      assert.ok(step.title !== "" && step.note !== "", `${id} step title and note are non-empty`);
+      if (step.gate !== undefined) assert.ok(step.gate !== "", `${id} step gate is non-empty when present`);
+      if (step.short !== undefined) assert.ok(step.short !== "", `${id} step short is non-empty when present`);
+    }
+    if (item.details !== undefined) {
+      assert.ok(Array.isArray(item.details), `${id} details is a list of [title, body] pairs`);
+      for (const pair of item.details) {
+        assert.ok(Array.isArray(pair) && pair.length === 2, `${id} details entries are [title, body] pairs`);
+        assert.equal(typeof pair[0], "string");
+        assert.equal(typeof pair[1], "string");
+      }
+    }
+    assert.ok(Array.isArray(item.sources) && item.sources.length > 0, `${id} lists its sources`);
+    for (const src of item.sources) {
+      assert.equal(typeof src, "string", `${id} source ids are strings`);
+      assert.ok(sourceIds.has(src), `${id} source id "${src}" resolves against data/sources.json`);
+    }
+    if (item.state !== undefined) {
+      assert.ok(states.has(item.state), `${id} state is one of the four confidence states`);
+      assert.ok(Array.isArray(item.src) && item.src.length > 0, `${id} state/src travel together`);
+      for (const src of item.src ?? []) {
+        assert.ok(sourceIds.has(src), `${id} src id "${src}" resolves against data/sources.json`);
+      }
+    }
+  }
+
+  // The nine ids are exactly the union of the three routes' atlas
+  // `panelOrder.builds` lists: the dataset holds all nine regardless of per-route
+  // listing, and the per-route six-entry subsets fill in the route packages.
+  const routeI = ["nuln", "military", "income", "recovery", "frontier", "temporary"];
+  const routeII = ["nuln", "charter", "resource", "income", "frontier", "temporary"];
+  const routeIII = ["nuln", "survey", "military", "income", "recovery", "temporary"];
+  assert.deepEqual(
+    [...new Set([...routeI, ...routeII, ...routeIII])].sort(),
+    Object.keys(entries).sort(),
+    "the nine building ids are exactly the union of the three routes' atlas panel builds lists",
+  );
+
+  // The atlas keeps `label` and `title` distinct per role and the item card
+  // renders both; spot-check the mapping verbatim on one entry.
+  assert.deepEqual(
+    [entries.income.label, entries.income.title, entries.income.intro],
+    ["Income", "Safe income town", "Interior settlement with no unique recruiting or strategic job."],
+    "the income entry carries the atlas label/title/intro verbatim",
   );
 });
 
