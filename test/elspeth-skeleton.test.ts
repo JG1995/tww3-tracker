@@ -7,12 +7,13 @@
  * the content-lint CLI provides. This proves the loader (not just the lint)
  * accepts the skeleton: one lord, three routes with typed claims, all seven
  * datasets present — `skills` as the atlas's ten typed entries (package
- * `skills-dataset`), `research` as the atlas's four typed research groups (package
- * `research-dataset`), `buildings` as the atlas's nine typed settlement-role
- * entries (package `buildings-dataset`), `mechanics` as the atlas's five
- * typed mechanic entries with the folded field tests, upgrades and Amethyst
- * paths (package `mechanics-dataset`), and `armies` as the atlas's fifteen
- * typed army templates with the `elspeth` column renamed to `legendary`
+ * `skills-dataset`), `research` as the atlas's eight typed research entries — the
+ * four shared groups (package `research-dataset`) plus the four per-route
+ * overrides (package `research-overrides`) — `buildings` as the atlas's nine typed
+ * settlement-role entries (package `buildings-dataset`), `mechanics` as the
+ * atlas's five typed mechanic entries with the folded field tests, upgrades and
+ * Amethyst paths (package `mechanics-dataset`), and `armies` as the atlas's
+ * fifteen typed army templates with the `elspeth` column renamed to `legendary`
  * (package `armies-dataset`), and `vco` as the per-route objective-item map
  * carrying the stable ids the F5 ledger will tick (package `vco-dataset`) —
  * canonical `panelOrder` blocks with empty lists, and all seven declared gaps
@@ -164,7 +165,7 @@ test("the committed skills dataset is the atlas's ten typed item entries", async
   }
 });
 
-test("the committed research dataset is the atlas's four typed item entries with the 15 folded techs", async () => {
+test("the committed research dataset is the atlas's eight typed item entries with the 15 folded techs", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
   const datasets = tree.lords[0].datasets;
 
@@ -177,8 +178,17 @@ test("the committed research dataset is the atlas's four typed item entries with
   const entries = research.value;
   assert.deepEqual(
     Object.keys(entries),
-    ["opening", "firepower", "economy", "arcane"],
-    "research holds exactly the atlas's four group ids in atlas order",
+    [
+      "opening",
+      "firepower",
+      "economy",
+      "arcane",
+      "route-2-opening",
+      "route-2-economy",
+      "route-3-opening",
+      "route-3-arcane",
+    ],
+    "research holds the atlas's four group ids followed by the four per-route override ids",
   );
   const states = new Set(["confirmed", "historical", "inferred", "verify-in-campaign"]);
   for (const [id, item] of Object.entries(entries)) {
@@ -218,7 +228,16 @@ test("the committed research dataset is the atlas's four typed item entries with
 
   // The atlas's 15 named techs fold into the groups' steps as their titles:
   // names, prereq gates and why-notes live in the step fields (the fold), and
-  // the atlas short-id indexes (`techs`/`legacyResearch`) are excluded.
+  // the atlas short-id indexes (`techs`/`legacyResearch`) are excluded. The
+  // fold assertion below stays scoped to the four base groups' steps: the
+  // override entries reuse the same tech atoms (the override block at the end
+  // of this test asserts their reuse explicitly).
+  const baseEntries = {
+    opening: entries.opening,
+    firepower: entries.firepower,
+    economy: entries.economy,
+    arcane: entries.arcane,
+  };
   const techNames = [
     "Grain Silos",
     "State Troop Standards",
@@ -237,7 +256,7 @@ test("the committed research dataset is the atlas's four typed item entries with
     "Seeker of Knowledge",
   ];
   const stepTitles = new Set(
-    Object.values(entries).flatMap((item) => item.steps.map((step) => step.title)),
+    Object.values(baseEntries).flatMap((item) => item.steps.map((step) => step.title)),
   );
   for (const name of techNames) {
     assert.ok(stepTitles.has(name), `tech "${name}" appears as a step title in the research groups`);
@@ -259,6 +278,38 @@ test("the committed research dataset is the atlas's four typed item entries with
       "Replenishment and growth: keep the first army moving while opening useful settlement tiers.",
     ],
     "the Grain Silos step carries the atlas's prereq gate and why-note verbatim",
+  );
+
+  // The atlas's four per-route `researchOverrides` land as distinct lord-wide
+  // entries (DESIGN §4 per-route-variant rule), each keeping its atlas
+  // label/title/sources verbatim. Their step atoms must be a reuse of the base
+  // techs — a step the base groups cannot supply is evidence of drift.
+  const overrides: Record<string, readonly [label: string, title: string]> = {
+    "route-2-opening": ["Opening", "Prepare a long southern campaign"],
+    "route-2-economy": ["Economy", "Support a durable southern sphere"],
+    "route-3-opening": ["Opening", "A durable survey column"],
+    "route-3-arcane": ["Special", "The expedition’s practical research"],
+  };
+  const baseAtoms = new Set(
+    Object.values(baseEntries).flatMap((item) =>
+      item.steps.map((step) => [step.title, step.note, step.gate ?? ""].join("\u0000")),
+    ),
+  );
+  for (const [id, [label, title]] of Object.entries(overrides)) {
+    const item = entries[id];
+    assert.equal(item.label, label, `${id} keeps the atlas label verbatim`);
+    assert.equal(item.title, title, `${id} keeps the atlas title verbatim`);
+    assert.deepEqual(item.sources, ["tech", "school"], `${id} keeps the atlas source ids`);
+    for (const step of item.steps) {
+      assert.ok(
+        baseAtoms.has([step.title, step.note, step.gate ?? ""].join("\u0000")),
+        `override ${id} step "${step.title}" reuses a base group tech atom — no new tech content invented`,
+      );
+    }
+  }
+  assert.ok(
+    entries["route-3-arcane"].steps.some((step) => step.gate === "Check the active technology tree"),
+    "route-3-arcane carries the atlas hedge gate 'Check the active technology tree' verbatim",
   );
 });
 
