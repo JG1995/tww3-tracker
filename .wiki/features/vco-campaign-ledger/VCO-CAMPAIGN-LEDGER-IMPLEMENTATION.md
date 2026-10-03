@@ -259,7 +259,7 @@ Commit 1 (server ledger root + gitignore) → Commit 2 (pure model) → Commit 4
 
 #### Package `ledger-command-state` — Commit 5: The optimistic command state
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 3
 
