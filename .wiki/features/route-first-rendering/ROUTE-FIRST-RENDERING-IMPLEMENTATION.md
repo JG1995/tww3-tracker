@@ -8,6 +8,8 @@ Accepted
 
 **Ledger schema:** 4
 
+**Feature complete:** merged to `main` as `65384cf` on 2026-10-03 after developer approval at the Local integration gate (all eight packages Integrated; close-out reviewed in feature mode — APPROVE, no blocking findings).
+
 ## Intent
 
 Replace F1's plain route form with the DESIGN's route-first rendering — route tab strip, upgraded route pages (identity card, registry-ordered sections with in-flow content-gap markers), the five-tab dashboard region, and the Confidence Badge — and define the typed dataset schemas for the six structured datasets, so the F4 Elspeth migration is content-only.
@@ -111,7 +113,7 @@ Commit 1 (stub reshape) → Commit 2 (confidence badge) → Commit 3 (typed data
 
 ### PR `route-first-rendering` — Render the route-first content model
 
-**Status:** Planned
+**Status:** Delivered (merged to `main` as `65384cf`, 2026-10-03)
 
 **Depends on:** []
 

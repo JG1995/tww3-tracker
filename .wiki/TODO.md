@@ -6,7 +6,7 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
-- **route-first-rendering** (F2 — route-first content rendering) — delivered on `feat/route-first-rendering` (8 packages integrated; feature-mode review APPROVE, no blocking findings); awaiting developer approval for local integration to `main`. [IMPLEMENTATION](features/route-first-rendering/ROUTE-FIRST-RENDERING-IMPLEMENTATION.md) · [DESIGN](features/route-first-rendering/ROUTE-FIRST-RENDERING-DESIGN.md)
+- _None currently active — F2 (route-first rendering) merged to `main` 2026-10-03; next in sequence is F4 (Elspeth migration), see Next._
 
 ## Next
 
@@ -43,10 +43,11 @@ F4 (Elspeth) + F4 (Alith or Zhao) + F2 ──► F6 cross-guide search          
 
 **Parallel note:** solo project — after order 3, orders 4–6 are mutually independent and can be reordered around a live campaign (pull F5 forward if an Elspeth campaign starts mid-build). In v1.1, the Alith/Zhao migrations are independent of F6.
 
-**Plan next:** F4 — Elspeth migration (order 3) once F2 is integrated; F2 (route-first rendering) is delivered on `feat/route-first-rendering` and awaiting local integration (see Active above). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order after F2 integrates.
+**Plan next:** F4 — Elspeth migration (order 3) is next; F2 (route-first rendering) was delivered and merged to `main` 2026-10-03 (see Completed below). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order.
 
 ## Completed
 
+- **route-first-rendering** (F2 — route-first content rendering) — delivered 2026-10-03 · [IMPLEMENTATION](features/route-first-rendering/ROUTE-FIRST-RENDERING-IMPLEMENTATION.md) · [DESIGN](features/route-first-rendering/ROUTE-FIRST-RENDERING-DESIGN.md) — route tab strip (hash-derived, keyboard), route identity card + optional VCO objectives, in-flow content-gap markers at the registry positions, the five-tab dashboard (component-local selection, explicit empty states, atlas anatomy), the Confidence Badge for all four states, and typed dataset schemas for the six structured datasets (committed Elspeth stays all-gap; F4 fills it). Eight reviewed package commits + close-out; merged to `main` (feature close `65384cf`); feature-mode review APPROVE with no blocking findings.
 - **site-foundation** (F1 — guide site with shared structure) — delivered 2026-10-02 · [IMPLEMENTATION](features/site-foundation/SITE-FOUNDATION-IMPLEMENTATION.md) · [DESIGN](features/site-foundation/SITE-FOUNDATION-DESIGN.md) — Preact + Vite + TypeScript SPA shell, content model + loader + query, content lint, dependency-free static server, lint-clean Elspeth content skeleton. Seven reviewed package commits + close-out; merged to `main` (feature close `94fa333`); feature-mode review APPROVE with no blocking findings. Reading path: `npm run build` once, then `npm run serve` (the original `file://` claim was voided by a verified 2026-10-02 developer decision).
 
 When multi-commit work begins, add a feature-level entry here that links to `features/<feature-name>/<FEATURE-NAME>-IMPLEMENTATION.md`; keep slice details in that ledger. Keep completed records in the same feature directory.
