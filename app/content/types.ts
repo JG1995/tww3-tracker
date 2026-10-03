@@ -195,6 +195,10 @@ export interface RouteCallout {
   readonly src: readonly string[];
   /** Raw inner Markdown text between the opening and closing markers. */
   readonly text: string;
+  /** The router-anchor id of the section enclosing this callout (the same slugified title as `Section.id`). */
+  readonly sectionId: string;
+  /** The registry H2 title of the section enclosing this callout. */
+  readonly sectionTitle: string;
 }
 
 /** `panelOrder` frontmatter: a one-level map of string id lists. */

@@ -121,6 +121,9 @@ test("valid fixture loads into a complete tree: lords, routes, sections, claims,
   assert.equal(route.claims[0].state, "confirmed");
   assert.deepEqual(route.claims[0].src, ["vco-guide", "ca"]);
   assert.ok(route.claims[0].text.includes("conduit network"));
+  // the callout is attributed to the section that encloses it (Early → Mid)
+  assert.equal(route.claims[0].sectionId, "early-mid");
+  assert.equal(route.claims[0].sectionTitle, "Early → Mid");
   const calloutHtml = route.sections[1].html; // Early → Mid holds the callout
   assert.ok(calloutHtml.includes('class="claim claim--confirmed"'));
   assert.ok(calloutHtml.includes('data-state="confirmed"'));

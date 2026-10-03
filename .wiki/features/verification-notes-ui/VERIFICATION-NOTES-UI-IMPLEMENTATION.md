@@ -138,7 +138,7 @@ Commit 1 (callout section attribution) → Commit 2 (flagged selector) → Commi
 
 #### Package `callout-section-attribution` — Commit 1: Attribute route callouts to their sections
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 1
 

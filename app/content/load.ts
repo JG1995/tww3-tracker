@@ -41,6 +41,7 @@ import {
   splitFrontmatter,
   extractSections,
   extractClaimMarkers,
+  type RawSection,
   type FmMap,
   type FmValue,
   type ContentViolation,
@@ -398,11 +399,27 @@ function buildRoute(ref: GuideRouteRef, text: string, env: ClaimRenderEnv): Rout
     title: s.title,
     html: md.render(s.body, env),
   }));
-  const claims = extractClaimMarkers(scan.body).map((m) => ({
-    state: m.state as ClaimState,
-    src: m.src,
-    text: m.text,
-  }));
+  const claims = extractClaimMarkers(scan.body).map((m) => {
+    // Line join: a callout's opening line belongs to the section whose
+    // headingLine is the greatest heading line ≤ it. The lint's "route body
+    // content must start with a section heading" rule makes every callout
+    // enclosed by exactly one section — no "before" section is ever invented.
+    let enclosing: RawSection | undefined;
+    for (const s of sectionScan.sections) {
+      if (s.headingLine <= m.line) enclosing = s;
+      else break;
+    }
+    if (enclosing === undefined) {
+      throw new Error(`internal invariant: callout on line ${m.line} of route ${ref.id} maps to no section`);
+    }
+    return {
+      state: m.state as ClaimState,
+      src: m.src,
+      text: m.text,
+      sectionId: slugify(enclosing.title),
+      sectionTitle: enclosing.title,
+    };
+  });
   const po = meta.panelOrder;
   const panelOrder: PanelOrder | undefined =
     typeof po === "object" && po !== null && !Array.isArray(po)
