@@ -1,1 +1,214 @@
-{}
+{
+  "opening": {
+    "label": "Opening",
+    "title": "A working army before luxury research",
+    "intro": "Start with growth and recovery. Bring a batch-recruitment discount forward before spending the gold.",
+    "steps": [
+      {
+        "title": "Grain Silos",
+        "note": "Replenishment and growth: keep the first army moving while opening useful settlement tiers.",
+        "gate": "Opening option"
+      },
+      {
+        "title": "State Troop Standards",
+        "note": "A steadier infantry screen and better new recruits.",
+        "gate": "Opening option"
+      },
+      {
+        "title": "State-Issued Infantry Armour",
+        "note": "Protect the infantry supporting your expensive weapons.",
+        "gate": "State Troop Standards"
+      },
+      {
+        "title": "Mass-Produced Small Ammunition",
+        "note": "Missile ammunition and recruitment savings; good before a batch of Handgunners or Ironsides.",
+        "gate": "Opening option"
+      },
+      {
+        "title": "Ordnance Canisters",
+        "note": "Artillery ammunition; relevant to mortars as well as the later battery.",
+        "gate": "Opening option"
+      },
+      {
+        "title": "Continuous Production",
+        "note": "Move construction savings forward before a large development programme.",
+        "gate": "Grain Silos"
+      }
+    ],
+    "details": [
+      [
+        "A priority queue, not one long branch",
+        "When a named target is locked, complete its shown prerequisites. Do not mistake adjacent entries in this list for parent–child links. Research facts are shared across all routes, so a checked technology stays checked when you change the strategy tab."
+      ]
+    ],
+    "sources": [
+      "tech",
+      "school"
+    ],
+    "state": "confirmed",
+    "src": [
+      "tech",
+      "school"
+    ]
+  },
+  "firepower": {
+    "label": "Firepower",
+    "title": "Infantry, artillery and the escort",
+    "intro": "Support the whole formation, not only the unit with the largest damage number.",
+    "steps": [
+      {
+        "title": "Mass-Produced Small Ammunition",
+        "note": "Missile ammunition and recruitment savings; good before a batch of Handgunners or Ironsides.",
+        "gate": "Opening option"
+      },
+      {
+        "title": "Ordnance Canisters",
+        "note": "Artillery ammunition; relevant to mortars as well as the later battery.",
+        "gate": "Opening option"
+      },
+      {
+        "title": "Refined Schematics",
+        "note": "Artillery damage and upkeep. This does NOT generate the Schematics currency.",
+        "gate": "Ordnance Canisters"
+      },
+      {
+        "title": "State-Issued Infantry Armour",
+        "note": "Protect the infantry supporting your expensive weapons.",
+        "gate": "State Troop Standards"
+      },
+      {
+        "title": "Improved Cavalry Armour",
+        "note": "Protect a persistent pair of Black Rose knights; do not rush it for one disposable cavalry unit.",
+        "gate": "Opening cavalry branch"
+      },
+      {
+        "title": "Endurance Training",
+        "note": "Supports a real mounted contingent. Lower priority for a mostly static gunline.",
+        "gate": "Improved Cavalry Armour"
+      }
+    ],
+    "details": [
+      [
+        "A priority queue, not one long branch",
+        "When a named target is locked, complete its shown prerequisites. Do not mistake adjacent entries in this list for parent–child links. Research facts are shared across all routes, so a checked technology stays checked when you change the strategy tab."
+      ]
+    ],
+    "sources": [
+      "tech",
+      "school"
+    ],
+    "state": "confirmed",
+    "src": [
+      "tech",
+      "school"
+    ]
+  },
+  "economy": {
+    "label": "Economy",
+    "title": "Build the next theatre, not empty infrastructure",
+    "intro": "The southern route benefits most from moving this queue forward.",
+    "steps": [
+      {
+        "title": "Grain Silos",
+        "note": "Replenishment and growth: keep the first army moving while opening useful settlement tiers.",
+        "gate": "Opening option"
+      },
+      {
+        "title": "Continuous Production",
+        "note": "Move construction savings forward before a large development programme.",
+        "gate": "Grain Silos"
+      },
+      {
+        "title": "Assembly Line",
+        "note": "Continue the construction/economic chain when several provinces need investment.",
+        "gate": "Continuous Production"
+      },
+      {
+        "title": "Imperial Architects",
+        "note": "Later development support: useful for a southern territorial campaign, not a prerequisite to victory.",
+        "gate": "Assembly Line"
+      },
+      {
+        "title": "Mass-Produced Small Ammunition",
+        "note": "Missile ammunition and recruitment savings; good before a batch of Handgunners or Ironsides.",
+        "gate": "Opening option"
+      },
+      {
+        "title": "Refined Schematics",
+        "note": "Artillery damage and upkeep. This does NOT generate the Schematics currency.",
+        "gate": "Ordnance Canisters"
+      }
+    ],
+    "details": [
+      [
+        "A priority queue, not one long branch",
+        "When a named target is locked, complete its shown prerequisites. Do not mistake adjacent entries in this list for parent–child links. Research facts are shared across all routes, so a checked technology stays checked when you change the strategy tab."
+      ]
+    ],
+    "sources": [
+      "tech",
+      "school"
+    ],
+    "state": "confirmed",
+    "src": [
+      "tech",
+      "school"
+    ]
+  },
+  "arcane": {
+    "label": "Special",
+    "title": "Magic, machines and the Garden network",
+    "intro": "Choose these after the actual army or travel problem exists.",
+    "steps": [
+      {
+        "title": "Teachings of Teclis",
+        "note": "Supports recruiting and developing Battle Wizards for additional armies.",
+        "gate": "Check the active technology tree"
+      },
+      {
+        "title": "The Amethyst Armourer",
+        "note": "Raises Elspeth’s Amethyst allowance from five to eight and discounts Amethyst artillery purchases; it does not raise every generic army to eight.",
+        "gate": "Faction-specific branch: follow the live gate after Advisor to Nuln"
+      },
+      {
+        "title": "Seeker of Knowledge",
+        "note": "Travel-cost support once Gardens are saving real marching time.",
+        "gate": "Faction-specific branch: follow the live gate"
+      },
+      {
+        "title": "Improved Piston Technology",
+        "note": "Machine mobility, mass and charge; wait until a tank/ship is actually fielded.",
+        "gate": "Check the active technology tree"
+      },
+      {
+        "title": "Refined Schematics",
+        "note": "Artillery damage and upkeep. This does NOT generate the Schematics currency.",
+        "gate": "Ordnance Canisters"
+      },
+      {
+        "title": "State-Issued Infantry Armour",
+        "note": "Protect the infantry supporting your expensive weapons.",
+        "gate": "State Troop Standards"
+      }
+    ],
+    "details": [
+      [
+        "Do not delay the finish for a capstone",
+        "The eight-Amethyst limit and tier-five landmark are optional strength unless your chosen Field Testing project specifically needs them. A route can finish with a good tier-three or tier-four army."
+      ],
+      [
+        "A priority queue, not one long branch",
+        "When a named target is locked, complete its shown prerequisites. Do not mistake adjacent entries in this list for parent–child links. Research facts are shared across all routes, so a checked technology stays checked when you change the strategy tab."
+      ]
+    ],
+    "sources": [
+      "tech",
+      "school"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "tech",
+      "school"
+    ]
+  }
+}

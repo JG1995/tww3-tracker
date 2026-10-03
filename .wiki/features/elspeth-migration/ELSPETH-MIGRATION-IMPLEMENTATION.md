@@ -215,7 +215,7 @@ Commits 1–8 (the W1 pair, the five remaining datasets, then Route I): once `sh
 
 #### Package `research-dataset` — Commit 3: Migrate the atlas research dataset
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 2
 
