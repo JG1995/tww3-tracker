@@ -6,7 +6,7 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
-- _None currently active — F2 (route-first rendering) merged to `main` 2026-10-03; next in sequence is F4 (Elspeth migration), see Next._
+- **elspeth-migration** (F4 — Elspeth migration (content-only)) — plan proposed; delivery pending. [IMPLEMENTATION](features/elspeth-migration/ELSPETH-MIGRATION-IMPLEMENTATION.md) · [DESIGN](features/elspeth-migration/ELSPETH-MIGRATION-DESIGN.md)
 
 ## Next
 
@@ -43,7 +43,7 @@ F4 (Elspeth) + F4 (Alith or Zhao) + F2 ──► F6 cross-guide search          
 
 **Parallel note:** solo project — after order 3, orders 4–6 are mutually independent and can be reordered around a live campaign (pull F5 forward if an Elspeth campaign starts mid-build). In v1.1, the Alith/Zhao migrations are independent of F6.
 
-**Plan next:** F4 — Elspeth migration (order 3) is next; F2 (route-first rendering) was delivered and merged to `main` 2026-10-03 (see Completed below). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order.
+**Plan next:** F3 — verification notes UI (order 4) is next in sequence now that F4 (Elspeth migration) is Active (see Active above). F2 (route-first rendering) was delivered and merged to `main` 2026-10-03 (see Completed below). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order.
 
 ## Completed
 
