@@ -1,1 +1,206 @@
-{}
+{
+  "route-1": [
+    {
+      "id": "sylvania",
+      "text": "Sylvania — Vlad / Isabella: Finish the faction’s surviving holdings; a wounded Vampire Lord is not its destruction.",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "deceivers",
+      "text": "The Deceivers — The Changeling: Use the actual destruction/wounded wording in your installed mission. Investigate remaining cults if the faction persists.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "drycha",
+      "text": "Wargrove of Woe — Drycha: Check current location and surviving holdings; do not assume an old starting position is still decisive.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "festus",
+      "text": "The Fecundites — Festus: Prepare for a supported, corrupt northern theatre rather than a wounded-army rush.",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "khazrak",
+      "text": "Warherd of the One-Eye — Khazrak the One-Eye: Scout surviving forces; a razed former camp or a defeated Lord may not finish the objective.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "battles-35",
+      "text": "Win 35 battles",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    }
+  ],
+  "route-2": [
+    {
+      "id": "eastern-border-princes",
+      "text": "Eastern Border Princes",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "western-border-princes",
+      "text": "Western Border Princes",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "tilea",
+      "text": "Tilea",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "pirates-current",
+      "text": "Pirate’s Current",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "the-blighted-marshes",
+      "text": "The Blighted Marshes",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "estalia",
+      "text": "Estalia",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "irrana-mountains",
+      "text": "Irrana Mountains",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    }
+  ],
+  "route-3": [
+    {
+      "id": "doz-karaz",
+      "text": "Doz Karaz",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "barag-dawazbag",
+      "text": "Barag Dawazbag",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "varenka-hills",
+      "text": "Varenka Hills",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "iron-rock",
+      "text": "Iron Rock",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "valays-sorrow",
+      "text": "Valaya’s Sorrow",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "crooked-fang-fort",
+      "text": "Crooked Fang Fort",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "karak-azgal",
+      "text": "Karak Azgal",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "deff-gorge",
+      "text": "Deff Gorge",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "morgheim",
+      "text": "Morgheim",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "floating-village",
+      "text": "Floating Village",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "sunken-khernarch",
+      "text": "Sunken Khernarch",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "agrul-migdhal",
+      "text": "Agrul Migdhal",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "gor-gazan",
+      "text": "Gor Gazan",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "stormhenge",
+      "text": "Stormhenge",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "galbaraz",
+      "text": "Galbaraz",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "gronti-mingol",
+      "text": "Gronti Mingol",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "dragonhorn-mines",
+      "text": "Dragonhorn Mines",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "ekrund",
+      "text": "Ekrund",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "stonemine-tower",
+      "text": "Stonemine Tower",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "bitterstone-mine",
+      "text": "Bitterstone Mine",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    }
+  ]
+}

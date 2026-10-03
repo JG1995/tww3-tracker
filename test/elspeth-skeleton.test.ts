@@ -13,9 +13,13 @@
  * typed mechanic entries with the folded field tests, upgrades and Amethyst
  * paths (package `mechanics-dataset`), and `armies` as the atlas's fifteen
  * typed army templates with the `elspeth` column renamed to `legendary`
- * (package `armies-dataset`), the remaining one (`vco`) still the typed empty
- * object — canonical `panelOrder` blocks with empty lists, and all seven
- * declared gaps per route.
+ * (package `armies-dataset`), and `vco` as the per-route objective-item map
+ * carrying the stable ids the F5 ledger will tick (package `vco-dataset`) —
+ * canonical `panelOrder` blocks with empty lists, and all seven declared gaps
+ * per route. With `vco` migrated, no dataset remains in the typed empty `{}`
+ * form: the empty-form loop is removed as a contract removal — each migrated
+ * dataset's contract is owned by its own test below, as the established
+ * pattern does each wave.
  */
 
 import { test } from "node:test";
@@ -96,7 +100,7 @@ test("the sources dataset round-trips the extract's 35 sources including vco-gui
   }
 });
 
-test("all seven datasets are present and the one non-source dataset is still the typed empty object", async () => {
+test("all seven datasets are present in the committed tree in canonical order", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
 
   const datasets = tree.lords[0].datasets;
@@ -105,15 +109,6 @@ test("all seven datasets are present and the one non-source dataset is still the
     datasets.map((d) => d.name),
     ["armies", "skills", "research", "buildings", "mechanics", "vco", "sources"],
   );
-  for (const dataset of datasets) {
-    if (dataset.name === "sources") continue; // proven above
-    if (dataset.name === "skills") continue; // migrated — asserted by its own test below
-    if (dataset.name === "research") continue; // migrated — asserted by its own test below
-    if (dataset.name === "buildings") continue; // migrated — asserted by its own test below
-    if (dataset.name === "mechanics") continue; // migrated — asserted by its own test below
-    if (dataset.name === "armies") continue; // migrated — asserted by its own test below
-    assert.deepEqual(dataset.value, {}, `${dataset.name} is the typed empty object`);
-  }
 });
 
 test("the committed skills dataset is the atlas's ten typed item entries", async () => {
@@ -665,6 +660,92 @@ test("the committed armies dataset is the atlas's fifteen typed army templates w
     "route-2 late unit rows carry the atlas's numeric n counts verbatim",
   );
   assert.equal(routes["route-3"].home.size, 12, "the home guard army carries its atlas size verbatim");
+});
+
+test("the committed vco dataset is the three-route objective items with the stable F5 id surface", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const datasets = tree.lords[0].datasets;
+
+  const sources = datasets.find((d) => d.name === "sources");
+  assert.ok(sources !== undefined && sources.name === "sources");
+  const sourceIds = new Set(sources.value.map((s) => s.id));
+
+  const vco = datasets.find((d) => d.name === "vco");
+  assert.ok(vco !== undefined && vco.name === "vco");
+  const routes = vco.value;
+  assert.deepEqual(
+    Object.keys(routes),
+    ["route-1", "route-2", "route-3"],
+    "vco holds exactly the three guide.json route ids, in guide order",
+  );
+
+  // The per-route order and the exact id set are the F5 tick surface — never
+  // renumbered — so the test pins them exactly (DESIGN §4 stable ids).
+  const expectedIds: Record<string, string[]> = {
+    "route-1": ["sylvania", "deceivers", "drycha", "festus", "khazrak", "battles-35"],
+    "route-2": [
+      "eastern-border-princes",
+      "western-border-princes",
+      "tilea",
+      "pirates-current",
+      "the-blighted-marshes",
+      "estalia",
+      "irrana-mountains",
+    ],
+    "route-3": [
+      "doz-karaz",
+      "barag-dawazbag",
+      "varenka-hills",
+      "iron-rock",
+      "valays-sorrow",
+      "crooked-fang-fort",
+      "karak-azgal",
+      "deff-gorge",
+      "morgheim",
+      "floating-village",
+      "sunken-khernarch",
+      "agrul-migdhal",
+      "gor-gazan",
+      "stormhenge",
+      "galbaraz",
+      "gronti-mingol",
+      "dragonhorn-mines",
+      "ekrund",
+      "stonemine-tower",
+      "bitterstone-mine",
+    ],
+  };
+  const states = new Set(["confirmed", "historical", "inferred", "verify-in-campaign"]);
+  for (const [routeId, items] of Object.entries(routes)) {
+    const expected = expectedIds[routeId];
+    assert.ok(expected !== undefined, `${routeId} is a planned route row`);
+    assert.ok(Array.isArray(items), `${routeId} is an ordered objective-item list`);
+    assert.equal(items.length, expected.length, `${routeId} carries its DESIGN objective-item count`);
+    assert.deepEqual(
+      items.map((item) => item.id),
+      expected,
+      `${routeId} item ids are the exact stable F5 surface, in atlas order`,
+    );
+    const seen = new Set<string>();
+    for (const item of items) {
+      assert.ok(!seen.has(item.id), `${routeId} item ids are unique within the route`);
+      seen.add(item.id);
+      assert.match(
+        item.id,
+        /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+        `${routeId} item id "${item.id}" is lowercase kebab-case`,
+      );
+      assert.ok(item.text.length > 0, `${routeId} item "${item.id}" text is non-empty`);
+      assert.ok(states.has(item.state), `${routeId} item "${item.id}" state is one of the four confidence states`);
+      assert.ok(Array.isArray(item.src) && item.src.length > 0, `${routeId} item "${item.id}" carries its src`);
+      for (const src of item.src ?? []) {
+        assert.ok(
+          sourceIds.has(src),
+          `${routeId} item "${item.id}" src id "${src}" resolves against data/sources.json`,
+        );
+      }
+    }
+  }
 });
 
 test("every route's panelOrder has exactly the five canonical group keys with empty lists", async () => {

@@ -335,7 +335,7 @@ Commits 1–9 (the W1 pair, the five remaining datasets, the research overrides,
 
 #### Package `vco-dataset` — Commit 7: Seed the per-route VCO objective items
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 6
 

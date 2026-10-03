@@ -287,7 +287,7 @@ test("lord page renders shared fundamentals and all three routes with the unrese
   assert.ok(text.includes("patch 9.0 · VCO 2026.09.30.1"), "version context on the lord page");
 });
 
-test("route page identity card: badged claims, notes, distinct title classes, no VCO undercard on the committed tree", async () => {
+test("route page identity card: badged claims, notes, distinct title classes, and the committed VCO undercard", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
   const lord = getLord(tree, "elspeth-von-draken");
   assert.ok(lord.found);
@@ -311,8 +311,15 @@ test("route page identity card: badged claims, notes, distinct title classes, no
   assert.ok(text.includes("Defeat the five listed factions and win 35 battles."), "objective claim text");
   assert.ok(text.includes("give her army movement after battle"), "reward claim text");
   const claims = badgeVNodes(view);
-  assert.equal(claims.length, 2, "objective and reward are the only badges — the committed vco dataset is the empty {} form");
-  for (const claim of claims) {
+  assert.equal(
+    claims.length,
+    8,
+    "objective + reward claims and the six route-1 vco items are the Confidence Badged rows",
+  );
+  // The identity card renders its two claim badges before the undercard rows
+  // (RouteView composes identityCard then vcoUndercard), so the first two badges
+  // are exactly the objective/reward claims and keep their identity anatomy.
+  for (const claim of claims.slice(0, 2)) {
     const badge = recordVNodes(expandBadge(claim));
     assert.ok(
       badge.some((n) => String(n.props.className).includes("confidence-badge--verify-in-campaign")),
@@ -349,9 +356,13 @@ test("route page identity card: badged claims, notes, distinct title classes, no
   );
   assert.ok(text.includes("Protect Nuln. Break the predators. Let the dead rest."), "the motto note renders when present");
 
-  // no VCO undercard: the committed vco.json is the typed empty {} form
-  assert.ok(!text.includes("VCO OBJECTIVES"), "no undercard eyebrow on the committed tree");
-  assert.ok(!text.includes("obj-conduits"), "no undercard item ids on the committed tree");
+  // the VCO undercard: the committed route-1 entry renders the mono eyebrow and
+  // its six rows — the five atlas targets plus the 35-battle item — under the
+  // identity card (per-item badge anatomy over all three committed routes is
+  // asserted by the undercard test below)
+  assert.ok(text.includes("VCO OBJECTIVES"), "the undercard's mono eyebrow renders on the committed tree");
+  assert.ok(text.includes("battles-35"), "the 35-battle item's stable F5 id renders");
+  assert.ok(text.includes("Win 35 battles"), "the 35-battle item's atlas-derived text renders");
 
   // body: the all-gap skeleton renders exactly seven in-flow Content Gap
   // Markers at their registry positions (required, then optional, then the
@@ -514,6 +525,74 @@ test("the fixture route renders the VCO undercard beneath the identity with per-
   );
 });
 
+test("every committed route renders the VCO undercard with its item counts and per-item badge anatomy", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+
+  // DESIGN §7 acceptance numbers: route-1 6 (five targets + 35 battles), route-2
+  // 7 provinces, route-3 20 candidates; every item badge carries its own state
+  // colour class and every committed vco item resolves to the vco-guide source
+  const expectations: Array<
+    [routeId: string, itemCount: number, itemStates: string[], probeId: string, probeText: string]
+  > = [
+    [
+      "route-1",
+      6,
+      ["confirmed", "confirmed", "confirmed", "verify-in-campaign", "verify-in-campaign", "verify-in-campaign"],
+      "battles-35",
+      "Win 35 battles",
+    ],
+    ["route-2", 7, Array(7).fill("confirmed"), "pirates-current", "Pirate’s Current"],
+    ["route-3", 20, Array(20).fill("confirmed"), "valays-sorrow", "Valaya’s Sorrow"],
+  ];
+  for (const [routeId, itemCount, itemStates, probeId, probeText] of expectations) {
+    const route = getRoute(tree, "elspeth-von-draken", routeId);
+    assert.ok(route.found);
+    const view = RouteView({ lord: lord.value, route: route.value });
+    const text = vnodeText(view);
+
+    // the undercard renders on every committed route: mono eyebrow plus one row
+    // per item carrying the stable id and the atlas text
+    assert.ok(text.includes("VCO OBJECTIVES"), `${routeId} renders the undercard's mono eyebrow`);
+    assert.ok(text.includes(probeId), `${routeId} renders the "${probeId}" item id`);
+    assert.ok(text.includes(probeText), `${routeId} renders the "${probeId}" item text verbatim`);
+
+    // badge anatomy: objective + reward claims and every vco item are
+    // Confidence Badged with their own state colour classes, mono uppercase
+    // labels and one resolved source link each
+    const badges = badgeVNodes(view);
+    assert.equal(
+      badges.length,
+      2 + itemCount,
+      `${routeId} the two identity claims plus its ${itemCount} vco items are Confidence Badged`,
+    );
+    const stateClasses = badges.map((n) => String(n.props.state)).sort();
+    assert.deepEqual(
+      stateClasses,
+      [...itemStates, "verify-in-campaign", "verify-in-campaign"].sort(),
+      `${routeId} each row's badge carries its own state colour class (claims + items)`,
+    );
+    const flat = badgeText(view);
+    assert.ok(flat.includes("CONFIRMED"), `${routeId} the confirmed items render their mono uppercase label`);
+    if (itemStates.includes("verify-in-campaign")) {
+      assert.ok(flat.includes("VERIFY"), `${routeId} the verify-in-campaign items render their mono uppercase label`);
+    }
+    const srcLinks = badges.flatMap((n) =>
+      recordVNodes(expandBadge(n)).filter((m) => m.tag === "a" && m.props.className === "confidence-badge__src"),
+    );
+    assert.equal(
+      srcLinks.length,
+      2 + itemCount,
+      `${routeId} each src-carrying claim and item trails its resolved source link`,
+    );
+    assert.ok(
+      srcLinks.every((l) => l.props.href === "https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084"),
+      `${routeId} every committed claim and item resolves to the vco-guide url`,
+    );
+  }
+});
+
 test("the query helpers are pure lord-scoped reads: typed objectives, empty/absent results, unknown src ids dropped", async () => {
   const fixtures = await loadContentTree(fsReader(FIXTURES));
   const committed = await loadContentTree(fsReader(CONTENT));
@@ -533,10 +612,14 @@ test("the query helpers are pure lord-scoped reads: typed objectives, empty/abse
     "typed objective items with their state and src ids",
   );
 
-  // absent entry / absent dataset / empty committed entry are empty lists
+  // absent entry / absent dataset are empty lists; the committed entry now
+  // yields its typed items instead of the old empty {} form
   assert.deepEqual(getVcoObjectives(als.value, "ghost-route"), [], "unknown route id → empty list");
   assert.deepEqual(getVcoObjectives(second.value, "lone-route"), [], "a lord without a vco dataset → empty list");
-  assert.deepEqual(getVcoObjectives(elspeth.value, "route-1"), [], "the committed empty {} vco entry → empty list");
+  const routeOne = getVcoObjectives(elspeth.value, "route-1");
+  assert.equal(routeOne.length, 6, "the committed route-1 vco entry yields its six typed items");
+  assert.equal(routeOne[0]?.id, "sylvania", "…starting with the atlas's own first target id");
+  assert.equal(routeOne[5]?.id, "battles-35", "…and ending with the 35-battle item");
 
   // resolveSources: known ids in order, unknown ids dropped, never throws
   assert.deepEqual(
