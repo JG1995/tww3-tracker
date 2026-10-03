@@ -4,9 +4,11 @@
 
 ## Status
 
-Accepted
+Completed
 
 **Ledger schema:** 4
+
+**Feature complete:** merged to `main` as `944fb4f` on 2026-10-03 after developer approval at the Local integration gate (all five packages Integrated plus one reviewed correction; close-out reviewed in feature mode — Accept, no blocking findings, one advisory MEDIUM corrected, one advisory MEDIUM assessed keep).
 
 ## Intent
 
@@ -116,7 +118,7 @@ Commit 1 (callout section attribution) → Commit 2 (flagged selector) → Commi
 
 **PR ref:** Not applicable
 
-**Merge ref:** Not merged
+**Merge ref:** 944fb4f3b00151bceb080cfc8e312e1b91397d5d
 
 **Branch:** `feat/verification-notes-ui`
 
