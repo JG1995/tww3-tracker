@@ -213,16 +213,68 @@ test("the fixture callout renders the badged anatomy with resolved per-src links
   );
 });
 
-// ─── 4. The committed content (no callouts) renders unchanged ────────────────
+// ─── 4. The committed content: Route I's migrated callouts, the rest callout-free ──
 
-test("the committed content (no callouts) renders unchanged by the badge work", async () => {
+test("Route I's migrated ::claim callouts render the badged anatomy; the rest of the committed content stays callout-free", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
   for (const lord of tree.lords) {
     assert.ok(
       !lord.sharedHtml.includes('<aside class="claim'),
       `${lord.slug}: no callout in the committed shared fundamentals`,
     );
-    for (const route of lord.routes) {
+    const routeOne = lord.routes.find((r) => r.id === "route-1");
+    assert.ok(routeOne !== undefined, "the committed route-1 loads");
+
+    // the Guide-interpretation claim (Opening — the route-title identity
+    // context) renders the inferred badge anatomy with the resolved link
+    const opening = routeOne.sections.find((s) => s.id === "opening");
+    assert.ok(opening !== undefined, "the Opening section exists");
+    assert.ok(
+      opening.html.includes('<aside class="claim claim--inferred"'),
+      'the Opening callout keeps class="claim claim--inferred"',
+    );
+    assert.ok(opening.html.includes('data-state="inferred"'), "the Opening callout keeps data-state");
+    assert.ok(opening.html.includes('data-src="vco-guide"'), "the Opening callout keeps data-src");
+    assert.ok(
+      opening.html.includes('<span class="confidence-badge confidence-badge--inferred">'),
+      "the badge span matches the component's class contract",
+    );
+    assert.ok(
+      opening.html.includes('<span class="confidence-badge__label">INFERRED</span>'),
+      "the mono uppercase label is present",
+    );
+    assert.ok(
+      opening.html.includes(
+        '<a class="confidence-badge__src" href="https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084">VCO • author’s route objectives</a>',
+      ),
+      "the src id resolves to its source link",
+    );
+    assert.ok(
+      opening.html.includes("They are not independently verified in-game route titles."),
+      "the folded Guide-interpretation evidence text renders verbatim",
+    );
+
+    // the Verified-author-quest-trigger claim (Victory push — the newly
+    // unlocked Nuln defence) renders the confirmed badge anatomy
+    const victory = routeOne.sections.find((s) => s.id === "victory-push");
+    assert.ok(victory !== undefined, "the Victory push section exists");
+    assert.ok(
+      victory.html.includes('<aside class="claim claim--confirmed"'),
+      'the Victory callout keeps class="claim claim--confirmed"',
+    );
+    assert.ok(victory.html.includes('data-state="confirmed"'), "the Victory callout keeps data-state");
+    assert.ok(
+      victory.html.includes('<span class="confidence-badge__label">CONFIRMED</span>'),
+      "the mono uppercase label is present",
+    );
+    assert.ok(
+      victory.html.includes("Completing Route I unlocks the Elspeth/Malakai defence against Tamurkhan."),
+      "the folded quest-trigger evidence text renders verbatim",
+    );
+
+    // Routes II and III remain callout-free skeletons
+    for (const route of lord.routes.filter((r) => r.id !== "route-1")) {
+      assert.equal(route.sections.length, 0, `${route.id} has no sections yet`);
       for (const section of route.sections) {
         assert.ok(
           !section.html.includes('<aside class="claim'),
@@ -401,26 +453,36 @@ test("the dashboard's initial selection is the first panel: it is tabbable and i
   assert.ok(panels.slice(1).every((p) => p.props.hidden === true), "every other panel is hidden");
 });
 
-test("every dashboard panel renders its explicit empty state on the committed tree, never blank", async () => {
+test("every dashboard panel renders its resolved Route I entries on the committed tree, never the empty state", async () => {
   const { lord, route } = await committedDashboardInputs();
   const nodes = recordVNodes(DashboardMarkup({ lord, ...getPanelEntries(lord, route), activeIndex: 0 }));
 
   const panels = nodes.filter((n) => n.props.role === "tabpanel");
-  for (let index = 0; index < panels.length; index++) {
-    const panelText = vnodeText(panels[index]);
+  // the atlas's Route I panel lists resolve to 5/10/4/6/5 entries per group
+  const expectedCounts: Record<string, number> = { armies: 5, skills: 10, research: 4, buildings: 6, mechanics: 5 };
+  for (const group of PANEL_GROUPS) {
+    const panel = panels.find((n) => n.props.id === `dashboard-panel-${group}`);
+    assert.ok(panel !== undefined, `the ${group} panel is present`);
+    const panelText = vnodeText(panel);
     assert.ok(
-      panelText.includes(DASHBOARD_EMPTY_LABELS[index] as string),
-      `panel ${index} shows its own explicit empty label; got: "${panelText}"`,
+      !panelText.includes(DASHBOARD_EMPTY_LABELS[PANEL_GROUPS.indexOf(group)] as string),
+      `panel ${group} is not in its explicit empty state`,
     );
-    assert.ok(panelText.trim().length > 0, `panel ${index} is never blank space`);
+    assert.ok(panelText.trim().length > 0, `panel ${group} is never blank space`);
+  }
+  const entryCount = (groupId: string): number =>
+    recordVNodes(panels.filter((n) => n.props.id === `dashboard-panel-${groupId}`)[0]).filter(
+      (n) => n.tag === "article" && String(n.props.className).includes("panel-entry"),
+    ).length;
+  for (const [group, count] of Object.entries(expectedCounts)) {
+    assert.equal(entryCount(group), count, `the ${group} panel renders its ${count} resolved entries`);
   }
 
   const text = vnodeText(DashboardMarkup({ lord, ...getPanelEntries(lord, route), activeIndex: 0 }));
-  assert.ok(text.includes("No army templates are listed for this route yet."), "armies: the 'no content yet' sentence");
-  assert.ok(text.includes("No skills are listed for this route yet."), "skills: the 'no content yet' sentence");
-  assert.ok(text.includes("No research is listed for this route yet."), "research: the 'no content yet' sentence");
-  assert.ok(text.includes("No settlements are listed for this route yet."), "buildings: the 'no content yet' sentence");
-  assert.ok(text.includes("No mechanics are listed for this route yet."), "mechanics: the 'no content yet' sentence");
+  assert.ok(text.includes("The first Nuln column"), "armies: the route-1 early army name renders");
+  assert.ok(text.includes("Nuln · foundry and field-test centre"), "buildings: a listed settlement role renders");
+  assert.ok(text.includes("Field Testing · unlock what the army will use"), "mechanics: the testing entry renders");
+  assert.ok(!text.includes("No mechanics are listed for this route yet."), "mechanics: no empty-state sentence");
 });
 
 test("the dashboard keyboard selection wraps and bounds at the fixed five-tab count", () => {

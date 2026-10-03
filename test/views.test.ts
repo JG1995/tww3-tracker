@@ -364,12 +364,11 @@ test("route page identity card: badged claims, notes, distinct title classes, an
   assert.ok(text.includes("battles-35"), "the 35-battle item's stable F5 id renders");
   assert.ok(text.includes("Win 35 battles"), "the 35-battle item's atlas-derived text renders");
 
-  // body: the all-gap skeleton renders exactly seven in-flow Content Gap
-  // Markers at their registry positions (required, then optional, then the
-  // declared transition) — never the F1 empty-body fallback, and never F1's
-  // trailing gap list
-  const markerCopy = (title: string): string => `"${title}" is a declared gap — it has not been written yet.`;
-  const registryOrder = [
+  // body: the migrated Route I renders all eight registry sections in order —
+  // the four required first, then the optionals and the two transitions —
+  // with the atlas's wording and NO in-flow Content Gap markers anywhere
+  assert.equal(countOccurrences(text, "CONTENT GAP"), 0, "no Content Gap marker remains on the migrated Route I");
+  const sectionOrder = [
     "Opening",
     "Early → Mid",
     "Mid → Late",
@@ -377,21 +376,28 @@ test("route page identity card: badged claims, notes, distinct title classes, an
     "Territory policy",
     "Diplomacy",
     "Transition → route-2",
+    "Transition → route-3",
   ];
-  assert.equal(countOccurrences(text, "CONTENT GAP"), registryOrder.length, "one in-flow marker per declared gap");
-  for (let i = 0; i < registryOrder.length; i++) {
-    const title = registryOrder[i] as string;
-    assert.ok(text.includes(markerCopy(title)), `the "${title}" marker names its section as declared`);
+  for (let i = 0; i < sectionOrder.length; i++) {
+    const title = sectionOrder[i] as string;
+    assert.ok(text.includes(title), `the "${title}" section heading renders`);
     if (i > 0) {
       assert.ok(
-        text.indexOf(markerCopy(registryOrder[i - 1] as string)) < text.indexOf(markerCopy(title)),
-        `the "${title}" marker follows "${registryOrder[i - 1] as string}" in registry order`,
+        text.indexOf(sectionOrder[i - 1] as string) < text.indexOf(title),
+        `the "${title}" section follows "${sectionOrder[i - 1] as string}" in registry order`,
       );
     }
   }
+  assert.ok(text.indexOf("ROUTE I") < text.indexOf("Opening"), "the body runs in-flow after the identity card, not in a trailing list");
+  // the atlas phase/transition wording is present — a real section, not a marker
+  assert.ok(text.includes("Give Nuln breathing room"), "the Opening phase title renders as the bold-lead prose");
   assert.ok(
-    text.indexOf("ROUTE I") < text.indexOf(markerCopy("Opening")),
-    "the markers run in-flow after the identity card, not in a trailing list",
+    text.includes("Win the starting war without creating three additional fronts."),
+    "the Opening aim reads as the lead sentence",
+  );
+  assert.ok(
+    text.includes("The finished hunt is not a reason to annex every search site."),
+    "the Transition → route-3 prose renders",
   );
   assert.ok(!text.includes("This route has no sections yet."), "the F1 empty-body fallback is gone");
   assert.ok(!text.includes("Content gaps"), "the F1 trailing gap-list heading is gone");
@@ -404,16 +410,18 @@ test("route page identity card: badged claims, notes, distinct title classes, an
 test("a mixed route renders present sections interleaved with gap markers at registry positions", async () => {
   await inContentCopy(
     async (root) => {
-      // route-1 keeps one real H2 body and declares the rest as gaps — the
-      // "present or declared" mix the lint treats as a valid route document.
-      const routeOne = await readFile(join(root, "elspeth-von-draken/routes/route-1.md"), "utf8");
-      const mixed = routeOne
+      // route-2 (still a committed skeleton) keeps one real H2 body and
+      // declares the rest as gaps — the "present or declared" mix the lint
+      // treats as a valid route document. Route-1 is now fully migrated, so
+      // the mixed route is proven over the next still-gapped route.
+      const routeTwo = await readFile(join(root, "elspeth-von-draken/routes/route-2.md"), "utf8");
+      const mixed = routeTwo
         .replace("  - Opening\n", "")
         .replace(
           /---\n$/,
           "---\n\n## Opening\n\nMixed-case opening prose proves the present section renders.\n",
         );
-      await writeFile(join(root, "elspeth-von-draken/routes/route-1.md"), mixed);
+      await writeFile(join(root, "elspeth-von-draken/routes/route-2.md"), mixed);
     },
     async (root) => {
       assert.deepEqual(await lintContent(fsReader(root)), [], "the mixed copy is valid per the shared lint");
@@ -421,7 +429,7 @@ test("a mixed route renders present sections interleaved with gap markers at reg
       const tree = await loadContentTree(fsReader(root));
       const lord = getLord(tree, "elspeth-von-draken");
       assert.ok(lord.found);
-      const route = getRoute(tree, "elspeth-von-draken", "route-1");
+      const route = getRoute(tree, "elspeth-von-draken", "route-2");
       assert.ok(route.found);
       const view = RouteView({ lord: lord.value, route: route.value });
       const nodes = recordVNodes(view);
@@ -434,7 +442,7 @@ test("a mixed route renders present sections interleaved with gap markers at reg
         "Victory push",
         "Territory policy",
         "Diplomacy",
-        "Transition → route-2",
+        "Transition → route-1",
       ];
       const body = "Mixed-case opening prose proves the present section renders.";
 
@@ -796,7 +804,7 @@ function mountedDashboard(view: unknown, activeIndex = 0): { key: unknown; marku
   return { key: dashboard.key, markup: recordVNodes(markup), text: vnodeText(markup) };
 }
 
-test("the route view mounts the dashboard after the sections with five tabs in DESIGN order and per-panel empty states", async () => {
+test("the route view mounts the dashboard after the sections with five tabs in DESIGN order and Route I's resolved panels", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
   const lord = getLord(tree, "elspeth-von-draken");
   assert.ok(lord.found);
@@ -819,12 +827,17 @@ test("the route view mounts the dashboard after the sections with five tabs in D
     ["ARMY TEMPLATES", "SKILLS", "RESEARCH", "SETTLEMENTS", "MECHANICS"],
     "tab labels follow the DESIGN's panel order",
   );
-  assert.ok(
-    text.indexOf("CONTENT GAP") < text.indexOf("ARMY TEMPLATES"),
-    "the dashboard mounts after the section region (the registry gap markers precede the tab bar)",
-  );
 
-  // the committed tree: each of the five panels shows its explicit empty state — never blank
+  // the route view text carries the migrated section content; the dashboard
+  // markup (mounted after the sections, keyed by route id) opens with its tab
+  // bar — and no Content Gap marker remains on Route I
+  const fullText = vnodeText(view);
+  assert.ok(fullText.includes("Give Nuln breathing room"), "the section region renders its Opening content in the route view");
+  assert.equal(text.indexOf("ARMY TEMPLATES"), 0, "the dashboard markup opens with its tab bar, mounted after the sections");
+  assert.equal(countOccurrences(fullText, "CONTENT GAP"), 0, "no gap marker anywhere on the migrated Route I");
+
+  // the committed tree: each of the five panels renders its resolved Route I
+  // entries — never the empty state, never blank space
   const panels = markup.filter((n) => n.props.role === "tabpanel");
   const emptyLabels = [
     "NO ARMY TEMPLATES YET",
@@ -836,10 +849,19 @@ test("the route view mounts the dashboard after the sections with five tabs in D
   for (let index = 0; index < panels.length; index++) {
     const panelText = vnodeText(panels[index]);
     assert.ok(
-      panelText.includes(emptyLabels[index] as string),
-      `panel ${index} shows its own explicit empty state; got: "${panelText}"`,
+      !panelText.includes(emptyLabels[index] as string),
+      `panel ${index} is not in its empty state; got: "${panelText.slice(0, 80)}"`,
     );
     assert.ok(panelText.trim().length > 0, `panel ${index} is never blank space`);
+  }
+  // per-panel resolved entry counts (the atlas's Route I panel lists)
+  const entryCount = (panelId: string): number =>
+    recordVNodes(panels.filter((p) => p.props.id === panelId)[0]).filter(
+      (n) => n.tag === "article" && String(n.props.className).includes("panel-entry"),
+    ).length;
+  const expectedCounts: Record<string, number> = { armies: 5, skills: 10, research: 4, buildings: 6, mechanics: 5 };
+  for (const [group, count] of Object.entries(expectedCounts)) {
+    assert.equal(entryCount(`dashboard-panel-${group}`), count, `the ${group} panel shows its ${count} resolved entries`);
   }
 });
 

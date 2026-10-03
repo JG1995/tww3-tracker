@@ -395,7 +395,7 @@ Commits 1–9 (the W1 pair, the five remaining datasets, the research overrides,
 
 #### Package `route-1-content` — Commit 9: Fill Route I body sections and panel order
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 8
 
