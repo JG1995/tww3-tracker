@@ -305,7 +305,7 @@ Commits 1–9 (the W1 pair, the five remaining datasets, the research overrides,
 
 #### Package `armies-dataset` — Commit 6: Migrate the atlas armies dataset
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 5
 
@@ -492,6 +492,10 @@ Record material deviations, blockers, and decisions that change remaining work. 
 - **What was planned:** the accepted plan asserted "the atlas declares no research overrides — all three routes share the same four groups", so `research-dataset` landed the four base groups only and no override entry was created (recorded at the time as a Known/Decision).
 - **What changed:** the Commit 3 independent reviewer found, against the atlas `guide-data` bytes, that `routes.route2.researchOverrides` carries `opening` and `economy` and `routes.route3.researchOverrides` carries `opening` and `arcane`, and the atlas's own `lookup()` substitutes them (`g==='research'?(R().researchOverrides?.[k]||D.research[k])`) — the research panel visibly differs per route tab. The DESIGN already prescribes exactly this case (§4: "a route's `researchOverrides` entry is a distinct entry id (the F2 per-route-variant rule) and is listed only in that route's `panelOrder`"; §7 acceptance: "the research groups plus per-route overrides as distinct entries under the right `panelOrder`"), and the per-route-variant rule is fixture-proven — so the correction stays inside the unchanged DESIGN requirements and feature scope (bounded in-scope replan, no developer decision required).
 - **Plan change:** new package `research-overrides` (Commit 8, wave 7) adds the four override entries under the distinct ids `route-2-opening`, `route-2-economy`, `route-3-opening`, `route-3-arcane`; `route-2-content`/`route-3-content` (renumbered Commits 10/11, waves 9/10) depend on it and fill their `panelOrder.research` lists with the override ids in the atlas's positions; `route-1-content` is Commit 9, wave 8 (its `panelOrder.research` stays the four base ids). The integrated `research-dataset` commit (four base groups) remains correct and untouched; the seeded inventory gains a `researchOverrides` row. No requirement, outcome, trust boundary, public contract, or feature-scope change.
+
+### Discovery (2026-10-03, during Commit 6 execution): the atlas armies maps key routes `route1/2/3`; the committed model keys them `route-1/-2/-3`
+
+The atlas keys its per-route armies maps `route1`/`route2`/`route3`, but the committed model resolves `armies[route.id]` with the guide.json route ids `route-1/-2/-3` (`app/content/query.ts`, `app/content/lint.ts` `panels.armies[ref.id]`, the committed fixture). The migration therefore uses the canonical committed route ids for the armies map keys — the same rename class as `builds`→`buildings`; the atlas entry ids (`early`…`home`) and all army content are unchanged. Not a plan change: the ledger's armies packet already requires the per-route map keyed by the committed route ids (its stop condition names a "route id/key mismatch with `guide.json`").
 
 The DESIGN acceptance criterion 1 requires the atlas→model content inventory and mapping table in this ledger. Seeded at planning from the raw archive (extracted read-only from the embedded `guide-data` JSON island); workers append per-entry placement records (weave homes, folded-item homes, per-item states, vco id assignments) during execution. Any atlas block absent from this table or from an exclusion is a violation of the migration contract.
 

@@ -1,1 +1,1808 @@
-{}
+{
+  "route-1": {
+    "early": {
+      "label": "Early",
+      "name": "The first Nuln column",
+      "supportName": "The first Nuln column · supporting army",
+      "units": [
+        {
+          "n": 8,
+          "name": "Spearmen (Shields)",
+          "role": "Affordable holding line; cover the frontage",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Crossbowmen",
+          "role": "Forgiving arcing fire before the full gunline",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Handgunners",
+          "role": "Early armour-piercing fire; retain for the named Field Test",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Mortars",
+          "role": "Infantry damage while learning clear firing positions",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Empire Knights",
+          "role": "One reserve group; pursuit and artillery protection",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Elspeth von Draken",
+          "role": "Magic and command",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Engineer",
+          "role": "Keep the starting/first available gun-support hero",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Repeatable commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Light Wizard",
+          "role": "A manual-battle control toolkit",
+          "kind": "character"
+        }
+      ],
+      "context": "An affordable early 20-slot destination. Keep useful starting elites and substitute by role; do not delete them to match the list.",
+      "notes": [
+        [
+          "Recruit towards this, not all at once",
+          "A developing army can remain below twenty until income supports it. When the hero is unavailable, replace that single slot with another shielded Spearman. A useful starting rocket, Ironside or rifle may replace one of the corresponding cheaper weapons."
+        ],
+        [
+          "Before the first Field Test is credited",
+          "Keep three ordinary Handgunners together with the named building requirement. Free Company Militia, Huntsmen and other unavailable or irrelevant units are not required."
+        ],
+        [
+          "Lower-cost escort",
+          "Use existing cavalry until you can afford the Empire Knights pair. When not working on the cavalry quest yet, another cheap infantry/ranged unit is a reasonable one-for-one stopgap."
+        ]
+      ],
+      "plan": [
+        [
+          "Hold a shape you can recognise",
+          "Deploy the line in several separated blocks, with clear gun lanes between or around them. Guns need line of sight; artillery and rifles do not shoot through your own infantry. Protect both ends rather than making an unbroken crowd."
+        ],
+        [
+          "One mobile reserve, one target at a time",
+          "Keep the mounted escort, or the machines in the late survey column, as a controlled reserve. Intercept a threat or punish an exposed flank; do not send each unit after a different distant target."
+        ],
+        [
+          "When the opening is over",
+          "Turn off pursuit where it is breaking your formation. Bring idle units to one useful segment. Keep a reserve behind the line and retreat a threatened gun section rather than letting it become an isolated melee unit."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca",
+        "school",
+        "smart"
+      ]
+    },
+    "mid": {
+      "label": "Mid",
+      "name": "The Countess’s field company",
+      "supportName": "The Countess’s field company · supporting army",
+      "units": [
+        {
+          "n": 5,
+          "name": "Halberdiers",
+          "role": "Anti-large line; not shielded against missiles",
+          "kind": "line"
+        },
+        {
+          "n": 1,
+          "name": "Greatswords",
+          "role": "One harder-hitting reserve, not the whole screen",
+          "kind": "line"
+        },
+        {
+          "n": 5,
+          "name": "Nuln Ironsides",
+          "role": "Core damage; keep still when firing",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Hochland Long Rifles",
+          "role": "Character / single-entity focus",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Mortars",
+          "role": "Infantry pressure until rocket production",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Cannons",
+          "role": "Long-range large-target answer",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Knights of the Black Rose",
+          "role": "Durable mounted escort; Theodore quest progress",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Elspeth von Draken",
+          "role": "Death magic and command",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Engineer",
+          "role": "Mobility and gun support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Theodore Bruckner",
+          "role": "Captain until his quest is complete",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Repeatable commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Warrior Priest",
+          "role": "Recovery for an independent column",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Light Wizard",
+          "role": "Control before decisive volleys",
+          "kind": "character"
+        }
+      ],
+      "context": "A developed tier-three army. Replace the Mortars with rockets later; do not wait for Amethyst access to fight.",
+      "notes": [
+        [
+          "The fourth support slot comes later",
+          "Add a Priest to Elspeth’s company when affordable by replacing the Greatsword or another appropriate single unit. The written template is twenty; a hero is not free space. Generic armies already carry the recovery hero, not Theodore."
+        ],
+        [
+          "Against armoured or monstrous armies",
+          "Keep the Great Cannon and enough Halberdiers. Do not trade away the last large-target answer for a third anti-infantry Mortar."
+        ],
+        [
+          "If the first Field Test remains unfinished",
+          "Replace three Ironsides with three ordinary Handgunners until the live requirement is met. This does not increase the stack size."
+        ]
+      ],
+      "plan": [
+        [
+          "Hold a shape you can recognise",
+          "Deploy the line in several separated blocks, with clear gun lanes between or around them. Guns need line of sight; artillery and rifles do not shoot through your own infantry. Protect both ends rather than making an unbroken crowd."
+        ],
+        [
+          "One mobile reserve, one target at a time",
+          "Keep the mounted escort, or the machines in the late survey column, as a controlled reserve. Intercept a threat or punish an exposed flank; do not send each unit after a different distant target."
+        ],
+        [
+          "When the opening is over",
+          "Turn off pursuit where it is breaking your formation. Bring idle units to one useful segment. Keep a reserve behind the line and retreat a threatened gun section rather than letting it become an isolated melee unit."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca",
+        "school",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "ca",
+        "school",
+        "smart"
+      ]
+    },
+    "late": {
+      "label": "Late",
+      "name": "The Black Rose procession",
+      "supportName": "The Black Rose procession · supporting army",
+      "units": [
+        {
+          "n": 4,
+          "name": "Halberdiers",
+          "role": "Brace the anti-large screen",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Greatswords",
+          "role": "Infantry reserve and support, not unsupported frontliners",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Nuln Ironsides",
+          "role": "Main firing sections",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Hochland Long Rifles",
+          "role": "Focus dangerous characters",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Helstorm Rocket Battery",
+          "role": "Destroy dense infantry; avoid firing into your own melee",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Cannons",
+          "role": "Large targets, gates and opposing artillery",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Knights of the Black Rose",
+          "role": "The Morrian escort; one controlled reserve",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Elspeth von Draken",
+          "role": "Death magic and command",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Theodore Bruckner",
+          "role": "Unique champion; Captain until unlocked",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Engineer",
+          "role": "Mobility and gun support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Warrior Priest",
+          "role": "Campaign replenishment and prayers",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Repeatable Lord; not a spellcaster",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Engineer",
+          "role": "Embedded mobility and missile support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Warrior Priest",
+          "role": "Campaign replenishment",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Amethyst Wizard",
+          "role": "Death toolkit for the generic company",
+          "kind": "character"
+        }
+      ],
+      "context": "A thematic late-game destination, not a minimum requirement for the selected VCO victory.",
+      "notes": [
+        [
+          "What is genuinely repeatable",
+          "Copy the generic commander version for ordinary armies when hero capacity allows it. Captain substitutes for Theodore only in Elspeth’s version; the generic roster has its own four-character package. Army-specific Elspeth skills and Garden travel do not transfer."
+        ],
+        [
+          "Affordable progression",
+          "Change one or two roles at a time and transfer displaced veterans to a relief army. Maintaining campaign momentum is better than sitting in Nuln for a perfect rebuild while targets expand."
+        ],
+        [
+          "Keep the escort relevant",
+          "The two Black Rose units are deliberate. Use them as one reserve or to clear an exposed rear; they are not meant to spend every battle charging braced spears."
+        ],
+        [
+          "An optional anti-large adjustment",
+          "Against repeated large-unit pressure, replace one Greatsword or anti-infantry battery with another Halberd/cannon-type answer as appropriate. Keep the total at twenty."
+        ]
+      ],
+      "plan": [
+        [
+          "Hold a shape you can recognise",
+          "Deploy the line in several separated blocks, with clear gun lanes between or around them. Guns need line of sight; artillery and rifles do not shoot through your own infantry. Protect both ends rather than making an unbroken crowd."
+        ],
+        [
+          "One mobile reserve, one target at a time",
+          "Keep the mounted escort, or the machines in the late survey column, as a controlled reserve. Intercept a threat or punish an exposed flank; do not send each unit after a different distant target."
+        ],
+        [
+          "When the opening is over",
+          "Turn off pursuit where it is breaking your formation. Bring idle units to one useful segment. Keep a reserve behind the line and retreat a threatened gun section rather than letting it become an isolated melee unit."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca",
+        "school",
+        "smart"
+      ]
+    },
+    "amethyst": {
+      "label": "Amethyst",
+      "name": "The Black Rose procession · Amethyst detachment",
+      "supportName": "The Black Rose procession · Amethyst detachment · supporting army",
+      "units": [
+        {
+          "n": 4,
+          "name": "Halberdiers",
+          "role": "Brace the anti-large screen",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Greatswords",
+          "role": "Infantry reserve and support, not unsupported frontliners",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Amethyst Ironsides",
+          "role": "Treasured core; meets the relevant field-test count",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Nuln Ironsides",
+          "role": "Main firing sections",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Hochland Long Rifles",
+          "role": "Focus dangerous characters",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Amethyst Helstorm Rocket Battery",
+          "role": "Two elite batteries; keep them protected",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Cannons",
+          "role": "Large targets, gates and opposing artillery",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Knights of the Black Rose",
+          "role": "The Morrian escort; one controlled reserve",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Elspeth von Draken",
+          "role": "Death magic and command",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Theodore Bruckner",
+          "role": "Unique champion; Captain until unlocked",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Engineer",
+          "role": "Mobility and gun support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Warrior Priest",
+          "role": "Campaign replenishment and prayers",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Repeatable Lord; not a spellcaster",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Engineer",
+          "role": "Embedded mobility and missile support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Warrior Priest",
+          "role": "Campaign replenishment",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Amethyst Wizard",
+          "role": "Death toolkit for the generic company",
+          "kind": "character"
+        }
+      ],
+      "context": "Exactly five Amethyst units; legal at the ordinary per-army baseline. All substitutions remain within twenty slots.",
+      "notes": [
+        [
+          "Do not wait for the final unit",
+          "Use the Late template and convert one unit at a time. Route I’s three Ironsides and two rockets do not require the Amethyst Land Ship. Other routes can use an ordinary ship until the final Field Test permits its Amethyst counterpart."
+        ],
+        [
+          "Elspeth’s optional eight-slot cap",
+          "After The Amethyst Armourer, extra one-for-one conversions are possible where the list has a compatible ordinary unit. Eight is an allowance, not a target. More generic armies do not increase it beyond the researched allowance."
+        ],
+        [
+          "Generic armies and scarce purchases",
+          "The generic character package can use this roster, but every army needs its own five purchased units. Keep most supporting armies on the ordinary Late or Mid template; do not hold the campaign hostage to purple stock."
+        ]
+      ],
+      "plan": [
+        [
+          "Hold a shape you can recognise",
+          "Deploy the line in several separated blocks, with clear gun lanes between or around them. Guns need line of sight; artillery and rifles do not shoot through your own infantry. Protect both ends rather than making an unbroken crowd."
+        ],
+        [
+          "One mobile reserve, one target at a time",
+          "Keep the mounted escort, or the machines in the late survey column, as a controlled reserve. Intercept a threat or punish an exposed flank; do not send each unit after a different distant target."
+        ],
+        [
+          "When the opening is over",
+          "Turn off pursuit where it is breaking your formation. Bring idle units to one useful segment. Keep a reserve behind the line and retreat a threatened gun section rather than letting it become an isolated melee unit."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca",
+        "school",
+        "smart"
+      ]
+    },
+    "home": {
+      "label": "Home guard",
+      "name": "The local watch · 12 slots",
+      "supportName": "The local watch · 12 slots · supporting army",
+      "units": [
+        {
+          "n": 5,
+          "name": "Spearmen (Shields)",
+          "role": "Screen while a garrison or main army reinforces",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Handgunners",
+          "role": "Affordable armour-piercing damage",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Mortars",
+          "role": "Infantry pressure",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Empire Knights",
+          "role": "Reserve and pursuit",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "This is a supporting army, not Elspeth’s main stack",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Emergency/holding commander",
+          "kind": "character"
+        }
+      ],
+      "context": "Twelve slots by design. A garrison-backed response force, not a guarantee against an enemy full stack.",
+      "notes": [
+        [
+          "Grow it only when the threat requires it",
+          "Add Halberdiers, a Priest and better gun support towards the Mid template when a real front develops. Do not recruit a decorative full stack that leaves the expedition unaffordable."
+        ],
+        [
+          "Keep an honest defence plan",
+          "Know which army can reinforce, whether the settlement can be bypassed, and whether the enemy brings two armies. Garden travel is helpful for Elspeth, but a cooldown prevents it being a permanent universal answer."
+        ]
+      ],
+      "plan": [
+        [
+          "Hold a shape you can recognise",
+          "Deploy the line in several separated blocks, with clear gun lanes between or around them. Guns need line of sight; artillery and rifles do not shoot through your own infantry. Protect both ends rather than making an unbroken crowd."
+        ],
+        [
+          "One mobile reserve, one target at a time",
+          "Keep the mounted escort, or the machines in the late survey column, as a controlled reserve. Intercept a threat or punish an exposed flank; do not send each unit after a different distant target."
+        ],
+        [
+          "When the opening is over",
+          "Turn off pursuit where it is breaking your formation. Bring idle units to one useful segment. Keep a reserve behind the line and retreat a threatened gun section rather than letting it become an isolated melee unit."
+        ]
+      ],
+      "size": 12,
+      "sources": [
+        "ca",
+        "school",
+        "smart"
+      ]
+    }
+  },
+  "route-2": {
+    "early": {
+      "label": "Early",
+      "name": "The first Nuln column",
+      "supportName": "The first Nuln column · supporting army",
+      "units": [
+        {
+          "n": 8,
+          "name": "Spearmen (Shields)",
+          "role": "Affordable holding line; cover the frontage",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Crossbowmen",
+          "role": "Forgiving arcing fire before the full gunline",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Handgunners",
+          "role": "Early armour-piercing fire; retain for the named Field Test",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Mortars",
+          "role": "Infantry damage while learning clear firing positions",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Empire Knights",
+          "role": "One reserve group; pursuit and artillery protection",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Elspeth von Draken",
+          "role": "Magic and command",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Engineer",
+          "role": "Keep the starting/first available gun-support hero",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Repeatable commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Light Wizard",
+          "role": "A manual-battle control toolkit",
+          "kind": "character"
+        }
+      ],
+      "context": "An affordable early 20-slot destination. Keep useful starting elites and substitute by role; do not delete them to match the list.",
+      "notes": [
+        [
+          "Recruit towards this, not all at once",
+          "A developing army can remain below twenty until income supports it. When the hero is unavailable, replace that single slot with another shielded Spearman. A useful starting rocket, Ironside or rifle may replace one of the corresponding cheaper weapons."
+        ],
+        [
+          "Before the first Field Test is credited",
+          "Keep three ordinary Handgunners together with the named building requirement. Free Company Militia, Huntsmen and other unavailable or irrelevant units are not required."
+        ],
+        [
+          "Lower-cost escort",
+          "Use existing cavalry until you can afford the Empire Knights pair. When not working on the cavalry quest yet, another cheap infantry/ranged unit is a reasonable one-for-one stopgap."
+        ]
+      ],
+      "plan": [
+        [
+          "Hold a shape you can recognise",
+          "Deploy the line in several separated blocks, with clear gun lanes between or around them. Guns need line of sight; artillery and rifles do not shoot through your own infantry. Protect both ends rather than making an unbroken crowd."
+        ],
+        [
+          "One mobile reserve, one target at a time",
+          "Keep the mounted escort, or the machines in the late survey column, as a controlled reserve. Intercept a threat or punish an exposed flank; do not send each unit after a different distant target."
+        ],
+        [
+          "When the opening is over",
+          "Turn off pursuit where it is breaking your formation. Bring idle units to one useful segment. Keep a reserve behind the line and retreat a threatened gun section rather than letting it become an isolated melee unit."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca",
+        "school",
+        "smart"
+      ]
+    },
+    "mid": {
+      "label": "Mid",
+      "name": "The Countess’s field company",
+      "supportName": "The Countess’s field company · supporting army",
+      "units": [
+        {
+          "n": 5,
+          "name": "Halberdiers",
+          "role": "Anti-large line; not shielded against missiles",
+          "kind": "line"
+        },
+        {
+          "n": 1,
+          "name": "Greatswords",
+          "role": "One harder-hitting reserve, not the whole screen",
+          "kind": "line"
+        },
+        {
+          "n": 5,
+          "name": "Nuln Ironsides",
+          "role": "Core damage; keep still when firing",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Hochland Long Rifles",
+          "role": "Character / single-entity focus",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Mortars",
+          "role": "Infantry pressure until rocket production",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Cannons",
+          "role": "Long-range large-target answer",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Knights of the Black Rose",
+          "role": "Durable mounted escort; Theodore quest progress",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Elspeth von Draken",
+          "role": "Death magic and command",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Engineer",
+          "role": "Mobility and gun support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Theodore Bruckner",
+          "role": "Captain until his quest is complete",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Repeatable commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Warrior Priest",
+          "role": "Recovery for an independent column",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Light Wizard",
+          "role": "Control before decisive volleys",
+          "kind": "character"
+        }
+      ],
+      "context": "A developed tier-three army. Replace the Mortars with rockets later; do not wait for Amethyst access to fight.",
+      "notes": [
+        [
+          "The fourth support slot comes later",
+          "Add a Priest to Elspeth’s company when affordable by replacing the Greatsword or another appropriate single unit. The written template is twenty; a hero is not free space. Generic armies already carry the recovery hero, not Theodore."
+        ],
+        [
+          "Against armoured or monstrous armies",
+          "Keep the Great Cannon and enough Halberdiers. Do not trade away the last large-target answer for a third anti-infantry Mortar."
+        ],
+        [
+          "If the first Field Test remains unfinished",
+          "Replace three Ironsides with three ordinary Handgunners until the live requirement is met. This does not increase the stack size."
+        ]
+      ],
+      "plan": [
+        [
+          "Hold a shape you can recognise",
+          "Deploy the line in several separated blocks, with clear gun lanes between or around them. Guns need line of sight; artillery and rifles do not shoot through your own infantry. Protect both ends rather than making an unbroken crowd."
+        ],
+        [
+          "One mobile reserve, one target at a time",
+          "Keep the mounted escort, or the machines in the late survey column, as a controlled reserve. Intercept a threat or punish an exposed flank; do not send each unit after a different distant target."
+        ],
+        [
+          "When the opening is over",
+          "Turn off pursuit where it is breaking your formation. Bring idle units to one useful segment. Keep a reserve behind the line and retreat a threatened gun section rather than letting it become an isolated melee unit."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca",
+        "school",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "ca",
+        "school",
+        "smart"
+      ]
+    },
+    "late": {
+      "label": "Late",
+      "name": "The southern charter column",
+      "supportName": "The southern charter column · supporting army",
+      "units": [
+        {
+          "n": 4,
+          "name": "Halberdiers",
+          "role": "Hold the main approach",
+          "kind": "line"
+        },
+        {
+          "n": 1,
+          "name": "Greatswords",
+          "role": "A reserve to repair a pressured infantry segment",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Nuln Ironsides",
+          "role": "Disciplined Nuln firepower",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Hochland Long Rifles",
+          "role": "High-value targets",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Helstorm Rocket Battery",
+          "role": "Siege and infantry pressure",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Cannons",
+          "role": "Large-target and counter-battery work",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Land Ship",
+          "role": "Charter flagship; protected mobile firepower",
+          "kind": "machine"
+        },
+        {
+          "n": 2,
+          "name": "Knights of the Black Rose",
+          "role": "Protect the expedition’s rear",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Elspeth von Draken",
+          "role": "Death magic and command",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Theodore Bruckner",
+          "role": "Unique champion; Captain until unlocked",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Engineer",
+          "role": "Mobility and gun support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Warrior Priest",
+          "role": "Campaign replenishment and prayers",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Repeatable Lord; not a spellcaster",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Engineer",
+          "role": "Embedded mobility and missile support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Warrior Priest",
+          "role": "Campaign replenishment",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Light Wizard",
+          "role": "Control for the mixed industrial column",
+          "kind": "character"
+        }
+      ],
+      "context": "A thematic late-game destination, not a minimum requirement for the selected VCO victory.",
+      "notes": [
+        [
+          "What is genuinely repeatable",
+          "Copy the generic commander version for ordinary armies when hero capacity allows it. Captain substitutes for Theodore only in Elspeth’s version; the generic roster has its own four-character package. Army-specific Elspeth skills and Garden travel do not transfer."
+        ],
+        [
+          "Affordable progression",
+          "Change one or two roles at a time and transfer displaced veterans to a relief army. Maintaining campaign momentum is better than sitting in Nuln for a perfect rebuild while targets expand."
+        ],
+        [
+          "Protect the machine theme",
+          "Keep machines behind or beside the line until a safe use of their mass opens. A Land Ship can be trapped by terrain and anti-large units; healing does not make it invulnerable."
+        ],
+        [
+          "An optional anti-large adjustment",
+          "Against repeated large-unit pressure, replace one Greatsword or anti-infantry battery with another Halberd/cannon-type answer as appropriate. Keep the total at twenty."
+        ]
+      ],
+      "plan": [
+        [
+          "Hold a shape you can recognise",
+          "Deploy the line in several separated blocks, with clear gun lanes between or around them. Guns need line of sight; artillery and rifles do not shoot through your own infantry. Protect both ends rather than making an unbroken crowd."
+        ],
+        [
+          "One mobile reserve, one target at a time",
+          "Keep the mounted escort, or the machines in the late survey column, as a controlled reserve. Intercept a threat or punish an exposed flank; do not send each unit after a different distant target."
+        ],
+        [
+          "When the opening is over",
+          "Turn off pursuit where it is breaking your formation. Bring idle units to one useful segment. Keep a reserve behind the line and retreat a threatened gun section rather than letting it become an isolated melee unit."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca",
+        "school",
+        "smart"
+      ]
+    },
+    "amethyst": {
+      "label": "Amethyst",
+      "name": "The southern charter column · Amethyst detachment",
+      "supportName": "The southern charter column · Amethyst detachment · supporting army",
+      "units": [
+        {
+          "n": 4,
+          "name": "Halberdiers",
+          "role": "Hold the main approach",
+          "kind": "line"
+        },
+        {
+          "n": 1,
+          "name": "Greatswords",
+          "role": "A reserve to repair a pressured infantry segment",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Amethyst Ironsides",
+          "role": "Treasured core; meets the relevant field-test count",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Nuln Ironsides",
+          "role": "Disciplined Nuln firepower",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Hochland Long Rifles",
+          "role": "High-value targets",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Helstorm Rocket Battery",
+          "role": "Siege and infantry pressure",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Cannons",
+          "role": "Large-target and counter-battery work",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Amethyst Land Ship",
+          "role": "Final Field Test unlock; use ordinary ship until then",
+          "kind": "machine"
+        },
+        {
+          "n": 2,
+          "name": "Knights of the Black Rose",
+          "role": "Protect the expedition’s rear",
+          "kind": "cavalry"
+        },
+        {
+          "n": 1,
+          "name": "Amethyst Helstorm Rocket Battery",
+          "role": "Signature enchanted artillery",
+          "kind": "artillery"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Elspeth von Draken",
+          "role": "Death magic and command",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Theodore Bruckner",
+          "role": "Unique champion; Captain until unlocked",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Engineer",
+          "role": "Mobility and gun support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Warrior Priest",
+          "role": "Campaign replenishment and prayers",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Repeatable Lord; not a spellcaster",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Engineer",
+          "role": "Embedded mobility and missile support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Warrior Priest",
+          "role": "Campaign replenishment",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Light Wizard",
+          "role": "Control for the mixed industrial column",
+          "kind": "character"
+        }
+      ],
+      "context": "Exactly five Amethyst units; legal at the ordinary per-army baseline. All substitutions remain within twenty slots.",
+      "notes": [
+        [
+          "Do not wait for the final unit",
+          "Use the Late template and convert one unit at a time. Route I’s three Ironsides and two rockets do not require the Amethyst Land Ship. Other routes can use an ordinary ship until the final Field Test permits its Amethyst counterpart."
+        ],
+        [
+          "Elspeth’s optional eight-slot cap",
+          "After The Amethyst Armourer, extra one-for-one conversions are possible where the list has a compatible ordinary unit. Eight is an allowance, not a target. More generic armies do not increase it beyond the researched allowance."
+        ],
+        [
+          "Generic armies and scarce purchases",
+          "The generic character package can use this roster, but every army needs its own five purchased units. Keep most supporting armies on the ordinary Late or Mid template; do not hold the campaign hostage to purple stock."
+        ]
+      ],
+      "plan": [
+        [
+          "Hold a shape you can recognise",
+          "Deploy the line in several separated blocks, with clear gun lanes between or around them. Guns need line of sight; artillery and rifles do not shoot through your own infantry. Protect both ends rather than making an unbroken crowd."
+        ],
+        [
+          "One mobile reserve, one target at a time",
+          "Keep the mounted escort, or the machines in the late survey column, as a controlled reserve. Intercept a threat or punish an exposed flank; do not send each unit after a different distant target."
+        ],
+        [
+          "When the opening is over",
+          "Turn off pursuit where it is breaking your formation. Bring idle units to one useful segment. Keep a reserve behind the line and retreat a threatened gun section rather than letting it become an isolated melee unit."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca",
+        "school",
+        "smart"
+      ]
+    },
+    "home": {
+      "label": "Home guard",
+      "name": "The local watch · 12 slots",
+      "supportName": "The local watch · 12 slots · supporting army",
+      "units": [
+        {
+          "n": 5,
+          "name": "Spearmen (Shields)",
+          "role": "Screen while a garrison or main army reinforces",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Handgunners",
+          "role": "Affordable armour-piercing damage",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Mortars",
+          "role": "Infantry pressure",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Empire Knights",
+          "role": "Reserve and pursuit",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "This is a supporting army, not Elspeth’s main stack",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Emergency/holding commander",
+          "kind": "character"
+        }
+      ],
+      "context": "Twelve slots by design. A garrison-backed response force, not a guarantee against an enemy full stack.",
+      "notes": [
+        [
+          "Grow it only when the threat requires it",
+          "Add Halberdiers, a Priest and better gun support towards the Mid template when a real front develops. Do not recruit a decorative full stack that leaves the expedition unaffordable."
+        ],
+        [
+          "Keep an honest defence plan",
+          "Know which army can reinforce, whether the settlement can be bypassed, and whether the enemy brings two armies. Garden travel is helpful for Elspeth, but a cooldown prevents it being a permanent universal answer."
+        ]
+      ],
+      "plan": [
+        [
+          "Hold a shape you can recognise",
+          "Deploy the line in several separated blocks, with clear gun lanes between or around them. Guns need line of sight; artillery and rifles do not shoot through your own infantry. Protect both ends rather than making an unbroken crowd."
+        ],
+        [
+          "One mobile reserve, one target at a time",
+          "Keep the mounted escort, or the machines in the late survey column, as a controlled reserve. Intercept a threat or punish an exposed flank; do not send each unit after a different distant target."
+        ],
+        [
+          "When the opening is over",
+          "Turn off pursuit where it is breaking your formation. Bring idle units to one useful segment. Keep a reserve behind the line and retreat a threatened gun section rather than letting it become an isolated melee unit."
+        ]
+      ],
+      "size": 12,
+      "sources": [
+        "ca",
+        "school",
+        "smart"
+      ]
+    }
+  },
+  "route-3": {
+    "early": {
+      "label": "Early",
+      "name": "The first Nuln column",
+      "supportName": "The first Nuln column · supporting army",
+      "units": [
+        {
+          "n": 8,
+          "name": "Spearmen (Shields)",
+          "role": "Affordable holding line; cover the frontage",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Crossbowmen",
+          "role": "Forgiving arcing fire before the full gunline",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Handgunners",
+          "role": "Early armour-piercing fire; retain for the named Field Test",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Mortars",
+          "role": "Infantry damage while learning clear firing positions",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Empire Knights",
+          "role": "One reserve group; pursuit and artillery protection",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Elspeth von Draken",
+          "role": "Magic and command",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Engineer",
+          "role": "Keep the starting/first available gun-support hero",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Repeatable commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Light Wizard",
+          "role": "A manual-battle control toolkit",
+          "kind": "character"
+        }
+      ],
+      "context": "An affordable early 20-slot destination. Keep useful starting elites and substitute by role; do not delete them to match the list.",
+      "notes": [
+        [
+          "Recruit towards this, not all at once",
+          "A developing army can remain below twenty until income supports it. When the hero is unavailable, replace that single slot with another shielded Spearman. A useful starting rocket, Ironside or rifle may replace one of the corresponding cheaper weapons."
+        ],
+        [
+          "Before the first Field Test is credited",
+          "Keep three ordinary Handgunners together with the named building requirement. Free Company Militia, Huntsmen and other unavailable or irrelevant units are not required."
+        ],
+        [
+          "Lower-cost escort",
+          "Use existing cavalry until you can afford the Empire Knights pair. When not working on the cavalry quest yet, another cheap infantry/ranged unit is a reasonable one-for-one stopgap."
+        ]
+      ],
+      "plan": [
+        [
+          "Hold a shape you can recognise",
+          "Deploy the line in several separated blocks, with clear gun lanes between or around them. Guns need line of sight; artillery and rifles do not shoot through your own infantry. Protect both ends rather than making an unbroken crowd."
+        ],
+        [
+          "One mobile reserve, one target at a time",
+          "Keep the mounted escort, or the machines in the late survey column, as a controlled reserve. Intercept a threat or punish an exposed flank; do not send each unit after a different distant target."
+        ],
+        [
+          "When the opening is over",
+          "Turn off pursuit where it is breaking your formation. Bring idle units to one useful segment. Keep a reserve behind the line and retreat a threatened gun section rather than letting it become an isolated melee unit."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca",
+        "school",
+        "smart"
+      ]
+    },
+    "mid": {
+      "label": "Mid",
+      "name": "The Countess’s field company",
+      "supportName": "The Countess’s field company · supporting army",
+      "units": [
+        {
+          "n": 5,
+          "name": "Halberdiers",
+          "role": "Anti-large line; not shielded against missiles",
+          "kind": "line"
+        },
+        {
+          "n": 1,
+          "name": "Greatswords",
+          "role": "One harder-hitting reserve, not the whole screen",
+          "kind": "line"
+        },
+        {
+          "n": 5,
+          "name": "Nuln Ironsides",
+          "role": "Core damage; keep still when firing",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Hochland Long Rifles",
+          "role": "Character / single-entity focus",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Mortars",
+          "role": "Infantry pressure until rocket production",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Cannons",
+          "role": "Long-range large-target answer",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Knights of the Black Rose",
+          "role": "Durable mounted escort; Theodore quest progress",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Elspeth von Draken",
+          "role": "Death magic and command",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Engineer",
+          "role": "Mobility and gun support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Theodore Bruckner",
+          "role": "Captain until his quest is complete",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Repeatable commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Warrior Priest",
+          "role": "Recovery for an independent column",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Light Wizard",
+          "role": "Control before decisive volleys",
+          "kind": "character"
+        }
+      ],
+      "context": "A developed tier-three army. Replace the Mortars with rockets later; do not wait for Amethyst access to fight.",
+      "notes": [
+        [
+          "The fourth support slot comes later",
+          "Add a Priest to Elspeth’s company when affordable by replacing the Greatsword or another appropriate single unit. The written template is twenty; a hero is not free space. Generic armies already carry the recovery hero, not Theodore."
+        ],
+        [
+          "Against armoured or monstrous armies",
+          "Keep the Great Cannon and enough Halberdiers. Do not trade away the last large-target answer for a third anti-infantry Mortar."
+        ],
+        [
+          "If the first Field Test remains unfinished",
+          "Replace three Ironsides with three ordinary Handgunners until the live requirement is met. This does not increase the stack size."
+        ]
+      ],
+      "plan": [
+        [
+          "Hold a shape you can recognise",
+          "Deploy the line in several separated blocks, with clear gun lanes between or around them. Guns need line of sight; artillery and rifles do not shoot through your own infantry. Protect both ends rather than making an unbroken crowd."
+        ],
+        [
+          "One mobile reserve, one target at a time",
+          "Keep the mounted escort, or the machines in the late survey column, as a controlled reserve. Intercept a threat or punish an exposed flank; do not send each unit after a different distant target."
+        ],
+        [
+          "When the opening is over",
+          "Turn off pursuit where it is breaking your formation. Bring idle units to one useful segment. Keep a reserve behind the line and retreat a threatened gun section rather than letting it become an isolated melee unit."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca",
+        "school",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "ca",
+        "school",
+        "smart"
+      ]
+    },
+    "late": {
+      "label": "Late",
+      "name": "The Fozzrik survey company",
+      "supportName": "The Fozzrik survey company · supporting army",
+      "units": [
+        {
+          "n": 4,
+          "name": "Halberdiers",
+          "role": "Protect machines from a large-unit rush",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Greatswords",
+          "role": "A stronger reserve for the expedition",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Nuln Ironsides",
+          "role": "Core gunline",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Hochland Long Rifles",
+          "role": "Survey marksmen; focus important targets",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Great Cannons",
+          "role": "Reach and large-target damage",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Helstorm Rocket Battery",
+          "role": "One infantry-clearing battery",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Steam Tank",
+          "role": "Armoured fire support; tier-five ambition",
+          "kind": "machine"
+        },
+        {
+          "n": 1,
+          "name": "Land Ship",
+          "role": "The field laboratory’s protected centrepiece",
+          "kind": "machine"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Elspeth von Draken",
+          "role": "Death magic and command",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Theodore Bruckner",
+          "role": "Unique champion; Captain until unlocked",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Engineer",
+          "role": "Mobility and gun support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Jade Wizard",
+          "role": "Manual healing for the developed machine contingent",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Repeatable Lord; not a spellcaster",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Engineer",
+          "role": "Embedded mobility and missile support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Warrior Priest",
+          "role": "Campaign replenishment",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Jade Wizard",
+          "role": "Life support; the Priest still supplies campaign recovery",
+          "kind": "character"
+        }
+      ],
+      "context": "A thematic late-game destination, not a minimum requirement for the selected VCO victory.",
+      "notes": [
+        [
+          "What is genuinely repeatable",
+          "Copy the generic commander version for ordinary armies when hero capacity allows it. Captain substitutes for Theodore only in Elspeth’s version; the generic roster has its own four-character package. Army-specific Elspeth skills and Garden travel do not transfer."
+        ],
+        [
+          "Affordable progression",
+          "Change one or two roles at a time and transfer displaced veterans to a relief army. Maintaining campaign momentum is better than sitting in Nuln for a perfect rebuild while targets expand."
+        ],
+        [
+          "Protect the machine theme",
+          "Keep machines behind or beside the line until a safe use of their mass opens. A Land Ship can be trapped by terrain and anti-large units; healing does not make it invulnerable."
+        ],
+        [
+          "Before tier five",
+          "Replace the Steam Tank with another Great Cannon and keep the earlier escort package until its new job is ready. The VCO search itself does not require a tank."
+        ]
+      ],
+      "plan": [
+        [
+          "Hold a shape you can recognise",
+          "Deploy the line in several separated blocks, with clear gun lanes between or around them. Guns need line of sight; artillery and rifles do not shoot through your own infantry. Protect both ends rather than making an unbroken crowd."
+        ],
+        [
+          "One mobile reserve, one target at a time",
+          "Keep the mounted escort, or the machines in the late survey column, as a controlled reserve. Intercept a threat or punish an exposed flank; do not send each unit after a different distant target."
+        ],
+        [
+          "When the opening is over",
+          "Turn off pursuit where it is breaking your formation. Bring idle units to one useful segment. Keep a reserve behind the line and retreat a threatened gun section rather than letting it become an isolated melee unit."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca",
+        "school",
+        "smart"
+      ]
+    },
+    "amethyst": {
+      "label": "Amethyst",
+      "name": "The Fozzrik survey company · Amethyst detachment",
+      "supportName": "The Fozzrik survey company · Amethyst detachment · supporting army",
+      "units": [
+        {
+          "n": 4,
+          "name": "Halberdiers",
+          "role": "Protect machines from a large-unit rush",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Greatswords",
+          "role": "A stronger reserve for the expedition",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Amethyst Ironsides",
+          "role": "Treasured core; meets the relevant field-test count",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Nuln Ironsides",
+          "role": "Core gunline",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Hochland Long Rifles",
+          "role": "Survey marksmen; focus important targets",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Great Cannons",
+          "role": "Reach and large-target damage",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Steam Tank",
+          "role": "Armoured fire support; tier-five ambition",
+          "kind": "machine"
+        },
+        {
+          "n": 1,
+          "name": "Amethyst Land Ship",
+          "role": "Final Field Test unlock; use ordinary ship until then",
+          "kind": "machine"
+        },
+        {
+          "n": 1,
+          "name": "Amethyst Helstorm Rocket Battery",
+          "role": "Signature enchanted artillery",
+          "kind": "artillery"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Elspeth von Draken",
+          "role": "Death magic and command",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Theodore Bruckner",
+          "role": "Unique champion; Captain until unlocked",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Engineer",
+          "role": "Mobility and gun support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Jade Wizard",
+          "role": "Manual healing for the developed machine contingent",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Repeatable Lord; not a spellcaster",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Engineer",
+          "role": "Embedded mobility and missile support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Warrior Priest",
+          "role": "Campaign replenishment",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Jade Wizard",
+          "role": "Life support; the Priest still supplies campaign recovery",
+          "kind": "character"
+        }
+      ],
+      "context": "Exactly five Amethyst units; legal at the ordinary per-army baseline. All substitutions remain within twenty slots.",
+      "notes": [
+        [
+          "Do not wait for the final unit",
+          "Use the Late template and convert one unit at a time. Route I’s three Ironsides and two rockets do not require the Amethyst Land Ship. Other routes can use an ordinary ship until the final Field Test permits its Amethyst counterpart."
+        ],
+        [
+          "Elspeth’s optional eight-slot cap",
+          "After The Amethyst Armourer, extra one-for-one conversions are possible where the list has a compatible ordinary unit. Eight is an allowance, not a target. More generic armies do not increase it beyond the researched allowance."
+        ],
+        [
+          "Generic armies and scarce purchases",
+          "The generic character package can use this roster, but every army needs its own five purchased units. Keep most supporting armies on the ordinary Late or Mid template; do not hold the campaign hostage to purple stock."
+        ]
+      ],
+      "plan": [
+        [
+          "Hold a shape you can recognise",
+          "Deploy the line in several separated blocks, with clear gun lanes between or around them. Guns need line of sight; artillery and rifles do not shoot through your own infantry. Protect both ends rather than making an unbroken crowd."
+        ],
+        [
+          "One mobile reserve, one target at a time",
+          "Keep the mounted escort, or the machines in the late survey column, as a controlled reserve. Intercept a threat or punish an exposed flank; do not send each unit after a different distant target."
+        ],
+        [
+          "When the opening is over",
+          "Turn off pursuit where it is breaking your formation. Bring idle units to one useful segment. Keep a reserve behind the line and retreat a threatened gun section rather than letting it become an isolated melee unit."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca",
+        "school",
+        "smart"
+      ]
+    },
+    "home": {
+      "label": "Home guard",
+      "name": "The local watch · 12 slots",
+      "supportName": "The local watch · 12 slots · supporting army",
+      "units": [
+        {
+          "n": 5,
+          "name": "Spearmen (Shields)",
+          "role": "Screen while a garrison or main army reinforces",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Handgunners",
+          "role": "Affordable armour-piercing damage",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Mortars",
+          "role": "Infantry pressure",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Empire Knights",
+          "role": "Reserve and pursuit",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "This is a supporting army, not Elspeth’s main stack",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Emergency/holding commander",
+          "kind": "character"
+        }
+      ],
+      "context": "Twelve slots by design. A garrison-backed response force, not a guarantee against an enemy full stack.",
+      "notes": [
+        [
+          "Grow it only when the threat requires it",
+          "Add Halberdiers, a Priest and better gun support towards the Mid template when a real front develops. Do not recruit a decorative full stack that leaves the expedition unaffordable."
+        ],
+        [
+          "Keep an honest defence plan",
+          "Know which army can reinforce, whether the settlement can be bypassed, and whether the enemy brings two armies. Garden travel is helpful for Elspeth, but a cooldown prevents it being a permanent universal answer."
+        ]
+      ],
+      "plan": [
+        [
+          "Hold a shape you can recognise",
+          "Deploy the line in several separated blocks, with clear gun lanes between or around them. Guns need line of sight; artillery and rifles do not shoot through your own infantry. Protect both ends rather than making an unbroken crowd."
+        ],
+        [
+          "One mobile reserve, one target at a time",
+          "Keep the mounted escort, or the machines in the late survey column, as a controlled reserve. Intercept a threat or punish an exposed flank; do not send each unit after a different distant target."
+        ],
+        [
+          "When the opening is over",
+          "Turn off pursuit where it is breaking your formation. Bring idle units to one useful segment. Keep a reserve behind the line and retreat a threatened gun section rather than letting it become an isolated melee unit."
+        ]
+      ],
+      "size": 12,
+      "sources": [
+        "ca",
+        "school",
+        "smart"
+      ]
+    }
+  }
+}

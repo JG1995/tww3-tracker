@@ -9,10 +9,12 @@
  * datasets present — `skills` as the atlas's ten typed entries (package
  * `skills-dataset`), `research` as the atlas's four typed research groups (package
  * `research-dataset`), `buildings` as the atlas's nine typed settlement-role
- * entries (package `buildings-dataset`), and `mechanics` as the atlas's five
+ * entries (package `buildings-dataset`), `mechanics` as the atlas's five
  * typed mechanic entries with the folded field tests, upgrades and Amethyst
- * paths (package `mechanics-dataset`), the other two still the typed empty
- * objects — canonical `panelOrder` blocks with empty lists, and all seven
+ * paths (package `mechanics-dataset`), and `armies` as the atlas's fifteen
+ * typed army templates with the `elspeth` column renamed to `legendary`
+ * (package `armies-dataset`), the remaining one (`vco`) still the typed empty
+ * object — canonical `panelOrder` blocks with empty lists, and all seven
  * declared gaps per route.
  */
 
@@ -94,7 +96,7 @@ test("the sources dataset round-trips the extract's 35 sources including vco-gui
   }
 });
 
-test("all seven datasets are present and the two non-source datasets are still the typed empty objects", async () => {
+test("all seven datasets are present and the one non-source dataset is still the typed empty object", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
 
   const datasets = tree.lords[0].datasets;
@@ -109,6 +111,7 @@ test("all seven datasets are present and the two non-source datasets are still t
     if (dataset.name === "research") continue; // migrated — asserted by its own test below
     if (dataset.name === "buildings") continue; // migrated — asserted by its own test below
     if (dataset.name === "mechanics") continue; // migrated — asserted by its own test below
+    if (dataset.name === "armies") continue; // migrated — asserted by its own test below
     assert.deepEqual(dataset.value, {}, `${dataset.name} is the typed empty object`);
   }
 });
@@ -563,6 +566,105 @@ test("the committed mechanics dataset is the atlas's five typed item entries wit
     assert.ok(pair[1].includes(chain), `amethyst path "${name}" keeps its atlas path chain verbatim`);
     assert.ok(pair[1].includes(note), `amethyst path "${name}" keeps its atlas note verbatim`);
   }
+});
+
+test("the committed armies dataset is the atlas's fifteen typed army templates with the legendary column", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const datasets = tree.lords[0].datasets;
+
+  const sources = datasets.find((d) => d.name === "sources");
+  assert.ok(sources !== undefined && sources.name === "sources");
+  const sourceIds = new Set(sources.value.map((s) => s.id));
+
+  const armies = datasets.find((d) => d.name === "armies");
+  assert.ok(armies !== undefined && armies.name === "armies");
+  const routes = armies.value;
+  assert.deepEqual(
+    Object.keys(routes),
+    ["route-1", "route-2", "route-3"],
+    "armies holds exactly the three guide.json route ids, in guide order",
+  );
+  const entryIds = ["early", "mid", "late", "amethyst", "home"];
+  const states = new Set(["confirmed", "historical", "inferred", "verify-in-campaign"]);
+  for (const [routeId, map] of Object.entries(routes)) {
+    assert.deepEqual(
+      Object.keys(map),
+      entryIds,
+      `${routeId} holds exactly the atlas's five army ids in atlas order`,
+    );
+    for (const [id, army] of Object.entries(map)) {
+      for (const key of ["label", "name"] as const) {
+        assert.equal(typeof army[key], "string", `${routeId}.${id}.${key} is a string`);
+        assert.ok(army[key].length > 0, `${routeId}.${id}.${key} is non-empty`);
+      }
+      for (const column of ["units", "legendary", "generic"] as const) {
+        assert.ok(Array.isArray(army[column]), `${routeId}.${id}.${column} is a column list`);
+        for (const row of army[column]) {
+          assert.equal(typeof row.n, "number", `${routeId}.${id}.${column} row n is numeric`);
+          for (const key of ["name", "role", "kind"] as const) {
+            assert.equal(typeof row[key], "string", `${routeId}.${id}.${column} row ${key} is a string`);
+            assert.ok(row[key] !== "", `${routeId}.${id}.${column} row ${key} is non-empty`);
+          }
+        }
+      }
+      assert.ok(
+        !("elspeth" in army),
+        `${routeId}.${id} has no "elspeth" key — the atlas column committed as "legendary"`,
+      );
+      for (const key of ["notes", "plan"] as const) {
+        assert.ok(Array.isArray(army[key]), `${routeId}.${id}.${key} is a list of [title, body] pairs`);
+        for (const pair of army[key]) {
+          assert.ok(Array.isArray(pair) && pair.length === 2, `${routeId}.${id}.${key} entries are [title, body] pairs`);
+          assert.equal(typeof pair[0], "string");
+          assert.equal(typeof pair[1], "string");
+        }
+      }
+      assert.equal(typeof army.size, "number", `${routeId}.${id}.size is numeric`);
+      assert.ok(Array.isArray(army.sources) && army.sources.length > 0, `${routeId}.${id} lists its sources`);
+      for (const src of army.sources) {
+        assert.equal(typeof src, "string", `${routeId}.${id} source ids are strings`);
+        assert.ok(sourceIds.has(src), `${routeId}.${id} source id "${src}" resolves against data/sources.json`);
+      }
+      if (army.state !== undefined) {
+        assert.ok(states.has(army.state), `${routeId}.${id} state is one of the four confidence states`);
+        assert.ok(Array.isArray(army.src) && army.src.length > 0, `${routeId}.${id} state/src travel together`);
+        for (const src of army.src ?? []) {
+          assert.ok(sourceIds.has(src), `${routeId}.${id} src id "${src}" resolves against data/sources.json`);
+        }
+      }
+    }
+  }
+
+  // The atlas's `elspeth` column is committed under the F2 `legendary` name —
+  // the same unit-row shape with its contents verbatim. Spot-check the
+  // rename on route-1 early and one long unit list on route-2 late (long
+  // lists are untruncated: "if a list is long, the list is long").
+  const routeOneEarly = routes["route-1"].early;
+  assert.deepEqual(
+    routeOneEarly.legendary.map((row) => row.name),
+    ["Elspeth von Draken", "Engineer"],
+    "route-1 early's legendary column carries the atlas's Elspeth column verbatim",
+  );
+  assert.deepEqual(
+    routes["route-2"].late.units.map((row) => row.name),
+    [
+      "Halberdiers",
+      "Greatswords",
+      "Nuln Ironsides",
+      "Hochland Long Rifles",
+      "Helstorm Rocket Battery",
+      "Great Cannons",
+      "Land Ship",
+      "Knights of the Black Rose",
+    ],
+    "route-2 late keeps its full eight-row unit list, untruncated",
+  );
+  assert.equal(
+    routes["route-2"].late.units[0].n,
+    4,
+    "route-2 late unit rows carry the atlas's numeric n counts verbatim",
+  );
+  assert.equal(routes["route-3"].home.size, 12, "the home guard army carries its atlas size verbatim");
 });
 
 test("every route's panelOrder has exactly the five canonical group keys with empty lists", async () => {
