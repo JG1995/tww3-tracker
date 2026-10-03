@@ -5,3 +5,4 @@ scripts/
 .wiki/features/templates/
 node_modules/
 dist/
+.local/

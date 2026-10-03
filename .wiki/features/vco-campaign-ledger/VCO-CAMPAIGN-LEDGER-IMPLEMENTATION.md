@@ -139,7 +139,7 @@ Commit 1 (server ledger root + gitignore) → Commit 2 (pure model) → Commit 4
 
 #### Package `server-ledger-surface` — Commit 1: The ledger store root on the local server
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 1
 
