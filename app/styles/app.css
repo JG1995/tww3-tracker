@@ -585,6 +585,150 @@ button {
   color: var(--color-on-surface-variant);
 }
 
+/* ─── Flagged-items section (DESIGN §5/§6; package `flagged-list`) ─────────
+   The re-check list that closes the lord page: every verify-in-campaign
+   claim from the single flagged selector, grouped by location with mono
+   group headings in the selector's stable order. Each entry is the compact
+   row — mono location label, claim text, Confidence Badge, body-sm source
+   notes beneath, and the location link where the hash router reaches it.
+   Rows are hairline-divided (1px outline-variant, between rows only),
+   `stack-sm` rhythm; the explicit cleared state lives in the success
+   palette — never blank space. The section id is the version-banner chip's
+   future scroll target, so it carries the section-anchor scroll treatment
+   (clears the sticky nav + tab strip). Transitions ride the
+   `--transition-standard` band and are disabled by the
+   `prefers-reduced-motion` block at the end of this file. */
+
+.flagged-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-sm);
+  /* Anchor-target treatment — the same as the route-section headings. */
+  scroll-margin-top: calc(var(--space-header-height) + var(--space-stack-sm));
+}
+
+.flagged-items__title {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+.flagged-items__groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-md);
+}
+
+.flagged-items__group {
+  display: flex;
+  flex-direction: column;
+}
+
+.flagged-items__group-heading {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface);
+}
+
+/* One compact DESIGN §6 row; the first row sits next to its group heading,
+   later rows are split by the hairline divider. */
+.flagged-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-xs);
+  padding-block: var(--space-stack-sm);
+}
+
+.flagged-item + .flagged-item {
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+.flagged-item__location {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+.flagged-item__claim {
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-on-surface);
+}
+
+.flagged-item__notes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-xs);
+}
+
+.flagged-item__note {
+  font-family: var(--font-body-sm-family), var(--font-sans-fallback);
+  font-size: var(--font-body-sm-size);
+  font-weight: var(--font-body-sm-weight);
+  line-height: var(--font-body-sm-line-height);
+  color: var(--color-on-surface-variant);
+}
+
+/* The location link — an ordinary link with perceivable text, keyboard-
+   reachable with the global :focus-visible ring (underline like the badge
+   source links; the mono instrument voice). */
+.flagged-item__link {
+  align-self: flex-start;
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-decoration: underline;
+  text-underline-offset: var(--space-stack-xs);
+  color: var(--color-on-surface);
+  transition: var(--transition-standard);
+}
+
+/* The explicit cleared empty state — success palette, reads as complete. */
+.flagged-items__cleared {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-xs);
+  border: 1px solid var(--color-success);
+  border-radius: var(--radius-md);
+  padding: var(--space-stack-md);
+  background: color-mix(in srgb, transparent 85%, var(--color-success-container));
+}
+
+.flagged-items__cleared-label {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-success);
+}
+
+.flagged-items__cleared-copy {
+  max-width: 60ch;
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-on-surface);
+}
+
 /* ─── Route page: identity card (bone), body, declared gaps ────────────── */
 
 .route-page {

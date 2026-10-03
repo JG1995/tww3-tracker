@@ -228,7 +228,7 @@ Commit 1 (callout section attribution) → Commit 2 (flagged selector) → Commi
 
 #### Package `flagged-list` — Commit 4: Flagged-items section on the lord page
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 3
 

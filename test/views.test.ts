@@ -35,6 +35,7 @@ import { fileURLToPath } from "node:url";
 import { lintContent } from "../app/content/lint.ts";
 import { loadContentTree } from "../app/content/load.ts";
 import {
+  getFlaggedEntries,
   getLord,
   getPanelEntries,
   getRoute,
@@ -1385,4 +1386,241 @@ test("a section citing the same source twice renders the source once in its pane
       );
     },
   );
+});
+
+/* ─── The flagged-items section on the lord page (package flagged-list) ──────── */
+
+/** The recorded subtree of the lord page's flagged section (the `flagged-items` anchor + rows). */
+function flaggedSectionNodes(view: unknown): VNodeRecord[] {
+  const nodes = recordVNodes(view);
+  const section = nodes.find((n) => n.props.id === "flagged-items");
+  assert.ok(section !== undefined, "the lord page renders the flagged-items section");
+  return recordVNodes(section);
+}
+
+/** One flag row's assertions surface: kind (from the row class) + its mono location label. */
+interface FlaggedRow {
+  readonly kind: string;
+  readonly location: string;
+  readonly node: VNodeRecord;
+}
+
+/** The flagged entry rows in document order, each with its mono location label. */
+function flaggedRows(section: VNodeRecord[]): FlaggedRow[] {
+  const rows = section.filter((n) => String(n.props.className ?? "").startsWith("flagged-item "));
+  return rows.map((node) => {
+    const kind = String(node.props.className).replace("flagged-item flagged-item--", "");
+    const location = recordVNodes(node).find((n) => n.props.className === "flagged-item__location");
+    return {
+      kind,
+      location: location === undefined || location.children[0] === undefined ? "" : String(location.children[0]),
+      node,
+    };
+  });
+}
+
+test("the lord page ends with the flagged section rendering all 36 committed entries in the selector's stable order", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const view = LordView({ lord: lord.value });
+  const text = vnodeText(view);
+  const sections = recordVNodes(view);
+
+  // the flagged section closes the page, after the routes list
+  const article = sections[0];
+  const lastChild = article.children[article.children.length - 1] as { props?: { id?: string } };
+  assert.equal(lastChild.props?.id, "flagged-items", "the flagged section is the last region of the lord page");
+  assert.ok(text.indexOf("Routes") < text.indexOf("VERIFY IN CAMPAIGN"), "the flagged section follows the routes list");
+  const section = flaggedSectionNodes(view);
+  assert.ok(
+    section.some((n) => n.props.className === "flagged-items__title"),
+    "the mono uppercase eyebrow names the re-check list",
+  );
+
+  // every committed flagged claim renders as exactly one row: 6 identity + 5
+  // callout + 22 dataset + 3 vco
+  const rows = flaggedRows(section);
+  assert.equal(rows.length, 36, "all 36 committed flagged entries render");
+  const byKind = { identity: 0, callout: 0, dataset: 0, vco: 0 };
+  for (const row of rows) byKind[row.kind as keyof typeof byKind] += 1;
+  assert.deepEqual(byKind, { identity: 6, callout: 5, dataset: 22, vco: 3 }, "family counts over the committed tree");
+
+  // the view renders the single selector's output once and unchanged — the row
+  // kinds reproduce the selector's exact kind sequence, so no re-sorting can
+  // hide behind the grouping (routes in manifest order; within a route:
+  // identity, then callouts, then panels in PANEL_GROUPS order, then vco)
+  const expectedKinds = getFlaggedEntries(lord.value).map((e) => e.kind);
+  assert.deepEqual(
+    rows.map((r) => r.kind),
+    expectedKinds,
+    "rows follow the selector's stable order — one definition rendered once",
+  );
+
+  // claim texts render per family (one representative committed entry each)
+  assert.ok(text.includes("Defeat the five listed factions and win 35 battles."), "route-1 objective identity claim text");
+  assert.ok(
+    text.includes("A transfer is acceptable only while the game still credits the control relationship."),
+    "route-2 Mid → Late callout claim text",
+  );
+  assert.ok(text.includes("The Countess’s field company"), "route-1 armies mid dataset claim text");
+  assert.ok(
+    text.includes(
+      "The Deceivers — The Changeling: Use the actual destruction/wounded wording in your installed mission. Investigate remaining cults if the faction persists.",
+    ),
+    "route-1 deceivers vco claim text",
+  );
+
+  // every row is the VERIFY badge — the only badge vocabulary on the page, so
+  // the other three confidence states never render (colour is never the sole
+  // indicator: label + icon anatomy comes from the F2 component itself)
+  const badges = badgeVNodes(view);
+  assert.equal(badges.length, 36, "one Confidence Badge per flagged row");
+  assert.ok(
+    badges.every((n) => n.props.state === "verify-in-campaign"),
+    "no non-verify state ever renders in the list",
+  );
+  assert.equal(
+    countOccurrences(vnodeText(badges.map(expandBadge)), "VERIFY"),
+    36,
+    "every expanded badge carries the VERIFY label",
+  );
+
+  // each compact row carries the resolved source notes beneath the badge
+  for (const row of rows) {
+    assert.ok(
+      recordVNodes(row.node).some((n) => n.props.className === "flagged-item__note"),
+      `the ${row.kind} row at "${row.location}" renders its source note`,
+    );
+  }
+  assert.ok(
+    text.includes("Primary author reference, labelled 25 September 2026 and rechecked 30 September."),
+    "the vco-guide source note text renders",
+  );
+
+  // the DESIGN §6 compact row anatomy on a linked row: location label, claim
+  // text, badge, source notes beneath, then the location link
+  const firstRow = recordVNodes(rows[0].node);
+  const at = (pred: (n: VNodeRecord) => boolean): number => firstRow.findIndex(pred);
+  assert.ok(
+    at((n) => n.props.className === "flagged-item__location") < at((n) => n.props.className === "flagged-item__claim"),
+    "location label precedes the claim text",
+  );
+  const badgeAt = at((n) => typeof n.props.state === "string" && Array.isArray(n.props.sources));
+  const notesAt = at((n) => n.props.className === "flagged-item__notes");
+  const linkAt = at((n) => n.props.className === "flagged-item__link");
+  assert.ok(badgeAt < notesAt && notesAt < linkAt, "badge, then source notes, then the location link");
+
+  // location links use the existing hash grammar verbatim: callouts anchor
+  // their section, identity and vco items point at the route page — and
+  // dataset rows render no link element at all (their label carries the
+  // location)
+  const links = section.filter((n) => n.tag === "a" && n.props.className === "flagged-item__link");
+  assert.equal(links.length, 14, "5 callout + 6 identity + 3 vco location links");
+  assert.deepEqual(
+    links.map((n) => n.props.href),
+    [
+      "#/elspeth-von-draken/route/route-1",
+      "#/elspeth-von-draken/route/route-1",
+      "#/elspeth-von-draken/route/route-1",
+      "#/elspeth-von-draken/route/route-1",
+      "#/elspeth-von-draken/route/route-1",
+      "#/elspeth-von-draken/route/route-2",
+      "#/elspeth-von-draken/route/route-2",
+      "#/elspeth-von-draken/route/route-2/mid-late",
+      "#/elspeth-von-draken/route/route-2/victory-push",
+      "#/elspeth-von-draken/route/route-2/diplomacy",
+      "#/elspeth-von-draken/route/route-3",
+      "#/elspeth-von-draken/route/route-3",
+      "#/elspeth-von-draken/route/route-3/mid-late",
+      "#/elspeth-von-draken/route/route-3/diplomacy",
+    ],
+    "callouts link their section anchor; identity and vco items link the route page",
+  );
+  for (const row of rows.filter((r) => r.kind === "dataset")) {
+    assert.ok(
+      !recordVNodes(row.node).some((n) => n.tag === "a"),
+      "dataset rows render no link element — the mono panel label carries the location",
+    );
+  }
+
+  // mono location labels: route + section for callouts in body order, route +
+  // objective/reward for identity claims, panel display names for dataset rows
+  // in PANEL_GROUPS order, route + objective id for vco items in list order
+  assert.deepEqual(
+    rows.filter((r) => r.kind === "callout").map((r) => r.location),
+    [
+      "ROUTE II · Mid → Late",
+      "ROUTE II · Victory push",
+      "ROUTE II · Diplomacy",
+      "ROUTE III · Mid → Late",
+      "ROUTE III · Diplomacy",
+    ],
+    "callout labels name route + section in body order",
+  );
+  assert.deepEqual(
+    rows.filter((r) => r.kind === "identity").map((r) => r.location),
+    [
+      "ROUTE I · OBJECTIVE",
+      "ROUTE I · REWARD",
+      "ROUTE II · OBJECTIVE",
+      "ROUTE II · REWARD",
+      "ROUTE III · OBJECTIVE",
+      "ROUTE III · REWARD",
+    ],
+    "identity labels name route + objective/reward claim",
+  );
+  assert.deepEqual(
+    rows.filter((r) => r.kind === "vco").map((r) => r.location),
+    ["ROUTE I · deceivers", "ROUTE I · drycha", "ROUTE I · khazrak"],
+    "vco labels name route + objective id in list order",
+  );
+  assert.deepEqual(
+    rows.filter((r) => r.kind === "dataset").map((r) => r.location),
+    [
+      "ARMY TEMPLATES", "SKILLS", "SKILLS", "SKILLS", "SKILLS", "SKILLS", "SKILLS",
+      "RESEARCH", "SETTLEMENTS", "SETTLEMENTS", "MECHANICS", "MECHANICS", "MECHANICS", "MECHANICS", "MECHANICS",
+      "ARMY TEMPLATES", "RESEARCH", "SETTLEMENTS",
+      "ARMY TEMPLATES", "RESEARCH", "RESEARCH", "SETTLEMENTS",
+    ],
+    "dataset labels are the panel display names in PANEL_GROUPS order",
+  );
+
+  // one mono group heading per route, in manifest order
+  assert.deepEqual(
+    section
+      .filter((n) => n.props.className === "flagged-items__group-heading")
+      .map((n) => String(n.children[0])),
+    ["ROUTE I", "ROUTE II", "ROUTE III"],
+    "group headings name each route in manifest order",
+  );
+});
+
+test("a lord with zero flags renders the explicit cleared flagged section — never blank", async () => {
+  const tree = await loadContentTree(fsReader(FIXTURES));
+  const lord = getLord(tree, "als-rhyn-of-lorek");
+  assert.ok(lord.found);
+  assert.deepEqual(getFlaggedEntries(lord.value), [], "the fixture guide carries no verify-in-campaign claims");
+  const view = LordView({ lord: lord.value });
+  const text = vnodeText(view);
+  const section = flaggedSectionNodes(view);
+
+  // the section still renders its eyebrow, then the explicit cleared statement
+  assert.ok(section.some((n) => n.props.className === "flagged-items__title"), "the re-check list eyebrow stays");
+  const clearedLabel = section.find((n) => n.props.className === "flagged-items__cleared-label");
+  assert.ok(
+    clearedLabel !== undefined && String(clearedLabel.children[0]) === "ALL CLEARED",
+    "the explicit cleared mono label",
+  );
+  assert.ok(
+    text.includes("No claim is currently open — the research trail is complete."),
+    "the proportional cleared sentence explains the positive state",
+  );
+  assert.ok(
+    !section.some((n) => n.props.className === "flagged-items__groups"),
+    "no group containers render when there is nothing to group",
+  );
+  assert.equal(flaggedRows(section).length, 0, "no flag rows render");
+  assert.equal(badgeVNodes(view).length, 0, "no badge vocabulary leaks into the cleared state");
+  assert.ok(section.length > 1, "the cleared statement fills the section — never blank space");
 });
