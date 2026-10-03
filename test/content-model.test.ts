@@ -90,11 +90,11 @@ test("valid fixture loads into a complete tree: lords, routes, sections, claims,
   assert.equal(als.datasets.length, 7, "all seven datasets loaded");
   assert.equal(als.routes.length, 1);
 
-  // every non-source dataset value is the typed DESIGN §4 empty form {}
-  for (const dataset of als.datasets) {
-    if (dataset.name === "sources" || dataset.name === "vco") continue;
-    assert.deepEqual(dataset.value, {}, `${dataset.name} carries the typed empty value`);
-  }
+  // The fixture item/army datasets are populated by the panel-items fixtures
+  // and proven through the anatomy tests (test/components.test.ts,
+  // test/views.test.ts). No dataset value is asserted in this block; the
+  // committed-tree typed empty forms (all seven datasets) stay proven by
+  // test/elspeth-skeleton.test.ts.
 
   const route = als.routes[0];
   assert.equal(route.id, "dark-conduits");
@@ -305,7 +305,7 @@ test("malformed vco item: an objective item without a state violates the vco sch
 test("unknown panel-order group key fails the panel group vocabulary", async () => {
   const violations = await lintBroken(async (root) => {
     const text = await readFile(join(root, "als-rhyn-of-lorek/routes/route-1.md"), "utf8");
-    await rewrite(root, "als-rhyn-of-lorek/routes/route-1.md", text.replace("  mechanics: []", "  mechanics: []\n  souls: []"));
+    await rewrite(root, "als-rhyn-of-lorek/routes/route-1.md", text.replace("  mechanics: [undead-tithe]", "  mechanics: [undead-tithe]\n  souls: []"));
   });
   const hit = violations.find(
     (v) => v.file === "als-rhyn-of-lorek/routes/route-1.md" && v.field === "panelOrder" && v.message.includes('"souls"'),
@@ -316,7 +316,7 @@ test("unknown panel-order group key fails the panel group vocabulary", async () 
 test("unresolvable panel-order id fails id resolution in the route's own armies map", async () => {
   const violations = await lintBroken(async (root) => {
     const text = await readFile(join(root, "als-rhyn-of-lorek/routes/route-1.md"), "utf8");
-    await rewrite(root, "als-rhyn-of-lorek/routes/route-1.md", text.replace("  armies: []", "  armies: [ghost-column]"));
+    await rewrite(root, "als-rhyn-of-lorek/routes/route-1.md", text.replace("  armies: [early, late]", "  armies: [ghost-column]"));
   });
   const hit = violations.find(
     (v) =>

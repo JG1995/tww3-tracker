@@ -134,7 +134,7 @@ test("an unresolvable panel-order id exits 1 with a panelOrder violation naming 
     // One seeded violation: a skills id no entry in the lord-wide map exists for.
     const routePath = join(dir, "als-rhyn-of-lorek", "routes", "route-1.md");
     const body = await readFile(routePath, "utf8");
-    await writeFile(routePath, body.replace("  skills: []", "  skills: [ghost-skill]"));
+    await writeFile(routePath, body.replace("  skills: [conduit-rites]", "  skills: [ghost-skill]"));
 
     const { code, stdout } = await runCli(dir);
     assert.equal(code, 1);

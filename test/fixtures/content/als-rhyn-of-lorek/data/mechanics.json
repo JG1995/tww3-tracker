@@ -1,1 +1,11 @@
-{}
+{
+  "undead-tithe": {
+    "label": "Undead Tithe",
+    "title": "The tithe mechanic",
+    "intro": "Dead lords contribute to the book pile.",
+    "steps": [
+      { "title": "Tithe Turn", "note": "The tithe lands after each victory.", "gate": "Victory required" }
+    ],
+    "sources": ["vco-guide"]
+  }
+}

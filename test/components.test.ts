@@ -364,7 +364,7 @@ async function committedDashboardInputs() {
 
 test("the dashboard renders the five fixed panel tabs in DESIGN order with their labels", async () => {
   const { lord, route } = await committedDashboardInputs();
-  const nodes = recordVNodes(DashboardMarkup({ ...getPanelEntries(lord, route), activeIndex: 0 }));
+  const nodes = recordVNodes(DashboardMarkup({ lord, ...getPanelEntries(lord, route), activeIndex: 0 }));
 
   const tablist = nodes.find((n) => n.props.role === "tablist");
   assert.ok(tablist !== undefined, "the tab bar carries role=tablist");
@@ -384,7 +384,7 @@ test("the dashboard's initial selection is the first panel: it is tabbable and i
   // The mounted `Dashboard` seeds its local selection at index 0
   // (`useState<number>(0)`); at that initial index the markup must show the
   // first tab selected with roving tabindex and exactly one visible panel.
-  const nodes = recordVNodes(DashboardMarkup({ ...getPanelEntries(lord, route), activeIndex: 0 }));
+  const nodes = recordVNodes(DashboardMarkup({ lord, ...getPanelEntries(lord, route), activeIndex: 0 }));
 
   const tabs = nodes.filter((n) => n.props.role === "tab");
   assert.equal(tabs[0].props.tabIndex, 0, "the first tab is tabbable at the initial selection");
@@ -403,7 +403,7 @@ test("the dashboard's initial selection is the first panel: it is tabbable and i
 
 test("every dashboard panel renders its explicit empty state on the committed tree, never blank", async () => {
   const { lord, route } = await committedDashboardInputs();
-  const nodes = recordVNodes(DashboardMarkup({ ...getPanelEntries(lord, route), activeIndex: 0 }));
+  const nodes = recordVNodes(DashboardMarkup({ lord, ...getPanelEntries(lord, route), activeIndex: 0 }));
 
   const panels = nodes.filter((n) => n.props.role === "tabpanel");
   for (let index = 0; index < panels.length; index++) {
@@ -415,7 +415,7 @@ test("every dashboard panel renders its explicit empty state on the committed tr
     assert.ok(panelText.trim().length > 0, `panel ${index} is never blank space`);
   }
 
-  const text = vnodeText(DashboardMarkup({ ...getPanelEntries(lord, route), activeIndex: 0 }));
+  const text = vnodeText(DashboardMarkup({ lord, ...getPanelEntries(lord, route), activeIndex: 0 }));
   assert.ok(text.includes("No army templates are listed for this route yet."), "armies: the 'no content yet' sentence");
   assert.ok(text.includes("No skills are listed for this route yet."), "skills: the 'no content yet' sentence");
   assert.ok(text.includes("No research is listed for this route yet."), "research: the 'no content yet' sentence");
@@ -429,4 +429,95 @@ test("the dashboard keyboard selection wraps and bounds at the fixed five-tab co
   assert.equal(tabNav("right", count - 1, count), 0, "right from the last panel wraps to the first");
   assert.equal(tabNav("home", 3, count), 0, "home jumps to the first panel");
   assert.equal(tabNav("end", 0, count), count - 1, "end jumps to the last panel");
+});
+
+/** The fixture tree's lord + route, the inputs for the anatomy tests. */
+async function fixtureDashboardInputs() {
+  const tree = await loadContentTree(fsReader(FIXTURES));
+  const lord = getLord(tree, "als-rhyn-of-lorek");
+  assert.ok(lord.found, "the fixture lord loads");
+  const route = getRoute(tree, "als-rhyn-of-lorek", "dark-conduits");
+  assert.ok(route.found, "the fixture route loads");
+  return { lord: lord.value, route: route.value };
+}
+
+test("the armies panel renders the two unit columns with count/name/role/kind rows and the absent marker", async () => {
+  const { lord, route } = await fixtureDashboardInputs();
+  const nodes = recordVNodes(DashboardMarkup({ lord, ...getPanelEntries(lord, route), activeIndex: 0 }));
+
+  const armies = nodes.find((n) => n.props.id === "dashboard-panel-armies");
+  assert.ok(armies !== undefined, "the armies panel is present");
+  const text = vnodeText(armies);
+
+  // both army entries with label + name (+ the optional supporting-army name)
+  assert.ok(text.includes("Early") && text.includes("The Toll of the Silver Sand"), "early army label + name");
+  assert.ok(text.includes("The Dust Wardens"), "the early army's supporting-army name");
+  assert.ok(text.includes("Late") && text.includes("The River Line Watch"), "late army label + name");
+
+  // the legendary-lord column rows: ×N count, name, role, kind
+  assert.ok(text.includes("×1") && text.includes("Tomb King on Warsphinx"), "legendary row count + name");
+  assert.ok(text.includes("Battle-line general") && text.includes("monstrous"), "legendary row role + kind");
+  assert.ok(text.includes("Tomb Guard") && text.includes("Elite guard"), "second legendary row");
+
+  // the early army's generic-lord column rows
+  assert.ok(text.includes("×3") && text.includes("Spearmen") && text.includes("Holding line"), "generic row count + name + role");
+  assert.ok(text.includes("line"), "generic row kind");
+
+  // the late army's empty generic column shows its explicit absent marker —
+  // exactly once across both armies, never blank space
+  assert.equal(text.split("NO UNITS LISTED").length - 1, 1, "the absent generic column marker renders exactly once");
+
+  // context, notes[]/plan [title, body] rows, and the size lines
+  assert.ok(text.includes("Anchors the eastern desert line while the three conduit towns consolidate."), "context");
+  assert.ok(text.includes("Deployment") && text.includes("Spread the archers behind the warriors"), "a notes row");
+  assert.ok(text.includes("Turn 1") && text.includes("Consolidate all three conduit towns before turn ten."), "a plan row");
+  assert.ok(text.includes("Size 2200") && text.includes("Size 900"), "each army declares its size");
+});
+
+test("a listed item renders label, title, intro, steps with optional gate and short, and details rows", async () => {
+  const { lord, route } = await fixtureDashboardInputs();
+  const nodes = recordVNodes(DashboardMarkup({ lord, ...getPanelEntries(lord, route), activeIndex: 0 }));
+
+  const skills = nodes.find((n) => n.props.id === "dashboard-panel-skills");
+  assert.ok(skills !== undefined, "the skills panel is present");
+  const text = vnodeText(skills);
+
+  assert.ok(text.includes("Conduit Rites"), "the listed skill renders its label");
+  assert.ok(text.includes("Raise the conduit towns"), "the skill renders its title");
+  assert.ok(text.includes("Construction discounts before the first levy."), "the skill renders its intro");
+  assert.ok(text.includes("Conduit Silos") && text.includes("Two silos a town before turn ten."), "step title + note render");
+  assert.ok(text.includes("Sealed Depot"), "the short-labelled step's title renders");
+  assert.ok(text.includes("Town per turn") && text.includes("One conduit town ripens every four turns."), "details rows render");
+
+  // the optional gate and short labels render on their step head line
+  const gate = nodes.find((n) => n.props.className === "item-step__gate");
+  assert.ok(gate !== undefined && gate.children[0] === "Opening option", "the gate label renders");
+  const short = nodes.find((n) => n.props.className === "item-step__short");
+  assert.ok(short !== undefined && short.children[0] === "Depot", "the short label renders");
+});
+
+test("state-carrying entries render the Confidence Badge, and unlisted entries never render", async () => {
+  const { lord, route } = await fixtureDashboardInputs();
+  const nodes = recordVNodes(DashboardMarkup({ lord, ...getPanelEntries(lord, route), activeIndex: 0 }));
+  const text = vnodeText(nodes);
+
+  // the state-carrying entries — the inferred early army and the confirmed
+  // skill — each render a Confidence Badge with its own state; the state-less
+  // late army and items stay unbadged (the badge span itself is proven by the
+  // confidence-badge package's own contract tests)
+  const badges = nodes.filter((n) => typeof n.props.state === "string" && Array.isArray(n.props.sources));
+  assert.equal(badges.length, 2, "exactly the two state-carrying entries render badges");
+  assert.ok(badges.some((n) => n.props.state === "inferred"), "the early army carries the inferred badge");
+  assert.ok(badges.some((n) => n.props.state === "confirmed"), "the listed skill carries the confirmed badge");
+
+  // source ids resolve through the same resolveSources read as the identity
+  // card — every listed entry's src becomes a trailing link
+  const hrefs = nodes.filter((n) => typeof n.props.href === "string").map((n) => n.props.href);
+  assert.ok(hrefs.includes("https://example.test/casket"), "the early army's ca source resolves");
+  assert.ok(hrefs.includes("https://example.test/vco-guide"), "the listed skill's vco-guide source resolves");
+
+  // the unlisted casket-rites entry (present in skills.json but not in this
+  // route's panelOrder) appears in no panel
+  assert.ok(!text.includes("Prepare the twin casket fleet"), "the unlisted skill's title is absent");
+  assert.ok(!text.includes("The fleet sails only once the port is raised."), "the unlisted skill's intro is absent");
 });

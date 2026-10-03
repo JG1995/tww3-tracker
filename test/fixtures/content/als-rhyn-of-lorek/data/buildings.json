@@ -1,1 +1,14 @@
-{}
+{
+  "casket-battery": {
+    "label": "Casket Battery",
+    "title": "The second casket battery",
+    "intro": "The victory-push artillery line.",
+    "steps": [
+      { "title": "Battery Yard", "note": "Built in the books town." }
+    ],
+    "details": [
+      ["Load", "Two caskets per yard."]
+    ],
+    "sources": ["ca"]
+  }
+}

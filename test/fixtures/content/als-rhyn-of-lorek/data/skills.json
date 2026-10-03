@@ -1,1 +1,26 @@
-{}
+{
+  "conduit-rites": {
+    "label": "Conduit Rites",
+    "title": "Raise the conduit towns",
+    "intro": "Construction discounts before the first levy.",
+    "steps": [
+      { "title": "Conduit Silos", "note": "Two silos a town before turn ten.", "gate": "Opening option" },
+      { "title": "Sealed Depot", "note": "The depot unlocks the casket chain.", "short": "Depot" }
+    ],
+    "details": [
+      ["Town per turn", "One conduit town ripens every four turns."]
+    ],
+    "sources": ["vco-guide"],
+    "state": "confirmed",
+    "src": ["vco-guide"]
+  },
+  "casket-rites": {
+    "label": "Casket Rites",
+    "title": "Prepare the twin casket fleet",
+    "intro": "The fleet sails only once the port is raised.",
+    "steps": [
+      { "title": "Casket Engineering", "note": "The fleet is raised in the books town." }
+    ],
+    "sources": ["ca"]
+  }
+}

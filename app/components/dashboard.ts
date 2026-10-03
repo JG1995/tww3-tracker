@@ -17,8 +17,17 @@
  * (`getPanelEntries`, Commit 7's pure query): an empty or absent list renders
  * the explicit empty state (mono label + one proportional sentence — never
  * blank space, DESIGN §5 Empty States / §6 Copywriting), while listed entries
- * land in a plain count placeholder until the panel-items commit replaces it
- * with the per-group atlas anatomy (Commit 8).
+ * render the DESIGN §4 atlas-mirroring anatomy — the armies panel as one
+ * entry per army with its legendary-lord and generic-lord unit columns (the
+ * same `n`/`name`/`role`/`kind` row shape, an explicit absent marker for an
+ * empty column, optional `context`, the `notes[]` and `plan` [title, body]
+ * rows, `size`, and source links), and the four item panels as one card per
+ * item (`label`, `title`, `intro`, steps with optional gate and short labels,
+ * optional `details` [title, body] rows, and source links). Any entry
+ * carrying a `state` renders the Confidence Badge with its resolved source
+ * links, exactly as the route identity claims do. Source ids resolve through
+ * the same pure `resolveSources` query the identity card uses — no second
+ * URL-building path.
  *
  * Seam: zero-DOM flatten. The hook-carrying `Dashboard` wraps the plain
  * `DashboardMarkup` VNode builder, so `node --test` can flatten and assert
@@ -29,7 +38,17 @@
 import { h, type JSX } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 import type { PanelEntries } from "../content/query.ts";
-import { PANEL_GROUPS, type Army, type Item, type PanelGroup } from "../content/types.ts";
+import { resolveSources } from "../content/query.ts";
+import {
+  PANEL_GROUPS,
+  type Army,
+  type Item,
+  type Lord,
+  type PanelGroup,
+  type TitleBody,
+  type UnitRow,
+} from "../content/types.ts";
+import { ConfidenceBadge } from "./ConfidenceBadge.ts";
 import { tabNav, type TabNavDirection } from "./TabStrip.ts";
 
 /** The tab labels for the five fixed panel groups — the single label mapping (DESIGN §2). */
@@ -54,7 +73,16 @@ const PANEL_EMPTY_COPY: Readonly<Record<PanelGroup, string>> = {
   mechanics: "No mechanics are listed for this route yet.",
 };
 
+/** The absent-column marker for an empty legendary/generic column (never blank). */
+const EMPTY_COLUMN_MARKER = "NO UNITS LISTED";
+
 export interface DashboardMarkupProps extends PanelEntries {
+  /**
+   * The lord context — the anatomy renderers resolve dataset entry source ids
+   * against its `data/sources.json` via `resolveSources`, the same pure read
+   * the route identity card uses (no second URL-building path).
+   */
+  readonly lord: Lord;
   /** The locally selected panel index (initial 0 = the first panel). */
   readonly activeIndex: number;
   /** Tab-bar ref the mounted wrapper queries to move focus after selection. */
@@ -73,7 +101,7 @@ export interface DashboardMarkupProps extends PanelEntries {
  * rest), each holding that group's panel content.
  */
 export function DashboardMarkup(props: DashboardMarkupProps): JSX.Element {
-  const { activeIndex, barRef, onKeyDown, onTabSelect, ...panels } = props;
+  const { lord, activeIndex, barRef, onKeyDown, onTabSelect, ...panels } = props;
   return h(
     "section",
     { className: "dashboard", "aria-label": "Route dashboard" },
@@ -109,7 +137,7 @@ export function DashboardMarkup(props: DashboardMarkupProps): JSX.Element {
           "aria-labelledby": `dashboard-tab-${group}`,
           hidden: index !== activeIndex,
         },
-        panelContent(group, panels[group]),
+        panelContent(group, lord, panels[group]),
       ),
     ),
   );
@@ -117,11 +145,11 @@ export function DashboardMarkup(props: DashboardMarkupProps): JSX.Element {
 
 /**
  * One panel's body: the explicit empty state when the group's resolved
- * entries are empty or absent (the committed tree's five panels), otherwise a
- * plain count placeholder — the clean seam the panel-items commit replaces
- * with the per-group renderers (army templates vs title/intro/steps items).
+ * entries are empty or absent (the committed tree's five panels), otherwise
+ * the DESIGN §4 per-group anatomy — armies render per-army entries, the four
+ * item groups render per-item cards.
  */
-function panelContent(group: PanelGroup, entries: readonly Army[] | readonly Item[]): JSX.Element {
+function panelContent(group: PanelGroup, lord: Lord, entries: readonly Army[] | readonly Item[]): JSX.Element {
   if (entries.length === 0) {
     return h(
       "div",
@@ -130,10 +158,156 @@ function panelContent(group: PanelGroup, entries: readonly Army[] | readonly Ite
       h("p", { className: "dashboard-empty__copy" }, PANEL_EMPTY_COPY[group]),
     );
   }
+  if (group === "armies") {
+    return h(
+      "div",
+      { className: "panel-armies" },
+      (entries as readonly Army[]).map((army) => armyEntry(lord, army)),
+    );
+  }
+  return h(
+    "div",
+    { className: "panel-items" },
+    (entries as readonly Item[]).map((item) => itemEntry(lord, item)),
+  );
+}
+
+/**
+ * One army template entry (DESIGN §4 armies schema): label, name, the
+ * optional supporting-army name, the Confidence Badge when the army carries a
+ * state, the two unit columns (legendary-lord and generic-lord — the same
+ * unit-row shape, an explicit absent marker for an empty column), then the
+ * optional `context`, the `notes[]` and `plan` [title, body] rows, `size`,
+ * and the resolved source links.
+ */
+function armyEntry(lord: Lord, army: Army): JSX.Element {
+  return h(
+    "article",
+    { key: army.label, className: "panel-entry panel-entry--army" },
+    h("h3", { className: "panel-entry__title" }, army.label),
+    h("p", { className: "panel-entry__name" }, army.name),
+    army.supportName === undefined ? null : h("p", { className: "panel-entry__support" }, army.supportName),
+    army.state === undefined
+      ? null
+      : h(ConfidenceBadge, { state: army.state, sources: resolveSources(lord, army.src ?? []) }),
+    h(
+      "div",
+      { className: "army-table" },
+      unitColumn("LEGENDARY LORD", army.legendary),
+      unitColumn("GENERIC LORD", army.generic),
+    ),
+    army.context === undefined ? null : h("p", { className: "panel-entry__context" }, army.context),
+    titleBodyRows("NOTES", army.notes),
+    titleBodyRows("PLAN", army.plan),
+    h("p", { className: "panel-entry__size" }, `Size ${army.size}`),
+    sourceLinks(lord, army.sources),
+  );
+}
+
+/**
+ * One unit column of an army template: the mono column heading, then the unit
+ * rows (`n`, `name`, `role`, `kind` — the design system's ×N count next to
+ * the unit name) or the explicit absent marker when the column lists nothing.
+ */
+function unitColumn(heading: string, rows: readonly UnitRow[]): JSX.Element {
+  return h(
+    "div",
+    { className: "army-table__column" },
+    h("p", { className: "army-table__column-label" }, heading),
+    rows.length === 0
+      ? h("p", { className: "army-table__absent" }, EMPTY_COLUMN_MARKER)
+      : h(
+          "ul",
+          { className: "army-table__rows" },
+          rows.map((row) =>
+            h(
+              "li",
+              { key: `${row.name}-${row.n}`, className: "army-table__row" },
+              h("span", { className: "army-table__n" }, `×${row.n}`),
+              h("span", { className: "army-table__name" }, row.name),
+              h("span", { className: "army-table__role" }, row.role),
+              h("span", { className: "army-table__kind" }, row.kind),
+            ),
+          ),
+        ),
+  );
+}
+
+/**
+ * One title/intro/steps item entry (DESIGN §4 items schema): label, the
+ * Confidence Badge when the item carries a state, title, intro, the steps
+ * (each step title + note with the optional gate and short labels on its
+ * head line), the optional `details` [title, body] rows, and the resolved
+ * source links.
+ */
+function itemEntry(lord: Lord, item: Item): JSX.Element {
+  return h(
+    "article",
+    { key: item.label, className: "panel-entry panel-entry--item" },
+    h("h3", { className: "panel-entry__title" }, item.label),
+    item.state === undefined
+      ? null
+      : h(ConfidenceBadge, { state: item.state, sources: resolveSources(lord, item.src ?? []) }),
+    h("p", { className: "panel-entry__name" }, item.title),
+    h("p", { className: "panel-entry__intro" }, item.intro),
+    h(
+      "ol",
+      { className: "item-steps" },
+      item.steps.map((step) =>
+        h(
+          "li",
+          { key: step.title, className: "item-step" },
+          h(
+            "div",
+            { className: "item-step__head" },
+            h("span", { className: "item-step__title" }, step.title),
+            step.gate === undefined ? null : h("span", { className: "item-step__gate" }, step.gate),
+            step.short === undefined ? null : h("span", { className: "item-step__short" }, step.short),
+          ),
+          h("p", { className: "item-step__note" }, step.note),
+        ),
+      ),
+    ),
+    item.details === undefined ? null : titleBodyRows("DETAILS", item.details),
+    sourceLinks(lord, item.sources),
+  );
+}
+
+/**
+ * A titled block of [title, body] rows — the `notes[]` and `plan` of an
+ * army, the optional `details` of an item. Renders nothing when the list is
+ * empty, so absence leaves no trace.
+ */
+function titleBodyRows(label: string, rows: readonly TitleBody[]): JSX.Element | null {
+  if (rows.length === 0) return null;
+  return h(
+    "div",
+    { className: "panel-titlebody" },
+    h("p", { className: "panel-titlebody__label" }, label),
+    rows.map(([title, body], index) =>
+      h(
+        "div",
+        { key: `${label}-${index}`, className: "panel-titlebody__row" },
+        h("p", { className: "panel-titlebody__title" }, title),
+        h("p", { className: "panel-titlebody__body" }, body),
+      ),
+    ),
+  );
+}
+
+/**
+ * The entry's resolved source links — one trailing `<a>` per source id, the
+ * same `resolveSources` pure read the identity card and undercard use.
+ */
+function sourceLinks(lord: Lord, sourceIds: readonly string[]): JSX.Element | null {
+  const sources = resolveSources(lord, sourceIds);
+  if (sources.length === 0) return null;
   return h(
     "p",
-    { className: "dashboard-panel__placeholder" },
-    `${entries.length} ${entries.length === 1 ? "entry" : "entries"} listed`,
+    { className: "panel-entry__sources" },
+    sources.map((source) =>
+      h("a", { key: source.id, className: "panel-entry__src", href: source.url }, source.title),
+    ),
   );
 }
 
@@ -150,7 +324,7 @@ const KEY_TO_DIRECTION: Readonly<Record<string, TabNavDirection>> = {
  * selected tab after a selection change (roving-tabindex contract), but a
  * mount never steals focus from the skip link — the route strip's pattern.
  */
-export function Dashboard(props: PanelEntries): JSX.Element {
+export function Dashboard(props: PanelEntries & { lord: Lord }): JSX.Element {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const barRef = useRef<HTMLElement | null>(null);
   const firstRender = useRef<boolean>(true);

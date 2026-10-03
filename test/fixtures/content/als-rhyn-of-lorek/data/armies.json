@@ -1,1 +1,51 @@
-{}
+{
+  "dark-conduits": {
+    "early": {
+      "label": "Early",
+      "name": "The Toll of the Silver Sand",
+      "supportName": "The Dust Wardens",
+      "units": [
+        { "n": 4, "name": "Skeleton Warriors", "role": "Holding line", "kind": "line" },
+        { "n": 2, "name": "Skeleton Archers", "role": "Backline support", "kind": "missile" }
+      ],
+      "legendary": [
+        { "n": 1, "name": "Tomb King on Warsphinx", "role": "Battle-line general", "kind": "monstrous" },
+        { "n": 2, "name": "Tomb Guard", "role": "Elite guard", "kind": "infantry" }
+      ],
+      "generic": [
+        { "n": 3, "name": "Spearmen", "role": "Holding line", "kind": "line" }
+      ],
+      "context": "Anchors the eastern desert line while the three conduit towns consolidate.",
+      "notes": [
+        ["Deployment", "Spread the archers behind the warriors to watch the southern approach."],
+        ["Upkeep", "The warsphinx taxes the early economy — delay it while the Book is open."]
+      ],
+      "plan": [
+        ["Turn 1", "Consolidate all three conduit towns before turn ten."]
+      ],
+      "size": 2200,
+      "sources": ["ca"],
+      "state": "inferred",
+      "src": ["ca"]
+    },
+    "late": {
+      "label": "Late",
+      "name": "The River Line Watch",
+      "units": [
+        { "n": 6, "name": "Skeleton Horsemen", "role": "Flank screen", "kind": "cavalry" }
+      ],
+      "legendary": [
+        { "n": 1, "name": "Tomb Prince on Khemrian Warsphinx", "role": "Breakthrough", "kind": "monstrous" }
+      ],
+      "generic": [],
+      "notes": [
+        ["Flank", "Keep the horsemen behind the river so the battery holds the front."]
+      ],
+      "plan": [
+        ["Turn 20", "Swing the line into the weakest remaining faction."]
+      ],
+      "size": 900,
+      "sources": ["vco-guide"]
+    }
+  }
+}

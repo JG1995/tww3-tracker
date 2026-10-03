@@ -41,8 +41,10 @@ export function RouteView(props: { lord: Lord; route: Route }): JSX.Element {
     routeBody(route),
     // Keyed by route id: navigating between routes remounts the dashboard and
     // resets its component-local panel selection to the first panel (a
-    // within-route section-anchor hash change does not).
-    h(Dashboard, { key: route.id, ...getPanelEntries(lord, route) }),
+    // within-route section-anchor hash change does not). The lord context is
+    // threaded so the panel anatomy resolves source ids the same way the
+    // identity card does (DESIGN §4; `resolveSources`).
+    h(Dashboard, { key: route.id, lord, ...getPanelEntries(lord, route) }),
   );
 }
 

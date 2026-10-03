@@ -682,6 +682,7 @@ function mountedDashboard(view: unknown, activeIndex = 0): { key: unknown; marku
   const nodes = recordVNodes(view);
   const dashboard = nodes.find((n) => Array.isArray(n.props.armies));
   assert.ok(dashboard !== undefined, "the route view mounts the dashboard region");
+  const lord = dashboard.props.lord as Lord;
   const props: PanelEntries = {
     armies: dashboard.props.armies as readonly Army[],
     skills: dashboard.props.skills as readonly Item[],
@@ -689,7 +690,7 @@ function mountedDashboard(view: unknown, activeIndex = 0): { key: unknown; marku
     buildings: dashboard.props.buildings as readonly Item[],
     mechanics: dashboard.props.mechanics as readonly Item[],
   };
-  const markup = DashboardMarkup({ ...props, activeIndex });
+  const markup = DashboardMarkup({ lord, ...props, activeIndex });
   return { key: dashboard.key, markup: recordVNodes(markup), text: vnodeText(markup) };
 }
 
@@ -779,4 +780,53 @@ test("the route page mounts the route tab strip with its own route tab active", 
       .every((t) => t.props.tabIndex === -1 && t.props["aria-selected"] === false),
     "the other tabs rove at −1 and are not selected",
   );
+});
+
+test("the fixture route's dashboard renders the DESIGN §4 atlas anatomy with badges and source links", async () => {
+  const tree = await loadContentTree(fsReader(FIXTURES));
+  const lord = getLord(tree, "als-rhyn-of-lorek");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "als-rhyn-of-lorek", "dark-conduits");
+  assert.ok(route.found);
+
+  const view = RouteView({ lord: lord.value, route: route.value });
+  const { key, markup, text } = mountedDashboard(view);
+  assert.equal(key, "dark-conduits", "the fixture route keys the dashboard by its own route id");
+
+  // armies panel: the two army entries, each a two-column unit table with
+  // count/name/role/kind rows; the late army's empty generic column shows its
+  // explicit absent marker exactly once — never blank space
+  assert.ok(text.includes("Early") && text.includes("The Toll of the Silver Sand"), "the early army label + name");
+  assert.ok(text.includes("The Dust Wardens"), "the early army renders its supporting-army name");
+  assert.ok(text.includes("Late") && text.includes("The River Line Watch"), "the late army label + name");
+  assert.ok(text.includes("×1") && text.includes("Tomb King on Warsphinx") && text.includes("Battle-line general"), "legendary row: count, name, role");
+  assert.ok(text.includes("×3") && text.includes("Spearmen") && text.includes("Holding line") && text.includes("line"), "generic row: count, name, role, kind");
+  assert.equal(text.split("NO UNITS LISTED").length - 1, 1, "exactly one absent generic column");
+  assert.ok(text.includes("Size 2200") && text.includes("Size 900"), "each army declares its size");
+
+  // the early army carries a state, so it renders a Confidence Badge; the
+  // late army carries none, so the optional badge branch stays absent (the
+  // badge span itself is proven by the confidence-badge package's tests)
+  const badges = markup.filter((n) => typeof n.props.state === "string" && Array.isArray(n.props.sources));
+  assert.equal(badges.length, 2, "both state-carrying entries (early army + conduit-rites skill) render badges");
+  assert.ok(badges.some((n) => n.props.state === "inferred"), "the inferred early army badge");
+  assert.ok(badges.some((n) => n.props.state === "confirmed"), "the confirmed conduit-rites skill badge");
+
+  // skills panel: the listed item renders title/intro/steps/gate/short/details
+  assert.ok(text.includes("Conduit Rites") && text.includes("Raise the conduit towns"), "the listed skill label + title");
+  assert.ok(text.includes("Construction discounts before the first levy."), "the skill intro");
+  assert.ok(text.includes("Conduit Silos") && text.includes("Two silos a town before turn ten."), "first step title + note");
+  assert.ok(text.includes("Opening option"), "the first step's gate label");
+  assert.ok(text.includes("Sealed Depot") && text.includes("Town per turn"), "the short-labelled step and the details label");
+  assert.ok(text.includes("One conduit town ripens every four turns."), "the details row body");
+
+  // the unlisted casket-rites entry appears in no panel
+  assert.ok(!text.includes("Prepare the twin casket fleet"), "the unlisted skill's title is absent");
+  assert.ok(!text.includes("The fleet sails only once the port is raised."), "the unlisted skill's intro is absent");
+
+  // source ids resolve exactly like the identity card: each entry's src
+  // becomes a trailing link via resolveSources over the lord's sources.json
+  const hrefs = markup.filter((n) => typeof n.props.href === "string").map((n) => n.props.href);
+  assert.ok(hrefs.includes("https://example.test/casket"), "the early army's ca source resolves");
+  assert.ok(hrefs.includes("https://example.test/vco-guide"), "the listed skill's vco-guide source resolves");
 });

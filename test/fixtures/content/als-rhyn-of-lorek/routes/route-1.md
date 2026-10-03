@@ -18,11 +18,11 @@ reward:
   src:
     - ca
 panelOrder:
-  armies: []
-  skills: []
-  research: []
-  buildings: []
-  mechanics: []
+  armies: [early, late]
+  skills: [conduit-rites]
+  research: [book-of-the-dead]
+  buildings: [casket-battery]
+  mechanics: [undead-tithe]
 gaps: []
 ---
 ## Opening

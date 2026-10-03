@@ -1,1 +1,11 @@
-{}
+{
+  "book-of-the-dead": {
+    "label": "Book of the Dead",
+    "title": "The Book economy",
+    "intro": "The books surplus funds the mid-game.",
+    "steps": [
+      { "title": "Book Deposit", "note": "Every town deposits one book.", "short": "Deposit" }
+    ],
+    "sources": ["vco-guide", "ca"]
+  }
+}
