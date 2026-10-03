@@ -6,7 +6,7 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
-- **route-transitions** (F7 — route transition views) — delivered on `feat/route-transitions`: one package; feature review clear. Awaiting developer approval for local ff-only integration to `main`: [IMPLEMENTATION](features/route-transitions/ROUTE-TRANSITIONS-IMPLEMENTATION.md) · [DESIGN](features/route-transitions/ROUTE-TRANSITIONS-DESIGN.md).
+_No active features — F7 (route transitions) completed 2026-10-03; F5 (VCO campaign ledger) is next in sequence (see Completed and the development sequence below)._
 
 ## Next
 
@@ -20,7 +20,7 @@ Resolved at approval: pilot is **Elspeth von Draken**; the ledger tracks **one a
 | 2 | ~~**F2 — route-first rendering**~~ — **Completed 2026-10-03** (see Completed below) | medium-high | Needs the schema; must exist before migration so content lands in a rendering target |
 | 3 | ~~**F4 — Elspeth migration** (content-only)~~ — **Completed 2026-10-03** (see Completed below) | medium | First real validation of the model against actual content; model corrected once, before any second faction copies it |
 | 4 | ~~**F3 — verification notes UI**~~ — **Completed 2026-10-03** (see Completed below) | medium | Small once badges render; after F4 so the re-check view has real flagged items to show |
-| 5 | **F7 — route transitions** (bidirectional cross-links) — delivered; pending integration | high | Mechanical; needs F2 route pages + F4 transition sections |
+| 5 | ~~**F7 — route transitions** (bidirectional cross-links)~~ — **Completed 2026-10-03** (see Completed below) | high | Mechanical; needs F2 route pages + F4 transition sections |
 | 6 | **F5 — VCO campaign ledger** (types, logic, io, server PUT, ledger index; one active campaign) | medium | Should (not Must) and the only feature touching the write path; keeping it last leaves the entire Must path shippable without it |
 | 7 (v1.1) | **F4 × 3 — Alith, Zhao, + one more** — start with the two shared-skeleton migrations | high | Cheapest; proves "second faction is content-only" |
 | 8 (v1.1) | **F6 — cross-guide search** | medium | Meaningful only with ≥ 2 migrated guides; corpus exists in `query.ts` from order 1 |
@@ -43,9 +43,11 @@ F4 (Elspeth) + F4 (Alith or Zhao) + F2 ──► F6 cross-guide search          
 
 **Parallel note:** solo project — after order 3, orders 4–6 are mutually independent and can be reordered around a live campaign (pull F5 forward if an Elspeth campaign starts mid-build). In v1.1, the Alith/Zhao migrations are independent of F6.
 
-**Plan next:** F7 — route transitions (order 5) is delivered on `feat/route-transitions` and awaits developer approval for local ff-only integration to `main` (see Active for the ledger). F5 (VCO campaign ledger, order 6) is next in sequence after F7 integrates; per the parallel note, orders 5–6 are mutually independent and F5 may be pulled forward if an Elspeth campaign starts mid-build. F3 was delivered and merged to `main` 2026-10-03 (see Completed below). F2 (route-first rendering) was delivered and merged to `main` 2026-10-03 (see Completed below). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order.
+**Plan next:** F5 — VCO campaign ledger (order 6) is next in sequence now that F7 (route transitions) is complete (see Completed below); per the parallel note, F5 may be pulled forward if an Elspeth campaign starts mid-build. F7 was delivered and merged to `main` 2026-10-03 (see Completed below). F3 was delivered and merged to `main` 2026-10-03 (see Completed below). F2 (route-first rendering) was delivered and merged to `main` 2026-10-03 (see Completed below). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order.
 
 ## Completed
+
+- **route-transitions** (F7 — route transition views) — delivered 2026-10-03 · [IMPLEMENTATION](features/route-transitions/ROUTE-TRANSITIONS-IMPLEMENTATION.md) · [DESIGN](features/route-transitions/ROUTE-TRANSITIONS-DESIGN.md) — each route's `Transition → <route>` section is a same-lord cross-link: `app/views/route.ts` exports the pure `transitionTarget` resolution (id-or-name match against the lord's manifest routes, mirroring the lint's `isKnownSectionTitle`) and `slotAt`'s present-section branch renders the transition H2 as an anchor — one token-only `.route-section__heading-link` class — into the target route's real `Opening` section id, with the route page top as the fallback when the target `Opening` is a declared gap, a plain-H2 guard for the lint-unreachable unresolvable title, and the inert F2 gap marker preserved for body-less declared transitions. Six committed anchors (two per route page) land on the existing section-anchor effect; zero content, model, lint, or router changes. One reviewed package commit + close-out; merged to `main` (feature close `a44e8c8`); feature-mode review Accept with no blocking findings.
 
 - **verification-notes-ui** (F3 — research & verification notes) — delivered 2026-10-03 · [IMPLEMENTATION](features/verification-notes-ui/VERIFICATION-NOTES-UI-IMPLEMENTATION.md) · [DESIGN](features/verification-notes-ui/VERIFICATION-NOTES-UI-DESIGN.md) — the guide's research trail as first-class UI: route body callouts carry their section identity in the tree (`RouteCallout.sectionId/sectionTitle`), the single `getFlaggedEntries` selector defines the `verify-in-campaign` flagged set once (36 entries over the committed Elspeth guide: 6 identity + 5 callout + 22 dataset + 3 VCO), Source / Verification Note panels render under each citing route section, and the lord page closes with the grouped flagged-items section under the Version Banner (`VERIFIED AGAINST — patch 9.0 · VCO 2026.09.30.1` + `N OPEN FLAGS` chip anchoring the list, `ALL CLEARED` at zero). Five reviewed package commits + one reviewed correction (chip focus target made focusable) + close-out; merged to `main` (feature close `944fb4f`); feature-mode review Accept with no blocking findings.
 

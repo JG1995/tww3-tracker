@@ -4,9 +4,11 @@
 
 ## Status
 
-Accepted
+Completed
 
 **Ledger schema:** 4
+
+**Feature complete:** merged to `main` as `a44e8c88e290b3576781cf07d4e45cbd85c50641` on 2026-10-03 after developer approval at the Local integration gate (sole package `transition-links` Integrated; close-out reviewed in feature mode — Accept, no blocking findings).
 
 ## Intent
 
@@ -98,7 +100,7 @@ The whole feature is one atomic commit on the sole Local PR: after integration, 
 
 **PR ref:** Not applicable
 
-**Merge ref:** Not merged
+**Merge ref:** a44e8c88e290b3576781cf07d4e45cbd85c50641
 
 **Branch:** `feat/route-transitions`
 
