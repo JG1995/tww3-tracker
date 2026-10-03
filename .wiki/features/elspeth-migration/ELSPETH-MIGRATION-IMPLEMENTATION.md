@@ -155,7 +155,7 @@ Commits 1–8 (the W1 pair, the five remaining datasets, then Route I): once `sh
 
 #### Package `shared-content` — Commit 1: Add the four atlas shared blocks to shared.md
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 1
 

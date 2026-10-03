@@ -246,6 +246,25 @@ test("lord page renders shared fundamentals and all three routes with the unrese
   // shared-fundamentals markdown, rendered once at boot and cached in the tree
   assert.ok(text.includes("Grey Lady of Nuln"), "shared fundamentals prose is rendered");
 
+  // the four atlas shared blocks render as H2 sections on the committed lord
+  // page, in atlas order (opening → smart → budget → equipment)
+  const sharedSections = [
+    "The common foundation",
+    "Autoresolve the operation, not just the battle",
+    "Build to a next operation",
+    "Give equipment a job",
+  ];
+  for (let i = 0; i < sharedSections.length; i++) {
+    const title = sharedSections[i] as string;
+    assert.ok(text.includes(title), `the "${title}" shared section title renders`);
+    if (i > 0) {
+      assert.ok(
+        text.indexOf(sharedSections[i - 1] as string) < text.indexOf(title),
+        `the "${title}" shared section follows "${sharedSections[i - 1] as string}" in atlas order`,
+      );
+    }
+  }
+
   // route list: numbers I/II/III, thematic subtitles, objective lines
   assert.ok(/\bI\b/.test(text) && /\bII\b/.test(text) && /\bIII\b/.test(text), "route numbers I, II and III are listed");
   assert.ok(text.includes("The Graveyard Watch"), "route I subtitle");
