@@ -455,7 +455,7 @@ Commits 1–9 (the W1 pair, the five remaining datasets, the research overrides,
 
 #### Package `route-3-content` — Commit 11: Fill Route III body sections and panel order
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 10
 

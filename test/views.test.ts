@@ -410,18 +410,16 @@ test("route page identity card: badged claims, notes, distinct title classes, an
 test("a mixed route renders present sections interleaved with gap markers at registry positions", async () => {
   await inContentCopy(
     async (root) => {
-      // route-3 (still a committed skeleton) keeps one real H2 body and
-      // declares the rest as gaps — the "present or declared" mix the lint
-      // treats as a valid route document. Routes I and II are now fully
-      // migrated, so the mixed route is proven over the next still-gapped
-      // route.
+      // every committed route is now fully migrated, so the "present or
+      // declared" mix the lint treats as a valid route document is proven by
+      // demanding a live gap from a migrated route: the copy removes one
+      // committed section (Diplomacy) and declares it in gaps. The walk must
+      // then render the lone marker at the Diplomacy registry slot while every
+      // other section still renders its written atlas content.
       const routeThree = await readFile(join(root, "elspeth-von-draken/routes/route-3.md"), "utf8");
       const mixed = routeThree
-        .replace("  - Opening\n", "")
-        .replace(
-          /---\n$/,
-          "---\n\n## Opening\n\nMixed-case opening prose proves the present section renders.\n",
-        );
+        .replace("  - Transition → route-1\n", "  - Diplomacy\n  - Transition → route-1\n")
+        .replace(/## Diplomacy\n\n[\s\S]*?(?=\n## Transition → route-1)/, "");
       await writeFile(join(root, "elspeth-von-draken/routes/route-3.md"), mixed);
     },
     async (root) => {
@@ -437,39 +435,39 @@ test("a mixed route renders present sections interleaved with gap markers at reg
       const text = vnodeText(view);
 
       const markerFor = (title: string): string => `"${title}" is a declared gap — it has not been written yet.`;
-      const afterSection = [
-        "Early → Mid",
-        "Mid → Late",
-        "Victory push",
-        "Territory policy",
-        "Diplomacy",
-        "Transition → route-1",
-      ];
-      const body = "Mixed-case opening prose proves the present section renders.";
+      const marker = markerFor("Diplomacy");
 
-      // the present section renders its written body at its registry position —
-      // before the first marker — and keeps its scroll anchor
-      assert.ok(text.includes(body), "the present section renders its written body");
+      // the present sections render their written atlas bodies at their
+      // registry positions and keep their scroll anchors
       assert.ok(
-        text.indexOf(body) < text.indexOf(markerFor("Early → Mid")),
-        "the present Opening section sits before the Early → Mid marker in registry order",
+        text.includes("Secure the departure base and the research company."),
+        "the present Opening section renders its written body",
+      );
+      assert.ok(
+        text.includes("Stop searching when the mission says the search is finished."),
+        "the present Mid → Late section renders its written body",
       );
       assert.ok(
         nodes.some((n) => typeof n.props["data-section-id"] === "string"),
-        "the present section keeps its data-section-id anchor for the router",
+        "the present sections keep their data-section-id anchors for the router",
       );
 
-      // the declared remainder renders exactly its markers, in registry order
-      for (let i = 1; i < afterSection.length; i++) {
-        assert.ok(
-          text.indexOf(markerFor(afterSection[i - 1] as string)) < text.indexOf(markerFor(afterSection[i] as string)),
-          `the "${afterSection[i] as string}" marker follows "${afterSection[i - 1] as string}" in registry order`,
-        );
-      }
+      // the declared gap renders exactly its marker at the Diplomacy registry
+      // slot: after the Victory push section, before the Transition → route-1
+      // section — the walk interleaves the marker with the present sections
+      const victoryPush = "Route III victory confirmed; surviving armies and footholds have a deliberate next assignment.";
+      assert.ok(
+        text.indexOf(victoryPush) < text.indexOf(marker),
+        "the Diplomacy marker follows the Victory push section in registry order",
+      );
+      assert.ok(
+        text.indexOf(marker) < text.indexOf("Transition → route-1"),
+        "the Diplomacy marker sits before the Transition → route-1 section in registry order",
+      );
       assert.equal(
         countOccurrences(text, "CONTENT GAP"),
-        afterSection.length,
-        "exactly the declared remainder renders markers",
+        1,
+        "exactly the one declared gap renders its marker, interleaved with the present sections",
       );
       assert.ok(!text.includes("This route has no sections yet."), "no empty-body fallback when a section is present");
       assert.ok(!text.includes("Content gaps"), "no trailing gap-list heading on the mixed route");
@@ -1006,6 +1004,155 @@ test("the route view renders Route II's eight sections, its override research an
     "Expedition capture / future handover",
   ]) {
     assert.ok(buildingsText.includes(probe), `buildings resolves the "${probe}" role on Route II`);
+  }
+});
+
+test("the route view renders Route III's eight sections, its override research and six settlement roles, with the twenty-item undercard", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "elspeth-von-draken", "route-3");
+  assert.ok(route.found);
+
+  const view = RouteView({ lord: lord.value, route: route.value });
+  const { key, markup } = mountedDashboard(view);
+  const fullText = vnodeText(view);
+  assert.equal(key, "route-3", "the dashboard is keyed by route id so navigating between routes remounts it");
+
+  // identity card unchanged by the body migration: numeric eyebrow, thematic
+  // subtitle, the explicit unresearched marker, and the badged claims/notes
+  assert.ok(fullText.includes("ROUTE III"), "route number eyebrow");
+  assert.ok(fullText.includes("Fozzrik’s Legacy"), "thematic subtitle");
+  assert.ok(
+    fullText.includes("UNRESEARCHED — no official VCO title recorded"),
+    "the null vcoTitle slot is explicitly marked unresearched",
+  );
+  assert.ok(
+    fullText.includes("Search the published Badlands candidate settlements for Fozzrik’s Flying Fortress through conquest or diplomacy."),
+    "objective claim text verbatim",
+  );
+  assert.ok(
+    fullText.includes("A travelling field laboratory rather than a map-painting crusade"),
+    "the interpretation note renders",
+  );
+  assert.ok(
+    fullText.includes("Finding the mission’s actual search result while sustaining a distant army"),
+    "the bottleneck note renders",
+  );
+  assert.ok(
+    fullText.includes("Follow the clues. Protect the field laboratory. Find the fortress."),
+    "the motto note renders",
+  );
+
+  // the body renders the eight registry sections in order — the two
+  // transition sections included — with the atlas's wording and NO Content
+  // Gap markers anywhere on the migrated Route III
+  assert.equal(countOccurrences(fullText, "CONTENT GAP"), 0, "no gap marker anywhere on the migrated Route III");
+  const sectionOrder = [
+    "Opening",
+    "Early → Mid",
+    "Mid → Late",
+    "Victory push",
+    "Territory policy",
+    "Diplomacy",
+    "Transition → route-1",
+    "Transition → route-2",
+  ];
+  for (let i = 0; i < sectionOrder.length; i++) {
+    const title = sectionOrder[i] as string;
+    assert.ok(fullText.includes(title), `the "${title}" section heading renders`);
+    if (i > 0) {
+      assert.ok(
+        fullText.indexOf(sectionOrder[i - 1] as string) < fullText.indexOf(title),
+        `the "${title}" section follows "${sectionOrder[i - 1] as string}" in registry order`,
+      );
+    }
+  }
+  assert.ok(
+    fullText.includes("Prepare the expedition, not an entire Empire reconquest"),
+    "the Opening phase title renders as the bold-lead prose",
+  );
+  assert.ok(
+    fullText.includes("Secure the departure base and the research company."),
+    "the Opening aim reads as the lead sentence",
+  );
+  assert.ok(
+    fullText.includes("Do not dismantle the expedition before a safe return is arranged."),
+    "the Transition → route-1 prose renders verbatim",
+  );
+  assert.ok(
+    fullText.includes("Promote the best foothold to a permanent Charter hub"),
+    "the Transition → route-2 prose renders verbatim",
+  );
+  assert.ok(!fullText.includes("This route has no sections yet."), "the F1 empty-body fallback is gone");
+
+  // the VCO undercard renders its twenty Route III items under the identity
+  // (the full per-item badge anatomy + count over every committed route is the
+  // undercard test's contract)
+  assert.ok(fullText.includes("VCO OBJECTIVES"), "the undercard's mono eyebrow renders");
+  assert.ok(fullText.includes("valays-sorrow"), "the Route III item id renders");
+  assert.ok(fullText.includes("Valaya’s Sorrow"), "the Route III item text renders verbatim");
+
+  // the five panels resolve Route III's atlas lists — never the empty state
+  const panels = markup.filter((n) => n.props.role === "tabpanel");
+  const emptyLabels = [
+    "NO ARMY TEMPLATES YET",
+    "NO SKILLS YET",
+    "NO RESEARCH YET",
+    "NO SETTLEMENTS YET",
+    "NO MECHANICS YET",
+  ];
+  for (let index = 0; index < panels.length; index++) {
+    const panelText = vnodeText(panels[index]);
+    assert.ok(
+      !panelText.includes(emptyLabels[index] as string),
+      `panel ${index} is not in its empty state on Route III; got: "${panelText.slice(0, 80)}"`,
+    );
+    assert.ok(panelText.trim().length > 0, `panel ${index} is never blank space`);
+  }
+  const entryCount = (panelId: string): number =>
+    recordVNodes(panels.filter((p) => p.props.id === panelId)[0]).filter(
+      (n) => n.tag === "article" && String(n.props.className).includes("panel-entry"),
+    ).length;
+  const expectedCounts: Record<string, number> = { armies: 5, skills: 10, research: 4, buildings: 6, mechanics: 5 };
+  for (const [group, count] of Object.entries(expectedCounts)) {
+    assert.equal(entryCount(`dashboard-panel-${group}`), count, `the ${group} panel shows its ${count} resolved entries`);
+  }
+
+  // research resolves the two `route-3-*` override entries in the atlas's own
+  // positions (the base `opening`/`arcane` groups are Route I's and absent
+  // here); buildings shows exactly Route III's six settlement roles
+  const researchText = vnodeText(panels.filter((p) => p.props.id === "dashboard-panel-research")[0]);
+  assert.ok(
+    researchText.includes("A durable survey column"),
+    "research resolves the route-3-opening override first",
+  );
+  assert.ok(
+    researchText.includes("The expedition’s practical research"),
+    "research resolves the route-3-arcane override in the owning route",
+  );
+  assert.ok(!researchText.includes("A working army before luxury research"), "the base opening group is Route I's, not restated here");
+  assert.ok(!researchText.includes("Magic, machines and the Garden network"), "the base arcane group is Route I's, not restated here");
+  const researchEntries = recordVNodes(panels.filter((p) => p.props.id === "dashboard-panel-research")[0])
+    .filter((n) => n.tag === "article" && String(n.props.className).includes("panel-entry"))
+    .map((n) => vnodeText(n));
+  assert.ok(
+    researchEntries[0]?.includes("A durable survey column") &&
+      researchEntries[1]?.includes("Infantry, artillery and the escort") &&
+      researchEntries[2]?.includes("Build the next theatre, not empty infrastructure") &&
+      researchEntries[3]?.includes("The expedition’s practical research"),
+    "research entries render in the atlas's Route III order: override, firepower, economy, override",
+  );
+  const buildingsText = vnodeText(panels.filter((p) => p.props.id === "dashboard-panel-buildings")[0]);
+  for (const probe of [
+    "Nuln · foundry and field-test centre",
+    "Survey foothold · an expedition service station",
+    "Military support town · the missing profession",
+    "Safe income town",
+    "Provincial recovery and support base",
+    "Expedition capture / future handover",
+  ]) {
+    assert.ok(buildingsText.includes(probe), `buildings resolves the "${probe}" role on Route III`);
   }
 });
 

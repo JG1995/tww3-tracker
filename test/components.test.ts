@@ -4,9 +4,10 @@
  * icon + mono uppercase label + colour-modifier class for all four confidence
  * states, with one trailing link per provided source (zero-DOM VNode flatten),
  * and the boot-time `::claim` callout renderer emits the same badged anatomy —
- * icon, mono label, resolved per-`src` links — inside the existing classed aside
- * markup, while the committed content (which has no callouts) renders unchanged.
- *
+* icon, mono label, resolved per-`src` links — inside the existing classed aside
+* markup, and the committed content's migrated `::claim` callouts render through
+* the same contract.
+*
  * Seam: zero-DOM. The component is a plain `h()`-built preact VNode flattened
  * with the same text helper the views tests use; the callout output is the
  * `load.ts`-rendered HTML string over the same filesystem-reader trees the
@@ -213,9 +214,9 @@ test("the fixture callout renders the badged anatomy with resolved per-src links
   );
 });
 
-// ─── 4. The committed content: Routes I and II's migrated callouts, Route III callout-free ──
+// ─── 4. The committed content: Routes I–III's migrated callouts, shared callout-free ──
 
-test("Routes I and II's migrated ::claim callouts render the badged anatomy; the rest of the committed content stays callout-free", async () => {
+test("the committed routes' migrated ::claim callouts render the badged anatomy; the shared fundamentals stay callout-free", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
   for (const lord of tree.lords) {
     assert.ok(
@@ -355,16 +356,77 @@ test("Routes I and II's migrated ::claim callouts render the badged anatomy; the
       "the treaty-wording hedge renders verbatim",
     );
 
-    // Route III remains the callout-free skeleton until its own package lands
+    // Route III's migrated hedges (Diplomacy treaty-validation + Mid → Late
+    // search-status) render the same badged anatomy with the resolved link,
+    // mirroring the Route I/II callout discipline. The residual callout-free
+    // skeleton block is removed as a contract removal: after this package no
+    // committed route is a skeleton, and the per-route callout anatomy
+    // assertions above fully replace it.
     const routeThree = lord.routes.find((r) => r.id === "route-3");
     assert.ok(routeThree !== undefined, "the committed route-3 loads");
-    assert.equal(routeThree.sections.length, 0, "route-3 has no sections yet");
-    for (const section of routeThree.sections) {
-      assert.ok(
-        !section.html.includes('<aside class="claim'),
-        `no callout in committed route-3/${section.id}`,
-      );
-    }
+
+    // the treaty-validation claim (Diplomacy — what the live objective
+    // accepts as a crediting relationship) renders the verify-in-campaign
+    // badge anatomy with the resolved link
+    const routeThreeDiplomacy = routeThree.sections.find((s) => s.id === "diplomacy");
+    assert.ok(routeThreeDiplomacy !== undefined, "the Diplomacy section exists");
+    assert.ok(
+      routeThreeDiplomacy.html.includes('<aside class="claim claim--verify-in-campaign"'),
+      'the Diplomacy callout keeps class="claim claim--verify-in-campaign"',
+    );
+    assert.ok(
+      routeThreeDiplomacy.html.includes('data-state="verify-in-campaign"'),
+      "the Diplomacy callout keeps data-state",
+    );
+    assert.ok(routeThreeDiplomacy.html.includes('data-src="vco-guide"'), "the Diplomacy callout keeps data-src");
+    assert.ok(
+      routeThreeDiplomacy.html.includes('<span class="confidence-badge confidence-badge--verify-in-campaign">'),
+      "the badge span matches the component's class contract",
+    );
+    assert.ok(
+      routeThreeDiplomacy.html.includes('<span class="confidence-badge__label">VERIFY</span>'),
+      "the Diplomacy callout carries the mono uppercase label",
+    );
+    assert.ok(
+      routeThreeDiplomacy.html.includes(
+        '<a class="confidence-badge__src" href="https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084">VCO • author’s route objectives</a>',
+      ),
+      "the Diplomacy src id resolves to its source link",
+    );
+    assert.ok(
+      routeThreeDiplomacy.html.includes(
+        "Friendly Dwarf holdings may be the best diplomatic route if the live objective accepts the treaty.",
+      ),
+      "the treaty-validation wording renders verbatim",
+    );
+
+    // the search-status claim (Mid → Late — the unexposed search result)
+    // keeps the same verify-in-campaign anatomy and folds the atlas evidence
+    // note "Unexposed implementation" verbatim
+    const routeThreeMidLate = routeThree.sections.find((s) => s.id === "mid-late");
+    assert.ok(routeThreeMidLate !== undefined, "the Mid → Late section exists");
+    assert.ok(
+      routeThreeMidLate.html.includes('<aside class="claim claim--verify-in-campaign"'),
+      'the Mid → Late callout keeps class="claim claim--verify-in-campaign"',
+    );
+    assert.ok(routeThreeMidLate.html.includes('data-state="verify-in-campaign"'), "the Mid → Late callout keeps data-state");
+    assert.ok(routeThreeMidLate.html.includes('data-src="vco-guide"'), "the Mid → Late callout keeps data-src");
+    assert.ok(
+      routeThreeMidLate.html.includes('<span class="confidence-badge__label">VERIFY</span>'),
+      "the Mid → Late callout carries the mono uppercase label",
+    );
+    assert.ok(
+      routeThreeMidLate.html.includes(
+        '<a class="confidence-badge__src" href="https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084">VCO • author’s route objectives</a>',
+      ),
+      "the Mid → Late src id resolves to its source link",
+    );
+    assert.ok(
+      routeThreeMidLate.html.includes(
+        "No exact Route III quota/search algorithm, guaranteed fortress location, follower mechanics or treaty-validation code was available in the current public guide.",
+      ),
+      "the folded Unexposed-implementation evidence note renders verbatim",
+    );
   }
 });
 

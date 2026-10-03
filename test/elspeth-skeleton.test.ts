@@ -31,8 +31,14 @@
  * committed datasets. Route II (package `route-2-content`) flips the same
  * way — eight registry sections, `gaps` = the two transition titles, and the
  * atlas's Route II `panelOrder` lists, including the two `route-2-*`
- * research override ids in the owning route's positions. Route III stays a
- * skeleton until its own package lands.
+ * research override ids in the owning route's positions. Route III (package
+ * `route-3-content`) flips the same way — its panelOrder carries the two
+ * `route-3-*` override ids — and with it the migration reconciliation
+ * completes: no committed dataset is the typed empty `{}` form anymore and no
+ * route is a skeleton, so the assertions below carry the full DESIGN §7
+ * counts (15 armies / 10 skills / 8 research entries / 9 building roles in
+ * per-route subsets / 5 mechanics / vco 6-7-20) against the migrated tree
+ * instead of any empty-form loop.
  */
 
 import { test } from "node:test";
@@ -811,7 +817,7 @@ test("the committed vco dataset is the three-route objective items with the stab
   }
 });
 
-test("every route's panelOrder has the five canonical keys; Routes I and II's atlas lists resolve through the loader", async () => {
+test("every route's panelOrder has the five canonical keys; each route's atlas lists resolve through the loader", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
   const routes = tree.lords[0].routes;
   const datasets = tree.lords[0].datasets;
@@ -899,21 +905,55 @@ test("every route's panelOrder has the five canonical keys; Routes I and II's at
     }
   }
 
-  // Route III stays a skeleton: the canonical keys with empty lists.
+  // Route III's atlas lists resolve through the loader too, including the two
+  // `route-3-*` research override ids (package `research-overrides`) in the
+  // owning route's positions: the base `opening`/`arcane` groups are Route I's
+  // and stay unlisted here.
   const routeThree = routes.find((r) => r.id === "route-3");
   assert.ok(routeThree !== undefined, "route-3 loads");
-  assert.ok(routeThree.panelOrder, "route-3 declares a panelOrder block");
+  const po3 = routeThree.panelOrder;
+  assert.ok(po3 !== undefined, "route-3 declares a panelOrder block");
   assert.deepEqual(
-    Object.keys(routeThree.panelOrder).sort(),
+    Object.keys(po3).sort(),
     [...canonicalGroups].sort(),
     "route-3 panelOrder keys are exactly the five canonical group keys",
   );
-  for (const group of canonicalGroups) {
-    assert.deepEqual(routeThree.panelOrder[group], [], `route-3 panelOrder.${group} is an empty list`);
+  assert.deepEqual(
+    po3,
+    {
+      armies: ["early", "mid", "late", "amethyst", "home"],
+      skills: ["elspeth", "master", "engineer", "theodore", "priest", "captain", "death", "light", "life", "hunter"],
+      research: ["route-3-opening", "firepower", "economy", "route-3-arcane"],
+      buildings: ["nuln", "survey", "military", "income", "recovery", "temporary"],
+      mechanics: ["testing", "armoury", "gardens", "theodore", "authority"],
+    },
+    "Route III panelOrder holds exactly the atlas's Route III lists under the five canonical group keys",
+  );
+  assert.equal(po3.armies.length, 5, "Route III lists five armies");
+  assert.equal(po3.skills.length, 10, "Route III lists ten skills");
+  assert.equal(po3.research.length, 4, "Route III lists four research entries");
+  assert.equal(po3.buildings.length, 6, "Route III lists six settlement roles");
+  assert.equal(po3.mechanics.length, 5, "Route III lists five mechanics");
+
+  // every Route III listed id also resolves through the loader against the
+  // committed datasets: armies ids in the route's own armies map, item ids
+  // (override ids included) in the lord-wide item datasets.
+  for (const id of po3.armies) {
+    assert.ok(
+      armies["route-3"] !== undefined && id in armies["route-3"],
+      `armies panelOrder id "${id}" resolves in route-3's armies map`,
+    );
+  }
+  for (const group of ["skills", "research", "buildings", "mechanics"] as const) {
+    const map = datasets.find((d) => d.name === group)?.value;
+    assert.ok(map !== undefined, `the ${group} dataset is present`);
+    for (const id of po3[group]) {
+      assert.ok(id in map, `${group} panelOrder id "${id}" resolves in the lord's "${group}" dataset`);
+    }
   }
 });
 
-test("Route I carries exactly the two transition gaps and its eight registry sections in order", async () => {
+test("every route keeps exactly its two transition gaps and its eight registry sections in order", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
   const routes = tree.lords[0].routes;
 
@@ -964,17 +1004,39 @@ test("Route I carries exactly the two transition gaps and its eight registry sec
     "Route II body is exactly the eight registry sections, the four required first in registry order",
   );
 
-  // Route III remains a skeleton: seven declared gaps, an empty body.
-  const expected = ["Opening", "Early → Mid", "Mid → Late", "Victory push", "Territory policy", "Diplomacy"];
+  // Route III flips exactly as Routes I and II did: the two transition titles
+  // stay in gaps as the slot declarations the `routeBody` registry walk
+  // renders, and the eight registry sections render in order.
   const routeThree = routes.find((r) => r.id === "route-3");
   assert.ok(routeThree !== undefined, "route-3 loads");
-  assert.equal(routeThree.gaps.length, 7, "route-3 records exactly seven declared gaps");
-  for (const title of expected) {
-    assert.ok(routeThree.gaps.includes(title), `route-3 declares "${title}"`);
-  }
-  assert.ok(
-    routeThree.gaps.some((g) => g.startsWith("Transition → ")),
-    "route-3 declares its transition section",
+  assert.deepEqual(
+    routeThree.gaps,
+    ["Transition → route-1", "Transition → route-2"],
+    "Route III keeps exactly the two transition titles in gaps — the slot declarations the routeBody registry walk renders",
   );
-  assert.equal(routeThree.sections.length, 0, "route-3's body is empty in the skeleton");
+  assert.deepEqual(
+    routeThree.sections.map((s) => s.title),
+    [
+      "Opening",
+      "Early → Mid",
+      "Mid → Late",
+      "Victory push",
+      "Territory policy",
+      "Diplomacy",
+      "Transition → route-1",
+      "Transition → route-2",
+    ],
+    "Route III body is exactly the eight registry sections, the four required first in registry order",
+  );
+
+  // The end-of-migration reconciliation: every committed route now carries the
+  // full eight-section migrated body — no skeleton assertion survives, and the
+  // residual empty-form loop is gone (the per-route migrated assertions above
+  // and the dataset counts below fully replace it).
+  const allTitles = routes.flatMap((r) => r.sections.map((s) => s.title));
+  assert.equal(allTitles.length, 24, "all three committed routes carry their eight sections each");
+  assert.ok(
+    routes.every((r) => r.gaps.length === 2 && r.gaps.every((g) => g.startsWith("Transition → "))),
+    "every committed route declares exactly the two transition gaps and no content gap",
+  );
 });
