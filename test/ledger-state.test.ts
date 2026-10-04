@@ -47,7 +47,8 @@ function makeDoc(items: Readonly<Record<string, ItemState>> = {}): CampaignDoc {
 test("beginWrite applies the optimistic next document and marks the row saving while other rows keep their committed values", () => {
   const doc = makeDoc({ alpha: item(true, 0), beta: item(false, 2), gamma: item(true, 4) });
   const state = createLedgerCommandState(doc);
-  const nextDoc = tickItem(doc, "beta", true);
+  const now = "2026-10-04T09:30:00.000Z"; // a clock distinct from the document's stamped times
+  const nextDoc = tickItem(doc, "beta", true, now);
 
   const next = beginWrite(state, "beta", nextDoc);
 
@@ -55,7 +56,8 @@ test("beginWrite applies the optimistic next document and marks the row saving w
   assert.deepEqual(next.doc.items.alpha, doc.items.alpha); // every other row byte-identical
   assert.deepEqual(next.doc.items.gamma, doc.items.gamma);
   assert.equal(next.doc.lordSlug, doc.lordSlug);
-  assert.equal(next.doc.updatedAt, doc.updatedAt);
+  assert.equal(next.doc.createdAt, doc.createdAt); // createdAt never moves
+  assert.equal(next.doc.updatedAt, now); // the mutation stamps the injected clock
   assert.deepEqual(rowStatus(next, "beta"), { phase: "saving", message: null }); // target row in flight
   assert.deepEqual(rowStatus(next, "alpha"), { phase: "idle", message: null }); // untouched rows read idle
   assert.deepEqual(rowStatus(next, "gamma"), { phase: "idle", message: null });
@@ -64,12 +66,13 @@ test("beginWrite applies the optimistic next document and marks the row saving w
 test("finishWrite settles the in-flight row back to idle and keeps the optimistic document", () => {
   const doc = makeDoc({ alpha: item(true, 0), beta: item(false, 2) });
   const state = createLedgerCommandState(doc);
-  const begun = beginWrite(state, "beta", tickItem(doc, "beta", true));
+  const now = "2026-10-04T09:30:00.000Z"; // a clock distinct from the document's stamped times
+  const begun = beginWrite(state, "beta", tickItem(doc, "beta", true, now));
 
   const next = finishWrite(begun, "beta");
 
   assert.deepEqual(rowStatus(next, "beta"), { phase: "idle", message: null });
-  assert.deepEqual(next.doc, tickItem(doc, "beta", true)); // the confirmed write stays
+  assert.deepEqual(next.doc, tickItem(doc, "beta", true, now)); // the confirmed write stays
   assert.equal(next.preWrite, null); // no rollback snapshot pending
   assert.deepEqual(next.doc.items.alpha, doc.items.alpha); // other rows untouched
 });
@@ -77,7 +80,8 @@ test("finishWrite settles the in-flight row back to idle and keeps the optimisti
 test("failWrite restores the byte-identical pre-write document and marks the row error with the message", () => {
   const doc = makeDoc({ alpha: item(true, 0), beta: item(false, 2) });
   const state = createLedgerCommandState(doc);
-  const begun = beginWrite(state, "beta", setConfirmedStep(doc, "beta", 3));
+  const now = "2026-10-04T09:30:00.000Z"; // a clock distinct from the document's stamped times
+  const begun = beginWrite(state, "beta", setConfirmedStep(doc, "beta", 3, now));
   const message = "the server rejected the request (status 500)";
 
   const next = failWrite(begun, "beta", message);
@@ -93,14 +97,15 @@ test("failWrite restores the byte-identical pre-write document and marks the row
 test("a failing write rolls back only its own row and leaves a different row's earlier committed tick untouched", () => {
   const doc = makeDoc({ alpha: item(false, 0), beta: item(false, 0) });
   let state = createLedgerCommandState(doc);
+  const now = "2026-10-04T09:30:00.000Z"; // a clock distinct from the document's stamped times
 
   // First mutation: tick alpha — committed successfully (the serialized UI's
   // earlier write; its state is now durable).
-  state = finishWrite(beginWrite(state, "alpha", tickItem(state.doc, "alpha", true)), "alpha");
+  state = finishWrite(beginWrite(state, "alpha", tickItem(state.doc, "alpha", true, now)), "alpha");
   assert.deepEqual(state.doc.items.alpha, item(true, 0));
 
   // Second mutation: tick beta — the write fails.
-  const begun = beginWrite(state, "beta", tickItem(state.doc, "beta", true));
+  const begun = beginWrite(state, "beta", tickItem(state.doc, "beta", true, now));
   const next = failWrite(begun, "beta", "could not reach the local server");
 
   assert.deepEqual(next.doc.items.alpha, item(true, 0)); // alpha's committed tick untouched
@@ -112,27 +117,29 @@ test("a failing write rolls back only its own row and leaves a different row's e
 test("the transitions never mutate their input state or document", () => {
   const doc = makeDoc({ alpha: item(true, 0), beta: item(false, 2) });
   const state = createLedgerCommandState(doc);
+  const now = "2026-10-04T09:30:00.000Z"; // a clock distinct from the document's stamped times
   const docBefore = structuredClone(doc);
   const rowsBefore = structuredClone(state.rows);
 
-  const begun = beginWrite(state, "beta", tickItem(doc, "beta", true));
+  const begun = beginWrite(state, "beta", tickItem(doc, "beta", true, now));
   const finished = finishWrite(begun, "beta");
-  const failed = failWrite(beginWrite(state, "gamma", setConfirmedStep(doc, "gamma", 1)), "gamma", "boom");
+  const failed = failWrite(beginWrite(state, "gamma", setConfirmedStep(doc, "gamma", 1, now)), "gamma", "boom");
 
   assert.deepEqual(state.doc, docBefore); // the original state's document untouched
   assert.deepEqual(state.rows, rowsBefore); // the original status record untouched
   assert.deepEqual(state.doc, doc); // the original document untouched
   assert.equal(begun.preWrite, doc); // the snapshot is the shared original, never copied or rewritten
-  assert.deepEqual(finished.doc, tickItem(doc, "beta", true));
+  assert.deepEqual(finished.doc, tickItem(doc, "beta", true, now));
   assert.deepEqual(failed.doc, doc); // the failed write restored the original byte-identical
 });
 
 test("beginWrite refuses a second write while another row is in flight", () => {
   const doc = makeDoc({ alpha: item(false, 0), beta: item(false, 0) });
   const state = createLedgerCommandState(doc);
-  const begun = beginWrite(state, "alpha", tickItem(doc, "alpha", true));
+  const now = "2026-10-04T09:30:00.000Z"; // a clock distinct from the document's stamped times
+  const begun = beginWrite(state, "alpha", tickItem(doc, "alpha", true, now));
 
-  assert.throws(() => beginWrite(begun, "beta", tickItem(doc, "beta", true)), /in flight/);
+  assert.throws(() => beginWrite(begun, "beta", tickItem(doc, "beta", true, now)), /in flight/);
 });
 
 test("finishWrite and failWrite refuse without an in-flight write to confirm or roll back", () => {

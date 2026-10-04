@@ -172,10 +172,15 @@ export function useCampaign(lordSlug: string, routeId: string): UseCampaignResul
     const start = commandRef.current;
     if (start === null) return; // no document loaded — nothing to mutate (unreachable from the table)
     const session = sessionRef.current;
+    // The C2 model contract's caller-injected-clock pattern: the browser
+    // event site is where a wall clock is legitimate, and the optimistic and
+    // persisted documents share the same stamp (`tickItem`/`setConfirmedStep`
+    // advance `updatedAt` from this `now`).
+    const now = new Date().toISOString();
     const nextDoc =
       action.kind === "tick"
-        ? tickItem(start.doc, action.itemId, action.planned)
-        : setConfirmedStep(start.doc, action.itemId, action.step);
+        ? tickItem(start.doc, action.itemId, action.planned, now)
+        : setConfirmedStep(start.doc, action.itemId, action.step, now);
     // The optimistic apply; `begun` is both the state the UI renders during
     // the write and the one the settle transitions finish/fail operate on
     // (the same `itemId` throughout, and no other command mutation can

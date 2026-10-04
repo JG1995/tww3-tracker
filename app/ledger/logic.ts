@@ -50,11 +50,14 @@ export function createCampaign(
  * separation invariant: its `confirmedStep` and every other item are
  * untouched. A stored-missing id starts from the fresh default (the same
  * rule `itemsFor` renders), so a tick on a committed row always persists.
- * Pure: returns a new document, never mutates its input.
+ * `updatedAt` is stamped with the caller-injected ISO `now` (the same clock
+ * pattern as `createCampaign` — no Date.now default, so the stamp stays
+ * testable). Pure: returns a new document, never mutates its input.
  */
-export function tickItem(doc: CampaignDoc, itemId: string, planned: boolean): CampaignDoc {
+export function tickItem(doc: CampaignDoc, itemId: string, planned: boolean, now: string): CampaignDoc {
   return {
     ...doc,
+    updatedAt: now,
     items: {
       ...doc.items,
       [itemId]: { planned, confirmedStep: doc.items[itemId]?.confirmedStep ?? FRESH_ITEM.confirmedStep },
@@ -67,12 +70,15 @@ export function tickItem(doc: CampaignDoc, itemId: string, planned: boolean): Ca
  * separation invariant: `planned` is untouched. The step is the closed union
  * `0|1|2|3|4`, so an out-of-bounds value is a type error at the call site
  * (see `isValidConfirmedStep` for the runtime guard on untrusted input). A
- * stored-missing id starts from the fresh default. Pure: returns a new
- * document, never mutates its input.
+ * stored-missing id starts from the fresh default. `updatedAt` is stamped
+ * with the caller-injected ISO `now` (the same clock pattern as
+ * `createCampaign` — no Date.now default, so the stamp stays testable).
+ * Pure: returns a new document, never mutates its input.
  */
-export function setConfirmedStep(doc: CampaignDoc, itemId: string, step: 0 | 1 | 2 | 3 | 4): CampaignDoc {
+export function setConfirmedStep(doc: CampaignDoc, itemId: string, step: 0 | 1 | 2 | 3 | 4, now: string): CampaignDoc {
   return {
     ...doc,
+    updatedAt: now,
     items: {
       ...doc.items,
       [itemId]: { planned: doc.items[itemId]?.planned ?? FRESH_ITEM.planned, confirmedStep: step },

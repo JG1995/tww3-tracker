@@ -4,9 +4,11 @@
  *
  * Everything here is pure node:test over direct function calls — no I/O, no
  * DOM, no wall clock: `createCampaign` pins both timestamps from the
- * injected `now`, and every transition returns a whole new document without
- * mutating its input (the repo's immutable-tree convention). Ids come in two
- * flavors: small synthetic sets, plus one committed Elspeth VCO id
+ * injected `now`, every transition stamps `updatedAt` from its injected
+ * `now` (same clock pattern — no Date.now default), and every transition
+ * returns a whole new document without mutating its input (the repo's
+ * immutable-tree convention). Ids come in two flavors: small synthetic sets,
+ * plus one committed Elspeth VCO id
  * (`content/elspeth-von-draken/data/vco.json` — route-1's "sylvania") to
  * prove the reconciliation against the real committed shape.
  */
@@ -63,8 +65,9 @@ test("createCampaign starts an active campaign with every committed id fresh and
 test("tickItem flips only that item's planned — its confirmedStep and every other item byte-identical", () => {
   const items = { alpha: item(true, 0), beta: item(false, 2), gamma: item(true, 4) };
   const doc = makeDoc(items);
+  const now = "2026-10-04T09:30:00.000Z"; // a clock distinct from the document's stamped times
 
-  const next = tickItem(doc, "beta", true);
+  const next = tickItem(doc, "beta", true, now);
 
   assert.deepEqual(next.items.beta, item(true, 2)); // planned flipped, step preserved (track separation)
   assert.deepEqual(next.items.alpha, doc.items.alpha); // every other item byte-identical
@@ -72,34 +75,42 @@ test("tickItem flips only that item's planned — its confirmedStep and every ot
   assert.equal(next.lordSlug, doc.lordSlug);
   assert.equal(next.routeId, doc.routeId);
   assert.equal(next.status, doc.status);
-  assert.equal(next.createdAt, doc.createdAt);
-  assert.equal(next.updatedAt, doc.updatedAt);
+  assert.equal(next.createdAt, doc.createdAt); // createdAt never moves
+  assert.equal(next.updatedAt, now); // the mutation stamps the injected clock
   assert.deepEqual(doc.items, items); // the input document was never mutated
 });
 
 test("setConfirmedStep moves forward and back within 0–4 and leaves planned untouched", () => {
   const items = { alpha: item(true, 1), beta: item(false, 4) };
   const doc = makeDoc(items);
+  const now = "2026-10-04T09:30:00.000Z"; // a clock distinct from the document's stamped times
 
-  const forward = setConfirmedStep(doc, "alpha", 3);
+  const forward = setConfirmedStep(doc, "alpha", 3, now);
   assert.deepEqual(forward.items.alpha, item(true, 3)); // step forward, planned untouched
 
-  const back = setConfirmedStep(doc, "beta", 1);
+  const back = setConfirmedStep(doc, "beta", 1, now);
   assert.deepEqual(back.items.beta, item(false, 1)); // step back, planned untouched
 
   assert.deepEqual(forward.items.beta, doc.items.beta); // other rows byte-identical
   assert.deepEqual(back.items.alpha, doc.items.alpha);
+  assert.equal(forward.createdAt, doc.createdAt); // createdAt never moves
+  assert.equal(forward.lordSlug, doc.lordSlug); // every other field byte-identical
+  assert.equal(forward.routeId, doc.routeId);
+  assert.equal(forward.status, doc.status);
+  assert.equal(forward.updatedAt, now); // the mutation stamps the injected clock
+  assert.equal(back.updatedAt, now); // a step back is a new write, so it stamps the clock too
   assert.deepEqual(doc.items, items); // the input document was never mutated
 });
 
 test("a stored-missing item starts from the fresh default on tick or step, so the row's change persists", () => {
   const doc = makeDoc({ alpha: item(true, 0) }); // beta and gamma are not stored
+  const now = "2026-10-04T09:30:00.000Z";
 
-  const ticked = tickItem(doc, "beta", true);
+  const ticked = tickItem(doc, "beta", true, now);
   assert.deepEqual(ticked.items.beta, item(true, 0)); // committed-order fresh row, now ticked
   assert.deepEqual(itemsFor(ticked, ["alpha", "beta"]).at(1)?.state, item(true, 0));
 
-  const stepped = setConfirmedStep(doc, "gamma", 2);
+  const stepped = setConfirmedStep(doc, "gamma", 2, now);
   assert.deepEqual(stepped.items.gamma, item(false, 2)); // fresh row, stepped, still unplanned
 
   assert.deepEqual(doc.items, { alpha: item(true, 0) }); // inputs never mutated
@@ -132,10 +143,11 @@ test("the step bounds guard rejects advancing past 4 and retreating below 0 (and
   assert.equal(isValidConfirmedStep(2.5), false); // not a member of the closed union
 
   // The closed 0–4 union makes an out-of-bounds step a compile-time error at
-  // the call site; the directive below is the tsc pin for that contract.
+  // the call site; the directive below is the tsc pin for that contract (the
+  // clock argument stays valid — only the step is out of the union).
   const doc = makeDoc();
   // @ts-expect-error — step 5 is not assignable to the closed 0|1|2|3|4 union
-  void setConfirmedStep(doc, "alpha", 5);
+  void setConfirmedStep(doc, "alpha", 5, "2026-10-03T00:00:00.000Z");
 });
 
 test("isValidCampaignDoc accepts a well-formed document and rejects hand-edited shapes", () => {
