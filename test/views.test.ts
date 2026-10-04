@@ -49,7 +49,7 @@ import {
   resolveSources,
   type PanelEntries,
 } from "../app/content/query.ts";
-import { CLAIM_STATES, PANEL_GROUPS, type Army, type ClaimState, type ContentReader, type Item, type Lord, type Route, type Source } from "../app/content/types.ts";
+import { CLAIM_STATES, PANEL_GROUPS, type Army, type ClaimState, type ContentReader, type Item, type Lord, type LordDataset, type Route, type Source } from "../app/content/types.ts";
 import { ConfidenceBadge } from "../app/components/ConfidenceBadge.ts";
 import { DeskPanel } from "../app/components/deskPanel.ts";
 import { DashboardMarkup } from "../app/components/dashboard.ts";
@@ -59,6 +59,7 @@ import { DeskMarkup } from "../app/views/desk.ts";
 import { ArmiesMarkup, SettlementsView, WorkshopView, panelTabNav } from "../app/views/panels.ts";
 import type { PanelGroup } from "../app/content/types.ts";
 import { LordView } from "../app/views/lord.ts";
+import { SourcesView } from "../app/views/sources.ts";
 import { PlanView } from "../app/views/plan.ts";
 import { RouteView, transitionTarget } from "../app/views/route.ts";
 import { itemsFor } from "../app/ledger/logic.ts";
@@ -3757,4 +3758,149 @@ test("a failed start renders the typed message inline under the retained start a
     "the server rejected the request (status 500)",
     "the typed LedgerError message surfaces verbatim",
   );
+});
+
+// ─── The sources page (package `sources-page-view`) ──────────────────────────
+
+/** The committed Elspeth tree resolved once for the sources-page proofs. */
+async function committedSourcesInputs(): Promise<{ lord: Lord }> {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found, "the committed lord loads");
+  return { lord: lord.value };
+}
+
+/** The sources page's rows in render order. */
+function sourceRowsOf(view: unknown): VNodeRecord[] {
+  return recordVNodes(view).filter((n) => n.props.className === "sources-row");
+}
+
+test("the sources page renders the desk toolbar: the serif title over the lord-page context line", async () => {
+  const { lord } = await committedSourcesInputs();
+  const markup = SourcesView({ lord });
+  const nodes = recordVNodes(markup);
+  const text = vnodeText(markup);
+
+  const titleAt = nodes.findIndex((n) => n.props.className === "sources-page__title");
+  const contextAt = nodes.findIndex((n) => n.props.className === "sources-page__context");
+  assert.ok(titleAt !== -1 && contextAt !== -1 && titleAt < contextAt, "the title renders above the context line in the toolbar");
+  const title = nodes[titleAt];
+  assert.equal(title?.tag, "h1", "the serif page title is the headline element");
+  assert.equal(String(title?.children[0]), "Sources & settings", "the DESIGN page copy renders");
+  assert.equal(
+    nodes.filter((n) => n.props.className === "sources-page__title").length,
+    1,
+    "the page title renders exactly once",
+  );
+  const context = nodes[contextAt];
+  assert.equal(
+    String(context?.children[0]),
+    "Elspeth von Draken",
+    "the lord-page context line names the lord (the recorded package copy decision)",
+  );
+  assert.ok(text.includes("Sources & settings"), "the toolbar text reads on the page");
+});
+
+test("the sources list renders one row per committed entry: count, link href = the url, and the note", async () => {
+  const { lord } = await committedSourcesInputs();
+  const markup = SourcesView({ lord });
+  const nodes = recordVNodes(markup);
+  const rows = sourceRowsOf(markup);
+
+  assert.equal(rows.length, 35, "one row per committed Elspeth source entry");
+
+  const first = rows[0];
+  assert.ok(first !== undefined, "the first row renders");
+  const firstNodes = recordVNodes(first);
+  const firstIndex = firstNodes.find((n) => n.props.className === "sources-row__index");
+  assert.equal(String(firstIndex?.children[0]), "1", "the first row is numbered 1");
+  const firstLink = firstNodes.find((n) => n.props.className === "sources-row__title");
+  assert.equal(firstLink?.tag, "a", "the title renders as a link");
+  assert.equal(
+    String(firstLink?.props.href),
+    "https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084",
+    "the link href is the entry url verbatim",
+  );
+  assert.equal(String(firstLink?.children[0]), "VCO • author’s route objectives", "the link text is the entry title");
+  const firstNote = firstNodes.find((n) => n.props.className === "sources-row__note");
+  assert.equal(firstNote?.tag, "p", "the note renders as a paragraph");
+  assert.ok(
+    String(firstNote?.children[0]).startsWith("Primary author reference"),
+    "the entry note text renders",
+  );
+
+  const last = rows[rows.length - 1];
+  assert.ok(last !== undefined, "the last row renders");
+  const lastLink = recordVNodes(last).find((n) => n.props.className === "sources-row__title");
+  assert.equal(
+    String(lastLink?.children[0]),
+    "Smart Autoresolve • evidence boundary",
+    "the last committed entry renders last (JSON order preserved)",
+  );
+
+  const text = vnodeText(markup);
+  assert.ok(
+    text.indexOf("VCO • author’s route objectives") < text.indexOf("VCO • Workshop setup"),
+    "rows render in sources.json order",
+  );
+});
+
+test("the settings block renders the fixed deferred line — never a blank region", async () => {
+  const { lord } = await committedSourcesInputs();
+  const markup = SourcesView({ lord });
+  const nodes = recordVNodes(markup);
+  const text = vnodeText(markup);
+
+  const deferred = nodes.find((n) => n.props.className === "sources-deferred__line");
+  assert.ok(deferred !== undefined, "the deferred settings line renders");
+  assert.equal(
+    String(deferred?.children[0]),
+    "Appearance settings arrive with a later feature",
+    "the DESIGN-fixed deferred-surface copy",
+  );
+  assert.ok(
+    text.includes("Appearance settings arrive with a later feature"),
+    "the deferred line reads on the page",
+  );
+});
+
+test("a lord with an absent sources dataset renders the explicit empty state", async () => {
+  const { lord } = await committedSourcesInputs();
+  const sourcesLess: Lord = {
+    ...lord,
+    datasets: lord.datasets.filter((d) => d.name !== "sources"),
+  };
+  const markup = SourcesView({ lord: sourcesLess });
+  const nodes = recordVNodes(markup);
+  const text = vnodeText(markup);
+
+  assert.ok(text.includes("NO SOURCES YET"), "the mono empty label names the state");
+  assert.ok(
+    text.includes("No sources are listed for this lord yet."),
+    "the proportional empty sentence explains the state",
+  );
+  assert.equal(sourceRowsOf(markup).length, 0, "no row renders on the empty page");
+  assert.ok(
+    nodes.some((n) => n.props.className === "sources-deferred__line"),
+    "the deferred settings line still renders below the empty list",
+  );
+});
+
+test("a lord with an empty sources dataset ([]) renders the same explicit empty state", async () => {
+  const { lord } = await committedSourcesInputs();
+  const emptySources: Lord = {
+    ...lord,
+    datasets: lord.datasets.map((d): LordDataset =>
+      d.name === "sources" ? { name: "sources", value: [] } : d,
+    ),
+  };
+  const markup = SourcesView({ lord: emptySources });
+  const text = vnodeText(markup);
+
+  assert.ok(text.includes("NO SOURCES YET"), "the mono empty label renders for an empty dataset");
+  assert.ok(
+    text.includes("No sources are listed for this lord yet."),
+    "the proportional empty sentence explains the state",
+  );
+  assert.equal(sourceRowsOf(markup).length, 0, "no row renders for an empty dataset");
 });

@@ -1408,6 +1408,140 @@ kbd,
   border-radius: var(--card-radius);
 }
 
+/* ─── Sources & settings (package `sources-page-view`): the lord-scoped ──
+   page — the desk toolbar (serif title + lord-page context line), the
+   numbered sources rows (title link + note), the explicit empty state for
+   a lord without sources, and the one-line deferred settings stand-in.
+   Token-only. */
+
+.sources-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+}
+
+.sources-page__toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+/* The serif page title — the headline voice of the desk/plan toolbars. */
+.sources-page__title {
+  color: var(--ink);
+}
+
+/* The lord-page context line in the eyebrow voice — the panel pages'
+   "ROUTE <n> · <name>" line reduced to the lord page (this page is
+   lord-scoped; the line names the lord). */
+.sources-page__context {
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--eyebrow-color);
+}
+
+/* The numbered sources rows — one per committed `data/sources.json` entry
+   in file order, hairline-divided (the desk rows' anatomy: serif numeral
+   ahead of the body). */
+.sources-list {
+  display: flex;
+  flex-direction: column;
+  margin-block: 0;
+  padding-inline: 0;
+  list-style: none;
+}
+
+.sources-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gap-base);
+  padding-block: var(--gap-base);
+}
+
+.sources-row + .sources-row {
+  border-top: 1px solid var(--line);
+}
+
+.sources-row__index {
+  min-width: 1.5em;
+  font-family: var(--serif);
+  font-size: var(--text-small);
+  line-height: var(--text-line-height);
+  color: var(--muted);
+}
+
+.sources-row__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+/* The entry title link — the brass link voice (the global `a` hover settles
+   into the dimmer brass). */
+.sources-row__title {
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--link-color);
+}
+
+.sources-row__note {
+  max-width: 60ch;
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
+}
+
+/* The explicit empty state — mono label + one proportional sentence (the
+   project's empty-state policy, the `desk-card__empty` precedent), never a
+   blank region. */
+.sources-empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+.sources-empty__label {
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--eyebrow-color);
+}
+
+.sources-empty__copy {
+  max-width: 55ch;
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
+}
+
+/* The deferred settings stand-in — the fixed one-line copy in the Content
+   Panel anatomy; the settings block itself is a later feature (DESIGN §2). */
+.sources-deferred {
+  padding: var(--gap-md);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+}
+
+.sources-deferred__line {
+  max-width: 60ch;
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
+}
+
 /* The shared desk panel: the serif head (Roman index + serif title) over
    the panel body; the entry anatomy inside keeps its own card treatment. */
 .desk-panel {

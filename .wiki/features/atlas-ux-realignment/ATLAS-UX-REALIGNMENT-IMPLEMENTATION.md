@@ -320,7 +320,7 @@ Commit 1 (content model) → Commit 2 (visual system) → Commit 3 (Elspeth cont
 
 #### Package `sources-page-view` — Commit 7: The Sources & settings page
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 5
 
