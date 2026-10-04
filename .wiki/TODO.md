@@ -6,6 +6,7 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
+- **atlas-ux-realignment** (F10 — atlas UX re-alignment) — design accepted 2026-10-04 · [IMPLEMENTATION](features/atlas-ux-realignment/ATLAS-UX-REALIGNMENT-IMPLEMENTATION.md) · [DESIGN](features/atlas-ux-realignment/ATLAS-UX-REALIGNMENT-DESIGN.md) — the site's chrome, IA, and look re-aligned to the reference atlases: a fresh page/route/section hash grammar (old shapes deliberately broken), the three-tier sticky header, the full 8-page per-lord IA, the atlas slate/brass visual system replacing Factory, and the optional `crest`/`environment`/`phases` content fields with Elspeth's chrome content extracted from the atlas.
 
 ## Next
 
