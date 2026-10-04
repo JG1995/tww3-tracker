@@ -356,6 +356,7 @@ The VCO progress surface for the active campaign: one row per route objective it
 - **Content / Anatomy:** per row — objective label (`body-md`); **planning** state (checkbox + `mono-sm` label); **game-confirmed** state (4-step track: appears complete → mission complete → victory registered → reward received, each a mono `label-sm` cell). The two tracks are in separate column groups with a mono uppercase group header — visually unmistakable that they are different facts.
 - **States:** planning ticked — `on-surface` check; game-confirmed step reached — `success` green dot + label; step appears complete but unconfirmed — `warning` orange dot + label; ledger write failed — row border `error` + inline error text + rollback.
 - **Behaviour:** optimistic updates with rollback on failure (every mutation shows loading → success/error, no silent writes); keyboard-operable checkboxes and step advance buttons; changes persist via the local server write path.
+- **Implemented:** active and archived campaign tables render separate PLANNING and GAME CONFIRMED groups with explicit counts, fixed step labels, and 40px rows; active row writes show SAVING or a rollback error. Completed campaigns render read-only rows.
 
 ### Version Banner
 
@@ -380,6 +381,7 @@ The signature figure on each route page — the one bright object in the view.
 - **Container (ghost):** transparent, 1px `outline` border, 0px radius (flat), `on-surface` text.
 - **States:** default / hover (text + border shift toward chalk — no fill appears on ghost) / active (`surface-container-high`) / focus (`:focus-visible` ring) / disabled (40% opacity, `cursor-not-allowed`). Transitions 0.15s colour-only.
 - **Variants:** primary and ghost only. **No chromatic button fills exist** — the reference's core rule; a coloured CTA would break the monochrome chrome.
+- **Implemented:** route pages render Start ledger or Open ledger actions as applicable; the ledger page provides Mark complete and Delete actions with inline confirmation and Cancel.
 
 ### Search Field & Results
 
@@ -411,6 +413,7 @@ Records the research trail next to the claims it supports.
 - **Loading (boot only):** a single centered mono uppercase line — "LOADING CORPUS" — plus a 1px `primary` progress hairline. This is the *only* loading state in the app: after boot, everything is in-memory and instant (ARCHITECTURE §1.1).
 - **Empty:** explicit mono label + one proportional sentence (e.g. ledger page with no campaign: "NO ACTIVE CAMPAIGN — start one from a route page"). Never blank space.
 - **Error:** `error`-bordered panel, icon + `body-md` message + ghost "Retry" button. Ledger write failures additionally keep the pre-write row state visible (rollback is the default).
+- **Implemented:** an absent campaign renders the mono label "NO ACTIVE CAMPAIGN" with the proportional copy "— start one from a route page"; load errors render an icon, message, and ghost Retry button. Ledger loading uses a compact "LOADING" status line; boot retains "LOADING CORPUS".
 
 ### Animations & Transitions
 

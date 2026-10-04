@@ -12,7 +12,7 @@ For the product purpose and domain model, see [CONCEPT.md](./CONCEPT.md). For th
 
 ### 1.1 Target architecture (approved proposal)
 
-> Status: approved 2026-10-02, **partially implemented** — F1 (site foundation), F2 (route-first rendering), F4 (Elspeth migration), F3 (verification notes UI), and F7 (route transitions) are implemented and merged to `main` (F4, F3, and F7 on 2026-10-03); F5 (ledger) and F6 (search) remain approved-but-unbuilt. This subsection records the approved target stack and direction; §2 and §3 describe the currently implemented system. Rationale: [ADR-0001](adr/0001-vite-preact-runtime-loaded-site.md), [ADR-0002](adr/0002-content-as-markdown-json.md).
+> Status: approved 2026-10-02, **partially implemented** — F1 (site foundation), F2 (route-first rendering), F4 (Elspeth migration), F3 (verification notes UI), F7 (route transitions), and F5 (VCO campaign ledger) are implemented and merged to `main` (F4, F3, and F7 on 2026-10-03; F5 on 2026-10-04); F6 (search) remains approved-but-unbuilt. This subsection records the approved target stack and direction; §2 and §3 describe the currently implemented system. Rationale: [ADR-0001](adr/0001-vite-preact-runtime-loaded-site.md), [ADR-0002](adr/0002-content-as-markdown-json.md).
 
 A local, single-user web app. One Preact SPA in TypeScript, built by Vite, with no static site generator and no backend. Guide content is never compiled into the bundle — it is fetched at runtime from the repository as Markdown and JSON files.
 
@@ -23,7 +23,7 @@ A local, single-user web app. One Preact SPA in TypeScript, built by Vite, with 
 | Dev tooling | `vite`, `typescript` (`tsc --noEmit`), small esbuild-based content lint script; Node ≥ 22 |
 | Content | Markdown + YAML frontmatter (prose, confidence states) and JSON (structured dashboard data) in `content/`, git-versioned, loaded at runtime |
 | Ledger state | JSON files in a gitignored local directory (e.g. `.local/state/ledgers/`); SQLite deferred per PRD F8 |
-| Serving | Small dependency-free local server script — the reading path. `node tools/server.mjs` serves `dist/` at `/` and `content/` under `/content/` over `http://127.0.0.1`; F5 adds ledger JSON writes to the same script. A direct `file://` open of `dist/index.html` is blocked in Chromium (verified 2026-10-02: module scripts, fetch, and XHR fail; see the ADR-0001 correction) |
+| Serving | Small dependency-free local server script — the reading path. `node tools/server.mjs` serves `dist/` at `/`, `content/` under `/content/`, and the ledger store at `/ledgers/` over `http://127.0.0.1`; ledger JSON in `.local/state/ledgers/` is listed/read via GET, written via PUT, and removed via DELETE. A direct `file://` open of `dist/index.html` is blocked in Chromium (verified 2026-10-02: module scripts, fetch, and XHR fail; see the ADR-0001 correction) |
 | Design system | `.wiki/DESIGN.md` oklch tokens as CSS custom properties; no UI library |
 | Testing | Node built-in `node:test`; tests cover content-schema validation and ledger logic (pure functions) |
 
@@ -31,10 +31,10 @@ A local, single-user web app. One Preact SPA in TypeScript, built by Vite, with 
  Browser (Preact SPA, served dist/ or Vite dev)
    │  HTTP fetch over the local origin — the reading path (file:// is blocked in Chromium)
    ├──► content/<lord-slug>/        Markdown + JSON  (read path; git-versioned; served under /content/)
-   └──► .local/state/ledgers/*.json (write path; gitignored; plain-text exportable)
+   └──► .local/state/ledgers/<lord>/<route>.json (write path; gitignored; plain-text exportable; served at /ledgers/)
 
  Local server: small dependency-free Node script — static serving +
- PUT .local/state/ledgers/<campaign>.json with a path-safety check. No other server code.
+ GET index/document, PUT whole documents, and DELETE under /ledgers/ with path-safety checks. No other server code.
 
  Raw archive (read-only reference, gitignored): .work/references/*.html
 ```
@@ -46,18 +46,20 @@ app/
 ├── main.ts            # bootstrap: build the content tree, mount the router
 ├── router.ts          # hash router (~50 lines): #/faction/elspeth/route-ii → view
 ├── views/             # one file per page; owns layout and page-local state
-│   ├── home.tsx  faction.tsx  lord.tsx  route.tsx
-│   ├── dashboard.tsx  ledger.tsx  search.tsx
+│   ├── home.tsx  faction.tsx  lord.tsx  route.tsx  ledger.ts
+│   ├── dashboard.tsx  search.tsx
 ├── components/        # dumb reusable panels: TabStrip, Panel, ConfidenceBadge,
-│                      # SourceChip, LedgerTable, SearchResults — plain props in, UI out
+│                      # SourceChip, LedgerTable (`app/components/LedgerTable.ts`), SearchResults — plain props in, UI out
 ├── content/
 │   ├── types.ts       # the content model: Faction, Lord, Route, Claim, Army, …
 │   ├── load.ts        # side effect: fetch + parse Markdown/JSON → immutable ContentTree
 │   └── query.ts       # pure selectors: byRoute(), flaggedClaims(), search corpus
 ├── ledger/
-│   ├── types.ts
-│   ├── logic.ts       # pure: tickItem(), markConfirmed(), newCampaign() — unit-tested
-│   └── io.ts          # side effect: the only code that reads/writes .local/state
+│   ├── types.ts       # campaign and item state contracts
+│   ├── logic.ts       # pure campaign transitions, validation, content reconciliation
+│   ├── state.ts       # pure optimistic command state and rollback
+│   ├── io.ts          # only ledger network I/O to /ledgers/
+│   └── useCampaign.ts # on-demand page state and command orchestration
 └── styles/            # tokens.css (DESIGN.md oklch tokens as custom properties), components.css
 ```
 
@@ -72,7 +74,7 @@ app/
 - **Boot (once):** fetch the manifest, fetch all guide files in one parallel pass, parse and validate, build the immutable `ContentTree` in memory (tens of ms over a few MB). Markdown is rendered to HTML once at load and cached in the tree.
 - **After boot:** every page, tab, and search hit is a synchronous in-memory read — no per-view fetching, no loading states, no cache invalidation.
 - **Ledgers load on demand**, never at boot: opening a campaign loads its document via `io.ts`. Boot cost is independent of the number of campaigns, so the file-based store stays adequate at 100+ campaigns.
-- **Ledger write path:** `logic.ts` computes the next document → `io.ts` PUTs it → optimistic in-memory update, visible error and rollback on failure. Single user; no conflict handling.
+- **Ledger write path:** the on-demand campaign hook queues a command; `logic.ts` computes the next document, `state.ts` applies it optimistically, and `io.ts` PUTs the whole document to `/ledgers/`. Success settles the command; failure restores the prior document and exposes a row-level error. Completion uses PUT; confirmed deletion uses DELETE. Single user; no conflict handling.
 
 #### Performance expectations
 
@@ -89,7 +91,7 @@ Cross-campaign querying/analysis (comparisons, history stats across many campaig
 
 ### 1.2 Current state
 
-F1 (site foundation), F2 (route-first rendering), F4 (Elspeth migration), and F3 (verification notes UI) are implemented and merged to `main`: the committed `content/` includes the migrated Elspeth guide, with its shared introduction and four blocks, six populated datasets, and three fully sectioned route documents. F3 adds the `getFlaggedEntries` selector and `FlaggedEntry` type in `query.ts`, the lord-page Version Banner and flagged-items section, and per-section Source panels. F7 is implemented and merged to `main`: `app/views/route.ts` renders present `Transition → <route>` sections as same-lord cross-links to the target route's `Opening`, or to the route page top when that `Opening` is a declared gap; `app/styles/app.css` adds one token-only link class. F5 (ledger) and F6 (search) remain approved-but-unbuilt. §2 (Project Layout) and §3 (Build, Test, and Gate Pipeline) describe the implemented system; the sections that belong to unbuilt layers (parts of §1.1's module layout, §4–§11) remain unfilled placeholders.
+F1 (site foundation), F2 (route-first rendering), F4 (Elspeth migration), F3 (verification notes UI), F7 (route transitions), and F5 (VCO campaign ledger) are implemented and merged to `main`: the committed `content/` includes the migrated Elspeth guide, with its shared introduction and four blocks, six populated datasets, and three fully sectioned route documents. F3 adds the `getFlaggedEntries` selector and `FlaggedEntry` type in `query.ts`, the lord-page Version Banner and flagged-items section, and per-section Source panels. F7 is implemented and merged to `main`: `app/views/route.ts` renders present `Transition → <route>` sections as same-lord cross-links to the target route's `Opening`, or to the route page top when that `Opening` is a declared gap; `app/styles/app.css` adds one token-only link class. F5 is implemented and merged to `main`: `app/ledger/{types,logic,state,io,useCampaign}.ts` define the campaign contract, pure transitions, rollback state, network I/O, and on-demand orchestration; `app/views/ledger.ts` composes the page, and `app/components/LedgerTable.ts` renders its table. F6 (search) remains approved-but-unbuilt. §2 (Project Layout) and §3 (Build, Test, and Gate Pipeline) describe the implemented system; the sections that belong to unbuilt layers (parts of §1.1's module layout, §4–§11) remain unfilled placeholders.
 
 ---
 

@@ -4,7 +4,7 @@
 
 ## Status
 
-Accepted
+Completed
 
 **Ledger schema:** 4
 
@@ -117,7 +117,7 @@ Commit 1 (server ledger root + gitignore) → Commit 2 (pure model) → Commit 4
 
 **PR ref:** Not applicable
 
-**Merge ref:** Not merged
+**Merge ref:** `70ac3083ffdae6c66a9e5f6919249c7545f8cb40`
 
 **Branch:** `feat/vco-campaign-ledger`
 
@@ -131,7 +131,7 @@ Commit 1 (server ledger root + gitignore) → Commit 2 (pure model) → Commit 4
 
 **Required checks:** `npm test` green, `npx tsc --noEmit` clean, `node tools/content-lint.mjs` exits 0, `npm run build` succeeds (the real local gate; the manual `npm run serve` HTTP boot is the completing evidence in Final validation)
 
-**Feature close-out:** Not run
+**Feature close-out:** Current
 
 **Provisional PR title:** `feat(app): add the VCO campaign ledger`
 
@@ -446,6 +446,7 @@ Record material deviations, blockers, and decisions that change remaining work. 
 - C8 review note → bounded C2/C8 correction (accepted): `tickItem`/`setConfirmedStep` never advanced `updatedAt`, so persisted row mutations kept the campaign's original timestamp. Correction: both transitions take a required caller-injected `now` (the `createCampaign` pattern; no `Date.now()` default) and stamp `updatedAt`; the C8 hook injects the clock at the browser event site. The C8 reviewer's note about the first correction run's omitted necessary path (`test/ledger-state.test.ts`) resolved by authorizing the 4th path, not by re-dispatching a different outcome.
 - C8 gate decision (developer): after two simplifier rounds (round 1 removed a dead import + a redundant load-effect staleness check; round 2 found no further justified simplification) the Jev overengineering gate re-ran at `suitable` @ 0.78 vs the 0.8 threshold — a borderline classifier flag on contract-mandated glue (verdict `suitable`, never `overengineered`). The developer explicitly accepted the gate result and directed the delivery to continue; the fresh commit reviewer independently found no overengineering finding.
 - C4 discovery → bounded C1 correction (accepted, first and only correction round for `server-ledger-surface`): the Commit-1 index derivation stitched `status`/`updatedAt` verbatim from any parseable file, so a hand-edited parseable-but-not-a-document file produced an out-of-contract index entry that the strict `listLedgers()` client rejects as a whole-index typed error. Correction: the derivation now shape-validates the parsed top level (non-null object, `status` exactly `active`/`completed`, string `updatedAt`) and classifies anything else per-file `corrupt` with `updatedAt: null` — the DESIGN corrupt-file contract extended to parseable-but-shape-invalid files; the client's strictness is retained as fail-closed defense. New server regression test proves per-file classification.
+- Close-out copy/rendering discovery: the implemented empty state uses the sentence “— start one from a route page” following its “NO ACTIVE CAMPAIGN” label; delete confirmation says “The campaign file is removed from disk. This cannot be undone.” and completion confirmation explains the archived file stays on disk and the route becomes startable. These are concrete renderings of the DESIGN requirements, not changes to their contract.
 
 ## Final validation
 
@@ -459,6 +460,12 @@ Exact gates, in order, before final feature review:
 6. The DESIGN §7 acceptance criteria checked item by item (every item above maps to one), including the separate-column-groups check, the never-silently-repair corrupt-file rule, the no-VCO-route no-action rule, and the pre-delivery checklist (keyboard-operable controls, `:focus-visible`, destructive-action confirmation, no colour-only meaning).
 
 Report any skipped or unsupported validation step as a gap, never as a pass (known honest gaps: the hook/`main.tsx` glue has no node:test seam — the manual boot is its completing proof, the `useHashRoute` precedent; DOM-level focus/scroll behaviors are manual-boot-only).
+
+### Final validation record
+
+The integrated change spans `b0fddd8..70ac308` (12 commits) and was verified on `main` at `70ac3083ffdae6c66a9e5f6919249c7545f8cb40` after the approved fast-forward integration. The post-integration gates passed: `npm test` (173/173), `tsc --noEmit`, `tools/content-lint.mjs` (exit 0), and `vite build`.
+
+Manual HTTP boot passed all 52 checks across the four journeys and on-demand loading, including write failure rollback/error, archived read-only rendering, confirmed deletion, and corrupt-path handling. Feature review verdict: Accept, zero findings; below-threshold notes were recorded.
 
 ## Documentation impact
 
