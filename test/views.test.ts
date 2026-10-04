@@ -1,16 +1,12 @@
 /**
- * Contract proof for the data-driven views (package `home-real`, commit 6):
- * the home card list and the F1 route page rendered from the REAL committed
- * Elspeth tree; (package `route-tab-strip`, commit 4) the route tab strip the
- * route views mount over the committed tree; and
- * (package `route-identity`, commit 5) the identity card's badged claims,
- * notes, distinct official-title/subtitle classes, and the optional VCO
- * undercard proven over the test fixtures; and (package `gap-markers`,
- * commit 6) the section region as the registry walk — in-flow Content Gap
- * Markers at registry positions and present sections interleaved, with the
- * F1 trailing gap list and the empty-body fallback gone; and (package
- * `ledger-view-page`, commit 7) the ledger page view over constructed props:
- * the campaign context header (lord, route name, patch/VCO), the loading
+ * Contract proof for the data-driven views: the home card list over the real
+ * committed Elspeth tree (package `home-real`, commit 6); the reference desk
+ * (package `reference-desk-view`), the route plan with the section walk,
+ * transitions, source panels, gap markers, VCO undercard, and campaign action
+ * region (packages `route-plan-view` / `ledger-route-start`), the three detail
+ * pages (package `detail-pages-view`), the sources and notes pages, and the
+ * ledger page view over constructed props (package `ledger-view-page`): the
+ * campaign context header (lord, route name, patch/VCO), the loading
  * in-flight line, the composed table (committed order, fresh misses, dropped
  * extras, passed-through statuses, progress), the exact empty state, and the
  * error panel with its Retry wired to `onRetry`.
@@ -18,14 +14,11 @@
  * `app/content/load.ts` pass the CLI and the site boot use (filesystem
  * `ContentReader`, one immutable tree), then each view function is called
  * directly with the data `main.tsx` passes it — `HomeView` gets the tree,
- * `RouteView`/the desk views get query results — and the returned Preact VNode
+ * the plan/desk/panel views get query results — and the returned Preact VNode
  * tree is flattened to text with the small helper below. Views stay plain
  * `.ts` modules built from `h()`, so node:test can import them without a DOM
  * library (see the plan-revision discovery on `.tsx` under node:test). The
- * strip is asserted at the view seam (the `TabStrip` VNode's props) and then
- * expanded through the same pure `TabStripMarkup` builder with those props,
- * because the mounted wrapper's focus effect only runs under a real render.
- * The badge components (no hooks) expand through the pure `ConfidenceBadge`
+ * badge components (no hooks) expand through the pure `ConfidenceBadge`
  * function the same way, so the badge anatomy — label, state colour class,
  * resolved src links — is assertable without a DOM.
  */
@@ -47,21 +40,17 @@ import {
   getSection,
   getVcoObjectives,
   resolveSources,
-  type PanelEntries,
 } from "../app/content/query.ts";
 import { CLAIM_STATES, PANEL_GROUPS, type Army, type ClaimState, type ContentReader, type Item, type Lord, type LordDataset, type Route, type Source } from "../app/content/types.ts";
 import { ConfidenceBadge } from "../app/components/ConfidenceBadge.ts";
 import { DeskPanel } from "../app/components/deskPanel.ts";
-import { DashboardMarkup } from "../app/components/dashboard.ts";
-import { TabStripMarkup, type TabStripProps } from "../app/components/TabStrip.ts";
 import { HomeView, versionContext } from "../app/views/home.ts";
 import { DeskMarkup } from "../app/views/desk.ts";
 import { ArmiesMarkup, SettlementsView, WorkshopView, panelTabNav } from "../app/views/panels.ts";
 import type { PanelGroup } from "../app/content/types.ts";
 import { SourcesView } from "../app/views/sources.ts";
 import { NotesView } from "../app/views/notes.ts";
-import { PlanView } from "../app/views/plan.ts";
-import { RouteView, transitionTarget } from "../app/views/route.ts";
+import { PlanView, transitionTarget } from "../app/views/plan.ts";
 import { itemsFor } from "../app/ledger/logic.ts";
 import type { CampaignDoc, LedgerIndexEntry } from "../app/ledger/types.ts";
 import type { LedgerIndexState } from "../app/ledger/useCampaign.ts";
@@ -190,29 +179,9 @@ function recordVNodes(node: unknown, into: VNodeRecord[] = []): VNodeRecord[] {
 }
 
 /**
- * The strip exactly as the view mounts it: the `TabStrip` VNode's props at
- * the view seam, then the same props expanded through the pure
- * `TabStripMarkup` builder at the component seam (the zero-DOM equivalent of
- * letting the view's child component render — the mounted wrapper's focus
- * effect only runs under a real preact render).
- */
-function mountedTabStrip(view: unknown): { props: TabStripProps; tabs: VNodeRecord[]; text: string } {
-  const nodes = recordVNodes(view);
-  const strip = nodes.find((n) => typeof n.props.activeId === "string");
-  assert.ok(strip !== undefined, "the view mounts the route tab strip");
-  const props: TabStripProps = {
-    lordSlug: String(strip.props.lordSlug),
-    routes: strip.props.routes as readonly Route[],
-    activeId: String(strip.props.activeId),
-  };
-  const tabs = recordVNodes(TabStripMarkup(props)).filter((n) => n.props.role === "tab");
-  return { props, tabs, text: vnodeText(TabStripMarkup(props)) };
-}
-
-/**
  * The ConfidenceBadge VNodes at the view seam. The badge is a pure component
- * with no hooks, so — exactly like `TabStripMarkup` — it expands through the
- * component function with the recorded props, keeping the zero-DOM seam.
+ * with no hooks, so it expands through the component function with the
+ * recorded props, keeping the zero-DOM seam.
  */
 function badgeVNodes(view: unknown): VNodeRecord[] {
   return recordVNodes(view).filter(
@@ -258,332 +227,6 @@ test("home keeps the explicit empty state when the tree holds no lords", () => {
   const text = vnodeText(HomeView({ tree: { lords: [] } }));
 
   assert.ok(text.includes("NO GUIDES YET"), "the empty state names that no guides exist yet");
-});
-
-test("route page identity card: badged claims, notes, distinct title classes, and the committed VCO undercard", async () => {
-  const tree = await loadContentTree(fsReader(CONTENT));
-  const lord = getLord(tree, "elspeth-von-draken");
-  assert.ok(lord.found);
-  const route = getRoute(tree, "elspeth-von-draken", "route-1");
-  assert.ok(route.found);
-  const view = RouteView({ lord: lord.value, route: route.value });
-  const text = vnodeText(view);
-  const nodes = recordVNodes(view);
-
-  // identity card: number eyebrow, thematic subtitle, explicit unresearched marker
-  assert.ok(text.includes("ROUTE I"), "route number eyebrow");
-  assert.ok(text.includes("The Graveyard Watch"), "thematic subtitle");
-  assert.ok(
-    text.includes("UNRESEARCHED — no official VCO title recorded"),
-    "the null vcoTitle slot is explicitly marked unresearched",
-  );
-
-  // objective and reward claims verbatim from the committed frontmatter, each
-  // rendered as a Confidence Badge: mono uppercase label + state colour class
-  // + the resolved source link
-  assert.ok(text.includes("Defeat the five listed factions and win 35 battles."), "objective claim text");
-  assert.ok(text.includes("give her army movement after battle"), "reward claim text");
-  const claims = badgeVNodes(view);
-  assert.equal(
-    claims.length,
-    8,
-    "objective + reward claims and the six route-1 vco items are the Confidence Badged rows",
-  );
-  // The identity card renders its two claim badges before the undercard rows
-  // (RouteView composes identityCard then vcoUndercard), so the first two badges
-  // are exactly the objective/reward claims and keep their identity anatomy.
-  for (const claim of claims.slice(0, 2)) {
-    const badge = recordVNodes(expandBadge(claim));
-    assert.ok(
-      badge.some((n) => String(n.props.className).includes("confidence-badge--verify-in-campaign")),
-      "each claim badge carries its state colour class",
-    );
-    const label = badge.find((n) => n.props.className === "confidence-badge__label");
-    assert.equal(label?.children[0], "VERIFY", "the mono uppercase state label renders");
-    const link = badge.find((n) => n.tag === "a" && n.props.className === "confidence-badge__src");
-    assert.ok(link !== undefined, "the src-carrying claim trails a source link");
-    assert.equal(
-      link.props.href,
-      "https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084",
-      "the src id resolves to the committed source url",
-    );
-    assert.ok(String(link.children[0]).includes("VCO • author"), "…with the committed source title");
-  }
-
-  // official title and thematic subtitle stay distinct elements and classes —
-  // never interchangeable (DESIGN §4)
-  const official = nodes.find((n) => n.props.className === "route-identity__vco route-identity__vco--unresearched");
-  const subtitle = nodes.find((n) => n.props.className === "route-identity__title");
-  assert.ok(official !== undefined && official.tag === "p", "the official-title slot is its own element");
-  assert.ok(subtitle !== undefined && subtitle.tag === "h1", "the thematic subtitle is its own headline element");
-  assert.notEqual(official.props.className, subtitle.props.className, "official title and subtitle use distinct classes");
-
-  // notes: interpretation, bottleneck and motto all render when present
-  assert.ok(
-    text.includes("Elspeth goes where the next dangerous enemy is"),
-    "the interpretation note renders when present",
-  );
-  assert.ok(
-    text.includes("Finishing the last surviving faction, not simply winning its first battle"),
-    "the bottleneck note renders when present",
-  );
-  assert.ok(text.includes("Protect Nuln. Break the predators. Let the dead rest."), "the motto note renders when present");
-
-  // the VCO undercard: the committed route-1 entry renders the mono eyebrow and
-  // its six rows — the five atlas targets plus the 35-battle item — under the
-  // identity card (per-item badge anatomy over all three committed routes is
-  // asserted by the undercard test below)
-  assert.ok(text.includes("VCO OBJECTIVES"), "the undercard's mono eyebrow renders on the committed tree");
-  assert.ok(text.includes("battles-35"), "the 35-battle item's stable F5 id renders");
-  assert.ok(text.includes("Win 35 battles"), "the 35-battle item's atlas-derived text renders");
-
-  // body: the migrated Route I renders all eight registry sections in order —
-  // the four required first, then the optionals and the two transitions —
-  // with the atlas's wording and NO in-flow Content Gap markers anywhere
-  assert.equal(countOccurrences(text, "CONTENT GAP"), 0, "no Content Gap marker remains on the migrated Route I");
-  const sectionOrder = [
-    "Opening",
-    "Early → Mid",
-    "Mid → Late",
-    "Victory push",
-    "Territory policy",
-    "Diplomacy",
-    "Transition → route-2",
-    "Transition → route-3",
-  ];
-  for (let i = 0; i < sectionOrder.length; i++) {
-    const title = sectionOrder[i] as string;
-    assert.ok(text.includes(title), `the "${title}" section heading renders`);
-    if (i > 0) {
-      assert.ok(
-        text.indexOf(sectionOrder[i - 1] as string) < text.indexOf(title),
-        `the "${title}" section follows "${sectionOrder[i - 1] as string}" in registry order`,
-      );
-    }
-  }
-  assert.ok(text.indexOf("ROUTE I") < text.indexOf("Opening"), "the body runs in-flow after the identity card, not in a trailing list");
-  // the atlas phase/transition wording is present — a real section, not a marker
-  assert.ok(text.includes("Give Nuln breathing room"), "the Opening phase title renders as the bold-lead prose");
-  assert.ok(
-    text.includes("Win the starting war without creating three additional fronts."),
-    "the Opening aim reads as the lead sentence",
-  );
-  assert.ok(
-    text.includes("The finished hunt is not a reason to annex every search site."),
-    "the Transition → route-3 prose renders",
-  );
-
-  // the Transition → <route> headings render as same-lord cross-links (F7):
-  // two anchors, each carrying the authored heading verbatim and the exact
-  // href into the target's Opening section tree id
-  const transitionLinks = transitionAnchors(view);
-  assert.deepEqual(
-    transitionLinks.map((a) => [String(a.children[0]), a.props.href]),
-    [
-      ["Transition → route-2", "#/elspeth-von-draken/route/route-2/opening"],
-      ["Transition → route-3", "#/elspeth-von-draken/route/route-3/opening"],
-    ],
-    "Route I's two transition headings are anchors with their authored labels verbatim and the exact Opening hrefs",
-  );
-  assert.ok(!text.includes("This route has no sections yet."), "the F1 empty-body fallback is gone");
-  assert.ok(!text.includes("Content gaps"), "the F1 trailing gap-list heading is gone");
-  assert.ok(
-    !nodes.some((n) => String(n.props.className ?? "").includes("gap-list")),
-    "no gap-list container wraps the markers",
-  );
-});
-
-test("a mixed route renders present sections interleaved with gap markers at registry positions", async () => {
-  await inContentCopy(
-    async (root) => {
-      // every committed route is now fully migrated, so the "present or
-      // declared" mix the lint treats as a valid route document is proven by
-      // demanding a live gap from a migrated route: the copy removes one
-      // committed section (Diplomacy) and declares it in gaps. The walk must
-      // then render the lone marker at the Diplomacy registry slot while every
-      // other section still renders its written atlas content.
-      const routeThree = await readFile(join(root, "elspeth-von-draken/routes/route-3.md"), "utf8");
-      const mixed = routeThree
-        .replace("  - Transition → route-1\n", "  - Diplomacy\n  - Transition → route-1\n")
-        .replace(/## Diplomacy\n\n[\s\S]*?(?=\n## Transition → route-1)/, "");
-      await writeFile(join(root, "elspeth-von-draken/routes/route-3.md"), mixed);
-    },
-    async (root) => {
-      assert.deepEqual(await lintContent(fsReader(root)), [], "the mixed copy is valid per the shared lint");
-
-      const tree = await loadContentTree(fsReader(root));
-      const lord = getLord(tree, "elspeth-von-draken");
-      assert.ok(lord.found);
-      const route = getRoute(tree, "elspeth-von-draken", "route-3");
-      assert.ok(route.found);
-      const view = RouteView({ lord: lord.value, route: route.value });
-      const nodes = recordVNodes(view);
-      const text = vnodeText(view);
-
-      const markerFor = (title: string): string => `"${title}" is a declared gap — it has not been written yet.`;
-      const marker = markerFor("Diplomacy");
-
-      // the present sections render their written atlas bodies at their
-      // registry positions and keep their scroll anchors
-      assert.ok(
-        text.includes("Secure the departure base and the research company."),
-        "the present Opening section renders its written body",
-      );
-      assert.ok(
-        text.includes("Stop searching when the mission says the search is finished."),
-        "the present Mid → Late section renders its written body",
-      );
-      assert.ok(
-        nodes.some((n) => typeof n.props["data-section-id"] === "string"),
-        "the present sections keep their data-section-id anchors for the router",
-      );
-
-      // the declared gap renders exactly its marker at the Diplomacy registry
-      // slot: after the Victory push section, before the Transition → route-1
-      // section — the walk interleaves the marker with the present sections
-      const victoryPush = "Route III victory confirmed; surviving armies and footholds have a deliberate next assignment.";
-      assert.ok(
-        text.indexOf(victoryPush) < text.indexOf(marker),
-        "the Diplomacy marker follows the Victory push section in registry order",
-      );
-      assert.ok(
-        text.indexOf(marker) < text.indexOf("Transition → route-1"),
-        "the Diplomacy marker sits before the Transition → route-1 section in registry order",
-      );
-      assert.equal(
-        countOccurrences(text, "CONTENT GAP"),
-        1,
-        "exactly the one declared gap renders its marker, interleaved with the present sections",
-      );
-      assert.ok(!text.includes("This route has no sections yet."), "no empty-body fallback when a section is present");
-      assert.ok(!text.includes("Content gaps"), "no trailing gap-list heading on the mixed route");
-    },
-  );
-});
-
-test("the fixture route renders the VCO undercard beneath the identity with per-item badges and src links", async () => {
-  const tree = await loadContentTree(fsReader(FIXTURES));
-  const lord = getLord(tree, "als-rhyn-of-lorek");
-  assert.ok(lord.found);
-  const route = getRoute(tree, "als-rhyn-of-lorek", "dark-conduits");
-  assert.ok(route.found);
-  const view = RouteView({ lord: lord.value, route: route.value });
-  const text = vnodeText(view);
-
-  // the fixture identity also renders its notes when present
-  assert.ok(text.includes("Dust and bone are patient."), "motto renders when present");
-  assert.ok(
-    text.includes("Early growth stalls without the Book of the Dead economy."),
-    "bottleneck renders when present",
-  );
-  assert.ok(
-    text.includes("Conduit towns make the opener a race against the first doomstack."),
-    "interpretation renders when present",
-  );
-
-  // the undercard: mono eyebrow + one row per item with the id, text and badge
-  assert.ok(text.includes("VCO OBJECTIVES"), "the undercard's mono eyebrow");
-  assert.ok(text.includes("obj-conduits"), "the first stable objective id");
-  assert.ok(text.includes("Secure all three southeast dark conduit settlements."), "the first item's text");
-  assert.ok(text.includes("obj-casket"), "the second stable objective id");
-  assert.ok(text.includes("Unlock the Casket of Souls quest chain."), "the second item's text");
-
-  // every vco item is a Confidence Badge-carrying row: the fixture's two items
-  // render alongside the two identity claims, with per-item labels + state
-  // colour classes + resolved source links
-  const badges = badgeVNodes(view);
-  assert.equal(badges.length, 4, "objective + reward claims and both vco items are Confidence Badged");
-  const flat = badgeText(view);
-  assert.ok(flat.includes("CONFIRMED"), "the confirmed item renders its mono uppercase label");
-  assert.ok(flat.includes("HISTORICAL"), "the historical item renders its mono uppercase label");
-  const stateClasses = badges.map((n) => String(n.props.state)).sort();
-  assert.deepEqual(
-    stateClasses,
-    ["confirmed", "confirmed", "historical", "historical"],
-    "each row's badge carries its own state colour class (claims + items)",
-  );
-  const srcLinks = badges.flatMap((n) =>
-    recordVNodes(expandBadge(n)).filter((m) => m.tag === "a" && m.props.className === "confidence-badge__src"),
-  );
-  assert.equal(srcLinks.length, 4, "each src-carrying claim and item trails its resolved source link");
-  assert.equal(
-    srcLinks.filter((l) => l.props.href === "https://example.test/vco-guide").length,
-    2,
-    "vco-guide resolves for the objective claim and obj-conduits",
-  );
-  assert.equal(
-    srcLinks.filter((l) => l.props.href === "https://example.test/casket").length,
-    2,
-    "ca resolves for the reward claim and obj-casket",
-  );
-});
-
-test("every committed route renders the VCO undercard with its item counts and per-item badge anatomy", async () => {
-  const tree = await loadContentTree(fsReader(CONTENT));
-  const lord = getLord(tree, "elspeth-von-draken");
-  assert.ok(lord.found);
-
-  // DESIGN §7 acceptance numbers: route-1 6 (five targets + 35 battles), route-2
-  // 7 provinces, route-3 20 candidates; every item badge carries its own state
-  // colour class and every committed vco item resolves to the vco-guide source
-  const expectations: Array<
-    [routeId: string, itemCount: number, itemStates: string[], probeId: string, probeText: string]
-  > = [
-    [
-      "route-1",
-      6,
-      ["confirmed", "confirmed", "confirmed", "verify-in-campaign", "verify-in-campaign", "verify-in-campaign"],
-      "battles-35",
-      "Win 35 battles",
-    ],
-    ["route-2", 7, Array(7).fill("confirmed"), "pirates-current", "Pirate’s Current"],
-    ["route-3", 20, Array(20).fill("confirmed"), "valays-sorrow", "Valaya’s Sorrow"],
-  ];
-  for (const [routeId, itemCount, itemStates, probeId, probeText] of expectations) {
-    const route = getRoute(tree, "elspeth-von-draken", routeId);
-    assert.ok(route.found);
-    const view = RouteView({ lord: lord.value, route: route.value });
-    const text = vnodeText(view);
-
-    // the undercard renders on every committed route: mono eyebrow plus one row
-    // per item carrying the stable id and the atlas text
-    assert.ok(text.includes("VCO OBJECTIVES"), `${routeId} renders the undercard's mono eyebrow`);
-    assert.ok(text.includes(probeId), `${routeId} renders the "${probeId}" item id`);
-    assert.ok(text.includes(probeText), `${routeId} renders the "${probeId}" item text verbatim`);
-
-    // badge anatomy: objective + reward claims and every vco item are
-    // Confidence Badged with their own state colour classes, mono uppercase
-    // labels and one resolved source link each
-    const badges = badgeVNodes(view);
-    assert.equal(
-      badges.length,
-      2 + itemCount,
-      `${routeId} the two identity claims plus its ${itemCount} vco items are Confidence Badged`,
-    );
-    const stateClasses = badges.map((n) => String(n.props.state)).sort();
-    assert.deepEqual(
-      stateClasses,
-      [...itemStates, "verify-in-campaign", "verify-in-campaign"].sort(),
-      `${routeId} each row's badge carries its own state colour class (claims + items)`,
-    );
-    const flat = badgeText(view);
-    assert.ok(flat.includes("CONFIRMED"), `${routeId} the confirmed items render their mono uppercase label`);
-    if (itemStates.includes("verify-in-campaign")) {
-      assert.ok(flat.includes("VERIFY"), `${routeId} the verify-in-campaign items render their mono uppercase label`);
-    }
-    const srcLinks = badges.flatMap((n) =>
-      recordVNodes(expandBadge(n)).filter((m) => m.tag === "a" && m.props.className === "confidence-badge__src"),
-    );
-    assert.equal(
-      srcLinks.length,
-      2 + itemCount,
-      `${routeId} each src-carrying claim and item trails its resolved source link`,
-    );
-    assert.ok(
-      srcLinks.every((l) => l.props.href === "https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084"),
-      `${routeId} every committed claim and item resolves to the vco-guide url`,
-    );
-  }
 });
 
 test("the query helpers are pure lord-scoped reads: typed objectives, empty/absent results, unknown src ids dropped", async () => {
@@ -719,866 +362,12 @@ test("getPanelEntries resolves each panel group in panelOrder order, omitting un
   );
 });
 
-test("a route without notes renders the identity card without them and no undercard", async () => {
-  const tree = await loadContentTree(fsReader(FIXTURES));
-  const second = getLord(tree, "second-lord");
-  assert.ok(second.found);
-  const route = getRoute(tree, "second-lord", "lone-route");
-  assert.ok(route.found);
-  const view = RouteView({ lord: second.value, route: route.value });
-  const text = vnodeText(view);
-
-  // the researched-title branch of the identity card, with no notes and no
-  // vco dataset: the undercard leaves no trace
-  assert.ok(text.includes("ROUTE II"), "the identity card still renders");
-  assert.ok(text.includes("Sun-Priest of the Lost"), "a researched vcoTitle renders as the official title");
-  assert.ok(!text.includes("Interpretation"), "no interpretation note when absent");
-  assert.ok(!text.includes("Bottleneck"), "no bottleneck note when absent");
-  assert.ok(!text.includes("Motto"), "no motto note when absent");
-  assert.ok(!text.includes("VCO OBJECTIVES"), "second-lord has no vco dataset → no undercard");
-});
-
-/**
- * The dashboard exactly as the view mounts it: the `Dashboard` VNode's props
- * and key at the view seam, then the same props expanded through the pure
- * `DashboardMarkup` builder at the component seam — the zero-DOM equivalent
- * of letting the view's child component render (the mounted wrapper's local
- * selection and focus effect only run under a real preact render).
- */
-function mountedDashboard(view: unknown, activeIndex = 0): { key: unknown; markup: VNodeRecord[]; text: string } {
-  const nodes = recordVNodes(view);
-  const dashboard = nodes.find((n) => Array.isArray(n.props.armies));
-  assert.ok(dashboard !== undefined, "the route view mounts the dashboard region");
-  const lord = dashboard.props.lord as Lord;
-  const props: PanelEntries = {
-    armies: dashboard.props.armies as readonly Army[],
-    skills: dashboard.props.skills as readonly Item[],
-    research: dashboard.props.research as readonly Item[],
-    buildings: dashboard.props.buildings as readonly Item[],
-    mechanics: dashboard.props.mechanics as readonly Item[],
-  };
-  const markup = DashboardMarkup({ lord, ...props, activeIndex });
-  return { key: dashboard.key, markup: recordVNodes(markup), text: vnodeText(markup) };
-}
-
-test("the route view mounts the dashboard after the sections with five tabs in DESIGN order and Route I's resolved panels", async () => {
-  const tree = await loadContentTree(fsReader(CONTENT));
-  const lord = getLord(tree, "elspeth-von-draken");
-  assert.ok(lord.found);
-  const route = getRoute(tree, "elspeth-von-draken", "route-1");
-  assert.ok(route.found);
-
-  const view = RouteView({ lord: lord.value, route: route.value });
-  const { key, markup, text } = mountedDashboard(view);
-  assert.equal(
-    key,
-    "route-1",
-    "the dashboard is keyed by route id so navigating between routes remounts it and resets selection",
-  );
-
-  // five tabs in the DESIGN's panel order — the dashboard renders as one block after the sections
-  const tabs = markup.filter((n) => n.props.role === "tab");
-  assert.equal(tabs.length, PANEL_GROUPS.length, "exactly five fixed tabs over the committed tree");
-  assert.deepEqual(
-    tabs.map((t) => t.children[0]),
-    ["ARMY TEMPLATES", "SKILLS", "RESEARCH", "SETTLEMENTS", "MECHANICS"],
-    "tab labels follow the DESIGN's panel order",
-  );
-
-  // the route view text carries the migrated section content; the dashboard
-  // markup (mounted after the sections, keyed by route id) opens with its tab
-  // bar — and no Content Gap marker remains on Route I
-  const fullText = vnodeText(view);
-  assert.ok(fullText.includes("Give Nuln breathing room"), "the section region renders its Opening content in the route view");
-  assert.equal(text.indexOf("ARMY TEMPLATES"), 0, "the dashboard markup opens with its tab bar, mounted after the sections");
-  assert.equal(countOccurrences(fullText, "CONTENT GAP"), 0, "no gap marker anywhere on the migrated Route I");
-
-  // the committed tree: each of the five panels renders its resolved Route I
-  // entries — never the empty state, never blank space
-  const panels = markup.filter((n) => n.props.role === "tabpanel");
-  const emptyLabels = [
-    "NO ARMY TEMPLATES YET",
-    "NO SKILLS YET",
-    "NO RESEARCH YET",
-    "NO SETTLEMENTS YET",
-    "NO MECHANICS YET",
-  ];
-  for (let index = 0; index < panels.length; index++) {
-    const panelText = vnodeText(panels[index]);
-    assert.ok(
-      !panelText.includes(emptyLabels[index] as string),
-      `panel ${index} is not in its empty state; got: "${panelText.slice(0, 80)}"`,
-    );
-    assert.ok(panelText.trim().length > 0, `panel ${index} is never blank space`);
-  }
-  // per-panel resolved entry counts (the atlas's Route I panel lists)
-  const entryCount = (panelId: string): number =>
-    recordVNodes(panels.filter((p) => p.props.id === panelId)[0]).filter(
-      (n) => n.tag === "article" && String(n.props.className).includes("panel-entry"),
-    ).length;
-  const expectedCounts: Record<string, number> = { armies: 5, skills: 10, research: 4, buildings: 6, mechanics: 5 };
-  for (const [group, count] of Object.entries(expectedCounts)) {
-    assert.equal(entryCount(`dashboard-panel-${group}`), count, `the ${group} panel shows its ${count} resolved entries`);
-  }
-});
-
-test("the route view renders Route II's eight sections, its override research and six settlement roles, with the seven-item undercard", async () => {
-  const tree = await loadContentTree(fsReader(CONTENT));
-  const lord = getLord(tree, "elspeth-von-draken");
-  assert.ok(lord.found);
-  const route = getRoute(tree, "elspeth-von-draken", "route-2");
-  assert.ok(route.found);
-
-  const view = RouteView({ lord: lord.value, route: route.value });
-  const { key, markup } = mountedDashboard(view);
-  const fullText = vnodeText(view);
-  assert.equal(key, "route-2", "the dashboard is keyed by route id so navigating between routes remounts it");
-
-  // identity card unchanged by the body migration: numeric eyebrow, thematic
-  // subtitle, the explicit unresearched marker, and the badged claims/notes
-  assert.ok(fullText.includes("ROUTE II"), "route number eyebrow");
-  assert.ok(fullText.includes("The Southern Charter"), "thematic subtitle");
-  assert.ok(
-    fullText.includes("UNRESEARCHED — no official VCO title recorded"),
-    "the null vcoTitle slot is explicitly marked unresearched",
-  );
-  assert.ok(
-    fullText.includes("Control seven specified southern provinces, directly or through qualifying diplomacy."),
-    "objective claim text verbatim",
-  );
-  assert.ok(
-    fullText.includes("Elspeth’s engineers and escorts build a durable southern sphere of influence"),
-    "the interpretation note renders",
-  );
-  assert.ok(
-    fullText.includes("Maintained control of every region in the required provinces"),
-    "the bottleneck note renders",
-  );
-  assert.ok(fullText.includes("Fund the expedition. Secure the ports. Make the charter hold."), "the motto note renders");
-
-  // the body renders the eight registry sections in order — the two
-  // transition sections included — with the atlas's wording and NO Content
-  // Gap markers anywhere on the migrated Route II
-  assert.equal(countOccurrences(fullText, "CONTENT GAP"), 0, "no gap marker anywhere on the migrated Route II");
-  const sectionOrder = [
-    "Opening",
-    "Early → Mid",
-    "Mid → Late",
-    "Victory push",
-    "Territory policy",
-    "Diplomacy",
-    "Transition → route-1",
-    "Transition → route-3",
-  ];
-  for (let i = 0; i < sectionOrder.length; i++) {
-    const title = sectionOrder[i] as string;
-    assert.ok(fullText.includes(title), `the "${title}" section heading renders`);
-    if (i > 0) {
-      assert.ok(
-        fullText.indexOf(sectionOrder[i - 1] as string) < fullText.indexOf(title),
-        `the "${title}" section follows "${sectionOrder[i - 1] as string}" in registry order`,
-      );
-    }
-  }
-  assert.ok(fullText.includes("Make the departure affordable"), "the Opening phase title renders as the bold-lead prose");
-  assert.ok(
-    fullText.includes("Build a homeland that survives Elspeth’s absence."),
-    "the Opening aim reads as the lead sentence",
-  );
-  assert.ok(
-    fullText.includes("Your earlier victories may already help the 35-battle requirement; trust the live count."),
-    "the Transition → route-1 prose renders verbatim",
-  );
-  assert.ok(
-    fullText.includes("Diplomatic provincial control and a successful search interaction are not automatically the same event."),
-    "the Transition → route-3 prose renders verbatim",
-  );
-
-  // the Transition → <route> headings render as same-lord cross-links (F7):
-  // two anchors, each carrying the authored heading verbatim and the exact
-  // href into the target's Opening section tree id
-  const transitionLinks = transitionAnchors(view);
-  assert.deepEqual(
-    transitionLinks.map((a) => [String(a.children[0]), a.props.href]),
-    [
-      ["Transition → route-1", "#/elspeth-von-draken/route/route-1/opening"],
-      ["Transition → route-3", "#/elspeth-von-draken/route/route-3/opening"],
-    ],
-    "Route II's two transition headings are anchors with their authored labels verbatim and the exact Opening hrefs",
-  );
-  assert.ok(!fullText.includes("This route has no sections yet."), "the F1 empty-body fallback is gone");
-
-  // the VCO undercard renders its seven Route II items under the identity
-  assert.ok(fullText.includes("VCO OBJECTIVES"), "the undercard's mono eyebrow renders");
-  assert.ok(fullText.includes("pirates-current"), "the Route II item id renders");
-  assert.ok(fullText.includes("Pirate’s Current"), "the Route II item text renders verbatim");
-
-  // the five panels resolve Route II's atlas lists — never the empty state
-  const panels = markup.filter((n) => n.props.role === "tabpanel");
-  const emptyLabels = [
-    "NO ARMY TEMPLATES YET",
-    "NO SKILLS YET",
-    "NO RESEARCH YET",
-    "NO SETTLEMENTS YET",
-    "NO MECHANICS YET",
-  ];
-  for (let index = 0; index < panels.length; index++) {
-    const panelText = vnodeText(panels[index]);
-    assert.ok(
-      !panelText.includes(emptyLabels[index] as string),
-      `panel ${index} is not in its empty state on Route II; got: "${panelText.slice(0, 80)}"`,
-    );
-    assert.ok(panelText.trim().length > 0, `panel ${index} is never blank space`);
-  }
-  const entryCount = (panelId: string): number =>
-    recordVNodes(panels.filter((p) => p.props.id === panelId)[0]).filter(
-      (n) => n.tag === "article" && String(n.props.className).includes("panel-entry"),
-    ).length;
-  const expectedCounts: Record<string, number> = { armies: 5, skills: 10, research: 4, buildings: 6, mechanics: 5 };
-  for (const [group, count] of Object.entries(expectedCounts)) {
-    assert.equal(entryCount(`dashboard-panel-${group}`), count, `the ${group} panel shows its ${count} resolved entries`);
-  }
-
-  // research resolves the two `route-2-*` override entries in the atlas's own
-  // positions (the base `opening`/`economy` groups are Route I's and absent
-  // here); buildings shows exactly Route II's six settlement roles
-  const researchText = vnodeText(panels.filter((p) => p.props.id === "dashboard-panel-research")[0]);
-  assert.ok(
-    researchText.includes("Prepare a long southern campaign"),
-    "research resolves the route-2-opening override first",
-  );
-  assert.ok(
-    researchText.includes("Support a durable southern sphere"),
-    "research resolves the route-2-economy override in the owning route",
-  );
-  assert.ok(!researchText.includes("A working army before luxury research"), "the base opening group is Route I's, not restated here");
-  assert.ok(
-    !researchText.includes("Build the next theatre, not empty infrastructure"),
-    "the base economy group is Route I's, not restated here",
-  );
-  const researchEntries = recordVNodes(panels.filter((p) => p.props.id === "dashboard-panel-research")[0])
-    .filter((n) => n.tag === "article" && String(n.props.className).includes("panel-entry"))
-    .map((n) => vnodeText(n));
-  assert.ok(
-    researchEntries[0]?.includes("Prepare a long southern campaign") &&
-      researchEntries[1]?.includes("Infantry, artillery and the escort") &&
-      researchEntries[2]?.includes("Support a durable southern sphere") &&
-      researchEntries[3]?.includes("Magic, machines and the Garden network"),
-    "research entries render in the atlas's Route II order: override, firepower, override, arcane",
-  );
-  const buildingsText = vnodeText(panels.filter((p) => p.props.id === "dashboard-panel-buildings")[0]);
-  for (const probe of [
-    "Southern charter capital · a second production centre",
-    "Resource or valuable landmark settlement",
-    "Safe income town",
-    "A settlement that guards a real approach",
-    "Expedition capture / future handover",
-  ]) {
-    assert.ok(buildingsText.includes(probe), `buildings resolves the "${probe}" role on Route II`);
-  }
-});
-
-test("the route view renders Route III's eight sections, its override research and six settlement roles, with the twenty-item undercard", async () => {
-  const tree = await loadContentTree(fsReader(CONTENT));
-  const lord = getLord(tree, "elspeth-von-draken");
-  assert.ok(lord.found);
-  const route = getRoute(tree, "elspeth-von-draken", "route-3");
-  assert.ok(route.found);
-
-  const view = RouteView({ lord: lord.value, route: route.value });
-  const { key, markup } = mountedDashboard(view);
-  const fullText = vnodeText(view);
-  assert.equal(key, "route-3", "the dashboard is keyed by route id so navigating between routes remounts it");
-
-  // identity card unchanged by the body migration: numeric eyebrow, thematic
-  // subtitle, the explicit unresearched marker, and the badged claims/notes
-  assert.ok(fullText.includes("ROUTE III"), "route number eyebrow");
-  assert.ok(fullText.includes("Fozzrik’s Legacy"), "thematic subtitle");
-  assert.ok(
-    fullText.includes("UNRESEARCHED — no official VCO title recorded"),
-    "the null vcoTitle slot is explicitly marked unresearched",
-  );
-  assert.ok(
-    fullText.includes("Search the published Badlands candidate settlements for Fozzrik’s Flying Fortress through conquest or diplomacy."),
-    "objective claim text verbatim",
-  );
-  assert.ok(
-    fullText.includes("A travelling field laboratory rather than a map-painting crusade"),
-    "the interpretation note renders",
-  );
-  assert.ok(
-    fullText.includes("Finding the mission’s actual search result while sustaining a distant army"),
-    "the bottleneck note renders",
-  );
-  assert.ok(
-    fullText.includes("Follow the clues. Protect the field laboratory. Find the fortress."),
-    "the motto note renders",
-  );
-
-  // the body renders the eight registry sections in order — the two
-  // transition sections included — with the atlas's wording and NO Content
-  // Gap markers anywhere on the migrated Route III
-  assert.equal(countOccurrences(fullText, "CONTENT GAP"), 0, "no gap marker anywhere on the migrated Route III");
-  const sectionOrder = [
-    "Opening",
-    "Early → Mid",
-    "Mid → Late",
-    "Victory push",
-    "Territory policy",
-    "Diplomacy",
-    "Transition → route-1",
-    "Transition → route-2",
-  ];
-  for (let i = 0; i < sectionOrder.length; i++) {
-    const title = sectionOrder[i] as string;
-    assert.ok(fullText.includes(title), `the "${title}" section heading renders`);
-    if (i > 0) {
-      assert.ok(
-        fullText.indexOf(sectionOrder[i - 1] as string) < fullText.indexOf(title),
-        `the "${title}" section follows "${sectionOrder[i - 1] as string}" in registry order`,
-      );
-    }
-  }
-  assert.ok(
-    fullText.includes("Prepare the expedition, not an entire Empire reconquest"),
-    "the Opening phase title renders as the bold-lead prose",
-  );
-  assert.ok(
-    fullText.includes("Secure the departure base and the research company."),
-    "the Opening aim reads as the lead sentence",
-  );
-  assert.ok(
-    fullText.includes("Do not dismantle the expedition before a safe return is arranged."),
-    "the Transition → route-1 prose renders verbatim",
-  );
-  assert.ok(
-    fullText.includes("Promote the best foothold to a permanent Charter hub"),
-    "the Transition → route-2 prose renders verbatim",
-  );
-
-  // the Transition → <route> headings render as same-lord cross-links (F7):
-  // two anchors, each carrying the authored heading verbatim and the exact
-  // href into the target's Opening section tree id
-  const transitionLinks = transitionAnchors(view);
-  assert.deepEqual(
-    transitionLinks.map((a) => [String(a.children[0]), a.props.href]),
-    [
-      ["Transition → route-1", "#/elspeth-von-draken/route/route-1/opening"],
-      ["Transition → route-2", "#/elspeth-von-draken/route/route-2/opening"],
-    ],
-    "Route III's two transition headings are anchors with their authored labels verbatim and the exact Opening hrefs",
-  );
-  assert.ok(!fullText.includes("This route has no sections yet."), "the F1 empty-body fallback is gone");
-
-  // the VCO undercard renders its twenty Route III items under the identity
-  // (the full per-item badge anatomy + count over every committed route is the
-  // undercard test's contract)
-  assert.ok(fullText.includes("VCO OBJECTIVES"), "the undercard's mono eyebrow renders");
-  assert.ok(fullText.includes("valays-sorrow"), "the Route III item id renders");
-  assert.ok(fullText.includes("Valaya’s Sorrow"), "the Route III item text renders verbatim");
-
-  // the five panels resolve Route III's atlas lists — never the empty state
-  const panels = markup.filter((n) => n.props.role === "tabpanel");
-  const emptyLabels = [
-    "NO ARMY TEMPLATES YET",
-    "NO SKILLS YET",
-    "NO RESEARCH YET",
-    "NO SETTLEMENTS YET",
-    "NO MECHANICS YET",
-  ];
-  for (let index = 0; index < panels.length; index++) {
-    const panelText = vnodeText(panels[index]);
-    assert.ok(
-      !panelText.includes(emptyLabels[index] as string),
-      `panel ${index} is not in its empty state on Route III; got: "${panelText.slice(0, 80)}"`,
-    );
-    assert.ok(panelText.trim().length > 0, `panel ${index} is never blank space`);
-  }
-  const entryCount = (panelId: string): number =>
-    recordVNodes(panels.filter((p) => p.props.id === panelId)[0]).filter(
-      (n) => n.tag === "article" && String(n.props.className).includes("panel-entry"),
-    ).length;
-  const expectedCounts: Record<string, number> = { armies: 5, skills: 10, research: 4, buildings: 6, mechanics: 5 };
-  for (const [group, count] of Object.entries(expectedCounts)) {
-    assert.equal(entryCount(`dashboard-panel-${group}`), count, `the ${group} panel shows its ${count} resolved entries`);
-  }
-
-  // research resolves the two `route-3-*` override entries in the atlas's own
-  // positions (the base `opening`/`arcane` groups are Route I's and absent
-  // here); buildings shows exactly Route III's six settlement roles
-  const researchText = vnodeText(panels.filter((p) => p.props.id === "dashboard-panel-research")[0]);
-  assert.ok(
-    researchText.includes("A durable survey column"),
-    "research resolves the route-3-opening override first",
-  );
-  assert.ok(
-    researchText.includes("The expedition’s practical research"),
-    "research resolves the route-3-arcane override in the owning route",
-  );
-  assert.ok(!researchText.includes("A working army before luxury research"), "the base opening group is Route I's, not restated here");
-  assert.ok(!researchText.includes("Magic, machines and the Garden network"), "the base arcane group is Route I's, not restated here");
-  const researchEntries = recordVNodes(panels.filter((p) => p.props.id === "dashboard-panel-research")[0])
-    .filter((n) => n.tag === "article" && String(n.props.className).includes("panel-entry"))
-    .map((n) => vnodeText(n));
-  assert.ok(
-    researchEntries[0]?.includes("A durable survey column") &&
-      researchEntries[1]?.includes("Infantry, artillery and the escort") &&
-      researchEntries[2]?.includes("Build the next theatre, not empty infrastructure") &&
-      researchEntries[3]?.includes("The expedition’s practical research"),
-    "research entries render in the atlas's Route III order: override, firepower, economy, override",
-  );
-  const buildingsText = vnodeText(panels.filter((p) => p.props.id === "dashboard-panel-buildings")[0]);
-  for (const probe of [
-    "Nuln · foundry and field-test centre",
-    "Survey foothold · an expedition service station",
-    "Military support town · the missing profession",
-    "Safe income town",
-    "Provincial recovery and support base",
-    "Expedition capture / future handover",
-  ]) {
-    assert.ok(buildingsText.includes(probe), `buildings resolves the "${probe}" role on Route III`);
-  }
-});
-
-/* ─── Transition cross-links on the route page (F7, package transition-links) ─── */
-
-test("the six committed transition anchors resolve, via getRoute/getSection, to rendered H2 ids in the same tree", async () => {
-  const tree = await loadContentTree(fsReader(CONTENT));
-  const lord = getLord(tree, "elspeth-von-draken");
-  assert.ok(lord.found);
-
-  // DESIGN §7 acceptance item 1: every committed route renders its two
-  // transition sections as same-lord anchors in body order, each naming the
-  // target route's Opening section tree id
-  const anchors: VNodeRecord[] = [];
-  for (const routeId of ["route-1", "route-2", "route-3"]) {
-    const route = getRoute(tree, "elspeth-von-draken", routeId);
-    assert.ok(route.found);
-    anchors.push(...transitionAnchors(RouteView({ lord: lord.value, route: route.value })));
-  }
-  assert.deepEqual(
-    anchors.map((a) => a.props.href),
-    [
-      "#/elspeth-von-draken/route/route-2/opening",
-      "#/elspeth-von-draken/route/route-3/opening",
-      "#/elspeth-von-draken/route/route-1/opening",
-      "#/elspeth-von-draken/route/route-3/opening",
-      "#/elspeth-von-draken/route/route-1/opening",
-      "#/elspeth-von-draken/route/route-2/opening",
-    ],
-    "the six committed anchors in route/body order, each into the target's Opening",
-  );
-
-  // every href target resolves through the pure query surface and is a
-  // rendered H2 id in the same loaded tree — never an invented or stale id
-  for (const anchor of anchors) {
-    const parts = String(anchor.props.href).split("/");
-    assert.equal(parts.length, 5, "each href follows the #/<lord>/route/<id>/<section-id> grammar");
-    const lordSlug = parts[1] as string;
-    const routeId = parts[3] as string;
-    const sectionId = parts[4] as string;
-    const route = getRoute(tree, lordSlug, routeId);
-    assert.ok(route.found, `the ${String(anchor.props.href)} target route resolves`);
-    const section = getSection(tree, lordSlug, routeId, sectionId);
-    assert.ok(section.found, `the ${String(anchor.props.href)} target section resolves`);
-    assert.equal(section.value.title, "Opening", "every transition link targets the destination's Opening section");
-    assert.ok(
-      recordVNodes(RouteView({ lord: lord.value, route: route.value })).some(
-        (n) => n.tag === "h2" && n.props.id === sectionId,
-      ),
-      `the "${sectionId}" id is a rendered H2 in the ${routeId} view`,
-    );
-  }
-});
-
-test("a transition whose target Opening is a declared gap links the route page top instead (temp copy)", async () => {
-  await inContentCopy(
-    async (root) => {
-      // The target rule needs a route whose Opening is a declared gap: the
-      // copy removes route-2's required-section bodies and declares all four
-      // in gaps — the required-order rule accepts no other shape (a present
-      // Early → Mid after a missing Opening would be out of order).
-      let routeTwo = await readFile(join(root, "elspeth-von-draken/routes/route-2.md"), "utf8");
-      // the required-order rule accepts no other shape — a present Early → Mid
-      // after a missing Opening would be out of order
-      routeTwo = routeTwo
-        .replace(/## Opening\n\n[\s\S]*?(?=\n## Early → Mid)/, "")
-        .replace(/## Early → Mid\n\n[\s\S]*?(?=\n## Mid → Late)/, "")
-        .replace(/## Mid → Late\n\n[\s\S]*?(?=\n## Victory push)/, "")
-        .replace(/## Victory push\n\n[\s\S]*?(?=\n## Territory policy)/, "");
-      routeTwo = routeTwo.replace(
-        "gaps:\n  - Transition → route-1\n  - Transition → route-3\n",
-        ["gaps:", "  - Opening", "  - Early → Mid", "  - Mid → Late", "  - Victory push", "  - Transition → route-1", "  - Transition → route-3", ""].join("\n"),
-      );
-      await writeFile(join(root, "elspeth-von-draken/routes/route-2.md"), routeTwo);
-    },
-    async (root) => {
-      assert.deepEqual(await lintContent(fsReader(root)), [], "the gap-Opening copy stays valid per the shared lint");
-
-      const tree = await loadContentTree(fsReader(root));
-      const lord = getLord(tree, "elspeth-von-draken");
-      assert.ok(lord.found);
-
-      // the mutant target actually lost its Opening section (now a declared gap)
-      assert.equal(
-        getSection(tree, "elspeth-von-draken", "route-2", "opening").found,
-        false,
-        "route-2's Opening is now a declared gap — no rendered section exists",
-      );
-
-      // Route I's link into route-2 drops the section segment — the route
-      // page top — while its link into the still-present route-3 Opening
-      // keeps the section segment
-      const routeOne = getRoute(tree, "elspeth-von-draken", "route-1");
-      assert.ok(routeOne.found);
-      const links = transitionAnchors(RouteView({ lord: lord.value, route: routeOne.value }));
-      assert.deepEqual(
-        links.map((a) => [String(a.children[0]), a.props.href]),
-        [
-          ["Transition → route-2", "#/elspeth-von-draken/route/route-2"],
-          ["Transition → route-3", "#/elspeth-von-draken/route/route-3/opening"],
-        ],
-        "a gap-Opening target links the route page top; a present Opening keeps the section segment",
-      );
-    },
-  );
-});
-
-test("a transition title removed from the body but still declared in gaps keeps the inert F2 marker (temp copy)", async () => {
-  await inContentCopy(
-    async (root) => {
-      // Route I's second transition section is removed while its title stays
-      // declared in frontmatter gaps: the registry slot must then render the
-      // in-flow Content Gap Marker, never an anchor and never a broken href.
-      const routeOne = await readFile(join(root, "elspeth-von-draken/routes/route-1.md"), "utf8");
-      const truncated = routeOne.replace(/## Transition → route-3\n\n[\s\S]*$/, "");
-      await writeFile(join(root, "elspeth-von-draken/routes/route-1.md"), truncated);
-    },
-    async (root) => {
-      assert.deepEqual(await lintContent(fsReader(root)), [], "the transition-gap copy stays valid per the shared lint");
-
-      const tree = await loadContentTree(fsReader(root));
-      const lord = getLord(tree, "elspeth-von-draken");
-      assert.ok(lord.found);
-      const route = getRoute(tree, "elspeth-von-draken", "route-1");
-      assert.ok(route.found);
-      const view = RouteView({ lord: lord.value, route: route.value });
-      const text = vnodeText(view);
-
-      // the declared gap renders its inert marker at the registry slot; the
-      // surviving transition section keeps its anchor
-      const markerFor = (title: string): string => `"${title}" is a declared gap — it has not been written yet.`;
-      assert.ok(
-        text.includes(markerFor("Transition → route-3")),
-        "the body-less declared transition renders the F2 Content Gap Marker",
-      );
-      assert.equal(countOccurrences(text, "CONTENT GAP"), 1, "exactly the one declared transition renders its marker");
-      const links = transitionAnchors(view);
-      assert.deepEqual(
-        links.map((a) => [String(a.children[0]), a.props.href]),
-        [["Transition → route-2", "#/elspeth-von-draken/route/route-2/opening"]],
-        "the surviving transition section still renders its anchor — the marker branch carries none",
-      );
-    },
-  );
-});
-
-test("an unresolvable transition title renders the plain H2 with no anchor (constructed route)", async () => {
-  const tree = await loadContentTree(fsReader(CONTENT));
-  const lord = getLord(tree, "elspeth-von-draken");
-  assert.ok(lord.found);
-  const committedRoute = getRoute(tree, "elspeth-von-draken", "route-1");
-  assert.ok(committedRoute.found);
-
-  // The lint rejects a transition title naming no other same-lord route, so
-  // no loader-built tree can hold this shape; the view-invariant guard (a
-  // plain, non-link H2) is proven with a hand-built route over the committed
-  // lord, reusing the loaded committed claim values.
-  const route: Route = {
-    id: "ghost-route",
-    number: "I",
-    name: "The Ghost Route",
-    vcoTitle: null,
-    objective: committedRoute.value.objective,
-    reward: committedRoute.value.reward,
-    gaps: ["Transition → nosuchroute"],
-    sections: [
-      {
-        id: "transition-nosuchroute",
-        title: "Transition → nosuchroute",
-        html: "<h2>Transition → nosuchroute</h2><p>Nowhere to go.</p>",
-      },
-    ],
-    claims: [],
-  };
-  const nodes = recordVNodes(RouteView({ lord: lord.value, route }));
-
-  const heading = nodes.find((n) => n.tag === "h2" && n.props.id === "transition-nosuchroute");
-  assert.ok(heading !== undefined, "the unresolvable transition title renders its section H2");
-  assert.equal(
-    heading.props.className,
-    "route-section__heading",
-    "the plain H2 keeps the heading's anatomy (its tree id remains the router anchor)",
-  );
-  assert.ok(
-    !recordVNodes(heading).some((n) => n.tag === "a"),
-    "an unresolvable transition renders the plain H2 — no anchor element and no broken href",
-  );
-  assert.ok(
-    !nodes.some((n) => n.tag === "a" && n.props.className === "route-section__heading-link"),
-    "no transition-link markup appears anywhere in the view",
-  );
-});
-
-test("transitionTarget mirrors the lint's isKnownSectionTitle: id or name match, real Opening tree id, null otherwise", async () => {
-  const tree = await loadContentTree(fsReader(CONTENT));
-  const lord = getLord(tree, "elspeth-von-draken");
-  assert.ok(lord.found);
-
-  assert.deepEqual(
-    transitionTarget(lord.value, "Transition → route-2"),
-    { targetId: "route-2", openingSectionId: "opening" },
-    "an id-named transition resolves to the target route id and its real Opening tree id",
-  );
-  assert.deepEqual(
-    transitionTarget(lord.value, "Transition → The Southern Charter"),
-    { targetId: "route-2", openingSectionId: "opening" },
-    "a name-named transition resolves the same way — the lint's id-or-name scoping",
-  );
-  assert.equal(transitionTarget(lord.value, "Transition → nosuchroute"), null, "an unmatched suffix resolves to null");
-  assert.equal(transitionTarget(lord.value, "Opening"), null, "a non-transition title is not a target");
-});
-
-test("the dashboard keeps each route's own id as its key across route views", async () => {
-  const tree = await loadContentTree(fsReader(CONTENT));
-  const lord = getLord(tree, "elspeth-von-draken");
-  assert.ok(lord.found);
-
-  for (const routeId of ["route-1", "route-2", "route-3"]) {
-    const route = getRoute(tree, "elspeth-von-draken", routeId);
-    assert.ok(route.found);
-    const view = RouteView({ lord: lord.value, route: route.value });
-    const { key } = mountedDashboard(view);
-    assert.equal(key, routeId, `the ${routeId} view keys the dashboard by its own route id`);
-  }
-});
-test("the route page mounts the route tab strip with its own route tab active", async () => {
-  const tree = await loadContentTree(fsReader(CONTENT));
-  const lord = getLord(tree, "elspeth-von-draken");
-  assert.ok(lord.found);
-  const route = getRoute(tree, "elspeth-von-draken", "route-2");
-  assert.ok(route.found);
-  const { props, tabs, text } = mountedTabStrip(RouteView({ lord: lord.value, route: route.value }));
-
-  assert.equal(props.activeId, "route-2", "a route page derives its own route id as the active tab");
-  assert.equal(props.lordSlug, "elspeth-von-draken");
-  assert.ok(text.includes("SHARED"), "the strip sits over the committed route page");
-  assert.ok(text.includes("II The Southern Charter"), "…carrying the committed routes");
-  const active = tabs.find((t) => t.props.tabIndex === 0);
-  assert.equal(
-    active?.props.href,
-    "#/elspeth-von-draken/route/route-2",
-    "only the route-2 tab is tabbable",
-  );
-  assert.equal(active?.props["aria-selected"], true, "…and is the selected tab");
-  assert.ok(
-    tabs
-      .filter((t) => t.props.href !== "#/elspeth-von-draken/route/route-2")
-      .every((t) => t.props.tabIndex === -1 && t.props["aria-selected"] === false),
-    "the other tabs rove at −1 and are not selected",
-  );
-});
-
-test("the fixture route's dashboard renders the DESIGN §4 atlas anatomy with badges and source links", async () => {
-  const tree = await loadContentTree(fsReader(FIXTURES));
-  const lord = getLord(tree, "als-rhyn-of-lorek");
-  assert.ok(lord.found);
-  const route = getRoute(tree, "als-rhyn-of-lorek", "dark-conduits");
-  assert.ok(route.found);
-
-  const view = RouteView({ lord: lord.value, route: route.value });
-  const { key, markup, text } = mountedDashboard(view);
-  assert.equal(key, "dark-conduits", "the fixture route keys the dashboard by its own route id");
-
-  // armies panel: the two army entries, each a two-column unit table with
-  // count/name/role/kind rows; the late army's empty generic column shows its
-  // explicit absent marker exactly once — never blank space
-  assert.ok(text.includes("Early") && text.includes("The Toll of the Silver Sand"), "the early army label + name");
-  assert.ok(text.includes("The Dust Wardens"), "the early army renders its supporting-army name");
-  assert.ok(text.includes("Late") && text.includes("The River Line Watch"), "the late army label + name");
-  assert.ok(text.includes("×1") && text.includes("Tomb King on Warsphinx") && text.includes("Battle-line general"), "legendary row: count, name, role");
-  assert.ok(text.includes("×3") && text.includes("Spearmen") && text.includes("Holding line") && text.includes("line"), "generic row: count, name, role, kind");
-  assert.equal(text.split("NO UNITS LISTED").length - 1, 1, "exactly one absent generic column");
-  assert.ok(text.includes("Size 2200") && text.includes("Size 900"), "each army declares its size");
-
-  // the early army carries a state, so it renders a Confidence Badge; the
-  // late army carries none, so the optional badge branch stays absent (the
-  // badge span itself is proven by the confidence-badge package's tests)
-  const badges = markup.filter((n) => typeof n.props.state === "string" && Array.isArray(n.props.sources));
-  assert.equal(badges.length, 2, "both state-carrying entries (early army + conduit-rites skill) render badges");
-  assert.ok(badges.some((n) => n.props.state === "inferred"), "the inferred early army badge");
-  assert.ok(badges.some((n) => n.props.state === "confirmed"), "the confirmed conduit-rites skill badge");
-
-  // skills panel: the listed item renders title/intro/steps/gate/short/details
-  assert.ok(text.includes("Conduit Rites") && text.includes("Raise the conduit towns"), "the listed skill label + title");
-  assert.ok(text.includes("Construction discounts before the first levy."), "the skill intro");
-  assert.ok(text.includes("Conduit Silos") && text.includes("Two silos a town before turn ten."), "first step title + note");
-  assert.ok(text.includes("Opening option"), "the first step's gate label");
-  assert.ok(text.includes("Sealed Depot") && text.includes("Town per turn"), "the short-labelled step and the details label");
-  assert.ok(text.includes("One conduit town ripens every four turns."), "the details row body");
-
-  // the unlisted casket-rites entry appears in no panel
-  assert.ok(!text.includes("Prepare the twin casket fleet"), "the unlisted skill's title is absent");
-  assert.ok(!text.includes("The fleet sails only once the port is raised."), "the unlisted skill's intro is absent");
-
-  // source ids resolve exactly like the identity card: each entry's src
-  // becomes a trailing link via resolveSources over the lord's sources.json
-  const hrefs = markup.filter((n) => typeof n.props.href === "string").map((n) => n.props.href);
-  assert.ok(hrefs.includes("https://example.test/casket"), "the early army's ca source resolves");
-  assert.ok(hrefs.includes("https://example.test/vco-guide"), "the listed skill's vco-guide source resolves");
-});
-
-/** The recorded VNode subtree of one route section by its tree id (scoped panel asserts). */
 function sectionSubtree(view: unknown, sectionId: string): VNodeRecord[] {
   const nodes = recordVNodes(view);
   const section = nodes.find((n) => n.props["data-section-id"] === sectionId);
   assert.ok(section !== undefined, `the ${sectionId} section renders`);
   return recordVNodes(section);
 }
-
-test("source panels render under citing route sections with the source as a title link and its note", async () => {
-  const tree = await loadContentTree(fsReader(CONTENT));
-  const lord = getLord(tree, "elspeth-von-draken");
-  assert.ok(lord.found);
-  const routeOne = getRoute(tree, "elspeth-von-draken", "route-1");
-  assert.ok(routeOne.found);
-  const viewOne = RouteView({ lord: lord.value, route: routeOne.value });
-
-  const vcoGuideTitle = "VCO • author’s route objectives";
-  const vcoGuideUrl = "https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084";
-  const vcoGuideNote = "Primary author reference, labelled 25 September 2026 and rechecked 30 September";
-
-  // route-1's Opening cites vco-guide (its `::claim inferred src=vco-guide`):
-  // the panel renders inside that section, after the prose, with the fixed
-  // SOURCE eyebrow and one entry per distinct source
-  const opening = sectionSubtree(viewOne, "opening");
-  const openingPanel = opening.find((n) => n.props.className === "source-panel");
-  assert.ok(openingPanel !== undefined, "the citing Opening section renders the source panel");
-  assert.ok(
-    opening.some(
-      (n) => n.tag === "p" && n.props.className === "source-panel__eyebrow" && n.children[0] === "SOURCE",
-    ),
-    "the fixed SOURCE mono eyebrow renders in the panel",
-  );
-  assert.equal(
-    opening.filter((n) => n.props.className === "source-panel__entry").length,
-    1,
-    "one distinct cited source ⇒ one panel entry",
-  );
-  const openingTitleLink = opening.find((n) => n.tag === "a" && n.props.className === "source-panel__title");
-  assert.equal(openingTitleLink?.props.href, vcoGuideUrl, "the source title links to its url");
-  assert.equal(String(openingTitleLink?.children[0]), vcoGuideTitle, "the link text is the source title itself");
-  const openingUrl = opening.find((n) => n.tag === "p" && n.props.className === "source-panel__url");
-  assert.equal(String(openingUrl?.children[0]), vcoGuideUrl, "the panel lists the source url");
-  const openingNote = opening.find((n) => n.tag === "p" && n.props.className === "source-panel__note");
-  assert.ok(
-    openingNote !== undefined && String(openingNote.children[0]).startsWith(vcoGuideNote),
-    "the source note renders in the panel",
-  );
-
-  // a section with no callouts keeps its plain F2 anatomy: no panel markup
-  // and no SOURCE text anywhere in the section's subtree (never a blank slot)
-  const earlyMid = sectionSubtree(viewOne, "early-mid");
-  assert.ok(
-    !earlyMid.some((n) => String(n.props.className ?? "").includes("source-panel")),
-    "the no-callout Early → Mid section renders no source panel",
-  );
-  assert.ok(!vnodeText(earlyMid).includes("SOURCE"), "no SOURCE text appears for the non-citing section");
-
-  // route-2's Mid → Late, Victory push and Diplomacy each cite vco-guide;
-  // route-3's Mid → Late and Diplomacy too (their verify callouts) — one
-  // panel per citing section, each listing its single cited source once
-  const citingByRoute: Array<[routeId: string, sectionIds: string[]]> = [
-    ["route-2", ["mid-late", "victory-push", "diplomacy"]],
-    ["route-3", ["mid-late", "diplomacy"]],
-  ];
-  for (const [routeId, sectionIds] of citingByRoute) {
-    const route = getRoute(tree, "elspeth-von-draken", routeId);
-    assert.ok(route.found);
-    const view = RouteView({ lord: lord.value, route: route.value });
-    for (const sectionId of sectionIds) {
-      const subtree = sectionSubtree(view, sectionId);
-      assert.ok(
-        subtree.some((n) => n.props.className === "source-panel"),
-        `the ${routeId} "${sectionId}" section renders a source panel`,
-      );
-      assert.equal(
-        subtree.filter((n) => n.props.className === "source-panel__entry").length,
-        1,
-        `the ${routeId} "${sectionId}" panel lists its single cited source once`,
-      );
-      const link = subtree.find((n) => n.tag === "a" && n.props.className === "source-panel__title");
-      assert.equal(
-        String(link?.children[0]),
-        vcoGuideTitle,
-        `the ${routeId} "${sectionId}" entry is the vco-guide title link`,
-      );
-    }
-  }
-});
-
-test("a section citing the same source twice renders the source once in its panel (temp-copy dedupe)", async () => {
-  await inContentCopy(
-    async (root) => {
-      // The dedupe contract needs a section whose callouts list the same
-      // source twice: the committed copy's route-2 Mid → Late section gains a
-      // second `::claim` also citing vco-guide (the same block shape, so the
-      // lint and the loader see one more enclosed callout in that section).
-      const routeTwo = await readFile(join(root, "elspeth-von-draken/routes/route-2.md"), "utf8");
-      const duplicated = routeTwo.replace(
-        "::claim verify-in-campaign src=vco-guide\nA transfer is acceptable only while the game still credits the control relationship.\n::",
-        "::claim verify-in-campaign src=vco-guide\nA transfer is acceptable only while the game still credits the control relationship.\n::\n\n::claim verify-in-campaign src=vco-guide\nA second claim citing the same guide does not add a second panel entry.\n::",
-      );
-      await writeFile(join(root, "elspeth-von-draken/routes/route-2.md"), duplicated);
-    },
-    async (root) => {
-      assert.deepEqual(await lintContent(fsReader(root)), [], "the duplicated-claim copy stays valid per the shared lint");
-
-      const tree = await loadContentTree(fsReader(root));
-      const lord = getLord(tree, "elspeth-von-draken");
-      assert.ok(lord.found);
-      const route = getRoute(tree, "elspeth-von-draken", "route-2");
-      assert.ok(route.found);
-
-      // the mutant really holds two Mid → Late callouts citing vco-guide
-      const midLateClaims = route.value.claims.filter((c) => c.sectionId === "mid-late");
-      assert.equal(midLateClaims.length, 2, "the mutant Mid → Late section holds two callouts");
-      assert.deepEqual(
-        midLateClaims.map((c) => c.src),
-        [["vco-guide"], ["vco-guide"]],
-        "…both citing vco-guide",
-      );
-
-      const view = RouteView({ lord: lord.value, route: route.value });
-      const midLate = sectionSubtree(view, "mid-late");
-      assert.ok(
-        midLate.some((n) => n.props.className === "source-panel"),
-        "the mutant Mid → Late section still renders its panel",
-      );
-      assert.equal(
-        midLate.filter((n) => n.props.className === "source-panel__entry").length,
-        1,
-        "the two vco-guide claims dedupe to exactly one panel entry",
-      );
-      const link = midLate.find((n) => n.tag === "a" && n.props.className === "source-panel__title");
-      assert.equal(
-        String(link?.children[0]),
-        "VCO • author’s route objectives",
-        "the lone entry is the vco-guide title link",
-      );
-    },
-  );
-});
 
 /* ─── The flagged-items section in the views' lord-level zone (package flagged-list) ─ */
 
@@ -1818,6 +607,78 @@ test("each desk card footer carries the item count and the new-grammar detail-pa
     ],
     "route-scoped footers: the current route's id in every href",
   );
+});
+
+test("the desk resolves each route's override research at its atlas positions and the settlement roles", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+
+  // route-2 owns base-arcane, route-3 owns base-economy beside their own
+  // override entries; each route's research card keeps the atlas order and
+  // the buildings card shows exactly the route's six settlement roles
+  const byRoute: Array<[routeId: string, researchOrder: string[], buildingsRoles: string[]]> = [
+    [
+      "route-2",
+      [
+        "Prepare a long southern campaign",
+        "Infantry, artillery and the escort",
+        "Support a durable southern sphere",
+        "Magic, machines and the Garden network",
+      ],
+      [
+        "Southern charter capital · a second production centre",
+        "Resource or valuable landmark settlement",
+        "Safe income town",
+        "A settlement that guards a real approach",
+        "Expedition capture / future handover",
+      ],
+    ],
+    [
+      "route-3",
+      [
+        "A durable survey column",
+        "Infantry, artillery and the escort",
+        "Build the next theatre, not empty infrastructure",
+        "The expedition’s practical research",
+      ],
+      [
+        "Nuln · foundry and field-test centre",
+        "Survey foothold · an expedition service station",
+        "Military support town · the missing profession",
+        "Safe income town",
+        "Provincial recovery and support base",
+        "Expedition capture / future handover",
+      ],
+    ],
+  ];
+  for (const [routeId, researchOrder, buildingsRoles] of byRoute) {
+    const route = getRoute(tree, "elspeth-von-draken", routeId);
+    assert.ok(route.found);
+    const nodes = recordVNodes(DeskMarkup({ lord: lord.value, route: route.value, comparing: false }));
+    const cards = nodes.filter((n) => n.props.className === "desk-card");
+    assert.equal(cards.length, 5, `${routeId} renders the five panel cards`);
+
+    // research: the override entries resolve at the atlas's own positions —
+    // the base groups Route I owns are never restated here
+    const researchRowLabels = deskRowsOf(cards[2] as VNodeRecord).map((row) => {
+      const label = recordVNodes(row).find((n) => n.props.className === "desk-row__label");
+      return label === undefined ? undefined : String(label.children[0]);
+    });
+    assert.deepEqual(
+      researchRowLabels,
+      researchOrder.map((r) => r),
+      "the override/firepower/base groups resolve in the atlas's own order",
+    );
+
+    // buildings: exactly the six settlement roles, never the empty state
+    const buildingsRows = deskRowsOf(cards[3] as VNodeRecord);
+    assert.equal(buildingsRows.length, 6, `${routeId} shows exactly six settlement roles`);
+    for (const role of buildingsRoles) {
+      assert.ok(vnodeText(cards[3] as VNodeRecord).includes(role), `${routeId} resolves the "${role}" role`);
+    }
+    assert.ok(vnodeText(cards[0] as VNodeRecord).trim().length > 0, `${routeId} armies card is never blank`);
+  }
 });
 
 test("the compare toggle swaps the grid for the three route comparison cards", async () => {
@@ -2623,6 +1484,555 @@ test("the plan's panel strip links the three detail pages and the VCO ledger for
   );
 });
 
+// ─── The route plan's moved section-walk proofs (ports from the deleted ──────
+// route suite: the registry-walk, transition, source-panel, gap-marker, and
+// undercard behaviours the route page carried moved to the plan page in
+// Commit 5; these equivalents prove them on the plan grammar).
+
+test("the plan's section walk renders present sections interleaved with gap markers at registry positions", async () => {
+  await inContentCopy(
+    async (root) => {
+      // every committed route is now fully migrated, so the "present or
+      // declared" mix the lint treats as a valid route document is proven by
+      // demanding a live gap from a migrated route: the copy removes one
+      // committed section (Diplomacy) and declares it in gaps. The walk must
+      // then render the lone marker at the Diplomacy registry slot while every
+      // other section still renders its written atlas content.
+      const routeThree = await readFile(join(root, "elspeth-von-draken/routes/route-3.md"), "utf8");
+      const mixed = routeThree
+        .replace("  - Transition → route-1\n", "  - Diplomacy\n  - Transition → route-1\n")
+        .replace(/## Diplomacy\n\n[\s\S]*?(?=\n## Transition → route-1)/, "");
+      await writeFile(join(root, "elspeth-von-draken/routes/route-3.md"), mixed);
+    },
+    async (root) => {
+      assert.deepEqual(await lintContent(fsReader(root)), [], "the mixed copy is valid per the shared lint");
+
+      const tree = await loadContentTree(fsReader(root));
+      const lord = getLord(tree, "elspeth-von-draken");
+      assert.ok(lord.found);
+      const route = getRoute(tree, "elspeth-von-draken", "route-3");
+      assert.ok(route.found);
+      const view = PlanView({ lord: lord.value, route: route.value });
+      const nodes = recordVNodes(view);
+      const text = vnodeText(view);
+
+      const markerFor = (title: string): string => `"${title}" is a declared gap — it has not been written yet.`;
+      const marker = markerFor("Diplomacy");
+
+      // the present sections render their written atlas bodies at their
+      // registry positions and keep their scroll anchors
+      assert.ok(
+        text.includes("Secure the departure base and the research company."),
+        "the present Opening section renders its written body",
+      );
+      assert.ok(
+        text.includes("Stop searching when the mission says the search is finished."),
+        "the present Mid → Late section renders its written body",
+      );
+      assert.ok(
+        nodes.some((n) => typeof n.props["data-section-id"] === "string"),
+        "the present sections keep their data-section-id anchors for the router",
+      );
+
+      // the declared gap renders exactly its marker at the Diplomacy registry
+      // slot: after the Victory push section, before the Transition → route-1
+      // section — the walk interleaves the marker with the present sections
+      const victoryPush = "Route III victory confirmed; surviving armies and footholds have a deliberate next assignment.";
+      assert.ok(
+        text.indexOf(victoryPush) < text.indexOf(marker),
+        "the Diplomacy marker follows the Victory push section in registry order",
+      );
+      assert.ok(
+        text.indexOf(marker) < text.indexOf("Transition → route-1"),
+        "the Diplomacy marker sits before the Transition → route-1 section in registry order",
+      );
+      assert.equal(
+        countOccurrences(text, "CONTENT GAP"),
+        1,
+        "exactly the one declared gap renders its marker, interleaved with the present sections",
+      );
+    },
+  );
+});
+
+test("the six committed transition anchors resolve, via getRoute/getSection, to rendered H2 ids on the plan grammar", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+
+  // DESIGN §7 acceptance item 1: every committed route renders its two
+  // transition sections as same-lord anchors in body order, each naming the
+  // target route's Opening section tree id — now on the plan grammar
+  const anchors: VNodeRecord[] = [];
+  for (const routeId of ["route-1", "route-2", "route-3"]) {
+    const route = getRoute(tree, "elspeth-von-draken", routeId);
+    assert.ok(route.found);
+    anchors.push(...transitionAnchors(PlanView({ lord: lord.value, route: route.value })));
+  }
+  assert.deepEqual(
+    anchors.map((a) => a.props.href),
+    [
+      "#/elspeth-von-draken/plan/route-2/opening",
+      "#/elspeth-von-draken/plan/route-3/opening",
+      "#/elspeth-von-draken/plan/route-1/opening",
+      "#/elspeth-von-draken/plan/route-3/opening",
+      "#/elspeth-von-draken/plan/route-1/opening",
+      "#/elspeth-von-draken/plan/route-2/opening",
+    ],
+    "the six committed anchors in route/body order, each into the target's Opening (plan grammar)",
+  );
+
+  // every href target resolves through the pure query surface and is a
+  // rendered H2 id in the same loaded tree — never an invented or stale id
+  for (const anchor of anchors) {
+    const parts = String(anchor.props.href).split("/");
+    assert.equal(parts.length, 5, "each href follows the #/<lord>/plan/<id>/<section-id> grammar");
+    const lordSlug = parts[1] as string;
+    const routeId = parts[3] as string;
+    const sectionId = parts[4] as string;
+    const route = getRoute(tree, lordSlug, routeId);
+    assert.ok(route.found, `the ${String(anchor.props.href)} target route resolves`);
+    const section = getSection(tree, lordSlug, routeId, sectionId);
+    assert.ok(section.found, `the ${String(anchor.props.href)} target section resolves`);
+    assert.equal(section.value.title, "Opening", "every transition link targets the destination's Opening section");
+    assert.ok(
+      recordVNodes(PlanView({ lord: lord.value, route: route.value })).some(
+        (n) => n.tag === "h2" && n.props.id === sectionId,
+      ),
+      `the "${sectionId}" id is a rendered H2 in the ${routeId} plan view`,
+    );
+  }
+});
+
+test("a transition whose target Opening is a declared gap links the plan page top instead", async () => {
+  await inContentCopy(
+    async (root) => {
+      // The target rule needs a route whose Opening is a declared gap: the
+      // copy removes route-2's required-section bodies and declares all four
+      // in gaps — the required-order rule accepts no other shape (a present
+      // Early → Mid after a missing Opening would be out of order).
+      let routeTwo = await readFile(join(root, "elspeth-von-draken/routes/route-2.md"), "utf8");
+      routeTwo = routeTwo
+        .replace(/## Opening\n\n[\s\S]*?(?=\n## Early → Mid)/, "")
+        .replace(/## Early → Mid\n\n[\s\S]*?(?=\n## Mid → Late)/, "")
+        .replace(/## Mid → Late\n\n[\s\S]*?(?=\n## Victory push)/, "")
+        .replace(/## Victory push\n\n[\s\S]*?(?=\n## Territory policy)/, "");
+      routeTwo = routeTwo.replace(
+        "gaps:\n  - Transition → route-1\n  - Transition → route-3\n",
+        ["gaps:", "  - Opening", "  - Early → Mid", "  - Mid → Late", "  - Victory push", "  - Transition → route-1", "  - Transition → route-3", ""].join("\n"),
+      );
+      await writeFile(join(root, "elspeth-von-draken/routes/route-2.md"), routeTwo);
+    },
+    async (root) => {
+      assert.deepEqual(await lintContent(fsReader(root)), [], "the gap-Opening copy stays valid per the shared lint");
+
+      const tree = await loadContentTree(fsReader(root));
+      const lord = getLord(tree, "elspeth-von-draken");
+      assert.ok(lord.found);
+
+      // the mutant target actually lost its Opening section (now a declared gap)
+      assert.equal(
+        getSection(tree, "elspeth-von-draken", "route-2", "opening").found,
+        false,
+        "route-2's Opening is now a declared gap — no rendered section exists",
+      );
+
+      // Route I's link into route-2 drops the section segment — the plan
+      // page top — while its link into the still-present route-3 Opening
+      // keeps the section segment
+      const routeOne = getRoute(tree, "elspeth-von-draken", "route-1");
+      assert.ok(routeOne.found);
+      const links = transitionAnchors(PlanView({ lord: lord.value, route: routeOne.value }));
+      assert.deepEqual(
+        links.map((a) => [String(a.children[0]), a.props.href]),
+        [
+          ["Transition → route-2", "#/elspeth-von-draken/plan/route-2"],
+          ["Transition → route-3", "#/elspeth-von-draken/plan/route-3/opening"],
+        ],
+        "a gap-Opening target links the plan page top; a present Opening keeps the section segment",
+      );
+    },
+  );
+});
+
+test("a transition title removed from the body but still declared in gaps keeps the inert content gap marker on the plan", async () => {
+  await inContentCopy(
+    async (root) => {
+      // Route I's second transition section is removed while its title stays
+      // declared in frontmatter gaps: the registry slot must then render the
+      // in-flow Content Gap Marker, never an anchor and never a broken href.
+      const routeOne = await readFile(join(root, "elspeth-von-draken/routes/route-1.md"), "utf8");
+      const truncated = routeOne.replace(/## Transition → route-3\n\n[\s\S]*$/, "");
+      await writeFile(join(root, "elspeth-von-draken/routes/route-1.md"), truncated);
+    },
+    async (root) => {
+      assert.deepEqual(await lintContent(fsReader(root)), [], "the transition-gap copy stays valid per the shared lint");
+
+      const tree = await loadContentTree(fsReader(root));
+      const lord = getLord(tree, "elspeth-von-draken");
+      assert.ok(lord.found);
+      const route = getRoute(tree, "elspeth-von-draken", "route-1");
+      assert.ok(route.found);
+      const view = PlanView({ lord: lord.value, route: route.value });
+      const text = vnodeText(view);
+
+      // the declared gap renders its inert marker at the registry slot; the
+      // surviving transition section keeps its anchor
+      const markerFor = (title: string): string => `"${title}" is a declared gap — it has not been written yet.`;
+      assert.ok(
+        text.includes(markerFor("Transition → route-3")),
+        "the body-less declared transition renders the Content Gap Marker",
+      );
+      assert.equal(countOccurrences(text, "CONTENT GAP"), 1, "exactly the one declared transition renders its marker");
+      const links = transitionAnchors(view);
+      assert.deepEqual(
+        links.map((a) => [String(a.children[0]), a.props.href]),
+        [["Transition → route-2", "#/elspeth-von-draken/plan/route-2/opening"]],
+        "the surviving transition section still renders its anchor — the marker branch carries none",
+      );
+    },
+  );
+});
+
+test("an unresolvable transition title renders the plain H2 with no anchor on the plan (constructed route)", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const committedRoute = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(committedRoute.found);
+
+  // The lint rejects a transition title naming no other same-lord route, so
+  // no loader-built tree can hold this shape; the view-invariant guard (a
+  // plain, non-link H2) is proven with a hand-built route over the committed
+  // lord, reusing the loaded committed claim values.
+  const route: Route = {
+    id: "ghost-route",
+    number: "I",
+    name: "The Ghost Route",
+    vcoTitle: null,
+    objective: committedRoute.value.objective,
+    reward: committedRoute.value.reward,
+    gaps: ["Transition → nosuchroute"],
+    sections: [
+      {
+        id: "transition-nosuchroute",
+        title: "Transition → nosuchroute",
+        html: "<h2>Transition → nosuchroute</h2><p>Nowhere to go.</p>",
+      },
+    ],
+    claims: [],
+  };
+  const nodes = recordVNodes(PlanView({ lord: lord.value, route }));
+
+  const heading = nodes.find((n) => n.tag === "h2" && n.props.id === "transition-nosuchroute");
+  assert.ok(heading !== undefined, "the unresolvable transition title renders its section H2");
+  assert.equal(
+    heading.props.className,
+    "route-section__heading",
+    "the plain H2 keeps the heading's anatomy (its tree id remains the router anchor)",
+  );
+  assert.ok(
+    !recordVNodes(heading).some((n) => n.tag === "a"),
+    "an unresolvable transition renders the plain H2 — no anchor element and no broken href",
+  );
+  assert.ok(
+    !nodes.some((n) => n.tag === "a" && n.props.className === "route-section__heading-link"),
+    "no transition-link markup appears anywhere in the view",
+  );
+});
+
+test("the committed route-2 and route-3 walks render their eight registry sections in order with phase leads and no gap markers", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+
+  const byRoute: Array<[routeId: string, order: string[], phaseLead: string]> = [
+    [
+      "route-2",
+      [
+        "Opening",
+        "Early → Mid",
+        "Mid → Late",
+        "Victory push",
+        "Territory policy",
+        "Diplomacy",
+        "Transition → route-1",
+        "Transition → route-3",
+      ],
+      "Make the departure affordable",
+    ],
+    [
+      "route-3",
+      [
+        "Opening",
+        "Early → Mid",
+        "Mid → Late",
+        "Victory push",
+        "Territory policy",
+        "Diplomacy",
+        "Transition → route-1",
+        "Transition → route-2",
+      ],
+      "Prepare the expedition, not an entire Empire reconquest",
+    ],
+  ];
+  for (const [routeId, order, phaseLead] of byRoute) {
+    const route = getRoute(tree, "elspeth-von-draken", routeId);
+    assert.ok(route.found);
+    const text = vnodeText(PlanView({ lord: lord.value, route: route.value }));
+
+    for (let i = 0; i < order.length; i++) {
+      const title = order[i] as string;
+      assert.ok(text.includes(title), `${routeId} renders the "${title}" section heading`);
+      if (i > 0) {
+        assert.ok(
+          text.indexOf(order[i - 1] as string) < text.indexOf(title),
+          `${routeId} keeps "${order[i - 1]}" before "${title}" in registry order`,
+        );
+      }
+    }
+    assert.ok(text.includes(phaseLead), `${routeId} renders its Opening phase lead`);
+    assert.equal(countOccurrences(text, "CONTENT GAP"), 0, `no gap marker anywhere on the migrated ${routeId}`);
+  }
+});
+
+test("source panels render under citing plan sections with the source as a title link and its note", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const routeOne = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(routeOne.found);
+  const viewOne = PlanView({ lord: lord.value, route: routeOne.value });
+
+  const vcoGuideTitle = "VCO • author’s route objectives";
+  const vcoGuideUrl = "https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084";
+
+  // a section with no callouts keeps its plain anatomy: no panel markup and
+  // no SOURCE text anywhere in the section's subtree (never a blank slot)
+  const earlyMid = sectionSubtree(viewOne, "early-mid");
+  assert.ok(
+    !earlyMid.some((n) => String(n.props.className ?? "").includes("source-panel")),
+    "the no-callout Early → Mid section renders no source panel",
+  );
+  assert.ok(!vnodeText(earlyMid).includes("SOURCE"), "no SOURCE text appears for the non-citing section");
+
+  // route-2's Mid → Late, Victory push and Diplomacy each cite vco-guide;
+  // route-3's Mid → Late and Diplomacy too (their verify callouts) — one
+  // panel per citing section, each listing its single cited source once
+  const citingByRoute: Array<[routeId: string, sectionIds: string[]]> = [
+    ["route-2", ["mid-late", "victory-push", "diplomacy"]],
+    ["route-3", ["mid-late", "diplomacy"]],
+  ];
+  for (const [routeId, sectionIds] of citingByRoute) {
+    const route = getRoute(tree, "elspeth-von-draken", routeId);
+    assert.ok(route.found);
+    const view = PlanView({ lord: lord.value, route: route.value });
+    for (const sectionId of sectionIds) {
+      const subtree = sectionSubtree(view, sectionId);
+      assert.ok(
+        subtree.some((n) => n.props.className === "source-panel"),
+        `the ${routeId} "${sectionId}" section renders a source panel`,
+      );
+      assert.equal(
+        subtree.filter((n) => n.props.className === "source-panel__entry").length,
+        1,
+        `the ${routeId} "${sectionId}" panel lists its single cited source once`,
+      );
+      const link = subtree.find((n) => n.tag === "a" && n.props.className === "source-panel__title");
+      assert.equal(
+        String(link?.children[0]),
+        vcoGuideTitle,
+        `the ${routeId} "${sectionId}" entry is the vco-guide title link`,
+      );
+
+      const url = subtree.find((n) => n.tag === "p" && n.props.className === "source-panel__url");
+      assert.equal(String(url?.children[0]), vcoGuideUrl, `the ${routeId} "${sectionId}" panel lists the source url`);
+    }
+  }
+});
+
+test("a section citing the same source twice renders the source once in its plan panel", async () => {
+  await inContentCopy(
+    async (root) => {
+      // The dedupe contract needs a section whose callouts list the same
+      // source twice: the committed copy's route-2 Mid → Late section gains a
+      // second `::claim` also citing vco-guide (the same block shape, so the
+      // lint and the loader see one more enclosed callout in that section).
+      const routeTwo = await readFile(join(root, "elspeth-von-draken/routes/route-2.md"), "utf8");
+      const duplicated = routeTwo.replace(
+        "::claim verify-in-campaign src=vco-guide\nA transfer is acceptable only while the game still credits the control relationship.\n::",
+        "::claim verify-in-campaign src=vco-guide\nA transfer is acceptable only while the game still credits the control relationship.\n::\n\n::claim verify-in-campaign src=vco-guide\nA second claim citing the same guide does not add a second panel entry.\n::",
+      );
+      await writeFile(join(root, "elspeth-von-draken/routes/route-2.md"), duplicated);
+    },
+    async (root) => {
+      assert.deepEqual(await lintContent(fsReader(root)), [], "the duplicated-claim copy stays valid per the shared lint");
+
+      const tree = await loadContentTree(fsReader(root));
+      const lord = getLord(tree, "elspeth-von-draken");
+      assert.ok(lord.found);
+      const route = getRoute(tree, "elspeth-von-draken", "route-2");
+      assert.ok(route.found);
+
+      // the mutant really holds two Mid → Late callouts citing vco-guide
+      const midLateClaims = route.value.claims.filter((c) => c.sectionId === "mid-late");
+      assert.equal(midLateClaims.length, 2, "the mutant Mid → Late section holds two callouts");
+      assert.deepEqual(
+        midLateClaims.map((c) => c.src),
+        [["vco-guide"], ["vco-guide"]],
+        "…both citing vco-guide",
+      );
+
+      const view = PlanView({ lord: lord.value, route: route.value });
+      const midLate = sectionSubtree(view, "mid-late");
+      assert.ok(
+        midLate.some((n) => n.props.className === "source-panel"),
+        "the mutant Mid → Late section still renders its panel",
+      );
+      assert.equal(
+        midLate.filter((n) => n.props.className === "source-panel__entry").length,
+        1,
+        "the two vco-guide claims dedupe to exactly one panel entry",
+      );
+      const link = midLate.find((n) => n.tag === "a" && n.props.className === "source-panel__title");
+      assert.equal(
+        String(link?.children[0]),
+        "VCO • author’s route objectives",
+        "the lone entry is the vco-guide title link",
+      );
+    },
+  );
+});
+
+test("every committed route renders the plan's VCO undercard with its item counts and per-item badge anatomy", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+
+  // DESIGN §7 acceptance numbers: route-1 6 (five targets + 35 battles), route-2
+  // 7 provinces, route-3 20 candidates; every item badge carries its own state
+  // colour class and every committed vco item resolves to the vco-guide source
+  const expectations: Array<
+    [routeId: string, itemCount: number, itemStates: string[], probeId: string, probeText: string]
+  > = [
+    [
+      "route-1",
+      6,
+      ["confirmed", "confirmed", "confirmed", "verify-in-campaign", "verify-in-campaign", "verify-in-campaign"],
+      "battles-35",
+      "Win 35 battles",
+    ],
+    ["route-2", 7, Array(7).fill("confirmed"), "pirates-current", "Pirate’s Current"],
+    ["route-3", 20, Array(20).fill("confirmed"), "valays-sorrow", "Valaya’s Sorrow"],
+  ];
+  for (const [routeId, itemCount, itemStates, probeId, probeText] of expectations) {
+    const route = getRoute(tree, "elspeth-von-draken", routeId);
+    assert.ok(route.found);
+    const view = PlanView({ lord: lord.value, route: route.value });
+    const text = vnodeText(view);
+
+    // the undercard renders on every committed route: mono eyebrow plus one row
+    // per item carrying the stable id and the atlas text, below the plan body
+    assert.ok(text.includes("VCO OBJECTIVES"), `${routeId} renders the undercard's mono eyebrow`);
+    assert.ok(text.includes(probeId), `${routeId} renders the "${probeId}" item id`);
+    assert.ok(text.includes(probeText), `${routeId} renders the "${probeId}" item text verbatim`);
+
+    // badge anatomy: the fact-row objective + reward claims and every vco item
+    // are Confidence Badged with their own state colour classes, mono uppercase
+    // labels and one resolved source link each
+    const badges = badgeVNodes(view);
+    assert.equal(
+      badges.length,
+      2 + itemCount,
+      `${routeId} the two fact-row claims plus its ${itemCount} vco items are Confidence Badged`,
+    );
+    const stateClasses = badges.map((n) => String(n.props.state)).sort();
+    assert.deepEqual(
+      stateClasses,
+      [...itemStates, "verify-in-campaign", "verify-in-campaign"].sort(),
+      `${routeId} each row's badge carries its own state colour class (claims + items)`,
+    );
+    const flat = badgeText(view);
+    assert.ok(flat.includes("CONFIRMED"), `${routeId} the confirmed items render their mono uppercase label`);
+    if (itemStates.includes("verify-in-campaign")) {
+      assert.ok(flat.includes("VERIFY"), `${routeId} the verify-in-campaign items render their mono uppercase label`);
+    }
+    const srcLinks = badges.flatMap((n) =>
+      recordVNodes(expandBadge(n)).filter((m) => m.tag === "a" && m.props.className === "confidence-badge__src"),
+    );
+    assert.equal(srcLinks.length, 2 + itemCount, `${routeId} each src-carrying claim and item trails its resolved source link`);
+    assert.ok(
+      srcLinks.every((l) => l.props.href === "https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084"),
+      `${routeId} every committed claim and item resolves to the vco-guide url`,
+    );
+  }
+});
+
+test("the fixture plan's VCO undercard renders per-item badges with their own states and src links", async () => {
+  const tree = await loadContentTree(fsReader(FIXTURES));
+  const lord = getLord(tree, "als-rhyn-of-lorek");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "als-rhyn-of-lorek", "dark-conduits");
+  assert.ok(route.found);
+  const view = PlanView({ lord: lord.value, route: route.value });
+  const text = vnodeText(view);
+
+  // the undercard: mono eyebrow + one row per item with the id, text and badge
+  assert.ok(text.includes("VCO OBJECTIVES"), "the undercard's mono eyebrow");
+  assert.ok(text.includes("obj-conduits"), "the first stable objective id");
+  assert.ok(text.includes("Secure all three southeast dark conduit settlements."), "the first item's text");
+  assert.ok(text.includes("obj-casket"), "the second stable objective id");
+  assert.ok(text.includes("Unlock the Casket of Souls quest chain."), "the second item's text");
+
+  // every vco item is a Confidence Badge-carrying row: the fixture's two items
+  // render alongside the two fact-row claims, with per-item labels + state
+  // colour classes + resolved source links
+  const badges = badgeVNodes(view);
+  assert.equal(badges.length, 4, "the objective + reward claims and both vco items are Confidence Badged");
+  const flat = badgeText(view);
+  assert.ok(flat.includes("CONFIRMED"), "the confirmed item renders its mono uppercase label");
+  assert.ok(flat.includes("HISTORICAL"), "the historical item renders its mono uppercase label");
+  const stateClasses = badges.map((n) => String(n.props.state)).sort();
+  assert.deepEqual(
+    stateClasses,
+    ["confirmed", "confirmed", "historical", "historical"],
+    "each row's badge carries its own state colour class (claims + items)",
+  );
+  const srcLinks = badges.flatMap((n) =>
+    recordVNodes(expandBadge(n)).filter((m) => m.tag === "a" && m.props.className === "confidence-badge__src"),
+  );
+  assert.equal(srcLinks.length, 4, "each src-carrying claim and item trails its resolved source link");
+  assert.equal(
+    srcLinks.filter((l) => l.props.href === "https://example.test/vco-guide").length,
+    2,
+    "vco-guide resolves for the objective claim and obj-conduits",
+  );
+  assert.equal(
+    srcLinks.filter((l) => l.props.href === "https://example.test/casket").length,
+    2,
+    "casket resolves for the reward claim and obj-casket",
+  );
+});
+
+test("transitionTarget mirrors the lint's isKnownSectionTitle: id or name match, real Opening tree id, null otherwise", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+
+  assert.deepEqual(
+    transitionTarget(lord.value, "Transition → route-2"),
+    { targetId: "route-2", openingSectionId: "opening" },
+    "an id-named transition resolves to the target route id and its real Opening tree id",
+  );
+  assert.deepEqual(
+    transitionTarget(lord.value, "Transition → The Southern Charter"),
+    { targetId: "route-2", openingSectionId: "opening" },
+    "a name-named transition resolves the same way — the lint's id-or-name scoping",
+  );
+  assert.equal(transitionTarget(lord.value, "Transition → nosuchroute"), null, "an unmatched suffix resolves to null");
+  assert.equal(transitionTarget(lord.value, "Opening"), null, "a non-transition title is not a target");
+});
+
 // ─── The detail pages (package `detail-pages-view`) ────────────────────────
 
 /** The armies page's tabpanel VNodes in tab order. */
@@ -2649,7 +2059,7 @@ async function committedPanelInputs() {
  * The DeskPanel exactly as the view composes it: its recorded props at the
  * view seam, then the same props expanded through the pure `DeskPanel`
  * builder — the zero-DOM equivalent of letting the view's child component
- * render (the `mountedTabStrip` precedent).
+ * render (the seam pattern the deleted `mountedTabStrip` helper established).
  */
 function mountedDeskPanel(view: unknown): { nodes: VNodeRecord[]; text: string } {
   const desk = recordVNodes(view).find(
@@ -3341,145 +2751,45 @@ test("a corrupt file's load-error panel carries no delete — removing a corrupt
   assert.ok(vnodeText(view).includes("Retry"), "the ghost Retry action stays");
 });
 
-// ─── 11. The route campaign action region (package `ledger-route-start`) ───────
+// ─── 11. The plan's campaign action region (package `ledger-route-start`) ────
+// The start flow moved to the route plan page (recorded decision); the route
+// page no longer exists, so these proofs render the moved region over the
+// plan view (the plan suite's `vco-undercard` test above proves the
+// start/open/blocked/corrupt states; the cases below are its complements).
 
 /** A ready ledger index with the given entries — the caller-supplied index state the action region derives from. */
 function readyIndex(entries: readonly LedgerIndexEntry[]): LedgerIndexState {
   return { kind: "ready", entries };
 }
 
-/** The route page's campaign action region node, when one renders. */
+/** The plan page's campaign action region node, when one renders. */
 function campaignRegion(view: unknown): VNodeRecord | undefined {
   return recordVNodes(view).find((n) => hasClass(n, "route-campaign"));
 }
 
-test("the route page offers the start action when no campaign is active and the route has committed VCO items", async () => {
-  const { lord, route } = await ledgerInputs();
-  const onStart = (): void => {};
-  const view = RouteView({ lord, route, campaign: { index: readyIndex([]), onStart, startError: null } });
-  const region = campaignRegion(view);
-
-  assert.ok(region !== undefined, "the action region renders under the undercard");
-  const regionNodes = recordVNodes(region);
-  const start = regionNodes.find((n) => n.tag === "button" && hasClass(n, "button--primary"));
-  assert.ok(start !== undefined, "the start action is a primary-variant button per the Buttons contract");
-  assert.equal(vnodeText(start), "Start ledger", "the start action carries the start-ledger label");
-  assert.equal(start.props.onClick, onStart, "the start button is wired to the onStart handler");
-  assert.ok(!regionNodes.some((n) => n.tag === "a"), "no ledger link while nothing is active");
-  assert.ok(!vnodeText(view).includes("A campaign is already active"), "no blocked message while nothing is active");
-});
-
-test("the active campaign for this route renders the open-ledger link with the exact ledger hash", async () => {
-  const { lord, route } = await ledgerInputs();
-  const view = RouteView({
-    lord,
-    route,
-    campaign: {
-      index: readyIndex([
-        {
-          lordSlug: "elspeth-von-draken",
-          routeId: "route-1",
-          status: "active",
-          updatedAt: "2026-10-03T00:00:00.000Z",
-        },
-      ]),
-      onStart: () => {},
-      startError: null,
-    },
-  });
-  const region = campaignRegion(view);
-
-  assert.ok(region !== undefined, "the action region renders for the active campaign");
-  const regionNodes = recordVNodes(region);
-  const open = regionNodes.find((n) => n.tag === "a" && hasClass(n, "button--primary"));
-  assert.ok(open !== undefined, "the open-ledger action is a primary-styled link");
-  assert.equal(vnodeText(open), "Open ledger", "the open action carries the open-ledger label");
-  assert.equal(
-    open.props.href,
-    "#/elspeth-von-draken/ledger/route-1",
-    "the open link points at the exact Commit-3 ledger grammar for this route",
-  );
-  assert.ok(!regionNodes.some((n) => n.tag === "button"), "no start button while this route's campaign is active");
-});
-
-test("a different route's active campaign renders the start-blocked message linking to that campaign's ledger hash", async () => {
-  const { lord, route } = await ledgerInputs();
-  const view = RouteView({
-    lord,
-    route,
-    campaign: {
-      index: readyIndex([
-        {
-          lordSlug: "elspeth-von-draken",
-          routeId: "route-2",
-          status: "active",
-          updatedAt: "2026-10-03T00:00:00.000Z",
-        },
-      ]),
-      onStart: () => {},
-      startError: null,
-    },
-  });
-  const region = campaignRegion(view);
-
-  assert.ok(region !== undefined, "the blocked message renders");
-  const regionNodes = recordVNodes(region);
-  assert.ok(vnodeText(region).includes("A campaign is already active"), "the message names that a campaign is active");
-  const link = regionNodes.find((n) => n.tag === "a");
-  assert.ok(link !== undefined, "the message links to the active campaign");
-  assert.equal(
-    link.props.href,
-    "#/elspeth-von-draken/ledger/route-2",
-    "the blocked link points at the active campaign's own ledger hash",
-  );
-  assert.ok(
-    !regionNodes.some((n) => n.tag === "button" && hasClass(n, "button--primary")),
-    "no start action while a different campaign is active",
-  );
-});
-
-test("a route with zero VCO items renders no campaign action even with a ready index", async () => {
+test("a route with zero VCO items renders no undercard and no campaign action on the plan, even with a ready index", async () => {
   const tree = await loadContentTree(fsReader(FIXTURES));
   const second = getLord(tree, "second-lord");
   assert.ok(second.found);
   const route = getRoute(tree, "second-lord", "lone-route");
   assert.ok(route.found);
-  const view = RouteView({
+  const view = PlanView({
     lord: second.value,
     route: route.value,
     campaign: { index: readyIndex([]), onStart: () => {}, startError: null },
   });
   const text = vnodeText(view);
 
-  assert.ok(campaignRegion(view) === undefined, "no action region without a VCO undercard");
+  assert.ok(!text.includes("VCO OBJECTIVES"), "no undercard for a lord without a vco dataset");
+  assert.ok(campaignRegion(view) === undefined, "no action region without the VCO undercard");
   assert.ok(!text.includes("Start ledger"), "no start action for a route with no committed VCO items");
   assert.ok(!text.includes("Open ledger"), "no open link for a route with no committed VCO items");
   assert.ok(!text.includes("A campaign is already active"), "no blocked message for a route with no committed VCO items");
 });
 
-test("a corrupt file for this route blocks both start and open — the never-silently-repair decision", async () => {
+test("a completed document for this route does not block the start action on the plan", async () => {
   const { lord, route } = await ledgerInputs();
-  const view = RouteView({
-    lord,
-    route,
-    campaign: {
-      index: readyIndex([
-        { lordSlug: "elspeth-von-draken", routeId: "route-1", status: "corrupt", updatedAt: null },
-      ]),
-      onStart: () => {},
-      startError: null,
-    },
-  });
-  const text = vnodeText(view);
-
-  assert.ok(campaignRegion(view) === undefined, "a corrupt own file offers no action region (no start, no open)");
-  assert.ok(!text.includes("Start ledger"), "start is not offered over a corrupt file");
-  assert.ok(!text.includes("Open ledger"), "open is not offered for a corrupt file");
-});
-
-test("a completed document for this route does not block the start action", async () => {
-  const { lord, route } = await ledgerInputs();
-  const view = RouteView({
+  const view = PlanView({
     lord,
     route,
     campaign: {
@@ -3497,15 +2807,15 @@ test("a completed document for this route does not block the start action", asyn
   });
   const region = campaignRegion(view);
 
-  assert.ok(region !== undefined, "the action region renders");
+  assert.ok(region !== undefined, "the action region renders under the undercard");
   const start = recordVNodes(region).find((n) => n.tag === "button" && hasClass(n, "button--primary"));
-  assert.ok(start !== undefined, "an archived (completed) campaign leaves the route startable again");
+  assert.ok(start !== undefined, "an archived (completed) campaign leaves the plan startable again");
   assert.equal(vnodeText(start), "Start ledger", "the start action renders over the completed document");
 });
 
 test("a failed start renders the typed message inline under the retained start action — never a silent write", async () => {
   const { lord, route } = await ledgerInputs();
-  const view = RouteView({
+  const view = PlanView({
     lord,
     route,
     campaign: {
@@ -3531,6 +2841,7 @@ test("a failed start renders the typed message inline under the retained start a
     "the typed LedgerError message surfaces verbatim",
   );
 });
+
 
 // ─── The sources page (package `sources-page-view`) ──────────────────────────
 

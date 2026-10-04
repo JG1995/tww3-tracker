@@ -440,7 +440,7 @@ Commit 1 (content model) → Commit 2 (visual system) → Commit 3 (Elspeth cont
 
 #### Package `obsolete-surfaces-removed` — Commit 11: Remove the replaced Factory-era surfaces
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 9
 

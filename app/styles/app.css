@@ -463,158 +463,6 @@ button {
   white-space: nowrap;
 }
 
-/* ─── Top navigation — the F2-era header (token-reference updates only; ───
-   replaced by the atlas header in Commit 10). The height carries the DESIGN's
-   ~170px header measure so the chrome makes room for the atlas tiers. */
-
-.top-nav {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  height: var(--header-height);
-  background: var(--bg);
-  border-bottom: 1px solid var(--line);
-}
-
-.top-nav__inner {
-  display: flex;
-  align-items: center;
-  gap: var(--gap-md);
-  height: 100%;
-  max-width: var(--wrap-max-width);
-  margin-inline: auto;
-  padding-inline: var(--wrap-side-padding);
-}
-
-/* Wordmark slot from index.html — the brand voice is Georgia serif (§4). */
-#wordmark {
-  font-family: var(--serif);
-  font-size: var(--h4-size);
-  font-weight: var(--heading-weight);
-  text-transform: uppercase;
-  color: var(--ink);
-  white-space: nowrap;
-}
-
-.top-nav__links {
-  display: flex;
-  align-items: center;
-  gap: var(--gap-md);
-}
-
-.top-nav__link {
-  font-family: var(--sans);
-  font-size: var(--text-base);
-  font-weight: 400;
-  line-height: var(--text-line-height);
-  color: var(--ink);
-  border-bottom: 2px solid transparent;
-}
-
-.top-nav__link:hover {
-  color: var(--ink);
-}
-
-.top-nav__link--active {
-  border-bottom-color: var(--accent);
-}
-
-/* ─── Route tab strip — F2-era (token-reference updates only; the atlas ───
-   routebar owns this surface from Commit 10). Sticks below the 170px header. */
-
-.route-tab-strip {
-  position: sticky;
-  top: var(--header-height);
-  z-index: 10;
-  margin-block-start: calc(-1 * var(--gap-lg));
-  display: flex;
-  align-items: stretch;
-  gap: var(--gap-base);
-  padding: var(--gap-xs) var(--gap-base);
-  background: var(--surface);
-  border-bottom: 1px solid var(--line);
-  border-radius: var(--card-radius) var(--card-radius) 0 0;
-}
-
-/* Tab states: default muted; hover ink; active ink + the 2px accent
-   underline (a constant transparent border that only changes colour). The
-   focus ring is the global :focus-visible rule (2px accent, 3px offset). */
-.route-tab {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: calc(var(--gap-xs) / 2);
-  padding: calc(var(--gap-xs) / 2) var(--gap-base);
-  border-bottom: 2px solid transparent;
-  color: var(--muted);
-  transition: var(--transition-standard);
-}
-
-.route-tab:hover {
-  color: var(--ink);
-}
-
-.route-tab--active {
-  color: var(--ink);
-  border-bottom-color: var(--accent);
-}
-
-.route-tab__label {
-  display: flex;
-  align-items: baseline;
-  gap: var(--gap-xs);
-}
-
-/* The route code — the eyebrow instrument voice, muted. */
-.route-tab__code {
-  font-family: var(--sans);
-  font-size: var(--eyebrow-size);
-  font-weight: var(--eyebrow-weight);
-  letter-spacing: var(--eyebrow-track);
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-/* Route title — campaign prose (sans), never the instrument voice. */
-.route-tab__title {
-  font-family: var(--sans);
-  font-size: var(--text-base);
-  font-weight: 400;
-  line-height: var(--text-line-height);
-}
-
-/* Official VCO title dimmed beneath the label line — muted in every state. */
-.route-tab__vco {
-  font-family: var(--sans);
-  font-size: var(--text-small);
-  font-weight: 400;
-  line-height: var(--text-line-height);
-  color: var(--muted);
-}
-
-/* Reserved F6 search slot: an empty well, never interactive in F1. */
-.search-well {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  min-width: calc(var(--gap-xs) * 18);
-  margin-inline-start: auto;
-  padding-block: calc(var(--gap-xs) / 2);
-  padding-inline: var(--gap-base);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--button-radius);
-}
-
-.search-well__placeholder {
-  font-family: var(--sans);
-  font-size: var(--eyebrow-size);
-  font-weight: var(--eyebrow-weight);
-  letter-spacing: var(--eyebrow-track);
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
 /* ─── Instrument typography ─────────────────────────────────────────────── */
 
 /* The eyebrow spec (DESIGN §4 verbatim): 0.66rem uppercase, 1.8px tracking,
@@ -858,19 +706,6 @@ kbd,
   margin-top: var(--gap-md);
 }
 
-/* ─── Lord page ────────────────────────────────────────────────────────── */
-
-.lord-page {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-xl);
-}
-
-.lord-page__title {
-  margin-top: var(--gap-xs);
-  color: var(--ink);
-}
-
 /* ─── Version Banner (DESIGN.md "Version Banner"; package `version-banner`) ───
    The survey-proof strip in the page header (it moves to the desk in Commit
    4): `--surface2` floor with a 1px `--line` border at the card radius, the
@@ -948,68 +783,6 @@ kbd,
 
 .shared-fundamentals {
   max-width: var(--wrap-max-width);
-}
-
-.route-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-md);
-}
-
-.route-list__title {
-  color: var(--ink);
-}
-
-.route-row {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  column-gap: var(--gap-md);
-  row-gap: var(--gap-xs);
-  border: 1px solid var(--line);
-  border-radius: var(--card-radius);
-  padding: var(--gap-md);
-}
-
-.route-row:hover {
-  border-color: var(--muted);
-}
-
-/* Route numerals are serif (§4); the official VCO title is a dim small line. */
-.route-row__number {
-  font-family: var(--serif);
-  font-size: var(--text-small);
-  font-weight: 400;
-  line-height: var(--text-line-height);
-  color: var(--muted);
-}
-
-.route-row__vco {
-  font-family: var(--sans);
-  font-size: var(--text-small);
-  font-weight: 400;
-  line-height: var(--text-line-height);
-  color: var(--muted);
-}
-
-.route-row__vco--unresearched {
-  color: var(--faint);
-}
-
-.route-row__name {
-  font-family: var(--sans);
-  font-size: var(--text-base);
-  font-weight: 400;
-  line-height: var(--text-line-height);
-  color: var(--muted);
-}
-
-.route-row__objective {
-  font-family: var(--sans);
-  font-size: var(--text-base);
-  font-weight: 400;
-  line-height: var(--text-line-height);
-  color: var(--muted);
 }
 
 /* ─── Flagged-items section (DESIGN §5/§6; package `flagged-list`) ─────────
@@ -1968,88 +1741,8 @@ kbd,
   color: var(--ink);
 }
 
-/* ─── Route page: identity card, body, declared gaps (F2-era — token- ────
-   reference updates only; the route page is deleted in Commit 11). */
-
-.route-page {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-xl);
-}
-
-/* The identity surface now wears the card treatment (gradient fill, 2px top
-   border) — the one bright object per view, no shadow (DESIGN Elevation
-   Level 2). */
-.route-identity {
-  background: var(--card-fill);
-  border-top: 2px solid var(--card-border-top-color);
-  border-radius: var(--card-radius);
-  padding: var(--card-padding);
-  color: var(--ink);
-}
-
-/* The eyebrow row carries the accent dot before the route number. */
-.route-identity__eyebrow {
-  display: flex;
-  align-items: center;
-  gap: var(--gap-xs);
-  font-family: var(--sans);
-  font-size: var(--eyebrow-size);
-  font-weight: var(--eyebrow-weight);
-  letter-spacing: var(--eyebrow-track);
-  text-transform: uppercase;
-  color: var(--eyebrow-color);
-}
-
-/* The official VCO title — a small instrument line on the card ink. */
-.route-identity__vco {
-  margin-top: var(--gap-base);
-  font-family: var(--sans);
-  font-size: var(--text-small);
-  font-weight: 400;
-  line-height: var(--text-line-height);
-  color: var(--ink);
-}
-
-/* Accent dot: a state accent stroke, not chrome. */
-.route-identity__dot {
-  width: var(--gap-xs);
-  height: var(--gap-xs);
-  border-radius: var(--radius-full);
-  background: var(--accent);
-}
-
-.route-identity__vco--unresearched {
-  color: var(--ink);
-}
-
-/* The thematic subtitle — the card's serif H1, clearly secondary. */
-.route-identity__title {
-  margin-top: var(--gap-base);
-  color: var(--ink);
-}
-
-/* The badge on the identity card takes the card ink scale: label and source
-   links use the card's ink, and a hovered link stays readable on the card. */
-.route-identity .confidence-badge__label,
-.route-identity .confidence-badge__src {
-  color: var(--ink);
-}
-
-.route-identity .confidence-badge__src:hover {
-  color: var(--accent);
-}
-
-.route-identity__claims {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-base);
-  margin-top: var(--gap-md);
-}
-
-.route-identity__note {
-  margin-top: var(--gap-base);
-}
+/* ─── Route plan — the plan head, the registry walk, and the optional VCO
+   undercard all live on the plan page (package `route-plan-view`). */
 
 .claim-block__label {
   font-family: var(--sans);
@@ -2077,16 +1770,7 @@ kbd,
   color: var(--ink);
 }
 
-.route-identity__note-text {
-  margin-top: var(--gap-xs);
-  font-family: var(--sans);
-  font-size: var(--text-base);
-  font-weight: 400;
-  line-height: var(--text-line-height);
-  color: var(--ink);
-}
-
-/* ─── VCO objective undercard — the optional list beneath the identity ──────
+/* ─── VCO objective undercard — the optional list below the plan head ──────
    A hairline-bordered Content Panel with an eyebrow head; each row pairs the
    stable objective id and its text with the item's Confidence Badge. Renders
    only when the route's `data/vco.json` entry exists — an absent entry
@@ -2167,17 +1851,9 @@ kbd,
   font-weight: 400;
   line-height: var(--text-line-height);
   color: var(--danger);
-}
+/* ─── Route plan body — the registry walk. Each present section is a Content
+   Panel with an eyebrow-vocal H2 that stays the router's scroll anchor target. */
 
-/* Body sections — the registry walk (F2-era: the section body moves to the
-   plan page in Commit 5; token-reference updates only). Each present section
-   is a Content Panel with an eyebrow-vocal H2 that stays the router's scroll
-   anchor target. */
-
-.route-body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-xl);
 }
 
 .route-section {
@@ -2435,61 +2111,6 @@ aside.claim > .confidence-badge {
   color: var(--ink);
 }
 
-/* ─── Dashboard region — the F2 five-tab panel block (token-reference ────
-   updates only; deleted with `dashboard.ts` in Commit 11). */
-
-.dashboard {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-base);
-}
-
-.dashboard__tabbar {
-  display: flex;
-  align-items: stretch;
-  gap: var(--gap-base);
-  padding: var(--gap-xs) var(--gap-base);
-  background: var(--surface);
-  border-bottom: 1px solid var(--line);
-}
-
-/* One mono uppercase panel tab — the eyebrow voice; the active tab pairs ink
-   with the 2px accent underline (a constant transparent border that only
-   changes colour). The focus ring is the global :focus-visible rule. */
-.dashboard__tab {
-  display: flex;
-  align-items: center;
-  padding: calc(var(--gap-xs) / 2) var(--gap-base);
-  border: 0;
-  border-bottom: 2px solid transparent;
-  background: transparent;
-  font-family: var(--sans);
-  font-size: var(--eyebrow-size);
-  font-weight: var(--eyebrow-weight);
-  letter-spacing: var(--eyebrow-track);
-  text-transform: uppercase;
-  color: var(--muted);
-  cursor: pointer;
-}
-
-.dashboard__tab:hover {
-  color: var(--ink);
-}
-
-.dashboard__tab--active {
-  color: var(--ink);
-  border-bottom-color: var(--accent);
-}
-
-/* The visible panel: Content Panel anatomy (padding, radius, hairline
-   border). Block layout, no display override, so the native `hidden`
-   attribute is the one-visibility switch. */
-.dashboard__panel {
-  padding: var(--gap-md);
-  border: 1px solid var(--line);
-  border-radius: var(--card-radius);
-}
-
 /* Explicit empty state: the eyebrow label plus one proportional sentence
    (DESIGN §6 Copywriting) — the pattern of the home empty state. */
 .dashboard-empty__label {
@@ -2511,9 +2132,8 @@ aside.claim > .confidence-badge {
   color: var(--muted);
 }
 
-/* ─── Dashboard panel anatomy (F2-era — token-reference updates only; the
-   anatomy moves to `deskPanel.ts` in Commit 4 and the dashboard dies in
-   Commit 11). */
+/* ─── Desk-panel entry anatomy — the entries render through `deskPanel.ts`;
+   the F2 dashboard died in Commit 11. */
 
 .panel-armies,
 .panel-items {
