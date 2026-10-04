@@ -57,7 +57,8 @@ import { HomeView, versionContext } from "../app/views/home.ts";
 import { LordView } from "../app/views/lord.ts";
 import { RouteView, transitionTarget } from "../app/views/route.ts";
 import { itemsFor } from "../app/ledger/logic.ts";
-import type { CampaignDoc } from "../app/ledger/types.ts";
+import type { CampaignDoc, LedgerIndexEntry } from "../app/ledger/types.ts";
+import type { LedgerIndexState } from "../app/ledger/useCampaign.ts";
 import { LedgerTable, type LedgerRowStatus, type LedgerTableProps } from "../app/components/LedgerTable.ts";
 import { LedgerView } from "../app/views/ledger.ts";
 
@@ -2202,4 +2203,195 @@ test("the ledger view error phase renders the error-bordered panel with the mess
   assert.ok(retry !== undefined, "the ghost Retry button renders");
   assert.equal(vnodeText(retry), "Retry", "the button copy is the fixed Retry label");
   assert.equal(retry.props.onClick, onRetry, "Retry is wired to the onRetry prop");
+});
+
+// ─── 11. The route campaign action region (package `ledger-route-start`) ───────
+
+/** A ready ledger index with the given entries — the caller-supplied index state the action region derives from. */
+function readyIndex(entries: readonly LedgerIndexEntry[]): LedgerIndexState {
+  return { kind: "ready", entries };
+}
+
+/** The route page's campaign action region node, when one renders. */
+function campaignRegion(view: unknown): VNodeRecord | undefined {
+  return recordVNodes(view).find((n) => hasClass(n, "route-campaign"));
+}
+
+test("the route page offers the start action when no campaign is active and the route has committed VCO items", async () => {
+  const { lord, route } = await ledgerInputs();
+  const onStart = (): void => {};
+  const view = RouteView({ lord, route, campaign: { index: readyIndex([]), onStart, startError: null } });
+  const region = campaignRegion(view);
+
+  assert.ok(region !== undefined, "the action region renders under the undercard");
+  const regionNodes = recordVNodes(region);
+  const start = regionNodes.find((n) => n.tag === "button" && hasClass(n, "button--primary"));
+  assert.ok(start !== undefined, "the start action is a primary-variant button per the Buttons contract");
+  assert.equal(vnodeText(start), "Start ledger", "the start action carries the start-ledger label");
+  assert.equal(start.props.onClick, onStart, "the start button is wired to the onStart handler");
+  assert.ok(!regionNodes.some((n) => n.tag === "a"), "no ledger link while nothing is active");
+  assert.ok(!vnodeText(view).includes("A campaign is already active"), "no blocked message while nothing is active");
+});
+
+test("the active campaign for this route renders the open-ledger link with the exact ledger hash", async () => {
+  const { lord, route } = await ledgerInputs();
+  const view = RouteView({
+    lord,
+    route,
+    campaign: {
+      index: readyIndex([
+        {
+          lordSlug: "elspeth-von-draken",
+          routeId: "route-1",
+          status: "active",
+          updatedAt: "2026-10-03T00:00:00.000Z",
+        },
+      ]),
+      onStart: () => {},
+      startError: null,
+    },
+  });
+  const region = campaignRegion(view);
+
+  assert.ok(region !== undefined, "the action region renders for the active campaign");
+  const regionNodes = recordVNodes(region);
+  const open = regionNodes.find((n) => n.tag === "a" && hasClass(n, "button--primary"));
+  assert.ok(open !== undefined, "the open-ledger action is a primary-styled link");
+  assert.equal(vnodeText(open), "Open ledger", "the open action carries the open-ledger label");
+  assert.equal(
+    open.props.href,
+    "#/elspeth-von-draken/ledger/route-1",
+    "the open link points at the exact Commit-3 ledger grammar for this route",
+  );
+  assert.ok(!regionNodes.some((n) => n.tag === "button"), "no start button while this route's campaign is active");
+});
+
+test("a different route's active campaign renders the start-blocked message linking to that campaign's ledger hash", async () => {
+  const { lord, route } = await ledgerInputs();
+  const view = RouteView({
+    lord,
+    route,
+    campaign: {
+      index: readyIndex([
+        {
+          lordSlug: "elspeth-von-draken",
+          routeId: "route-2",
+          status: "active",
+          updatedAt: "2026-10-03T00:00:00.000Z",
+        },
+      ]),
+      onStart: () => {},
+      startError: null,
+    },
+  });
+  const region = campaignRegion(view);
+
+  assert.ok(region !== undefined, "the blocked message renders");
+  const regionNodes = recordVNodes(region);
+  assert.ok(vnodeText(region).includes("A campaign is already active"), "the message names that a campaign is active");
+  const link = regionNodes.find((n) => n.tag === "a");
+  assert.ok(link !== undefined, "the message links to the active campaign");
+  assert.equal(
+    link.props.href,
+    "#/elspeth-von-draken/ledger/route-2",
+    "the blocked link points at the active campaign's own ledger hash",
+  );
+  assert.ok(
+    !regionNodes.some((n) => n.tag === "button" && hasClass(n, "button--primary")),
+    "no start action while a different campaign is active",
+  );
+});
+
+test("a route with zero VCO items renders no campaign action even with a ready index", async () => {
+  const tree = await loadContentTree(fsReader(FIXTURES));
+  const second = getLord(tree, "second-lord");
+  assert.ok(second.found);
+  const route = getRoute(tree, "second-lord", "lone-route");
+  assert.ok(route.found);
+  const view = RouteView({
+    lord: second.value,
+    route: route.value,
+    campaign: { index: readyIndex([]), onStart: () => {}, startError: null },
+  });
+  const text = vnodeText(view);
+
+  assert.ok(campaignRegion(view) === undefined, "no action region without a VCO undercard");
+  assert.ok(!text.includes("Start ledger"), "no start action for a route with no committed VCO items");
+  assert.ok(!text.includes("Open ledger"), "no open link for a route with no committed VCO items");
+  assert.ok(!text.includes("A campaign is already active"), "no blocked message for a route with no committed VCO items");
+});
+
+test("a corrupt file for this route blocks both start and open — the never-silently-repair decision", async () => {
+  const { lord, route } = await ledgerInputs();
+  const view = RouteView({
+    lord,
+    route,
+    campaign: {
+      index: readyIndex([
+        { lordSlug: "elspeth-von-draken", routeId: "route-1", status: "corrupt", updatedAt: null },
+      ]),
+      onStart: () => {},
+      startError: null,
+    },
+  });
+  const text = vnodeText(view);
+
+  assert.ok(campaignRegion(view) === undefined, "a corrupt own file offers no action region (no start, no open)");
+  assert.ok(!text.includes("Start ledger"), "start is not offered over a corrupt file");
+  assert.ok(!text.includes("Open ledger"), "open is not offered for a corrupt file");
+});
+
+test("a completed document for this route does not block the start action", async () => {
+  const { lord, route } = await ledgerInputs();
+  const view = RouteView({
+    lord,
+    route,
+    campaign: {
+      index: readyIndex([
+        {
+          lordSlug: "elspeth-von-draken",
+          routeId: "route-1",
+          status: "completed",
+          updatedAt: "2026-10-03T00:00:00.000Z",
+        },
+      ]),
+      onStart: () => {},
+      startError: null,
+    },
+  });
+  const region = campaignRegion(view);
+
+  assert.ok(region !== undefined, "the action region renders");
+  const start = recordVNodes(region).find((n) => n.tag === "button" && hasClass(n, "button--primary"));
+  assert.ok(start !== undefined, "an archived (completed) campaign leaves the route startable again");
+  assert.equal(vnodeText(start), "Start ledger", "the start action renders over the completed document");
+});
+
+test("a failed start renders the typed message inline under the retained start action — never a silent write", async () => {
+  const { lord, route } = await ledgerInputs();
+  const view = RouteView({
+    lord,
+    route,
+    campaign: {
+      index: readyIndex([]),
+      onStart: () => {},
+      startError: "the server rejected the request (status 500)",
+    },
+  });
+  const region = campaignRegion(view);
+
+  assert.ok(region !== undefined, "the action region stays visible after a failed start");
+  const regionNodes = recordVNodes(region);
+  assert.ok(
+    regionNodes.some((n) => n.tag === "button" && hasClass(n, "button--primary")),
+    "the start button remains (the retry affordance)",
+  );
+  const failure = regionNodes.find((n) => hasClass(n, "route-campaign__failure"));
+  assert.ok(failure !== undefined, "the failure message renders inline near the action");
+  assert.equal(failure.props.role, "alert", "the failure announces itself");
+  assert.equal(
+    vnodeText(failure),
+    "the server rejected the request (status 500)",
+    "the typed LedgerError message surfaces verbatim",
+  );
 });

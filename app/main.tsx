@@ -26,15 +26,16 @@ import { useEffect, useRef, useState } from "preact/hooks";
 import { ContentBootError, createFetchReader, loadContentTree } from "./content/load.ts";
 import { getLord, getRoute, getVcoObjectives, listLords } from "./content/query.ts";
 import type { ContentTree, Lord, Route } from "./content/types.ts";
-import { itemsFor } from "./ledger/logic.ts";
-import { useCampaign } from "./ledger/useCampaign.ts";
+import { listLedgers, saveLedger } from "./ledger/io.ts";
+import { createCampaign, itemsFor } from "./ledger/logic.ts";
+import { useCampaign, type LedgerIndexState } from "./ledger/useCampaign.ts";
 import { useHashRoute, type HashRoute } from "./router.ts";
 import { BootErrorView } from "./views/boot-error.ts";
 import { HomeView } from "./views/home.ts";
 import { LedgerView } from "./views/ledger.ts";
 import { LordView } from "./views/lord.ts";
 import { NotFoundView } from "./views/not-found.ts";
-import { RouteView } from "./views/route.ts";
+import { RouteView, type RouteCampaignProps } from "./views/route.ts";
 import "./styles/app.css";
 
 type Boot =
@@ -184,6 +185,67 @@ function LedgerPage({ lord, route }: { readonly lord: Lord; readonly route: Rout
   );
 }
 
+/**
+ * The route page's on-demand campaign surface (package `ledger-route-start`):
+ * reads the ledger index ONLY while a route hash is active — the mount (a
+ * route hash) is the demand, so the boot pass never issues a ledger request.
+ * The read is keyed by `(lordSlug, routeId)` and re-runs on hash change, so
+ * returning to this route page after completing or deleting a campaign on
+ * the ledger page re-reads the index and `start` reappears (the DESIGN's
+ * "startable again"; Commit 10 adds the in-place refresh after lifecycle
+ * actions). The same `io.listLedgers` seam and entry types as the ledger
+ * hook — one network contract for both surfaces. `onStart` builds the
+ * campaign document from the committed VCO item ids via the pure model,
+ * persists it through `io.saveLedger`, and on success navigates to the
+ * ledger hash (the Commit-3 grammar); a failed start surfaces the typed
+ * message inline near the action (the DESIGN's no-silent-writes — the button
+ * must not appear to have worked).
+ */
+function useRouteCampaign(lord: Lord, route: Route): RouteCampaignProps {
+  const [index, setIndex] = useState<LedgerIndexState>({ kind: "loading" });
+  const [startError, setStartError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    setIndex({ kind: "loading" });
+    void listLedgers()
+      .then((entries) => {
+        if (!cancelled) setIndex({ kind: "ready", entries });
+      })
+      .catch((cause: unknown) => {
+        if (cancelled) return;
+        setIndex({ kind: "error", message: cause instanceof Error ? cause.message : String(cause) });
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [lord.slug, route.id]);
+
+  const onStart = (): void => {
+    setStartError(null); // a fresh attempt clears the previous failure (the retry affordance)
+    const doc = createCampaign(
+      lord.slug,
+      route.id,
+      getVcoObjectives(lord, route.id).map((item) => item.id),
+      new Date().toISOString(),
+    );
+    void saveLedger(doc)
+      .then(() => {
+        window.location.hash = `#/${lord.slug}/ledger/${route.id}`;
+      })
+      .catch((cause: unknown) => {
+        setStartError(cause instanceof Error ? cause.message : String(cause));
+      });
+  };
+
+  return { index, startError, onStart };
+}
+
+/** The route case's campaign surface: mounts `useRouteCampaign` and hands its values to the presentational route view. */
+function RouteCampaignPage({ lord, route }: { readonly lord: Lord; readonly route: Route }): VNode {
+  return <RouteView lord={lord} route={route} campaign={useRouteCampaign(lord, route)} />;
+}
+
 function routeView(tree: ContentTree, route: HashRoute): VNode {
   switch (route.name) {
     case "home":
@@ -195,7 +257,7 @@ function routeView(tree: ContentTree, route: HashRoute): VNode {
     case "route": {
       const lord = getLord(tree, route.lordSlug);
       const found = getRoute(tree, route.lordSlug, route.routeId);
-      return lord.found && found.found ? <RouteView lord={lord.value} route={found.value} /> : <NotFoundView />;
+      return lord.found && found.found ? <RouteCampaignPage lord={lord.value} route={found.value} /> : <NotFoundView />;
     }
     case "ledger": {
       // The ledger case mirrors the route case's resolution: lord/route must

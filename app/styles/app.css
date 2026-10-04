@@ -986,6 +986,44 @@ button {
   color: var(--color-on-surface);
 }
 
+/* ─── Route campaign action region (feature DESIGN Journey 1; package `ledger-route-start`) ───
+   The action block under the VCO undercard (the undercard's own flex gap
+   places it): the start action is the Buttons contract's primary variant
+   (shared `.button.button--primary`), the open-ledger link reuses the same
+   primary treatment on an anchor (the not-found "Back to home" precedent),
+   and the two region-only treatments below are token-only — the blocked
+   message with its inline ledger link (styled like the badge/source-panel
+   underline links) and the failed-start inline message in `error` ink. No
+   new tokens. */
+
+/* The start-blocked message: one proportional sentence in the instrument
+   voice — names the active campaign and links to it (DESIGN's
+   single-active-campaign rule). */
+.route-campaign__blocked {
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-on-surface-variant);
+}
+
+.route-campaign__blocked a {
+  text-decoration: underline;
+  text-underline-offset: var(--space-stack-xs);
+  color: var(--color-on-surface);
+}
+
+/* The failed-start inline message: `error` ink under the retained start
+   action, announced via role="alert" — the DESIGN's no-silent-writes (the
+   button must not appear to have worked; it stays visible for retry). */
+.route-campaign__failure {
+  font-family: var(--font-body-sm-family), var(--font-sans-fallback);
+  font-size: var(--font-body-sm-size);
+  font-weight: var(--font-body-sm-weight);
+  line-height: var(--font-body-sm-line-height);
+  color: var(--color-error);
+}
+
 /* Body sections — the registry walk (DESIGN §2/§6): each present section is
    a Content Panel (DESIGN.md "Content Panel": transparent on canvas with a
    1px outline-variant hairline border, 10px radius, stack-md padding), and

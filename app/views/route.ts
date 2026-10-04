@@ -17,6 +17,14 @@
  * in-flow Content Gap Marker for a declared gap; the F1 trailing gap list and
  * its "no sections yet" fallback are gone. Body H2s carry the section ids
  * from the tree so the router's section anchor can scroll them into view.
+ *
+ * The VCO undercard also carries the campaign action region (feature DESIGN
+ * Journey 1; package `ledger-route-start`): a presentational block driven by
+ * the caller-supplied `campaign` props — the start action while the index is
+ * ready and no campaign is active, the open-ledger link when the active
+ * campaign is this route's, or the start-blocked message linking to the
+ * active campaign (the DESIGN's single-active-campaign rule). No I/O lives
+ * here; the pure derivation runs over the index the caller provides.
  */
 
 import { h, type JSX } from "preact";
@@ -26,6 +34,8 @@ import { Dashboard } from "../components/dashboard.ts";
 import { OPTIONAL_SECTIONS, REQUIRED_SECTIONS } from "../content/lint.ts";
 import type { Claim, Lord, Route, Section, Source } from "../content/types.ts";
 import { getPanelEntries, getVcoObjectives, resolveSources } from "../content/query.ts";
+import type { LedgerIndexEntry } from "../ledger/types.ts";
+import type { LedgerIndexState } from "../ledger/useCampaign.ts";
 
 /** Declared transition gaps are those titles the route authors as `Transition → <route>`. */
 const TRANSITION_PREFIX = "Transition → ";
@@ -60,14 +70,14 @@ export function transitionTarget(lord: Lord, title: string): TransitionTarget | 
   return { targetId: route.id, openingSectionId: opening === undefined ? null : opening.id };
 }
 
-export function RouteView(props: { lord: Lord; route: Route }): JSX.Element {
-  const { lord, route } = props;
+export function RouteView(props: { lord: Lord; route: Route; campaign?: RouteCampaignProps }): JSX.Element {
+  const { lord, route, campaign } = props;
   return h(
     "article",
     { className: "route-page" },
     h(TabStrip, { lordSlug: lord.slug, routes: lord.routes, activeId: route.id }),
     identityCard(lord, route),
-    vcoUndercard(lord, route),
+    vcoUndercard(lord, route, campaign),
     routeBody(lord, route),
     // Keyed by route id: navigating between routes remounts the dashboard and
     // resets its component-local panel selection to the first panel (a
@@ -141,10 +151,12 @@ function identityNote(label: string, text: string): JSX.Element {
 /**
  * The optional VCO objective-item undercard (DESIGN §4 vco schema): one
  * Confidence Badge-carrying row per item — stable id, text, state and the
- * optional resolved source link — under the identity card. A route without a
- * `data/vco.json` entry renders no undercard at all.
+ * optional resolved source link — under the identity card, with the campaign
+ * action region as its final block. A route without a `data/vco.json` entry
+ * renders no undercard at all — and therefore no campaign action (the
+ * DESIGN's no-VCO-route no-action rule).
  */
-function vcoUndercard(lord: Lord, route: Route): JSX.Element | null {
+function vcoUndercard(lord: Lord, route: Route, campaign: RouteCampaignProps | undefined): JSX.Element | null {
   const objectives = getVcoObjectives(lord, route.id);
   if (objectives.length === 0) return null;
   return h(
@@ -160,7 +172,124 @@ function vcoUndercard(lord: Lord, route: Route): JSX.Element | null {
         h(ConfidenceBadge, { state: item.state, sources: resolveSources(lord, item.src ?? []) }),
       ),
     ),
+    campaignActionRegion(lord, route, campaign),
   );
+}
+
+/**
+ * The route page's campaign props (package `ledger-route-start`), supplied by
+ * `main.tsx`: the on-demand ledger index read plus the start handler. The
+ * view stays presentational — the derivation runs over the caller-supplied
+ * index, never any I/O. `index` is the same `LedgerIndexState` shape the
+ * ledger page hook exposes, so both surfaces consume the one `io.listLedgers`
+ * contract and the same entry types (a route hash is the demand; nothing
+ * reads at boot).
+ */
+export interface RouteCampaignProps {
+  /** The index read for this route page; `ready` carries the entries the action region derives from. */
+  readonly index: LedgerIndexState;
+  /**
+   * Start: builds the campaign document from the committed VCO item ids via
+   * the pure model, persists it through `io.saveLedger`, and navigates to the
+   * ledger hash on success. A failed start surfaces via `startError` — the
+   * button must not appear to have worked.
+   */
+  readonly onStart: () => void;
+  /** The typed failure message of the last start attempt (null = none), rendered inline near the action. */
+  readonly startError: string | null;
+}
+
+/** The start action's label (instrument voice; presentation, not a DESIGN-fixed string). */
+const START_ACTION_LABEL = "Start ledger";
+/** The open-ledger action's label. */
+const OPEN_ACTION_LABEL = "Open ledger";
+
+/**
+ * The derived action-region state for one route page: `start` when no
+ * campaign is active; `open` when the single active campaign is THIS route's
+ * (the open-ledger link); `blocked` when a different campaign is active (the
+ * message links to that campaign's ledger hash); `none` when this route's own
+ * file is `corrupt` — the ledger's recorded never-silently-repair decision
+ * offers neither start nor open for it. A `completed` document for this route
+ * does NOT block start (the DESIGN's "startable again"). Only an `active`
+ * campaign is the single-active fact (the DESIGN's single-active-campaign
+ * rule, site-wide); the index is its one definition.
+ */
+type RouteCampaignAction =
+  | { readonly kind: "start" }
+  | { readonly kind: "open"; readonly campaign: LedgerIndexEntry }
+  | { readonly kind: "blocked"; readonly campaign: LedgerIndexEntry }
+  | { readonly kind: "none" };
+
+/** The three-state + no-action derivation: a pure read over the caller-supplied index entries. */
+function campaignAction(entries: readonly LedgerIndexEntry[], lordSlug: string, routeId: string): RouteCampaignAction {
+  const active = entries.find((entry) => entry.status === "active");
+  if (active !== undefined) {
+    return active.lordSlug === lordSlug && active.routeId === routeId
+      ? { kind: "open", campaign: active }
+      : { kind: "blocked", campaign: active };
+  }
+  const ownCorrupt = entries.some(
+    (entry) => entry.status === "corrupt" && entry.lordSlug === lordSlug && entry.routeId === routeId,
+  );
+  return ownCorrupt ? { kind: "none" } : { kind: "start" };
+}
+
+/** The ledger hash both action links share (the Commit-3 grammar). */
+function campaignHref(campaign: LedgerIndexEntry): string {
+  return `#/${campaign.lordSlug}/ledger/${campaign.routeId}`;
+}
+
+/** The failed-start inline message: `error` ink, announced — the DESIGN's no-silent-writes. */
+function campaignStartFailure(message: string): JSX.Element {
+  return h("p", { className: "route-campaign__failure", role: "alert" }, message);
+}
+
+/**
+ * The campaign action region as the VCO undercard's final block (feature
+ * DESIGN Journey 1's entry point). While the index read is in flight — and
+ * on a failed index read — the region renders nothing: the minimal neutral
+ * in-flight treatment, the action appears only once the index resolves. A
+ * failed start keeps the start action visible and renders the typed message
+ * inline beneath it (never a silent write; the button must not appear to
+ * have worked).
+ */
+function campaignActionRegion(lord: Lord, route: Route, campaign: RouteCampaignProps | undefined): JSX.Element | null {
+  if (campaign === undefined || campaign.index.kind !== "ready") return null;
+  const action = campaignAction(campaign.index.entries, lord.slug, route.id);
+  switch (action.kind) {
+    case "start":
+      return h(
+        "div",
+        { className: "route-campaign" },
+        h(
+          "button",
+          { className: "button button--primary", type: "button", onClick: campaign.onStart },
+          START_ACTION_LABEL,
+        ),
+        campaign.startError === null ? null : campaignStartFailure(campaign.startError),
+      );
+    case "open":
+      return h(
+        "div",
+        { className: "route-campaign" },
+        h("a", { className: "button button--primary", href: campaignHref(action.campaign) }, OPEN_ACTION_LABEL),
+      );
+    case "blocked":
+      return h(
+        "div",
+        { className: "route-campaign" },
+        h(
+          "p",
+          { className: "route-campaign__blocked" },
+          "A campaign is already active — ",
+          h("a", { href: campaignHref(action.campaign) }, "open it"),
+          ".",
+        ),
+      );
+    case "none":
+      return null;
+  }
 }
 
 /**

@@ -379,7 +379,7 @@ Commit 1 (server ledger root + gitignore) → Commit 2 (pure model) → Commit 4
 
 #### Package `ledger-route-start` — Commit 9: Start a campaign from route pages
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 6
 
