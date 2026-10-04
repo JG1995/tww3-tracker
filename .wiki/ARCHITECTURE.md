@@ -12,7 +12,7 @@ For the product purpose and domain model, see [CONCEPT.md](./CONCEPT.md). For th
 
 ### 1.1 Target architecture (approved proposal)
 
-> Status: approved 2026-10-02, **implemented through F10** — F1–F5 and F7 are merged to `main`; F10 is implemented on its feature branch pending fast-forward integration. F6 (search) remains approved-but-unbuilt. This subsection records the approved target stack and direction; §2 and §3 describe the currently implemented system. Rationale: [ADR-0001](adr/0001-vite-preact-runtime-loaded-site.md), [ADR-0002](adr/0002-content-as-markdown-json.md).
+> Status: approved 2026-10-02, **implemented through F10** — F1–F5, F7, and F10 are merged to `main`; F6 (search) remains approved-but-unbuilt. This subsection records the approved target stack and direction; §2 and §3 describe the currently implemented system. Rationale: [ADR-0001](adr/0001-vite-preact-runtime-loaded-site.md), [ADR-0002](adr/0002-content-as-markdown-json.md).
 
 A local, single-user web app. One Preact SPA in TypeScript, built by Vite, with no static site generator and no backend. Guide content is never compiled into the bundle — it is fetched at runtime from the repository as Markdown and JSON files.
 
@@ -88,7 +88,7 @@ Cross-campaign querying/analysis (comparisons, history stats across many campaig
 
 ### 1.2 Current state
 
-F1–F5, F7, and F10 are implemented; F1–F5 and F7 are merged to `main`, while F10 is on its feature branch pending fast-forward integration. The Elspeth content includes six datasets, three route documents, and optional crest, environment, and phase summaries. F10 implements the atlas header, desk, plan, detail pages, sources and notes views, and new hash grammar; the F2 route and dashboard surfaces are deleted. The F5 ledger model, server contract, optimistic writes, and on-demand loading remain unchanged. F6 (search) remains approved-but-unbuilt. §2 and §3 describe the implemented system; §4–§11 remain placeholders.
+F1–F5, F7, and F10 are implemented and merged to `main`; F10's final HEAD is `b2317f3031e7057c2de6ca7b8f4af91cda597527`. The Elspeth content includes six datasets, three route documents, and optional crest, environment, and phase summaries. F10 implements the atlas header, desk, plan, detail pages, sources and notes views, and new hash grammar; the F2 route and dashboard surfaces are deleted. The F5 ledger model, server contract, optimistic writes, and on-demand loading remain unchanged. F6 (search) remains approved-but-unbuilt. §2 and §3 describe the implemented system; §4–§11 remain placeholders.
 
 ---
 

@@ -6,8 +6,6 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
-- **atlas-ux-realignment** (F10 — atlas UX re-alignment) — design accepted 2026-10-04 · [IMPLEMENTATION](features/atlas-ux-realignment/ATLAS-UX-REALIGNMENT-IMPLEMENTATION.md) · [DESIGN](features/atlas-ux-realignment/ATLAS-UX-REALIGNMENT-DESIGN.md) — the site's chrome, IA, and look re-aligned to the reference atlases: a fresh page/route/section hash grammar (old shapes deliberately broken), the three-tier sticky header, the full 8-page per-lord IA, the atlas slate/brass visual system replacing Factory, and the optional `crest`/`environment`/`phases` content fields with Elspeth's chrome content extracted from the atlas.
-
 ## Next
 
 ### Development sequence (approved 2026-06-07; provisional — revisit after the content model is specced)
@@ -46,6 +44,8 @@ F4 (Elspeth) + F4 (Alith or Zhao) + F2 ──► F6 cross-guide search          
 **Plan next:** F5 — VCO campaign ledger (order 6) is completed and integrated (see Completed below). F7 was delivered and merged to `main` 2026-10-03 (see Completed below). F3 was delivered and merged to `main` 2026-10-03 (see Completed below). F2 (route-first rendering) was delivered and merged to `main` 2026-10-03 (see Completed below). site-foundation was proposed 2026-06-07, reviewed through three plan revisions, delivered 2026-10-02, and merged to `main` — see Completed. Provisional — revisit the order.
 
 ## Completed
+
+- **atlas-ux-realignment** (F10 — atlas UX re-alignment) — delivered 2026-10-04 · [IMPLEMENTATION](features/atlas-ux-realignment/ATLAS-UX-REALIGNMENT-IMPLEMENTATION.md) · [DESIGN](features/atlas-ux-realignment/ATLAS-UX-REALIGNMENT-DESIGN.md) — re-aligned the site's chrome, eight-page IA, hash grammar, and visual system to the reference atlases; added optional crest/environment/phase content. Twelve implementation commits plus one reconciliation commit, integrated to `main` by fast-forward at `b2317f3031e7057c2de6ca7b8f4af91cda597527`. Feature review Needs fixes (2 MEDIUM, 2 LOW); all four findings were reconciled. Post-integration gates pass (213 tests, tsc, content lint, build).
 
 - **vco-campaign-ledger** (F5 — VCO campaign ledger) — delivered 2026-10-04 · [IMPLEMENTATION](features/vco-campaign-ledger/VCO-CAMPAIGN-LEDGER-IMPLEMENTATION.md) · [DESIGN](features/vco-campaign-ledger/VCO-CAMPAIGN-LEDGER-DESIGN.md) — one active VCO campaign persists as JSON outside Git through the local server; its planning and game-confirmed tracks remain separate, with on-demand loading, optimistic writes and visible rollback, and confirmed complete/delete lifecycle actions. Twelve commits integrated to `main` by fast-forward at `70ac3083ffdae6c66a9e5f6919249c7545f8cb40`; feature review Accept, zero findings.
 

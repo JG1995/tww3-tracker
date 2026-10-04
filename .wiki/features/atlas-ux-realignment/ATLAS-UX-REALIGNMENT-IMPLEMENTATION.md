@@ -80,7 +80,7 @@ Bring the site's chrome, information architecture, and look in line with the ref
 
 ### Decisions
 
-- **One PR, provider `Local`**, mirroring the F1–F7 precedent exactly: `PR ref: Not applicable`, `PR template: Not applicable`, `Merge method: ff-only`, base `main`, branch `feat/atlas-ux-realignment`, Required checks = the real local gate. Eleven ordered atomic commits keep `main` green at every prefix; no intermediate seam justifies a second merge boundary. **Feature close-out: `Not run`** (sole/final PR).
+- **One PR, provider `Local`**, mirroring the F1–F7 precedent exactly: `PR ref: Not applicable`, `PR template: Not applicable`, `Merge method: ff-only`, base `main`, branch `feat/atlas-ux-realignment`, Required checks = the real local gate. Twelve feature commits plus one reconciliation commit landed through the single ff-only boundary. **Feature close-out: `Current`**.
 - **Dormant-surface strategy for the coordinated replacement.** New views land as unreachable files (Commits 4–8) before the grammar swap (Commit 9) makes them routable — the F5 stub precedent in reverse: every dormant page's own links already use the new grammar, and no reachable page carries a new-grammar link before the swap. Old surfaces die with the outcome that replaces them: `lord.ts` is deleted by Commit 9 (the dispatch no longer reaches it), and `route.ts`/`TabStrip.ts`/`dashboard.ts` are deleted by Commit 11 (dead once the header and plan pages own their surfaces).
 - **The start flow moves to the route plan page.** The F5 start action lived on the route page's VCO undercard; the route page no longer exists, and the plan page is its successor (the only route-scoped deep content page). The DESIGN pins the behaviour ("full F5 behaviour … start flow pointing at the new `ledger` hash") without naming the host; the IA forces this placement. Alternative considered: offering start on the ledger page's empty state itself (still viable; would change the F5 view's entry-point contract) — rejected as the less natural successor. Consequence: the ledger empty-state copy is reconciled in Commit 9 (the moment the plan page becomes reachable).
 - **`#/<lord>` (the default-route desk) is route-scoped for the route tabs:** switching routes from it targets `desk/<new-route>` (the desk is a route-page type; the hash merely omits the default route, and the routebar renders the resolved selection — never a hidden guess).
@@ -118,7 +118,7 @@ Commit 1 (content model) → Commit 2 (visual system) → Commit 3 (Elspeth cont
 
 **PR ref:** Not applicable
 
-**Merge ref:** Not merged
+**Merge ref:** `b2317f3031e7057c2de6ca7b8f4af91cda597527`
 
 **Branch:** `feat/atlas-ux-realignment`
 
@@ -132,7 +132,7 @@ Commit 1 (content model) → Commit 2 (visual system) → Commit 3 (Elspeth cont
 
 **Required checks:** `npm test` green, `npx tsc --noEmit` clean, `node tools/content-lint.mjs` exits 0, `npm run build` succeeds (the real local gate; the manual `npm run serve` HTTP boot plus a rendered capture is the completing evidence in Final validation)
 
-**Feature close-out:** Not run
+**Feature close-out:** Current
 
 **Provisional PR title:** `feat(app): re-align the site UX with the atlas atlases`
 
@@ -479,9 +479,11 @@ Record material deviations, blockers, and decisions that change remaining work. 
 - Commit 11 (obsolete-surfaces-removed): the Jev API 400s on the full 5,177-line diff (hard payload cap between 1,500 and 3,000 lines; C10's 1,339-line diff passed whole). Chunked runs (three contiguous slices): OE `suitable` ×3 (1.00 / 0.98 / 0.96), review `pass` ×3 (0.56 / 0.53 / 0.74 — below the 0.9 skip threshold). The developer approved proceeding with the commit-mode reviewer as the authoritative gate (2026-10-04); the reviewer returned Accept with no findings and an explicit clean Overengineering adjudication.
 - Commits 9/10 duplicate-launch incident: a second worker launched at a turn boundary in the same worktree (C9 `09cd0aee`, C10 `9b3bbb61`) in each case was stopped and deleted before it wrote anything; the worktrees were re-verified clean at those points.
 - Final validation (manual HTTP boot + rendered capture, before final feature review): the topline crest rendered invisible — `app/styles/app.css` set only the 44px box for `.topline__crest svg`, never the stroke-drawing the reference atlas's brand crest uses (`.brand>svg { stroke: currentColor; fill: none; stroke-width: 1.6 }` in brass), so the verbatim-extracted paths defaulted to black fill on the slate topline. Bounded final-validation fix (a 12th, post-C11 commit `4cdadb4`, CSS-only: `fill: none; stroke: currentColor; stroke-width: 1.6` + `color: var(--brass)` on the crest wrapper, with the provenance comment); re-validated (213 pass, tsc, lint, build) and the rendered capture shows the brass stroke-drawn crest matching the reference. No test pinned the rendering mode (the extraction pins cover the SVG content only), which is how the omission survived the C10 review.
-- Close-out reconciliation (coordinator): the feature review returned Needs fixes with two MEDIUMs (six stale delivery comments; dead `hrefPage: "route"` branch) and two LOWs (`dashboard-empty*` class-name drift; expired PANEL_LABELS rationale). All four were reconciled in this no-behaviour-change correction: comments now describe current routing/history, cross-links hard-code `plan`, empty-state classes use `panel-empty*`, and both panel-label maps are documented as an intentional per-consumer arrangement. The earlier close-out dispositions are: correct the old-grammar anchors, point `PanelEntries` at `DeskPanel`, describe the skip link's current DOM position, retain `Route.motto` as authored data with a data-only/unrendered doc comment (it exists in all three committed routes; DESIGN removed its renderer), and align the feature DESIGN save-state string to "Saved locally · offline". The detail-page test helper's extra `DeskPanel` expansion is a test-only VNode inspection seam, not an additional mounted application instance.
+- Close-out reconciliation: the feature review returned Needs fixes with two MEDIUMs (six stale delivery comments; dead `hrefPage: "route"` branch) and two LOWs (`dashboard-empty*` class-name drift; expired PANEL_LABELS rationale). All four were reconciled in commit `b2317f3`, with final four-gate validation below. The earlier close-out dispositions are: correct the old-grammar anchors, point `PanelEntries` at `DeskPanel`, describe the skip link's current DOM position, retain `Route.motto` as authored data with a data-only/unrendered doc comment (it exists in all three committed routes; DESIGN removed its renderer), and align the feature DESIGN save-state string to "Saved locally · offline". The detail-page test helper's extra `DeskPanel` expansion is a test-only VNode inspection seam, not an additional mounted application instance.
 
 ## Final validation
+
+The final four gates were rerun on the integrated HEAD `b2317f3031e7057c2de6ca7b8f4af91cda597527`: `npm test` passed 213/213; `npx tsc --noEmit` completed cleanly; `node tools/content-lint.mjs` exited 0; and `npm run build` succeeded. The manual HTTP boot and rendered-capture evidence is recorded above (before the comment-only and CSS-class-name reconciliation; no runtime behavior changed by that correction).
 
 Exact gates, in order, before final feature review:
 
@@ -498,9 +500,9 @@ Report any skipped or unsupported validation step as a gap, never as a pass (kno
 
 Complete during reconciliation at feature close-out (coordinator/steward, not package work):
 
-- `.wiki/TODO.md` — F10 remains `Active` pending the authorized ff-only integration; move it to `Completed` only after verifying that integration.
+- `.wiki/TODO.md` — F10 is in `Completed` after verified ff-only integration at `b2317f3031e7057c2de6ca7b8f4af91cda597527`.
 - `.wiki/PRD.md` — F10 added to the Feature Requirements table with its description, player story, Should (v1.1) priority, acceptance criteria, and F1–F5/F7 dependencies.
 - `.wiki/DESIGN.md` — visual-system content was rewritten in Commit 2; close-out now reconciles component names/locations, removes the deleted Route Identity Card, updates the confidence-state vocabulary, and replaces obsolete Factory-era checklist items.
-- `.wiki/ARCHITECTURE.md` — F-list, current state, module layout, route grammar, crest-read role, query selectors, and atlas hex-token/app.css descriptions now match the implementation.
+- `.wiki/ARCHITECTURE.md` — F-list, current state, module layout, route grammar, crest-read role, query selectors, and atlas hex-token/app.css descriptions match the implementation and record F10's integration.
 - The accepted ATLAS-UX-REALIGNMENT-DESIGN.md and this ledger stay in place through completion; the ledger's Discoveries section is the record for any wording-vs-implementation differences.
 - The accepted planning artifacts (DESIGN + this ledger) are committed to the tracked `.wiki/` in a separate authorized Git operation before execution — never as part of an implementation package.
