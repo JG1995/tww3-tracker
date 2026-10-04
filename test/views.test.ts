@@ -60,7 +60,7 @@ import { itemsFor } from "../app/ledger/logic.ts";
 import type { CampaignDoc, LedgerIndexEntry } from "../app/ledger/types.ts";
 import type { LedgerIndexState } from "../app/ledger/useCampaign.ts";
 import { LedgerTable, type LedgerRowStatus, type LedgerTableProps } from "../app/components/LedgerTable.ts";
-import { LedgerView } from "../app/views/ledger.ts";
+import { LedgerView, type LedgerViewProps } from "../app/views/ledger.ts";
 
 /** The committed content root, resolved from this test file's own location. */
 const CONTENT = fileURLToPath(new URL("../content", import.meta.url));
@@ -2081,6 +2081,7 @@ test("the ledger view loading phase renders the minimal mono in-flight line and 
     onRetry: () => {},
     onTick: () => {},
     onStep: () => {},
+    ...idleLifecycleProps(),
   });
   const text = vnodeText(view);
   const nodes = recordVNodes(view);
@@ -2107,7 +2108,7 @@ test("the ledger view ready phase renders the context header, the composed table
     [ids[0]]: { phase: "saving", message: null },
     [ids[3]]: { phase: "error", message: "The write failed" },
   };
-  const view = LedgerView({ lord, route, phase: { kind: "ready", doc }, rows, statuses, onRetry: () => {}, onTick, onStep });
+  const view = LedgerView({ lord, route, phase: { kind: "ready", doc }, rows, statuses, onRetry: () => {}, onTick, onStep, ...idleLifecycleProps() });
   const text = vnodeText(view);
 
   // the campaign context header: lord, route name, and the guide's patch/VCO
@@ -2167,6 +2168,7 @@ test("the ledger view renders the exact fixed empty state when the campaign docu
     onRetry: () => {},
     onTick: () => {},
     onStep: () => {},
+    ...idleLifecycleProps(),
   });
   const text = vnodeText(view);
 
@@ -2191,6 +2193,7 @@ test("the ledger view error phase renders the error-bordered panel with the mess
     onRetry,
     onTick: () => {},
     onStep: () => {},
+    ...idleLifecycleProps(),
   });
   const nodes = recordVNodes(view);
   const panel = nodes.find((n) => hasClass(n, "ledger-error"));
@@ -2203,6 +2206,291 @@ test("the ledger view error phase renders the error-bordered panel with the mess
   assert.ok(retry !== undefined, "the ghost Retry button renders");
   assert.equal(vnodeText(retry), "Retry", "the button copy is the fixed Retry label");
   assert.equal(retry.props.onClick, onRetry, "Retry is wired to the onRetry prop");
+});
+
+/** The idle lifecycle props: no confirmation open and nothing in flight — the live actions render. */
+function idleLifecycleProps(): Pick<
+  LedgerViewProps,
+  "lifecycle" | "onComplete" | "onDelete" | "onConfirmLifecycle" | "onDismissLifecycle"
+> {
+  return {
+    lifecycle: null,
+    onComplete: () => {},
+    onDelete: () => {},
+    onConfirmLifecycle: () => {},
+    onDismissLifecycle: () => {},
+  };
+}
+
+test("an active campaign's lifecycle region offers mark complete (primary) and delete (destructive), wired to their actions", async () => {
+  const { lord, route } = await ledgerInputs();
+  const doc = syntheticCampaignDoc(lord, route); // the active campaign
+  const rows = itemsFor(doc, getVcoObjectives(lord, route.id).map((item) => item.id));
+  const onComplete = (): void => {};
+  const onDelete = (): void => {};
+  const view = LedgerView({
+    lord,
+    route,
+    phase: { kind: "ready", doc },
+    rows,
+    statuses: {},
+    onRetry: () => {},
+    onTick: () => {},
+    onStep: () => {},
+    ...idleLifecycleProps(),
+    onComplete,
+    onDelete,
+  });
+  const region = recordVNodes(view).find((n) => hasClass(n, "ledger-lifecycle"));
+  assert.ok(region !== undefined, "the lifecycle region renders under the table");
+  const regionNodes = recordVNodes(region);
+  const mark = regionNodes.find(
+    (n) => n.tag === "button" && hasClass(n, "button--primary") && vnodeText(n) === "Mark complete",
+  );
+  assert.ok(mark !== undefined, "the active campaign offers the primary mark-complete action");
+  assert.equal(mark.props.onClick, onComplete, "mark complete is wired to onComplete");
+  const del = regionNodes.find(
+    (n) => n.tag === "button" && hasClass(n, "button--danger") && vnodeText(n) === "Delete",
+  );
+  assert.ok(del !== undefined, "the active campaign offers the destructive delete action");
+  assert.equal(del.props.onClick, onDelete, "delete is wired to onDelete");
+  assert.ok(!vnodeText(region).includes("removed from disk"), "no confirmation copy while idle");
+  assert.ok(!vnodeText(region).includes("keeps the archived file"), "no complete confirmation copy while idle");
+});
+
+test("the complete confirmation copy states the archived file is KEPT, with confirm and cancel wired", async () => {
+  const { lord, route } = await ledgerInputs();
+  const doc = syntheticCampaignDoc(lord, route);
+  const rows = itemsFor(doc, getVcoObjectives(lord, route.id).map((item) => item.id));
+  const onConfirmLifecycle = (): void => {};
+  const onDismissLifecycle = (): void => {};
+  const view = LedgerView({
+    lord,
+    route,
+    phase: { kind: "ready", doc },
+    rows,
+    statuses: {},
+    onRetry: () => {},
+    onTick: () => {},
+    onStep: () => {},
+    ...idleLifecycleProps(),
+    lifecycle: { kind: "confirm", action: "complete" },
+    onConfirmLifecycle,
+    onDismissLifecycle,
+  });
+  const panel = recordVNodes(view).find((n) => hasClass(n, "ledger-confirm"));
+  assert.ok(panel !== undefined, "the confirmation surface renders in place of the actions");
+  const text = vnodeText(panel);
+  assert.ok(text.includes("keeps the archived file on disk"), "the copy names that the archived file is KEPT");
+  assert.ok(!text.includes("removed from disk"), "the complete confirmation never names removal");
+  const panelNodes = recordVNodes(panel);
+  const confirmBtn = panelNodes.find(
+    (n) => n.tag === "button" && hasClass(n, "button--primary") && vnodeText(n) === "Mark complete",
+  );
+  assert.ok(confirmBtn !== undefined, "the primary confirm action renders");
+  assert.equal(confirmBtn.props.onClick, onConfirmLifecycle, "confirm is wired to onConfirmLifecycle");
+  const cancel = panelNodes.find((n) => n.tag === "button" && vnodeText(n) === "Cancel");
+  assert.ok(cancel !== undefined, "the dismiss action renders");
+  assert.equal(cancel.props.onClick, onDismissLifecycle, "cancel is wired to onDismissLifecycle");
+});
+
+test("the delete confirmation copy names the file removal in plain language — a dismissed confirmation renders no removal", async () => {
+  const { lord, route } = await ledgerInputs();
+  const ids = getVcoObjectives(lord, route.id).map((item) => item.id);
+  const doc = syntheticCampaignDoc(lord, route);
+  const rows = itemsFor(doc, ids);
+  const onConfirmLifecycle = (): void => {};
+  const onDismissLifecycle = (): void => {};
+  const confirming = LedgerView({
+    lord,
+    route,
+    phase: { kind: "ready", doc },
+    rows,
+    statuses: {},
+    onRetry: () => {},
+    onTick: () => {},
+    onStep: () => {},
+    ...idleLifecycleProps(),
+    lifecycle: { kind: "confirm", action: "delete" },
+    onConfirmLifecycle,
+    onDismissLifecycle,
+  });
+  const panel = recordVNodes(confirming).find((n) => hasClass(n, "ledger-confirm"));
+  assert.ok(panel !== undefined, "the delete confirmation renders");
+  const text = vnodeText(panel);
+  assert.ok(text.includes("removed from disk"), "the copy names the file removal in plain language");
+  assert.ok(text.includes("cannot be undone"), "the copy states the removal is irreversible");
+  assert.ok(!text.includes("keeps the archived file"), "the delete confirmation never claims the file is kept");
+  const confirmBtn = recordVNodes(panel).find(
+    (n) => n.tag === "button" && hasClass(n, "button--danger") && vnodeText(n) === "Delete campaign",
+  );
+  assert.ok(confirmBtn !== undefined, "the destructive confirm action renders");
+  assert.equal(confirmBtn.props.onClick, onConfirmLifecycle, "the destructive confirm is wired to onConfirmLifecycle");
+
+  // Dismissed: the campaign renders with its actions again and NO removal copy anywhere.
+  const dismissed = LedgerView({
+    lord,
+    route,
+    phase: { kind: "ready", doc },
+    rows,
+    statuses: {},
+    onRetry: () => {},
+    onTick: () => {},
+    onStep: () => {},
+    ...idleLifecycleProps(),
+  });
+  const dismissedText = vnodeText(dismissed);
+  assert.ok(!dismissedText.includes("removed from disk"), "dismissal renders no removal copy");
+  assert.ok(!dismissedText.includes("cannot be undone"), "dismissal renders no irreversibility copy");
+  assert.ok(dismissedText.includes("The Graveyard Watch"), "the campaign document still renders after dismissal");
+});
+
+test("the lifecycle in-flight stage renders the mono removing/saving feedback and no actions", async () => {
+  const { lord, route } = await ledgerInputs();
+  const doc = syntheticCampaignDoc(lord, route);
+  const rows = itemsFor(doc, getVcoObjectives(lord, route.id).map((item) => item.id));
+
+  const deleting = LedgerView({
+    lord,
+    route,
+    phase: { kind: "ready", doc },
+    rows,
+    statuses: {},
+    onRetry: () => {},
+    onTick: () => {},
+    onStep: () => {},
+    ...idleLifecycleProps(),
+    lifecycle: { kind: "removing", action: "delete" },
+  });
+  const deletingNodes = recordVNodes(deleting);
+  const deletingRegion = deletingNodes.find((n) => hasClass(n, "ledger-lifecycle"));
+  assert.ok(deletingRegion !== undefined, "the lifecycle region renders while removing");
+  assert.equal(vnodeText(deletingRegion).trim(), "REMOVING", "the removal feedback renders the mono line");
+  assert.ok(
+    !recordVNodes(deletingRegion).some((n) => n.tag === "button"),
+    "no actions while the removal is in flight (no double-confirm)",
+  );
+
+  const completing = LedgerView({
+    lord,
+    route,
+    phase: { kind: "ready", doc },
+    rows,
+    statuses: {},
+    onRetry: () => {},
+    onTick: () => {},
+    onStep: () => {},
+    ...idleLifecycleProps(),
+    lifecycle: { kind: "removing", action: "complete" },
+  });
+  const completingRegion = recordVNodes(completing).find((n) => hasClass(n, "ledger-lifecycle"));
+  assert.ok(completingRegion !== undefined, "the lifecycle region renders while the complete write is in flight");
+  assert.equal(vnodeText(completingRegion).trim(), "SAVING", "the complete write renders the mono saving feedback");
+});
+
+test("a completed campaign's ledger renders read-only rows — no mutation controls — with delete and no complete", async () => {
+  const { lord, route } = await ledgerInputs();
+  const ids = getVcoObjectives(lord, route.id).map((item) => item.id);
+  const doc = { ...syntheticCampaignDoc(lord, route), status: "completed" as const, updatedAt: "2026-10-03T02:00:00.000Z" };
+  const rows = itemsFor(doc, ids);
+  const view = LedgerView({
+    lord,
+    route,
+    phase: { kind: "ready", doc },
+    rows,
+    statuses: {},
+    onRetry: () => {},
+    onTick: () => {},
+    onStep: () => {},
+    ...idleLifecycleProps(),
+  });
+  const nodes = recordVNodes(view);
+  const text = vnodeText(view);
+
+  // No mutation controls anywhere on the archived campaign (the recorded decision).
+  assert.ok(!nodes.some((n) => n.tag === "input"), "archived rows render no checkbox controls");
+  assert.ok(
+    !nodes.some((n) => hasClass(n, "ledger-row__control")),
+    "archived rows render no step controls",
+  );
+  assert.ok(
+    !nodes.some((n) => hasClass(n, "ledger-row__feedback--saving")),
+    "no per-row write feedback on the archived view",
+  );
+
+  // The committed states still render as the read-only table: the two group
+  // headers, the fixed step cells, and the progress pairs.
+  const table = nodes.find((n) => hasClass(n, "ledger-table"));
+  assert.ok(table !== undefined, "the read-only table renders");
+  assert.ok(hasClass(table, "ledger-table--readonly"), "the archived table is the read-only rendition");
+  assert.ok(text.includes("PLANNING"), "the planning group header renders");
+  assert.ok(text.includes("GAME CONFIRMED"), "the confirmed group header renders");
+  assert.ok(
+    text.includes("APPEARS COMPLETE") && text.includes("VICTORY REGISTERED"),
+    "the fixed step cells render their labels",
+  );
+  assert.equal(countOccurrences(text, "1 / 6"), 1, "the planning progress pair renders");
+  assert.equal(countOccurrences(text, "2 / 6"), 1, "the confirmed progress pair renders");
+
+  // The lifecycle region: delete yes, complete no.
+  const region = nodes.find((n) => hasClass(n, "ledger-lifecycle"));
+  assert.ok(region !== undefined, "the archived view keeps the lifecycle region");
+  const regionText = vnodeText(region);
+  assert.ok(regionText.includes("Delete"), "delete stays available on the archived view");
+  assert.ok(!regionText.includes("Mark complete"), "a completed campaign offers no complete action");
+});
+
+test("a failed lifecycle operation renders its message with the actions retained — the retry affordance, no silent write", async () => {
+  const { lord, route } = await ledgerInputs();
+  const doc = syntheticCampaignDoc(lord, route);
+  const rows = itemsFor(doc, getVcoObjectives(lord, route.id).map((item) => item.id));
+  const view = LedgerView({
+    lord,
+    route,
+    phase: { kind: "ready", doc },
+    rows,
+    statuses: {},
+    onRetry: () => {},
+    onTick: () => {},
+    onStep: () => {},
+    ...idleLifecycleProps(),
+    lifecycle: { kind: "error", message: "the server rejected the request (status 500)" },
+  });
+  const region = recordVNodes(view).find((n) => hasClass(n, "ledger-lifecycle"));
+  assert.ok(region !== undefined, "the lifecycle region renders the failure");
+  const regionNodes = recordVNodes(region);
+  const failure = regionNodes.find((n) => hasClass(n, "ledger-lifecycle__error"));
+  assert.ok(failure !== undefined, "the lifecycle error message renders");
+  assert.equal(failure.props.role, "alert", "the failure announces itself");
+  assert.equal(
+    vnodeText(failure),
+    "the server rejected the request (status 500)",
+    "the typed message surfaces verbatim",
+  );
+  assert.ok(
+    regionNodes.some((n) => n.tag === "button" && vnodeText(n) === "Delete"),
+    "the actions remain — the retry affordance",
+  );
+});
+
+test("a corrupt file's load-error panel carries no delete — removing a corrupt file is the human's manual step (recorded decision)", async () => {
+  const { lord, route } = await ledgerInputs();
+  const view = LedgerView({
+    lord,
+    route,
+    phase: { kind: "error", message: "The campaign file is not a valid campaign document" },
+    rows: [],
+    statuses: {},
+    onRetry: () => {},
+    onTick: () => {},
+    onStep: () => {},
+    ...idleLifecycleProps(),
+  });
+  const nodes = recordVNodes(view);
+  assert.ok(nodes.some((n) => hasClass(n, "ledger-error")), "the committed load-error panel renders");
+  assert.ok(!nodes.some((n) => hasClass(n, "ledger-lifecycle")), "no lifecycle region over a corrupt file");
+  assert.ok(!vnodeText(view).includes("Delete"), "no delete action in the error panel");
+  assert.ok(vnodeText(view).includes("Retry"), "the ghost Retry action stays");
 });
 
 // ─── 11. The route campaign action region (package `ledger-route-start`) ───────

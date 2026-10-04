@@ -157,12 +157,14 @@ function isCurrentLord(route: HashRoute, slug: string): boolean {
 }
 
 /**
- * The ledger page composition (the `ledger-page-wiring` package): mounts the
- * on-demand campaign hook for the active ledger hash and computes the SINGLE
- * `logic.itemsFor` reconciliation here — the committed VCO ids via
- * `getVcoObjectives`, applied to the hook's current document (the optimistic
- * next document while a row write is in flight). The view never computes a
- * second intersection.
+ * The ledger page composition (the `ledger-page-wiring` package plus the
+ * `ledger-complete-delete` lifecycle wiring): mounts the on-demand campaign
+ * hook for the active ledger hash and computes the SINGLE `logic.itemsFor`
+ * reconciliation here — the committed VCO ids via `getVcoObjectives`,
+ * applied to the hook's current document (the optimistic next document
+ * while a write is in flight, a completed document while the complete
+ * write is). The view never computes a second intersection; the lifecycle
+ * stage and its handlers pass straight through from the hook.
  */
 function LedgerPage({ lord, route }: { readonly lord: Lord; readonly route: Route }): VNode {
   const campaign = useCampaign(lord.slug, route.id);
@@ -178,9 +180,14 @@ function LedgerPage({ lord, route }: { readonly lord: Lord; readonly route: Rout
       phase={campaign.phase}
       rows={rows}
       statuses={campaign.statuses}
+      lifecycle={campaign.lifecycle}
       onRetry={campaign.onRetry}
       onTick={campaign.onTick}
       onStep={campaign.onStep}
+      onComplete={campaign.onComplete}
+      onDelete={campaign.onDelete}
+      onConfirmLifecycle={campaign.onConfirmLifecycle}
+      onDismissLifecycle={campaign.onDismissLifecycle}
     />
   );
 }

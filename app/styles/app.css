@@ -324,6 +324,21 @@ button {
   border-color: var(--color-on-surface);
 }
 
+/* Destructive variant (ghost geometry, error ink): the delete action and
+   its confirm wear red text + border — never a coloured fill (the Buttons
+   contract's no-chromatic-fills rule); the confirmation copy names the
+   removal, so colour is never the sole indicator. Hover brightens the red
+   (the `on-error-container` light-tint token), the ghost hover pattern. */
+.button--ghost.button--danger {
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+
+.button--ghost.button--danger:hover {
+  color: var(--color-on-error-container);
+  border-color: var(--color-on-error-container);
+}
+
 /* ─── Home: lord cards / explicit empty state ──────────────────────────── */
 
 .lords {
@@ -2019,6 +2034,114 @@ aside.claim > .confidence-badge {
 
 .ledger-error .button--ghost {
   align-self: flex-start;
+}
+
+/* ─── Ledger lifecycle (feature DESIGN Journeys 3–4; package `ledger-complete-delete`) ───
+   The actions region under the table: mark complete (primary, active only)
+   and delete (danger ghost, active and archived), the inline confirmation
+   surface (the DESIGN system's destructive-action confirmation — copy names
+   the file removal in plain language / the kept archived file, confirm +
+   Cancel keyboard-operable buttons, dismissal leaves the campaign
+   untouched), the mono in-flight feedback while the operation runs, and a
+   failed operation's message with the actions retained (the retry
+   affordance — no silent writes). The archived (completed) campaign's
+   read-only rendition shares the fixed table anatomy (groups, 40px rows,
+   step cells) minus the mutation controls: a static state dot replaces the
+   planning checkbox, and the step track renders without the back/forward
+   buttons or the per-row feedback — the recorded decision, mutations belong
+   to the live campaign. */
+
+.ledger-page__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-sm);
+}
+
+.ledger-lifecycle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-stack-sm);
+}
+
+.ledger-lifecycle__removing {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+.ledger-lifecycle__error {
+  font-family: var(--font-body-sm-family), var(--font-sans-fallback);
+  font-size: var(--font-body-sm-size);
+  font-weight: var(--font-body-sm-weight);
+  line-height: var(--font-body-sm-line-height);
+  color: var(--color-error);
+}
+
+/* The confirmation surface: the fixed content-panel shape (surface fill,
+   1px outline-variant border, 10px radius) holding the mono instrument
+   label, the proportional copy, and the confirm/Cancel buttons. Inline,
+   not a modal — the DESIGN requires the explicit confirmation and keyboard-
+   operable controls, which the buttons satisfy. */
+.ledger-confirm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-xs);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md);
+  padding: var(--space-stack-md);
+  background: var(--color-surface-container);
+}
+
+.ledger-confirm__label {
+  font-family: var(--font-label-md-family), var(--font-mono-fallback);
+  font-size: var(--font-label-md-size);
+  font-weight: var(--font-label-md-weight);
+  line-height: var(--font-label-md-line-height);
+  letter-spacing: var(--font-label-md-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+.ledger-confirm__copy {
+  font-family: var(--font-body-md-family), var(--font-sans-fallback);
+  font-size: var(--font-body-md-size);
+  font-weight: var(--font-body-md-weight);
+  line-height: var(--font-body-md-line-height);
+  color: var(--color-on-surface);
+}
+
+.ledger-confirm__actions {
+  display: flex;
+  gap: var(--space-stack-xs);
+}
+
+/* The archived read-only rendition: the view's shared grid template drops
+   the controls and feedback columns (label, planning, 4 step cells). */
+.ledger-table--readonly {
+  --ledger-table-cols: minmax(16ch, 1.4fr) minmax(11ch, 0.8fr) repeat(4, minmax(12ch, 1fr));
+}
+
+.ledger-row__planning--readonly {
+  cursor: default;
+}
+
+/* The static planning state dot: filled on-surface when planned, dimmed
+   variant ink when not — the live row's checkbox semantics without a
+   control. */
+.ledger-row__state-dot {
+  width: var(--space-stack-xs);
+  height: var(--space-stack-xs);
+  border-radius: var(--radius-full);
+  background: var(--color-on-surface-variant);
+}
+
+.ledger-row__state-dot--on {
+  background: var(--color-on-surface);
 }
 
 /* ─── Motion: mechanical 0.15s transitions; reduced motion disables all ─── */

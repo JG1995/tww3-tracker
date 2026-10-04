@@ -4,22 +4,30 @@
  * node:test seam): hosts the campaign document load lifecycle, the per-row
  * command statuses, the ledger index read for the active hash (fetched here
  * so Commit 9's route-page consumer gets the same source without a second
- * network contract), and the row mutation handlers.
+ * network contract), and the mutation handlers — row actions AND the
+ * lifecycle close-out commands (commit 10: complete / delete).
  *
  * The hook SEQUENCES the already-tested primitives and never re-derives
  * them: `logic` computes the optimistic next document, `state` applies /
- * confirms / rolls back the write (`beginWrite` → `io.saveLedger` →
- * `finishWrite`, or `failWrite` on rejection), and `io` performs the I/O.
- * Row writes are serialized (the command state's one-in-flight contract) by
- * a FIFO queue: while `state.preWrite` is set, further row actions wait in
- * the queue instead of calling `beginWrite`, so the transitions' loud
- * "in flight" throw stays unreachable. Dropping the second mutation was
- * rejected: a drop after a checkbox/step click would silently lose input
- * whose DOM state has already changed (the DESIGN's no-silent-writes
+ * confirms / rolls back the write, and `io` performs the I/O.
+ *
+ * Row writes AND lifecycle operations are serialized (the command state's
+ * one-in-flight contract) by a FIFO queue: the complete write and the
+ * delete removal take the SAME `preWrite` snapshot as a row write, so while
+ * `state.preWrite` is set, further actions wait in the queue instead of
+ * calling the transitions' loud "in flight" throws (which stay unreachable
+ * — the queue gate starts a drain only when `preWrite` is null, and the
+ * next drain starts only after the in-flight operation settled). The
+ * confirmation handshake itself (open / dismiss) is UI-only: it touches
+ * only the lifecycle stage, so it runs synchronously on the click, while
+ * the confirm action queues like every write. Dropping a second mutation
+ * was rejected: a drop after a checkbox/step click would silently lose
+ * input whose DOM state has already changed (the DESIGN's no-silent-writes
  * spirit), while the queue settles every action in click order. The SAME
- * itemId is threaded through begin/finish/fail, so a settled write always
- * clears exactly the row it began (a mismatch would leave stale `saving`
- * entries — the C5 review obligation).
+ * itemId is threaded through a row action's begin/finish/fail, so a settled
+ * write always clears exactly the row it began; the lifecycle confirm
+ * action resolves its own stage (a superseded confirmation is dropped, not
+ * applied).
  *
  * Loading is on demand and never part of the boot pass: the hook is mounted
  * only while a ledger hash is active (the `main.tsx` ledger case), and both
@@ -31,9 +39,25 @@
 
 import { useEffect, useRef, useState } from "preact/hooks";
 import type { LedgerPhase } from "../views/ledger.ts";
-import { listLedgers, loadLedger, saveLedger } from "./io.ts";
-import { setConfirmedStep, tickItem } from "./logic.ts";
-import { type LedgerCommandState, type RowStatus, beginWrite, createLedgerCommandState, failWrite, finishWrite } from "./state.ts";
+import { deleteLedger, listLedgers, loadLedger, saveLedger } from "./io.ts";
+import { completeCampaign, setConfirmedStep, tickItem } from "./logic.ts";
+import {
+  type LedgerCommandState,
+  type LifecycleStage,
+  type RowStatus,
+  beginComplete,
+  beginDelete,
+  beginWrite,
+  createLedgerCommandState,
+  dismissLifecycle,
+  failComplete,
+  failDelete,
+  failWrite,
+  finishComplete,
+  finishWrite,
+  requestComplete,
+  requestDelete,
+} from "./state.ts";
 import type { ItemState, LedgerIndexEntry } from "./types.ts";
 
 /** The ledger index read for the active hash (Commit 9's route-page consumer). */
@@ -42,10 +66,11 @@ export type LedgerIndexState =
   | { readonly kind: "ready"; readonly entries: readonly LedgerIndexEntry[] }
   | { readonly kind: "error"; readonly message: string };
 
-/** One queued row mutation: a planning tick or a confirmed-step change. */
-type RowAction =
+/** One queued command: a row mutation (tick/step) or the confirm of an open lifecycle confirmation. */
+type CommandAction =
   | { readonly kind: "tick"; readonly itemId: string; readonly planned: boolean }
-  | { readonly kind: "step"; readonly itemId: string; readonly step: ItemState["confirmedStep"] };
+  | { readonly kind: "step"; readonly itemId: string; readonly step: ItemState["confirmedStep"] }
+  | { readonly kind: "confirm"; readonly action: "complete" | "delete" };
 
 /** The empty plan: a loaded document's command state is null for loading / error / empty. */
 const EMPTY_STATUSES: Readonly<Record<string, RowStatus>> = {};
@@ -70,6 +95,24 @@ export interface UseCampaignResult {
   readonly onTick: (itemId: string, planned: boolean) => void;
   /** The step advance/retreat for one item (queued when a write is in flight). */
   readonly onStep: (itemId: string, step: ItemState["confirmedStep"]) => void;
+  /**
+   * The lifecycle stage (null = no confirmation open and no operation in
+   * flight): the open confirmation, the in-flight removal, or a failed
+   * operation's message.
+   */
+  readonly lifecycle: LifecycleStage | null;
+  /** Opens the mark-complete confirmation (queued via the confirmation's own confirm action). */
+  readonly onComplete: () => void;
+  /** Opens the delete confirmation (available on the active and archived views). */
+  readonly onDelete: () => void;
+  /**
+   * Confirms the open confirmation: queues the lifecycle operation behind
+   * the current write, so complete/delete serialize with row writes through
+   * the same `preWrite` gate (no concurrent in-flight operations).
+   */
+  readonly onConfirmLifecycle: () => void;
+  /** Dismisses the open confirmation — the campaign stays untouched. */
+  readonly onDismissLifecycle: () => void;
 }
 
 /** The failure message the view can render (the typed `LedgerError` message, or any other error's message). */
@@ -103,8 +146,8 @@ export function useCampaign(lordSlug: string, routeId: string): UseCampaignResul
   // gate can read the LATEST command synchronously — React state alone would
   // leave them reading the render that started the write.
   const commandRef = useRef<LedgerCommandState | null>(null);
-  // The FIFO queue of row actions waiting while one write is in flight.
-  const queueRef = useRef<RowAction[]>([]);
+  // The FIFO queue of command actions waiting while one operation is in flight.
+  const queueRef = useRef<CommandAction[]>([]);
   // Bumped on every load-effect run: a write continuation whose session no
   // longer matches has been superseded by a fresh load and must not touch
   // state (the write itself is durable; the fresh load restores it).
@@ -157,14 +200,19 @@ export function useCampaign(lordSlug: string, routeId: string): UseCampaignResul
   }, [lordSlug, routeId, attempt]);
 
   /**
-   * Begins the next write for the queue head and settles it: pure next
-   * document via `logic` → optimistic apply via `state.beginWrite` →
-   * persist via `io.saveLedger` → confirm via `state.finishWrite`, or roll
-   * back via `state.failWrite` (restores the exact pre-write document and
-   * marks the row `error` with the message). The SAME itemId runs through
-   * begin/finish/fail. `beginWrite`'s "in flight" throw is unreachable here:
-   * the queue gate (below) starts a drain only when `preWrite` is null, and
-   * the next drain starts only after this write settled back to idle.
+   * Begins the next command for the queue head and settles it: pure next
+   * document via `logic` → optimistic apply via `state` → persist via `io`
+   * → confirm, or roll back to the exact pre-write document on rejection
+   * (the lifecycle fail transitions surface the message on the error
+   * stage). The SAME itemId runs through a row action's begin/finish/fail;
+   * the lifecycle confirm action (a confirmed complete or delete) takes the
+   * snapshot and performs its I/O exactly like a row write, and both update
+   * the in-memory index as soon as their write settles (the index is the
+   * single active-campaign fact — after complete/delete a route page sees
+   * no active campaign, so `start` reappears). The transitions' "in flight"
+   * throws are unreachable here: the queue gate (below) starts a drain only
+   * when `preWrite` is null, and the next drain starts only after the
+   * in-flight operation settled back to idle.
    */
   async function drainQueue(): Promise<void> {
     const action = queueRef.current.shift();
@@ -172,45 +220,106 @@ export function useCampaign(lordSlug: string, routeId: string): UseCampaignResul
     const start = commandRef.current;
     if (start === null) return; // no document loaded — nothing to mutate (unreachable from the table)
     const session = sessionRef.current;
-    // The C2 model contract's caller-injected-clock pattern: the browser
-    // event site is where a wall clock is legitimate, and the optimistic and
-    // persisted documents share the same stamp (`tickItem`/`setConfirmedStep`
-    // advance `updatedAt` from this `now`).
-    const now = new Date().toISOString();
-    const nextDoc =
-      action.kind === "tick"
-        ? tickItem(start.doc, action.itemId, action.planned, now)
-        : setConfirmedStep(start.doc, action.itemId, action.step, now);
-    // The optimistic apply; `begun` is both the state the UI renders during
-    // the write and the one the settle transitions finish/fail operate on
-    // (the same `itemId` throughout, and no other command mutation can
-    // interleave: writes are strictly serial and the session guard below
-    // drops a stale continuation).
-    const begun = beginWrite(start, action.itemId, nextDoc);
+
+    if (action.kind === "tick" || action.kind === "step") {
+      // The C2 model contract's caller-injected-clock pattern: the browser
+      // event site is where a wall clock is legitimate, and the optimistic
+      // and persisted documents share the same stamp (`tickItem`/
+      // `setConfirmedStep` advance `updatedAt` from this `now`).
+      const now = new Date().toISOString();
+      const nextDoc =
+        action.kind === "tick"
+          ? tickItem(start.doc, action.itemId, action.planned, now)
+          : setConfirmedStep(start.doc, action.itemId, action.step, now);
+      // The optimistic apply; `begun` is both the state the UI renders during
+      // the write and the one the settle transitions finish/fail operate on
+      // (the same `itemId` throughout, and no other command mutation can
+      // interleave: writes are strictly serial and the session guard below
+      // drops a stale continuation).
+      const begun = beginWrite(start, action.itemId, nextDoc);
+      updateCommand(begun);
+      try {
+        await saveLedger(nextDoc);
+        if (sessionRef.current !== session) return;
+        updateCommand(finishWrite(begun, action.itemId));
+      } catch (cause) {
+        if (sessionRef.current !== session) return;
+        updateCommand(failWrite(begun, action.itemId, failureMessage(cause)));
+      } finally {
+        afterSettle(session);
+      }
+      return;
+    }
+
+    // The lifecycle confirm action: the user confirmed the open confirmation
+    // (the open/dismiss handshake is UI-only and runs synchronously on the
+    // click); the operation itself queues behind any in-flight write and
+    // takes the same preWrite snapshot.
+    if (start.lifecycle?.kind !== "confirm" || start.lifecycle.action !== action.action) {
+      afterSettle(session); // dismissed or superseded — the queued confirm is stale
+      return;
+    }
+    if (action.action === "complete") {
+      const now = new Date().toISOString(); // the same caller-injected-clock pattern
+      const nextDoc = completeCampaign(start.doc, now);
+      const begun = beginComplete(start, nextDoc);
+      updateCommand(begun);
+      try {
+        await saveLedger(nextDoc);
+        if (sessionRef.current !== session) return;
+        updateCommand(finishComplete(begun));
+        void refreshIndex(session);
+      } catch (cause) {
+        if (sessionRef.current !== session) return;
+        updateCommand(failComplete(begun, failureMessage(cause)));
+      } finally {
+        afterSettle(session);
+      }
+      return;
+    }
+    const begun = beginDelete(start);
     updateCommand(begun);
     try {
-      await saveLedger(nextDoc);
-      if (sessionRef.current !== session) return; // the hash changed mid-write — the fresh load owns state
-      updateCommand(finishWrite(begun, action.itemId));
+      await deleteLedger(start.doc.lordSlug, start.doc.routeId);
+      if (sessionRef.current !== session) return;
+      updateCommand(null); // the file is gone — no document remains (the ledger view renders its empty state)
+      void refreshIndex(session);
     } catch (cause) {
       if (sessionRef.current !== session) return;
-      updateCommand(failWrite(begun, action.itemId, failureMessage(cause)));
+      updateCommand(failDelete(begun, failureMessage(cause)));
     } finally {
-      if (sessionRef.current !== session) {
-        queueRef.current = []; // actions queued for the old (lordSlug, routeId) are stale
-        return;
-      }
-      void drainQueue();
+      afterSettle(session);
     }
   }
 
-  /** Queues one row action and starts the write loop only from an idle command state. */
-  function queueAction(action: RowAction): void {
+  /** The single settle rule for every queued operation: stale sessions drop the whole queue, live ones drain the next action. */
+  function afterSettle(session: number): void {
+    if (sessionRef.current !== session) {
+      queueRef.current = []; // actions queued for the old (lordSlug, routeId) are stale
+      return;
+    }
+    void drainQueue();
+  }
+
+  /** Refreshes the in-memory index after a lifecycle write settles (the index is the single active-campaign fact). */
+  async function refreshIndex(session: number): Promise<void> {
+    try {
+      const entries = await listLedgers();
+      if (sessionRef.current !== session) return;
+      setIndex({ kind: "ready", entries });
+    } catch (cause) {
+      if (sessionRef.current !== session) return;
+      setIndex({ kind: "error", message: failureMessage(cause) });
+    }
+  }
+
+  /** Queues one command action and starts the write loop only from an idle command state. */
+  function queueAction(action: CommandAction): void {
     const current = commandRef.current;
     if (current === null) return; // no document loaded (loading / error / empty) — nothing to mutate
     queueRef.current.push(action);
     // The one-in-flight contract: while `preWrite` is set, the action waits
-    // in the queue; it drains serially when the in-flight write settles.
+    // in the queue; it drains serially when the in-flight operation settles.
     if (current.preWrite === null) void drainQueue();
   }
 
@@ -219,6 +328,39 @@ export function useCampaign(lordSlug: string, routeId: string): UseCampaignResul
   const onTick = (itemId: string, planned: boolean): void => queueAction({ kind: "tick", itemId, planned });
 
   const onStep = (itemId: string, step: ItemState["confirmedStep"]): void => queueAction({ kind: "step", itemId, step });
+
+  /** Opens the mark-complete confirmation — a no-op on a double-click (the second click sees the open stage). */
+  const onComplete = (): void => {
+    const current = commandRef.current;
+    if (current === null) return;
+    if (current.lifecycle !== null && current.lifecycle.kind !== "error") return;
+    updateCommand(requestComplete(current));
+  };
+
+  /** Opens the delete confirmation — a no-op on a double-click (the second click sees the open stage). */
+  const onDelete = (): void => {
+    const current = commandRef.current;
+    if (current === null) return;
+    if (current.lifecycle !== null && current.lifecycle.kind !== "error") return;
+    updateCommand(requestDelete(current));
+  };
+
+  /** Confirms the open confirmation: the operation queues behind any in-flight write (no concurrent operations). */
+  const onConfirmLifecycle = (): void => {
+    const current = commandRef.current;
+    if (current === null) return;
+    if (current.lifecycle?.kind !== "confirm") return; // nothing pending to confirm (dismissed or superseded)
+    queueRef.current.push({ kind: "confirm", action: current.lifecycle.action });
+    if (current.preWrite === null) void drainQueue();
+  };
+
+  /** Dismisses the open confirmation — the campaign stays untouched (the pure transition's guard is pre-checked here). */
+  const onDismissLifecycle = (): void => {
+    const current = commandRef.current;
+    if (current === null) return;
+    if (current.lifecycle?.kind !== "confirm") return;
+    updateCommand(dismissLifecycle(current));
+  };
 
   /** The view's load lifecycle: `ready` carries the CURRENT document (the optimistic write while one is in flight). */
   const phase: LedgerPhase = phaseOf(stage, command);
@@ -230,5 +372,10 @@ export function useCampaign(lordSlug: string, routeId: string): UseCampaignResul
     onRetry,
     onTick,
     onStep,
+    lifecycle: command === null ? null : command.lifecycle,
+    onComplete,
+    onDelete,
+    onConfirmLifecycle,
+    onDismissLifecycle,
   };
 }

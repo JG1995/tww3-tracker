@@ -409,7 +409,7 @@ Commit 1 (server ledger root + gitignore) → Commit 2 (pure model) → Commit 4
 
 #### Package `ledger-complete-delete` — Commit 10: Complete and delete campaigns
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 7
 

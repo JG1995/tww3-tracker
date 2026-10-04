@@ -17,6 +17,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 
 import {
+  completeCampaign,
   createCampaign,
   isValidCampaignDoc,
   isValidConfirmedStep,
@@ -114,6 +115,24 @@ test("a stored-missing item starts from the fresh default on tick or step, so th
   assert.deepEqual(stepped.items.gamma, item(false, 2)); // fresh row, stepped, still unplanned
 
   assert.deepEqual(doc.items, { alpha: item(true, 0) }); // inputs never mutated
+});
+
+test("completeCampaign archives a campaign — ONLY status and updatedAt change, every other field byte-identical", () => {
+  const items = { alpha: item(true, 2), beta: item(false, 4) };
+  const doc = makeDoc(items); // a well-formed ACTIVE campaign with real committed states
+  const now = "2026-10-04T09:30:00.000Z"; // a clock distinct from the document's stamped times
+
+  const next = completeCampaign(doc, now);
+
+  assert.equal(next.status, "completed"); // the single lifecycle flip
+  assert.equal(next.updatedAt, now); // completion is a write, so it stamps the injected clock
+  assert.equal(next.createdAt, doc.createdAt); // createdAt never moves
+  assert.equal(next.lordSlug, doc.lordSlug); // every other field byte-identical
+  assert.equal(next.routeId, doc.routeId);
+  assert.deepEqual(next.items, items); // every item byte-identical — the archived record is the whole document
+  assert.deepEqual(doc.items, items); // the input document was never mutated
+  assert.equal(doc.status, "active"); // the input stays the live campaign
+  assert.equal(isValidCampaignDoc(next), true); // a completed document is a valid campaign document
 });
 
 test("itemsFor returns rows in committed order, defaults a stored-missing id fresh, and drops a content-removed id", () => {

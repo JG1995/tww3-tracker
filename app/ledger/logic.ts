@@ -87,6 +87,21 @@ export function setConfirmedStep(doc: CampaignDoc, itemId: string, step: 0 | 1 |
 }
 
 /**
+ * The lifecycle close-out transition (feature DESIGN Journey 3): marks the
+ * campaign `completed` — the archived file stays on disk, the campaign stops
+ * being the active one (the index is the single active-campaign fact), and
+ * the route pages become startable again. ONLY `status` and `updatedAt`
+ * change; every item and every other field is byte-identical, so the
+ * archived file is the whole committed record. `updatedAt` is stamped with
+ * the caller-injected ISO `now` (the same clock pattern as `createCampaign`
+ * — no Date.now default, so the stamp stays testable). Pure: returns a new
+ * document, never mutates its input.
+ */
+export function completeCampaign(doc: CampaignDoc, now: string): CampaignDoc {
+  return { ...doc, status: "completed", updatedAt: now };
+}
+
+/**
  * The single definition of "rows = committed content order" (DESIGN §4
  * "Items follow committed content"): one row per committed id, in committed
  * order, carrying the stored state or the fresh default when the document
