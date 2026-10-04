@@ -41,6 +41,8 @@ import {
   splitFrontmatter,
   extractSections,
   extractClaimMarkers,
+  isCrestSvg,
+  parsePhases,
   type RawSection,
   type FmMap,
   type FmValue,
@@ -283,6 +285,11 @@ export async function loadContentTree(reader: ContentReader): Promise<ContentTre
       }
     }
     if (typeof m.shared === "string") toFetch.push({ path: `${lord.slug}/${m.shared}`, field: "shared" });
+    // The crest file is one more named file in the boot pass (DESIGN §4/§5); the
+    // missing-file case falls out of the unreadable-fetch contract below.
+    if (typeof m.crest === "string" && m.crest !== "") {
+      toFetch.push({ path: `${lord.slug}/${m.crest}`, field: "crest" });
+    }
     if (Array.isArray(m.datasets)) {
       for (const d of m.datasets) {
         if (typeof d === "string") toFetch.push({ path: `${lord.slug}/data/${d}.json`, field: "datasets" });
@@ -334,7 +341,18 @@ function buildLord(slug: string, manifest: GuideManifest, cache: Map<string, str
     routes.push(buildRoute(ref, text, env));
   }
   const sharedHtml = md.render(cache.get(`${slug}/${manifest.shared}`) ?? "", env);
-  return { slug, guide: manifest, sharedHtml, routes, datasets };
+  let crestSvg: string | undefined;
+  if (typeof manifest.crest === "string") {
+    const path = `${slug}/${manifest.crest}`;
+    const text = cache.get(path) ?? "";
+    // The DESIGN §5 boot contract: a named crest must carry an `<svg` start tag
+    // (the CLI's pre-run check applies the same predicate via isCrestSvg).
+    if (!isCrestSvg(text)) {
+      throw new ContentBootError(path, "crest", "crest file must contain an <svg start tag");
+    }
+    crestSvg = text;
+  }
+  return { slug, guide: manifest, sharedHtml, routes, datasets, crestSvg };
 }
 
 /** Parses a dataset JSON; the lint has already proven it parseable (a boot would have thrown). */
@@ -444,6 +462,7 @@ function buildRoute(ref: GuideRouteRef, text: string, env: ClaimRenderEnv): Rout
     motto: optionalString(meta.motto),
     transitions: optionalString(meta.transitions),
     panelOrder,
+    phases: parsePhases(meta.phases),
     gaps: Array.isArray(meta.gaps) ? (meta.gaps as readonly string[]) : [],
     sections,
     claims,

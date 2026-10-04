@@ -140,7 +140,7 @@ Commit 1 (content model) → Commit 2 (visual system) → Commit 3 (Elspeth cont
 
 #### Package `chrome-content-model` — Commit 1: The crest, environment, and phases content-model contract
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 1
 

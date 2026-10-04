@@ -167,3 +167,48 @@ test("absent content root is the no-content-yet pass: exit 0 with the notice", a
   assert.equal(code, 0);
   assert.ok(stdout.includes("no content yet"), `expected the no-content notice; got: ${JSON.stringify(stdout)}`);
 });
+
+// ─── 6. Chrome fields: the DESIGN §5 crest pre-run check ───────────────────
+
+test("a guide naming a missing crest file exits 1 with a crest violation", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "lint-cli-crest-missing-"));
+  try {
+    await cp(FIXTURES, dir, { recursive: true });
+    // One seeded violation: the manifest names a crest file that does not exist.
+    const guidePath = join(dir, "als-rhyn-of-lorek", "guide.json");
+    const guide = JSON.parse(await readFile(guidePath, "utf8"));
+    guide.crest = "missing.svg";
+    await writeFile(guidePath, JSON.stringify(guide));
+
+    const { code, stdout } = await runCli(dir);
+    assert.equal(code, 1);
+    assert.ok(
+      stdout.includes("als-rhyn-of-lorek/missing.svg:crest — "),
+      `expected a crest missing-file violation; got: ${JSON.stringify(stdout)}`,
+    );
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
+test("a crest file without an <svg start tag exits 1 with a crest violation", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "lint-cli-crest-nosvg-"));
+  try {
+    await cp(FIXTURES, dir, { recursive: true });
+    const guidePath = join(dir, "als-rhyn-of-lorek", "guide.json");
+    const guide = JSON.parse(await readFile(guidePath, "utf8"));
+    guide.crest = "crest.svg";
+    await writeFile(guidePath, JSON.stringify(guide));
+    // The named file exists but carries no `<svg` start tag (the same verdict the boot applies).
+    await writeFile(join(dir, "als-rhyn-of-lorek", "crest.svg"), "plain text, not an svg\n");
+
+    const { code, stdout } = await runCli(dir);
+    assert.equal(code, 1);
+    assert.ok(
+      stdout.includes("als-rhyn-of-lorek/crest.svg:crest — ") && stdout.includes("<svg"),
+      `expected a crest <svg violation; got: ${JSON.stringify(stdout)}`,
+    );
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});

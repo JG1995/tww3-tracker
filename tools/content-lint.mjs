@@ -4,8 +4,10 @@
  * Thin glue over the shared rule set in `app/content/lint.ts`: bundles that
  * module (plus the types it needs) to a temp file with the esbuild JS API,
  * runs `lintContent` over a content root with a real filesystem reader, and
- * prints one `file:field — message` line per violation. No validation logic
- * lives here — every rule is in `app/content/lint.ts`.
+ * prints one `file:field — message` line per violation. The shape rules stay
+ * in `app/content/lint.ts`; the only rule that reads files is the DESIGN §5
+ * crest pre-run check below (a named crest must exist and carry an `<svg`
+ * start tag — the same verdict the boot pass applies via `isCrestSvg`).
  *
  * Exit codes: 0 clean or "no content yet"; 1 violations; 2 usage or
  * environment error (bad arguments, esbuild unavailable, unreadable root).
@@ -63,6 +65,47 @@ function displayPath(contentRoot, file) {
   return rel === "" || rel.startsWith("..") ? file : rel;
 }
 
+/**
+ * The DESIGN §5 crest pre-run check: for every guide that names a `crest`,
+ * the file must exist and carry an `<svg` start tag — the same verdict the
+ * boot pass applies in `load.ts`, via the shared `isCrestSvg` predicate.
+ */
+async function lintCrestFiles(root, lint) {
+  const out = [];
+  let index;
+  try {
+    index = JSON.parse(await readFile(join(root, "index.json"), "utf8"));
+  } catch {
+    return out; // a missing or broken index is already a lintContent violation
+  }
+  const lords = Array.isArray(index?.lords) ? index.lords : [];
+  for (const slug of lords) {
+    if (typeof slug !== "string") continue;
+    // Unsafe slugs are a lintContent violation; never read outside the root.
+    if (slug === "" || slug === "." || slug === ".." || slug.includes("/") || slug.includes("\\")) continue;
+    let guide;
+    try {
+      guide = JSON.parse(await readFile(join(root, slug, "guide.json"), "utf8"));
+    } catch {
+      continue; // a missing or unparseable manifest is already a lintContent violation
+    }
+    const crest = guide?.crest;
+    if (typeof crest !== "string" || crest === "") continue; // shape is lintContent's rule
+    const path = `${slug}/${crest}`;
+    let text;
+    try {
+      text = await readFile(join(root, path), "utf8");
+    } catch {
+      out.push({ file: path, field: "crest", message: "crest file named in guide.json is missing" });
+      continue;
+    }
+    if (!lint.isCrestSvg(text)) {
+      out.push({ file: path, field: "crest", message: "crest file must contain an <svg start tag" });
+    }
+  }
+  return out;
+}
+
 async function main() {
   const args = process.argv.slice(2);
   if (args.length > 1) {
@@ -93,7 +136,10 @@ async function main() {
     return 2;
   }
 
-  const violations = await lint.lintContent(fsReader(root));
+  const violations = [
+    ...(await lint.lintContent(fsReader(root))),
+    ...(await lintCrestFiles(root, lint)),
+  ];
   for (const { file, field, message } of violations) {
     console.log(`${displayPath(root, file)}:${field} — ${message}`);
   }

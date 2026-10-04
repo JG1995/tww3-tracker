@@ -177,6 +177,10 @@ export interface GuideManifest {
   readonly shared: string;
   /** Dataset file names under `data/` (any mix of `sources` and the six). */
   readonly datasets: readonly string[];
+  /** Optional crest SVG file name, resolved inside the lord directory (DESIGN §4). */
+  readonly crest?: string;
+  /** Optional environment topline, e.g. "Normal / Normal · Smart Autoresolve · VCO · Immortal Empires". */
+  readonly environment?: string;
 }
 
 /** A rendered body section: one registry H2 with its (once, at boot) rendered inner Markdown. */
@@ -204,6 +208,12 @@ export interface RouteCallout {
 /** `panelOrder` frontmatter: a one-level map of string id lists. */
 export type PanelOrder = Readonly<Record<string, readonly string[]>>;
 
+/** One phase of a route's "operation in five moves" summary (DESIGN §4). */
+export interface PhaseSummary {
+  readonly title: string;
+  readonly note: string;
+}
+
 /** A loaded route document (frontmatter contract plus body sections and callouts). */
 export interface Route {
   readonly id: string;
@@ -221,6 +231,8 @@ export interface Route {
   readonly panelOrder?: PanelOrder;
   /** Declared content-gap section titles; recorded so F2 can render gap markers. */
   readonly gaps: readonly string[];
+  /** Optional ordered "operation in five moves" summaries; absent ⇒ no aside. */
+  readonly phases?: readonly PhaseSummary[];
   /** Body H2 sections in document order. */
   readonly sections: readonly Section[];
   /** Callout claims in document order. */
@@ -250,6 +262,8 @@ export interface Lord {
   readonly guide: GuideManifest;
   /** `shared.md` rendered to HTML once at boot. */
   readonly sharedHtml: string;
+  /** The validated crest SVG text fetched at boot; undefined without a `crest` manifest field. */
+  readonly crestSvg?: string;
   readonly routes: readonly Route[];
   readonly datasets: readonly LordDataset[];
 }

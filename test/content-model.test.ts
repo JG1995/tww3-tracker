@@ -542,3 +542,186 @@ test("getFlaggedEntries: a verify-in-campaign dataset item listed in panelOrder 
     },
   );
 });
+
+// ─── 10. Chrome fields: crest, environment, phases (package chrome-content-model) ──
+
+/** A validated copy of the fixture's als-rhyn guide carrying the chrome fields. */
+const VALID_CREST_SVG =
+  '<?xml version="1.0" encoding="UTF-8"?>\n' +
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">\n' +
+  '<path d="M0 0h120v120H0z"/>\n' +
+  "</svg>\n";
+
+/** Adds valid optional chrome fields to the fixture copy (crest, environment, phases). */
+async function addValidChrome(root: string): Promise<void> {
+  const guide = JSON.parse(await readFile(join(root, "als-rhyn-of-lorek/guide.json"), "utf8"));
+  guide.crest = "crest.svg";
+  guide.environment = "Normal / Normal · Smart Autoresolve · VCO · Immortal Empires";
+  await rewrite(root, "als-rhyn-of-lorek/guide.json", JSON.stringify(guide));
+  await rewrite(root, "als-rhyn-of-lorek/crest.svg", VALID_CREST_SVG);
+  await addFrontmatterLine(
+    root,
+    'phases:\n  - { title: "Give Nuln breathing room", note: "Win the starting war without creating three additional fronts." }\n  - { title: "Secure the eastern road", note: "Push to the river before turn 15; guard the supply line." }',
+  );
+}
+
+/** Appends a frontmatter line (or block) after the fixture route's `gaps: []` line. */
+async function addFrontmatterLine(root: string, line: string): Promise<void> {
+  const path = join(root, "als-rhyn-of-lorek/routes/route-1.md");
+  const text = await readFile(path, "utf8");
+  const withLine = text.replace("gaps: []\n", `gaps: []\n${line}\n`);
+  assert.ok(withLine !== text, "fixture frontmatter must still contain the gaps line");
+  await rewrite(root, "als-rhyn-of-lorek/routes/route-1.md", withLine);
+}
+
+/** Mutates the fixture copy's guide.json manifest chrome fields. */
+async function rewriteChromeManifest(root: string, mutate: (guide: Record<string, unknown>) => void): Promise<void> {
+  const path = join(root, "als-rhyn-of-lorek/guide.json");
+  const guide = JSON.parse(await readFile(path, "utf8"));
+  mutate(guide);
+  await rewrite(root, "als-rhyn-of-lorek/guide.json", JSON.stringify(guide));
+}
+
+test("chrome fields: a valid crest/environment/phases guide lints clean", async () => {
+  const violations = await lintBroken(addValidChrome);
+  assert.deepEqual(violations, []);
+});
+
+test("crest path containing a .. segment violates the field", async () => {
+  const violations = await lintBroken(async (root) => {
+    await rewriteChromeManifest(root, (g) => {
+      g.crest = "../escape.svg";
+    });
+  });
+  const hit = violations.find((v) => v.file === "als-rhyn-of-lorek/guide.json" && v.field === "crest");
+  assert.ok(hit !== undefined, `expected a crest path violation; got ${JSON.stringify(violations)}`);
+  assert.ok(hit.message.includes("../escape.svg"), `expected the offending path in the message; got ${hit.message}`);
+});
+
+test("crest path with a leading slash violates the field", async () => {
+  const violations = await lintBroken(async (root) => {
+    await rewriteChromeManifest(root, (g) => {
+      g.crest = "/crest.svg";
+    });
+  });
+  const hit = violations.find((v) => v.file === "als-rhyn-of-lorek/guide.json" && v.field === "crest");
+  assert.ok(hit !== undefined, `expected a crest path violation; got ${JSON.stringify(violations)}`);
+});
+
+test("empty environment value violates the field", async () => {
+  const violations = await lintBroken(async (root) => {
+    await rewriteChromeManifest(root, (g) => {
+      g.environment = "";
+    });
+  });
+  const hit = violations.find((v) => v.file === "als-rhyn-of-lorek/guide.json" && v.field === "environment");
+  assert.ok(hit !== undefined, `expected an environment violation; got ${JSON.stringify(violations)}`);
+});
+
+test("phases as a scalar violates the field", async () => {
+  const violations = await lintBroken(async (root) => {
+    await addFrontmatterLine(root, "phases: nope");
+  });
+  const hit = violations.find(
+    (v) => v.file === "als-rhyn-of-lorek/routes/route-1.md" && v.field === "phases",
+  );
+  assert.ok(hit !== undefined, `expected a phases violation; got ${JSON.stringify(violations)}`);
+});
+
+test("phases as an empty list violates the field", async () => {
+  const violations = await lintBroken(async (root) => {
+    await addFrontmatterLine(root, "phases: []");
+  });
+  const hit = violations.find(
+    (v) => v.file === "als-rhyn-of-lorek/routes/route-1.md" && v.field === "phases" && v.message.includes("non-empty"),
+  );
+  assert.ok(hit !== undefined, `expected an empty-phases violation; got ${JSON.stringify(violations)}`);
+});
+
+test("phases entry missing its title violates phases[0].title", async () => {
+  const violations = await lintBroken(async (root) => {
+    await addFrontmatterLine(root, 'phases:\n  - { note: "Win the starting war without creating three additional fronts." }');
+  });
+  const hit = violations.find(
+    (v) => v.file === "als-rhyn-of-lorek/routes/route-1.md" && v.field === "phases" && v.message.includes("phases[0].title"),
+  );
+  assert.ok(hit !== undefined, `expected a missing-title violation; got ${JSON.stringify(violations)}`);
+});
+
+test("phases entry with an empty note violates phases[0].note", async () => {
+  const violations = await lintBroken(async (root) => {
+    await addFrontmatterLine(root, 'phases:\n  - { title: "Give Nuln breathing room", note: "" }');
+  });
+  const hit = violations.find(
+    (v) => v.file === "als-rhyn-of-lorek/routes/route-1.md" && v.field === "phases" && v.message.includes("phases[0].note"),
+  );
+  assert.ok(hit !== undefined, `expected an empty-note violation; got ${JSON.stringify(violations)}`);
+});
+
+test("a valid chrome guide loads with crestSvg and phases parsed in order", async () => {
+  await inBrokenCopy(
+    addValidChrome,
+    async (root) => {
+      const tree = await loadContentTree(fsReader(root));
+      const lord = tree.lords[0];
+      assert.equal(lord.crestSvg, VALID_CREST_SVG, "crestSvg holds exactly the served SVG text");
+      assert.ok((lord.crestSvg ?? "").includes("<svg"), "the served crest text carries an <svg start tag");
+      assert.equal(lord.guide.environment, "Normal / Normal · Smart Autoresolve · VCO · Immortal Empires");
+      const route = lord.routes[0];
+      assert.deepEqual(
+        route.phases,
+        [
+          { title: "Give Nuln breathing room", note: "Win the starting war without creating three additional fronts." },
+          { title: "Secure the eastern road", note: "Push to the river before turn 15; guard the supply line." },
+        ],
+        "phases parsed in frontmatter order with both fields",
+      );
+      assert.ok(Object.isFrozen(route.phases as readonly unknown[]), "the parsed phases list is frozen");
+    },
+  );
+});
+
+test("boot rejects a missing crest file with ContentBootError naming file and field", async () => {
+  let err: unknown;
+  await inBrokenCopy(
+    async (root) => {
+      await rewriteChromeManifest(root, (g) => {
+        g.crest = "missing.svg";
+      });
+    },
+    async (root) => {
+      try {
+        await loadContentTree(fsReader(root));
+        assert.fail("expected boot to reject");
+      } catch (e) {
+        err = e;
+      }
+    },
+  );
+  assert.ok(err instanceof ContentBootError, `expected ContentBootError, got ${String(err)}`);
+  assert.equal(err.file, "als-rhyn-of-lorek/missing.svg");
+  assert.equal(err.field, "crest");
+});
+
+test("boot rejects a crest file without an <svg start tag with ContentBootError naming file and field", async () => {
+  let err: unknown;
+  await inBrokenCopy(
+    async (root) => {
+      await rewriteChromeManifest(root, (g) => {
+        g.crest = "crest.svg";
+      });
+      await rewrite(root, "als-rhyn-of-lorek/crest.svg", "plain text, not an svg\n");
+    },
+    async (root) => {
+      try {
+        await loadContentTree(fsReader(root));
+        assert.fail("expected boot to reject");
+      } catch (e) {
+        err = e;
+      }
+    },
+  );
+  assert.ok(err instanceof ContentBootError, `expected ContentBootError, got ${String(err)}`);
+  assert.equal(err.file, "als-rhyn-of-lorek/crest.svg");
+  assert.equal(err.field, "crest");
+});

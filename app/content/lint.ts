@@ -22,6 +22,7 @@ import {
   type ContentReader,
   type GuideRouteRef,
   type ItemDatasetName,
+  type PhaseSummary,
 } from "./types.ts";
 
 // ─── Frontmatter subset ─────────────────────────────────────────────────────
@@ -461,6 +462,30 @@ function transitionSuffix(title: string): string | null {
   return title.startsWith(TRANSITION_PREFIX) ? title.slice(TRANSITION_PREFIX.length) : null;
 }
 
+/**
+ * The shared `<svg` verdict for a crest file (DESIGN §4/§5): the boot pass in
+ * `load.ts` and the CLI's pre-run check apply exactly this predicate, so both
+ * surfaces agree on the same file. Pure — no I/O.
+ */
+export function isCrestSvg(text: string): boolean {
+  return text.includes("<svg");
+}
+
+/**
+ * Parses the `phases` frontmatter value into the typed ordered list; absent ⇒
+ * undefined. The loader calls this only after `lintContent` passed, and the
+ * phases rule below has proven the shape; raw casts are the post-validation
+ * contract, like `claimFrom`/`panelOrder` in `load.ts`.
+ */
+export function parsePhases(value: FmValue | undefined): readonly PhaseSummary[] | undefined {
+  if (value === undefined) return undefined;
+  const items = Array.isArray(value) ? (value as readonly FmValue[]) : [];
+  return items.map((item) => {
+    const m = (typeof item === "object" && item !== null ? item : {}) as FmMap;
+    return { title: m.title as string, note: m.note as string };
+  });
+}
+
 /** Whether a section title belongs to the registry or names another route. */
 function isKnownSectionTitle(title: string, otherRoutes: readonly { id: string; name: string }[]): boolean {
   if (REQUIRED_SECTIONS.includes(title) || OPTIONAL_SECTIONS.includes(title)) return true;
@@ -581,6 +606,23 @@ async function lintLord(
   }
   if (typeof g.shared !== "string" || g.shared === "") {
     out.push({ file: guidePath, field: "shared", message: "guide.json requires shared (file name)" });
+  }
+
+  // optional chrome fields (DESIGN §4): crest names a lord-directory-relative file
+  if ("crest" in g) {
+    if (!isNonEmptyString(g.crest)) {
+      out.push({ file: guidePath, field: "crest", message: "guide.json crest must be a non-empty string when present" });
+    } else if (isUnsafePath(g.crest)) {
+      out.push({ file: guidePath, field: "crest", message: `unsafe crest path "${g.crest}" (expected a lord-directory-relative file name)` });
+    } else {
+      // The named crest file is part of the manifest's fetch set: name it so the
+      // bearer is not reported as an orphan (the file check itself is the CLI's
+      // and boot's job — see tools/content-lint.mjs and load.ts).
+      named.add(`${slug}/${g.crest}`);
+    }
+  }
+  if ("environment" in g && !isNonEmptyString(g.environment)) {
+    out.push({ file: guidePath, field: "environment", message: "guide.json environment must be a non-empty string when present" });
   }
 
   // routes[] manifest lines
@@ -1056,6 +1098,31 @@ function lintPanelOrder(
   }
 }
 
+/**
+ * Validates the `phases` frontmatter value (DESIGN §4): an ordered non-empty
+ * list of `{ title, note }` objects with both fields non-empty strings. The
+ * typed variant is `parsePhases`; the loader and CLI only see already-valid
+ * values.
+ */
+function lintPhases(out: ContentViolation[], path: string, value: FmValue): void {
+  if (!Array.isArray(value) || value.length === 0) {
+    out.push({ file: path, field: "phases", message: "phases must be a non-empty ordered list of { title, note } objects" });
+    return;
+  }
+  value.forEach((item, i) => {
+    if (typeof item !== "object" || item === null || Array.isArray(item)) {
+      out.push({ file: path, field: "phases", message: `phases[${i}] must be a { title, note } object` });
+      return;
+    }
+    const p = item as FmMap;
+    for (const key of ["title", "note"] as const) {
+      if (!isNonEmptyString(p[key])) {
+        out.push({ file: path, field: "phases", message: `phases[${i}].${key} must be a non-empty string` });
+      }
+    }
+  });
+}
+
 /** Validates one route document against the DESIGN §4 route/section/claim rules. */
 function assertRouteDocument(
   out: ContentViolation[],
@@ -1109,6 +1176,9 @@ function assertRouteDocument(
     if (field in meta && typeof meta[field] !== "string") {
       push(field, `route frontmatter ${field} must be a string when present`);
     }
+  }
+  if ("phases" in meta) {
+    lintPhases(out, path, meta.phases);
   }
   if ("panelOrder" in meta) {
     lintPanelOrder(out, path, ref.id, meta.panelOrder, panels);
