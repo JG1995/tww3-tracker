@@ -290,7 +290,7 @@ Commit 1 (content model) → Commit 2 (visual system) → Commit 3 (Elspeth cont
 
 #### Package `detail-pages-view` — Commit 6: The three detail pages in the desk-panel anatomy
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 4
 

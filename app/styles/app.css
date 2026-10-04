@@ -1330,6 +1330,114 @@ kbd,
   transition: var(--transition-standard);
 }
 
+/* ─── Detail pages (package `detail-pages-view`): the three panel pages in ──
+   the atlas desk-panel anatomy — the desk toolbar, the armies page's panel
+   tab strip, and the shared desk-panel head. Token-only. */
+
+.panel-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+}
+
+.panel-page__toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+/* The serif page title — the headline voice of the desk/plan toolbars. */
+.panel-page__title {
+  color: var(--ink);
+}
+
+/* The mono context line "ROUTE <n> · <name>" — the eyebrow spec. */
+.panel-page__context {
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--eyebrow-color);
+}
+
+/* The armies page's panel tab strip — the F2 dashboard tab bar voice. */
+.panel-page__tabbar {
+  display: flex;
+  align-items: stretch;
+  gap: var(--gap-base);
+  padding: var(--gap-xs) var(--gap-base);
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+/* One mono uppercase panel tab — the eyebrow voice; the active tab pairs ink
+   with the 2px accent underline (a constant transparent border that only
+   changes colour). The focus ring is the global :focus-visible rule. */
+.panel-page__tab {
+  display: flex;
+  align-items: center;
+  padding: calc(var(--gap-xs) / 2) var(--gap-base);
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.panel-page__tab:hover {
+  color: var(--ink);
+}
+
+.panel-page__tab--active {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+
+/* The visible tabpanel — Content Panel anatomy (padding, radius, hairline
+   border). Block layout, no display override, so the native `hidden`
+   attribute is the one-visibility switch. */
+.panel-page__tabpanel {
+  padding: var(--gap-md);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+}
+
+/* The shared desk panel: the serif head (Roman index + serif title) over
+   the panel body; the entry anatomy inside keeps its own card treatment. */
+.desk-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-base);
+}
+
+.desk-panel__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+  padding-bottom: var(--gap-base);
+  border-bottom: 1px solid var(--line);
+}
+
+/* The Roman panel index — a serif numeral (DESIGN §4 numerals). */
+.desk-panel__index {
+  font-family: var(--serif);
+  font-size: var(--text-small);
+  font-weight: var(--heading-weight);
+  line-height: var(--heading-line-height);
+  color: var(--muted);
+}
+
+.desk-panel__title {
+  font-family: var(--serif);
+  color: var(--ink);
+}
+
 /* ─── Route page: identity card, body, declared gaps (F2-era — token- ────
    reference updates only; the route page is deleted in Commit 11). */
 

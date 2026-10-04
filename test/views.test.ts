@@ -51,10 +51,13 @@ import {
 } from "../app/content/query.ts";
 import { CLAIM_STATES, PANEL_GROUPS, type Army, type ClaimState, type ContentReader, type Item, type Lord, type Route, type Source } from "../app/content/types.ts";
 import { ConfidenceBadge } from "../app/components/ConfidenceBadge.ts";
+import { DeskPanel } from "../app/components/deskPanel.ts";
 import { DashboardMarkup } from "../app/components/dashboard.ts";
 import { TabStripMarkup, type TabStripProps } from "../app/components/TabStrip.ts";
 import { HomeView, versionContext } from "../app/views/home.ts";
 import { DeskMarkup } from "../app/views/desk.ts";
+import { ArmiesMarkup, SettlementsView, WorkshopView, panelTabNav } from "../app/views/panels.ts";
+import type { PanelGroup } from "../app/content/types.ts";
 import { LordView } from "../app/views/lord.ts";
 import { PlanView } from "../app/views/plan.ts";
 import { RouteView, transitionTarget } from "../app/views/route.ts";
@@ -2844,6 +2847,239 @@ test("the plan's panel strip links the three detail pages and the VCO ledger for
       "#/elspeth-von-draken/ledger/route-2",
     ],
     "route-scoped strip: the current route's id in every href",
+  );
+});
+
+// ─── The detail pages (package `detail-pages-view`) ────────────────────────
+
+/** The armies page's tabpanel VNodes in tab order. */
+function armiesTabpanels(nodes: VNodeRecord[]): VNodeRecord[] {
+  return nodes.filter((n) => n.props.role === "tabpanel");
+}
+
+/** The armies page's tab VNodes in tab order. */
+function armiesTabs(nodes: VNodeRecord[]): VNodeRecord[] {
+  return nodes.filter((n) => n.props.role === "tab");
+}
+
+/** The committed Elspeth tree resolved once for the panel-page proofs. */
+async function committedPanelInputs() {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found, "the committed lord loads");
+  const route = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(route.found, "route-1 resolves");
+  return { lord: lord.value, route: route.value };
+}
+
+/**
+ * The DeskPanel exactly as the view composes it: its recorded props at the
+ * view seam, then the same props expanded through the pure `DeskPanel`
+ * builder — the zero-DOM equivalent of letting the view's child component
+ * render (the `mountedTabStrip` precedent).
+ */
+function mountedDeskPanel(view: unknown): { nodes: VNodeRecord[]; text: string } {
+  const desk = recordVNodes(view).find(
+    (n) => typeof n.props.numeral === "string" && typeof n.props.group === "string",
+  );
+  assert.ok(desk !== undefined, "the view composes the desk panel");
+  const markup = DeskPanel({
+    numeral: String(desk.props.numeral),
+    group: desk.props.group as PanelGroup,
+    title: String(desk.props.title),
+    lord: desk.props.lord as Lord,
+    entries: desk.props.entries as readonly Army[] | readonly Item[],
+  });
+  return { nodes: recordVNodes(markup), text: vnodeText(markup) };
+}
+
+/** Each armies tabpanel's desk panel, expanded in tab order. */
+function armiesPanels(lord: Lord, route: Route, activeTab = 0): Array<{ nodes: VNodeRecord[]; text: string }> {
+  const tabpanels = armiesTabpanels(recordVNodes(ArmiesMarkup({ lord, route, activeTab })));
+  assert.equal(tabpanels.length, 3, "the armies page renders three tabpanels");
+  return tabpanels.map((panel) => mountedDeskPanel(panel));
+}
+
+test("the armies page renders the toolbar, the three panel tabs in order, and exactly one visible tabpanel", async () => {
+  const { lord, route } = await committedPanelInputs();
+  const nodes = recordVNodes(ArmiesMarkup({ lord, route, activeTab: 0 }));
+
+  // the desk toolbar: serif page title + the "ROUTE <n> · <name>" context line
+  const title = nodes.find((n) => n.props.className === "panel-page__title");
+  assert.equal(title?.tag, "h1", "the page title is the headline element");
+  assert.equal(String(title?.children[0]), "Armies & skills", "the DESIGN page copy renders");
+  const context = nodes.find((n) => n.props.className === "panel-page__context");
+  assert.equal(
+    String(context?.children[0]),
+    "ROUTE I · The Graveyard Watch",
+    "the mono context line reads ROUTE <n> · <name>",
+  );
+
+  // the three panel tabs in render order with roving tabindex at tab zero
+  const tabs = armiesTabs(nodes);
+  assert.deepEqual(
+    tabs.map((t) => t.children[0]),
+    ["Armies", "Skills", "Research"],
+    "the three panel tabs render in order",
+  );
+  assert.equal(tabs[0]?.props.tabIndex, 0, "the first tab is tabbable at the initial selection");
+  assert.equal(tabs[0]?.props["aria-selected"], true, "the first tab is the selected one");
+  for (let index = 1; index < tabs.length; index++) {
+    assert.equal(tabs[index]?.props.tabIndex, -1, `tab ${index} roves out of tab order`);
+    assert.equal(tabs[index]?.props["aria-selected"], false, `tab ${index} is not selected`);
+  }
+
+  // exactly one visible tabpanel at the initial selection
+  const panels = armiesTabpanels(nodes);
+  assert.equal(panels.length, 3, "one tabpanel per panel");
+  assert.equal(panels[0]?.props.hidden, false, "the first panel is the visible one");
+  assert.ok(panels.slice(1).every((p) => p.props.hidden === true), "every other panel is hidden");
+});
+
+test("each armies panel renders its committed Route I head and rows in panelOrder order", async () => {
+  const { lord, route } = await committedPanelInputs();
+  const panels = armiesPanels(lord, route, 0);
+
+  // the panel heads carry the Roman indices and serif titles of the desk
+  // cards I–III (the atlas's armies/skills/research split)
+  const specs: Array<{ index: string; title: string; count: number; first: string; second: string }> = [
+    { index: "I", title: "Army templates", count: 5, first: "The first Nuln column", second: "The Countess’s field company" },
+    { index: "II", title: "Lord & hero skills", count: 10, first: "Elspeth", second: "Master Engineer" },
+    { index: "III", title: "Research priorities", count: 4, first: "A working army before luxury research", second: "Infantry, artillery and the escort" },
+  ];
+  for (let index = 0; index < panels.length; index++) {
+    const spec = specs[index];
+    assert.ok(spec !== undefined);
+    const panel = panels[index];
+    assert.ok(panel !== undefined);
+    const headIndex = panel.nodes.find((n) => n.props.className === "desk-panel__index");
+    assert.equal(String(headIndex?.children[0]), spec.index, `panel ${index} carries numeral ${spec.index}`);
+    const headTitle = panel.nodes.find((n) => n.props.className === "desk-panel__title");
+    assert.equal(String(headTitle?.children[0]), spec.title, `panel ${index} carries its serif title`);
+    const entries = panel.nodes.filter(
+      (n) => n.tag === "article" && String(n.props.className).includes("panel-entry"),
+    );
+    assert.equal(entries.length, spec.count, `the ${spec.title} panel renders its ${spec.count} resolved entries`);
+    assert.ok(panel.text.includes(spec.first), "the panelOrder first entry renders");
+    assert.ok(panel.text.indexOf(spec.first) < panel.text.indexOf(spec.second), "entries render in panelOrder order");
+  }
+
+  // the armies page never renders the buildings or mechanics rows (the fixed split)
+  const joined = panels.map((panel) => panel.text).join(" ");
+  assert.ok(!joined.includes("Safe income town"), "no buildings row on the armies page");
+  assert.ok(!joined.includes("Field Testing · unlock what the army will use"), "no mechanics row on the armies page");
+});
+
+test("the settlements page renders the buildings panel under its toolbar", async () => {
+  const { lord, route } = await committedPanelInputs();
+  const view = SettlementsView({ lord, route });
+  const nodes = recordVNodes(view);
+  const { nodes: panelNodes, text } = mountedDeskPanel(view);
+
+  const title = nodes.find((n) => n.props.className === "panel-page__title");
+  assert.equal(String(title?.children[0]), "Settlements & economy", "the DESIGN page copy renders");
+  const context = nodes.find((n) => n.props.className === "panel-page__context");
+  assert.equal(String(context?.children[0]), "ROUTE I · The Graveyard Watch", "the context line reads ROUTE <n> · <name>");
+
+  const headIndex = panelNodes.find((n) => n.props.className === "desk-panel__index");
+  assert.equal(String(headIndex?.children[0]), "IV", "the single panel head carries desk numeral IV");
+  const headTitle = panelNodes.find((n) => n.props.className === "desk-panel__title");
+  assert.equal(String(headTitle?.children[0]), "Settlement builds", "the serif panel title renders");
+  const entries = panelNodes.filter((n) => n.tag === "article" && String(n.props.className).includes("panel-entry"));
+  assert.equal(entries.length, 6, "the six committed buildings entries render");
+  assert.ok(text.includes("Nuln · foundry and field-test centre"), "the panelOrder first row renders");
+  assert.ok(!text.includes("Field Testing · unlock what the army will use"), "no mechanics row on the settlements page");
+});
+
+test("the workshop page renders the mechanics panel under its toolbar", async () => {
+  const { lord, route } = await committedPanelInputs();
+  const view = WorkshopView({ lord, route });
+  const nodes = recordVNodes(view);
+  const { nodes: panelNodes, text } = mountedDeskPanel(view);
+
+  const title = nodes.find((n) => n.props.className === "panel-page__title");
+  assert.equal(String(title?.children[0]), "Faction workshop", "the DESIGN page copy renders");
+  const context = nodes.find((n) => n.props.className === "panel-page__context");
+  assert.equal(String(context?.children[0]), "ROUTE I · The Graveyard Watch", "the context line reads ROUTE <n> · <name>");
+
+  const headIndex = panelNodes.find((n) => n.props.className === "desk-panel__index");
+  assert.equal(String(headIndex?.children[0]), "V", "the single panel head carries desk numeral V");
+  const headTitle = panelNodes.find((n) => n.props.className === "desk-panel__title");
+  assert.equal(String(headTitle?.children[0]), "Unique mechanics", "the serif panel title renders");
+  const entries = panelNodes.filter((n) => n.tag === "article" && String(n.props.className).includes("panel-entry"));
+  assert.equal(entries.length, 5, "the five committed mechanics entries render");
+  assert.ok(text.includes("Field Testing · unlock what the army will use"), "the panelOrder first row renders");
+  assert.ok(!text.includes("Safe income town"), "no buildings row on the workshop page");
+});
+
+test("the armies panel tabs wrap and bound at the three-tab count", () => {
+  const count = 3;
+  assert.equal(panelTabNav("left", 0, count), count - 1, "left from the first tab wraps to the last");
+  assert.equal(panelTabNav("right", count - 1, count), 0, "right from the last tab wraps to the first");
+  assert.equal(panelTabNav("home", 1, count), 0, "home jumps to the first tab");
+  assert.equal(panelTabNav("end", 0, count), count - 1, "end jumps to the last tab");
+});
+
+test("the selection is component-local: the roving tabindex follows the active tab index", async () => {
+  const { lord, route } = await committedPanelInputs();
+  const nodes = recordVNodes(ArmiesMarkup({ lord, route, activeTab: 2 }));
+  const tabs = armiesTabs(nodes);
+  assert.equal(tabs[2]?.props.tabIndex, 0, "the selected tab is tabbable");
+  assert.equal(tabs[2]?.props["aria-selected"], true, "the selected tab is marked");
+  for (let index = 0; index < tabs.length; index++) {
+    if (index === 2) continue;
+    assert.equal(tabs[index]?.props.tabIndex, -1, `tab ${index} roves out of tab order`);
+    assert.equal(tabs[index]?.props["aria-selected"], false, `tab ${index} is not selected`);
+  }
+  const panels = armiesTabpanels(nodes);
+  assert.equal(panels[2]?.props.hidden, false, "the selected tab's panel is the visible one");
+  assert.ok(panels.slice(0, 2).every((p) => p.props.hidden === true), "the others are hidden");
+});
+
+test("the detail pages are route-scoped: the toolbar context and the armies data follow the route", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const route2 = getRoute(tree, "elspeth-von-draken", "route-2");
+  assert.ok(route2.found);
+
+  const nodes = recordVNodes(ArmiesMarkup({ lord: lord.value, route: route2.value, activeTab: 0 }));
+  const context = nodes.find((n) => n.props.className === "panel-page__context");
+  assert.equal(String(context?.children[0]), "ROUTE II · The Southern Charter", "the context line follows the route");
+  const [armiesPanel] = armiesPanels(lord.value, route2.value, 0);
+  assert.ok(armiesPanel !== undefined);
+  assert.ok(armiesPanel.text.includes("The southern charter column"), "route-2's own armies render");
+  assert.ok(!armiesPanel.text.includes("The Black Rose procession"), "route-1's armies never render on route-2");
+});
+
+test("a panel page whose panelOrder lists no items renders the explicit empty state — never blank", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const committed = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(committed.found);
+
+  // the constructed-route precedent: only the skills + buildings lists empty
+  const emptied: Route = {
+    ...committed.value,
+    panelOrder: { ...committed.value.panelOrder, skills: [], buildings: [] },
+  };
+  const armiesNodes = recordVNodes(ArmiesMarkup({ lord: lord.value, route: emptied, activeTab: 1 }));
+  const skillsPanel = armiesNodes.find((n) => n.props.id === "armies-panel-skills");
+  assert.ok(skillsPanel !== undefined, "the skills tabpanel renders");
+  const skills = mountedDeskPanel(skillsPanel);
+  assert.ok(skills.text.includes("NO SKILLS YET"), "the mono empty label names the panel");
+  assert.ok(skills.text.includes("No skills are listed for this route yet."), "the proportional sentence explains the state");
+  assert.ok(
+    skills.nodes.some((n) => n.props.className === "desk-panel__title"),
+    "the empty panel keeps its head — never blank space",
+  );
+
+  const settlements = mountedDeskPanel(SettlementsView({ lord: lord.value, route: emptied }));
+  assert.ok(settlements.text.includes("NO SETTLEMENTS YET"), "the settlements page carries its own empty panel");
+  assert.ok(
+    settlements.text.includes("No settlements are listed for this route yet."),
+    "the proportional sentence explains the state",
   );
 });
 

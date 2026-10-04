@@ -37,8 +37,9 @@ import { fileURLToPath } from "node:url";
 
 import { loadContentTree } from "../app/content/load.ts";
 import { getLord, getPanelEntries, getRoute } from "../app/content/query.ts";
-import { CLAIM_STATES, PANEL_GROUPS, type ContentReader, type Route, type Source } from "../app/content/types.ts";
+import { CLAIM_STATES, PANEL_GROUPS, type Army, type ContentReader, type Item, type Lord, type PanelGroup, type Route, type Source } from "../app/content/types.ts";
 import { ConfidenceBadge } from "../app/components/ConfidenceBadge.ts";
+import { DeskPanel } from "../app/components/deskPanel.ts";
 import { DashboardMarkup } from "../app/components/dashboard.ts";
 import { LedgerTable, type LedgerRowStatus, type LedgerTableRow } from "../app/components/LedgerTable.ts";
 import { TabStripMarkup, tabNav } from "../app/components/TabStrip.ts";
@@ -740,7 +741,140 @@ test("state-carrying entries render the Confidence Badge, and unlisted entries n
   assert.ok(!text.includes("The fleet sails only once the port is raised."), "the unlisted skill's intro is absent");
 });
 
-// ─── 8. The ledger table panel (package `ledger-table-panel`) ────────────────
+// ─── 8. The desk-panel anatomy (package `detail-pages-view`) ────────────────
+
+/** The fixture tree's lord + route, the inputs every desk-panel test renders. */
+async function fixturePanelInputs() {
+  const tree = await loadContentTree(fsReader(FIXTURES));
+  const lord = getLord(tree, "als-rhyn-of-lorek");
+  assert.ok(lord.found, "the fixture lord loads");
+  const route = getRoute(tree, "als-rhyn-of-lorek", "dark-conduits");
+  assert.ok(route.found, "the fixture route loads");
+  return { lord: lord.value, route: route.value };
+}
+
+/** One panel of the shared desk-panel anatomy over the given entries. */
+function renderPanel(
+  lord: Lord,
+  group: PanelGroup,
+  entries: readonly Army[] | readonly Item[],
+  numeral = "I",
+  title = "Panel",
+): { text: string; nodes: VNodeRecord[] } {
+  const markup = DeskPanel({ numeral, group, title, lord, entries });
+  return { text: vnodeText(markup), nodes: recordVNodes(markup) };
+}
+
+/** Renders one army entry's anatomy through the shared panel (the two columns case). */
+async function renderArmyPanel(): Promise<{ text: string; nodes: VNodeRecord[] }> {
+  const { lord, route } = await fixturePanelInputs();
+  return renderPanel(lord, "armies", getPanelEntries(lord, route).armies, "I", "Army templates");
+}
+
+/** Renders the skills panel through the shared desk-panel component. */
+async function renderSkillsPanel(): Promise<{ text: string; nodes: VNodeRecord[] }> {
+  const { lord, route } = await fixturePanelInputs();
+  return renderPanel(lord, "skills", getPanelEntries(lord, route).skills, "II", "Lord & hero skills");
+}
+
+test("the desk panel renders the serif head — Roman numeral and title — above the anatomy", async () => {
+  const { nodes } = await renderArmyPanel();
+
+  const head = nodes.find((n) => n.props.className === "desk-panel__head");
+  assert.ok(head !== undefined, "the panel renders its head");
+  const index = nodes.find((n) => n.props.className === "desk-panel__index");
+  assert.equal(String(index?.children[0]), "I", "the Roman-numeral index renders");
+  const title = nodes.find((n) => n.props.className === "desk-panel__title");
+  assert.equal(title?.tag, "h2", "the panel title is the serif heading element");
+  assert.equal(String(title?.children[0]), "Army templates", "the serif panel title renders");
+});
+
+test("an army panel renders the two unit columns with count/name/role/kind rows and the absent marker", async () => {
+  const { text } = await renderArmyPanel();
+
+  // both army entries with label + name (+ the optional supporting-army name)
+  assert.ok(text.includes("Early") && text.includes("The Toll of the Silver Sand"), "early army label + name");
+  assert.ok(text.includes("The Dust Wardens"), "the early army's supporting-army name");
+  assert.ok(text.includes("Late") && text.includes("The River Line Watch"), "late army label + name");
+
+  // the legendary-lord column rows: ×N count, name, role, kind
+  assert.ok(text.includes("×1") && text.includes("Tomb King on Warsphinx"), "legendary row count + name");
+  assert.ok(text.includes("Battle-line general") && text.includes("monstrous"), "legendary row role + kind");
+  assert.ok(text.includes("Tomb Guard") && text.includes("Elite guard"), "second legendary row");
+
+  // the early army's generic-lord column rows
+  assert.ok(
+    text.includes("×3") && text.includes("Spearmen") && text.includes("Holding line"),
+    "generic row count + name + role",
+  );
+  assert.ok(text.includes("line"), "generic row kind");
+
+  // the late army's empty generic column shows its explicit absent marker —
+  // exactly once across both armies, never blank space
+  assert.equal(text.split("NO UNITS LISTED").length - 1, 1, "the absent generic column marker renders exactly once");
+
+  // context, notes[]/plan [title, body] rows, and the size lines
+  assert.ok(text.includes("Anchors the eastern desert line while the three conduit towns consolidate."), "context");
+  assert.ok(text.includes("Deployment") && text.includes("Spread the archers behind the warriors"), "a notes row");
+  assert.ok(text.includes("Turn 1") && text.includes("Consolidate all three conduit towns before turn ten."), "a plan row");
+  assert.ok(text.includes("Size 2200") && text.includes("Size 900"), "each army declares its size");
+});
+
+test("an item panel renders label, title, intro, steps with optional gate and short labels, and details rows", async () => {
+  const { nodes, text } = await renderSkillsPanel();
+
+  assert.ok(text.includes("Conduit Rites"), "the listed skill renders its label");
+  assert.ok(text.includes("Raise the conduit towns"), "the skill renders its title");
+  assert.ok(text.includes("Construction discounts before the first levy."), "the skill renders its intro");
+  assert.ok(text.includes("Conduit Silos") && text.includes("Two silos a town before turn ten."), "step title + note render");
+  assert.ok(text.includes("Sealed Depot"), "the short-labelled step's title renders");
+  assert.ok(text.includes("Town per turn") && text.includes("One conduit town ripens every four turns."), "details rows render");
+
+  // the optional gate and short labels render on their step head line
+  const gate = nodes.find((n) => n.props.className === "item-step__gate");
+  assert.ok(gate !== undefined && gate.children[0] === "Opening option", "the gate label renders");
+  const short = nodes.find((n) => n.props.className === "item-step__short");
+  assert.ok(short !== undefined && short.children[0] === "Depot", "the short label renders");
+});
+
+test("state-carrying entries render the Confidence Badge, and stateless entries render none — with resolved source links", async () => {
+  const { nodes, text } = await renderArmyPanel();
+
+  // the early army carries the inferred badge; the stateless late army never
+  // renders one — the badge span itself is proven by the confidence-badge suite
+  const badges = nodes.filter((n) => typeof n.props.state === "string" && Array.isArray(n.props.sources));
+  assert.equal(badges.length, 1, "exactly the inferred early army renders a badge");
+  assert.equal(badges[0]?.props.state, "inferred", "the state badge is the army's own");
+
+  const hrefs = nodes.filter((n) => typeof n.props.href === "string").map((n) => n.props.href);
+  assert.ok(hrefs.includes("https://example.test/casket"), "the early army's ca source resolves");
+  assert.ok(!text.includes("Prepare the twin casket fleet"), "no item card renders inside the army panel");
+});
+
+test("a state-carrying item renders the badge and its resolved source links through the item panel", async () => {
+  const { nodes } = await renderSkillsPanel();
+
+  const badges = nodes.filter((n) => typeof n.props.state === "string" && Array.isArray(n.props.sources));
+  assert.equal(badges.length, 1, "the listed skill carries the confirmed badge");
+  assert.equal(badges[0]?.props.state, "confirmed", "the skill's own state renders");
+  const hrefs = nodes.filter((n) => typeof n.props.href === "string").map((n) => n.props.href);
+  assert.ok(hrefs.includes("https://example.test/vco-guide"), "the listed skill's vco-guide source resolves");
+  assert.ok(!hrefs.includes("https://example.test/casket"), "the item panel carries no army source");
+  assert.ok(!vnodeText(nodes).includes("Prepare the twin casket fleet"), "the unlisted skill's title is absent");
+});
+
+test("an empty desk panel renders the explicit empty state — never blank", async () => {
+  const { lord } = await fixturePanelInputs();
+  const markup = DeskPanel({ numeral: "V", group: "mechanics", title: "Unique mechanics", lord, entries: [] });
+  const nodes = recordVNodes(markup);
+  const text = vnodeText(markup);
+  assert.ok(text.includes("NO MECHANICS YET"), "the mono empty label names the panel");
+  assert.ok(text.includes("No mechanics are listed for this route yet."), "the proportional sentence explains the state");
+  assert.ok(nodes.some((n) => n.props.className === "desk-panel__title"), "the empty panel keeps its head — never blank space");
+  assert.ok(!nodes.some((n) => String(n.props.className).includes("panel-entry")), "no entry renders on the empty panel");
+});
+
+// ─── 9. The ledger table panel (package `ledger-table-panel`) ────────────────
 
 /** A hand-built reconciled row for the panel's data-driven proofs. */
 function ledgerRow(id: string, label: string, confirmedStep: 0 | 1 | 2 | 3 | 4, planned: boolean): LedgerTableRow {
