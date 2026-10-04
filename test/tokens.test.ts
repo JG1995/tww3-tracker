@@ -3,162 +3,98 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
-// Locally enumerated token contract, derived one-for-one from the YAML frontmatter
-// of `.wiki/DESIGN.md`: every CSS custom property name -> exact expected value.
+// Locally enumerated token contract, derived one-for-one from the
+// `.wiki/DESIGN.md` YAML frontmatter (feature DESIGN §4 literal names):
+// every CSS custom property name -> exact expected value, verbatim from the
+// reference atlases. Palette keys are the atlases' `:root` hex; typography,
+// component, layout, spacing, and shape keys are the atlas treatments DESIGN
+// §4 fixes. The Factory-era `--color-*` / `--font-*` naming scheme is
+// retired with this package, so the sheet must also be free of oklch() and
+// Geist, and app.css must reference no Factory-era token at all.
 const EXPECTED: Record<string, string> = {
-  // Foundation — background & surface elevation
-  "--color-background": "oklch(0.173 0 0)",
-  "--color-on-background": "oklch(0.949 0 0)",
-  "--color-surface-dim": "oklch(0.159 0 0)",
-  "--color-surface": "oklch(0.22 0.006 56)",
-  "--color-surface-bright": "oklch(0.351 0.005 39)",
-  "--color-surface-container-lowest": "oklch(0.159 0 0)",
-  "--color-surface-container-low": "oklch(0.196 0.003 68)",
-  "--color-surface-container": "oklch(0.22 0.006 56)",
-  "--color-surface-container-high": "oklch(0.275 0.006 56)",
-  "--color-surface-container-highest": "oklch(0.312 0.005 39)",
-  "--color-on-surface": "oklch(0.949 0 0)",
-  "--color-on-surface-variant": "oklch(0.615 0.01 45)",
-  "--color-inverse-surface": "oklch(0.949 0 0)",
-  "--color-inverse-on-surface": "oklch(0.22 0.006 56)",
-  // Borders & outlines
-  "--color-outline": "oklch(0.351 0.005 39)",
-  "--color-outline-variant": "oklch(0.263 0.006 56)",
-  "--color-surface-tint": "oklch(0.663 0.19 42)",
-  // Primary — signal orange (live/active state; never a button fill)
-  "--color-primary": "oklch(0.663 0.19 42)",
-  "--color-on-primary": "oklch(0.173 0 0)",
-  "--color-primary-container": "oklch(0.319 0.068 46)",
-  "--color-on-primary-container": "oklch(0.858 0.067 48)",
-  "--color-inverse-primary": "oklch(0.84 0.076 47)",
-  // Secondary — metric green (positive/complete state)
-  "--color-secondary": "oklch(0.794 0.089 138)",
-  "--color-on-secondary": "oklch(0.173 0 0)",
-  "--color-secondary-container": "oklch(0.371 0.031 138)",
-  "--color-on-secondary-container": "oklch(0.899 0.039 137)",
-  "--color-inverse-secondary": "oklch(0.89 0.044 138)",
-  // Tertiary — deliberately neutral (warm granite, uncoloured)
-  "--color-tertiary": "oklch(0.615 0.01 45)",
-  "--color-on-tertiary": "oklch(0.173 0 0)",
-  "--color-tertiary-container": "oklch(0.275 0.006 56)",
-  "--color-on-tertiary-container": "oklch(0.949 0 0)",
-  // Semantic — status indicators
-  "--color-success": "oklch(0.794 0.089 138)",
-  "--color-on-success": "oklch(0.173 0 0)",
-  "--color-success-container": "oklch(0.371 0.031 138)",
-  "--color-on-success-container": "oklch(0.899 0.039 137)",
-  "--color-warning": "oklch(0.663 0.19 42)",
-  "--color-on-warning": "oklch(0.173 0 0)",
-  "--color-warning-container": "oklch(0.319 0.068 46)",
-  "--color-on-warning-container": "oklch(0.858 0.067 48)",
-  "--color-error": "oklch(0.65 0.2 27)",
-  "--color-on-error": "oklch(0.1 0.02 27)",
-  "--color-error-container": "oklch(0.28 0.12 27)",
-  "--color-on-error-container": "oklch(0.88 0.08 27)",
-  "--color-info": "oklch(0.77 0.007 53)",
-  "--color-on-info": "oklch(0.173 0 0)",
-  "--color-info-container": "oklch(0.275 0.006 56)",
-  "--color-on-info-container": "oklch(0.77 0.007 53)",
+  // Palette — DESIGN §4, verbatim atlas `:root` hex
+  "--bg": "#10171c",
+  "--surface": "#172129",
+  "--surface2": "#1d2a33",
+  "--surface3": "#23333e",
+  "--ink": "#eeeae2",
+  "--muted": "#b4c0c6",
+  "--faint": "#859aa7",
+  "--line": "#354651",
+  "--accent": "#ddc485",
+  "--brass": "#ccaa72",
+  "--good": "#adcead",
+  "--danger": "#f0aaa0",
 
-  // Typography
-  // role: display
-  "--font-display-family": "Geist",
-  "--font-display-size": "44px",
-  "--font-display-weight": "400",
-  "--font-display-line-height": "1.12",
-  "--font-display-letter-spacing": "-0.025em",
-  // role: headline-lg
-  "--font-headline-lg-family": "Geist",
-  "--font-headline-lg-size": "28px",
-  "--font-headline-lg-weight": "400",
-  "--font-headline-lg-line-height": "1.2",
-  "--font-headline-lg-letter-spacing": "-0.01em",
-  // role: headline-md
-  "--font-headline-md-family": "Geist",
-  "--font-headline-md-size": "22px",
-  "--font-headline-md-weight": "400",
-  "--font-headline-md-line-height": "1.25",
-  "--font-headline-md-letter-spacing": "-0.008em",
-  // role: headline-sm
-  "--font-headline-sm-family": "Geist",
-  "--font-headline-sm-size": "18px",
-  "--font-headline-sm-weight": "500",
-  "--font-headline-sm-line-height": "1.35",
-  // role: body-lg
-  "--font-body-lg-family": "Geist",
-  "--font-body-lg-size": "16px",
-  "--font-body-lg-weight": "400",
-  "--font-body-lg-line-height": "1.5",
-  // role: body-md
-  "--font-body-md-family": "Geist",
-  "--font-body-md-size": "14px",
-  "--font-body-md-weight": "400",
-  "--font-body-md-line-height": "1.45",
-  // role: body-sm
-  "--font-body-sm-family": "Geist",
-  "--font-body-sm-size": "13px",
-  "--font-body-sm-weight": "400",
-  "--font-body-sm-line-height": "1.4",
-  // role: label-lg
-  "--font-label-lg-family": "Geist",
-  "--font-label-lg-size": "14px",
-  "--font-label-lg-weight": "500",
-  "--font-label-lg-line-height": "1.2",
-  // role: label-md
-  "--font-label-md-family": "Geist Mono",
-  "--font-label-md-size": "12px",
-  "--font-label-md-weight": "400",
-  "--font-label-md-line-height": "1.2",
-  "--font-label-md-letter-spacing": "-0.02em",
-  // role: label-sm
-  "--font-label-sm-family": "Geist Mono",
-  "--font-label-sm-size": "12px",
-  "--font-label-sm-weight": "400",
-  "--font-label-sm-line-height": "1.2",
-  "--font-label-sm-letter-spacing": "-0.02em",
-  // role: mono-lg
-  "--font-mono-lg-family": "Geist Mono",
-  "--font-mono-lg-size": "24px",
-  "--font-mono-lg-weight": "400",
-  "--font-mono-lg-line-height": "1.2",
-  // role: mono-md
-  "--font-mono-md-family": "Geist Mono",
-  "--font-mono-md-size": "14px",
-  "--font-mono-md-weight": "400",
-  "--font-mono-md-line-height": "1.4",
-  // role: mono-sm
-  "--font-mono-sm-family": "Geist Mono",
-  "--font-mono-sm-size": "12px",
-  "--font-mono-sm-weight": "400",
-  "--font-mono-sm-line-height": "1.4",
+  // Typography — Georgia serif (system) 400 for display; Segoe UI sans for
+  // body/chrome; the eyebrow spec
+  "--serif": 'Georgia, "Times New Roman", serif',
+  "--heading-weight": "400",
+  "--heading-line-height": "1.22",
+  "--h1-size": "2.2rem",
+  "--h2-size": "1.6rem",
+  "--h3-size": "1.18rem",
+  "--h4-size": "1.05rem",
+  "--sans": '"Segoe UI", Arial, sans-serif',
+  "--text-base": "16px",
+  "--text-small": "0.84rem",
+  "--text-line-height": "1.5",
+  "--eyebrow-size": "0.66rem",
+  "--eyebrow-track": "1.8px",
+  "--eyebrow-weight": "650",
+  "--eyebrow-color": "var(--accent)",
+  "--eyebrow-transform": "uppercase",
 
-  // Rounded
-  "--radius-none": "0",
-  "--radius-xs": "3px",
-  "--radius-default": "3px",
-  "--radius-md": "10px",
-  "--radius-lg": "20px",
+  // Components — DESIGN §4 atlas treatments
+  "--card-fill": "linear-gradient(130deg,#1b2831,#172129)",
+  "--card-border-color": "var(--line)",
+  "--card-border-top-color": "#536472",
+  "--card-radius": "5px",
+  "--card-padding": "22px",
+  "--button-fill": "var(--surface3)",
+  "--button-border-color": "#546775",
+  "--button-radius": "4px",
+  "--button-padding": "8px 12px",
+  "--link-color": "var(--accent)",
+  "--kbd-size": "0.68rem",
+  "--kbd-border-color": "var(--line)",
+  "--kbd-radius": "3px",
+  "--kbd-padding": "0 5px",
+  "--kbd-color": "var(--muted)",
+
+  // Layout — DESIGN §4 atlas measures
+  "--wrap-width": "100%",
+  "--wrap-max-width": "3360px",
+  "--wrap-side-padding": "24px",
+  "--header-height": "170px",
+  "--header-blur": "10px",
+  "--two-track": "1.65fr 0.8fr",
+
+  // Spacing — the 16px base gap plus section steps
+  "--gap-base": "16px",
+  "--gap-xs": "8px",
+  "--gap-md": "24px",
+  "--gap-lg": "40px",
+  "--gap-xl": "56px",
+  "--gap-2xl": "96px",
+  "--table-row-height": "40px",
+
+  // Shapes
   "--radius-full": "9999px",
-
-  // Spacing
-  "--space-unit": "8px",
-  "--space-table-row-height": "40px",
-  "--space-header-height": "64px",
-  "--space-gutter": "24px",
-  "--space-stack-xs": "8px",
-  "--space-stack-sm": "16px",
-  "--space-stack-md": "24px",
-  "--space-stack-lg": "40px",
-  "--space-stack-xl": "56px",
-  "--space-stack-2xl": "96px",
-  "--space-content-max-width": "1200px",
 };
 
-const css = readFileSync(fileURLToPath(new URL("../app/styles/tokens.css", import.meta.url)), "utf8");
+const tokensCss = readFileSync(
+  fileURLToPath(new URL("../app/styles/tokens.css", import.meta.url)),
+  "utf8",
+);
+const appCss = readFileSync(
+  fileURLToPath(new URL("../app/styles/app.css", import.meta.url)),
+  "utf8",
+);
 
 // Parse custom property declarations: full name (including `--`) -> trimmed value.
 const parsed = new Map<string, string>();
-for (const match of css.matchAll(/(--[a-zA-Z0-9-]+)\s*:\s*([^;]+);/g)) {
+for (const match of tokensCss.matchAll(/(--[a-zA-Z0-9-]+)\s*:\s*([^;]+);/g)) {
   parsed.set(match[1], match[2].trim());
 }
 
@@ -174,4 +110,18 @@ test("tokens.css defines every DESIGN.md frontmatter token non-empty and exact",
     assert.ok(actual !== undefined, `missing token --${name}`);
     assert.equal(actual, expected, `unexpected value for --${name}`);
   }
+});
+
+test("tokens.css is free of Factory visual-system remnants", () => {
+  assert.ok(!tokensCss.includes("oklch("), "tokens.css must not use oklch() — the atlas palette is hex");
+  assert.ok(!tokensCss.includes("Geist"), "tokens.css must not reference the Geist webfont");
+  assert.ok(!tokensCss.includes("--color-"), "tokens.css must not use the Factory --color-* scheme");
+  assert.ok(!tokensCss.includes("--font-"), "tokens.css must not use the Factory --font-* scheme");
+});
+
+test("app.css retokens every surface and references no Factory remnant", () => {
+  assert.ok(!appCss.includes("oklch("), "app.css must not use oklch() — the atlas palette is hex");
+  assert.ok(!appCss.includes("Geist"), "app.css must not reference the Geist webfont");
+  assert.ok(!appCss.includes("--color-"), "app.css must not reference the Factory --color-* scheme");
+  assert.ok(!appCss.includes("--font-"), "app.css must not reference the Factory --font-* scheme");
 });

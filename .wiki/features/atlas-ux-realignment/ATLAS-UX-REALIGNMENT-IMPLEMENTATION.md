@@ -170,7 +170,7 @@ Commit 1 (content model) → Commit 2 (visual system) → Commit 3 (Elspeth cont
 
 #### Package `atlas-visual-system` — Commit 2: Replace the Factory system with the atlas visual system
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 1
 
@@ -472,7 +472,8 @@ Commit 1 (content model) → Commit 2 (visual system) → Commit 3 (Elspeth cont
 
 Record material deviations, blockers, and decisions that change remaining work. State what was planned, what changed, and why. Preserve unchanged IDs. Mark replaced packages or PRs `Removed — <reason>` and add new stable IDs; never reuse an old ID for a different outcome.
 
-- (Empty at plan acceptance; the coordinator appends execution discoveries here.)
+* (Empty at plan acceptance; the coordinator appends execution discoveries here.)
+- Commit 2 (atlas-visual-system): the Jev overengineering gate could not evaluate the staged candidate (168,859-char diff) — the Jev API returned HTTP 400 `max_tokens_exceeded` (model input limit; a 57KB subset evaluates fine). The developer explicitly accepted the gate gap for this candidate (2026-10-04); the mandatory independent commit review still runs (Jev review routing is unavailable at this size for the same reason).
 
 ## Final validation
 

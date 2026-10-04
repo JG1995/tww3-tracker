@@ -1,287 +1,197 @@
 ---
 name: TWW3 VCO Campaign Companion
 colors:
-    # Foundation — background & surface elevation layers
-    # Palette source: "Factory" style reference (terminal-war-room aesthetic),
-    # hex-converted to oklch; ramp steps marked (derived) are tonal fills
-    # between the reference's four surface levels.
-    background: "oklch(0.173 0 0)"            # #101010 obsidian canvas
-    on-background: "oklch(0.949 0 0)"         # #eeeeee bone
-    surface-dim: "oklch(0.159 0 0)"           # #0d0d0d
-    surface: "oklch(0.22 0.006 56)"           # #1d1a18 carbon lift
-    surface-bright: "oklch(0.351 0.005 39)"   # #3d3a39 ash (brightest neutral surface)
-    surface-container-lowest: "oklch(0.159 0 0)"   # #0d0d0d (derived: panel floor)
-    surface-container-low: "oklch(0.196 0.003 68)" # (derived)
-    surface-container: "oklch(0.22 0.006 56)"      # #1d1a18
-    surface-container-high: "oklch(0.275 0.006 56)"    # (derived)
-    surface-container-highest: "oklch(0.312 0.005 39)" # (derived)
-    on-surface: "oklch(0.949 0 0)"
-    on-surface-variant: "oklch(0.615 0.01 45)"  # #8a8380 warm granite — muted body text
-    inverse-surface: "oklch(0.949 0 0)"
-    inverse-on-surface: "oklch(0.22 0.006 56)"
-    # Borders & outlines
-    outline: "oklch(0.351 0.005 39)"            # #3d3a39 ash — hairline borders
-    outline-variant: "oklch(0.263 0.006 56)"    # (derived) — subtle dividers
-    surface-tint: "oklch(0.663 0.19 42)"
-    # Primary — signal orange: live/active state and data-voice accent (NEVER a button fill)
-    primary: "oklch(0.663 0.19 42)"             # #ee6018
-    on-primary: "oklch(0.173 0 0)"
-    primary-container: "oklch(0.319 0.068 46)"  # (derived tint)
-    on-primary-container: "oklch(0.858 0.067 48)" # (derived tint)
-    inverse-primary: "oklch(0.84 0.076 47)"     # (derived tint)
-    # Secondary — metric green: positive/complete data states
-    secondary: "oklch(0.794 0.089 138)"         # #a0ca92
-    on-secondary: "oklch(0.173 0 0)"
-    secondary-container: "oklch(0.371 0.031 138)"  # (derived tint)
-    on-secondary-container: "oklch(0.899 0.039 137)" # (derived tint)
-    inverse-secondary: "oklch(0.89 0.044 138)"  # (derived tint)
-    # Tertiary — deliberately neutral (warm granite). The system has exactly two
-    # chromatic accents (orange, green); this slot is reserved and uncoloured.
-    tertiary: "oklch(0.615 0.01 45)"
-    on-tertiary: "oklch(0.173 0 0)"
-    tertiary-container: "oklch(0.275 0.006 56)"
-    on-tertiary-container: "oklch(0.949 0 0)"
-    # Semantic — status indicators
-    success: "oklch(0.794 0.089 138)"           # metric green — game-confirmed complete, verified claims
-    on-success: "oklch(0.173 0 0)"
-    success-container: "oklch(0.371 0.031 138)"
-    on-success-container: "oklch(0.899 0.039 137)"
-    warning: "oklch(0.663 0.19 42)"             # signal orange — verify-in-campaign, attention flags
-    on-warning: "oklch(0.173 0 0)"
-    warning-container: "oklch(0.319 0.068 46)"
-    on-warning-container: "oklch(0.858 0.067 48)"
-    error: "oklch(0.65 0.2 27)"                 # red — the one extra chromatic role (destructive/failure states)
-    on-error: "oklch(0.1 0.02 27)"
-    error-container: "oklch(0.28 0.12 27)"
-    on-error-container: "oklch(0.88 0.08 27)"
-    info: "oklch(0.77 0.007 53)"                # pale stone — neutral, no new chromatic accent
-    on-info: "oklch(0.173 0 0)"
-    info-container: "oklch(0.275 0.006 56)"
-    on-info-container: "oklch(0.77 0.007 53)"
+    # Palette source: the reference atlases — the rendered `:root` palette of
+    # the desk and plan captures, ported verbatim as hex. The token-provenance
+    # rule: values are copied, the source is the atlases (DESIGN §4).
+    --bg: "#10171c"
+    --surface: "#172129"
+    --surface2: "#1d2a33"
+    --surface3: "#23333e"
+    --ink: "#eeeae2"
+    --muted: "#b4c0c6"
+    --faint: "#859aa7"
+    --line: "#354651"
+    --accent: "#ddc485"          # brass — the single chromatic accent
+    --brass: "#ccaa72"           # dimmer brass — brand and decorative accents
+    --good: "#adcead"
+    --danger: "#f0aaa0"
 typography:
-    # Voice: flat weight 400 Geist with negative tracking; authority comes from
-    # size and tightness, never bold weight. Weight 500 only where a label must
-    # dominate a dense surface.
-    display:
-        {
-            fontFamily: "Geist",
-            fontSize: 44px,
-            fontWeight: "400",
-            lineHeight: "1.12",
-            letterSpacing: -0.025em,
-        }
-    headline-lg:
-        {
-            fontFamily: "Geist",
-            fontSize: 28px,
-            fontWeight: "400",
-            lineHeight: "1.2",
-            letterSpacing: -0.01em,
-        }
-    headline-md:
-        {
-            fontFamily: "Geist",
-            fontSize: 22px,
-            fontWeight: "400",
-            lineHeight: "1.25",
-            letterSpacing: -0.008em,
-        }
-    headline-sm:
-        {
-            fontFamily: "Geist",
-            fontSize: 18px,
-            fontWeight: "500",
-            lineHeight: "1.35",
-        }
-    body-lg:
-        {
-            fontFamily: "Geist",
-            fontSize: 16px,
-            fontWeight: "400",
-            lineHeight: "1.5",
-        }
-    body-md:
-        {
-            fontFamily: "Geist",
-            fontSize: 14px,
-            fontWeight: "400",
-            lineHeight: "1.45",
-        }
-    body-sm:
-        {
-            fontFamily: "Geist",
-            fontSize: 13px,
-            fontWeight: "400",
-            lineHeight: "1.4",
-        }
-    label-lg:
-        {
-            fontFamily: "Geist",
-            fontSize: 14px,
-            fontWeight: "500",
-            lineHeight: "1.2",
-        }
-    # Mono = the instrument voice: section eyebrows, status tags, ledger labels,
-    # version context — always uppercase, always tight.
-    label-md:
-        {
-            fontFamily: "Geist Mono",
-            fontSize: 12px,
-            fontWeight: "400",
-            lineHeight: "1.2",
-            letterSpacing: -0.02em,
-        }
-    label-sm:
-        {
-            fontFamily: "Geist Mono",
-            fontSize: 12px,
-            fontWeight: "400",
-            lineHeight: "1.2",
-            letterSpacing: -0.02em,
-        }
-    # Monospace roles for numeric/tabular data
-    mono-lg:
-        {
-            fontFamily: "Geist Mono",
-            fontSize: 24px,
-            fontWeight: "400",
-            lineHeight: "1.2",
-        }
-    mono-md:
-        {
-            fontFamily: "Geist Mono",
-            fontSize: 14px,
-            fontWeight: "400",
-            lineHeight: "1.4",
-        }
-    mono-sm:
-        {
-            fontFamily: "Geist Mono",
-            fontSize: 12px,
-            fontWeight: "400",
-            lineHeight: "1.4",
-        }
-rounded:
-    none: 0
-    xs: 3px
-    DEFAULT: 3px
-    md: 10px
-    lg: 20px
-    full: 9999px
+    # Georgia serif (system) at weight 400 — the authority voice: headings
+    # h1–h4, the brand, and numerals (route numerals, phase numbers, counts).
+    --serif: "Georgia, 'Times New Roman', serif"
+    --heading-weight: "400"
+    --heading-line-height: "1.22"
+    --h1-size: "2.2rem"
+    --h2-size: "1.6rem"
+    --h3-size: "1.18rem"
+    --h4-size: "1.05rem"
+    # "Segoe UI" / Arial / system sans — body copy and chrome.
+    --sans: "'Segoe UI', Arial, sans-serif"
+    --text-base: "16px"
+    --text-small: "0.84rem"
+    --text-line-height: "1.5"
+    # The eyebrow spec — the accent instrument label (DESIGN §4 verbatim).
+    --eyebrow-size: "0.66rem"
+    --eyebrow-track: "1.8px"
+    --eyebrow-weight: "650"
+    --eyebrow-color: "--accent"
+    --eyebrow-transform: uppercase
+components:
+    # DESIGN §4 component treatments, verbatim from the atlases.
+    --card-fill: "linear-gradient(130deg,#1b2831,#172129)"
+    --card-border-color: "--line"
+    --card-border-top-color: "#536472"
+    --card-radius: "5px"
+    --card-padding: "22px"
+    --button-fill: "--surface3"
+    --button-border-color: "#546775"
+    --button-radius: "4px"
+    --button-padding: "8px 12px"
+    --link-color: "--accent"
+    --kbd-size: "0.68rem"
+    --kbd-border-color: "--line"
+    --kbd-radius: "3px"
+    --kbd-padding: "0 5px"
+    --kbd-color: "--muted"
+layout:
+    # DESIGN §4 layout values, verbatim from the atlases.
+    --wrap-width: "100%"
+    --wrap-max-width: "3360px"
+    --wrap-side-padding: "24px"
+    --header-height: "170px"
+    --header-blur: "10px"
+    --two-track: "1.65fr 0.8fr"
 spacing:
-    unit: 8px
-    table-row-height: 40px
-    header-height: 64px
-    gutter: 24px
-    stack-xs: 8px
-    stack-sm: 16px
-    stack-md: 24px
-    stack-lg: 40px
-    stack-xl: 56px
-    stack-2xl: 96px
-    content-max-width: 1200px
+    # DESIGN §4's 16px base gap, plus the site's section steps on the same
+    # 8px scale (the old 8px-unit rhythm re-based on the 16px base gap).
+    --gap-base: "16px"
+    --gap-xs: "8px"
+    --gap-md: "24px"
+    --gap-lg: "40px"
+    --gap-xl: "56px"
+    --gap-2xl: "96px"
+    --table-row-height: "40px"
+shapes:
+    # Chips, dots, and fully-rounded surfaces.
+    --radius-full: "9999px"
 ---
 
 ## Brand & Style
 
-**Terminal war room at the campaign table.** The site is a stark near-black control surface where the content is the only bright object in the room — a personal campaign companion that should feel like an instrument panel, not a wiki or a blog.
+**The atlas companion at the campaign table.** The site wears the reference atlases' look: a dark slate canvas, a single chromatic accent — brass — and Georgia serif authority in headings and numerals. A personal campaign companion that should feel like the atlas pages themselves: quiet chrome, serif voice, the plan and the numbers as the work itself.
 
-The user is a single player, working mid-campaign on a desktop in low light: twenty minutes of planning before a session, or a mid-game lookup for an army template. The interface gets out of the way; the route plan, the dashboard numbers, and the ledger are the work itself.
+The user is a single player, working mid-campaign on a desktop in low light: twenty minutes of planning before a session, or a mid-game lookup for an army template. The interface gets out of the way; the route plan, the desk, and the ledger are the work itself.
 
-The guiding tension is **monochrome chrome vs. data-voice colour**: nearly everything is neutral surface — canvas, carbon, bone — and the only chromatic colours (signal orange, metric green) are reserved for *state*: active, flagged, complete. Depth comes from figure/ground contrast and spacing rhythm, never from shadows or glow. The type voice is flat: weight-400 Geist with negative tracking for prose and display, weight-400 Geist Mono uppercase for everything that is an instrument label. Seeing Mono means "system surface"; seeing proportional type means "campaign content".
+The guiding tension is **quiet chrome vs. the brass accent**: nearly everything is neutral slate — the canvas plus the three surface steps — and the only chromatic accent (`--accent`, brass) is reserved for state, flags, links, data numerals, and the eyebrow instrument voice, never a fill on a large surface. Depth comes from the surface ladder, the card gradient fill, and the 2px card top border — never from shadows or glow. The type voice is split: **Georgia serif (system)** carries everything with authority — headings h1–h4 at weight 400, the brand, and numerals — and **"Segoe UI"/Arial/system sans** carries body copy and chrome. The eyebrow is the instrument voice: a 0.66rem uppercase brass label.
 
-Hard stances: dark only (no light mode), desktop-first (readable at laptop widths, no mobile layout work), no drop shadows anywhere, no third chromatic accent.
+Hard stances: dark only (no light mode), desktop-first (readable at laptop widths; the atlas's ultrawide measure), no drop shadows anywhere, one chromatic accent only (`--good` and `--danger` stay semantic data states, not chrome).
 
 ## Colors
 
-A four-level neutral stack (canvas → carbon → bone → chalk) with exactly two chromatic accents — signal orange for live/flagged state and metric green for positive/complete state — plus one justified exception: red, reserved exclusively for destructive and failure states (failed ledger write, validation errors). Elevation is tonal contrast, not shadow: a light `bone` card landing on the `canvas` does the work a drop shadow would do.
+The atlas palette, ported verbatim as hex from the reference atlases' `:root` (DESIGN §4): a three-step surface ladder over a near-black canvas, one light ink, two muted steps, one hairline, one brass accent pair, and the semantic good/danger pair.
 
-**Primary (signal orange):** live and attention states — the active route tab indicator, verify-in-campaign flags, progress marks, accent strokes on data. **Never** a button fill or a large surface. It is a data voice, not a chrome colour.
+| Token       | Hex       | Role                                                                          |
+| ----------- | --------- | ----------------------------------------------------------------------------- |
+| `--bg`      | `#10171c` | Canvas — page base, all non-card regions                                      |
+| `--surface` | `#172129` | Surface ladder rung 1 — chrome wells, panels, table floors                    |
+| `--surface2`| `#1d2a33` | Surface ladder rung 2 — raised wells, banners                                 |
+| `--surface3`| `#23333e` | Surface ladder rung 3 — button fills, the brightest surface step              |
+| `--ink`     | `#eeeae2` | On-surface ink — text on the canvas and the surface ladder                    |
+| `--muted`   | `#b4c0c6` | Muted text — secondary copy on the ladder                                     |
+| `--faint`   | `#859aa7` | Dimmed text — non-essential dimming only                                      |
+| `--line`    | `#354651` | Hairline outlines, borders, dividers                                           |
+| `--accent`  | `#ddc485` | Brass — the single chromatic accent: links, state, data numerals, eyebrows    |
+| `--brass`   | `#ccaa72` | Dimmer brass — brand and decorative accents                                   |
+| `--good`    | `#adcead` | Positive/complete data states — verified claims, cleared flags                |
+| `--danger`  | `#f0aaa0` | Destructive/failure states — failed writes, validation errors                 |
 
-**Secondary (metric green):** positive data states — game-confirmed ledger completions, verified claims, successful write feedback. Also reserved for data surfaces, never chrome.
+**Semantic remap (existing roles → atlas values)** — the old Factory roles map onto the atlas tokens exactly:
 
-**Tertiary (neutral):** deliberately uncoloured (warm granite). The reference system permits exactly two chromatic accents; this slot exists only so token-based code keeps working, and it must never be given a hue.
-
-**Semantic Colours:**
-
-| Semantic  | oklch                   | Role                                                                  |
-| --------- | ----------------------- | --------------------------------------------------------------------- |
-| `success` | `oklch(0.794 0.089 138)` | Game-confirmed ledger items, verified claims, successful save feedback |
-| `warning` | `oklch(0.663 0.19 42)`   | Verify-in-campaign flags, objective appears complete but unconfirmed   |
-| `error`   | `oklch(0.65 0.2 27)`     | Failed ledger writes, content validation failures, broken references   |
-| `info`    | `oklch(0.77 0.007 53)`   | Neutral notices (e.g. "no campaign active"); deliberately not chromatic |
+| Role                       | Token                          |
+| -------------------------- | ------------------------------ |
+| background                 | `--bg`                          |
+| surface ladder             | `--surface` / `--surface2` / `--surface3` |
+| on-surface                 | `--ink`                         |
+| muted text                 | `--muted` / `--faint`           |
+| outline                    | `--line`                        |
+| primary / warning (signal) | `--accent` (the signal orange is gone) |
+| success                    | `--good`                        |
+| error                      | `--danger`                      |
 
 **Confidence states** (the product's core honesty mechanism) map onto the palette as:
 
-| State                 | Colour role           | Label & icon requirement                              |
-| --------------------- | --------------------- | ----------------------------------------------------- |
-| `confirmed`           | `success` green       | mono uppercase label "CONFIRMED" + check icon         |
-| `historical`          | `info` (pale stone)   | mono uppercase label "HISTORICAL" + clock icon        |
-| `inferred`            | `on-surface-variant`  | mono uppercase label "INFERRED" + branch icon         |
-| `verify-in-campaign`  | `warning` orange      | mono uppercase label "VERIFY" + flag icon             |
+| State                 | Colour role  | Label & icon requirement                              |
+| --------------------- | ------------ | ----------------------------------------------------- |
+| `verified`            | `--good`     | uppercase label "VERIFIED" + check icon               |
+| `verify-in-campaign`  | `--accent`   | uppercase label "VERIFY" + flag icon                  |
+| `historical`          | `--muted`    | uppercase label "HISTORICAL" + clock icon             |
+| `inferred`            | `--faint`    | uppercase label "INFERRED" + branch icon              |
 
-Borders (`outline` / `outline-variant`) are 1px hairlines, deliberately low-contrast — just visible enough to contain a table or panel without drawing attention from the data inside them.
+Borders (`--line`) are 1px hairlines, deliberately low-contrast — just visible enough to contain a table or panel without drawing attention from the data inside them.
 
 ### Accessibility of Colour
 
-**Colour is never the sole indicator of meaning.** Every confidence badge pairs its colour with a mono uppercase text label and an icon; ledger rows pair their state dot with a text state; error states pair the red border with an icon and descriptive text. A user who cannot distinguish orange from green still reads the full state from the label.
+**Colour is never the sole indicator of meaning.** Every confidence badge pairs its colour with an uppercase text label and an icon; ledger rows pair their state dot with a text state; error states pair the red border with an icon and descriptive text. A user who cannot distinguish the accents still reads the full state from the label.
 
 **Contrast compliance:** WCAG 2.2 AA (4.5:1) for all normal text, AAA (7:1) for body prose. Verified pairings (computed):
 
-| Text Role                  | Foreground                              | Background                            | Ratio      |
-| -------------------------- | --------------------------------------- | ------------------------------------- | ---------- |
-| Body prose on canvas       | `on-surface` (`oklch(0.949 0 0)`)       | `background` (`oklch(0.173 0 0)`)     | 16.4:1 (AAA) |
-| Muted copy on canvas       | `on-surface-variant` (`oklch(0.615 0.01 45)`) | `background`                     | 5.1:1 (AA)   |
-| Mono label on canvas       | `info` (pale stone)                     | `background`                          | 9.2:1 (AAA)  |
-| Card body text on bone     | `#060505`                               | `inverse-surface` (bone)              | 17.5:1 (AAA) |
-| Text on carbon surfaces    | `on-surface`                            | `surface-container` (carbon)          | 14.9:1 (AAA) |
-| `on-primary` on orange     | `primary` fill                          | `on-primary` (canvas)                 | 5.7:1 (AA)   |
-| Orange/green data on canvas | `primary` / `secondary`                | `background`                          | 5.7:1 / 10.3:1 |
+| Text Role                 | Foreground  | Background  | Ratio      |
+| ------------------------- | ----------- | ----------- | ---------- |
+| Body prose on canvas      | `--ink`     | `--bg`      | 15.1:1 (AAA) |
+| Muted copy on canvas      | `--muted`   | `--bg`      | 9.7:1 (AAA)  |
+| Brass text on canvas      | `--accent`  | `--bg`      | 10.6:1 (AAA) |
+| Faint (non-essential dim) | `--faint`   | `--bg`      | 6.2:1 (AA)   |
+
+The DESIGN's floor is 4.5:1 for text uses of brass on slate, with `--faint` for non-essential dimming only.
 
 ## Typography
 
-Two voices, one family — carried over from the reference: **Geist** carries all campaign content and interface prose at flat weight 400; **Geist Mono** carries the instrument labels (eyebrows, status tags, ledger column headers, version context, nav items) at 12px uppercase with tight tracking. The split is structural: Mono signals "system surface", proportional signals "page content".
+Two voices, from the atlases: **Georgia serif (system)** carries everything with authority — headings h1–h4 at weight 400, the brand, and numerals (route numerals, phase numbers, counts); **"Segoe UI" / Arial / system sans** carries all body copy and chrome. The scale follows the atlases' rendered headings (h1 2.2rem → h4 1.05rem), with body at 16px/1.5 and a small step (0.84rem) for notes and metadata.
 
-- **Geist (sans, content + UI):** all body copy, headings, buttons, nav, route plans. Weight 400 almost universally; 500 only where a label must dominate a dense surface. Authority is implied by size and negative tracking, never by bold weight — no weight 600 or heavier exists in the system.
-- **Geist Mono (mono, instrument voice):** captions, labels, status tags, confidence badges, ledger labels and units. Always uppercase at 12px, tight tracking (−0.02em). Also the family for numeric/tabular data at larger sizes.
+**The eyebrow is the instrument voice** — the one fixed label spec (DESIGN §4): 0.66rem uppercase, 1.8px tracking, weight 650, `--accent`. Section eyebrows, status tags, ledger column headers, version context, and nav labels all speak the eyebrow voice; seeing a brass uppercase label means "system surface", seeing proportional type means "campaign content". Geist and Geist Mono are gone entirely — the Factory's font dependency is dropped with them, and no webfont is loaded anywhere.
 
-**Scale principle:** display (44px) and headline roles set section identity with tight tracking (−0.025em → −0.01em as size drops); body sits at 16px/1.5 for long-session comfort (line-height never exceeds 1.5 — anything looser reads editorial, not technical); label and mono roles compress to 12–14px for dense instrument surfaces.
+- **Georgia serif (system, 400):** headings h1–h4, the brand, route numerals, phase numbers, counts. Authority comes from the serif voice and size, never from weight.
+- **"Segoe UI" / Arial / system sans:** body copy, buttons, nav, chrome. Weight 400 by default; labels take the eyebrow voice.
+- **Eyebrow (instrument):** the fixed 0.66rem uppercase brass spec (DESIGN §4) — labels, status, metadata, never a sentence.
 
-**Loading:** Geist and Geist Mono are self-hosted (bundled with the Vite build via `@fontsource`), not fetched from a CDN — a font fetch failure is not an acceptable way to find out, and a served page must stay readable offline (no internet). Reading runs over the local HTTP server (`npm run build` once, then `npm run serve` or `npm run dev` at `http://127.0.0.1`). A direct `file://` open of `dist/index.html` is blocked in Chromium — module scripts, fetch, and XHR fail (verified 2026-10-02; see ADR-0001). *Correction note:* the reader needs no build step once the server is up; the server itself is never optional for reading. Fallback stacks: `ui-sans-serif, system-ui` for Geist; `ui-monospace, 'JetBrains Mono', 'IBM Plex Mono'` for Geist Mono.
+**Scale principle:** the heading scale is 2.2rem / 1.6rem / 1.18rem / 1.05rem (serif, weight 400); body sits at 16px / 1.5 for long-session comfort; `--text-small` (0.84rem) compresses notes, source lines, and metadata.
+
+**Loading:** no webfonts. Georgia and Segoe UI are system families, so nothing is fetched — the page stays readable offline (no internet), `index.html` carries no font link, and there is no `@fontsource` dependency. Reading runs over the local HTTP server (`npm run build` once, then `npm run serve` or `npm run dev` at `http://127.0.0.1`). A direct `file://` open of `dist/index.html` is blocked in Chromium — module scripts, fetch, and XHR fail (verified 2026-10-02; see ADR-0001). *Correction note:* the reader needs no build step once the server is up; the server itself is never optional for reading. Fallback stacks live in the tokens: `--serif` = `Georgia, 'Times New Roman', serif`; `--sans` = `'Segoe UI', Arial, sans-serif`.
 
 ### Value & Number Formatting
 
-- Turn counts, upkeep, and income: raw integers with tabular figures (mono), thousands separator where ≥ 1000 (e.g. `1,250`).
+- Turn counts, upkeep, and income: raw integers with tabular figures (serif numerals), thousands separator where ≥ 1000 (e.g. `1,250`).
 - Army templates: unit counts as `×N` suffix next to the unit name, never an icon-only count.
 - Progress (ledger): explicit `n / m` pair (e.g. `3 / 7`) beside any progress bar — the bar is decoration, the numbers are the data.
-- Dates/version context: `patch <X> · VCO <version>` in mono label style, always together, never just one.
+- Dates/version context: `patch <X> · VCO <version>` in the small instrument style, always together, never just one.
 
 ## Design Principles
 
-1. **Monochrome chrome, data-voice colour:** signal orange and metric green appear only on live state, flags, and data — never on button fills, card surfaces, or large text. *Test: remove both accents and the interface must remain fully legible and operable.*
-2. **Flat weight, tight tracking:** weight 400 for everything except the rare dominant label (500). No 600+, no bold headings. *Test: any `font-weight ≥ 600` in a diff is a defect.*
-3. **Contrast is elevation:** no drop shadows, glows, or blurs anywhere; depth comes from the bone-on-canvas figure/ground move and spacing rhythm. *Test: `box-shadow` is banned except the 1px near-black hairline pattern.*
-4. **Mono means instrument:** section eyebrows, status labels, ledger headers, and version context are Geist Mono uppercase 12px; campaign prose is never set in Mono. *Test: a Mono string that is a sentence (not a label/unit/status) is a defect.*
-5. **The system is not soft:** radii stay at 3px (buttons/nav/inputs), 10px (cards), 20px (largest panels). *Test: any radius outside this set is a defect.*
+1. **Quiet chrome, one brass accent:** `--accent` (brass) appears only on state, flags, links, data numerals, and eyebrows — never on button fills, card surfaces, or large text. *Test: remove `--accent` and the interface must remain fully legible and operable.*
+2. **Serif authority, sans body:** headings, numerals, and the brand are Georgia serif at weight 400; body and chrome are "Segoe UI"/Arial sans. Authority comes from the serif voice and size, never from bold weight — the only heavier weight in the system is the fixed eyebrow spec at 650. *Test: any `font-weight ≥ 700` or a sans heading in a diff is a defect.*
+3. **Contrast is elevation:** no drop shadows, glows, or blurs anywhere except the sticky header's backdrop blur; depth comes from the surface ladder, the card gradient, and the 2px card top border. *Test: `box-shadow` is banned except the 1px near-black hairline pattern.*
+4. **The eyebrow means instrument:** section eyebrows, status labels, ledger headers, and version context are the eyebrow spec — 0.66rem uppercase brass; campaign prose is never set in the eyebrow voice. *Test: an eyebrow string that is a sentence (not a label/unit/status) is a defect.*
+5. **The system is not soft:** radii are 4px (buttons, badges), 5px (cards, panels, banners), and full (chips, dots); kbd chips keep the atlas's 3px. *Test: any radius outside this set is a defect.*
 6. **State is labelled:** colour is never the sole carrier of meaning — every confidence badge, ledger state, and status dot carries a text label and icon. *Test: the four confidence states remain distinguishable when desaturated.*
 7. **Mechanical motion:** transitions 0.15s–0.2s, `cubic-bezier(0.4, 0, 0.2, 1)`, colour/border/opacity together like a switch flipping; no spring physics, parallax, or scroll-driven effects; `prefers-reduced-motion` disables everything. *Test: no transition duration outside the 0.15–0.2s band in a diff.*
 
 ## Layout & Spacing
 
-Single-column desktop site, max content width **1200px** centered on a full-bleed canvas — the canvas never becomes light. Primary regions in order: sticky **top nav bar** (64px), then the **content area**; on faction/lord pages a secondary **route tab strip** sits directly under the nav. No sidebar, no mega-menu — the surface stays uncluttered; navigation depth (home → faction → lord → route → section) is expressed through the tab strip and in-page anchors, not through panes.
+Full-bleed dark canvas with the atlas's ultrawide measure: **`.wrap`** = 100% width / `max-width: 3360px` / 24px side padding, centred — nothing is clamped to a narrow column; the canvas never becomes light. Primary regions in order: the **sticky header** (~170px — the DESIGN's three tiers: topline, routebar, pagenav — with a backdrop blur), then the content area; the header's pagenav carries the page tabs, the routebar the route tabs. No sidebar, no mega-menu — the surface stays uncluttered; navigation depth (home → lord → route → section) is expressed through the header tiers and in-page anchors, not through panes.
 
-**Spacing rhythm** on the 8px base: `stack-xs` (8) inside components, `stack-sm` (16) between related elements, `stack-md` (24) card padding and grid gaps, `stack-lg` (40) between content groups, `stack-xl` (56) between page regions, `stack-2xl` (96) between major sections on long route pages — the page breathes the way the reference does. Hard dimensions: header 64px, table rows 40px, gutter 24px.
+**Spacing rhythm** on the 16px base gap: `--gap-xs` (8) inside components, `--gap-base` (16) between related elements, `--gap-md` (24) between sibling blocks, `--gap-lg` (40) between content groups, `--gap-xl` (56) between page regions, `--gap-2xl` (96) between major sections on long pages. Hard dimensions: header 170px, card padding 22px, table rows 40px, wrap side padding 24px.
 
-Route pages are the long-form surface: single column, `stack-lg` between sections, mono eyebrow + headline per section, with the dashboard (army templates, skills, research, settlements, mechanics) rendered as tabbed panels in one region rather than separate pages.
+Content grids follow the atlas: **`two-track`** (1.65fr / 0.8fr) for split layouts — the route plan's section body beside the "five moves" aside — and the desk's three-column card grid; below ~900px the grids stack (the atlas targets wide desktops; the site keeps the delivered responsive policy). The route plan is the long-form surface: the two-track body keeps `--gap-lg` between sections, each section a bordered Content Panel with the eyebrow-vocal heading.
 
 ## Elevation & Depth
 
-No shadows. Depth is figure/ground contrast — a bone card on the obsidian canvas does the work a drop shadow would do elsewhere — plus the four tonal dark steps for stacked neutral surfaces. The only permitted shadow-like token is a 1px near-black hairline. This keeps the interface flat and instrument-like, and means "raised" always has a semantic meaning (this surface contains interactive or stateful content), not a decorative one.
+No shadows (except the sticky header's backdrop blur). Depth is figure/ground contrast: the card gradient fill on the canvas, the three surface steps for stacked neutral surfaces, and the 2px light top border that makes every card read as a bound page. The only permitted shadow-like token is a 1px hairline. This keeps the interface flat and instrument-like, and means "raised" always has a semantic meaning (this surface contains interactive or stateful content), not a decorative one.
 
-- **Level 0 (obsidian canvas):** `background` — page base, all non-card regions, footer.
-- **Level 1 (carbon lift):** `surface-container` — nav wells, inline controls, hairline-bordered panels, table containers.
-- **Level 2 (bone card):** `inverse-surface` — the signature figure: route identity cards, featured panels, the one bright object per view.
-- **Level 3 (chalk elevated):** `oklch(0.985 0 0)` — light button fills and the top of the light stack; appears at most once per view.
+- **Level 0 (canvas):** `--bg` — page base, all non-card regions, footer.
+- **Level 1 (surface):** `--surface` — wells, panels, strips, table floors; `--surface2` for raised wells and banners.
+- **Level 2 (card):** the `--card-fill` gradient with the 2px `--card-border-top-color` top border — the signature figure: home cards, desk cards, featured surfaces.
+- **Level 3 (button):** `--surface3` — the `.btn` fill, the brightest surface step.
 
 ### Z-Index Scale
 
@@ -300,15 +210,23 @@ Every component that creates a stacking context declares its `z-index` from this
 
 ## Shapes
 
-**Sharp-instrument.** The reference's flat geometry, carried over: minimal radii, 1px hairline borders, zero shadow dependency.
+**The atlas's flat geometry.** Minimal radii, 1px hairline borders, 2px card top borders, zero shadow dependency.
 
-- **Buttons, nav elements, inputs, badges:** `rounded.xs` (3px).
-- **Cards, panels, tables, tab strips:** `rounded.md` (10px).
-- **Largest panels, modals:** `rounded.lg` (20px).
-- **Status dots, progress bars, chips:** `rounded.full`.
-- **Focus Rings:** 2px `primary` (orange) outline at 3px offset via `:focus-visible` only — orange as a focus ring is a state, so it is in-policy. Never `:focus`.
+- **Buttons, badges:** `--button-radius` (4px); kbd chips keep the atlas's 3px (`--kbd-radius`).
+- **Cards, panels, banners, tables, tab strips:** `--card-radius` (5px).
+- **Status dots, progress bars, chips:** `--radius-full`.
+- **Focus Rings:** 2px `--accent` outline at 3px offset via `:focus-visible` only — brass as a focus ring is a state, so it is in-policy. Never `:focus`.
 
 ## Components
+
+### Component treatments (DESIGN §4)
+
+The atlas component treatments, values verbatim from the atlases (the token-provenance rule).
+
+- **Cards:** `--card-fill` gradient (`linear-gradient(130deg,#1b2831,#172129)`), 1px `--card-border-color` (`--line`) border plus a 2px top border in `--card-border-top-color` (`#536472`), `--card-radius` (5px), `--card-padding` (22px).
+- **Buttons (`.btn`):** `--button-fill` (`--surface3`), 1px `--button-border-color` (`#546775`) border, `--button-radius` (4px), `--button-padding` (8px 12px). Hover lifts the fill one surface step; the quiet/ghost variant is transparent with a `--line` border.
+- **Links:** `--link-color` (`--accent`); hover shifts to `--brass`; prose links underline.
+- **kbd chips:** `--kbd-size` (0.68rem), 1px `--kbd-border-color` (`--line`) border with a 2px bottom edge, `--kbd-radius` (3px), `--kbd-padding` (`0 5px`), `--kbd-color` (`--muted`).
 
 ### Top Navigation Bar
 
@@ -377,10 +295,10 @@ The signature figure on each route page — the one bright object in the view.
 
 ### Buttons
 
-- **Container (primary — dark filled):** `surface-container` (carbon) fill, `on-surface` text, 3px radius, 4px/14px padding, `body-md`. No border, no shadow.
-- **Container (ghost):** transparent, 1px `outline` border, 0px radius (flat), `on-surface` text.
-- **States:** default / hover (text + border shift toward chalk — no fill appears on ghost) / active (`surface-container-high`) / focus (`:focus-visible` ring) / disabled (40% opacity, `cursor-not-allowed`). Transitions 0.15s colour-only.
-- **Variants:** primary and ghost only. **No chromatic button fills exist** — the reference's core rule; a coloured CTA would break the monochrome chrome.
+- **Container (filled):** `--button-fill` (`--surface3`) fill, `--ink` text, 1px `--button-border-color` (`#546775`) border, `--button-radius` (4px), `--button-padding` (8px 12px). Hover lifts the fill one ladder step (`--surface2`).
+- **Container (ghost):** transparent, 1px `--line` border, `--ink` text; hover brightens text and border to `--ink` only — no fill appears on ghost.
+- **States:** default / hover (fill or colour shift — no layout shift) / focus (`:focus-visible` ring) / disabled (40% opacity, `cursor-not-allowed`). Transitions 0.15s colour-only.
+- **Variants:** filled and ghost only. **No chromatic button fills exist** — `--accent` is reserved for state, data, and links, never a fill; a coloured CTA would break the quiet-chrome rule.
 - **Implemented:** route pages render Start ledger or Open ledger actions as applicable; the ledger page provides Mark complete and Delete actions with inline confirmation and Cancel.
 
 ### Search Field & Results

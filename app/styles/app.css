@@ -1,15 +1,20 @@
-/* App shell styles (DESIGN.md Layout & Spacing / Components — app-shell commit).
+/* App shell styles (DESIGN.md Layout & Spacing / Components — the atlas
+   visual-system swap, feature DESIGN §4).
 
    Token-only rule: every colour, radius, font, and spacing value references a
-   `tokens.css` custom property. The only non-token values are dimensions and
-   numeric constants DESIGN.md pins in words: 1px hairlines, the 2px primary
-   underline / focus ring at 3px offset, the 0.15s transition band with the
-   DESIGN easing curve, and the DESIGN-prescribed font fallback stacks. */
+   `tokens.css` custom property. The only non-token values are the fixed
+   dimensional/numeric constants the DESIGN pins: 1px hairlines, the 2px card
+   top border / 2px focus ring and underlines (thicknesses; colours are
+   tokens) at 3px offset, the CSS-specific corner zeroes, the 0.15s
+   transition band with the DESIGN easing curve, the 60ch prose measure, the
+   state opacities (0.6 dimmed, 0.4 disabled), the 12px badge icon size and
+   `1.22`/`1.5` decimal multipliers carried by `--heading-line-height` /
+   `--text-line-height` tokens, and arithmetic on tokens (calc over the gap
+   tokens). No Factory-era custom-property scheme survives: every
+   reference resolves to a token defined in `tokens.css` or to the two
+   app.css-scoped component vars (`--ledger-table-cols`, `--transition-standard`). */
 
 :root {
-  /* DESIGN.md Typography "Loading" fallback stacks; families come from tokens. */
-  --font-sans-fallback: ui-sans-serif, system-ui;
-  --font-mono-fallback: ui-monospace, "JetBrains Mono", "IBM Plex Mono";
   /* DESIGN.md Animations & Transitions: one mechanical switch, colour/border/opacity only. */
   --transition-standard:
     color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
@@ -26,14 +31,15 @@
 
 body {
   margin: 0;
-  background: var(--color-background);
-  color: var(--color-on-surface);
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
 }
 
+/* Georgia serif authority (DESIGN §4): h1–h4 at weight 400, atlas scale. */
 h1,
 h2,
 h3,
@@ -41,22 +47,40 @@ h4,
 h5,
 h6 {
   margin-block: 0;
-  font-family: var(--font-headline-md-family), var(--font-sans-fallback);
-  font-weight: var(--font-headline-md-weight);
+  font-family: var(--serif);
+  font-weight: var(--heading-weight);
+  line-height: var(--heading-line-height);
+}
+
+h1 {
+  font-size: var(--h1-size);
+}
+
+h2 {
+  font-size: var(--h2-size);
+}
+
+h3 {
+  font-size: var(--h3-size);
+}
+
+h4 {
+  font-size: var(--h4-size);
 }
 
 p {
   margin-block: 0;
 }
 
+/* Links are brass (DESIGN §4); hover settles into the dimmer brass. */
 a {
-  color: var(--color-on-surface);
+  color: var(--link-color);
   text-decoration: none;
   transition: var(--transition-standard);
 }
 
 a:hover {
-  color: var(--color-on-background);
+  color: var(--brass);
 }
 
 button {
@@ -67,276 +91,287 @@ button {
 
 /* Focus is a state, never a style request: ring only via :focus-visible. */
 :focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
+}
+
+/* ─── The atlas measure: .wrap (100% / 3360px / 24px side padding) ──────── */
+
+.site-main {
+  max-width: var(--wrap-max-width);
+  margin-inline: auto;
+  padding: var(--gap-lg) var(--wrap-side-padding) var(--gap-2xl);
+}
+
+/* The DESK/PLAN shell containers (Commits 4–10) share the atlas measure. */
+.wrap {
+  width: var(--wrap-width);
+  max-width: var(--wrap-max-width);
+  margin-inline: auto;
+  padding-inline: var(--wrap-side-padding);
 }
 
 /* ─── Skip link — first in DOM (index.html's wordmark slot is moved inside the nav) ─── */
 
 .skip-link {
   position: absolute;
-  top: calc(var(--space-header-height) + var(--space-stack-sm));
-  left: var(--space-gutter);
+  top: calc(var(--header-height) + var(--gap-base));
+  left: var(--wrap-side-padding);
   transform: translateY(-200%);
-  background: var(--color-surface-container);
-  border: 1px solid var(--color-outline);
-  border-radius: var(--radius-xs);
-  padding: var(--space-stack-xs) var(--space-stack-sm);
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--button-radius);
+  padding: var(--gap-xs) var(--gap-base);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
 }
 
 .skip-link:focus-visible {
   transform: translateY(0);
 }
 
-/* ─── Top navigation — sticky 64px bar (z-index scale: base 0 / sticky 10) ─── */
+/* ─── Top navigation — the F2-era header (token-reference updates only; ───
+   replaced by the atlas header in Commit 10). The height carries the DESIGN's
+   ~170px header measure so the chrome makes room for the atlas tiers. */
 
 .top-nav {
   position: sticky;
   top: 0;
   z-index: 10;
-  height: var(--space-header-height);
-  background: var(--color-background);
-  border-bottom: 1px solid var(--color-outline-variant);
+  height: var(--header-height);
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
 }
 
 .top-nav__inner {
   display: flex;
   align-items: center;
-  gap: var(--space-stack-md);
+  gap: var(--gap-md);
   height: 100%;
-  max-width: var(--space-content-max-width);
+  max-width: var(--wrap-max-width);
   margin-inline: auto;
-  padding-inline: var(--space-gutter);
+  padding-inline: var(--wrap-side-padding);
 }
 
-/* Wordmark slot from index.html: instrument voice, left side of the bar. */
+/* Wordmark slot from index.html — the brand voice is Georgia serif (§4). */
 #wordmark {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--serif);
+  font-size: var(--h4-size);
+  font-weight: var(--heading-weight);
   text-transform: uppercase;
-  color: var(--color-on-surface);
+  color: var(--ink);
   white-space: nowrap;
 }
 
 .top-nav__links {
   display: flex;
   align-items: center;
-  gap: var(--space-stack-md);
+  gap: var(--gap-md);
 }
 
 .top-nav__link {
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
   border-bottom: 2px solid transparent;
 }
 
 .top-nav__link:hover {
-  color: var(--color-on-background);
+  color: var(--ink);
 }
 
 .top-nav__link--active {
-  border-bottom-color: var(--color-primary);
+  border-bottom-color: var(--accent);
 }
 
-/* ─── Route tab strip — under the sticky nav on lord and route pages ─────── */
+/* ─── Route tab strip — F2-era (token-reference updates only; the atlas ───
+   routebar owns this surface from Commit 10). Sticks below the 170px header. */
 
-/* Carbon bar (DESIGN.md Route Tab Strip): surface-container fill, hairline
-   bottom border, 10px top radius, clamped to the content column. The strip
-   recovers the shared stack-lg top padding so its natural position sits
-   flush under the nav, and it rides the z-10 sticky layer alongside the nav
-   (z-index scale: base 0 / sticky 10) while the page scrolls beneath. Tabs
-   transition colour/border only (the --transition-standard band; disabled
-   by the reduced-motion block below), so no state change shifts layout. */
 .route-tab-strip {
   position: sticky;
-  top: var(--space-header-height);
+  top: var(--header-height);
   z-index: 10;
-  margin-block-start: calc(-1 * var(--space-stack-lg));
+  margin-block-start: calc(-1 * var(--gap-lg));
   display: flex;
   align-items: stretch;
-  gap: var(--space-stack-sm);
-  padding: var(--space-stack-xs) var(--space-stack-sm);
-  background: var(--color-surface-container);
-  border-bottom: 1px solid var(--color-outline-variant);
-  border-radius: var(--radius-md) var(--radius-md) var(--radius-none) var(--radius-none);
+  gap: var(--gap-base);
+  padding: var(--gap-xs) var(--gap-base);
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  border-radius: var(--card-radius) var(--card-radius) 0 0;
 }
 
-/* Tab states: default on-surface-variant; hover on-surface (colour only);
-   active on-surface + the 2px primary underline (a constant transparent
-   border that only changes colour). The focus ring is the global
-   :focus-visible rule (2px primary, 3px offset — DESIGN.md Shapes). */
+/* Tab states: default muted; hover ink; active ink + the 2px accent
+   underline (a constant transparent border that only changes colour). The
+   focus ring is the global :focus-visible rule (2px accent, 3px offset). */
 .route-tab {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: calc(var(--space-unit) / 2);
-  padding: calc(var(--space-unit) / 2) var(--space-stack-sm);
+  gap: calc(var(--gap-xs) / 2);
+  padding: calc(var(--gap-xs) / 2) var(--gap-base);
   border-bottom: 2px solid transparent;
-  color: var(--color-on-surface-variant);
+  color: var(--muted);
   transition: var(--transition-standard);
 }
 
 .route-tab:hover {
-  color: var(--color-on-surface);
+  color: var(--ink);
 }
 
 .route-tab--active {
-  color: var(--color-on-surface);
-  border-bottom-color: var(--color-primary);
+  color: var(--ink);
+  border-bottom-color: var(--accent);
 }
 
 .route-tab__label {
   display: flex;
   align-items: baseline;
-  gap: var(--space-stack-xs);
+  gap: var(--gap-xs);
 }
 
-/* Mono uppercase route code — the instrument voice (label-md). */
+/* The route code — the eyebrow instrument voice, muted. */
 .route-tab__code {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
+  color: var(--muted);
 }
 
-/* Proportional route title — campaign content (body-md), never Mono. */
+/* Route title — campaign prose (sans), never the instrument voice. */
 .route-tab__title {
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
 }
 
-/* Official VCO title dimmed beneath the label line (label-sm) — always
-   distinguished from the guide-created thematic subtitle, so it stays
-   on-surface-variant in every tab state (DESIGN.md Route Tab Strip). */
+/* Official VCO title dimmed beneath the label line — muted in every state. */
 .route-tab__vco {
-  font-family: var(--font-label-sm-family), var(--font-mono-fallback);
-  font-size: var(--font-label-sm-size);
-  font-weight: var(--font-label-sm-weight);
-  line-height: var(--font-label-sm-line-height);
-  letter-spacing: var(--font-label-sm-letter-spacing);
-  color: var(--color-on-surface-variant);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
-/* Reserved F6 search slot: an empty carbon well, never interactive in F1. */
+/* Reserved F6 search slot: an empty well, never interactive in F1. */
 .search-well {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  min-width: calc(var(--space-unit) * 18);
+  min-width: calc(var(--gap-xs) * 18);
   margin-inline-start: auto;
-  padding-block: calc(var(--space-unit) / 2);
-  padding-inline: var(--space-stack-sm);
-  background: var(--color-surface-container);
-  border: 1px solid var(--color-outline);
-  border-radius: var(--radius-xs);
+  padding-block: calc(var(--gap-xs) / 2);
+  padding-inline: var(--gap-base);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--button-radius);
 }
 
 .search-well__placeholder {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
-}
-
-/* ─── Content column — starts at the 64px nav + stack-lg, clamped to 1200px ─── */
-
-.site-main {
-  max-width: var(--space-content-max-width);
-  margin-inline: auto;
-  padding: var(--space-stack-lg) var(--space-gutter) var(--space-stack-2xl);
+  color: var(--muted);
 }
 
 /* ─── Instrument typography ─────────────────────────────────────────────── */
 
-/* Mono uppercase section eyebrow / status line. */
+/* The eyebrow spec (DESIGN §4 verbatim): 0.66rem uppercase, 1.8px tracking,
+   weight 650, --accent. Every label that used to be Mono is now an eyebrow. */
 .eyebrow {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--eyebrow-color);
 }
 
-/* `patch <X> · VCO <version>` — mono label style, copy never uppercased. */
+/* `patch <X> · VCO <version>` — small instrument line, copy never uppercased. */
 .version-context {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
-  color: var(--color-on-surface-variant);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
-/* ─── Buttons — 3px radius, no chromatic fills ─────────────────────────── */
+/* ─── Buttons — the atlas .btn (surface3 fill, #546775 border, 4px radius) ─ */
 
 .button {
   display: inline-flex;
   align-items: center;
-  padding: calc(var(--space-unit) / 2) var(--space-stack-sm);
-  border-radius: var(--radius-xs);
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
+  justify-content: center;
+  padding: var(--button-padding);
+  border-radius: var(--button-radius);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: 1.25;
   cursor: pointer;
 }
 
-/* Dark filled (carbon) — the F1 shell has exactly the Retry control. */
+/* Filled (the atlas .btn): surface3 fill, 1px #546775 border. Hover lifts
+   the fill one ladder step (surface2), colour only. */
 .button--primary {
-  background: var(--color-surface-container);
-  color: var(--color-on-surface);
-  border: 0;
+  background: var(--button-fill);
+  color: var(--ink);
+  border: 1px solid var(--button-border-color);
 }
 
 .button--primary:hover {
-  background: var(--color-surface-container-high);
+  background: var(--surface2);
 }
 
-/* Ghost — flat (0px radius), hairline outline only. */
+/* Ghost (the atlas .btn.quiet): transparent, line border; hover brightens
+   text + border to ink — no fill appears on ghost. */
 .button--ghost {
   background: transparent;
-  color: var(--color-on-surface);
-  border: 1px solid var(--color-outline);
-  border-radius: var(--radius-none);
+  color: var(--ink);
+  border: 1px solid var(--line);
 }
 
 .button--ghost:hover {
-  color: var(--color-on-background);
-  border-color: var(--color-on-surface);
+  color: var(--ink);
+  border-color: var(--ink);
 }
 
-/* Destructive variant (ghost geometry, error ink): the delete action and
-   its confirm wear red text + border — never a coloured fill (the Buttons
-   contract's no-chromatic-fills rule); the confirmation copy names the
-   removal, so colour is never the sole indicator. Hover brightens the red
-   (the `on-error-container` light-tint token), the ghost hover pattern. */
+/* Destructive variant (ghost geometry, danger ink): the delete action and
+   its confirm wear red text + border — never a coloured fill (the DESIGN's
+   no-chromatic-fills rule); the confirmation copy names the removal, so
+   colour is never the sole indicator. Hover keeps the danger ink. */
 .button--ghost.button--danger {
-  color: var(--color-error);
-  border-color: var(--color-error);
+  color: var(--danger);
+  border-color: var(--danger);
 }
 
 .button--ghost.button--danger:hover {
-  color: var(--color-on-error-container);
-  border-color: var(--color-on-error-container);
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+/* ─── kbd chips — the atlas's keyboard-chip treatment (DESIGN §4) ─────────
+   Shared by the future toolbar kbd chips and inline prose code: 0.68rem,
+   1px line border with a 2px bottom edge, 3px radius, 0 5px padding, muted. */
+
+kbd,
+.prose code {
+  font-size: var(--kbd-size);
+  border: 1px solid var(--kbd-border-color);
+  border-bottom-width: 2px;
+  border-radius: var(--kbd-radius);
+  padding: var(--kbd-padding);
+  color: var(--kbd-color);
 }
 
 /* ─── Home: lord cards / explicit empty state ──────────────────────────── */
@@ -344,67 +379,64 @@ button {
 .lords {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-md);
+  gap: var(--gap-md);
 }
 
+/* The atlas card treatment (§4): gradient fill, line border + 2px light top
+   border, 5px radius, 22px padding. */
 .lord-card {
   display: block;
-  background: transparent;
-  border: 1px solid var(--color-outline-variant);
-  border-radius: var(--radius-md);
-  padding: var(--space-stack-md);
+  background: var(--card-fill);
+  border: 1px solid var(--card-border-color);
+  border-top: 2px solid var(--card-border-top-color);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
 }
 
 .lord-card:hover {
-  border-color: var(--color-outline);
+  border-color: var(--muted);
 }
 
 .lord-card__name {
-  font-family: var(--font-headline-md-family), var(--font-sans-fallback);
-  font-size: var(--font-headline-md-size);
-  font-weight: var(--font-headline-md-weight);
-  line-height: var(--font-headline-md-line-height);
-  letter-spacing: var(--font-headline-md-letter-spacing);
-  color: var(--color-on-surface);
+  color: var(--ink);
 }
 
 .lord-card__faction {
-  margin-top: var(--space-stack-xs);
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface-variant);
+  margin-top: var(--gap-xs);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
 .lord-card .version-context {
-  margin-top: var(--space-stack-xs);
+  margin-top: var(--gap-xs);
 }
 
 .empty-state {
-  border: 1px solid var(--color-outline-variant);
-  border-radius: var(--radius-md);
-  padding: var(--space-stack-lg);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  padding: var(--gap-lg);
 }
 
 .empty-state__label {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--eyebrow-color);
 }
 
 .empty-state__copy {
   max-width: 60ch;
-  margin-top: var(--space-stack-sm);
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface-variant);
+  margin-top: var(--gap-base);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
 /* ─── Loading (boot only) ──────────────────────────────────────────────── */
@@ -413,97 +445,86 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-stack-xs);
-  padding-block: var(--space-stack-lg);
+  gap: var(--gap-xs);
+  padding-block: var(--gap-lg);
 }
 
 .loading__label {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--eyebrow-color);
 }
 
 .loading__bar {
-  width: calc(var(--space-unit) * 20);
+  width: calc(var(--gap-xs) * 20);
   height: 1px;
-  background: var(--color-primary);
+  background: var(--accent);
 }
 
 /* ─── Boot error / not found: explicit states, never blank space ───────── */
 
 .boot-error {
-  border: 1px solid var(--color-error);
-  border-radius: var(--radius-md);
-  padding: var(--space-stack-md);
+  border: 1px solid var(--danger);
+  border-radius: var(--card-radius);
+  padding: var(--gap-md);
 }
 
 .boot-error__eyebrow {
-  color: var(--color-error);
+  color: var(--danger);
 }
 
 .boot-error__title {
-  margin-top: var(--space-stack-xs);
-  font-family: var(--font-headline-md-family), var(--font-sans-fallback);
-  font-size: var(--font-headline-md-size);
-  font-weight: var(--font-headline-md-weight);
-  line-height: var(--font-headline-md-line-height);
-  letter-spacing: var(--font-headline-md-letter-spacing);
-  color: var(--color-on-surface);
+  margin-top: var(--gap-xs);
+  color: var(--ink);
 }
 
 .boot-error__detail {
-  margin-top: var(--space-stack-sm);
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface-variant);
+  margin-top: var(--gap-base);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
 .boot-error__file,
 .boot-error__field {
-  font-family: var(--font-mono-md-family), var(--font-mono-fallback);
-  font-size: var(--font-mono-md-size);
-  font-weight: var(--font-mono-md-weight);
-  line-height: var(--font-mono-md-line-height);
-  color: var(--color-on-surface);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
 }
 
 .boot-error .button {
-  margin-top: var(--space-stack-md);
+  margin-top: var(--gap-md);
 }
 
 .not-found {
-  border: 1px solid var(--color-outline-variant);
-  border-radius: var(--radius-md);
-  padding: var(--space-stack-lg);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  padding: var(--gap-lg);
 }
 
 .not-found__title {
-  margin-top: var(--space-stack-xs);
-  font-family: var(--font-headline-md-family), var(--font-sans-fallback);
-  font-size: var(--font-headline-md-size);
-  font-weight: var(--font-headline-md-weight);
-  line-height: var(--font-headline-md-line-height);
-  letter-spacing: var(--font-headline-md-letter-spacing);
-  color: var(--color-on-surface);
+  margin-top: var(--gap-xs);
+  color: var(--ink);
 }
 
 .not-found__copy {
-  margin-top: var(--space-stack-sm);
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface-variant);
+  margin-top: var(--gap-base);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
 .not-found .button {
-  margin-top: var(--space-stack-md);
+  margin-top: var(--gap-md);
 }
 
 /* ─── Lord page ────────────────────────────────────────────────────────── */
@@ -511,206 +532,190 @@ button {
 .lord-page {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-xl);
+  gap: var(--gap-xl);
 }
 
 .lord-page__title {
-  margin-top: var(--space-stack-xs);
-  font-family: var(--font-headline-lg-family), var(--font-sans-fallback);
-  font-size: var(--font-headline-lg-size);
-  font-weight: var(--font-headline-lg-weight);
-  line-height: var(--font-headline-lg-line-height);
-  letter-spacing: var(--font-headline-lg-letter-spacing);
-  color: var(--color-on-surface);
+  margin-top: var(--gap-xs);
+  color: var(--ink);
 }
 
 /* ─── Version Banner (DESIGN.md "Version Banner"; package `version-banner`) ───
-   The survey-proof strip in the page header, replacing the plain
-   version-context line: `surface-container-low` floor with a 1px
-   `outline-variant` border, 10px radius, `stack-sm` padding; the fixed
-   VERIFIED AGAINST mono eyebrow over the `mono-md` `patch <X> · VCO
-   <version>` pairing, and the open-flags chip — one rounded-full chip in
-   both roles: the warning-role anchor while flags are open (a same-lord
-   hash whose click scrolls to the flagged section, so the router grammar
-   stays untouched) or the non-link success chip at zero. The label is mono
-   uppercase in both roles, with the state palette exactly like the
-   Confidence Badge/cleared-state treatments. Transitions ride the
+   The survey-proof strip in the page header (it moves to the desk in Commit
+   4): `--surface2` floor with a 1px `--line` border at the card radius, the
+   fixed VERIFIED AGAINST eyebrow over the small `patch <X> · VCO <version>`
+   pairing, and the open-flags chip — one rounded-full chip in both roles:
+   the warning-role anchor while flags are open (a same-lord hash whose click
+   scrolls to the flagged section) or the non-link success chip at zero. The
+   label is the eyebrow voice in both roles, with the state palette exactly
+   like the Confidence Badge/cleared-state treatments. Transitions ride the
    `--transition-standard` band and are disabled by the
    `prefers-reduced-motion` block at the end of this file. */
 
 .version-banner {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-xs);
-  margin-top: var(--space-stack-sm);
-  border: 1px solid var(--color-outline-variant);
-  border-radius: var(--radius-md);
-  padding: var(--space-stack-sm);
-  background: var(--color-surface-container-low);
+  gap: var(--gap-xs);
+  margin-top: var(--gap-base);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  padding: var(--gap-base);
+  background: var(--surface2);
 }
 
 .version-banner__eyebrow {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--eyebrow-color);
 }
 
 .version-banner__version {
-  font-family: var(--font-mono-md-family), var(--font-mono-fallback);
-  font-size: var(--font-mono-md-size);
-  font-weight: var(--font-mono-md-weight);
-  line-height: var(--font-mono-md-line-height);
-  color: var(--color-on-surface);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
 .version-chip {
   display: inline-flex;
   align-items: center;
   align-self: flex-start;
-  padding: calc(var(--space-unit) / 2) var(--space-stack-sm);
+  padding: calc(var(--gap-xs) / 2) var(--gap-base);
   border: 1px solid;
   border-radius: var(--radius-full);
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface);
+  color: var(--ink);
   transition: var(--transition-standard);
 }
 
 /* The warning role — the open-flags anchor keeps its state ink and border on
    hover (the global a:hover would otherwise mute the label's state colour). */
 .version-chip--warning {
-  border-color: var(--color-warning);
-  background: color-mix(in srgb, transparent 85%, var(--color-warning-container));
-  color: var(--color-warning);
+  border-color: var(--accent);
+  background: color-mix(in srgb, transparent 85%, var(--accent));
+  color: var(--accent);
 }
 
 .version-chip--warning:hover {
-  color: var(--color-warning);
+  color: var(--accent);
 }
 
 /* The success role — the cleared state is a plain span, never a link. */
 .version-chip--success {
-  border-color: var(--color-success);
-  background: color-mix(in srgb, transparent 85%, var(--color-success-container));
-  color: var(--color-success);
+  border-color: var(--good);
+  background: color-mix(in srgb, transparent 85%, var(--good));
+  color: var(--good);
 }
 
 .shared-fundamentals {
-  max-width: var(--space-gutter) + var(--space-content-max-width);
+  max-width: var(--wrap-max-width);
 }
 
 .route-list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-md);
+  gap: var(--gap-md);
 }
 
 .route-list__title {
-  font-family: var(--font-headline-md-family), var(--font-sans-fallback);
-  font-size: var(--font-headline-md-size);
-  font-weight: var(--font-headline-md-weight);
-  line-height: var(--font-headline-md-line-height);
-  letter-spacing: var(--font-headline-md-letter-spacing);
-  color: var(--color-on-surface);
+  color: var(--ink);
 }
 
 .route-row {
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
-  column-gap: var(--space-stack-md);
-  row-gap: var(--space-stack-xs);
-  border: 1px solid var(--color-outline-variant);
-  border-radius: var(--radius-md);
-  padding: var(--space-stack-md);
+  column-gap: var(--gap-md);
+  row-gap: var(--gap-xs);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  padding: var(--gap-md);
 }
 
 .route-row:hover {
-  border-color: var(--color-outline);
+  border-color: var(--muted);
 }
 
+/* Route numerals are serif (§4); the official VCO title is a dim small line. */
 .route-row__number {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
-  color: var(--color-on-surface-variant);
+  font-family: var(--serif);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
 .route-row__vco {
-  font-family: var(--font-label-sm-family), var(--font-mono-fallback);
-  font-size: var(--font-label-sm-size);
-  font-weight: var(--font-label-sm-weight);
-  line-height: var(--font-label-sm-line-height);
-  letter-spacing: var(--font-label-sm-letter-spacing);
-  color: var(--color-on-surface);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
 .route-row__vco--unresearched {
-  color: var(--color-on-surface-variant);
+  color: var(--faint);
 }
 
 .route-row__name {
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface-variant);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
 .route-row__objective {
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface-variant);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
 /* ─── Flagged-items section (DESIGN §5/§6; package `flagged-list`) ─────────
-   The re-check list that closes the lord page: every verify-in-campaign
-   claim from the single flagged selector, grouped by location with mono
-   group headings in the selector's stable order. Each entry is the compact
-   row — mono location label, claim text, Confidence Badge, body-sm source
-   notes beneath, and the location link where the hash router reaches it.
-   Rows are hairline-divided (1px outline-variant, between rows only),
-   `stack-sm` rhythm; the explicit cleared state lives in the success
-   palette — never blank space. The section id is the version-banner chip's
-   future scroll target, so it carries the section-anchor scroll treatment
-   (clears the sticky nav + tab strip). Transitions ride the
+   The re-check list that closes the lord page (it moves to the desk in
+   Commit 4): every verify-in-campaign claim from the single flagged selector,
+   grouped by location with eyebrow group headings in the selector's stable
+   order. Each entry is the compact row — eyebrow location label, claim text,
+   Confidence Badge, small source notes beneath, and the location link where
+   the hash router reaches it. Rows are hairline-divided (1px `--line`,
+   between rows only), `--gap-base` rhythm; the explicit cleared state lives
+   in the good palette — never blank space. The section id is the version-
+   banner chip's scroll target, so it carries the section-anchor scroll
+   treatment (clears the sticky header). Transitions ride the
    `--transition-standard` band and are disabled by the
    `prefers-reduced-motion` block at the end of this file. */
 
 .flagged-items {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-sm);
+  gap: var(--gap-base);
   /* Anchor-target treatment — the same as the route-section headings. */
-  scroll-margin-top: calc(var(--space-header-height) + var(--space-stack-sm));
+  scroll-margin-top: calc(var(--header-height) + var(--gap-base));
 }
 
 .flagged-items__title {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--eyebrow-color);
 }
 
 .flagged-items__groups {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-md);
+  gap: var(--gap-md);
 }
 
 .flagged-items__group {
@@ -719,13 +724,12 @@ button {
 }
 
 .flagged-items__group-heading {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface);
+  color: var(--eyebrow-color);
 }
 
 /* One compact DESIGN §6 row; the first row sits next to its group heading,
@@ -733,403 +737,365 @@ button {
 .flagged-item {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-xs);
-  padding-block: var(--space-stack-sm);
+  gap: var(--gap-xs);
+  padding-block: var(--gap-base);
 }
 
 .flagged-item + .flagged-item {
-  border-top: 1px solid var(--color-outline-variant);
+  border-top: 1px solid var(--line);
 }
 
 .flagged-item__location {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--eyebrow-color);
 }
 
 .flagged-item__claim {
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
 }
 
 .flagged-item__notes {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-xs);
+  gap: var(--gap-xs);
 }
 
 .flagged-item__note {
-  font-family: var(--font-body-sm-family), var(--font-sans-fallback);
-  font-size: var(--font-body-sm-size);
-  font-weight: var(--font-body-sm-weight);
-  line-height: var(--font-body-sm-line-height);
-  color: var(--color-on-surface-variant);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
-/* The location link — an ordinary link with perceivable text, keyboard-
-   reachable with the global :focus-visible ring (underline like the badge
-   source links; the mono instrument voice). */
+/* The location link — an ordinary brass link with perceivable text,
+   keyboard-reachable with the global :focus-visible ring. */
 .flagged-item__link {
   align-self: flex-start;
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
   text-decoration: underline;
-  text-underline-offset: var(--space-stack-xs);
-  color: var(--color-on-surface);
+  text-underline-offset: var(--gap-xs);
+  color: var(--link-color);
   transition: var(--transition-standard);
 }
 
-/* The explicit cleared empty state — success palette, reads as complete. */
+/* The explicit cleared empty state — good palette, reads as complete. */
 .flagged-items__cleared {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-xs);
-  border: 1px solid var(--color-success);
-  border-radius: var(--radius-md);
-  padding: var(--space-stack-md);
-  background: color-mix(in srgb, transparent 85%, var(--color-success-container));
+  gap: var(--gap-xs);
+  border: 1px solid var(--good);
+  border-radius: var(--card-radius);
+  padding: var(--gap-md);
+  background: color-mix(in srgb, transparent 85%, var(--good));
 }
 
 .flagged-items__cleared-label {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-success);
+  color: var(--good);
 }
 
 .flagged-items__cleared-copy {
   max-width: 60ch;
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
 }
 
-/* ─── Route page: identity card (bone), body, declared gaps ────────────── */
+/* ─── Route page: identity card, body, declared gaps (F2-era — token- ────
+   reference updates only; the route page is deleted in Commit 11). */
 
 .route-page {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-xl);
+  gap: var(--gap-xl);
 }
 
-/* The one bright object per view: bone card, no shadow (DESIGN Elevation Level 2). */
+/* The identity surface now wears the card treatment (gradient fill, 2px top
+   border) — the one bright object per view, no shadow (DESIGN Elevation
+   Level 2). */
 .route-identity {
-  background: var(--color-inverse-surface);
-  border-radius: var(--radius-md);
-  padding: var(--space-stack-md);
-  color: var(--color-inverse-on-surface);
+  background: var(--card-fill);
+  border-top: 2px solid var(--card-border-top-color);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  color: var(--ink);
 }
 
-/* The eyebrow row carries the primary dot (DESIGN.md Route Identity Card: the
-   mono X uppercase eyebrow with a primary dot) before the route number. */
+/* The eyebrow row carries the accent dot before the route number. */
 .route-identity__eyebrow {
   display: flex;
   align-items: center;
-  gap: var(--space-stack-xs);
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  gap: var(--gap-xs);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-inverse-on-surface);
+  color: var(--eyebrow-color);
 }
 
-/* The official VCO title: the mono instrument voice on the bone ink — always a
-   distinct element (and class) from the proportional thematic subtitle. */
+/* The official VCO title — a small instrument line on the card ink. */
 .route-identity__vco {
-  margin-top: var(--space-stack-sm);
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
-  color: var(--color-inverse-on-surface);
+  margin-top: var(--gap-base);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
 }
 
-/* Primary dot: a state accent stroke on data, not chrome. */
+/* Accent dot: a state accent stroke, not chrome. */
 .route-identity__dot {
-  width: var(--space-stack-xs);
-  height: var(--space-stack-xs);
+  width: var(--gap-xs);
+  height: var(--gap-xs);
   border-radius: var(--radius-full);
-  background: var(--color-primary);
+  background: var(--accent);
 }
 
 .route-identity__vco--unresearched {
-  color: var(--color-inverse-on-surface);
+  color: var(--ink);
 }
 
-/* The thematic subtitle: a proportional headline (headline-lg), guide-created
-   and clearly secondary — dimmed to a muted step of the bone ink via the
-   card's own ink/surface tokens, never interchangeable with the official
-   title's mono instrument line (DESIGN.md Route Identity Card). */
+/* The thematic subtitle — the card's serif H1, clearly secondary. */
 .route-identity__title {
-  margin-top: var(--space-stack-sm);
-  font-family: var(--font-headline-lg-family), var(--font-sans-fallback);
-  font-size: var(--font-headline-lg-size);
-  font-weight: var(--font-headline-lg-weight);
-  line-height: var(--font-headline-lg-line-height);
-  letter-spacing: var(--font-headline-lg-letter-spacing);
-  color: color-mix(in srgb, var(--color-inverse-on-surface) 62%, var(--color-inverse-surface));
+  margin-top: var(--gap-base);
+  color: var(--ink);
 }
 
-/* The badge on the bone card keeps the component's anatomy untouched but takes
-   the bone ink scale: the component's default canvas-scale ink (on-surface,
-   near-white) would vanish on the light card, so label and source links use
-   the inverse ink, and a hovered link stays readable on the bone background. */
+/* The badge on the identity card takes the card ink scale: label and source
+   links use the card's ink, and a hovered link stays readable on the card. */
 .route-identity .confidence-badge__label,
 .route-identity .confidence-badge__src {
-  color: var(--color-inverse-on-surface);
+  color: var(--ink);
 }
 
 .route-identity .confidence-badge__src:hover {
-  color: var(--color-primary);
+  color: var(--accent);
 }
 
 .route-identity__claims {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-sm);
-  margin-top: var(--space-stack-md);
+  gap: var(--gap-base);
+  margin-top: var(--gap-md);
 }
 
 .route-identity__note {
-  margin-top: var(--space-stack-sm);
+  margin-top: var(--gap-base);
 }
 
 .claim-block__label {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
-  color: var(--color-inverse-on-surface);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--eyebrow-color);
 }
 
 .claim-block__row {
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
-  column-gap: var(--space-stack-sm);
-  row-gap: var(--space-stack-xs);
-  margin-top: var(--space-stack-xs);
+  column-gap: var(--gap-base);
+  row-gap: var(--gap-xs);
+  margin-top: var(--gap-xs);
 }
 
 .claim-block__text {
-  font-family: var(--font-body-lg-family), var(--font-sans-fallback);
-  font-size: var(--font-body-lg-size);
-  font-weight: var(--font-body-lg-weight);
-  line-height: var(--font-body-lg-line-height);
-  color: var(--color-inverse-on-surface);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
 }
 
 .route-identity__note-text {
-  margin-top: var(--space-stack-xs);
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-inverse-on-surface);
+  margin-top: var(--gap-xs);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
 }
 
 /* ─── VCO objective undercard — the optional list beneath the identity ──────
-
-   A hairline-bordered Content Panel (DESIGN.md "Content Panel") with a mono
-   eyebrow; each row pairs the stable objective id and its text with the item's
-   Confidence Badge (state + the optional resolved source link). Renders only
-   when the route's `data/vco.json` entry exists — the DESIGN §4 "optional"
-   list, so an absent entry leaves no trace on the page. */
+   A hairline-bordered Content Panel with an eyebrow head; each row pairs the
+   stable objective id and its text with the item's Confidence Badge. Renders
+   only when the route's `data/vco.json` entry exists — an absent entry
+   leaves no trace on the page. */
 
 .vco-undercard {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-sm);
-  border: 1px solid var(--color-outline-variant);
-  border-radius: var(--radius-md);
-  padding: var(--space-stack-md);
+  gap: var(--gap-base);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  padding: var(--gap-md);
 }
 
 .vco-undercard__eyebrow {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--eyebrow-color);
 }
 
 .vco-undercard__item {
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
-  column-gap: var(--space-stack-sm);
-  row-gap: var(--space-stack-xs);
+  column-gap: var(--gap-base);
+  row-gap: var(--gap-xs);
 }
 
-/* The stable objective id — instrument voice (mono label, 12px uppercase). */
+/* The stable objective id — the eyebrow instrument voice. */
 .vco-undercard__id {
-  font-family: var(--font-label-sm-family), var(--font-mono-fallback);
-  font-size: var(--font-label-sm-size);
-  font-weight: var(--font-label-sm-weight);
-  line-height: var(--font-label-sm-line-height);
-  letter-spacing: var(--font-label-sm-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--eyebrow-color);
 }
 
 .vco-undercard__text {
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
 }
 
 /* ─── Route campaign action region (feature DESIGN Journey 1; package `ledger-route-start`) ───
-   The action block under the VCO undercard (the undercard's own flex gap
-   places it): the start action is the Buttons contract's primary variant
-   (shared `.button.button--primary`), the open-ledger link reuses the same
-   primary treatment on an anchor (the not-found "Back to home" precedent),
-   and the two region-only treatments below are token-only — the blocked
-   message with its inline ledger link (styled like the badge/source-panel
-   underline links) and the failed-start inline message in `error` ink. No
-   new tokens. */
+   The action block under the VCO undercard: the start action is the shared
+   `.button.button--primary`, the open-ledger link reuses the same primary
+   treatment on an anchor, and the two region-only treatments are token-only
+   — the blocked message with its inline ledger link and the failed-start
+   inline message in danger ink. No new tokens. */
 
-/* The start-blocked message: one proportional sentence in the instrument
-   voice — names the active campaign and links to it (DESIGN's
-   single-active-campaign rule). */
+/* The start-blocked message: one proportional sentence naming the active
+   campaign and linking to it (the DESIGN's single-active-campaign rule). */
 .route-campaign__blocked {
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface-variant);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
 .route-campaign__blocked a {
   text-decoration: underline;
-  text-underline-offset: var(--space-stack-xs);
-  color: var(--color-on-surface);
+  text-underline-offset: var(--gap-xs);
+  color: var(--link-color);
 }
 
-/* The failed-start inline message: `error` ink under the retained start
-   action, announced via role="alert" — the DESIGN's no-silent-writes (the
-   button must not appear to have worked; it stays visible for retry). */
+/* The failed-start inline message: danger ink under the retained start
+   action, announced via role="alert" — the DESIGN's no-silent-writes. */
 .route-campaign__failure {
-  font-family: var(--font-body-sm-family), var(--font-sans-fallback);
-  font-size: var(--font-body-sm-size);
-  font-weight: var(--font-body-sm-weight);
-  line-height: var(--font-body-sm-line-height);
-  color: var(--color-error);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--danger);
 }
 
-/* Body sections — the registry walk (DESIGN §2/§6): each present section is
-   a Content Panel (DESIGN.md "Content Panel": transparent on canvas with a
-   1px outline-variant hairline border, 10px radius, stack-md padding), and
-   the H2 heading reads as the panel's mono eyebrow (label-md,
-   on-surface-variant, uppercase). The heading stays an H2 so the tree's
-   section id remains the router's scroll anchor target. */
+/* Body sections — the registry walk (F2-era: the section body moves to the
+   plan page in Commit 5; token-reference updates only). Each present section
+   is a Content Panel with an eyebrow-vocal H2 that stays the router's scroll
+   anchor target. */
 
 .route-body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-xl);
+  gap: var(--gap-xl);
 }
 
 .route-section {
-  border: 1px solid var(--color-outline-variant);
-  border-radius: var(--radius-md);
-  padding: var(--space-stack-md);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  padding: var(--gap-md);
 }
 
 .route-section__heading {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
-  /* Anchor targets clear the 64px sticky nav when scrolled into view. */
-  scroll-margin-top: calc(var(--space-header-height) + var(--space-stack-sm));
+  color: var(--eyebrow-color);
+  /* Anchor targets clear the 170px sticky header when scrolled into view. */
+  scroll-margin-top: calc(var(--header-height) + var(--gap-base));
 }
 
 /* The transition cross-link (F7): the anchor inside a `Transition → <route>`
-   heading keeps the heading's mono instrument voice by inheritance and reads
-   as an ordinary link — underline, on-surface ink, colour-only hover on the
-   global band, and the same 0.15s transition; the global :focus-visible ring
-   and the prefers-reduced-motion block below cover focus and motion. */
+   heading keeps the heading's instrument voice by inheritance and reads as
+   an ordinary brass link — underline, colour-only hover on the global band. */
 .route-section__heading-link {
   text-decoration: underline;
-  text-underline-offset: var(--space-stack-xs);
-  color: var(--color-on-surface);
+  text-underline-offset: var(--gap-xs);
+  color: var(--link-color);
   transition: var(--transition-standard);
 }
 
 /* Rendered Markdown prose (shared fundamentals + route section bodies). */
 
 .prose {
-  font-family: var(--font-body-lg-family), var(--font-sans-fallback);
-  font-size: var(--font-body-lg-size);
-  font-weight: var(--font-body-lg-weight);
-  line-height: var(--font-body-lg-line-height);
-  color: var(--color-on-surface);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
 }
 
 .prose p {
-  margin-block: 0 var(--space-stack-sm);
+  margin-block: 0 var(--gap-base);
 }
 
 .prose ul,
 .prose ol {
-  margin-block: 0 var(--space-stack-sm);
-  padding-inline-start: var(--space-stack-lg);
+  margin-block: 0 var(--gap-base);
+  padding-inline-start: var(--gap-lg);
 }
 
 .prose li {
-  margin-block: var(--space-stack-xs);
+  margin-block: var(--gap-xs);
 }
 
 .prose a {
   text-decoration: underline;
-  text-underline-offset: var(--space-stack-xs);
+  text-underline-offset: var(--gap-xs);
 }
 
 .prose strong {
-  font-weight: var(--font-label-lg-weight);
+  font-weight: var(--eyebrow-weight);
 }
 
 .prose blockquote {
   margin-inline: 0;
-  padding-inline-start: var(--space-stack-md);
-  border-inline-start: 1px solid var(--color-outline-variant);
-  color: var(--color-on-surface-variant);
-}
-
-.prose code {
-  font-family: var(--font-mono-md-family), var(--font-mono-fallback);
-  font-size: var(--font-mono-md-size);
-  font-weight: var(--font-mono-md-weight);
-  line-height: var(--font-mono-md-line-height);
-  background: var(--color-surface-container);
-  border-radius: var(--radius-xs);
-  padding-inline: calc(var(--space-unit) / 4);
+  padding-inline-start: var(--gap-md);
+  border-inline-start: 1px solid var(--line);
+  color: var(--muted);
 }
 
 /* ─── Confidence Badge (DESIGN.md Confidence Badge) ─────────────────────── */
@@ -1137,20 +1103,23 @@ button {
 /* One badge treatment for every confidence state — the data-driven
    `ConfidenceBadge` component and the boot-time `::claim` callouts (which
    emit the same span inside the classed aside) share these classes. Each
-   badge pairs a 1px state-colour border at 3px radius with the state's
-   container tint as its background and always renders icon + mono uppercase
-   label, so colour is never the sole indicator (PRD accessibility baseline).
-   Transitions ride the `--transition-standard` band and are disabled by the
+   badge pairs a 1px state-colour border at the button radius with the
+   state's tint as its background and always renders icon + uppercase label,
+   so colour is never the sole indicator (PRD accessibility baseline). The
+   anatomy is unchanged — only the palette recolours through the semantic
+   roles (DESIGN §4: verified → `--good`, verify-in-campaign → `--accent`,
+   historical → `--muted`, inferred → `--faint`). Transitions ride the
+   `--transition-standard` band and are disabled by the
    `prefers-reduced-motion` block at the end of this file. */
 
 .confidence-badge {
   display: inline-flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: calc(var(--space-unit) / 2);
-  padding: var(--space-stack-xs) calc(var(--space-unit) / 2);
+  gap: calc(var(--gap-xs) / 2);
+  padding: calc(var(--gap-base) / 2) calc(var(--gap-xs) / 2);
   border: 1px solid;
-  border-radius: var(--radius-xs);
+  border-radius: var(--button-radius);
 }
 
 .confidence-badge__icon {
@@ -1160,360 +1129,327 @@ button {
 }
 
 .confidence-badge__label {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface);
+  color: var(--ink);
 }
 
 .confidence-badge__src {
-  font-family: var(--font-body-sm-family), var(--font-sans-fallback);
-  font-size: var(--font-body-sm-size);
-  font-weight: var(--font-body-sm-weight);
-  line-height: var(--font-body-sm-line-height);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
   text-decoration: underline;
-  text-underline-offset: var(--space-stack-xs);
-  color: var(--color-on-surface);
+  text-underline-offset: var(--gap-xs);
+  color: var(--link-color);
   transition: var(--transition-standard);
 }
 
 .confidence-badge--confirmed {
-  border-color: var(--color-success);
-  background: color-mix(in srgb, transparent 85%, var(--color-success-container));
+  border-color: var(--good);
+  background: color-mix(in srgb, transparent 85%, var(--good));
 }
 
 .confidence-badge--confirmed .confidence-badge__icon {
-  color: var(--color-success);
+  color: var(--good);
 }
 
 .confidence-badge--historical {
-  border-color: var(--color-info);
-  background: color-mix(in srgb, transparent 85%, var(--color-info-container));
+  border-color: var(--muted);
+  background: color-mix(in srgb, transparent 85%, var(--muted));
 }
 
 .confidence-badge--historical .confidence-badge__icon {
-  color: var(--color-info);
+  color: var(--muted);
 }
 
 .confidence-badge--inferred {
-  border-color: var(--color-on-surface-variant);
-  background: color-mix(in srgb, transparent 85%, var(--color-tertiary-container));
+  border-color: var(--faint);
+  background: color-mix(in srgb, transparent 85%, var(--faint));
 }
 
 .confidence-badge--inferred .confidence-badge__icon {
-  color: var(--color-on-surface-variant);
+  color: var(--faint);
 }
 
 .confidence-badge--verify-in-campaign {
-  border-color: var(--color-warning);
-  background: color-mix(in srgb, transparent 85%, var(--color-warning-container));
+  border-color: var(--accent);
+  background: color-mix(in srgb, transparent 85%, var(--accent));
 }
 
 .confidence-badge--verify-in-campaign .confidence-badge__icon {
-  color: var(--color-warning);
+  color: var(--accent);
 }
 
 /* ─── `::claim` callouts — the block container around the badged treatment ── */
 
 aside.claim {
-  margin-block: var(--space-stack-sm) var(--space-stack-md);
-  padding: var(--space-stack-md);
-  border: 1px solid var(--color-outline-variant);
-  border-radius: var(--radius-md);
+  margin-block: var(--gap-base) var(--gap-md);
+  padding: var(--card-padding);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
 }
 
 /* The in-aside badge sits above the callout body. */
 aside.claim > .confidence-badge {
-  margin-bottom: var(--space-stack-sm);
+  margin-bottom: var(--gap-base);
 }
 
 /* ─── In-flow Content Gap Marker (DESIGN.md "Content Gap Marker") ────────────
-   The dashed hairline panel (dashed 1px outline border, 10px radius,
-   stack-md padding, no fill) rendered at the slot's registry position. The
-   entry styles are F1's trailing-list marker, kept for the in-flow
-   replacement — only the `.gap-list` container and its heading are gone. */
+   The dashed hairline panel rendered at the slot's registry position. */
 
 .gap-marker {
-  border: 1px dashed var(--color-outline);
-  border-radius: var(--radius-md);
-  padding: var(--space-stack-md);
+  border: 1px dashed var(--line);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
 }
 
 .gap-marker__eyebrow {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--eyebrow-color);
 }
 
 .gap-marker__copy {
-  margin-top: var(--space-stack-xs);
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface-variant);
+  margin-top: var(--gap-xs);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
 /* ─── Source / Verification Note panel (DESIGN.md "Source / Verification
    Note") — the research trail under route body sections whose callout claims
-   cite one or more sources: `surface-container-lowest` floor with a 1px
-   `outline-variant` border and the 3px `info` left-border accent, 10px radius,
-   `stack-sm` padding. One entry per distinct cited source (title link, URL,
-   body-sm note); renders only for citing sections — a non-citing section
-   keeps its F2 anatomy and never shows a blank slot. Transitions ride the
-   `--transition-standard` band and are disabled by the `prefers-reduced-motion`
-   block at the end of this file. */
+   cite one or more sources: `--surface` floor with a 1px `--line` border and
+   the 3px muted left-border accent, card radius, `--gap-base` padding. One
+   entry per distinct cited source (title link, URL, note); renders only for
+   citing sections — a non-citing section keeps its anatomy and never shows a
+   blank slot. Transitions ride the `--transition-standard` band. */
 
 .source-panel {
-  margin-top: var(--space-stack-sm);
-  border: 1px solid var(--color-outline-variant);
-  border-inline-start: 3px solid var(--color-info);
-  border-radius: var(--radius-md);
-  padding: var(--space-stack-sm);
-  background: var(--color-surface-container-lowest);
+  margin-top: var(--gap-base);
+  border: 1px solid var(--line);
+  border-inline-start: 3px solid var(--muted);
+  border-radius: var(--card-radius);
+  padding: var(--gap-base);
+  background: var(--surface);
 }
 
 .source-panel__eyebrow {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--eyebrow-color);
 }
 
 .source-panel__entry {
-  margin-top: var(--space-stack-xs);
+  margin-top: var(--gap-xs);
 }
 
-/* The source title is an ordinary link with perceivable text — the title
-   itself — styled like the badge source links (underline, `body-sm`). */
+/* The source title is an ordinary brass link with perceivable text — the
+   title itself — underlined like the badge source links. */
 .source-panel__title {
-  font-family: var(--font-body-sm-family), var(--font-sans-fallback);
-  font-size: var(--font-body-sm-size);
-  font-weight: var(--font-body-sm-weight);
-  line-height: var(--font-body-sm-line-height);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
   text-decoration: underline;
-  text-underline-offset: var(--space-stack-xs);
-  color: var(--color-on-surface);
+  text-underline-offset: var(--gap-xs);
+  color: var(--link-color);
   transition: var(--transition-standard);
 }
 
 .source-panel__url {
-  margin-top: var(--space-stack-xs);
-  font-family: var(--font-body-sm-family), var(--font-sans-fallback);
-  font-size: var(--font-body-sm-size);
-  font-weight: var(--font-body-sm-weight);
-  line-height: var(--font-body-sm-line-height);
-  color: var(--color-on-surface-variant);
+  margin-top: var(--gap-xs);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
 .source-panel__note {
-  margin-top: var(--space-stack-xs);
-  font-family: var(--font-body-sm-family), var(--font-sans-fallback);
-  font-size: var(--font-body-sm-size);
-  font-weight: var(--font-body-sm-weight);
-  line-height: var(--font-body-sm-line-height);
-  color: var(--color-on-surface);
+  margin-top: var(--gap-xs);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
 }
 
-/* ─── Dashboard region — the five-tab panel block after the route sections ────
-
-   One block of tabbed panels (DESIGN §2 Displayed Data / §6 Layout): a carbon
-   tab bar with a hairline bottom border and the active tab's 2px primary
-   underline, over one visible tabpanel (24px padding, 10px radius, hairline
-   border). Selection is component-local; the inactive tabpanels stay in the
-   DOM with the native `hidden` attribute — exactly one visible panel at a
-   time, and the committed tree's five explicit empty states are never blank
-   space (DESIGN §5 Empty States). */
+/* ─── Dashboard region — the F2 five-tab panel block (token-reference ────
+   updates only; deleted with `dashboard.ts` in Commit 11). */
 
 .dashboard {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-sm);
+  gap: var(--gap-base);
 }
 
 .dashboard__tabbar {
   display: flex;
   align-items: stretch;
-  gap: var(--space-stack-sm);
-  padding: var(--space-stack-xs) var(--space-stack-sm);
-  background: var(--color-surface-container);
-  border-bottom: 1px solid var(--color-outline-variant);
+  gap: var(--gap-base);
+  padding: var(--gap-xs) var(--gap-base);
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
 }
 
-/* One mono uppercase panel tab — the instrument voice; the active tab pairs
-   on-surface ink with the 2px primary underline (a constant transparent
-   border that only changes colour, like the route strip's tabs). The focus
-   ring is the global :focus-visible rule (2px primary, 3px offset). */
+/* One mono uppercase panel tab — the eyebrow voice; the active tab pairs ink
+   with the 2px accent underline (a constant transparent border that only
+   changes colour). The focus ring is the global :focus-visible rule. */
 .dashboard__tab {
   display: flex;
   align-items: center;
-  padding: calc(var(--space-unit) / 2) var(--space-stack-sm);
+  padding: calc(var(--gap-xs) / 2) var(--gap-base);
   border: 0;
   border-bottom: 2px solid transparent;
   background: transparent;
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--muted);
   cursor: pointer;
 }
 
 .dashboard__tab:hover {
-  color: var(--color-on-surface);
+  color: var(--ink);
 }
 
 .dashboard__tab--active {
-  color: var(--color-on-surface);
-  border-bottom-color: var(--color-primary);
+  color: var(--ink);
+  border-bottom-color: var(--accent);
 }
 
-/* The visible panel: Content Panel anatomy (24px padding, 10px radius,
-   hairline outline-variant border — DESIGN §6 Layout). Block layout, no
-   display override, so the native `hidden` attribute is the one-visibility
-   switch. */
+/* The visible panel: Content Panel anatomy (padding, radius, hairline
+   border). Block layout, no display override, so the native `hidden`
+   attribute is the one-visibility switch. */
 .dashboard__panel {
-  padding: var(--space-stack-md);
-  border: 1px solid var(--color-outline-variant);
-  border-radius: var(--radius-md);
+  padding: var(--gap-md);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
 }
 
-/* Explicit empty state: the mono uppercase label plus one proportional
-   sentence (DESIGN §6 Copywriting) — the pattern of the home empty state. */
+/* Explicit empty state: the eyebrow label plus one proportional sentence
+   (DESIGN §6 Copywriting) — the pattern of the home empty state. */
 .dashboard-empty__label {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--eyebrow-color);
 }
 
 .dashboard-empty__copy {
   max-width: 60ch;
-  margin-top: var(--space-stack-xs);
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface-variant);
+  margin-top: var(--gap-xs);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
-/* ─── Dashboard panel anatomy (DESIGN §4/§6 + DESIGN.md Content Panel) ────────
-
-   The atlas-mirroring treatments for the listed panel entries: each army
-   template or title/intro/steps item renders as its own hairline Content
-   Panel sub-block; the army's two unit columns (legendary-lord vs generic-
-   lord, the same row shape) sit side by side with hairline rows and mono
-   tabular counts; an empty column shows the explicit absent marker, never
-   blank space (DESIGN §5); steps carry their title + note with the optional
-   gate and short labels on the head line; the notes[]/plan/details [title,
-   body] rows and the size line read as instrument-plus-prose blocks; and the
-   entry's source ids render as trailing links. Token-only. */
+/* ─── Dashboard panel anatomy (F2-era — token-reference updates only; the
+   anatomy moves to `deskPanel.ts` in Commit 4 and the dashboard dies in
+   Commit 11). */
 
 .panel-armies,
 .panel-items {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-sm);
+  gap: var(--gap-base);
 }
 
 .panel-entry {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-sm);
-  border: 1px solid var(--color-outline-variant);
-  border-radius: var(--radius-md);
-  padding: var(--space-stack-md);
+  gap: var(--gap-base);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  padding: var(--gap-md);
 }
 
-/* The entry label — the proportional headline that names the entry. */
+/* The entry label — the proportional serif headline that names the entry. */
 .panel-entry__title {
-  font-family: var(--font-headline-md-family), var(--font-sans-fallback);
-  font-size: var(--font-headline-md-size);
-  font-weight: var(--font-headline-md-weight);
-  line-height: var(--font-headline-md-line-height);
-  letter-spacing: var(--font-headline-md-letter-spacing);
-  color: var(--color-on-surface);
+  color: var(--ink);
 }
 
 /* The name/title line under the label — campaign prose, not instrument copy. */
 .panel-entry__name {
-  font-family: var(--font-body-lg-family), var(--font-sans-fallback);
-  font-size: var(--font-body-lg-size);
-  font-weight: var(--font-body-lg-weight);
-  line-height: var(--font-body-lg-line-height);
-  color: var(--color-on-surface);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
 }
 
 /* The supporting-army name — dimmed beneath the army name. */
 .panel-entry__support {
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface-variant);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
 /* The item intro and the army context — muted proportional prose. */
 .panel-entry__intro,
 .panel-entry__context {
   max-width: 60ch;
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface-variant);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
-/* The army's declared size — a mono data line (tabular figures). */
+/* The army's declared size — a serif data line (tabular figures). */
 .panel-entry__size {
-  font-family: var(--font-mono-md-family), var(--font-mono-fallback);
-  font-size: var(--font-mono-md-size);
-  font-weight: var(--font-mono-md-weight);
-  line-height: var(--font-mono-md-line-height);
+  font-family: var(--serif);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
   font-variant-numeric: tabular-nums;
-  color: var(--color-on-surface-variant);
+  color: var(--muted);
 }
 
 /* The two unit columns — a hairline 2-column sub-table. */
 .army-table {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-stack-sm);
-  border: 1px solid var(--color-outline-variant);
-  border-radius: var(--radius-md);
-  padding: var(--space-stack-sm);
+  gap: var(--gap-base);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  padding: var(--gap-base);
 }
 
 .army-table__column {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-xs);
+  gap: var(--gap-xs);
 }
 
-/* The column head — a mono instrument label (LEGENDARY LORD / GENERIC LORD). */
+/* The column head — an eyebrow instrument label (LEGENDARY LORD / GENERIC). */
 .army-table__column-label {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--eyebrow-color);
 }
 
 .army-table__rows {
@@ -1528,49 +1464,47 @@ aside.claim > .confidence-badge {
 .army-table__row {
   display: grid;
   grid-template-columns: auto 1fr auto auto;
-  gap: var(--space-stack-sm);
+  gap: var(--gap-base);
   align-items: baseline;
-  padding-block: var(--space-stack-xs);
-  border-bottom: 1px solid var(--color-outline-variant);
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface);
+  padding-block: var(--gap-xs);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
 }
 
 .army-table__row:last-child {
   border-bottom: 0;
 }
 
-/* The ×N unit count — mono tabular figures next to the unit name (DESIGN.md
+/* The ×N unit count — serif tabular figures next to the unit name (DESIGN.md
    "Value & Number Formatting": unit counts as a `×N` suffix, never an
    icon-only count). */
 .army-table__n {
-  font-family: var(--font-mono-md-family), var(--font-mono-fallback);
-  font-size: var(--font-mono-md-size);
-  font-weight: var(--font-mono-md-weight);
-  line-height: var(--font-mono-md-line-height);
+  font-family: var(--serif);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
   font-variant-numeric: tabular-nums;
-  color: var(--color-on-surface);
+  color: var(--ink);
 }
 
 /* Role and kind read as secondary data inside the row. */
 .army-table__role,
 .army-table__kind {
-  color: var(--color-on-surface-variant);
+  color: var(--muted);
 }
 
-/* The explicit absent-column marker — an empty column is never blank
-   (DESIGN §5 "the generic column shows its explicit absent marker"). */
+/* The explicit absent-column marker — an empty column is never blank. */
 .army-table__absent {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--eyebrow-color);
 }
 
 /* The item's numbered steps: title + note, with the optional gate and short
@@ -1578,135 +1512,133 @@ aside.claim > .confidence-badge {
 .item-steps {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-xs);
+  gap: var(--gap-xs);
   margin-block: 0;
-  padding-inline-start: var(--space-stack-lg);
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface);
+  padding-inline-start: var(--gap-lg);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
 }
 
 .item-step__head {
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
-  column-gap: var(--space-stack-sm);
-  row-gap: calc(var(--space-unit) / 2);
+  column-gap: var(--gap-base);
+  row-gap: calc(var(--gap-xs) / 2);
 }
 
 .item-step__title {
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
 }
 
-/* The optional step gate and short labels — small mono instrument voice. */
+/* The optional step gate and short labels — small muted eyebrow voice. */
 .item-step__gate,
 .item-step__short {
-  font-family: var(--font-label-sm-family), var(--font-mono-fallback);
-  font-size: var(--font-label-sm-size);
-  font-weight: var(--font-label-sm-weight);
-  line-height: var(--font-label-sm-line-height);
-  letter-spacing: var(--font-label-sm-letter-spacing);
-  color: var(--color-on-surface-variant);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .item-step__note {
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface-variant);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
-/* The notes[]/plan/details [title, body] rows — an instrument label over
+/* The notes[]/plan/details [title, body] rows — an eyebrow label over
    title + body lines. */
 .panel-titlebody {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-xs);
+  gap: var(--gap-xs);
 }
 
 .panel-titlebody__label {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--eyebrow-color);
 }
 
 .panel-titlebody__row {
   display: flex;
   flex-direction: column;
-  gap: calc(var(--space-unit) / 2);
-  padding-inline-start: var(--space-stack-sm);
+  gap: calc(var(--gap-xs) / 2);
+  padding-inline-start: var(--gap-base);
 }
 
 .panel-titlebody__title {
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
 }
 
 .panel-titlebody__body {
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface-variant);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
 /* The entry's trailing source links — the underline style of the badge links. */
 .panel-entry__sources {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-stack-sm);
+  gap: var(--gap-base);
 }
 
 .panel-entry__src {
-  font-family: var(--font-body-sm-family), var(--font-sans-fallback);
-  font-size: var(--font-body-sm-size);
-  font-weight: var(--font-body-sm-weight);
-  line-height: var(--font-body-sm-line-height);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
   text-decoration: underline;
-  text-underline-offset: var(--space-stack-xs);
-  color: var(--color-on-surface);
+  text-underline-offset: var(--gap-xs);
+  color: var(--link-color);
   transition: var(--transition-standard);
 }
 
 /* ─── Ledger Table (DESIGN.md §Ledger Table; package `ledger-table-panel`) ──────
-   The fixed VCO progress surface: carbon `surface-container` floor with a 1px
-   `outline-variant` border at 10px radius, one column-group header row (the
-   two mono uppercase group headers — PLANNING over the checkbox column and
-   GAME CONFIRMED over the step track + controls — each with its explicit
-   `n / m` progress pair beside the label), then 40px hairline-divided rows.
-   One row per reconciled item: objective label (`body-md`), the planning
-   checkbox with its `mono-sm` label (ticked → the `on-surface` check), the
-   four step cells (each a `label-sm` mono cell pairing a state dot with a
-   text label — never colour alone: reached `success`, the appears-complete-
-   but-unconfirmed edge (step 1) `warning`, earlier `neutral`, later dimmed),
-   the bounds-disabled back/forward buttons (no forward past 4, no back
-   before 0), and the per-row write feedback (`SAVING` in flight, the message
-   on a failed row whose border turns `error` — the row always renders the
-   parent's document, so a rolled-back write shows its pre-write value). The
-   shared 8-column template lives on the container so every row's columns
-   align with the header groups; transitions ride the `--transition-standard`
-   band and are disabled by the `prefers-reduced-motion` block below. */
+   The fixed VCO progress surface: `--surface` floor with a 1px `--line`
+   border at the card radius, one column-group header row (the two eyebrow
+   group headers — PLANNING over the checkbox column and GAME CONFIRMED over
+   the step track + controls — each with its explicit `n / m` progress pair
+   beside the label), then 40px hairline-divided rows. One row per reconciled
+   item: objective label, the planning checkbox with its label (ticked → the
+   ink check), the four step cells (each a small label cell pairing a state
+   dot with a text label — never colour alone: reached `--good`, the
+   appears-complete-but-unconfirmed edge (step 1) `--accent`, earlier
+   `--muted`, later dimmed), the bounds-disabled back/forward buttons, and
+   the per-row write feedback (`SAVING` in flight, the message on a failed
+   row whose border turns `--danger`). The shared 8-column template lives on
+   the container so every row's columns align with the header groups;
+   transitions ride the `--transition-standard` band and are disabled by the
+   `prefers-reduced-motion` block below. The recolour runs purely through the
+   retokened semantic roles. */
 
 .ledger-table {
   /* The shared 8-column track: label, planning, 4 step cells, controls, feedback. */
   --ledger-table-cols: minmax(16ch, 1.4fr) minmax(11ch, 0.8fr) repeat(4, minmax(12ch, 1fr)) minmax(12ch, 0.7fr) minmax(14ch, 0.9fr);
-  border: 1px solid var(--color-outline-variant);
-  border-radius: var(--radius-md);
-  background: var(--color-surface-container);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  background: var(--surface);
   overflow: hidden;
 }
 
@@ -1717,16 +1649,16 @@ aside.claim > .confidence-badge {
 }
 
 .ledger-table__header {
-  border-bottom: 1px solid var(--color-outline-variant);
-  padding-block: var(--space-stack-xs);
+  border-bottom: 1px solid var(--line);
+  padding-block: var(--gap-xs);
 }
 
-/* The mono uppercase group headers, each with its explicit progress pair. */
+/* The eyebrow group headers, each with its explicit progress pair. */
 .ledger-table__group {
   display: flex;
   align-items: baseline;
-  gap: var(--space-stack-sm);
-  padding-inline: var(--space-stack-sm);
+  gap: var(--gap-base);
+  padding-inline: var(--gap-base);
 }
 
 .ledger-table__group--planning {
@@ -1740,31 +1672,30 @@ aside.claim > .confidence-badge {
 .ledger-table__group-label,
 .ledger-row__control,
 .ledger-row__feedback--saving {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
 }
 
 .ledger-table__group-label {
-  color: var(--color-on-surface-variant);
+  color: var(--eyebrow-color);
 }
 
 /* The `n / m` pair beside the header — the numbers are the data (DESIGN.md
-   Value & Number Formatting), mono tabular. */
+   Value & Number Formatting), serif tabular. */
 .ledger-table__group-progress {
-  font-family: var(--font-mono-sm-family), var(--font-mono-fallback);
-  font-size: var(--font-mono-sm-size);
-  font-weight: var(--font-mono-sm-weight);
-  line-height: var(--font-mono-sm-line-height);
+  font-family: var(--serif);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
   font-variant-numeric: tabular-nums;
-  color: var(--color-on-surface);
+  color: var(--ink);
 }
 
 /* One 40px hairline-divided row; the divider is the row's top border, and a
-   failed row's border turns `error` (the row-level border of DESIGN §5).
+   failed row's border turns `--danger` (the row-level border of DESIGN §5).
 
    Row children sit on the container's shared 8-column track by explicit
    placement — label 1, planning 2, the four step cells 3–6, controls 7,
@@ -1772,16 +1703,16 @@ aside.claim > .confidence-badge {
    (PLANNING over track 2, GAME CONFIRMED over tracks 3–7) instead of
    auto-placing into tracks 1–5 and squeezing the step cells. */
 .ledger-row {
-  height: var(--space-table-row-height);
+  height: var(--table-row-height);
   border-top: 1px solid transparent;
 }
 
 .ledger-row + .ledger-row {
-  border-top-color: var(--color-outline-variant);
+  border-top-color: var(--line);
 }
 
 .ledger-row.ledger-row--error {
-  border-top-color: var(--color-error);
+  border-top-color: var(--danger);
 }
 
 .ledger-row__label {
@@ -1790,25 +1721,25 @@ aside.claim > .confidence-badge {
   align-items: center;
   min-width: 0;
   overflow: hidden;
-  padding-inline: var(--space-stack-sm);
+  padding-inline: var(--gap-base);
   white-space: nowrap;
   text-overflow: ellipsis;
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
 }
 
-/* The planning state: a real checkbox + its mono-sm label (DESIGN.md
-   Ledger Table); ticked → the on-surface check. The global :focus-visible
-   ring covers keyboard focus on the native input. */
+/* The planning state: a real checkbox + its small label (DESIGN.md
+   Ledger Table); ticked → the ink check. The global :focus-visible ring
+   covers keyboard focus on the native input. */
 .ledger-row__planning {
   grid-column: 2;
   display: flex;
   align-items: center;
-  gap: var(--space-stack-xs);
-  padding-inline: var(--space-stack-sm);
+  gap: var(--gap-xs);
+  padding-inline: var(--gap-base);
   cursor: pointer;
 }
 
@@ -1817,19 +1748,20 @@ aside.claim > .confidence-badge {
 }
 
 .ledger-row__check--on-surface {
-  accent-color: var(--color-on-surface);
+  accent-color: var(--ink);
 }
 
 .ledger-row__plan {
-  font-family: var(--font-mono-sm-family), var(--font-mono-fallback);
-  font-size: var(--font-mono-sm-size);
-  font-weight: var(--font-mono-sm-weight);
-  line-height: var(--font-mono-sm-line-height);
-  color: var(--color-on-surface-variant);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 /* The four-monolithic-cells track: equal-width cells under the GAME CONFIRMED
-   header; each cell centers its state dot above its label-sm text. */
+   header; each cell centers its state dot above its small label text. */
 .ledger-row__track {
   grid-column: 3 / 7;
   display: flex;
@@ -1842,51 +1774,52 @@ aside.claim > .confidence-badge {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: calc(var(--space-unit) / 4);
+  gap: calc(var(--gap-xs) / 4);
   min-width: 0;
 }
 
 .ledger-step__dot {
-  width: var(--space-stack-xs);
-  height: var(--space-stack-xs);
+  width: var(--gap-xs);
+  height: var(--gap-xs);
   border-radius: var(--radius-full);
 }
 
 .ledger-step__label {
-  font-family: var(--font-label-sm-family), var(--font-mono-fallback);
-  font-size: var(--font-label-sm-size);
-  font-weight: var(--font-label-sm-weight);
-  line-height: var(--font-label-sm-line-height);
-  letter-spacing: var(--font-label-sm-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-align: center;
+  color: var(--muted);
 }
 
-/* Step treatments: reached success (green dot + label), the appears-complete
-   edge (step 1) warning, earlier neutral, later dimmed — always dot + label. */
+/* Step treatments: reached `--good` (dot + label), the appears-complete
+   edge (step 1) `--accent`, earlier `--muted`, later dimmed — always
+   dot + label (never colour alone). */
 .ledger-step--success .ledger-step__dot {
-  background: var(--color-success);
+  background: var(--good);
 }
 
 .ledger-step--success .ledger-step__label {
-  color: var(--color-success);
+  color: var(--good);
 }
 
 .ledger-step--warning .ledger-step__dot {
-  background: var(--color-warning);
+  background: var(--accent);
 }
 
 .ledger-step--warning .ledger-step__label {
-  color: var(--color-warning);
+  color: var(--accent);
 }
 
 .ledger-step--neutral .ledger-step__dot,
 .ledger-step--future .ledger-step__dot {
-  background: var(--color-on-surface-variant);
+  background: var(--muted);
 }
 
 .ledger-step--neutral .ledger-step__label,
 .ledger-step--future .ledger-step__label {
-  color: var(--color-on-surface-variant);
+  color: var(--muted);
 }
 
 /* Later steps render dimmed — the DESIGN's reduced-opacity vocabulary. */
@@ -1894,28 +1827,28 @@ aside.claim > .confidence-badge {
   opacity: 0.6;
 }
 
-/* The bounds-marked step controls: mono uppercase instrument buttons like the
+/* The bounds-marked step controls: eyebrow instrument buttons like the
    dashboard tabs, disabled at step 0 / step 4 (the DESIGN disabled 40%
    treatment). The global :focus-visible ring covers keyboard operation. */
 .ledger-row__controls {
   grid-column: 7;
   display: flex;
   align-items: center;
-  gap: var(--space-stack-xs);
-  padding-inline: var(--space-stack-sm);
+  gap: var(--gap-xs);
+  padding-inline: var(--gap-base);
 }
 
 .ledger-row__control {
   border: 0;
   background: transparent;
-  padding: calc(var(--space-unit) / 2);
-  color: var(--color-on-surface-variant);
+  padding: calc(var(--gap-xs) / 2);
+  color: var(--muted);
   cursor: pointer;
   transition: var(--transition-standard);
 }
 
 .ledger-row__control:hover {
-  color: var(--color-on-surface);
+  color: var(--ink);
 }
 
 .ledger-row__control:disabled {
@@ -1923,8 +1856,8 @@ aside.claim > .confidence-badge {
   cursor: not-allowed;
 }
 
-/* The per-row write feedback: mono `SAVING` in flight, the error message in
-   `error` ink on a failed row (the message stays readable — the cell
+/* The per-row write feedback: eyebrow `SAVING` in flight, the error message
+   in danger ink on a failed row (the message stays readable — the cell
    truncates with the full message in its title attribute). */
 .ledger-row__feedback {
   grid-column: 8;
@@ -1938,98 +1871,90 @@ aside.claim > .confidence-badge {
 }
 
 .ledger-row__feedback--saving {
-  color: var(--color-on-surface-variant);
+  color: var(--muted);
 }
 
 .ledger-row__feedback--error {
-  font-family: var(--font-body-sm-family), var(--font-sans-fallback);
-  font-size: var(--font-body-sm-size);
-  font-weight: var(--font-body-sm-weight);
-  line-height: var(--font-body-sm-line-height);
-  color: var(--color-error);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--danger);
 }
 
 /* ─── Ledger page (DESIGN.md Empty/Error/Loading + feature DESIGN §6; package `ledger-view-page`) ───
    The campaign context header (lord, route name, patch/VCO pairing) followed
-   by exactly one page state: the mono in-flight line, the fixed empty state,
-   the error panel, or the composed Ledger Table. */
+   by exactly one page state: the eyebrow in-flight line, the fixed empty
+   state, the error panel, or the composed Ledger Table. */
 
 .ledger-page {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-xl);
+  gap: var(--gap-xl);
 }
 
-/* The campaign context header: lord, route name, and the patch/VCO pairing
-   (the F3 version-banner pairing — mono label style, copy never uppercased). */
+/* The campaign context header: lord, route name, and the patch/VCO pairing. */
 .ledger-context {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-xs);
+  gap: var(--gap-xs);
 }
 
 .ledger-context__lord {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
-  color: var(--color-on-surface-variant);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
 }
 
 .ledger-context__title {
-  font-family: var(--font-headline-lg-family), var(--font-sans-fallback);
-  font-size: var(--font-headline-lg-size);
-  font-weight: var(--font-headline-lg-weight);
-  line-height: var(--font-headline-lg-line-height);
-  letter-spacing: var(--font-headline-lg-letter-spacing);
-  color: var(--color-on-surface);
+  color: var(--ink);
 }
 
-/* The page in-flight treatment: the minimal mono line while the document
+/* The page in-flight treatment: the minimal eyebrow line while the document
    loads (the boot loading bar is boot-only — DESIGN.md Empty, Loading & Error). */
 .ledger-inflight {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--eyebrow-color);
 }
 
 /* The design's explicit empty state: the shared `.empty-state` surface with
    the fixed NO ACTIVE CAMPAIGN copy — never blank space (DESIGN.md Empty,
    Loading & Error States; the home empty state is the same surface). */
 
-/* The fixed error panel: `error` border, icon + `body-md` message, ghost
-   Retry (DESIGN.md Empty, Loading & Error States — colour never alone). */
+/* The fixed error panel: danger border, icon + message, ghost Retry
+   (DESIGN.md Empty, Loading & Error States — colour never alone). */
 .ledger-error {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-md);
-  border: 1px solid var(--color-error);
-  border-radius: var(--radius-md);
-  padding: var(--space-stack-md);
+  gap: var(--gap-md);
+  border: 1px solid var(--danger);
+  border-radius: var(--card-radius);
+  padding: var(--gap-md);
 }
 
 .ledger-error__body {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-stack-xs);
+  gap: var(--gap-xs);
 }
 
 .ledger-error__icon {
-  color: var(--color-error);
+  color: var(--danger);
   flex: none;
 }
 
 .ledger-error__message {
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
 }
 
 .ledger-error .button--ghost {
@@ -2037,87 +1962,81 @@ aside.claim > .confidence-badge {
 }
 
 /* ─── Ledger lifecycle (feature DESIGN Journeys 3–4; package `ledger-complete-delete`) ───
-   The actions region under the table: mark complete (primary, active only)
+   The actions region under the table: mark complete (filled, active only)
    and delete (danger ghost, active and archived), the inline confirmation
-   surface (the DESIGN system's destructive-action confirmation — copy names
-   the file removal in plain language / the kept archived file, confirm +
-   Cancel keyboard-operable buttons, dismissal leaves the campaign
-   untouched), the mono in-flight feedback while the operation runs, and a
-   failed operation's message with the actions retained (the retry
-   affordance — no silent writes). The archived (completed) campaign's
-   read-only rendition shares the fixed table anatomy (groups, 40px rows,
-   step cells) minus the mutation controls: a static state dot replaces the
-   planning checkbox, and the step track renders without the back/forward
-   buttons or the per-row feedback — the recorded decision, mutations belong
-   to the live campaign. */
+   surface (copy names the removal in plain language; confirm + Cancel
+   keyboard-operable buttons; dismissal leaves the campaign untouched), the
+   eyebrow in-flight feedback while the operation runs, and a failed
+   operation's message with the actions retained (the retry affordance — no
+   silent writes). The archived (completed) campaign's read-only rendition
+   shares the fixed table anatomy (groups, 40px rows, step cells) minus the
+   mutation controls. */
 
 .ledger-page__body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-sm);
+  gap: var(--gap-base);
 }
 
 .ledger-lifecycle {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-stack-sm);
+  gap: var(--gap-base);
 }
 
 .ledger-lifecycle__removing {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--muted);
 }
 
 .ledger-lifecycle__error {
-  font-family: var(--font-body-sm-family), var(--font-sans-fallback);
-  font-size: var(--font-body-sm-size);
-  font-weight: var(--font-body-sm-weight);
-  line-height: var(--font-body-sm-line-height);
-  color: var(--color-error);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--danger);
 }
 
-/* The confirmation surface: the fixed content-panel shape (surface fill,
-   1px outline-variant border, 10px radius) holding the mono instrument
-   label, the proportional copy, and the confirm/Cancel buttons. Inline,
-   not a modal — the DESIGN requires the explicit confirmation and keyboard-
-   operable controls, which the buttons satisfy. */
+/* The confirmation surface: the content-panel shape (surface fill, 1px
+   `--line` border, card radius) holding the eyebrow label, the proportional
+   copy, and the confirm/Cancel buttons. Inline, not a modal — the DESIGN
+   requires the explicit confirmation and keyboard-operable controls, which
+   the buttons satisfy. */
 .ledger-confirm {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-xs);
-  border: 1px solid var(--color-outline-variant);
-  border-radius: var(--radius-md);
-  padding: var(--space-stack-md);
-  background: var(--color-surface-container);
+  gap: var(--gap-xs);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  padding: var(--gap-md);
+  background: var(--surface);
 }
 
 .ledger-confirm__label {
-  font-family: var(--font-label-md-family), var(--font-mono-fallback);
-  font-size: var(--font-label-md-size);
-  font-weight: var(--font-label-md-weight);
-  line-height: var(--font-label-md-line-height);
-  letter-spacing: var(--font-label-md-letter-spacing);
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--eyebrow-color);
 }
 
 .ledger-confirm__copy {
-  font-family: var(--font-body-md-family), var(--font-sans-fallback);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--font-body-md-weight);
-  line-height: var(--font-body-md-line-height);
-  color: var(--color-on-surface);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
 }
 
 .ledger-confirm__actions {
   display: flex;
-  gap: var(--space-stack-xs);
+  gap: var(--gap-xs);
 }
 
 /* The archived read-only rendition: the view's shared grid template drops
@@ -2130,18 +2049,17 @@ aside.claim > .confidence-badge {
   cursor: default;
 }
 
-/* The static planning state dot: filled on-surface when planned, dimmed
-   variant ink when not — the live row's checkbox semantics without a
-   control. */
+/* The static planning state dot: filled ink when planned, muted when not —
+   the live row's checkbox semantics without a control. */
 .ledger-row__state-dot {
-  width: var(--space-stack-xs);
-  height: var(--space-stack-xs);
+  width: var(--gap-xs);
+  height: var(--gap-xs);
   border-radius: var(--radius-full);
-  background: var(--color-on-surface-variant);
+  background: var(--muted);
 }
 
 .ledger-row__state-dot--on {
-  background: var(--color-on-surface);
+  background: var(--ink);
 }
 
 /* ─── Motion: mechanical 0.15s transitions; reduced motion disables all ─── */
