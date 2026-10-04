@@ -16,6 +16,12 @@ reward:
     - vco-guide
 interpretation: Elspeth’s engineers and escorts build a durable southern sphere of influence. This is a provincial-control campaign: local production, stable treaty partners and defended connections matter as much as winning the next siege.
 bottleneck: Maintained control of every region in the required provinces
+phases:
+  - { title: "Make the departure affordable", note: "Build a homeland that survives Elspeth’s absence." }
+  - { title: "Establish the charter’s first foothold", note: "Choose a connected southern theatre instead of opening both extremes at once." }
+  - { title: "Turn a foothold into a functioning region", note: "Pay for a local replacement pipeline when the journey from Nuln becomes the bottleneck." }
+  - { title: "Secure the outer provinces", note: "Finish Estalia, the mountains and Pirate’s Current without losing earlier gains." }
+  - { title: "Make the charter permanent—or go home", note: "Conclude the control objective without inventing a final ritual." }
 panelOrder:
   skills: [elspeth, master, engineer, theodore, priest, captain, death, light, life, hunter]
   research: [route-2-opening, firepower, route-2-economy, arcane]

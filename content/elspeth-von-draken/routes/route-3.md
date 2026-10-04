@@ -16,6 +16,12 @@ reward:
     - vco-guide
 interpretation: A travelling field laboratory rather than a map-painting crusade. Elspeth’s College, engineers and soldiers investigate the Badlands, using Dwarf partnerships where possible and conquest where necessary.
 bottleneck: Finding the mission’s actual search result while sustaining a distant army
+phases:
+  - { title: "Prepare the expedition, not an entire Empire reconquest", note: "Secure the departure base and the research company." }
+  - { title: "Open the northern search corridor", note: "Start close enough that one setback does not require sailing around the world." }
+  - { title: "Keep the field laboratory moving", note: "Combine cooperation with a selective campaign against hostile candidate owners." }
+  - { title: "Follow the evidence to the final search result", note: "Stop searching when the mission says the search is finished." }
+  - { title: "Bring the research home", note: "Preserve the expedition and choose what its footholds become." }
 panelOrder:
   skills: [elspeth, master, engineer, theodore, priest, captain, death, light, life, hunter]
   research: [route-3-opening, firepower, economy, route-3-arcane]

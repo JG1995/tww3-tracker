@@ -1157,3 +1157,69 @@ test("getFlaggedEntries returns the committed 36-entry flagged set: family count
     "VCO entries run in list order",
   );
 });
+
+test("the committed guide names the crest path and the atlas environment topline verbatim", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const elspeth = tree.lords[0];
+
+  assert.equal(elspeth.guide.crest, "crest.svg", "the guide names the crest file inside the lord directory");
+  assert.equal(
+    elspeth.guide.environment,
+    "Normal / Normal · Smart Autoresolve · VCO · Immortal Empires",
+    "the guide carries the atlas environment topline verbatim",
+  );
+  assert.ok(elspeth.crestSvg !== undefined, "the crest file loads through the boot pass");
+  assert.ok(elspeth.crestSvg!.includes("<svg"), "the loaded crest carries an <svg start tag");
+  assert.ok(elspeth.crestSvg!.includes("<path d=\"M25 18h70v49c0 23-35 40-35 40S25 90 25 67Z M32 25h56v40c0 17-28 33-28 33S32 82 32 65Z\"></path>"), "the loaded crest keeps the atlas path 1 verbatim");
+  assert.ok(elspeth.crestSvg!.includes("<path d=\"M60 31v48M48 78h24M57 31l20-10M76 20c11 1 20 9 22 20-7-7-16-8-23-5 M39 68l41-23M34 66l8 8M77 42l7 8\"></path>"), "the loaded crest keeps the atlas path 2 verbatim");
+  assert.ok(elspeth.crestSvg!.includes("<path d=\"M60 42c-10-11-20 1-9 9-13 2-10 18 3 14-3 13 13 16 15 3 11 8 21-4 9-11 12-10 0-20-8-10-2-13-15-14-10-5 M56 54l4 8 4-8M13 24l-5-6m9 21-9-2m100-11 5-7m-10 21 10-3M13 74l8 2m79 0 8-3\"></path>"), "the loaded crest keeps the atlas path 3 verbatim");
+  assert.ok(elspeth.crestSvg!.includes("<circle cx=\"60\" cy=\"55\" r=\"10\"></circle>"), "the loaded crest keeps the atlas circle verbatim");
+});
+
+test("the committed crest file exists with the atlas crest symbol verbatim in an <svg> root", async () => {
+  const crestFile = await fsReader(CONTENT).readFile("elspeth-von-draken/crest.svg");
+  assert.ok(crestFile.includes("<svg"), "the crest file carries an <svg start tag");
+  assert.ok(crestFile.includes("<path d=\"M25 18h70v49c0 23-35 40-35 40S25 90 25 67Z M32 25h56v40c0 17-28 33-28 33S32 82 32 65Z\"></path>"), "the crest file keeps the atlas path 1 verbatim");
+  assert.ok(crestFile.includes("<path d=\"M60 31v48M48 78h24M57 31l20-10M76 20c11 1 20 9 22 20-7-7-16-8-23-5 M39 68l41-23M34 66l8 8M77 42l7 8\"></path>"), "the crest file keeps the atlas path 2 verbatim");
+  assert.ok(crestFile.includes("<path d=\"M60 42c-10-11-20 1-9 9-13 2-10 18 3 14-3 13 13 16 15 3 11 8 21-4 9-11 12-10 0-20-8-10-2-13-15-14-10-5 M56 54l4 8 4-8M13 24l-5-6m9 21-9-2m100-11 5-7m-10 21 10-3M13 74l8 2m79 0 8-3\"></path>"), "the crest file keeps the atlas path 3 verbatim");
+  assert.ok(crestFile.includes("<circle cx=\"60\" cy=\"55\" r=\"10\"></circle>"), "the crest file keeps the atlas circle verbatim");
+});
+
+test("each route carries exactly its five atlas phases in order, title and note verbatim", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const routes = tree.lords[0].routes;
+
+  const expected: Record<string, Array<[string, string]>> = {
+    "route-1": [
+      ["Give Nuln breathing room", "Win the starting war without creating three additional fronts."],
+      ["Break Sylvania’s momentum", "Make the eastern campaign an elimination, not repeated duels with Vlad."],
+      ["Link the relief operations", "Choose the next enemy by danger and travel, not the guide’s printed order."],
+      ["Close the ledger deliberately", "Every expensive purchase should remove the actual last obstacle."],
+      ["Claim the victory, then defend the city", "Separate campaign success from its thematic epilogue."],
+    ],
+    "route-2": [
+      ["Make the departure affordable", "Build a homeland that survives Elspeth’s absence."],
+      ["Establish the charter’s first foothold", "Choose a connected southern theatre instead of opening both extremes at once."],
+      ["Turn a foothold into a functioning region", "Pay for a local replacement pipeline when the journey from Nuln becomes the bottleneck."],
+      ["Secure the outer provinces", "Finish Estalia, the mountains and Pirate’s Current without losing earlier gains."],
+      ["Make the charter permanent—or go home", "Conclude the control objective without inventing a final ritual."],
+    ],
+    "route-3": [
+      ["Prepare the expedition, not an entire Empire reconquest", "Secure the departure base and the research company."],
+      ["Open the northern search corridor", "Start close enough that one setback does not require sailing around the world."],
+      ["Keep the field laboratory moving", "Combine cooperation with a selective campaign against hostile candidate owners."],
+      ["Follow the evidence to the final search result", "Stop searching when the mission says the search is finished."],
+      ["Bring the research home", "Preserve the expedition and choose what its footholds become."],
+    ],
+  };
+  for (const route of routes) {
+    const pairs = expected[route.id];
+    assert.ok(pairs !== undefined, `${route.id} is a planned route row`);
+    assert.equal(route.phases?.length, 5, `${route.id} carries exactly five phases`);
+    assert.deepEqual(
+      route.phases!.map((p) => [p.title, p.note]),
+      pairs,
+      `${route.id} phases are the atlas's five title/note pairs in order`,
+    );
+  }
+});

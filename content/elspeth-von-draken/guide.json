@@ -3,6 +3,8 @@
   "lord": "Elspeth von Draken",
   "faction": "Empire",
   "version": { "patch": "9.0", "vco": "2026.09.30.1", "checked": "2026-09-30" },
+  "crest": "crest.svg",
+  "environment": "Normal / Normal · Smart Autoresolve · VCO · Immortal Empires",
   "routes": [
     { "id": "route-1", "file": "routes/route-1.md", "number": "I" },
     { "id": "route-2", "file": "routes/route-2.md", "number": "II" },

@@ -16,6 +16,12 @@ reward:
     - vco-guide
 interpretation: Nuln’s black-powder soldiery and the knights of Morr restore security to the Empire. Elspeth goes where the next dangerous enemy is, while regional forces hold what she has already saved.
 bottleneck: Finishing the last surviving faction, not simply winning its first battle
+phases:
+  - { title: "Give Nuln breathing room", note: "Win the starting war without creating three additional fronts." }
+  - { title: "Break Sylvania’s momentum", note: "Make the eastern campaign an elimination, not repeated duels with Vlad." }
+  - { title: "Link the relief operations", note: "Choose the next enemy by danger and travel, not the guide’s printed order." }
+  - { title: "Close the ledger deliberately", note: "Every expensive purchase should remove the actual last obstacle." }
+  - { title: "Claim the victory, then defend the city", note: "Separate campaign success from its thematic epilogue." }
 panelOrder:
   skills: [elspeth, master, engineer, theodore, priest, captain, death, light, life, hunter]
   research: [opening, firepower, economy, arcane]

@@ -200,7 +200,7 @@ Commit 1 (content model) → Commit 2 (visual system) → Commit 3 (Elspeth cont
 
 #### Package `elspeth-chrome-content` — Commit 3: Elspeth's crest, environment, and per-route phases
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 2
 
