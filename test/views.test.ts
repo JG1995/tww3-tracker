@@ -60,6 +60,7 @@ import { ArmiesMarkup, SettlementsView, WorkshopView, panelTabNav } from "../app
 import type { PanelGroup } from "../app/content/types.ts";
 import { LordView } from "../app/views/lord.ts";
 import { SourcesView } from "../app/views/sources.ts";
+import { NotesView } from "../app/views/notes.ts";
 import { PlanView } from "../app/views/plan.ts";
 import { RouteView, transitionTarget } from "../app/views/route.ts";
 import { itemsFor } from "../app/ledger/logic.ts";
@@ -3903,4 +3904,73 @@ test("a lord with an empty sources dataset ([]) renders the same explicit empty 
     "the proportional empty sentence explains the state",
   );
   assert.equal(sourceRowsOf(markup).length, 0, "no row renders for an empty dataset");
+});
+
+// ─── The field notes page (package `notes-page-view`) ─────────────────────────
+
+/** The committed Elspeth tree resolved once for the field-notes proofs. */
+async function committedNotesInputs(): Promise<{ lord: Lord }> {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found, "the committed lord loads");
+  return { lord: lord.value };
+}
+
+test("the field notes page renders the desk toolbar: the serif title over the lord-page context line", async () => {
+  const { lord } = await committedNotesInputs();
+  const markup = NotesView({ lord });
+  const nodes = recordVNodes(markup);
+  const text = vnodeText(markup);
+
+  const titleAt = nodes.findIndex((n) => n.props.className === "notes-page__title");
+  const contextAt = nodes.findIndex((n) => n.props.className === "notes-page__context");
+  assert.ok(
+    titleAt !== -1 && contextAt !== -1 && titleAt < contextAt,
+    "the title renders above the context line in the toolbar",
+  );
+  const title = nodes[titleAt];
+  assert.equal(title?.tag, "h1", "the serif page title is the headline element");
+  assert.equal(String(title?.children[0]), "Field notes", "the DESIGN page copy renders");
+  assert.equal(
+    nodes.filter((n) => n.props.className === "notes-page__title").length,
+    1,
+    "the page title renders exactly once",
+  );
+  const context = nodes[contextAt];
+  assert.equal(
+    String(context?.children[0]),
+    "Elspeth von Draken",
+    "the lord-page context line names the lord (the shared lord-page copy decision)",
+  );
+  assert.ok(text.includes("Field notes"), "the toolbar text reads on the page");
+});
+
+test("the field notes body is the explicit deferred empty state: the label + the DESIGN-fixed sentence, never a blank region", async () => {
+  const { lord } = await committedNotesInputs();
+  const markup = NotesView({ lord });
+  const nodes = recordVNodes(markup);
+  const text = vnodeText(markup);
+
+  const deferredAt = nodes.findIndex((n) => n.props.className === "notes-deferred");
+  const contextAt = nodes.findIndex((n) => n.props.className === "notes-page__context");
+  assert.ok(deferredAt !== -1, "the deferred state occupies the page body — explicit copy, never a blank region");
+  assert.ok(contextAt !== -1 && deferredAt > contextAt, "the deferred state renders below the toolbar");
+
+  const label = nodes.find((n) => n.props.className === "notes-deferred__label");
+  assert.ok(label !== undefined, "the deferred-state label renders");
+  assert.equal(label?.tag, "p", "the label renders as a paragraph");
+  assert.equal(String(label?.children[0]), "NO NOTES YET", "the mono label names the deferred state");
+  const copy = nodes.find((n) => n.props.className === "notes-deferred__copy");
+  assert.ok(copy !== undefined, "the deferred-state sentence renders");
+  assert.equal(copy?.tag, "p", "the sentence renders as a paragraph");
+  assert.equal(
+    String(copy?.children[0]),
+    "Notes arrive with a later feature",
+    "the DESIGN-fixed deferred-surface sentence",
+  );
+  assert.ok(text.includes("Notes arrive with a later feature"), "the deferred sentence reads on the page");
+  assert.ok(
+    text.indexOf("NO NOTES YET") < text.indexOf("Notes arrive with a later feature"),
+    "the deferred state reads label first, then the sentence (the DESIGN's label + one sentence shape)",
+  );
 });

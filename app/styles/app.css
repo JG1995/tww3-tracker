@@ -1542,6 +1542,71 @@ kbd,
   color: var(--muted);
 }
 
+/* ─── Field notes (package `notes-page-view`): the lord-scoped page — the ────
+   desk toolbar (serif title + lord-page context line) over the explicit
+   deferred empty state: the mono label + the DESIGN-fixed one sentence
+   (the project's empty-state policy — never a blank region), the page's
+   only body until the notes content lands. Token-only. */
+
+.notes-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+}
+
+.notes-page__toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+/* The serif page title — the headline voice of the desk/plan toolbars. */
+.notes-page__title {
+  color: var(--ink);
+}
+
+/* The lord-page context line in the eyebrow voice — the panel pages'
+   "ROUTE <n> · <name>" line reduced to the lord page (this page is
+   lord-scoped; the line names the lord). */
+.notes-page__context {
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--eyebrow-color);
+}
+
+/* The explicit deferred empty state — the page's whole body: the mono
+   label + the DESIGN-fixed sentence in the Content Panel anatomy (the
+   `sources-deferred`/`sources-empty` anatomy), never a blank region. */
+.notes-deferred {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+  padding: var(--gap-md);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+}
+
+.notes-deferred__label {
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--eyebrow-color);
+}
+
+.notes-deferred__copy {
+  max-width: 60ch;
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
+}
+
 /* The shared desk panel: the serif head (Roman index + serif title) over
    the panel body; the entry anatomy inside keeps its own card treatment. */
 .desk-panel {

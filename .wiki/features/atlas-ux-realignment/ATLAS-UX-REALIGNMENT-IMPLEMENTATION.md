@@ -350,7 +350,7 @@ Commit 1 (content model) → Commit 2 (visual system) → Commit 3 (Elspeth cont
 
 #### Package `notes-page-view` — Commit 8: The Field notes page
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 6
 
