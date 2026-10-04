@@ -24,11 +24,14 @@
 import { render, type VNode } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { ContentBootError, createFetchReader, loadContentTree } from "./content/load.ts";
-import { getLord, getRoute, listLords } from "./content/query.ts";
-import type { ContentTree } from "./content/types.ts";
+import { getLord, getRoute, getVcoObjectives, listLords } from "./content/query.ts";
+import type { ContentTree, Lord, Route } from "./content/types.ts";
+import { itemsFor } from "./ledger/logic.ts";
+import { useCampaign } from "./ledger/useCampaign.ts";
 import { useHashRoute, type HashRoute } from "./router.ts";
 import { BootErrorView } from "./views/boot-error.ts";
 import { HomeView } from "./views/home.ts";
+import { LedgerView } from "./views/ledger.ts";
 import { LordView } from "./views/lord.ts";
 import { NotFoundView } from "./views/not-found.ts";
 import { RouteView } from "./views/route.ts";
@@ -152,6 +155,35 @@ function isCurrentLord(route: HashRoute, slug: string): boolean {
   return (route.name === "lord" || route.name === "route") && route.lordSlug === slug;
 }
 
+/**
+ * The ledger page composition (the `ledger-page-wiring` package): mounts the
+ * on-demand campaign hook for the active ledger hash and computes the SINGLE
+ * `logic.itemsFor` reconciliation here — the committed VCO ids via
+ * `getVcoObjectives`, applied to the hook's current document (the optimistic
+ * next document while a row write is in flight). The view never computes a
+ * second intersection.
+ */
+function LedgerPage({ lord, route }: { readonly lord: Lord; readonly route: Route }): VNode {
+  const campaign = useCampaign(lord.slug, route.id);
+  const committedIds = getVcoObjectives(lord, route.id).map((item) => item.id);
+  const rows =
+    campaign.phase.kind === "ready" && campaign.phase.doc !== null
+      ? itemsFor(campaign.phase.doc, committedIds)
+      : [];
+  return (
+    <LedgerView
+      lord={lord}
+      route={route}
+      phase={campaign.phase}
+      rows={rows}
+      statuses={campaign.statuses}
+      onRetry={campaign.onRetry}
+      onTick={campaign.onTick}
+      onStep={campaign.onStep}
+    />
+  );
+}
+
 function routeView(tree: ContentTree, route: HashRoute): VNode {
   switch (route.name) {
     case "home":
@@ -165,11 +197,14 @@ function routeView(tree: ContentTree, route: HashRoute): VNode {
       const found = getRoute(tree, route.lordSlug, route.routeId);
       return lord.found && found.found ? <RouteView lord={lord.value} route={found.value} /> : <NotFoundView />;
     }
-    case "ledger":
-      // The routed shape is truthful and trunk-safe today, but the ledger view
-      // lands in the ledger feature wiring (Commit 8 replaces this stub); render
-      // the not-found view explicitly — never a fallthrough.
-      return <NotFoundView />;
+    case "ledger": {
+      // The ledger case mirrors the route case's resolution: lord/route must
+      // both resolve, otherwise the explicit not-found view (the Commit 3
+      // stub is replaced — the ledger view wires in here now).
+      const lord = getLord(tree, route.lordSlug);
+      const found = getRoute(tree, route.lordSlug, route.routeId);
+      return lord.found && found.found ? <LedgerPage lord={lord.value} route={found.value} /> : <NotFoundView />;
+    }
     case "not-found":
       return <NotFoundView />;
   }

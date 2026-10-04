@@ -349,7 +349,7 @@ Commit 1 (server ledger root + gitignore) → Commit 2 (pure model) → Commit 4
 
 #### Package `ledger-page-wiring` — Commit 8: Wire the ledger page into the app
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 5
 
