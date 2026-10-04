@@ -380,7 +380,7 @@ Commit 1 (content model) → Commit 2 (visual system) → Commit 3 (Elspeth cont
 
 #### Package `atlas-router-grammar` — Commit 9: The atlas hash grammar and app dispatch
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 7
 

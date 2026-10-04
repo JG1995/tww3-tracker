@@ -1,8 +1,8 @@
 /**
  * Contract proof for the data-driven views (package `home-real`, commit 6):
- * the home card list, the lord page, and the F1 route page rendered from the
- * REAL committed Elspeth tree; (package `route-tab-strip`, commit 4) the
- * route tab strip the lord/route views mount over the committed tree; and
+ * the home card list and the F1 route page rendered from the REAL committed
+ * Elspeth tree; (package `route-tab-strip`, commit 4) the route tab strip the
+ * route views mount over the committed tree; and
  * (package `route-identity`, commit 5) the identity card's badged claims,
  * notes, distinct official-title/subtitle classes, and the optional VCO
  * undercard proven over the test fixtures; and (package `gap-markers`,
@@ -18,7 +18,7 @@
  * `app/content/load.ts` pass the CLI and the site boot use (filesystem
  * `ContentReader`, one immutable tree), then each view function is called
  * directly with the data `main.tsx` passes it — `HomeView` gets the tree,
- * `LordView`/`RouteView` get query results — and the returned Preact VNode
+ * `RouteView`/the desk views get query results — and the returned Preact VNode
  * tree is flattened to text with the small helper below. Views stay plain
  * `.ts` modules built from `h()`, so node:test can import them without a DOM
  * library (see the plan-revision discovery on `.tsx` under node:test). The
@@ -58,7 +58,6 @@ import { HomeView, versionContext } from "../app/views/home.ts";
 import { DeskMarkup } from "../app/views/desk.ts";
 import { ArmiesMarkup, SettlementsView, WorkshopView, panelTabNav } from "../app/views/panels.ts";
 import type { PanelGroup } from "../app/content/types.ts";
-import { LordView } from "../app/views/lord.ts";
 import { SourcesView } from "../app/views/sources.ts";
 import { NotesView } from "../app/views/notes.ts";
 import { PlanView } from "../app/views/plan.ts";
@@ -259,56 +258,6 @@ test("home keeps the explicit empty state when the tree holds no lords", () => {
   const text = vnodeText(HomeView({ tree: { lords: [] } }));
 
   assert.ok(text.includes("NO GUIDES YET"), "the empty state names that no guides exist yet");
-});
-
-test("lord page renders shared fundamentals and all three routes with the unresearched marker", async () => {
-  const tree = await loadContentTree(fsReader(CONTENT));
-  const lord = getLord(tree, "elspeth-von-draken");
-  assert.ok(lord.found);
-  const text = vnodeText(LordView({ lord: lord.value }));
-
-  // shared-fundamentals markdown, rendered once at boot and cached in the tree
-  assert.ok(text.includes("Grey Lady of Nuln"), "shared fundamentals prose is rendered");
-
-  // the four atlas shared blocks render as H2 sections on the committed lord
-  // page, in atlas order (opening → smart → budget → equipment)
-  const sharedSections = [
-    "The common foundation",
-    "Autoresolve the operation, not just the battle",
-    "Build to a next operation",
-    "Give equipment a job",
-  ];
-  for (let i = 0; i < sharedSections.length; i++) {
-    const title = sharedSections[i] as string;
-    assert.ok(text.includes(title), `the "${title}" shared section title renders`);
-    if (i > 0) {
-      assert.ok(
-        text.indexOf(sharedSections[i - 1] as string) < text.indexOf(title),
-        `the "${title}" shared section follows "${sharedSections[i - 1] as string}" in atlas order`,
-      );
-    }
-  }
-
-  // route list: numbers I/II/III, thematic subtitles, objective lines
-  assert.ok(/\bI\b/.test(text) && /\bII\b/.test(text) && /\bIII\b/.test(text), "route numbers I, II and III are listed");
-  assert.ok(text.includes("The Graveyard Watch"), "route I subtitle");
-  assert.ok(text.includes("The Southern Charter"), "route II subtitle");
-  assert.ok(text.includes("Fozzrik’s Legacy"), "route III subtitle");
-  assert.ok(text.includes("Defeat the five listed factions and win 35 battles."), "route I objective line");
-  assert.ok(
-    text.includes("Control seven specified southern provinces, directly or through qualifying diplomacy."),
-    "route II objective line",
-  );
-  assert.ok(
-    text.includes("Search the published Badlands candidate settlements for Fozzrik’s Flying Fortress through conquest or diplomacy."),
-    "route III objective line",
-  );
-
-  // every committed vcoTitle is null ⇒ exactly three explicit unresearched markers
-  assert.equal(countOccurrences(text, "UNRESEARCHED"), 3, "one marker per unresearched route");
-
-  // the lord page carries the same mono label style version context as the card
-  assert.ok(text.includes("patch 9.0 · VCO 2026.09.30.1"), "version context on the lord page");
 });
 
 test("route page identity card: badged claims, notes, distinct title classes, and the committed VCO undercard", async () => {
@@ -787,34 +736,6 @@ test("a route without notes renders the identity card without them and no underc
   assert.ok(!text.includes("Bottleneck"), "no bottleneck note when absent");
   assert.ok(!text.includes("Motto"), "no motto note when absent");
   assert.ok(!text.includes("VCO OBJECTIVES"), "second-lord has no vco dataset → no undercard");
-});
-
-test("the lord page mounts the route tab strip over the committed tree with Shared active", async () => {
-  const tree = await loadContentTree(fsReader(CONTENT));
-  const lord = getLord(tree, "elspeth-von-draken");
-  assert.ok(lord.found);
-  const { props, tabs, text } = mountedTabStrip(LordView({ lord: lord.value }));
-
-  assert.equal(props.activeId, "shared", "the lord page derives the Shared tab as active");
-  assert.equal(props.lordSlug, "elspeth-von-draken");
-  assert.deepEqual(
-    tabs.map((t) => t.props.href),
-    [
-      "#/elspeth-von-draken",
-      "#/elspeth-von-draken/route/route-1",
-      "#/elspeth-von-draken/route/route-2",
-      "#/elspeth-von-draken/route/route-3",
-    ],
-    "the strip links the existing hash routes in manifest order; Shared links the lord page",
-  );
-  assert.ok(text.includes("SHARED"), "the strip carries the Shared tab over the committed tree");
-  assert.ok(text.includes("I The Graveyard Watch"), "…and route I");
-  assert.ok(text.includes("II The Southern Charter"), "…and route II");
-  assert.ok(text.includes("III Fozzrik’s Legacy"), "…and route III");
-  assert.ok(text.indexOf("SHARED") < text.indexOf("I The Graveyard Watch"), "Shared first, then routes in manifest order");
-  assert.equal(tabs[0].props.tabIndex, 0, "the Shared-derived active tab is tabbable");
-  assert.equal(tabs[0].props["aria-selected"], true, "…and is the selected tab");
-  assert.ok(tabs.slice(1).every((t) => t.props.tabIndex === -1), "route tabs rove at −1 on the lord page");
 });
 
 /**
@@ -1659,13 +1580,13 @@ test("a section citing the same source twice renders the source once in its pane
   );
 });
 
-/* ─── The flagged-items section on the lord page (package flagged-list) ──────── */
+/* ─── The flagged-items section in the views' lord-level zone (package flagged-list) ─ */
 
-/** The recorded subtree of the lord page's flagged section (the `flagged-items` anchor + rows). */
+/** The recorded subtree of a view's flagged section (the `flagged-items` anchor + rows). */
 function flaggedSectionNodes(view: unknown): VNodeRecord[] {
   const nodes = recordVNodes(view);
   const section = nodes.find((n) => n.props.id === "flagged-items");
-  assert.ok(section !== undefined, "the lord page renders the flagged-items section");
+  assert.ok(section !== undefined, "the view renders the flagged-items section");
   return recordVNodes(section);
 }
 
@@ -1690,219 +1611,13 @@ function flaggedRows(section: VNodeRecord[]): FlaggedRow[] {
   });
 }
 
-test("the lord page ends with the flagged section rendering all 36 committed entries in the selector's stable order", async () => {
-  const tree = await loadContentTree(fsReader(CONTENT));
-  const lord = getLord(tree, "elspeth-von-draken");
-  assert.ok(lord.found);
-  const view = LordView({ lord: lord.value });
-  const text = vnodeText(view);
-  const sections = recordVNodes(view);
+/* ─── The Version Banner in the views' lord-level zone (package version-banner) ─ */
 
-  // the flagged section closes the page, after the routes list
-  const article = sections[0];
-  const lastChild = article.children[article.children.length - 1] as { props?: { id?: string } };
-  assert.equal(lastChild.props?.id, "flagged-items", "the flagged section is the last region of the lord page");
-  assert.ok(text.indexOf("Routes") < text.indexOf("VERIFY IN CAMPAIGN"), "the flagged section follows the routes list");
-  const section = flaggedSectionNodes(view);
-  assert.ok(
-    section.some((n) => n.props.className === "flagged-items__title"),
-    "the mono uppercase eyebrow names the re-check list",
-  );
-
-  // every committed flagged claim renders as exactly one row: 6 identity + 5
-  // callout + 22 dataset + 3 vco
-  const rows = flaggedRows(section);
-  assert.equal(rows.length, 36, "all 36 committed flagged entries render");
-  const byKind = { identity: 0, callout: 0, dataset: 0, vco: 0 };
-  for (const row of rows) byKind[row.kind as keyof typeof byKind] += 1;
-  assert.deepEqual(byKind, { identity: 6, callout: 5, dataset: 22, vco: 3 }, "family counts over the committed tree");
-
-  // the view renders the single selector's output once and unchanged — the row
-  // kinds reproduce the selector's exact kind sequence, so no re-sorting can
-  // hide behind the grouping (routes in manifest order; within a route:
-  // identity, then callouts, then panels in PANEL_GROUPS order, then vco)
-  const expectedKinds = getFlaggedEntries(lord.value).map((e) => e.kind);
-  assert.deepEqual(
-    rows.map((r) => r.kind),
-    expectedKinds,
-    "rows follow the selector's stable order — one definition rendered once",
-  );
-
-  // claim texts render per family (one representative committed entry each)
-  assert.ok(text.includes("Defeat the five listed factions and win 35 battles."), "route-1 objective identity claim text");
-  assert.ok(
-    text.includes("A transfer is acceptable only while the game still credits the control relationship."),
-    "route-2 Mid → Late callout claim text",
-  );
-  assert.ok(text.includes("The Countess’s field company"), "route-1 armies mid dataset claim text");
-  assert.ok(
-    text.includes(
-      "The Deceivers — The Changeling: Use the actual destruction/wounded wording in your installed mission. Investigate remaining cults if the faction persists.",
-    ),
-    "route-1 deceivers vco claim text",
-  );
-
-  // every row is the VERIFY badge — the only badge vocabulary on the page, so
-  // the other three confidence states never render (colour is never the sole
-  // indicator: label + icon anatomy comes from the F2 component itself)
-  const badges = badgeVNodes(view);
-  assert.equal(badges.length, 36, "one Confidence Badge per flagged row");
-  assert.ok(
-    badges.every((n) => n.props.state === "verify-in-campaign"),
-    "no non-verify state ever renders in the list",
-  );
-  assert.equal(
-    countOccurrences(vnodeText(badges.map(expandBadge)), "VERIFY"),
-    36,
-    "every expanded badge carries the VERIFY label",
-  );
-
-  // each compact row carries the resolved source notes beneath the badge
-  for (const row of rows) {
-    assert.ok(
-      recordVNodes(row.node).some((n) => n.props.className === "flagged-item__note"),
-      `the ${row.kind} row at "${row.location}" renders its source note`,
-    );
-  }
-  assert.ok(
-    text.includes("Primary author reference, labelled 25 September 2026 and rechecked 30 September."),
-    "the vco-guide source note text renders",
-  );
-
-  // the DESIGN §6 compact row anatomy on a linked row: location label, claim
-  // text, badge, source notes beneath, then the location link
-  const firstRow = recordVNodes(rows[0].node);
-  const at = (pred: (n: VNodeRecord) => boolean): number => firstRow.findIndex(pred);
-  assert.ok(
-    at((n) => n.props.className === "flagged-item__location") < at((n) => n.props.className === "flagged-item__claim"),
-    "location label precedes the claim text",
-  );
-  const badgeAt = at((n) => typeof n.props.state === "string" && Array.isArray(n.props.sources));
-  const notesAt = at((n) => n.props.className === "flagged-item__notes");
-  const linkAt = at((n) => n.props.className === "flagged-item__link");
-  assert.ok(badgeAt < notesAt && notesAt < linkAt, "badge, then source notes, then the location link");
-
-  // location links use the existing hash grammar verbatim: callouts anchor
-  // their section, identity and vco items point at the route page — and
-  // dataset rows render no link element at all (their label carries the
-  // location)
-  const links = section.filter((n) => n.tag === "a" && n.props.className === "flagged-item__link");
-  assert.equal(links.length, 14, "5 callout + 6 identity + 3 vco location links");
-  assert.deepEqual(
-    links.map((n) => n.props.href),
-    [
-      "#/elspeth-von-draken/route/route-1",
-      "#/elspeth-von-draken/route/route-1",
-      "#/elspeth-von-draken/route/route-1",
-      "#/elspeth-von-draken/route/route-1",
-      "#/elspeth-von-draken/route/route-1",
-      "#/elspeth-von-draken/route/route-2",
-      "#/elspeth-von-draken/route/route-2",
-      "#/elspeth-von-draken/route/route-2/mid-late",
-      "#/elspeth-von-draken/route/route-2/victory-push",
-      "#/elspeth-von-draken/route/route-2/diplomacy",
-      "#/elspeth-von-draken/route/route-3",
-      "#/elspeth-von-draken/route/route-3",
-      "#/elspeth-von-draken/route/route-3/mid-late",
-      "#/elspeth-von-draken/route/route-3/diplomacy",
-    ],
-    "callouts link their section anchor; identity and vco items link the route page",
-  );
-  for (const row of rows.filter((r) => r.kind === "dataset")) {
-    assert.ok(
-      !recordVNodes(row.node).some((n) => n.tag === "a"),
-      "dataset rows render no link element — the mono panel label carries the location",
-    );
-  }
-
-  // mono location labels: route + section for callouts in body order, route +
-  // objective/reward for identity claims, panel display names for dataset rows
-  // in PANEL_GROUPS order, route + objective id for vco items in list order
-  assert.deepEqual(
-    rows.filter((r) => r.kind === "callout").map((r) => r.location),
-    [
-      "ROUTE II · Mid → Late",
-      "ROUTE II · Victory push",
-      "ROUTE II · Diplomacy",
-      "ROUTE III · Mid → Late",
-      "ROUTE III · Diplomacy",
-    ],
-    "callout labels name route + section in body order",
-  );
-  assert.deepEqual(
-    rows.filter((r) => r.kind === "identity").map((r) => r.location),
-    [
-      "ROUTE I · OBJECTIVE",
-      "ROUTE I · REWARD",
-      "ROUTE II · OBJECTIVE",
-      "ROUTE II · REWARD",
-      "ROUTE III · OBJECTIVE",
-      "ROUTE III · REWARD",
-    ],
-    "identity labels name route + objective/reward claim",
-  );
-  assert.deepEqual(
-    rows.filter((r) => r.kind === "vco").map((r) => r.location),
-    ["ROUTE I · deceivers", "ROUTE I · drycha", "ROUTE I · khazrak"],
-    "vco labels name route + objective id in list order",
-  );
-  assert.deepEqual(
-    rows.filter((r) => r.kind === "dataset").map((r) => r.location),
-    [
-      "ARMY TEMPLATES", "SKILLS", "SKILLS", "SKILLS", "SKILLS", "SKILLS", "SKILLS",
-      "RESEARCH", "SETTLEMENTS", "SETTLEMENTS", "MECHANICS", "MECHANICS", "MECHANICS", "MECHANICS", "MECHANICS",
-      "ARMY TEMPLATES", "RESEARCH", "SETTLEMENTS",
-      "ARMY TEMPLATES", "RESEARCH", "RESEARCH", "SETTLEMENTS",
-    ],
-    "dataset labels are the panel display names in PANEL_GROUPS order",
-  );
-
-  // one mono group heading per route, in manifest order
-  assert.deepEqual(
-    section
-      .filter((n) => n.props.className === "flagged-items__group-heading")
-      .map((n) => String(n.children[0])),
-    ["ROUTE I", "ROUTE II", "ROUTE III"],
-    "group headings name each route in manifest order",
-  );
-});
-
-test("a lord with zero flags renders the explicit cleared flagged section — never blank", async () => {
-  const tree = await loadContentTree(fsReader(FIXTURES));
-  const lord = getLord(tree, "als-rhyn-of-lorek");
-  assert.ok(lord.found);
-  assert.deepEqual(getFlaggedEntries(lord.value), [], "the fixture guide carries no verify-in-campaign claims");
-  const view = LordView({ lord: lord.value });
-  const text = vnodeText(view);
-  const section = flaggedSectionNodes(view);
-
-  // the section still renders its eyebrow, then the explicit cleared statement
-  assert.ok(section.some((n) => n.props.className === "flagged-items__title"), "the re-check list eyebrow stays");
-  const clearedLabel = section.find((n) => n.props.className === "flagged-items__cleared-label");
-  assert.ok(
-    clearedLabel !== undefined && String(clearedLabel.children[0]) === "ALL CLEARED",
-    "the explicit cleared mono label",
-  );
-  assert.ok(
-    text.includes("No claim is currently open — the research trail is complete."),
-    "the proportional cleared sentence explains the positive state",
-  );
-  assert.ok(
-    !section.some((n) => n.props.className === "flagged-items__groups"),
-    "no group containers render when there is nothing to group",
-  );
-  assert.equal(flaggedRows(section).length, 0, "no flag rows render");
-  assert.equal(badgeVNodes(view).length, 0, "no badge vocabulary leaks into the cleared state");
-  assert.ok(section.length > 1, "the cleared statement fills the section — never blank space");
-});
-
-/* ─── The Version Banner on the lord page header (package version-banner) ──── */
-
-/** The recorded subtree of the lord page's version banner (the replaced header version line). */
+/** The recorded subtree of a view's version banner (the desk's lord-level zone since Commit 9). */
 function versionBannerNode(view: unknown): VNodeRecord[] {
   const nodes = recordVNodes(view);
   const banner = nodes.find((n) => n.props.className === "version-banner");
-  assert.ok(banner !== undefined, "the lord page renders the version banner");
+  assert.ok(banner !== undefined, "the view renders the version banner");
   return recordVNodes(banner);
 }
 
@@ -1913,105 +1628,6 @@ function versionChipNode(view: unknown): VNodeRecord {
   assert.ok(chip !== undefined, "the banner renders its open-flags chip");
   return chip;
 }
-
-test("the lord page header renders the version banner: VERIFIED AGAINST, the patch · VCO pairing, and the 36 OPEN FLAGS warning chip", async () => {
-  const tree = await loadContentTree(fsReader(CONTENT));
-  const lord = getLord(tree, "elspeth-von-draken");
-  assert.ok(lord.found);
-  const view = LordView({ lord: lord.value });
-  const text = vnodeText(view);
-  const nodes = recordVNodes(view);
-
-  // the fixed eyebrow and the guide's version pairing render in the banner;
-  // the count comes from the one selector — the same array the flagged list
-  // renders, never recomputed elsewhere
-  assert.ok(text.includes("VERIFIED AGAINST"), "the fixed banner eyebrow renders");
-  assert.equal(
-    countOccurrences(text, "patch 9.0 · VCO 2026.09.30.1"),
-    1,
-    "the patch · VCO pairing renders exactly once on the lord page",
-  );
-
-  // the banner sits inside the page header, between the title and the shared
-  // fundamentals, replacing the plain version-context paragraph — the old
-  // element is gone, not duplicated
-  const banner = versionBannerNode(view);
-  const headerAt = nodes.findIndex((n) => n.props.className === "lord-page__header");
-  const fundamentalsAt = nodes.findIndex((n) => n.props.className === "shared-fundamentals");
-  const bannerAt = nodes.findIndex((n) => n.props.className === "version-banner");
-  assert.ok(headerAt < bannerAt && bannerAt < fundamentalsAt, "the banner replaces the header's version line");
-  assert.ok(
-    !nodes.some((n) => String(n.props.className ?? "").includes("version-context")),
-    "the plain header version-context paragraph is gone",
-  );
-  assert.equal(
-    banner.filter((n) => n.props.className === "version-banner__eyebrow").length,
-    1,
-    "the banner carries the fixed mono eyebrow",
-  );
-  assert.equal(
-    banner.filter((n) => n.props.className === "version-banner__version").length,
-    1,
-    "the banner carries the mono patch · VCO pairing",
-  );
-
-  // the chip: the committed count as an anchor with the same-lord hash — the
-  // router grammar is untouched, so the href is never a #flagged-style hash
-  // and the click handler owns the scroll instead
-  const chip = versionChipNode(view);
-  assert.equal(chip.tag, "a", "the open-flags chip renders as an anchor");
-  assert.equal(
-    String(chip.props.className),
-    "version-chip version-chip--warning",
-    "the open-flags chip carries the warning role",
-  );
-  assert.equal(String(chip.children[0]), "36 OPEN FLAGS", "the chip labels the selector's committed count");
-  assert.equal(chip.props.href, "#/elspeth-von-draken", "the chip href is the same-lord hash");
-  assert.equal(typeof chip.props.onClick, "function", "the chip's click handler preventDefaults and scrolls to the flagged section");
-  // the chip's focus lands only on a programmatically focusable element, so
-  // the flagged-items section must carry the same tabIndex −1 precondition
-  // the skip-link target `#main` carries in main.tsx
-  const target = nodes.find((n) => n.props.id === "flagged-items");
-  assert.equal(
-    target?.props.tabIndex,
-    -1,
-    "the flagged-items section is programmatically focusable — the chip's .focus() shows the :focus-visible ring",
-  );
-  assert.ok(
-    !nodes.some((n) => typeof n.props.href === "string" && String(n.props.href).includes("flagged")),
-    "no flag-hash href shape is ever emitted",
-  );
-  assert.equal(countOccurrences(text, "36 OPEN FLAGS"), 1, "the committed count appears exactly once, in the chip");
-});
-
-test("a lord with a single flag renders the chip as the 1 OPEN FLAGS warning anchor to its own hash", async () => {
-  const tree = await loadContentTree(fsReader(FIXTURES));
-  const lord = getLord(tree, "second-lord");
-  assert.ok(lord.found);
-  assert.equal(getFlaggedEntries(lord.value).length, 1, "the second-lord fixture carries exactly one flag");
-  const view = LordView({ lord: lord.value });
-  const chip = versionChipNode(view);
-
-  assert.equal(chip.tag, "a", "the one-flag chip renders as an anchor");
-  assert.equal(String(chip.children[0]), "1 OPEN FLAGS", "the chip labels the single open flag");
-  assert.equal(chip.props.href, "#/second-lord", "the chip href is second-lord's own hash");
-  assert.equal(typeof chip.props.onClick, "function", "…with the scroll/focus click handler");
-});
-
-test("a lord with zero flags renders the non-link ALL CLEARED chip in the success role", async () => {
-  const tree = await loadContentTree(fsReader(FIXTURES));
-  const lord = getLord(tree, "als-rhyn-of-lorek");
-  assert.ok(lord.found);
-  assert.deepEqual(getFlaggedEntries(lord.value), [], "the fixture guide carries no flags");
-  const view = LordView({ lord: lord.value });
-  const chip = versionChipNode(view);
-
-  assert.equal(chip.tag, "span", "the cleared state is a non-link span");
-  assert.equal(String(chip.props.className), "version-chip version-chip--success", "the cleared chip carries the success role");
-  assert.equal(String(chip.children[0]), "ALL CLEARED", "the fixed cleared label renders");
-  assert.equal(chip.props.href, undefined, "the cleared chip has no href");
-  assert.equal(chip.props.onClick, undefined, "the cleared chip has no click handler");
-});
 
 /* ─── The reference desk view (package `reference-desk-view`) ────────────── */
 
@@ -2325,10 +1941,42 @@ test("the desk's lord-level zone renders the banner, shared fundamentals, and th
   );
   assert.equal(countOccurrences(text, "36 OPEN FLAGS"), 1, "the committed count appears exactly once, in the chip");
 
+  // the banner anatomy: exactly one fixed eyebrow and one pairing element in
+  // the banner (the lord-page banner's element-level contract, ported)
+  const banner = versionBannerNode(markup);
+  assert.equal(
+    banner.filter((n) => n.props.className === "version-banner__eyebrow").length,
+    1,
+    "the banner carries the fixed mono eyebrow",
+  );
+  assert.equal(
+    banner.filter((n) => n.props.className === "version-banner__version").length,
+    1,
+    "the banner carries the mono patch · VCO pairing",
+  );
+
   // the shared fundamentals: the boot-rendered markdown in the zone
   const prose = nodes.find((n) => n.props.className === "prose");
   assert.ok(prose !== undefined, "the shared fundamentals prose renders");
   assert.ok(text.includes("The common foundation"), "the shared-fundamentals HTML renders in the zone");
+  // the four atlas shared blocks render in atlas order (opening → smart →
+  // budget → equipment) — the lord page's surface, moved to the desk zone
+  const sharedSections = [
+    "The common foundation",
+    "Autoresolve the operation, not just the battle",
+    "Build to a next operation",
+    "Give equipment a job",
+  ];
+  for (let i = 0; i < sharedSections.length; i++) {
+    const title = sharedSections[i] as string;
+    assert.ok(text.includes(title), `the "${title}" shared section title renders`);
+    if (i > 0) {
+      assert.ok(
+        text.indexOf(sharedSections[i - 1] as string) < text.indexOf(title),
+        `the "${title}" shared section follows "${sharedSections[i - 1] as string}" in atlas order`,
+      );
+    }
+  }
 
   // the flagged section: 36 entries from the single selector, family counts,
   // stable order — the F3 rendering relocated
@@ -2343,6 +1991,96 @@ test("the desk's lord-level zone renders the banner, shared fundamentals, and th
     rows.map((r) => r.kind),
     expectedKinds,
     "rows follow the selector's stable order — one definition rendered once",
+  );
+
+  // per-family representative claim texts render verbatim from the tree
+  assert.ok(text.includes("Defeat the five listed factions and win 35 battles."), "route-1 objective identity claim text");
+  assert.ok(
+    text.includes("A transfer is acceptable only while the game still credits the control relationship."),
+    "route-2 Mid → Late callout claim text",
+  );
+  assert.ok(text.includes("The Countess’s field company"), "route-1 armies mid dataset claim text");
+  assert.ok(
+    text.includes(
+      "The Deceivers — The Changeling: Use the actual destruction/wounded wording in your installed mission. Investigate remaining cults if the faction persists.",
+    ),
+    "route-1 deceivers vco claim text",
+  );
+
+  // each compact row carries the resolved source notes beneath the badge
+  for (const row of rows) {
+    assert.ok(
+      recordVNodes(row.node).some((n) => n.props.className === "flagged-item__note"),
+      `the ${row.kind} row at "${row.location}" renders its source note`,
+    );
+  }
+  assert.ok(
+    text.includes("Primary author reference, labelled 25 September 2026 and rechecked 30 September."),
+    "the vco-guide source note text renders",
+  );
+
+  // the DESIGN §6 compact row anatomy on a linked row: location label, claim
+  // text, badge, source notes beneath, then the location link
+  const firstRowNodes = recordVNodes(rows[0].node);
+  const at = (pred: (n: VNodeRecord) => boolean): number => firstRowNodes.findIndex(pred);
+  assert.ok(
+    at((n) => n.props.className === "flagged-item__location") < at((n) => n.props.className === "flagged-item__claim"),
+    "location label precedes the claim text",
+  );
+  const badgeAt = at((n) => typeof n.props.state === "string" && Array.isArray(n.props.sources));
+  const notesAt = at((n) => n.props.className === "flagged-item__notes");
+  const linkAt = at((n) => n.props.className === "flagged-item__link");
+  assert.ok(badgeAt < notesAt && notesAt < linkAt, "badge, then source notes, then the location link");
+
+  // mono location labels: route + section for callouts in body order, route +
+  // objective/reward for identity claims, panel display names for dataset rows
+  // in PANEL_GROUPS order, route + objective id for vco items in list order
+  assert.deepEqual(
+    rows.filter((r) => r.kind === "callout").map((r) => r.location),
+    [
+      "ROUTE II · Mid → Late",
+      "ROUTE II · Victory push",
+      "ROUTE II · Diplomacy",
+      "ROUTE III · Mid → Late",
+      "ROUTE III · Diplomacy",
+    ],
+    "callout labels name route + section in body order",
+  );
+  assert.deepEqual(
+    rows.filter((r) => r.kind === "identity").map((r) => r.location),
+    [
+      "ROUTE I · OBJECTIVE",
+      "ROUTE I · REWARD",
+      "ROUTE II · OBJECTIVE",
+      "ROUTE II · REWARD",
+      "ROUTE III · OBJECTIVE",
+      "ROUTE III · REWARD",
+    ],
+    "identity labels name route + objective/reward claim",
+  );
+  assert.deepEqual(
+    rows.filter((r) => r.kind === "vco").map((r) => r.location),
+    ["ROUTE I · deceivers", "ROUTE I · drycha", "ROUTE I · khazrak"],
+    "vco labels name route + objective id in list order",
+  );
+  assert.deepEqual(
+    rows.filter((r) => r.kind === "dataset").map((r) => r.location),
+    [
+      "ARMY TEMPLATES", "SKILLS", "SKILLS", "SKILLS", "SKILLS", "SKILLS", "SKILLS",
+      "RESEARCH", "SETTLEMENTS", "SETTLEMENTS", "MECHANICS", "MECHANICS", "MECHANICS", "MECHANICS", "MECHANICS",
+      "ARMY TEMPLATES", "RESEARCH", "SETTLEMENTS",
+      "ARMY TEMPLATES", "RESEARCH", "RESEARCH", "SETTLEMENTS",
+    ],
+    "dataset labels are the panel display names in PANEL_GROUPS order",
+  );
+
+  // one mono group heading per route, in manifest order
+  assert.deepEqual(
+    section
+      .filter((n) => n.props.className === "flagged-items__group-heading")
+      .map((n) => String(n.children[0])),
+    ["ROUTE I", "ROUTE II", "ROUTE III"],
+    "group headings name each route in manifest order",
   );
 
   // the VIEW links use the NEW grammar: callouts anchor the plan section,
@@ -2383,6 +2121,11 @@ test("the desk's lord-level zone renders the banner, shared fundamentals, and th
     badges.every((n) => n.props.state === "verify-in-campaign"),
     "no non-verify state ever renders in the list",
   );
+  assert.equal(
+    countOccurrences(vnodeText(badges.map(expandBadge)), "VERIFY"),
+    36,
+    "every expanded badge carries the VERIFY label",
+  );
 });
 
 test("a flags-clear lord renders the desk's ALL CLEARED chip and cleared state — never blank", async () => {
@@ -2393,6 +2136,7 @@ test("a flags-clear lord renders the desk's ALL CLEARED chip and cleared state �
   assert.ok(route.found);
 
   const markup = DeskMarkup({ lord: lord.value, route: route.value, comparing: false });
+  const text = vnodeText(markup);
   const chip = versionChipNode(markup);
   assert.equal(chip.tag, "span", "the cleared state is a non-link span");
   assert.equal(String(chip.props.className), "version-chip version-chip--success", "the cleared chip carries the success role");
@@ -2401,13 +2145,41 @@ test("a flags-clear lord renders the desk's ALL CLEARED chip and cleared state �
   assert.equal(chip.props.onClick, undefined, "the cleared chip has no click handler");
   const section = flaggedSectionNodes(markup);
   assert.ok(
+    section.some((n) => n.props.className === "flagged-items__title"),
+    "the re-check list eyebrow stays",
+  );
+  assert.ok(
     section.some((n) => n.props.className === "flagged-items__cleared-label"),
     "the explicit cleared statement fills the section",
+  );
+  assert.ok(
+    text.includes("No claim is currently open — the research trail is complete."),
+    "the proportional cleared sentence explains the positive state",
   );
   assert.ok(
     !section.some((n) => n.props.className === "flagged-items__groups"),
     "no group containers render when there is nothing to group",
   );
+  assert.equal(flaggedRows(section).length, 0, "no flag rows render");
+  assert.equal(badgeVNodes(markup).length, 0, "no badge vocabulary leaks into the cleared state");
+  assert.ok(section.length > 1, "the cleared statement fills the section — never blank space");
+});
+
+test("a single-flag lord renders the desk's 1 OPEN FLAGS warning anchor chip", async () => {
+  const tree = await loadContentTree(fsReader(FIXTURES));
+  const lord = getLord(tree, "second-lord");
+  assert.ok(lord.found);
+  assert.equal(getFlaggedEntries(lord.value).length, 1, "the second-lord fixture carries exactly one flag");
+  const route = getRoute(tree, "second-lord", "lone-route");
+  assert.ok(route.found);
+
+  const markup = DeskMarkup({ lord: lord.value, route: route.value, comparing: false });
+  const chip = versionChipNode(markup);
+  assert.equal(chip.tag, "a", "the one-flag chip renders as an anchor");
+  assert.equal(String(chip.props.className), "version-chip version-chip--warning", "the warning role");
+  assert.equal(String(chip.children[0]), "1 OPEN FLAGS", "the chip labels the single open flag");
+  assert.equal(chip.props.href, "#/second-lord/desk/lone-route", "the chip href is this desk page (new grammar)");
+  assert.equal(typeof chip.props.onClick, "function", "…with the scroll/focus click handler");
 });
 
 test("a desk panel with an empty panelOrder list renders the explicit empty state — never a blank card", async () => {
@@ -2582,7 +2354,6 @@ test("the plan's section walk keeps the tree ids, adds the phase numerals, and l
   const route = getRoute(tree, "elspeth-von-draken", "route-1");
   assert.ok(route.found);
   const view = PlanView({ lord: lord.value, route: route.value });
-  const nodes = recordVNodes(view);
   const text = vnodeText(view);
 
   // the eight slots in registry order — the six registry sections then the
@@ -3250,7 +3021,7 @@ test("the ledger view renders the exact fixed empty state when the campaign docu
   const text = vnodeText(view);
 
   assert.ok(
-    text.includes("NO ACTIVE CAMPAIGN — start one from a route page"),
+    text.includes("NO ACTIVE CAMPAIGN — start one from the route plan"),
     "the DESIGN-fixed empty copy renders exactly",
   );
   assert.ok(text.trim().length > 0, "the page is never blank");
@@ -3805,7 +3576,6 @@ test("the sources page renders the desk toolbar: the serif title over the lord-p
 test("the sources list renders one row per committed entry: count, link href = the url, and the note", async () => {
   const { lord } = await committedSourcesInputs();
   const markup = SourcesView({ lord });
-  const nodes = recordVNodes(markup);
   const rows = sourceRowsOf(markup);
 
   assert.equal(rows.length, 35, "one row per committed Elspeth source entry");

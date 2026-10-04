@@ -13,7 +13,8 @@
  *   error);
  * - any other boot failure (parse/validate) → the boot-error view naming the
  *   offending file and field — never a white page;
- * - success → the hash router renders home / lord / route / not-found.
+ * - success → the hash router renders home / the desk / the lord and
+ *   route pages / not-found.
  *
  * This is the only JSX file in the app (Vite loads it; nothing under
  * node:test imports it — the views are plain `h()`-based `.ts` modules).
@@ -25,17 +26,20 @@ import { render, type VNode } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { ContentBootError, createFetchReader, loadContentTree } from "./content/load.ts";
 import { getLord, getRoute, getVcoObjectives, listLords } from "./content/query.ts";
-import type { ContentTree, Lord, Route } from "./content/types.ts";
+import type { ContentTree, Lord, QueryResult, Route } from "./content/types.ts";
 import { listLedgers, saveLedger } from "./ledger/io.ts";
 import { createCampaign, itemsFor } from "./ledger/logic.ts";
 import { useCampaign, type LedgerIndexState } from "./ledger/useCampaign.ts";
-import { useHashRoute, type HashRoute } from "./router.ts";
+import { useHashRoute, type HashRoute, type RoutePage } from "./router.ts";
 import { BootErrorView } from "./views/boot-error.ts";
+import { DeskView } from "./views/desk.ts";
 import { HomeView } from "./views/home.ts";
 import { LedgerView } from "./views/ledger.ts";
-import { LordView } from "./views/lord.ts";
 import { NotFoundView } from "./views/not-found.ts";
-import { RouteView, type RouteCampaignProps } from "./views/route.ts";
+import { NotesView } from "./views/notes.ts";
+import { ArmiesAndSkillsView, SettlementsView, WorkshopView } from "./views/panels.ts";
+import { PlanView, type RouteCampaignProps } from "./views/plan.ts";
+import { SourcesView } from "./views/sources.ts";
 import "./styles/app.css";
 
 type Boot =
@@ -86,11 +90,11 @@ export function App(): VNode {
     }
   }, []);
 
-  // Section anchor: a route hash with a section id scrolls the matching H2
-  // into view (the route view gives every H2 the tree's section id). Re-runs
-  // when boot finishes so an initial `#/lord/route/id/section` scrolls too.
+  // Section anchor: a plan hash with a section id scrolls the matching H2
+  // into view (the plan view gives every H2 the tree's section id). Re-runs
+  // when boot finishes so an initial `#/lord/plan/id/section` scrolls too.
   useEffect(() => {
-    if (route.name !== "route" || route.sectionId === null) return;
+    if (route.name !== "route-page" || route.page !== "plan" || route.sectionId === null) return;
     const target = document.getElementById(route.sectionId);
     if (target !== null) target.scrollIntoView();
   }, [route, boot.kind]);
@@ -153,7 +157,7 @@ export function App(): VNode {
 }
 
 function isCurrentLord(route: HashRoute, slug: string): boolean {
-  return (route.name === "lord" || route.name === "route") && route.lordSlug === slug;
+  return (route.name === "desk" || route.name === "lord-page" || route.name === "route-page") && route.lordSlug === slug;
 }
 
 /**
@@ -193,20 +197,19 @@ function LedgerPage({ lord, route }: { readonly lord: Lord; readonly route: Rout
 }
 
 /**
- * The route page's on-demand campaign surface (package `ledger-route-start`):
- * reads the ledger index ONLY while a route hash is active — the mount (a
- * route hash) is the demand, so the boot pass never issues a ledger request.
+ * The plan page's on-demand campaign surface (package `ledger-route-start`):
+ * reads the ledger index ONLY while a plan hash is active — the mount (a
+ * plan hash) is the demand, so the boot pass never issues a ledger request.
  * The read is keyed by `(lordSlug, routeId)` and re-runs on hash change, so
- * returning to this route page after completing or deleting a campaign on
+ * returning to this plan page after completing or deleting a campaign on
  * the ledger page re-reads the index and `start` reappears (the DESIGN's
- * "startable again"; Commit 10 adds the in-place refresh after lifecycle
- * actions). The same `io.listLedgers` seam and entry types as the ledger
- * hook — one network contract for both surfaces. `onStart` builds the
- * campaign document from the committed VCO item ids via the pure model,
+ * "startable again"). The same `io.listLedgers` seam and entry types as the
+ * ledger hook — one network contract for both surfaces. `onStart` builds
+ * the campaign document from the committed VCO item ids via the pure model,
  * persists it through `io.saveLedger`, and on success navigates to the
- * ledger hash (the Commit-3 grammar); a failed start surfaces the typed
- * message inline near the action (the DESIGN's no-silent-writes — the button
- * must not appear to have worked).
+ * ledger hash (the navigation stays `#/<lord>/ledger/<route-id>`); a failed
+ * start surfaces the typed message inline near the action (the DESIGN's
+ * no-silent-writes — the button must not appear to have worked).
  */
 function useRouteCampaign(lord: Lord, route: Route): RouteCampaignProps {
   const [index, setIndex] = useState<LedgerIndexState>({ kind: "loading" });
@@ -248,31 +251,76 @@ function useRouteCampaign(lord: Lord, route: Route): RouteCampaignProps {
   return { index, startError, onStart };
 }
 
-/** The route case's campaign surface: mounts `useRouteCampaign` and hands its values to the presentational route view. */
-function RouteCampaignPage({ lord, route }: { readonly lord: Lord; readonly route: Route }): VNode {
-  return <RouteView lord={lord} route={route} campaign={useRouteCampaign(lord, route)} />;
+/**
+ * The plan case's campaign surface: mounts `useRouteCampaign` (retargeted
+ * from the old route case — the hook, its index read, and the start handler
+ * are unchanged) and hands its values to the presentational plan view.
+ */
+function PlanCampaignPage({ lord, route }: { readonly lord: Lord; readonly route: Route }): VNode {
+  return <PlanView lord={lord} route={route} campaign={useRouteCampaign(lord, route)} />;
+}
+
+/**
+ * The route behind a desk hash (DESIGN §2 rule 3): the hash's own route id,
+ * or — when null — the lord's first route in manifest order, the atlas's own
+ * default. An explicit deterministic read of the manifest, never a hidden
+ * guess; a missing lord or an empty manifest is the not-found result.
+ */
+function resolvedDeskRoute(tree: ContentTree, lordSlug: string, routeId: string | null): QueryResult<Route> {
+  if (routeId !== null) return getRoute(tree, lordSlug, routeId);
+  const lord = getLord(tree, lordSlug);
+  if (!lord.found) return lord;
+  const first = lord.value.routes[0];
+  return first === undefined ? { found: false, kind: "not-found" } : { found: true, value: first };
+}
+
+/**
+ * One route-page hash's view: the page id decides the view, never the
+ * segment count (DESIGN §5 — the six route pages share one segment
+ * position). Every page returns explicitly; the closed `RoutePage` union
+ * leaves no fallthrough.
+ */
+function routePageView(lord: Lord, route: Route, page: RoutePage): VNode {
+  switch (page) {
+    case "ledger":
+      return <LedgerPage lord={lord} route={route} />;
+    case "plan":
+      return <PlanCampaignPage lord={lord} route={route} />;
+    case "armies":
+      return <ArmiesAndSkillsView lord={lord} route={route} />;
+    case "settlements":
+      return <SettlementsView lord={lord} route={route} />;
+    case "workshop":
+      return <WorkshopView lord={lord} route={route} />;
+    case "desk":
+      return <DeskView key={route.id} lord={lord} route={route} />;
+  }
 }
 
 function routeView(tree: ContentTree, route: HashRoute): VNode {
   switch (route.name) {
     case "home":
       return <HomeView tree={tree} />;
-    case "lord": {
+    case "desk": {
       const lord = getLord(tree, route.lordSlug);
-      return lord.found ? <LordView lord={lord.value} /> : <NotFoundView />;
+      const found = resolvedDeskRoute(tree, route.lordSlug, route.routeId);
+      // Keyed by the resolved route id: a route switch remounts the desk and
+      // resets its component-local compare toggle (the dashboard precedent).
+      return lord.found && found.found ? (
+        <DeskView key={found.value.id} lord={lord.value} route={found.value} />
+      ) : (
+        <NotFoundView />
+      );
     }
-    case "route": {
+    case "lord-page": {
+      const lord = getLord(tree, route.lordSlug);
+      if (!lord.found) return <NotFoundView />;
+      return route.page === "sources" ? <SourcesView lord={lord.value} /> : <NotesView lord={lord.value} />;
+    }
+    case "route-page": {
       const lord = getLord(tree, route.lordSlug);
       const found = getRoute(tree, route.lordSlug, route.routeId);
-      return lord.found && found.found ? <RouteCampaignPage lord={lord.value} route={found.value} /> : <NotFoundView />;
-    }
-    case "ledger": {
-      // The ledger case mirrors the route case's resolution: lord/route must
-      // both resolve, otherwise the explicit not-found view (the Commit 3
-      // stub is replaced — the ledger view wires in here now).
-      const lord = getLord(tree, route.lordSlug);
-      const found = getRoute(tree, route.lordSlug, route.routeId);
-      return lord.found && found.found ? <LedgerPage lord={lord.value} route={found.value} /> : <NotFoundView />;
+      return lord.found && found.found ? routePageView(lord.value, found.value, route.page) : <NotFoundView />;
     }
     case "not-found":
       return <NotFoundView />;

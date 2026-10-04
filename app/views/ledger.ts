@@ -120,7 +120,7 @@ function emptyState(): JSX.Element {
     "section",
     { className: "empty-state" },
     h("p", { className: "empty-state__label" }, "NO ACTIVE CAMPAIGN"),
-    h("p", { className: "empty-state__copy" }, "— start one from a route page"),
+    h("p", { className: "empty-state__copy" }, "— start one from the route plan"),
   );
 }
 
