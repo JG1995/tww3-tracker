@@ -43,6 +43,13 @@ import { DeskPanel } from "../app/components/deskPanel.ts";
 import { DashboardMarkup } from "../app/components/dashboard.ts";
 import { LedgerTable, type LedgerRowStatus, type LedgerTableRow } from "../app/components/LedgerTable.ts";
 import { TabStripMarkup, tabNav } from "../app/components/TabStrip.ts";
+import {
+  AtlasHeaderMarkup,
+  routeTabHref,
+  tabNav as headerTabNav,
+  type HeaderRoute,
+} from "../app/components/atlasHeader.ts";
+import { parseHash } from "../app/router.ts";
 
 const CONTENT = fileURLToPath(new URL("../content", import.meta.url));
 const FIXTURES = fileURLToPath(new URL("fixtures/content", import.meta.url));
@@ -1104,4 +1111,351 @@ test("a failed row renders the error border class with the inline message, showi
 
   assert.ok(!cls(rows[0]).includes("ledger-row--error"), "a settled row never carries the error border");
   assert.ok(!vnodeText(rows[0]).includes("The write failed"), "the message stays scoped to the failed row");
+});
+
+// ─── 10. The atlas header (package `atlas-header-shell`, feature atlas-ux-realignment) ─
+
+/** The committed tree's Elspeth lord — the input most header tests render. */
+async function committedHeaderLord(): Promise<Lord> {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found, "the committed lord loads");
+  return lord.value;
+}
+
+/** An explicit-route desk member — a route-scoped desk used by the selection and keyboard-contract tests. */
+const DESK_EXPLICIT: HeaderRoute = { name: "desk", lordSlug: "elspeth-von-draken", routeId: "route-2" };
+
+/** One lord-scoped member per shape — the full header serves all of them (DESIGN §4). */
+const FULL_FORM_MEMBERS: readonly HeaderRoute[] = [
+  { name: "desk", lordSlug: "elspeth-von-draken", routeId: null },
+  DESK_EXPLICIT,
+  { name: "lord-page", lordSlug: "elspeth-von-draken", page: "sources" },
+  { name: "lord-page", lordSlug: "elspeth-von-draken", page: "notes" },
+  { name: "route-page", lordSlug: "elspeth-von-draken", page: "plan", routeId: "route-1" },
+  { name: "route-page", lordSlug: "elspeth-von-draken", page: "ledger", routeId: "route-3" },
+];
+
+/** The `<a role="tab">` records of one header tablist (matched by its class prefix). */
+function headerTabs(nodes: VNodeRecord[], prefix: "routebar__tab" | "pagenav__tab"): VNodeRecord[] {
+  return nodes.filter((n) => n.tag === "a" && n.props.role === "tab" && cls(n).includes(prefix));
+}
+
+/** The unison reduced-form lord: the committed crest/environment stripped (the DESIGN's clean absence). */
+function reducedLord(lord: Lord): Lord {
+  return { ...lord, crestSvg: undefined, guide: { ...lord.guide, environment: undefined } };
+}
+
+test("the slim header renders the wordmark plus one lord link to #/<slug> over home, not-found, and boot states", async () => {
+  // A null lord/route member is what home, not-found, and the boot states feed
+  // the shell: the slim form only — the wordmark plus the available lord links.
+  const lord = await committedHeaderLord();
+  const nodes = recordVNodes(AtlasHeaderMarkup({ lords: [lord], lord: null, route: null }));
+  const text = vnodeText(nodes);
+  assert.ok(text.includes("VCO COMPANION"), "the wordmark renders — the header owns it now (the index.html slot is gone)");
+  const links = nodes.filter((n) => n.tag === "a");
+  assert.equal(links.length, 1, "one link per lord on the slim form");
+  assert.equal(links[0]?.props.href, "#/elspeth-von-draken", "the lord link targets #/<slug>");
+  assert.ok(vnodeText(links[0]).includes("Elspeth von Draken"), "the link carries the guide's lord display name");
+  assert.ok(!vnodeText(nodes).includes("EXPEDITION ATLAS"), "the slim form never renders the topline brand");
+  assert.ok(!nodes.some((n) => cls(n).split(/\s+/).includes("routebar")), "no routebar on the slim form");
+  assert.ok(!nodes.some((n) => cls(n).split(/\s+/).includes("pagenav")), "no pagenav on the slim form");
+  const boot = recordVNodes(AtlasHeaderMarkup({ lords: [], lord: null, route: null }));
+  assert.ok(vnodeText(boot).includes("VCO COMPANION"), "the boot states (no tree yet) still carry the wordmark");
+  assert.deepEqual(boot.filter((n) => n.tag === "a"), [], "no lord links before the tree resolves");
+});
+
+test("the full header renders the three tiers — topline, routebar, pagenav — on every lord-scoped member", async () => {
+  for (const route of FULL_FORM_MEMBERS) {
+    const nodes = recordVNodes(AtlasHeaderMarkup({ lords: [], lord: await committedHeaderLord(), route }));
+    assert.ok(nodes.some((n) => cls(n).split(/\s+/).includes("topline")), `${route.name}: the topline tier renders`);
+    assert.ok(nodes.some((n) => cls(n).split(/\s+/).includes("routebar")), `${route.name}: the routebar tier renders`);
+    assert.ok(nodes.some((n) => cls(n).split(/\s+/).includes("pagenav")), `${route.name}: the pagenav tier renders`);
+    assert.ok(
+      !vnodeText(nodes).includes("VCO COMPANION"),
+      `${route.name}: the full form carries the atlas brand, never the slim wordmark`,
+    );
+  }
+});
+
+test("the topline brand links to #/<lord> with the uppercase faction and the EXPEDITION ATLAS · <lord> title", async () => {
+  const nodes = recordVNodes(AtlasHeaderMarkup({ lords: [], lord: await committedHeaderLord(), route: FULL_FORM_MEMBERS[0] }));
+  const brand = nodes.find((n) => cls(n) === "topline__brand");
+  assert.ok(brand !== undefined, "the brand anchor renders");
+  assert.equal(brand.props.href, "#/elspeth-von-draken", "the brand links to the lord's reference desk (the default-route desk)");
+  const brandText = vnodeText(brand);
+  assert.ok(brandText.includes("EMPIRE"), "the faction eyebrow renders uppercase");
+  assert.ok(brandText.includes("EXPEDITION ATLAS · Elspeth von Draken"), "the serif title carries the atlas brand formula");
+});
+
+test("the crest renders aria-hidden from crestSvg; a crest-less lord renders the brand without it — never a placeholder box", async () => {
+  const nodes = recordVNodes(AtlasHeaderMarkup({ lords: [], lord: await committedHeaderLord(), route: FULL_FORM_MEMBERS[0] }));
+  const crest = nodes.find((n) => cls(n) === "topline__crest");
+  assert.ok(crest !== undefined, "the crest container renders over the committed lord");
+  assert.equal(crest.props["aria-hidden"], true, "the crest is decorative — aria-hidden");
+  const inner = String((crest.props.dangerouslySetInnerHTML as { __html: string } | undefined)?.__html ?? "");
+  assert.ok(inner.trimStart().startsWith("<svg"), "the inlined text is the boot-validated crest SVG");
+
+  const plain = reducedLord(await committedHeaderLord());
+  const reduced = recordVNodes(AtlasHeaderMarkup({ lords: [], lord: plain, route: FULL_FORM_MEMBERS[0] }));
+  assert.ok(!reduced.some((n) => cls(n) === "topline__crest"), "no crest element and no placeholder box without crestSvg");
+  assert.ok(vnodeText(reduced).includes("EXPEDITION ATLAS · Elspeth von Draken"), "the brand still renders");
+});
+
+test("the environment line shows the dot + guide.environment when present and reduces cleanly — the patch/VCO pairing always renders", async () => {
+  const nodes = recordVNodes(AtlasHeaderMarkup({ lords: [], lord: await committedHeaderLord(), route: FULL_FORM_MEMBERS[0] }));
+  const text = vnodeText(nodes);
+  assert.ok(text.includes("Normal / Normal · Smart Autoresolve · VCO · Immortal Empires"), "the committed environment topline renders");
+  assert.ok(nodes.some((n) => cls(n) === "topline__dot"), "the status dot renders with the environment line");
+
+  const plain = reducedLord(await committedHeaderLord());
+  const reduced = recordVNodes(AtlasHeaderMarkup({ lords: [], lord: plain, route: FULL_FORM_MEMBERS[0] }));
+  const reducedText = vnodeText(reduced);
+  assert.ok(!reduced.some((n) => cls(n) === "topline__environment"), "no environment string when absent — never a blank placeholder");
+  assert.ok(reducedText.includes("patch 9.0 · VCO 2026.09.30.1"), "the patch · VCO pairing always renders (reduced form included)");
+  assert.ok(reduced.some((n) => cls(n) === "topline__dot"), "the status dot stays with the reduced line");
+});
+
+test("the toolbar is an empty reserved slot — no buttons this feature", async () => {
+  const nodes = recordVNodes(AtlasHeaderMarkup({ lords: [], lord: await committedHeaderLord(), route: FULL_FORM_MEMBERS[0] }));
+  const toolbar = nodes.find((n) => cls(n) === "topline__tools");
+  assert.ok(toolbar !== undefined, "the toolbar slot renders");
+  assert.deepEqual(toolbar.children, [], "no buttons — the slot is reserved for F6/search and state export");
+});
+
+test("the routebar marks the hash-derived route selected — including #/<lord> selecting the first manifest route", async () => {
+  // #/<lord>: no route id in the hash, yet the default-route desk is route-scoped
+  // (recorded decision) — the routebar must show the resolved first route.
+  let tabs = headerTabs(
+    recordVNodes(AtlasHeaderMarkup({ lords: [], lord: await committedHeaderLord(), route: FULL_FORM_MEMBERS[0] })),
+    "routebar__tab",
+  );
+  assert.equal(tabs.length, 3, "one route tab per manifest route");
+  assert.equal(tabs[0]?.props["aria-selected"], true, "route I is SELECTED at #/<lord>");
+  assert.equal(tabs[0]?.props.tabIndex, 0, "the selected route tab is tabbable");
+  assert.ok(
+    tabs.slice(1).every((t) => t.props["aria-selected"] === false && t.props.tabIndex === -1),
+    "the other route tabs rove at tabIndex −1",
+  );
+
+  // an explicit route-page member follows the hash's route id (distinct from
+  // the first-route default, so the two cases cannot be confused)
+  const planTwo: HeaderRoute = { name: "route-page", lordSlug: "elspeth-von-draken", page: "plan", routeId: "route-2" };
+  tabs = headerTabs(
+    recordVNodes(AtlasHeaderMarkup({ lords: [], lord: await committedHeaderLord(), route: planTwo })),
+    "routebar__tab",
+  );
+  assert.equal(tabs[1]?.props["aria-selected"], true, "route II is SELECTED on a #/<lord>/plan/route-2 member");
+});
+
+test("the routebar renders no route selection on the lord-scoped pages — the hash carries no route there", async () => {
+  const sources: HeaderRoute = { name: "lord-page", lordSlug: "elspeth-von-draken", page: "sources" };
+  const tabs = headerTabs(
+    recordVNodes(AtlasHeaderMarkup({ lords: [], lord: await committedHeaderLord(), route: sources })),
+    "routebar__tab",
+  );
+  assert.ok(tabs.every((t) => t.props["aria-selected"] === false), "no route tab claims the selection on a lord page");
+  assert.equal(tabs[0]?.props.tabIndex, 0, "the first route tab stays keyboard-reachable (roving starts there)");
+  assert.ok(tabs.slice(1).every((t) => t.props.tabIndex === -1), "the remaining route tabs rove at −1");
+});
+
+test("routeTabHref keeps the page from a route-scoped member and targets plan/<route> from the lord pages (DESIGN rule 3)", () => {
+  const lordSlug = "elspeth-von-draken";
+  // from a route-scoped page the tab keeps the SAME page under the new route
+  assert.equal(
+    routeTabHref({ name: "route-page", lordSlug, page: "plan", routeId: "route-1" }, "route-2"),
+    "#/elspeth-von-draken/plan/route-2",
+    "plan keeps the plan page",
+  );
+  assert.equal(
+    routeTabHref({ name: "route-page", lordSlug, page: "armies", routeId: "route-1" }, "route-3"),
+    "#/elspeth-von-draken/armies/route-3",
+    "armies keeps the armies page",
+  );
+  assert.equal(
+    routeTabHref({ name: "route-page", lordSlug, page: "ledger", routeId: "route-1" }, "route-2"),
+    "#/elspeth-von-draken/ledger/route-2",
+    "the ledger tab targets ledger/<route> like the others",
+  );
+  // the desk at #/<lord> counts as route-scoped (recorded decision): desk/<new-route>
+  assert.equal(
+    routeTabHref({ name: "desk", lordSlug, routeId: null }, "route-2"),
+    "#/elspeth-von-draken/desk/route-2",
+    "the default-route desk switches routes to desk/<new-route>",
+  );
+  assert.equal(
+    routeTabHref({ name: "desk", lordSlug, routeId: "route-1" }, "route-2"),
+    "#/elspeth-von-draken/desk/route-2",
+    "an explicit-route desk keeps the desk page too",
+  );
+  // from a lord-scoped page the tab targets plan/<route>
+  assert.equal(
+    routeTabHref({ name: "lord-page", lordSlug, page: "sources" }, "route-2"),
+    "#/elspeth-von-draken/plan/route-2",
+    "sources targets plan/<route>",
+  );
+  assert.equal(
+    routeTabHref({ name: "lord-page", lordSlug, page: "notes" }, "route-1"),
+    "#/elspeth-von-draken/plan/route-1",
+    "notes targets plan/<route>",
+  );
+});
+
+test("the rendered route tabs follow the member's page with the serif numeral, route name, and VCO line", async () => {
+  const planOne: HeaderRoute = { name: "route-page", lordSlug: "elspeth-von-draken", page: "plan", routeId: "route-1" };
+  const nodes = recordVNodes(AtlasHeaderMarkup({ lords: [], lord: await committedHeaderLord(), route: planOne }));
+  const tabs = headerTabs(nodes, "routebar__tab");
+  assert.deepEqual(
+    tabs.map((t) => t.props.href),
+    [
+      "#/elspeth-von-draken/plan/route-1",
+      "#/elspeth-von-draken/plan/route-2",
+      "#/elspeth-von-draken/plan/route-3",
+    ],
+    "from a route-scoped page every tab keeps the same page under the new route (rule 3)",
+  );
+  const firstText = vnodeText(tabs[0]);
+  assert.ok(firstText.includes("I"), "the serif route numeral renders");
+  assert.ok(firstText.includes("The Graveyard Watch"), "the route name renders");
+  assert.ok(firstText.includes("UNRESEARCHED"), "the committed null vcoTitle renders the explicit marker");
+});
+
+test("a researched route tab renders its official VCO title instead of the marker", async () => {
+  const lord = await committedHeaderLord();
+  const researched: Lord = {
+    ...lord,
+    routes: lord.routes.map((route) => ({
+      ...route,
+      vcoTitle: route.id === "route-2" ? "Written in the Charter" : "Researched title",
+    })),
+  };
+  const text = vnodeText(
+    AtlasHeaderMarkup({ lords: [], lord: researched, route: FULL_FORM_MEMBERS[4] }),
+  );
+  assert.ok(text.includes("Written in the Charter"), "the official VCO title renders beneath the name line");
+  assert.ok(!text.includes("UNRESEARCHED"), "no marker on a researched route");
+});
+
+test("the pagenav renders the DESIGN's generic eight tabs with hash-derived selection and the resolved route", async () => {
+  const notes: HeaderRoute = { name: "lord-page", lordSlug: "elspeth-von-draken", page: "notes" };
+  let nodes = recordVNodes(AtlasHeaderMarkup({ lords: [], lord: await committedHeaderLord(), route: notes }));
+  let tabs = headerTabs(nodes, "pagenav__tab");
+  assert.equal(tabs.length, 8, "exactly the eight page tabs");
+  assert.deepEqual(
+    tabs.map((t) => vnodeText(t)),
+    [
+      "Reference desk",
+      "Route plan",
+      "Armies & skills",
+      "Settlements & economy",
+      "Faction workshop",
+      "VCO ledger",
+      "Field notes",
+      "Sources & settings",
+    ],
+    "the DESIGN's generic eight labels in fixed order — never the atlas's faction-specific names",
+  );
+  assert.deepEqual(
+    tabs.map((t) => String(t.props.href)),
+    [
+      "#/elspeth-von-draken/desk/route-1",
+      "#/elspeth-von-draken/plan/route-1",
+      "#/elspeth-von-draken/armies/route-1",
+      "#/elspeth-von-draken/settlements/route-1",
+      "#/elspeth-von-draken/workshop/route-1",
+      "#/elspeth-von-draken/ledger/route-1",
+      "#/elspeth-von-draken/notes",
+      "#/elspeth-von-draken/sources",
+    ],
+    "the six route-page tabs resolve the first manifest route (rule 3) as #/<lord>/<page>/<route>; the two lord-page tabs (Field notes, Sources & settings) are the grammar's 2-segment #/<lord>/<page> shapes",
+  );
+  assert.equal(tabs[6]?.props["aria-selected"], true, "the current lord page (Field notes) is selected");
+  assert.equal(tabs[6]?.props.tabIndex, 0, "the selected page tab is tabbable");
+
+  const planTwo: HeaderRoute = { name: "route-page", lordSlug: "elspeth-von-draken", page: "plan", routeId: "route-2" };
+  nodes = recordVNodes(AtlasHeaderMarkup({ lords: [], lord: await committedHeaderLord(), route: planTwo }));
+  tabs = headerTabs(nodes, "pagenav__tab");
+  assert.deepEqual(
+    tabs.map((t) => String(t.props.href)),
+    [
+      "#/elspeth-von-draken/desk/route-2",
+      "#/elspeth-von-draken/plan/route-2",
+      "#/elspeth-von-draken/armies/route-2",
+      "#/elspeth-von-draken/settlements/route-2",
+      "#/elspeth-von-draken/workshop/route-2",
+      "#/elspeth-von-draken/ledger/route-2",
+      "#/elspeth-von-draken/notes",
+      "#/elspeth-von-draken/sources",
+    ],
+    "route-scoped pages keep the hash's route id on the six route pages — #/<lord>/<page>/<route> (the ledger tab included, index 5); the lord-page tabs stay the 2-segment #/<lord>/<page> shapes",
+  );
+  assert.equal(tabs[1]?.props["aria-selected"], true, "Route plan is selected on a plan member");
+});
+
+test("every rendered pagenav href round-trips through parseHash to its intended member", async () => {
+  // The regression guard for the pagenav template: the six route-page tabs
+  // are 3-segment shapes (#/<lord>/<page>/<route>), while the two lord-page
+  // tabs — Field notes and Sources & settings — are the grammar's 2-segment
+  // #/<lord>/<page> shapes. A uniform <segment>/<resolved> suffix would send
+  // the lord pages (their own selected self-hrefs included) to not-found —
+  // the defect this test pins. Three member shapes cover both resolved-route
+  // sources: the default-route desk and the lord page resolving the first
+  // manifest route, and a route page carrying the hash's own route id.
+  const lord = await committedHeaderLord();
+  const members: readonly HeaderRoute[] = [
+    { name: "desk", lordSlug: lord.slug, routeId: null },
+    { name: "lord-page", lordSlug: lord.slug, page: "notes" },
+    { name: "route-page", lordSlug: lord.slug, page: "plan", routeId: "route-2" },
+  ];
+  for (const member of members) {
+    const tabs = headerTabs(recordVNodes(AtlasHeaderMarkup({ lords: [], lord, route: member })), "pagenav__tab");
+    const expectedRoute = member.name === "route-page" ? member.routeId : lord.routes[0].id;
+    for (const tab of tabs) {
+      const href = String(tab.props.href);
+      const segment = href.slice(`#/${lord.slug}/`.length).split("/")[0];
+      const parsed = parseHash(href);
+      if (segment === "notes" || segment === "sources") {
+        if (parsed.name !== "lord-page") {
+          assert.fail(`${href} must parse to the lord-page member, not ${parsed.name}`);
+        }
+        assert.equal(parsed.lordSlug, lord.slug, `${href} keeps the lord`);
+        assert.equal(parsed.page, segment, `${href} parses to the ${segment} page`);
+      } else {
+        if (parsed.name !== "route-page") {
+          assert.fail(`${href} must parse to the route-page member, not ${parsed.name}`);
+        }
+        assert.equal(parsed.lordSlug, lord.slug, `${href} keeps the lord`);
+        assert.equal(parsed.page, segment, `${href} parses to the ${segment} route page`);
+        assert.equal(parsed.routeId, expectedRoute, `${href} carries the resolved route id (${expectedRoute})`);
+      }
+    }
+  }
+});
+
+test("the pagenav carries the static save-state line verbatim — claiming nothing about autosave", async () => {
+  const text = vnodeText(
+    AtlasHeaderMarkup({ lords: [], lord: await committedHeaderLord(), route: FULL_FORM_MEMBERS[0] }),
+  );
+  assert.ok(text.includes("Saved locally · offline"), "the exact rendered atlas string");
+  assert.ok(!/auto.?save/i.test(text), "the line never claims autosave");
+});
+
+test("both header tablists carry the TabStrip keyboard contract: named tablists, roving tabindex, one selection each", async () => {
+  const nodes = recordVNodes(AtlasHeaderMarkup({ lords: [], lord: await committedHeaderLord(), route: DESK_EXPLICIT }));
+  const tablists = nodes.filter((n) => n.props.role === "tablist");
+  assert.equal(tablists.length, 2, "the routebar and the pagenav are the header's two tablists");
+  assert.ok(tablists.some((n) => n.props["aria-label"] === "Routes"), "the routebar tablist is named");
+  assert.ok(tablists.some((n) => n.props["aria-label"] === "Pages"), "the pagenav tablist is named");
+  const tabs = nodes.filter((n) => n.tag === "a" && n.props.role === "tab");
+  assert.equal(tabs.filter((t) => t.props["aria-selected"] === true).length, 2, "one selected tab per tablist");
+  assert.equal(tabs.filter((t) => t.props.tabIndex === 0).length, 2, "exactly the two selected tabs are tabbable");
+});
+
+test("the header's local tabNav copy keeps the TabStrip wrap/bounds decision (the surviving proof once TabStrip.ts is deleted in Commit 11)", () => {
+  assert.equal(headerTabNav("left", 0, 4), 3, "left from the first tab wraps to the last");
+  assert.equal(headerTabNav("right", 3, 4), 0, "right from the last tab wraps to the first");
+  assert.equal(headerTabNav("left", 2, 4), 1, "left in the middle steps down");
+  assert.equal(headerTabNav("right", 1, 4), 2, "right in the middle steps up");
+  assert.equal(headerTabNav("home", 2, 4), 0, "home lands on the first tab");
+  assert.equal(headerTabNav("end", 0, 4), 3, "end lands on the last tab");
 });

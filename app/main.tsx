@@ -23,7 +23,7 @@
  */
 
 import { render, type VNode } from "preact";
-import { useEffect, useRef, useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import { ContentBootError, createFetchReader, loadContentTree } from "./content/load.ts";
 import { getLord, getRoute, getVcoObjectives, listLords } from "./content/query.ts";
 import type { ContentTree, Lord, QueryResult, Route } from "./content/types.ts";
@@ -31,6 +31,7 @@ import { listLedgers, saveLedger } from "./ledger/io.ts";
 import { createCampaign, itemsFor } from "./ledger/logic.ts";
 import { useCampaign, type LedgerIndexState } from "./ledger/useCampaign.ts";
 import { useHashRoute, type HashRoute, type RoutePage } from "./router.ts";
+import { AtlasHeader, type HeaderRoute } from "./components/atlasHeader.ts";
 import { BootErrorView } from "./views/boot-error.ts";
 import { DeskView } from "./views/desk.ts";
 import { HomeView } from "./views/home.ts";
@@ -55,7 +56,6 @@ function contentRootUrl(): string {
 export function App(): VNode {
   const [boot, setBoot] = useState<Boot>({ kind: "loading" });
   const [attempt, setAttempt] = useState<number>(0);
-  const headerRef = useRef<HTMLElement | null>(null);
   const route = useHashRoute();
 
   // Exactly one load.ts pass per attempt (initial mount = attempt 0; Retry bumps it).
@@ -79,17 +79,6 @@ export function App(): VNode {
     };
   }, [attempt]);
 
-  // Move `index.html`'s wordmark slot into the nav bar so the mounted shell
-  // owns the full sticky header (the skip link stays first in DOM).
-  useEffect(() => {
-    const header = headerRef.current;
-    const wordmark = document.getElementById("wordmark");
-    const navInner = header !== null ? header.querySelector(".top-nav__inner") : null;
-    if (wordmark !== null && navInner !== null && wordmark.parentElement !== navInner) {
-      navInner.prepend(wordmark);
-    }
-  }, []);
-
   // Section anchor: a plan hash with a section id scrolls the matching H2
   // into view (the plan view gives every H2 the tree's section id). Re-runs
   // when boot finishes so an initial `#/lord/plan/id/section` scrolls too.
@@ -100,6 +89,7 @@ export function App(): VNode {
   }, [route, boot.kind]);
 
   const lords = boot.kind === "ready" ? listLords(boot.tree) : [];
+  const { lord: headerLord, route: headerRoute } = headerContext(boot, route);
 
   const view: VNode =
     boot.kind === "error" ? (
@@ -127,28 +117,7 @@ export function App(): VNode {
       >
         Skip to content
       </a>
-      <header className="top-nav" ref={headerRef}>
-        <div className="top-nav__inner">
-          <nav className="top-nav__links" aria-label="Lords">
-            {lords.map((lord) => {
-              const active = isCurrentLord(route, lord.slug);
-              return (
-                <a
-                  key={lord.slug}
-                  className={`top-nav__link${active ? " top-nav__link--active" : ""}`}
-                  href={`#/${lord.slug}`}
-                  aria-current={active ? "page" : undefined}
-                >
-                  {lord.guide.lord}
-                </a>
-              );
-            })}
-          </nav>
-          <div className="search-well" role="search" aria-label="Search (reserved for F6)">
-            <span className="search-well__placeholder">SEARCH</span>
-          </div>
-        </div>
-      </header>
+      <AtlasHeader lords={lords} lord={headerLord} route={headerRoute} />
       <main id="main" className="site-main" tabIndex={-1}>
         {view}
       </main>
@@ -156,8 +125,36 @@ export function App(): VNode {
   );
 }
 
-function isCurrentLord(route: HashRoute, slug: string): boolean {
-  return (route.name === "desk" || route.name === "lord-page" || route.name === "route-page") && route.lordSlug === slug;
+/**
+ * The header's form inputs (DESIGN §4 "The shell renders two header forms"):
+ * the slim form serves home, not-found, and the boot states; the full
+ * three-tier form serves every lord-scoped member that resolves to a real
+ * page. A lord-scoped member whose lord, or whose route, does not resolve
+ * renders the not-found view below, so its header falls to slim with it — the
+ * same deterministic resolution the view dispatch applies (a full header
+ * needs a resolvable lord, and a full header over a not-found view would
+ * contradict the DESIGN's slim-for-not-found rule).
+ */
+function headerContext(boot: Boot, route: HashRoute): { lord: Lord | null; route: HeaderRoute | null } {
+  if (boot.kind !== "ready" || route.name === "home" || route.name === "not-found") {
+    return { lord: null, route: null };
+  }
+  const lord = getLord(boot.tree, route.lordSlug);
+  if (!lord.found) return { lord: null, route: null };
+  if (route.name === "desk") {
+    return resolvedDeskRoute(boot.tree, route.lordSlug, route.routeId).found
+      ? { lord: lord.value, route: { name: "desk", lordSlug: route.lordSlug, routeId: route.routeId } }
+      : { lord: null, route: null };
+  }
+  if (route.name === "lord-page") {
+    return lord.value.routes.length === 0
+      ? { lord: null, route: null }
+      : { lord: lord.value, route: { name: "lord-page", lordSlug: route.lordSlug, page: route.page } };
+  }
+  const found = getRoute(boot.tree, route.lordSlug, route.routeId);
+  return found.found
+    ? { lord: lord.value, route: { name: "route-page", lordSlug: route.lordSlug, page: route.page, routeId: route.routeId } }
+    : { lord: null, route: null };
 }
 
 /**

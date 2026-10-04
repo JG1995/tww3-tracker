@@ -132,6 +132,337 @@ button {
   transform: translateY(0);
 }
 
+/* ─── Atlas header — the three-tier shell (package `atlas-header-shell`,
+   Commit 10): sticky ≈170px with backdrop blur; two forms derived from the
+   route — slim (home, not-found, boot: wordmark + lord links) and full (every
+   lord-scoped page: topline / routebar / pagenav). The F2-era `top-nav`
+   blocks below keep their class names until Commit 11's orphan purge. */
+
+.atlas-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(var(--header-blur));
+  backdrop-filter: blur(var(--header-blur));
+  border-bottom: 1px solid var(--line);
+}
+
+.atlas-header__wrap {
+  max-width: var(--wrap-max-width);
+  margin-inline: auto;
+  padding-inline: var(--wrap-side-padding);
+}
+
+/* The wordmark — the site brand, Georgia serif uppercase (DESIGN §4). */
+.atlas-header__wordmark {
+  font-family: var(--serif);
+  font-size: var(--h4-size);
+  font-weight: var(--heading-weight);
+  text-transform: uppercase;
+  letter-spacing: var(--eyebrow-track);
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* Slim form: one compact topline-height row (the DESIGN §6 topline measure). */
+.atlas-header--slim {
+  height: 58px;
+}
+
+.atlas-header--slim .atlas-header__wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+  height: 100%;
+}
+
+.atlas-header__lords {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+  margin-inline-start: auto;
+  overflow-x: auto;
+  min-width: 0;
+}
+
+.atlas-header__lord {
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: var(--transition-standard);
+}
+
+.atlas-header__lord:hover {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+
+/* Full form: the three tiers inside the DESIGN's ~170px adhesive measure. */
+.atlas-header--full {
+  height: var(--header-height);
+}
+
+.atlas-header--full .atlas-header__wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* ─── Topline (DESIGN §6 measure 58px): crest + brand + environment line +
+   the empty reserved toolbar slot (no buttons until F6/search and state
+   export). */
+
+.topline {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+  height: 58px;
+  flex: none;
+}
+
+/* The inlined crest SVG — decorative (aria-hidden), sized to the tier. */
+.topline__crest {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  flex: none;
+}
+
+.topline__crest svg {
+  display: block;
+  height: 44px;
+  width: 44px;
+}
+
+/* Brand: the accent eyebrow over the serif atlas formula, linking home. */
+.topline__brand {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--gap-xs) / 2);
+  align-self: center;
+}
+
+.topline__faction {
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.topline__title {
+  font-family: var(--serif);
+  font-size: var(--h4-size);
+  font-weight: var(--heading-weight);
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.topline__brand:hover .topline__title {
+  color: var(--brass);
+}
+
+/* Environment line: the status dot + the environment string (when present)
+   + the patch/VCO pairing that always renders — reduced form omits the
+   string, never the line. */
+.topline__env {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs);
+  margin-inline-start: auto;
+  min-width: 0;
+}
+
+.topline__dot {
+  width: var(--gap-xs);
+  height: var(--gap-xs);
+  border-radius: var(--radius-full);
+  background: var(--good);
+  flex: none;
+}
+
+.topline__environment {
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topline__version {
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--faint);
+  white-space: nowrap;
+}
+
+/* Reserved toolbar slot — an empty flex child; buttons (F6 search, state
+   export) land here in later features. */
+.topline__tools {
+  flex: none;
+  min-width: var(--gap-lg);
+}
+
+/* ─── Routebar: the "YOUR CAMPAIGN / Victory route" eyebrow pair plus one
+   route tab per manifest route; the tablist scrolls horizontally below
+   ~900px (DESIGN §6). */
+
+.routebar {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+  flex: 1;
+  min-height: 0;
+}
+
+.routebar__eyebrows {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--gap-xs) / 2);
+  flex: none;
+}
+
+.routebar__eyebrow {
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.routebar__tabs {
+  display: flex;
+  align-items: stretch;
+  gap: var(--gap-base);
+  margin-inline-start: auto;
+  overflow-x: auto;
+  min-width: 0;
+}
+
+.routebar__tab {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: calc(var(--gap-xs) / 2);
+  padding: calc(var(--gap-xs) / 2) var(--gap-base);
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: var(--transition-standard);
+}
+
+.routebar__tab:hover {
+  color: var(--ink);
+}
+
+.routebar__tab--active {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+
+.routebar__tab-label {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gap-xs);
+}
+
+/* The route numeral — Georgia serif (DESIGN §4: numerals are serif), the
+   dimmer brass decorative accent. */
+.routebar__tab-numeral {
+  font-family: var(--serif);
+  font-size: var(--h4-size);
+  font-weight: var(--heading-weight);
+  color: var(--brass);
+}
+
+.routebar__tab-name {
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+}
+
+/* The official VCO title, dimmed beneath the name line — or the explicit
+   unresearched marker at the same spot when vcoTitle is null. */
+.routebar__tab-vco {
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
+}
+
+.routebar__tab-vco--unresearched {
+  color: var(--faint);
+}
+
+/* ─── Pagenav (DESIGN §6 measure 44px): the eight page tabs + the static
+   save-state line; the tablist scrolls horizontally below ~900px. */
+
+.pagenav {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+  height: 44px;
+  flex: none;
+}
+
+.pagenav__tabs {
+  display: flex;
+  align-items: stretch;
+  gap: var(--gap-base);
+  overflow-x: auto;
+  min-width: 0;
+  height: 100%;
+}
+
+.pagenav__tab {
+  display: flex;
+  align-items: center;
+  padding-inline: calc(var(--gap-base) / 2);
+  border-bottom: 2px solid transparent;
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
+  white-space: nowrap;
+  transition: var(--transition-standard);
+}
+
+.pagenav__tab:hover {
+  color: var(--ink);
+}
+
+.pagenav__tab--active {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+
+/* The static save-state line — honest static text, no autosave claim. */
+.pagenav__savestate {
+  margin-inline-start: auto;
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--faint);
+  white-space: nowrap;
+}
+
 /* ─── Top navigation — the F2-era header (token-reference updates only; ───
    replaced by the atlas header in Commit 10). The height carries the DESIGN's
    ~170px header measure so the chrome makes room for the atlas tiers. */

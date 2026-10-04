@@ -410,7 +410,7 @@ Commit 1 (content model) → Commit 2 (visual system) → Commit 3 (Elspeth cont
 
 #### Package `atlas-header-shell` — Commit 10: The three-tier atlas header
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 8
 
