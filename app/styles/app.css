@@ -225,18 +225,26 @@ button {
   flex: none;
 }
 
-/* The inlined crest SVG — decorative (aria-hidden), sized to the tier. */
+/* The inlined crest SVG — decorative (aria-hidden), sized to the tier.
+ * Stroke-drawn in brass exactly as the reference atlas's brand crest
+ * (`.brand>svg { stroke: currentColor; fill: none; stroke-width: 1.6 }`);
+ * without the drawing mode the paths default to black fill and vanish on
+ * the slate topline (final-validation finding, post-C11). */
 .topline__crest {
   display: flex;
   align-items: center;
   height: 100%;
   flex: none;
+  color: var(--brass);
 }
 
 .topline__crest svg {
   display: block;
   height: 44px;
   width: 44px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
 }
 
 /* Brand: the accent eyebrow over the serif atlas formula, linking home. */
