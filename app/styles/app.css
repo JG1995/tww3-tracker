@@ -1126,6 +1126,210 @@ kbd,
   margin-top: 0;
 }
 
+/* ─── Route plan (DESIGN §2/§4/§6; package `route-plan-view`) ────────────────
+   The atlas's rendered composition: the page head (mono eyebrow, serif
+   title, one-line intro, route badge), the three-card fact row (a card is
+   omitted when its field is absent — the grid auto-fits so a reduced row
+   stays balanced), the two-track body (the registry-walk sections at the
+   atlas 1.65fr/0.8fr split, collapsing to full width when the `phases`
+   aside is absent), the VCO undercard + campaign region (the moved
+   route-page blocks, styles unchanged) and the slim four-link panel
+   strip. The section walk reuses the route-section/source-panel/gap-marker
+   families; only the numeral prefix is new. Token-only. */
+
+.plan-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+}
+
+.plan-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+/* The mono eyebrow "ROUTE <n> · <name>" — the eyebrow spec. */
+.plan-head__eyebrow {
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--eyebrow-color);
+}
+
+.plan-head__title {
+  color: var(--ink);
+}
+
+/* The one-line intro — the desk toolbar caption voice. */
+.plan-head__intro {
+  max-width: 60ch;
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
+}
+
+/* The route badge — the official VCO title as a small instrument line;
+   the unresearched marker reads in the faint role. */
+.plan-head__badge {
+  margin-top: var(--gap-xs);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
+}
+
+.plan-head__badge--unresearched {
+  color: var(--faint);
+}
+
+/* The three-card fact row: the atlas card treatment per card; auto-fit so
+   an omitted card leaves the row balanced (never an empty slot). */
+.plan-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--gap-md);
+  align-items: start;
+}
+
+.plan-fact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-base);
+  background: var(--card-fill);
+  border: 1px solid var(--card-border-color);
+  border-top: 2px solid var(--card-border-top-color);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+}
+
+.plan-fact__eyebrow {
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--eyebrow-color);
+}
+
+.plan-fact__text {
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
+}
+
+.plan-fact__claims {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-base);
+}
+
+/* The two-track body — the atlas 1.65fr/0.8fr split; the full-track
+   modifier (no `phases` aside) collapses the left track to full width. */
+.plan-track {
+  display: grid;
+  grid-template-columns: var(--two-track);
+  gap: var(--gap-md);
+  align-items: start;
+}
+
+.plan-track--full {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 900px) {
+  .plan-track {
+    grid-template-columns: 1fr;
+  }
+}
+
+.plan-sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+}
+
+/* The phase-numeral prefix on the registry-section H2s — a serif numeral
+   (§4) ahead of the eyebrow-vocal heading, in the accent role. */
+.route-section__numeral {
+  font-family: var(--serif);
+  color: var(--accent);
+}
+
+/* The five-moves aside: a serif title over one numbered card per phase. */
+.plan-aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-base);
+}
+
+.plan-aside__title {
+  font-family: var(--serif);
+  color: var(--ink);
+}
+
+.plan-move {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+}
+
+/* The serif phase numeral — the atlas's numeral voice (§4). */
+.plan-move__numeral {
+  font-family: var(--serif);
+  font-size: var(--text-small);
+  font-weight: var(--heading-weight);
+  line-height: var(--text-line-height);
+  color: var(--accent);
+}
+
+.plan-move__title {
+  font-family: var(--serif);
+  font-size: var(--h3-size);
+  font-weight: var(--heading-weight);
+  line-height: var(--heading-line-height);
+  color: var(--ink);
+}
+
+.plan-move__note {
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
+}
+
+/* The slim panel-navigation strip: the four route links under the body. */
+.plan-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--gap-md);
+  border-top: 1px solid var(--line);
+  padding-top: var(--gap-base);
+}
+
+.plan-strip__link {
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  text-decoration: underline;
+  text-underline-offset: var(--gap-xs);
+  color: var(--link-color);
+  transition: var(--transition-standard);
+}
+
 /* ─── Route page: identity card, body, declared gaps (F2-era — token- ────
    reference updates only; the route page is deleted in Commit 11). */
 

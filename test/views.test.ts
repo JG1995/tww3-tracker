@@ -56,6 +56,7 @@ import { TabStripMarkup, type TabStripProps } from "../app/components/TabStrip.t
 import { HomeView, versionContext } from "../app/views/home.ts";
 import { DeskMarkup } from "../app/views/desk.ts";
 import { LordView } from "../app/views/lord.ts";
+import { PlanView } from "../app/views/plan.ts";
 import { RouteView, transitionTarget } from "../app/views/route.ts";
 import { itemsFor } from "../app/ledger/logic.ts";
 import type { CampaignDoc, LedgerIndexEntry } from "../app/ledger/types.ts";
@@ -2446,6 +2447,405 @@ test("a desk panel with an empty panelOrder list renders the explicit empty stat
 });
 
 // ─── 10. The ledger page view (package `ledger-view-page`) ─────────────────────
+
+// ─── The route plan view (package `route-plan-view`) ───────────────────────
+
+/** The plan's fact cards, in render order (PURPOSE / WHAT ACTUALLY WINS / LIKELY BOTTLENECK). */
+function factCards(view: unknown): VNodeRecord[] {
+  return recordVNodes(view).filter((n) => n.props.className === "plan-fact");
+}
+
+/** The plan's section-walk H2s in registry order (the class is shared with the route page). */
+function planHeadings(view: unknown): VNodeRecord[] {
+  return recordVNodes(view).filter((n) => n.tag === "h2" && n.props.className === "route-section__heading");
+}
+
+test("the plan head renders the route eyebrow, the campaign-plan title, the intro, and the route badge", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(route.found);
+
+  const view = PlanView({ lord: lord.value, route: route.value });
+  const nodes = recordVNodes(view);
+
+  const eyebrow = nodes.find((n) => n.props.className === "plan-head__eyebrow");
+  assert.equal(String(eyebrow?.children[0]), "ROUTE I · The Graveyard Watch", "the mono eyebrow reads ROUTE <n> · <name>");
+  const title = nodes.find((n) => n.props.className === "plan-head__title");
+  assert.equal(title?.tag, "h1", "the page title is the headline element");
+  assert.equal(String(title?.children[0]), "The campaign plan", "the DESIGN-fixed plan title");
+  const intro = nodes.find((n) => n.props.className === "plan-head__intro");
+  assert.ok(
+    intro !== undefined && String(intro.children[0]).trim().length > 0,
+    "the one-line intro renders",
+  );
+  const badge = nodes.find((n) => n.props.className === "plan-head__badge plan-head__badge--unresearched");
+  assert.equal(String(badge?.children[0]), "UNRESEARCHED", "the null vcoTitle renders the explicit marker");
+
+  // a researched route renders the official VCO title as the badge
+  const fixtures = await loadContentTree(fsReader(FIXTURES));
+  const second = getLord(fixtures, "second-lord");
+  assert.ok(second.found);
+  const lone = getRoute(fixtures, "second-lord", "lone-route");
+  assert.ok(lone.found);
+  const researched = recordVNodes(PlanView({ lord: second.value, route: lone.value })).find(
+    (n) => n.props.className === "plan-head__badge",
+  );
+  assert.equal(String(researched?.children[0]), "Sun-Priest of the Lost", "a researched vcoTitle is the badge");
+});
+
+test("the plan fact row renders the three cards with badged objective/reward claims and omits an absent card", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(route.found);
+  const view = PlanView({ lord: lord.value, route: route.value });
+  const cards = factCards(view);
+
+  // the fully-carried committed route renders exactly the three cards, in
+  // the DESIGN order, each carrying the mapped field
+  assert.deepEqual(
+    cards.map((card) => {
+      const eyebrow = recordVNodes(card).find((n) => n.props.className === "plan-fact__eyebrow");
+      return eyebrow === undefined ? undefined : String(eyebrow.children[0]);
+    }),
+    ["PURPOSE", "WHAT ACTUALLY WINS", "LIKELY BOTTLENECK"],
+    "the three fact cards render in the DESIGN order",
+  );
+  assert.ok(
+    vnodeText(cards[0]).includes("Nuln’s black-powder soldiery and the knights of Morr"),
+    "the PURPOSE card carries the interpretation",
+  );
+  assert.ok(
+    vnodeText(cards[2]).includes("Finishing the last surviving faction"),
+    "the LIKELY BOTTLENECK card carries the bottleneck",
+  );
+
+  // WHAT ACTUALLY WINS: the objective + reward claims as badged rows with
+  // their resolved source links (route 1's verify-in-campaign states)
+  const wins = recordVNodes(cards[1]);
+  const claimLabels = wins.filter(
+    (n) => n.props.className === "claim-block__label" && n.children.length === 1 && typeof n.children[0] === "string",
+  );
+  assert.deepEqual(
+    claimLabels.map((n) => String(n.children[0])),
+    ["Objective", "Reward"],
+    "the wins card renders the objective + reward claim blocks",
+  );
+  const winsBadges = badgeVNodes(cards[1]);
+  assert.equal(winsBadges.length, 2, "exactly the two identity claims are badged on the wins card");
+  assert.ok(
+    winsBadges.every((n) => n.props.state === "verify-in-campaign"),
+    "route 1's objective/reward claims carry their verify-in-campaign states",
+  );
+  const srcLinks = winsBadges.flatMap((badge) =>
+    recordVNodes(expandBadge(badge)).filter((n) => n.tag === "a" && n.props.className === "confidence-badge__src"),
+  );
+  assert.equal(srcLinks.length, 2, "each claim trails its resolved source link");
+  assert.ok(
+    srcLinks.every((l) => l.props.href === "https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084"),
+    "the claims resolve to the committed vco-guide url",
+  );
+
+  // an absent field omits its card — never an empty card
+  const noBottleneck: Route = { ...route.value, bottleneck: undefined };
+  const noBottleneckCards = factCards(PlanView({ lord: lord.value, route: noBottleneck }));
+  assert.deepEqual(
+    noBottleneckCards.map((card) =>
+      String(recordVNodes(card).find((n) => n.props.className === "plan-fact__eyebrow")?.children[0]),
+    ),
+    ["PURPOSE", "WHAT ACTUALLY WINS"],
+    "a route without a bottleneck renders exactly two cards",
+  );
+  const noInterpretation: Route = { ...route.value, interpretation: undefined };
+  const noInterpretationCards = factCards(PlanView({ lord: lord.value, route: noInterpretation }));
+  assert.deepEqual(
+    noInterpretationCards.map((card) =>
+      String(recordVNodes(card).find((n) => n.props.className === "plan-fact__eyebrow")?.children[0]),
+    ),
+    ["WHAT ACTUALLY WINS", "LIKELY BOTTLENECK"],
+    "a route without an interpretation renders exactly two cards",
+  );
+});
+
+test("the plan's section walk keeps the tree ids, adds the phase numerals, and links transitions on the plan grammar", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(route.found);
+  const view = PlanView({ lord: lord.value, route: route.value });
+  const nodes = recordVNodes(view);
+  const text = vnodeText(view);
+
+  // the eight slots in registry order — the six registry sections then the
+  // two declared transitions — each H2 keeping the tree's anchor id
+  const headings = planHeadings(view);
+  assert.deepEqual(
+    headings.map((h) => h.props.id),
+    [
+      "opening",
+      "early-mid",
+      "mid-late",
+      "victory-push",
+      "territory-policy",
+      "diplomacy",
+      "transition-route-2",
+      "transition-route-3",
+    ],
+    "the section H2 ids are the tree's anchor ids, unchanged, in registry order",
+  );
+
+  // the six registry sections carry their walk-order numerals as a rendered
+  // prefix (1 Opening, 2 Early → Mid, …, 6 Diplomacy)
+  const expectedNumerals: Array<[id: string, numeral: string | undefined]> = [
+    ["opening", "1"],
+    ["early-mid", "2"],
+    ["mid-late", "3"],
+    ["victory-push", "4"],
+    ["territory-policy", "5"],
+    ["diplomacy", "6"],
+  ];
+  for (const [id, numeral] of expectedNumerals) {
+    const heading = headings.find((h) => h.props.id === id);
+    assert.ok(heading !== undefined, `the ${id} section heading renders`);
+    const numeralSpan = recordVNodes(heading).find((n) => n.props.className === "route-section__numeral");
+    assert.equal(
+      numeralSpan === undefined ? undefined : String(numeralSpan.children[0]),
+      numeral,
+      `the ${id} heading carries its walk-order numeral`,
+    );
+  }
+  assert.ok(
+    vnodeText(headings[0]).includes("Opening"),
+    "the first section heading renders the numeral prefix + the title",
+  );
+
+  // the transition sections render unnumbered with their ids unchanged, and
+  // their headings are cross-links on the NEW grammar targeting the real
+  // Opening ids of the target routes
+  for (const id of ["transition-route-2", "transition-route-3"]) {
+    const heading = headings.find((h) => h.props.id === id);
+    assert.ok(heading !== undefined, `the ${id} transition heading renders`);
+    assert.ok(
+      !recordVNodes(heading).some((n) => n.props.className === "route-section__numeral"),
+      `the ${id} transition heading renders unnumbered`,
+    );
+  }
+  const links = transitionAnchors(view);
+  assert.deepEqual(
+    links.map((a) => [String(a.children[0]), a.props.href]),
+    [
+      ["Transition → route-2", "#/elspeth-von-draken/plan/route-2/opening"],
+      ["Transition → route-3", "#/elspeth-von-draken/plan/route-3/opening"],
+    ],
+    "Route I's two transition headings are anchors with new-grammar plan hrefs into the actual Opening ids",
+  );
+
+  // the F3 source panel renders on the claim-citing Opening section
+  const opening = sectionSubtree(view, "opening");
+  assert.equal(
+    opening.filter((n) => n.props.className === "source-panel").length,
+    1,
+    "the citing Opening section renders its source panel on the plan",
+  );
+  assert.equal(
+    opening.filter((n) => n.props.className === "source-panel__entry").length,
+    1,
+    "the Opening panel lists its single distinct source once",
+  );
+  const openingTitleLink = opening.find((n) => n.tag === "a" && n.props.className === "source-panel__title");
+  assert.equal(String(openingTitleLink?.children[0]), "VCO • author’s route objectives", "the entry is the resolved vco-guide title link");
+  assert.equal(countOccurrences(text, "CONTENT GAP"), 0, "no gap marker on the committed Route I plan");
+});
+
+test("the plan aside renders the five-moves cards from route.phases and collapses cleanly when phases is absent", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(route.found);
+
+  const view = PlanView({ lord: lord.value, route: route.value });
+  const nodes = recordVNodes(view);
+  const aside = nodes.find((n) => n.props.className === "plan-aside");
+  assert.ok(aside !== undefined, "the aside renders for a phases-carrying route");
+  const asideNodes = recordVNodes(aside);
+  const title = asideNodes.find((n) => n.props.className === "plan-aside__title");
+  assert.equal(String(title?.children[0]), "The operation in five moves", "the fixed aside title");
+
+  const moves = asideNodes.filter((n) => n.props.className === "plan-move");
+  assert.equal(moves.length, 5, "one card per committed Route I phase");
+  assert.deepEqual(
+    moves.map((move) => {
+      const numeral = recordVNodes(move).find((n) => n.props.className === "plan-move__numeral");
+      return numeral === undefined ? undefined : String(numeral.children[0]);
+    }),
+    ["1", "2", "3", "4", "5"],
+    "the move cards carry serif numerals 1..5 in committed order",
+  );
+  const first = recordVNodes(moves[0]);
+  assert.equal(
+    String(first.find((n) => n.props.className === "plan-move__title")?.children[0]),
+    "Give Nuln breathing room",
+    "the first move card carries its committed title",
+  );
+  assert.equal(
+    String(first.find((n) => n.props.className === "plan-move__note")?.children[0]),
+    "Win the starting war without creating three additional fronts.",
+    "…and its committed note",
+  );
+  const last = recordVNodes(moves[4]);
+  assert.equal(
+    String(last.find((n) => n.props.className === "plan-move__title")?.children[0]),
+    "Claim the victory, then defend the city",
+    "the fifth card renders the closing move",
+  );
+  const track = nodes.find((n) => String(n.props.className ?? "").split(/\s+/).includes("plan-track"));
+  assert.equal(String(track?.props.className), "plan-track", "the two-track container carries the atlas split while the aside is present");
+
+  // a route without `phases` collapses the left track to full width — no
+  // aside element and no empty card anywhere
+  const noPhases: Route = { ...route.value, phases: undefined };
+  const collapsed = recordVNodes(PlanView({ lord: lord.value, route: noPhases }));
+  assert.ok(
+    collapsed.some((n) => String(n.props.className) === "plan-track plan-track--full"),
+    "the track container switches to the full-width class when the aside is absent",
+  );
+  assert.ok(
+    !collapsed.some((n) => n.props.className === "plan-aside"),
+    "no aside element renders at all (never an empty card)",
+  );
+  assert.ok(
+    !collapsed.some((n) => n.props.className === "plan-move"),
+    "no move card renders without phases",
+  );
+});
+
+test("the plan's VCO undercard and campaign action region render the moved start/open/blocked/none states", async () => {
+  const { lord, route } = await ledgerInputs();
+
+  // the moved undercard renders over the plan, below the two-track body
+  const startView = PlanView({ lord, route, campaign: { index: readyIndex([]), onStart: () => {}, startError: null } });
+  const startText = vnodeText(startView);
+  assert.ok(startText.includes("VCO OBJECTIVES"), "the moved undercard eyebrow renders on the plan");
+  assert.ok(
+    startText.includes("battles-35") && startText.includes("Win 35 battles"),
+    "the committed undercard rows render below the body",
+  );
+
+  // start: no active campaign
+  const startRegion = campaignRegion(startView);
+  assert.ok(startRegion !== undefined, "the start action renders while no campaign is active");
+  const start = recordVNodes(startRegion).find((n) => n.tag === "button" && hasClass(n, "button--primary"));
+  assert.equal(String(start?.children[0]), "Start ledger", "the start action keeps its label");
+  assert.equal(typeof start?.props.onClick, "function", "the start button is wired to the onStart handler");
+
+  // open: the active campaign is this route's
+  const openView = PlanView({
+    lord,
+    route,
+    campaign: {
+      index: readyIndex([
+        { lordSlug: "elspeth-von-draken", routeId: "route-1", status: "active", updatedAt: "2026-10-03T00:00:00.000Z" },
+      ]),
+      onStart: () => {},
+      startError: null,
+    },
+  });
+  const openRegion = campaignRegion(openView);
+  assert.ok(openRegion !== undefined, "the open action region renders for the active campaign");
+  const open = recordVNodes(openRegion).find((n) => n.tag === "a" && hasClass(n, "button--primary"));
+  assert.equal(vnodeText(open).trim(), "Open ledger", "the open action keeps its label");
+  assert.equal(open?.props.href, "#/elspeth-von-draken/ledger/route-1", "the open link keeps the exact ledger hash");
+
+  // blocked: a different route's campaign is active
+  const blockedView = PlanView({
+    lord,
+    route,
+    campaign: {
+      index: readyIndex([
+        { lordSlug: "elspeth-von-draken", routeId: "route-2", status: "active", updatedAt: "2026-10-03T00:00:00.000Z" },
+      ]),
+      onStart: () => {},
+      startError: null,
+    },
+  });
+  const blocked = campaignRegion(blockedView);
+  assert.ok(blocked !== undefined, "the blocked message region renders");
+  assert.ok(vnodeText(blocked).includes("A campaign is already active"), "the blocked message renders");
+  assert.equal(
+    recordVNodes(blocked).find((n) => n.tag === "a")?.props.href,
+    "#/elspeth-von-draken/ledger/route-2",
+    "the blocked message links the active campaign's own ledger hash",
+  );
+
+  // none: this route's own file is corrupt — neither start nor open
+  const noneView = PlanView({
+    lord,
+    route,
+    campaign: {
+      index: readyIndex([
+        { lordSlug: "elspeth-von-draken", routeId: "route-1", status: "corrupt", updatedAt: null },
+      ]),
+      onStart: () => {},
+      startError: null,
+    },
+  });
+  assert.ok(campaignRegion(noneView) === undefined, "a corrupt own file offers no action region on the plan");
+  assert.ok(!vnodeText(noneView).includes("Start ledger"), "start is not offered over a corrupt file");
+  assert.ok(!vnodeText(noneView).includes("Open ledger"), "open is not offered for a corrupt file");
+});
+
+test("the plan's panel strip links the three detail pages and the VCO ledger for the current route", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(route.found);
+
+  const view = PlanView({ lord: lord.value, route: route.value });
+  const strip = recordVNodes(view).find((n) => n.props.className === "plan-strip");
+  assert.ok(strip !== undefined, "the panel strip renders");
+  const links = recordVNodes(strip).filter((n) => n.tag === "a" && n.props.className === "plan-strip__link");
+  assert.deepEqual(
+    links.map((l) => l.props.href),
+    [
+      "#/elspeth-von-draken/armies/route-1",
+      "#/elspeth-von-draken/settlements/route-1",
+      "#/elspeth-von-draken/workshop/route-1",
+      "#/elspeth-von-draken/ledger/route-1",
+    ],
+    "the four strip links target the current route's detail pages and ledger (new grammar)",
+  );
+  assert.deepEqual(
+    links.map((l) => String(l.children[0])),
+    ["Armies & skills", "Settlements & economy", "Faction workshop", "VCO ledger"],
+    "the strip links carry the page copy",
+  );
+
+  // the strip is route-scoped: the same plan over route-2 targets route-2
+  const route2 = getRoute(tree, "elspeth-von-draken", "route-2");
+  assert.ok(route2.found);
+  const strip2 = recordVNodes(PlanView({ lord: lord.value, route: route2.value })).find(
+    (n) => n.props.className === "plan-strip",
+  );
+  const hrefs2 = recordVNodes(strip2)
+    .filter((n) => n.tag === "a" && n.props.className === "plan-strip__link")
+    .map((n) => n.props.href);
+  assert.deepEqual(
+    hrefs2,
+    [
+      "#/elspeth-von-draken/armies/route-2",
+      "#/elspeth-von-draken/settlements/route-2",
+      "#/elspeth-von-draken/workshop/route-2",
+      "#/elspeth-von-draken/ledger/route-2",
+    ],
+    "route-scoped strip: the current route's id in every href",
+  );
+});
 
 /** The className membership check used across the structural asserts. */
 function hasClass(node: VNodeRecord, className: string): boolean {

@@ -260,7 +260,7 @@ Commit 1 (content model) → Commit 2 (visual system) → Commit 3 (Elspeth cont
 
 #### Package `route-plan-view` — Commit 5: The route plan view
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 3
 
