@@ -185,7 +185,7 @@ export interface GuideManifest {
 
 /** A rendered body section: one registry H2 with its (once, at boot) rendered inner Markdown. */
 export interface Section {
-  /** Anchor-slugged heading text, used by `#/<…>/route/<id>/<section-id>`. */
+  /** Anchor-slugged heading text, used by `#/<…>/plan/<route-id>/<section-id>`. */
   readonly id: string;
   /** The raw H2 heading text (registry title or `Transition → <other route>`). */
   readonly title: string;
@@ -226,6 +226,7 @@ export interface Route {
   readonly reward: Claim;
   readonly interpretation?: string;
   readonly bottleneck?: string;
+  /** Authored route data retained for future use; currently unrendered. */
   readonly motto?: string;
   readonly transitions?: string;
   readonly panelOrder?: PanelOrder;

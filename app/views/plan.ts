@@ -21,9 +21,9 @@
  * walk-order numeral (1–6) as a prefix to the H2 — the transition sections
  * render unnumbered and every H2 keeps the tree's section id (the anchors
  * and F7 cross-links are unaffected; only the rendered text gains the
- * prefix, per the recorded developer decision). The old `route.ts` imports
- * the same functions and keeps rendering identically under the old grammar
- * until Commit 9 retires it.
+ * prefix, per the recorded developer decision). This registry-walk body and
+ * campaign region moved here from the route page; that page was deleted in
+ * Commit 11.
  *
  * The VCO undercard also carries the campaign action region (feature DESIGN
  * Journey 1; package `ledger-route-start`): a presentational block driven by
@@ -91,10 +91,8 @@ function registryNumeral(title: string): string | null {
   return index === -1 ? null : String(index + 1);
 }
 
-/** One registry slot's rendering options (the plan/route difference the move parameterizes). */
+/** Rendering options for a plan registry slot. */
 interface SectionLoopOptions {
-  /** The route-page segment of F7 cross-link hrefs: the new "plan" grammar or the old "route" (until Commit 9). */
-  readonly hrefPage: "plan" | "route";
   /** Render the six registry sections' walk-order numerals as H2 prefixes. */
   readonly numbered: boolean;
 }
@@ -107,8 +105,7 @@ interface SectionLoopOptions {
  * H2 always keeps the tree's section id (the router's section anchor); the
  * prose and Source-panel anatomy stay on the section, never the anchor.
  * Every other title keeps its plain H2. The phase-numbered plan renders the
- * registry section's walk-order numeral as a serif prefix to the H2; the
- * route page (old grammar) renders the heading without numerals.
+ * registry section's walk-order numeral as a serif prefix to the H2.
  */
 function sectionHeading(lord: Lord, section: Section, loop: SectionLoopOptions): JSX.Element {
   const numeral = loop.numbered ? registryNumeral(section.title) : null;
@@ -122,8 +119,8 @@ function sectionHeading(lord: Lord, section: Section, loop: SectionLoopOptions):
   }
   const href =
     target.openingSectionId === null
-      ? `#/${lord.slug}/${loop.hrefPage}/${target.targetId}`
-      : `#/${lord.slug}/${loop.hrefPage}/${target.targetId}/${target.openingSectionId}`;
+      ? `#/${lord.slug}/plan/${target.targetId}`
+      : `#/${lord.slug}/plan/${target.targetId}/${target.openingSectionId}`;
   return h(
     "h2",
     { id: section.id, className: "route-section__heading" },
@@ -364,7 +361,7 @@ function planSections(lord: Lord, route: Route): JSX.Element {
     "div",
     { className: "plan-sections" },
     registrySlots(route)
-      .map((title) => slotAt(lord, route, title, { hrefPage: "plan", numbered: true }))
+      .map((title) => slotAt(lord, route, title, { numbered: true }))
       .filter((node): node is JSX.Element => node !== null),
   );
 }
@@ -400,8 +397,7 @@ function phasesAside(phases: readonly PhaseSummary[]): JSX.Element {
  * renders no undercard at all — and therefore no campaign action (the
  * DESIGN's no-VCO-route no-action rule). Moved from the route page
  * unchanged in behaviour; the plan page hosts the start flow (recorded
- * decision), and the route page keeps importing this same copy until Commit
- * 9 retires it.
+ * decision). The former route page was deleted in Commit 11.
  */
 export function vcoUndercard(lord: Lord, route: Route, campaign: RouteCampaignProps | undefined): JSX.Element | null {
   const objectives = getVcoObjectives(lord, route.id);

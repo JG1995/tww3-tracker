@@ -185,7 +185,7 @@ md.renderer.rules.claim_callout_close = () => "</aside>\n";
 
 // ─── Tree building ───────────────────────────────────────────────────────────
 
-/** Anchor id for a section heading (`#/<lord>/route/<route>/<section-id>`). */
+/** Anchor id for a section heading (`#/<lord>/plan/<route-id>/<section-id>`). */
 function slugify(title: string): string {
   return title
     .toLowerCase()

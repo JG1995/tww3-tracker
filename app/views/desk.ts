@@ -73,8 +73,8 @@ const DESK_EMPTY_COPY: Readonly<Record<PanelGroup, string>> = {
 
 /**
  * The five panel display names — the location label of every dataset flag
- * row (the F3 vocabulary; mirrors the dashboard's tab labels — each consumer
- * keeps its own copy until the removed modules are deleted in Commits 9/11).
+ * row (the F3 vocabulary; mirrors the detail-page panel labels). These two
+ * label maps are intentionally maintained by their respective consumers.
  */
 const PANEL_LABELS: Readonly<Record<PanelGroup, string>> = {
   armies: "ARMY TEMPLATES",

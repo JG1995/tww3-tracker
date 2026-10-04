@@ -111,7 +111,7 @@ button {
   padding-inline: var(--wrap-side-padding);
 }
 
-/* ─── Skip link — first in DOM (index.html's wordmark slot is moved inside the nav) ─── */
+/* ─── Skip link — first in DOM, before the app mount and main content ─── */
 
 .skip-link {
   position: absolute;
@@ -135,8 +135,7 @@ button {
 /* ─── Atlas header — the three-tier shell (package `atlas-header-shell`,
    Commit 10): sticky ≈170px with backdrop blur; two forms derived from the
    route — slim (home, not-found, boot: wordmark + lord links) and full (every
-   lord-scoped page: topline / routebar / pagenav). The F2-era `top-nav`
-   blocks below keep their class names until Commit 11's orphan purge. */
+   lord-scoped page: topline / routebar / pagenav). */
 
 .atlas-header {
   position: sticky;
@@ -2121,7 +2120,7 @@ aside.claim > .confidence-badge {
 
 /* Explicit empty state: the eyebrow label plus one proportional sentence
    (DESIGN §6 Copywriting) — the pattern of the home empty state. */
-.dashboard-empty__label {
+.panel-empty__label {
   font-family: var(--sans);
   font-size: var(--eyebrow-size);
   font-weight: var(--eyebrow-weight);
@@ -2130,7 +2129,7 @@ aside.claim > .confidence-badge {
   color: var(--eyebrow-color);
 }
 
-.dashboard-empty__copy {
+.panel-empty__copy {
   max-width: 60ch;
   margin-top: var(--gap-xs);
   font-family: var(--sans);

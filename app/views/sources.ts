@@ -14,7 +14,7 @@
  * blank region). A lord with an absent or empty sources dataset renders
  * the explicit empty state (mono label + one proportional sentence — the
  * project's empty-state policy). Presentational: everything comes from the
- * immutable tree. Dormant until Commit 9 routes to it.
+ * immutable tree. Routed at `#/<lord>/sources`.
  */
 
 import { h, type JSX } from "preact";

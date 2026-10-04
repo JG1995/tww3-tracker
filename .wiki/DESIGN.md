@@ -103,7 +103,7 @@ The atlas palette, ported verbatim as hex from the reference atlases' `:root` (D
 | `--line`    | `#354651` | Hairline outlines, borders, dividers                                           |
 | `--accent`  | `#ddc485` | Brass — the single chromatic accent: links, state, data numerals, eyebrows    |
 | `--brass`   | `#ccaa72` | Dimmer brass — brand and decorative accents                                   |
-| `--good`    | `#adcead` | Positive/complete data states — verified claims, cleared flags                |
+| `--good`    | `#adcead` | Positive/complete data states — confirmed claims, cleared flags                |
 | `--danger`  | `#f0aaa0` | Destructive/failure states — failed writes, validation errors                 |
 
 **Semantic remap (existing roles → atlas values)** — the old Factory roles map onto the atlas tokens exactly:
@@ -123,7 +123,7 @@ The atlas palette, ported verbatim as hex from the reference atlases' `:root` (D
 
 | State                 | Colour role  | Label & icon requirement                              |
 | --------------------- | ------------ | ----------------------------------------------------- |
-| `verified`            | `--good`     | uppercase label "VERIFIED" + check icon               |
+| `confirmed`           | `--good`     | uppercase label "CONFIRMED" + check icon              |
 | `verify-in-campaign`  | `--accent`   | uppercase label "VERIFY" + flag icon                  |
 | `historical`          | `--muted`    | uppercase label "HISTORICAL" + clock icon             |
 | `inferred`            | `--faint`    | uppercase label "INFERRED" + branch icon              |
@@ -228,24 +228,15 @@ The atlas component treatments, values verbatim from the atlases (the token-prov
 - **Links:** `--link-color` (`--accent`); hover shifts to `--brass`; prose links underline.
 - **kbd chips:** `--kbd-size` (0.68rem), 1px `--kbd-border-color` (`--line`) border with a 2px bottom edge, `--kbd-radius` (3px), `--kbd-padding` (`0 5px`), `--kbd-color` (`--muted`).
 
-### Top Navigation Bar
+### Atlas Header
 
-Persistent header across all pages (sticky, `z-10`).
+The sticky atlas header has three tiers on lord- and route-scoped pages, and a slim form on home, not-found, and boot-error pages.
 
-- **Container:** transparent over `background`; height `header-height` (64px); max-width `content-max-width`.
-- **States:** none beyond child elements; no hover fill on the bar itself.
-- **Content / Anatomy:** left — wordmark "VCO COMPANION" in `label-md` (mono uppercase, `on-surface`); center/right — faction links in `body-md` (14px, `on-surface`); far right — search field.
-- **Behaviour:** keyboard reachable in logical order; active faction marked with a 2px `primary` underline (state, not fill); scrolls under nothing — content starts at 64px + `stack-lg`.
-
-### Route Tab Strip
-
-The core navigation element: the three VCO routes of the current lord, plus a "Shared" tab for faction fundamentals.
-
-- **Container:** `surface-container` (carbon) background, 1px `outline-variant` bottom border, 10px radius top corners, `stack-sm` horizontal padding.
-- **States:** default — `on-surface-variant` label; hover — `on-surface` (colour only); active — `on-surface` label + 2px `primary` underline; focus — standard focus ring. No layout shift on any state.
-- **Variants:** none — always exactly the tabs the content provides; a route with no content still gets its tab and renders the Content Gap Marker.
-- **Content / Anatomy:** each tab: mono uppercase route code (`label-md`) + proportional route title (`body-md`) + official VCO route title in `label-sm` beneath. Official VCO titles are always distinguished from guide-created thematic subtitles (subtitles are dimmed `on-surface-variant`).
-- **Behaviour:** hash-routed (`#/faction/<id>/route/<n>`); left/right arrows move between tabs when the strip has focus (roving tabindex); state survives reload.
+- **Slim form:** wordmark and lord links.
+- **Topline:** crest, brand linking to the reference desk, environment and patch/VCO context, and an empty reserved toolbar.
+- **Routebar:** three hash-selected route tabs, with route number/name and official VCO title or UNRESEARCHED marker; there is no Shared tab.
+- **Pagenav:** eight page links (Reference desk, Route plan, Armies & skills, Settlements & economy, Faction workshop, VCO ledger, Field notes, Sources & settings) plus the static "Saved locally · offline" line.
+- **Behaviour:** selection derives from the hash; tabs support keyboard navigation and visible focus. The new page/route/section grammar is defined in the feature DESIGN.
 
 ### Content Panel
 
@@ -278,20 +269,10 @@ The VCO progress surface for the active campaign: one row per route objective it
 
 ### Version Banner
 
-Per-guide research context strip.
+Per-guide research context rendered in the reference desk's lord-level zone.
 
-- **Container:** `surface-container-low`, 1px `outline-variant` border, 10px radius, `stack-sm` padding.
-- **Content / Anatomy:** mono uppercase "VERIFIED AGAINST" eyebrow + `mono-md` `patch <X> · VCO <version>` + count of open `verify-in-campaign` items as a `warning` chip (`n OPEN FLAGS`).
-- **Behaviour:** the open-flags count links to the flagged-items list; when zero, the chip renders "ALL CLEARED" in `success`.
-- **Implemented:** the lord-page banner uses the fixed VERIFIED AGAINST eyebrow and patch/VCO pairing, with an `N OPEN FLAGS` or `ALL CLEARED` chip. The flagged-items section has `tabIndex: -1` as the chip's programmatic focus target.
-
-### Route Identity Card
-
-The signature figure on each route page — the one bright object in the view.
-
-- **Container:** `inverse-surface` (bone) background, 10px radius, `stack-md` padding, no shadow, dark text (`#060505` / `inverse-on-surface`).
-- **Content / Anatomy:** mono uppercase eyebrow with a `primary` dot (official VCO route title) + `headline-lg` thematic subtitle (guide-created, clearly secondary) + `body-lg` objective summary + reward line in `mono-md`.
-- **Behaviour:** static. Appears once per route page, at the top.
+- **Content / Anatomy:** uppercase "VERIFIED AGAINST" eyebrow, `patch <X> · VCO <version>`, and an open-flags chip or "ALL CLEARED" state.
+- **Behaviour:** the open-flags count links to the flagged-items list; the target is programmatically focusable. The banner appears below the reference desk grid, not on a standalone lord page.
 
 ### Buttons
 
@@ -329,9 +310,9 @@ Records the research trail next to the claims it supports.
 ### Empty, Loading & Error States
 
 - **Loading (boot only):** a single centered mono uppercase line — "LOADING CORPUS" — plus a 1px `primary` progress hairline. This is the *only* loading state in the app: after boot, everything is in-memory and instant (ARCHITECTURE §1.1).
-- **Empty:** explicit mono label + one proportional sentence (e.g. ledger page with no campaign: "NO ACTIVE CAMPAIGN — start one from a route page"). Never blank space.
+- **Empty:** explicit mono label + one proportional sentence (e.g. ledger page with no campaign: "NO ACTIVE CAMPAIGN — start one from the route plan"). Never blank space.
 - **Error:** `error`-bordered panel, icon + `body-md` message + ghost "Retry" button. Ledger write failures additionally keep the pre-write row state visible (rollback is the default).
-- **Implemented:** an absent campaign renders the mono label "NO ACTIVE CAMPAIGN" with the proportional copy "— start one from a route page"; load errors render an icon, message, and ghost Retry button. Ledger loading uses a compact "LOADING" status line; boot retains "LOADING CORPUS".
+- **Implemented:** an absent campaign renders the mono label "NO ACTIVE CAMPAIGN" with the proportional copy "— start one from the route plan"; load errors render an icon, message, and ghost Retry button. Ledger loading uses a compact "LOADING" status line; boot retains "LOADING CORPUS".
 
 ### Animations & Transitions
 
@@ -350,10 +331,10 @@ Before delivering any UI code, verify.
 ### Visual Quality
 
 - [ ] No emojis used as icons (icon set only, 1px stroke, consistent viewBox)
-- [ ] Only `primary` (orange) and `secondary` (green) appear as chromatic accents — and only on state/data, never on fills; `error` red only on failure states
-- [ ] No `font-weight ≥ 600` anywhere; weight 500 only on dominant labels
-- [ ] No drop shadows, glows, or blurs (1px hairline pattern only)
-- [ ] Radii only from the 3 / 10 / 20 / full set
+- [ ] Atlas chromatic tokens (`--accent`, `--brass`, `--good`, `--danger`) are used by semantic role; no Factory orange/green accent roles remain
+- [ ] No heavy heading weight; eyebrow labels use the fixed 650 weight and other text follows the atlas typography tokens
+- [ ] No drop shadows or glows; backdrop blur is limited to the sticky atlas header
+- [ ] Radii follow the atlas tokens: 3px, 4px, 5px, or full
 - [ ] Colour is never the sole indicator of meaning — every badge, dot, and state carries a text label (confidence states in particular)
 - [ ] All text-on-background combinations meet the contrast minimum (verify against the table in Colors)
 - [ ] Mono uppercase reserved for instrument labels; no Mono sentences
@@ -362,7 +343,7 @@ Before delivering any UI code, verify.
 
 - [ ] `cursor-pointer` on all clickable elements
 - [ ] Hover states use colour/opacity transitions only — no layout-shifting effects (scale, margin, padding, font-weight changes on hover)
-- [ ] Focus states visible only via `:focus-visible` (2px `primary` ring, 3px offset)
+- [ ] Focus states are visible via `:focus-visible` using the `--accent` focus ring
 - [ ] Every ledger mutation shows loading → success/error feedback — no silent updates; optimistic writes roll back with a visible error on failure
 - [ ] Transitions within 0.15s–0.2s, single easing curve
 - [ ] Destructive actions (deleting a campaign ledger) require explicit confirmation
@@ -378,8 +359,8 @@ Before delivering any UI code, verify.
 ### Z-Index & Layout
 
 - [ ] All `z-index` values come from the defined scale (10/20/30/40/50) — no arbitrary values
-- [ ] No content hidden behind the sticky nav + tab strip (account for combined height)
-- [ ] Content clamped to 1200px, centered; canvas full-bleed behind it
+- [ ] No content hidden behind the sticky three-tier atlas header
+- [ ] Content uses the full-bleed atlas wrap, centered and capped at 3360px; canvas remains full-bleed behind it
 
 ### States
 

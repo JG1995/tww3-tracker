@@ -13,7 +13,7 @@
  * deferred-surface rule; the project's empty-state policy: never blank
  * space). The notes content itself is a later feature; the page is the
  * deferred state only. Presentational: everything comes from the immutable
- * tree. Dormant until Commit 9 routes to it.
+ * tree. Routed at `#/<lord>/notes`.
  */
 
 import { h, type JSX } from "preact";

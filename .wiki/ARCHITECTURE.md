@@ -12,7 +12,7 @@ For the product purpose and domain model, see [CONCEPT.md](./CONCEPT.md). For th
 
 ### 1.1 Target architecture (approved proposal)
 
-> Status: approved 2026-10-02, **partially implemented** — F1 (site foundation), F2 (route-first rendering), F4 (Elspeth migration), F3 (verification notes UI), F7 (route transitions), and F5 (VCO campaign ledger) are implemented and merged to `main` (F4, F3, and F7 on 2026-10-03; F5 on 2026-10-04); F6 (search) remains approved-but-unbuilt. This subsection records the approved target stack and direction; §2 and §3 describe the currently implemented system. Rationale: [ADR-0001](adr/0001-vite-preact-runtime-loaded-site.md), [ADR-0002](adr/0002-content-as-markdown-json.md).
+> Status: approved 2026-10-02, **implemented through F10** — F1–F5 and F7 are merged to `main`; F10 is implemented on its feature branch pending fast-forward integration. F6 (search) remains approved-but-unbuilt. This subsection records the approved target stack and direction; §2 and §3 describe the currently implemented system. Rationale: [ADR-0001](adr/0001-vite-preact-runtime-loaded-site.md), [ADR-0002](adr/0002-content-as-markdown-json.md).
 
 A local, single-user web app. One Preact SPA in TypeScript, built by Vite, with no static site generator and no backend. Guide content is never compiled into the bundle — it is fetched at runtime from the repository as Markdown and JSON files.
 
@@ -24,7 +24,7 @@ A local, single-user web app. One Preact SPA in TypeScript, built by Vite, with 
 | Content | Markdown + YAML frontmatter (prose, confidence states) and JSON (structured dashboard data) in `content/`, git-versioned, loaded at runtime |
 | Ledger state | JSON files in a gitignored local directory (e.g. `.local/state/ledgers/`); SQLite deferred per PRD F8 |
 | Serving | Small dependency-free local server script — the reading path. `node tools/server.mjs` serves `dist/` at `/`, `content/` under `/content/`, and the ledger store at `/ledgers/` over `http://127.0.0.1`; ledger JSON in `.local/state/ledgers/` is listed/read via GET, written via PUT, and removed via DELETE. A direct `file://` open of `dist/index.html` is blocked in Chromium (verified 2026-10-02: module scripts, fetch, and XHR fail; see the ADR-0001 correction) |
-| Design system | `.wiki/DESIGN.md` oklch tokens as CSS custom properties; no UI library |
+| Design system | Atlas hex tokens in `.wiki/DESIGN.md` and `app/styles/tokens.css`; no UI library |
 | Testing | Node built-in `node:test`; tests cover content-schema validation and ledger logic (pure functions) |
 
 ```text
@@ -43,24 +43,21 @@ A local, single-user web app. One Preact SPA in TypeScript, built by Vite, with 
 
 ```text
 app/
-├── main.ts            # bootstrap: build the content tree, mount the router
-├── router.ts          # hash router (~50 lines): #/faction/elspeth/route-ii → view
-├── views/             # one file per page; owns layout and page-local state
-│   ├── home.tsx  faction.tsx  lord.tsx  route.tsx  ledger.ts
-│   ├── dashboard.tsx  search.tsx
-├── components/        # dumb reusable panels: TabStrip, Panel, ConfidenceBadge,
-│                      # SourceChip, LedgerTable (`app/components/LedgerTable.ts`), SearchResults — plain props in, UI out
+├── main.tsx           # sole JSX bootstrap: boot content, route hash, render atlas header and page
+├── router.ts          # hash router: #/<lord>/<page>/<route-id>[/<section-id>] → view
+├── views/             # presentational desk, plan, panels, sources, notes, not-found, boot-error, home, ledger
+├── components/        # atlasHeader, deskPanel, ConfidenceBadge, LedgerTable
 ├── content/
-│   ├── types.ts       # the content model: Faction, Lord, Route, Claim, Army, …
-│   ├── load.ts        # side effect: fetch + parse Markdown/JSON → immutable ContentTree
-│   └── query.ts       # pure selectors: byRoute(), flaggedClaims(), search corpus
+│   ├── types.ts       # ContentTree/lord/route/dataset contracts, including optional chrome fields
+│   ├── load.ts        # fetch + parse Markdown/JSON and optional crest → immutable ContentTree
+│   └── query.ts       # pure selectors: getPanelEntries, getFlaggedEntries, and related reads
 ├── ledger/
 │   ├── types.ts       # campaign and item state contracts
 │   ├── logic.ts       # pure campaign transitions, validation, content reconciliation
 │   ├── state.ts       # pure optimistic command state and rollback
 │   ├── io.ts          # only ledger network I/O to /ledgers/
 │   └── useCampaign.ts # on-demand page state and command orchestration
-└── styles/            # tokens.css (DESIGN.md oklch tokens as custom properties), components.css
+└── styles/            # tokens.css (DESIGN.md atlas hex tokens), app.css
 ```
 
 #### Readability rules
@@ -91,48 +88,36 @@ Cross-campaign querying/analysis (comparisons, history stats across many campaig
 
 ### 1.2 Current state
 
-F1 (site foundation), F2 (route-first rendering), F4 (Elspeth migration), F3 (verification notes UI), F7 (route transitions), and F5 (VCO campaign ledger) are implemented and merged to `main`: the committed `content/` includes the migrated Elspeth guide, with its shared introduction and four blocks, six populated datasets, and three fully sectioned route documents. F3 adds the `getFlaggedEntries` selector and `FlaggedEntry` type in `query.ts`, the lord-page Version Banner and flagged-items section, and per-section Source panels. F7 is implemented and merged to `main`: `app/views/route.ts` renders present `Transition → <route>` sections as same-lord cross-links to the target route's `Opening`, or to the route page top when that `Opening` is a declared gap; `app/styles/app.css` adds one token-only link class. F5 is implemented and merged to `main`: `app/ledger/{types,logic,state,io,useCampaign}.ts` define the campaign contract, pure transitions, rollback state, network I/O, and on-demand orchestration; `app/views/ledger.ts` composes the page, and `app/components/LedgerTable.ts` renders its table. F6 (search) remains approved-but-unbuilt. §2 (Project Layout) and §3 (Build, Test, and Gate Pipeline) describe the implemented system; the sections that belong to unbuilt layers (parts of §1.1's module layout, §4–§11) remain unfilled placeholders.
+F1–F5, F7, and F10 are implemented; F1–F5 and F7 are merged to `main`, while F10 is on its feature branch pending fast-forward integration. The Elspeth content includes six datasets, three route documents, and optional crest, environment, and phase summaries. F10 implements the atlas header, desk, plan, detail pages, sources and notes views, and new hash grammar; the F2 route and dashboard surfaces are deleted. The F5 ledger model, server contract, optimistic writes, and on-demand loading remain unchanged. F6 (search) remains approved-but-unbuilt. §2 and §3 describe the implemented system; §4–§11 remain placeholders.
 
 ---
 
 ## 2. Project Layout
 
-The F1 (site-foundation) tree, as implemented:
+The current project tree:
 
 ```text
 tww3-tracker/
-├── index.html            # bare document shell: #wordmark slot, #app mount node,
-│                         #   app/styles/tokens.css, the entry module script
-├── vite.config.ts        # build config only: defineConfig({ base: "./" }), no plugins
-├── tsconfig.json         # strict; module nodenext; the tsc --noEmit gate covers app/, tools/, test/
-├── package.json          # scripts (see §3.1); the ADR-0001/0002-pinned dependency set — preact +
-│                         #   markdown-it (runtime), vite + typescript + esbuild + @types/node (dev)
+├── index.html            # document shell: #app mount node, tokens.css, entry module
+├── vite.config.ts        # Vite build config; relative asset base
+├── tsconfig.json         # strict TypeScript; tsc gate covers app/, tools/, test/
+├── package.json          # pinned runtime and development dependencies; scripts in §3.1
 ├── app/
-│   ├── main.tsx          # sole JSX entry (Vite-loaded only): one load.ts boot pass over real
-│   │                     #   fetch → immutable tree → render the shell (nav + router view)
-│   ├── router.ts         # pure hash → HashRoute parsing plus the useHashRoute hook
-│   ├── views/            # presentational h()-based views: home, lord, route, not-found, boot-error
-│   ├── content/          # the content contract — pure over an injected ContentReader
-│   │   ├── types.ts      # ContentTree/lord/route/dataset types — the contract F2–F8 import
-│   │   ├── load.ts       # the only I/O file in the content domain: fetch the manifest + every
-│   │   │                 #   named file in one parallel pass; parse (frontmatter subset, JSON,
-│   │   │                 #   markdown-it); validate via lint.ts; build the immutable tree
-│   │   ├── lint.ts       # every DESIGN §4 rule → { file, field, message } violations (no I/O)
-│   │   └── query.ts      # pure typed reads over the tree: listLords, getLord, getRoute,
-│   │                     #   getSection, getSource, getFlaggedEntries + FlaggedEntry
-│   └── styles/
-│       ├── tokens.css    # every DESIGN.md frontmatter token as a CSS custom property
-│       └── app.css       # shell layout, nav, cards, claim blocks, gap list, empty/error/not-found
-├── content/              # the git-versioned content root — the committed source of truth
-│                         #   (ADR-0002); the site never writes here. One directory per lord:
-│   └── elspeth-von-draken/   # guide.json manifest + routes/ route docs + shared.md + data/ datasets
-├── tools/
-│   ├── content-lint.mjs  # esbuild-bundled content lint CLI over app/content/lint.ts
-│   └── server.mjs        # dependency-free Node http static server (dist/ at /, content/ at /content/)
-├── test/                 # node:test suites
-│   ├── fixtures/content/ # the valid two-lord fixture root (content-model + lint-cli tests)
-│   └── *.test.ts         # tokens, content-model, lint-cli, router, elspeth-skeleton, views, server
-└── dist/                 # gitignored Vite build output (npm run build; served at /)
+│   ├── main.tsx          # sole JSX bootstrap: content boot, hash dispatch, atlas header + page
+│   ├── router.ts         # pure hash parser and useHashRoute hook
+│   ├── views/            # h()-based desk, plan, panels, sources, notes, home, ledger, errors
+│   ├── components/       # atlasHeader, deskPanel, ConfidenceBadge, LedgerTable
+│   ├── content/
+│   │   ├── types.ts      # ContentTree, lord, route, dataset, and optional chrome data contracts
+│   │   ├── load.ts       # parallel manifest/content boot, including optional crest SVG read
+│   │   ├── lint.ts       # content validation → { file, field, message } violations; no I/O
+│   │   └── query.ts      # pure reads: getLord, getRoute, getPanelEntries, getFlaggedEntries, etc.
+│   ├── ledger/           # campaign types, pure logic/state, isolated I/O, on-demand hook
+│   └── styles/           # tokens.css (atlas hex tokens) and app.css
+├── content/              # git-versioned guide source; Elspeth manifest, route docs and datasets
+├── tools/                # content-lint.mjs and dependency-free local server
+├── test/                 # node:test suites, content fixtures, router/view/component coverage
+└── dist/                 # gitignored Vite build output, served at /
 ```
 
 ### 2.1 Source layout rules
@@ -152,8 +137,8 @@ tww3-tracker/
 - **Content tree (the only shared state):** one immutable `ContentTree` is built exactly once at boot (`main.tsx` → `load.ts` over real `fetch`) and sealed with `deepFreeze`. Every post-boot read is a synchronous in-memory lookup — no per-view fetching, no loading states after boot.
 - **Reads:** `query.ts` selectors are pure functions returning typed results (`{ found: false, kind: "not-found" }` or `{ found: true, value }`); views never reach into the tree directly.
 - **Boot edge cases:** a 404/absent `content/index.json` yields the empty tree (a fresh checkout is valid); any parse/validate failure throws a `ContentBootError` naming file and field, rendered by the boot-error view.
-- **No store, no localStorage:** the URL hash is the only external state (`useHashRoute`); reload rebuilds the tree and restores the exact page/section. Ledger state (localStorage or a store) is deliberately F5 scope.
-- **Side effects:** `app/content/load.ts` is the content domain's only I/O file; when F5 lands, ledger I/O joins it as a second, isolated module.
+- **State boundaries:** route and page selection derive from the URL hash; reload rebuilds the content tree and restores the page/section. Ledger documents are persisted through the local server, not localStorage.
+- **Side effects:** `app/content/load.ts` owns content I/O, including the optional crest fetch during boot; `app/ledger/io.ts` owns isolated ledger network I/O.
 
 ### 2.3 Interface contract
 
@@ -162,7 +147,7 @@ The layers communicate through three small seams — no framework message bus:
 - **`ContentReader`** (`app/content/types.ts`) — `readFile(path): Promise<string>` (throws when missing) plus `listFiles(): Promise<string[] | null>`. `load.ts` and `lint.ts` accept any reader: browser `fetch` at boot, `node:fs` in tests, the filesystem in the CLI. One contract, three implementations, no drift.
 - **`loadContentTree`** (`app/content/load.ts`) — `(ContentReader) → Promise<ContentTree>`, throwing `ContentBootError { file, field, message }` on invalid content.
 - **Views** receive tree-shaped data in props and return VNodes; they never fetch, never write, and never make routing decisions.
-- **Hash routing** — `router.ts` parses `location.hash` into the `HashRoute` union (`home` / `lord` / `route` / `route` + section anchor / `not-found`); garbage hashes map to the explicit not-found view.
+- **Hash routing** — `router.ts` parses `location.hash` into `HashRoute`: `#/`, `#/<lord>`, `#/<lord>/sources|notes`, and `#/<lord>/<page>/<route-id>[/<section-id>]` (section ids only on `plan`); all other shapes map to not-found.
 
 ---
 

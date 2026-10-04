@@ -24,8 +24,8 @@
  * plain `ArmiesMarkup` VNode builder (the `Dashboard`/`DashboardMarkup`
  * precedent), so `node --test` can flatten and assert the tab strip and
  * panes without a DOM library; the single-panel settlements and workshop
- * pages carry no state and render directly. Dormant until Commit 9 routes
- * to them.
+ * pages carry no state and render directly. Routed at
+ * `#/<lord>/armies|settlements|workshop/<route-id>`.
  */
 
 import { h, type JSX } from "preact";

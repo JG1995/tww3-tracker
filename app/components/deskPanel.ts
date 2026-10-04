@@ -11,17 +11,15 @@
  * four item panels render one card per item (`label`, `title`, `intro`,
  * steps with optional gate and short labels, optional `details` [title,
  * body] rows, and source links). Any entry carrying a `state` renders the
- * Confidence Badge with its resolved source links, exactly as the route
- * identity claims do. Source ids resolve through the same pure
- * `resolveSources` query the identity card uses — no second URL-building
+ * Confidence Badge with its resolved source links. Source ids resolve
+ * through the pure `resolveSources` query; there is no second URL-building
  * path. An empty or absent entry list renders the explicit empty state
  * (mono label + one proportional sentence — never blank space, DESIGN §5
  * Empty States / §6 Copywriting).
  *
- * Dumb component: props in, UI out. The panel splits are a rendering
- * decision — the detail views (and the F2 dashboard until Commit 11)
- * feed the same `getPanelEntries` data through this one anatomy, so the
- * F2 page and the deep pages must agree in every commit.
+ * Dumb component: props in, UI out. The detail views consume the shared
+ * `getPanelEntries` resolution through this anatomy. The former F2 dashboard
+ * also used this component before its removal in Commit 11.
  */
 
 import { h, type JSX } from "preact";
@@ -95,17 +93,15 @@ export function DeskPanel(props: DeskPanelProps): JSX.Element {
  * One panel's body: the explicit empty state when the group's resolved
  * entries are empty or absent, otherwise the DESIGN §4 per-group anatomy —
  * armies render per-army entries, the four item groups render per-item cards.
- * This is the body the F2 dashboard renders inside its tabpanels (moved
- * from `dashboard.ts` behaviour-identically), so both consumers share one
- * anatomy.
+ * This body renders inside the detail pages' DeskPanel component.
  */
 export function panelContent(group: PanelGroup, lord: Lord, entries: readonly Army[] | readonly Item[]): JSX.Element {
   if (entries.length === 0) {
     return h(
       "div",
-      { className: "dashboard-empty" },
-      h("p", { className: "dashboard-empty__label" }, `NO ${PANEL_LABELS[group]} YET`),
-      h("p", { className: "dashboard-empty__copy" }, PANEL_EMPTY_COPY[group]),
+      { className: "panel-empty" },
+      h("p", { className: "panel-empty__label" }, `NO ${PANEL_LABELS[group]} YET`),
+      h("p", { className: "panel-empty__copy" }, PANEL_EMPTY_COPY[group]),
     );
   }
   if (group === "armies") {

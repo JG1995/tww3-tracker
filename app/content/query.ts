@@ -74,8 +74,7 @@ export function getSource(tree: ContentTree, lordSlug: string, sourceId: string)
  * own `armies[route.id]` map, the four item groups against the lord-wide
  * typed datasets — each in `panelOrder` order, with unlisted and unknown ids
  * omitted. The committed tree's empty lists drive the panels' explicit empty
- * states. The shape is also the dashboard's props contract (`Dashboard` in
- * `app/components/dashboard.ts` spreads it directly).
+ * states. The shape feeds `DeskPanel` in `app/components/deskPanel.ts`.
  */
 export interface PanelEntries {
   readonly armies: readonly Army[];
