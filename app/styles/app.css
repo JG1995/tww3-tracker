@@ -819,6 +819,313 @@ kbd,
   color: var(--ink);
 }
 
+/* ─── Reference desk (DESIGN §2/§6; package `reference-desk-view`) ──────────
+   The route-scoped quick-reference surface: the desk toolbar (serif title,
+   caption, the component-local Compare routes toggle), the five-panel desk
+   grid — three columns wide on the atlas measure, stacked below ~900px (the
+   rendered atlas composition) — and the desk's lord-level zone below it, whose version
+   banner / shared fundamentals / flagged-items blocks reuse the existing
+   classes. Cards use the atlas card treatment (gradient fill, line border +
+   2px top, 5px radius, 22px padding) with numerals in the serif voice.
+   Transitions ride the `--transition-standard` band and are disabled by the
+   `prefers-reduced-motion` block at the end of this file. */
+
+.desk-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+}
+
+.desk-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+.desk-toolbar__title {
+  color: var(--ink);
+}
+
+.desk-toolbar__caption {
+  max-width: 60ch;
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
+}
+
+/* The Compare routes action — the atlas .btn.quiet ghost shape; the active
+   state keeps the brass ink (the toolbar owns the toggle state, so the
+   pressed role is visible without colour alone via aria-pressed). */
+.desk-toolbar__toggle {
+  align-self: flex-start;
+  margin-top: var(--gap-xs);
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--button-radius);
+  padding: var(--button-padding);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: 1.25;
+  cursor: pointer;
+}
+
+.desk-toolbar__toggle:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.desk-toolbar__toggle--active,
+.desk-toolbar__toggle--active:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* The five-panel desk grid: three columns on wide screens, stacked below
+   ~900px (DESIGN §4 grid + the delivered ~900px responsive policy). */
+.desk-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap-md);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .desk-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* One desk-panel card: the atlas card treatment with the panel head — serif
+   Roman index + serif title — the flat numbered rows (label lines only, no
+   checkbox / “Read notes” — deferred scope), and the count + link footer. */
+.desk-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-base);
+  background: var(--card-fill);
+  border: 1px solid var(--card-border-color);
+  border-top: 2px solid var(--card-border-top-color);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+}
+
+.desk-card__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+/* The Roman panel index — a serif numeral (DESIGN §4 numerals). */
+.desk-card__index {
+  font-family: var(--serif);
+  font-size: var(--text-small);
+  font-weight: var(--heading-weight);
+  line-height: var(--heading-line-height);
+  color: var(--muted);
+}
+
+.desk-card__title {
+  font-family: var(--serif);
+  color: var(--ink);
+}
+
+.desk-card__rows {
+  display: flex;
+  flex-direction: column;
+  margin-block: 0;
+  padding-inline: 0;
+  list-style: none;
+}
+
+/* One numbered label row; rows are hairline-divided (between rows only), the
+   numeral in the serif voice ahead of the label. */
+.desk-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gap-base);
+  padding-block: var(--gap-xs);
+}
+
+.desk-row + .desk-row {
+  border-top: 1px solid var(--line);
+}
+
+.desk-row__index {
+  min-width: 1.5em;
+  font-family: var(--serif);
+  font-size: var(--text-small);
+  line-height: var(--text-line-height);
+  color: var(--muted);
+}
+
+.desk-row__label {
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
+}
+
+/* The explicit empty state inside a card — mono label + one sentence (the
+   dashboard `PANEL_EMPTY_COPY` precedent), never a blank card body. */
+.desk-card__empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+.desk-card__empty-label {
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--eyebrow-color);
+}
+
+.desk-card__empty-copy {
+  max-width: 55ch;
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
+}
+
+/* The card footer: the item count (serif numeral) and the detail-page link. */
+.desk-card__footer {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gap-base);
+  border-top: 1px solid var(--line);
+  padding-top: var(--gap-base);
+}
+
+.desk-card__count {
+  display: inline-flex;
+  align-items: baseline;
+  gap: calc(var(--gap-xs) / 2);
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
+}
+
+.desk-card__count-number {
+  font-family: var(--serif);
+  font-size: var(--text-small);
+  line-height: var(--text-line-height);
+  color: var(--ink);
+}
+
+.desk-card__link {
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  text-decoration: underline;
+  text-underline-offset: var(--gap-xs);
+  color: var(--link-color);
+  transition: var(--transition-standard);
+}
+
+/* The route comparison cards — one per manifest route; the same three-wide
+   atlas grid as the panel cards. */
+.desk-compare {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap-md);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .desk-compare {
+    grid-template-columns: 1fr;
+  }
+}
+
+.compare-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-base);
+  background: var(--card-fill);
+  border: 1px solid var(--card-border-color);
+  border-top: 2px solid var(--card-border-top-color);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+}
+
+.compare-card__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+/* The route numeral — serif (DESIGN §4); the official VCO title reads as a
+   dim small line, the thematic subtitle as the card's serif heading. */
+.compare-card__number {
+  font-family: var(--serif);
+  font-size: var(--text-small);
+  line-height: var(--text-line-height);
+  color: var(--muted);
+}
+
+.compare-card__vco {
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
+}
+
+.compare-card__vco--unresearched {
+  color: var(--faint);
+}
+
+.compare-card__name {
+  font-family: var(--serif);
+  font-size: var(--h4-size);
+  font-weight: var(--heading-weight);
+  line-height: var(--heading-line-height);
+  color: var(--ink);
+}
+
+.compare-card__line {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+.compare-card__eyebrow {
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--eyebrow-color);
+}
+
+.compare-card__text {
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--ink);
+}
+
+/* In the desk composition the version banner opens the lord-level zone under
+   the grid — the page gap owns the rhythm, so the banner's own top margin
+   (meant for the lord page header) is reset here. */
+.desk-page .version-banner {
+  margin-top: 0;
+}
+
 /* ─── Route page: identity card, body, declared gaps (F2-era — token- ────
    reference updates only; the route page is deleted in Commit 11). */
 

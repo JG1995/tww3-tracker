@@ -54,6 +54,7 @@ import { ConfidenceBadge } from "../app/components/ConfidenceBadge.ts";
 import { DashboardMarkup } from "../app/components/dashboard.ts";
 import { TabStripMarkup, type TabStripProps } from "../app/components/TabStrip.ts";
 import { HomeView, versionContext } from "../app/views/home.ts";
+import { DeskMarkup } from "../app/views/desk.ts";
 import { LordView } from "../app/views/lord.ts";
 import { RouteView, transitionTarget } from "../app/views/route.ts";
 import { itemsFor } from "../app/ledger/logic.ts";
@@ -2004,6 +2005,444 @@ test("a lord with zero flags renders the non-link ALL CLEARED chip in the succes
   assert.equal(String(chip.children[0]), "ALL CLEARED", "the fixed cleared label renders");
   assert.equal(chip.props.href, undefined, "the cleared chip has no href");
   assert.equal(chip.props.onClick, undefined, "the cleared chip has no click handler");
+});
+
+/* ─── The reference desk view (package `reference-desk-view`) ────────────── */
+
+/** One desk card's row nodes (the flat numbered label rows). */
+function deskRowsOf(card: VNodeRecord): VNodeRecord[] {
+  return recordVNodes(card).filter((n) => n.props.className === "desk-row");
+}
+
+/** The first row label of one desk card (the panelOrder order proof's head). */
+function firstRowLabel(card: VNodeRecord): string | undefined {
+  const row = deskRowsOf(card)[0];
+  if (row === undefined) return undefined;
+  const label = recordVNodes(row).find((n) => n.props.className === "desk-row__label");
+  return label === undefined ? undefined : String(label.children[0]);
+}
+
+test("the desk toolbar renders the serif title, the caption, and the Compare routes toggle", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(route.found);
+
+  const markup = DeskMarkup({ lord: lord.value, route: route.value, comparing: false });
+  const nodes = recordVNodes(markup);
+  const text = vnodeText(markup);
+
+  const titleAt = nodes.findIndex((n) => n.props.className === "desk-toolbar__title");
+  const captionAt = nodes.findIndex((n) => n.props.className === "desk-toolbar__caption");
+  const toggleAt = nodes.findIndex((n) => n.props.className === "desk-toolbar__toggle");
+  assert.ok(titleAt < captionAt && captionAt < toggleAt, "the title, caption, and toggle render in toolbar order");
+  const title = nodes[titleAt];
+  assert.equal(title?.tag, "h1", "the serif Reference desk H1");
+  assert.equal(String(title?.children[0]), "Reference desk", "the fixed desk title");
+  assert.equal(
+    nodes.filter((n) => n.props.className === "desk-toolbar__title").length,
+    1,
+    "the reference desk title renders exactly once",
+  );
+  const caption = nodes[captionAt];
+  assert.equal(
+    String(caption?.children[0]),
+    "essentials here, full detail one page away",
+    "the DESIGN-fixed caption",
+  );
+  const toggle = nodes[toggleAt];
+  assert.equal(toggle?.tag, "button", "the action is a toggle button");
+  assert.equal(String(toggle?.children[0]), "Compare routes", "the fixed action label");
+  assert.equal(toggle?.props["aria-pressed"], false, "the toggle starts unpressed");
+  assert.equal(toggle?.props.onClick, undefined, "tests may omit the wrapper's toggle handler");
+  assert.ok(text.includes("Reference desk"), "the toolbar text reads on the page");
+});
+
+test("the desk grid renders the five panel cards in I-V order with the panelOrder rows", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(route.found);
+
+  const markup = DeskMarkup({ lord: lord.value, route: route.value, comparing: false });
+  const nodes = recordVNodes(markup);
+  const text = vnodeText(markup);
+
+  const cards = nodes.filter((n) => n.props.className === "desk-card");
+  assert.equal(cards.length, 5, "all five panels render as desk cards");
+  assert.deepEqual(
+    cards.map((card) => {
+      const index = recordVNodes(card).find((n) => n.props.className === "desk-card__index");
+      return index === undefined ? undefined : String(index.children[0]);
+    }),
+    ["I", "II", "III", "IV", "V"],
+    "the Roman panel indices render in order",
+  );
+  assert.deepEqual(
+    cards.map((card) => {
+      const title = recordVNodes(card).find((n) => n.props.className === "desk-card__title");
+      return title === undefined ? undefined : String(title.children[0]);
+    }),
+    [
+      "Army templates",
+      "Lord & hero skills",
+      "Research priorities",
+      "Settlement builds",
+      "Unique mechanics",
+    ],
+    "the serif card titles follow the DESIGN's panel order",
+  );
+
+  // the flat numbered rows in `panelOrder` order — label lines only: no
+  // checkbox, no "Read notes" (deferred scope)
+  const expectedCounts = { armies: 5, skills: 10, research: 4, buildings: 6, mechanics: 5 };
+  for (let index = 0; index < PANEL_GROUPS.length; index++) {
+    const group = PANEL_GROUPS[index];
+    assert.equal(deskRowsOf(cards[index]).length, expectedCounts[group], `the ${group} card shows its ${expectedCounts[group]} resolved rows`);
+  }
+  assert.ok(
+    !nodes.some((n) => n.tag === "input"),
+    "no checkbox renders on the desk rows",
+  );
+  assert.equal(countOccurrences(text, "Read notes"), 0, "no deferred Read notes action renders");
+
+  // the panelOrder order: each card opens with its first resolved entry, and
+  // the armies card orders its five templates exactly as panelOrder lists them
+  assert.deepEqual(
+    cards.map((card) => firstRowLabel(card)),
+    [
+      "The first Nuln column",
+      "Elspeth",
+      "A working army before luxury research",
+      "Nuln · foundry and field-test centre",
+      "Field Testing · unlock what the army will use",
+    ],
+    "each card opens with its panelOrder first entry",
+  );
+  assert.deepEqual(
+    deskRowsOf(cards[0]).map((row) => {
+      const label = recordVNodes(row).find((n) => n.props.className === "desk-row__label");
+      return label === undefined ? undefined : String(label.children[0]);
+    }),
+    [
+      "The first Nuln column",
+      "The Countess’s field company",
+      "The Black Rose procession",
+      "The Black Rose procession · Amethyst detachment",
+      "The local watch · 12 slots",
+    ],
+    "the armies rows follow panelOrder order (early, mid, late, amethyst, home)",
+  );
+  assert.deepEqual(
+    deskRowsOf(cards[0]).map((row) => {
+      const index = recordVNodes(row).find((n) => n.props.className === "desk-row__index");
+      return index === undefined ? undefined : String(index.children[0]);
+    }),
+    ["1", "2", "3", "4", "5"],
+    "the armies rows are numbered 1..5",
+  );
+});
+
+test("each desk card footer carries the item count and the new-grammar detail-page href", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(route.found);
+
+  const markup = DeskMarkup({ lord: lord.value, route: route.value, comparing: false });
+  const cards = recordVNodes(markup).filter((n) => n.props.className === "desk-card");
+  const expectedFooters = [
+    { count: "5", href: "#/elspeth-von-draken/armies/route-1", page: "Armies & skills" },
+    { count: "10", href: "#/elspeth-von-draken/armies/route-1", page: "Armies & skills" },
+    { count: "4", href: "#/elspeth-von-draken/armies/route-1", page: "Armies & skills" },
+    { count: "6", href: "#/elspeth-von-draken/settlements/route-1", page: "Settlements & economy" },
+    { count: "5", href: "#/elspeth-von-draken/workshop/route-1", page: "Faction workshop" },
+  ];
+  for (let index = 0; index < cards.length; index++) {
+    const foot = recordVNodes(cards[index]);
+    const number = foot.find((n) => n.props.className === "desk-card__count-number");
+    assert.equal(String(number?.children[0]), expectedFooters[index]?.count, `card ${index + 1}'s count numeral`);
+    const countLine = foot.find((n) => n.props.className === "desk-card__count");
+    assert.equal(
+      countLine !== undefined ? vnodeText(countLine) : "",
+      `${expectedFooters[index]?.count} entries`,
+      `card ${index + 1}'s count line reads as an item count`,
+    );
+    const link = foot.find((n) => n.tag === "a" && n.props.className === "desk-card__link");
+    assert.equal(link?.props.href, expectedFooters[index]?.href, `card ${index + 1}'s detail-page href (new grammar)`);
+    assert.equal(String(link?.children[0]), expectedFooters[index]?.page, `card ${index + 1}'s link names the detail page`);
+  }
+
+  // the desk is route-scoped: the same grid over route-2 targets route-2
+  const route2 = getRoute(tree, "elspeth-von-draken", "route-2");
+  assert.ok(route2.found);
+  const markup2 = DeskMarkup({ lord: lord.value, route: route2.value, comparing: false });
+  const cards2 = recordVNodes(markup2).filter((n) => n.props.className === "desk-card");
+  const hrefs2 = cards2.map((card) => {
+    const link = recordVNodes(card).find((n) => n.props.className === "desk-card__link");
+    return link?.props.href;
+  });
+  assert.deepEqual(
+    hrefs2,
+    [
+      "#/elspeth-von-draken/armies/route-2",
+      "#/elspeth-von-draken/armies/route-2",
+      "#/elspeth-von-draken/armies/route-2",
+      "#/elspeth-von-draken/settlements/route-2",
+      "#/elspeth-von-draken/workshop/route-2",
+    ],
+    "route-scoped footers: the current route's id in every href",
+  );
+});
+
+test("the compare toggle swaps the grid for the three route comparison cards", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(route.found);
+
+  const off = DeskMarkup({ lord: lord.value, route: route.value, comparing: false });
+  assert.ok(recordVNodes(off).some((n) => n.props.className === "desk-card"), "the grid renders while comparing is off");
+  assert.ok(
+    !recordVNodes(off).some((n) => n.props.className === "desk-compare"),
+    "the comparison section is absent while comparing is off",
+  );
+
+  const comparing = DeskMarkup({ lord: lord.value, route: route.value, comparing: true });
+  const nodes = recordVNodes(comparing);
+  const text = vnodeText(comparing);
+  assert.ok(!nodes.some((n) => n.props.className === "desk-card"), "the grid is gone while comparing");
+  assert.equal(
+    nodes.find((n) => String(n.props.className ?? "").includes("desk-toolbar__toggle"))?.props["aria-pressed"],
+    true,
+    "the toggle's pressed role follows the compare state",
+  );
+  const section = nodes.find((n) => n.props.className === "desk-compare");
+  assert.ok(section !== undefined, "the comparison section renders while comparing");
+
+  const cards = recordVNodes(section).filter((n) => n.props.className === "compare-card");
+  assert.equal(cards.length, 3, "one comparison card per manifest route");
+  assert.deepEqual(
+    cards.map((card) => {
+      const number = recordVNodes(card).find((n) => n.props.className === "compare-card__number");
+      return number === undefined ? undefined : String(number.children[0]);
+    }),
+    ["I", "II", "III"],
+    "the comparison cards carry their route numerals in manifest order",
+  );
+  assert.deepEqual(
+    cards.map((card) => {
+      const name = recordVNodes(card).find((n) => n.props.className === "compare-card__name");
+      return name === undefined ? undefined : String(name.children[0]);
+    }),
+    ["The Graveyard Watch", "The Southern Charter", "Fozzrik’s Legacy"],
+    "the thematic subtitles render on each card",
+  );
+  assert.equal(countOccurrences(text, "UNRESEARCHED"), 3, "every committed route is unresearched (vcoTitle === null)");
+  assert.ok(text.includes("Defeat the five listed factions and win 35 battles."), "route I's objective text");
+  assert.ok(
+    text.includes("Global recruitment capacity +3, building income +15%, and recruitment cost"),
+    "route II's reward text",
+  );
+  assert.ok(
+    text.includes("Nuln’s black-powder soldiery and the knights of Morr restore security to the Empire."),
+    "route I's interpretation text",
+  );
+  assert.equal(
+    nodes.filter((n) => n.props.className === "compare-card__eyebrow" && String(n.children[0]) === "INTERPRETATION").length,
+    3,
+    "every committed route carries its interpretation line",
+  );
+});
+
+test("a researched comparison card shows the official VCO title and omits an absent interpretation", async () => {
+  const tree = await loadContentTree(fsReader(FIXTURES));
+  const lord = getLord(tree, "second-lord");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "second-lord", "lone-route");
+  assert.ok(route.found);
+
+  const markup = DeskMarkup({ lord: lord.value, route: route.value, comparing: true });
+  const nodes = recordVNodes(markup);
+  const cards = nodes.filter((n) => n.props.className === "compare-card");
+  assert.equal(cards.length, 1, "one comparison card for the fixture lord");
+  const vco = recordVNodes(cards[0]).find((n) => n.props.className === "compare-card__vco");
+  assert.equal(String(vco?.children[0]), "Sun-Priest of the Lost", "the official VCO title renders for a researched route");
+  assert.ok(
+    !nodes.some((n) => n.props.className === "compare-card__eyebrow" && String(n.children[0]) === "INTERPRETATION"),
+    "an absent interpretation renders no line, not a placeholder",
+  );
+});
+
+test("the desk's lord-level zone renders the banner, shared fundamentals, and the flagged section with new-grammar VIEW links", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(route.found);
+
+  const markup = DeskMarkup({ lord: lord.value, route: route.value, comparing: false });
+  const nodes = recordVNodes(markup);
+  const text = vnodeText(markup);
+
+  // grid-first layout: toolbar, grid, then banner, shared fundamentals, flagged
+  const gridAt = nodes.findIndex((n) => n.props.className === "desk-grid");
+  const bannerAt = nodes.findIndex((n) => n.props.className === "version-banner");
+  const fundamentalsAt = nodes.findIndex((n) => n.props.className === "shared-fundamentals");
+  const flaggedAt = nodes.findIndex((n) => n.props.id === "flagged-items");
+  assert.ok(
+    gridAt < bannerAt && bannerAt < fundamentalsAt && fundamentalsAt < flaggedAt,
+    "grid-first: the version banner, shared fundamentals, then the flagged section",
+  );
+
+  // the banner: fixed eyebrow, the patch · VCO pairing once, and the chip
+  assert.ok(text.includes("VERIFIED AGAINST"), "the fixed banner eyebrow renders");
+  assert.equal(countOccurrences(text, "patch 9.0 · VCO 2026.09.30.1"), 1, "the patch · VCO pairing renders exactly once");
+  const chip = versionChipNode(markup);
+  assert.equal(chip.tag, "a", "the open-flags chip renders as an anchor");
+  assert.equal(String(chip.props.className), "version-chip version-chip--warning", "the warning role");
+  assert.equal(String(chip.children[0]), "36 OPEN FLAGS", "the chip labels the selector's committed count");
+  assert.equal(chip.props.href, "#/elspeth-von-draken/desk/route-1", "the chip href is this desk page (new grammar)");
+  assert.equal(typeof chip.props.onClick, "function", "the chip keeps the scroll/focus click idiom");
+  assert.equal(
+    nodes.find((n) => n.props.id === "flagged-items")?.props.tabIndex,
+    -1,
+    "the flagged section stays programmatically focusable for the chip",
+  );
+  assert.ok(
+    !nodes.some((n) => typeof n.props.href === "string" && String(n.props.href).includes("flagged")),
+    "no flag-hash href shape is ever emitted",
+  );
+  assert.equal(countOccurrences(text, "36 OPEN FLAGS"), 1, "the committed count appears exactly once, in the chip");
+
+  // the shared fundamentals: the boot-rendered markdown in the zone
+  const prose = nodes.find((n) => n.props.className === "prose");
+  assert.ok(prose !== undefined, "the shared fundamentals prose renders");
+  assert.ok(text.includes("The common foundation"), "the shared-fundamentals HTML renders in the zone");
+
+  // the flagged section: 36 entries from the single selector, family counts,
+  // stable order — the F3 rendering relocated
+  const section = flaggedSectionNodes(markup);
+  const rows = flaggedRows(section);
+  assert.equal(rows.length, 36, "all 36 committed flagged entries render");
+  const byKind = { identity: 0, callout: 0, dataset: 0, vco: 0 };
+  for (const row of rows) byKind[row.kind as keyof typeof byKind] += 1;
+  assert.deepEqual(byKind, { identity: 6, callout: 5, dataset: 22, vco: 3 }, "family counts over the committed tree");
+  const expectedKinds = getFlaggedEntries(lord.value).map((e) => e.kind);
+  assert.deepEqual(
+    rows.map((r) => r.kind),
+    expectedKinds,
+    "rows follow the selector's stable order — one definition rendered once",
+  );
+
+  // the VIEW links use the NEW grammar: callouts anchor the plan section,
+  // identity and vco rows the plan page; dataset rows render no link
+  const links = section.filter((n) => n.tag === "a" && n.props.className === "flagged-item__link");
+  assert.equal(links.length, 14, "5 callout + 6 identity + 3 vco location links");
+  assert.deepEqual(
+    links.map((n) => n.props.href),
+    [
+      "#/elspeth-von-draken/plan/route-1",
+      "#/elspeth-von-draken/plan/route-1",
+      "#/elspeth-von-draken/plan/route-1",
+      "#/elspeth-von-draken/plan/route-1",
+      "#/elspeth-von-draken/plan/route-1",
+      "#/elspeth-von-draken/plan/route-2",
+      "#/elspeth-von-draken/plan/route-2",
+      "#/elspeth-von-draken/plan/route-2/mid-late",
+      "#/elspeth-von-draken/plan/route-2/victory-push",
+      "#/elspeth-von-draken/plan/route-2/diplomacy",
+      "#/elspeth-von-draken/plan/route-3",
+      "#/elspeth-von-draken/plan/route-3",
+      "#/elspeth-von-draken/plan/route-3/mid-late",
+      "#/elspeth-von-draken/plan/route-3/diplomacy",
+    ],
+    "callouts link plan/<route>/<section>; identity and vco rows link plan/<route>",
+  );
+  for (const row of rows.filter((r) => r.kind === "dataset")) {
+    assert.ok(
+      !recordVNodes(row.node).some((n) => n.tag === "a"),
+      "dataset rows render no link element — the mono panel label carries the location",
+    );
+  }
+
+  // one VERIFY badge per row — the F3 vocabulary, recoloured only by the CSS
+  const badges = badgeVNodes(markup);
+  assert.equal(badges.length, 36, "one Confidence Badge per flagged row");
+  assert.ok(
+    badges.every((n) => n.props.state === "verify-in-campaign"),
+    "no non-verify state ever renders in the list",
+  );
+});
+
+test("a flags-clear lord renders the desk's ALL CLEARED chip and cleared state — never blank", async () => {
+  const tree = await loadContentTree(fsReader(FIXTURES));
+  const lord = getLord(tree, "als-rhyn-of-lorek");
+  assert.ok(lord.found);
+  const route = getRoute(tree, "als-rhyn-of-lorek", "dark-conduits");
+  assert.ok(route.found);
+
+  const markup = DeskMarkup({ lord: lord.value, route: route.value, comparing: false });
+  const chip = versionChipNode(markup);
+  assert.equal(chip.tag, "span", "the cleared state is a non-link span");
+  assert.equal(String(chip.props.className), "version-chip version-chip--success", "the cleared chip carries the success role");
+  assert.equal(String(chip.children[0]), "ALL CLEARED", "the fixed cleared label renders");
+  assert.equal(chip.props.href, undefined, "the cleared chip has no href");
+  assert.equal(chip.props.onClick, undefined, "the cleared chip has no click handler");
+  const section = flaggedSectionNodes(markup);
+  assert.ok(
+    section.some((n) => n.props.className === "flagged-items__cleared-label"),
+    "the explicit cleared statement fills the section",
+  );
+  assert.ok(
+    !section.some((n) => n.props.className === "flagged-items__groups"),
+    "no group containers render when there is nothing to group",
+  );
+});
+
+test("a desk panel with an empty panelOrder list renders the explicit empty state — never a blank card", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  const lord = getLord(tree, "elspeth-von-draken");
+  assert.ok(lord.found);
+  const committed = getRoute(tree, "elspeth-von-draken", "route-1");
+  assert.ok(committed.found);
+
+  // A lint-covered committed route always carries a resolvable panelOrder, so
+  // an empty panel is proven with a hand-built route over the committed lord
+  // (the constructed-route precedent): only the skills list is emptied.
+  const emptied: Route = {
+    ...committed.value,
+    panelOrder: { ...committed.value.panelOrder, skills: [] },
+  };
+  const markup = DeskMarkup({ lord: lord.value, route: emptied, comparing: false });
+  const nodes = recordVNodes(markup);
+  const cards = nodes.filter((n) => n.props.className === "desk-card");
+  const skillsCard = cards[1];
+  assert.ok(skillsCard !== undefined, "the skills card renders");
+  const skillsNodes = recordVNodes(skillsCard);
+  const skillsText = vnodeText(skillsCard);
+  assert.ok(skillsText.includes("NO LORD & HERO SKILLS YET"), "the mono empty label names the card");
+  assert.ok(
+    skillsText.includes("No skills are listed for this route yet."),
+    "the proportional empty sentence explains the state",
+  );
+  assert.ok(!skillsNodes.some((n) => n.props.className === "desk-row"), "no row renders on the empty card");
+  assert.ok(
+    skillsNodes.some((n) => n.props.className === "desk-card__index") &&
+      skillsNodes.some((n) => n.props.className === "desk-card__footer"),
+    "the empty card keeps its head and footer — never blank space",
+  );
+  for (let index = 0; index < cards.length; index++) {
+    if (index === 1) continue;
+    assert.ok(
+      deskRowsOf(cards[index]).length > 0,
+      "the populated cards keep their rows — the empty state is per panel",
+    );
+  }
 });
 
 // ─── 10. The ledger page view (package `ledger-view-page`) ─────────────────────

@@ -230,7 +230,7 @@ Commit 1 (content model) → Commit 2 (visual system) → Commit 3 (Elspeth cont
 
 #### Package `reference-desk-view` — Commit 4: The reference desk view
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 2
 
