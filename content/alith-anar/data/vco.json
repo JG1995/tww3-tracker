@@ -1,1 +1,80 @@
-{}
+{
+  "route-1": [
+    {
+      "id": "destroy-naggarond-faction",
+      "text": "The author checklist requires destruction of the Naggarond faction. Historical public 5.16.0 code uses DESTROY_FACTION with confederation_valid; it does not establish current event timing. Check this objective after the faction is destroyed. A captured capital or a wounded Malekith is not proof of faction-destruction credit; if the live objective remains incomplete, inspect its wording and any surviving or confederated faction state before continuing the war.",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "control-six-naggaroth-cities",
+      "text": "The author checklist names Naggarond, Hag Graef, Clar Karond, Ghrond, Har Gnaeth, and Karond Kar. Its historical public script checks CONTROL_N_REGIONS_FROM total 6 over exactly these six regions. The fetched author text spells the fourth city Har Gnaeth; the archived guide and historical region key use Har Ganeth, retained here as the mapped name. Current qualifying ownership, credit timing, and whether control must persist are unverified. Compare the live counter before and after the first qualifying control action; if unclear, keep direct control of all six through the victory check rather than rely on an untested alliance or transfer.",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    }
+  ],
+  "route-2": [
+    {
+      "id": "amulet-search-credit",
+      "text": "The author checklist frames Route II as searching for the Amulet of Sunfire by securing listed settlements through conquest or diplomacy. It names eight candidates but publishes no explicit quota or proof that settlement ownership itself completes relic-search credit. Current search-event and credit behavior are unverified. Compare the live objective before and after the first eligible capture or treaty; if no credit appears, follow the game’s own search wording rather than assuming acquisition is sufficient.",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "seven-of-eight-region-proxy",
+      "text": "Historical public 5.16.0 code has a separate CONTROL_N_REGIONS_FROM total 7 over the eight candidates named by the author checklist. This seven-of-eight quota is a historical code-derived hypothesis, not a published or installed-game guarantee. Test the first candidate against the live progress counter and obey its current wording; do not assume seven, or all eight, must be conquered if other credited interactions satisfy the objective.",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    }
+  ],
+  "route-3": [
+    {
+      "id": "construct-black-citadel-anlec",
+      "text": "The author checklist requires the Black Citadel of Anlec landmark. Historical public 5.16.0 code checks CONSTRUCT_BUILDING_IN_PROVINCES for the Nagarythe faction and the Anlec landmark building key. Current ownership/building eligibility and credit timing are unverified. Check the live objective after constructing the named landmark; if it does not credit, inspect the displayed building level and faction requirement rather than substituting another Nagarythe settlement.",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "assassination-successes",
+      "text": "The author checklist requires at least 25 successful assassination attempts; historical public 5.16.0 code uses ASSASSINATE_X_CHARACTERS total 25 but does not document which action types count. Compare the live counter before and after one successful ordinary Assassinate action. Count only an action the game credits; do not assume failed attempts, battles, or Wound actions advance it. If the counter behaves differently, follow the live objective and use only the observed crediting action.",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "wound-malekith",
+      "text": "The author checklist names Malekith as a separate wounded-character objective; the historical script contains six distinct HAVE_CHARACTER_WOUNDED conditions but does not map their start-position IDs in this file. Verify Malekith's live flag after a wound and again after recovery or a turn transition. Until persistence versus simultaneous wounds is observed, treat this flag as still required whenever it clears and plan to meet all remaining wound flags within the live window.",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "wound-morathi",
+      "text": "The author checklist names Morathi as a separate wounded-character objective; the historical script contains six distinct HAVE_CHARACTER_WOUNDED conditions but does not map their start-position IDs in this file. Verify Morathi's live flag after a wound and again after recovery or a turn transition. Until persistence versus simultaneous wounds is observed, treat this flag as still required whenever it clears and plan to meet all remaining wound flags within the live window.",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "wound-hellebron",
+      "text": "The author checklist names Crone Hellebron as a separate wounded-character objective; the historical script contains six distinct HAVE_CHARACTER_WOUNDED conditions but does not map their start-position IDs in this file. Verify Hellebron's live flag after a wound and again after recovery or a turn transition. Until persistence versus simultaneous wounds is observed, treat this flag as still required whenever it clears and plan to meet all remaining wound flags within the live window.",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "wound-malus-darkblade",
+      "text": "The author checklist names Malus Darkblade as a separate wounded-character objective; the historical script contains six distinct HAVE_CHARACTER_WOUNDED conditions but does not map their start-position IDs in this file. Verify Malus's live flag after a wound and again after recovery or a turn transition. Until persistence versus simultaneous wounds is observed, treat this flag as still required whenever it clears and plan to meet all remaining wound flags within the live window.",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "wound-rakarth",
+      "text": "The author checklist names Rakarth as a separate wounded-character objective; the historical script contains six distinct HAVE_CHARACTER_WOUNDED conditions but does not map their start-position IDs in this file. Verify Rakarth's live flag after a wound and again after recovery or a turn transition. Until persistence versus simultaneous wounds is observed, treat this flag as still required whenever it clears and plan to meet all remaining wound flags within the live window.",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "wound-lokhir-fellheart",
+      "text": "The author checklist names Lokhir Fellheart as a separate wounded-character objective; the historical script contains six distinct HAVE_CHARACTER_WOUNDED conditions but does not map their start-position IDs in this file. Verify Lokhir's live flag after a wound and again after recovery or a turn transition. Until persistence versus simultaneous wounds is observed, treat this flag as still required whenever it clears and plan to meet all remaining wound flags within the live window.",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    }
+  ]
+}
