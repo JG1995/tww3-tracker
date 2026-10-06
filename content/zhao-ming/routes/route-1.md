@@ -43,3 +43,11 @@ On your active save, watch all four objective rows independently. Verify which i
 ::claim verify-in-campaign src=vco,vco-script
 The Great Embassy is the Route I landmark, not House of Secrets. The historical mission names the Embassy building in Warpstone Desert; the active save's objective panel determines when construction is credited. All four targets must be completed before the route reward: do not count the published Allegiance or diplomacy bonuses in the opening budget. Check the reward's actual scope only after route victory.
 ::
+
+::claim verify-in-campaign src=ca4,harmony
+The archive distinguishes provincial Harmony, which follows Yin/Yang building points in each province, from battle Harmony, which its guidance associates with proximity between complementary units rather than equal counts. The cited update and secondary Harmony page were not independently rechecked here, and the installed patch’s exact indicators are unknown. Check the current province/building tooltips, then compare the Harmony indicator for one nearby complementary pair with a separated pair in a representative manual battle. Until those tooltips confirm the interaction, keep province planning and battlefield positioning separate; do not alter research, recruit heroes, or force equal unit counts to solve the other system.
+::
+
+::claim verify-in-campaign src=smart
+The archive recommends inspecting predicted casualties and protecting role-critical troops, but its Smart Autoresolve citation is a Workshop directory; no exact mod file, version, or Zhao matchup benchmark was available. Its value for your installed setup is unknown. Before repeating a costly autoresolve, inspect the forecast for one representative risky battle and compare the result with the army’s actual surviving roles. If the forecast threatens a veteran or the only answer to a major threat, reinforce or recover first, or fight manually; do not generalize that one result into a benchmark.
+::
