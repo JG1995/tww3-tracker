@@ -1,0 +1,254 @@
+[
+  {
+    "id": "vco",
+    "title": "VCO • author’s current objectives",
+    "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. The mod author’s Immortal Empires guide, labelled updated 25 September 2026. Rechecked for Alith Anar. Its numbered routes provide the six cities, eight search candidates, Anlec landmark, 25 assassinations and six named lords. It does not publish the precise current Route II search algorithm or explain whether the six wounded-lord objectives latch independently."
+  },
+  {
+    "id": "vco-script",
+    "title": "VCO • archived Alith missions",
+    "url": "https://github.com/msolefonte/vco/blob/main/src/script/vco-ie/main_warhammer/wh2_main_hef_nagarythe/missions.lua",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Older public implementation, not certified as the installed 9.0 Workshop script. Route II explicitly used CONTROL_N_REGIONS_FROM with total 7 of 8. Route III used ASSASSINATE_X_CHARACTERS with total 25 plus HAVE_CHARACTER_WOUNDED objectives. Useful for interpreting objectives, with current in-game wording taking precedence."
+  },
+  {
+    "id": "vco-names",
+    "title": "VCO • route names & narrative",
+    "url": "https://github.com/msolefonte/vco/blob/main/src/text/db/vco_victory_types.loc.tsv",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. The public localisation names the routes Shadows Over Naggaroth, In The Pale Moonlight and The Eternal War. The current written guide uses route numbers only. These names are from the mod, while the atlas’s army names and strategic subtitles are recommendations."
+  },
+  {
+    "id": "vco-story",
+    "title": "VCO • narrative framing",
+    "url": "https://github.com/msolefonte/vco/blob/main/src/text/db/vco_mission_text.loc.tsv",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Alith’s first route escalates a punitive expedition into conquest. The second concerns Lileath’s apparition and a corsair who recovered the Amulet of Sunfire. The third frames an enduring campaign of vengeance. The atlas paraphrases these themes rather than copying the lore passages."
+  },
+  {
+    "id": "flc",
+    "title": "CA • Alith Anar and Shadow-walkers",
+    "url": "https://store.steampowered.com/app/794110/Total_War_WARHAMMER_II__Alith_Anar/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Primary description of Alith’s free content: Shadow-walkers, his unusual campaign stances, assassination targets and the Hand of the Shadow Crown. Shadow-walkers are not the paid Queen & Crone Shadow Warriors."
+  },
+  {
+    "id": "ca7",
+    "title": "CA • High Elf rework and Patrons",
+    "url": "https://community.creative-assembly.com/total-war/total-war-warhammer/blogs/84-total-war-warhammer-iii-patch-7-0-introducing-the-free-content-and-the-masqe",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Primary rework overview. Patrons of the Realms is shared by High Elves; Influence, Favour of the Phoenix King and the Court of Unity have distinct roles. Seat access depends on High Elf control of relevant capitals, not necessarily your own ownership. Tyrion’s Champion and Teclis’s White Tower mechanics are not Alith’s."
+  },
+  {
+    "id": "ca9",
+    "title": "CA • 9.0 rules and wounds",
+    "url": "https://community.creative-assembly.com/total-war/total-war-warhammer/blogs/110-total-war-warhammer-iii-update-9-0-release-notes",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Primary patch notes. Wound recovery can depend on settings and repeated defeats; do not schedule a six-lord objective around one assumed universal recovery duration. The atlas is a 9.0-era reference, not a claim to inspect your save or hotfix files."
+  },
+  {
+    "id": "tides",
+    "title": "CA • Tides of Torment roster",
+    "url": "https://store.steampowered.com/app/3450960/Total_War_WARHAMMER_III____Tides_of_Torment/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. WH3 content in your stated collection supplies Mist Mages, Sea Helms and the naval units used as optional support here. Having the DLC does not give Nagarythe Aislinn’s Dragonships, Asur Domination, Sea Patrol Outposts or faction-specific Sea Lanes."
+  },
+  {
+    "id": "nagarythe",
+    "title": "Nagarythe • start and faction rules",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Nagarythe",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Secondary cross-check for the Immortal Empires start at The Monoliths in Granite Hills, the limited roster exception and faction campaign rules. Vortex and Mortal Empires starting locations must not be substituted. Live tooltips override older wiki values."
+  },
+  {
+    "id": "patrons",
+    "title": "Patrons • seats and benefits",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Patrons_of_the_Realms",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Secondary detail for the post-7.0 seats. Alith’s starting patronage is Tiranoc, not automatically Nagarythe. Seat levels and Influence costs should be read in the current interface; this atlas recommends investments rather than pretending to automate the court."
+  },
+  {
+    "id": "rites",
+    "title": "High Elf rites",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/High_Elves_rites",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Cross-check for Isha, Asuryan, Vaul and Alith’s Morai-Heg rite. Rites have separate treasury costs and cooldowns. Use current tooltip values; the planner accepts the actual cost and remaining cooldown."
+  },
+  {
+    "id": "hand",
+    "title": "Hand of the Shadow Crown",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Hand_of_the_Shadow_Crown",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Special single-use assassin summoned near Alith. Its assassination is guaranteed under the documented mechanic and it disappears after use. It can target lords; normal Nobles do not gain that special target permission. Legendary lords are wounded rather than permanently removed."
+  },
+  {
+    "id": "alith-skill",
+    "title": "Alith • current skill tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/hef_high_elves/wh2_dlc10_skill_node_set_hef_alith_anar.json",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Extracted vanilla skill data. Infiltration at rank 8; Revenant at 10; No Rest for the Wicked at 12; Ruthless and Shadow King have parent requirements. Alith has no dragon mount. Skill sequences are recommended priority blocks, not one point at every listed rank."
+  },
+  {
+    "id": "princess-skill",
+    "title": "Princess • current skill tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/hef_high_elves/wh2_main_skill_node_set_hef_princess.json",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Extracted vanilla skills and automatic mount gates. Princess is the default repeatable missile commander. Mounting her changes the battle role; a dragon is optional, not part of Alith’s personal progression."
+  },
+  {
+    "id": "noble-skill",
+    "title": "Noble • combat and agent skills",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/hef_high_elves/wh2_main_skill_node_set_hef_noble.json",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Extracted vanilla Noble tree confirms Assassinate, its level gates, diplomacy specialisms, combat skills and mounts. The guide separates embedded army support from detached agents. Assassinate is not the Mage Wound action."
+  },
+  {
+    "id": "mist-skill",
+    "title": "Mist Mage • spells and mobility",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/hef_high_elves/wh3_dlc27_skill_node_set_hef_mist_mage.json",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Extracted vanilla spell and campaign tree: Obscuring Haze, Ladrielle’s Shroud, Flensing Haar, Walk Between Worlds, The Writhing Mist, and Increase Mobility. Spell gates and point requirements are retained; no claim that magic heals dead models is made."
+  },
+  {
+    "id": "magic",
+    "title": "High Elf character skill references",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/hef_high_elves",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Vanilla character-tree reference library. The standard Life, Light and Shadows spell priorities use the available lore; take the prerequisite points shown by your live character. They are role-based orders rather than an exact level-by-level simulation."
+  },
+  {
+    "id": "tech",
+    "title": "High Elf technology effects",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/techs/vanilla3/hef_mil.json",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. The exported tree includes shared technology effects and Aislinn variants. To avoid treating Dragonship gates as Alith’s, this guide cross-checks names and ordinary node links against the raw 9.0 database. No ship-only technology or Tyrion-specific Imperative is a prerequisite here."
+  },
+  {
+    "id": "tech-names",
+    "title": "9.0 • technology localisation",
+    "url": "https://github.com/Shazbot/WH3-Dump/blob/main/text/db/technologies__.loc.tsv",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Direct extracted 9.0 game localisation confirms current shared names such as The Endless Muster, Spearwall, Precise Fletching, Cultural Advancements and Protection of Loec. Older guide names and some old wiki effects are no longer dependable."
+  },
+  {
+    "id": "tech-links",
+    "title": "9.0 • ordinary research links",
+    "url": "https://github.com/Shazbot/WH3-Dump/blob/main/db/technology_node_links_tables/data__.tsv",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Direct extracted game prerequisite links, using the ordinary wh2_main_tech_hef nodes rather than Aislinn’s copied node set. The shared early sequence is Endless Muster → Archery Prowess → Spearwall → Militia Training → Precise Fletching; Militia Training also has an alternative incoming branch."
+  },
+  {
+    "id": "build-info",
+    "title": "Raw data • patch provenance",
+    "url": "https://github.com/Shazbot/WH3-Dump/blob/main/text/build_info",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. The accessed raw dump identifies itself as Patch_9_0, build timestamp 18 September 2026. It is not evidence for every subsequent hotfix or the user’s installed mods."
+  },
+  {
+    "id": "camp",
+    "title": "Aesanar Camp",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh2_dlc10_hef_aesanar_camp/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Tier-two, single-level Nagarythe recruitment building. Recruits Shadow-walkers and gives local campaign advantages. A listed Shadow Warrior does not bypass its separate DLC ownership requirement."
+  },
+  {
+    "id": "farm",
+    "title": "Homestead & growth",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh2_main_hef_farm_1/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Homestead starts the growth/replenishment chain. Province replenishment and development are useful for a raiding force with lightly armoured veterans."
+  },
+  {
+    "id": "industry",
+    "title": "Crafts & prosperity",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh2_main_hef_industry_1/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Elven Craftsman provides income and tradable goods, with conditional prosperity income at high Control. Do not confuse goods produced with money earned from actual trade."
+  },
+  {
+    "id": "order",
+    "title": "Entertainment & Control",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh2_main_hef_order_3/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Current Promenade is tier three in the five-level Entertainment chain. It supplies Control, Influence and income. The old separate Theatre-chain advice should not be imported blindly."
+  },
+  {
+    "id": "court",
+    "title": "Elven Gardens",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh2_main_hef_court_1/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Tier-two Noble recruitment and passive Influence. This is an ordinary High Elf building, not Elspeth’s teleport mechanic."
+  },
+  {
+    "id": "court2",
+    "title": "Elven Court",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh2_main_hef_court_2/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Tier-four upgrade; Noble capacity/recruit rank and greater Influence generation. Useful for the assassination route. The current chain has two levels, not an obligatory third Embassy."
+  },
+  {
+    "id": "workshop",
+    "title": "Elven Workshop",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_dlc27_hef_smith_0/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Current tier-two Elven Workshop recruits Eagle Claw Bolt Throwers and Ithilmar Chariots and adds local recruitment capacity. It precedes the Elven Forge."
+  },
+  {
+    "id": "forge",
+    "title": "Elven Forge",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh2_main_hef_smith_1/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Tier-three smith upgrade includes Lothern Skycutters and Tiranoc Chariots. Build when buying these units rather than merely to keep up with settlement tier."
+  },
+  {
+    "id": "barracks",
+    "title": "War Hall",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh2_main_hef_barracks_3/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Tier-three Militia chain unlocks Lothern Sea Guard (Shields). Paid-DLC unit icons in the same building do not mean they are owned."
+  },
+  {
+    "id": "archive",
+    "title": "Archive",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh2_main_hef_mages_1/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Tier-three capital recruitment for standard Mages and Oceanids. Higher levels belong in a capital; avoid Aislinn’s ship-only recruitment names."
+  },
+  {
+    "id": "port",
+    "title": "Harbour",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh2_main_hef_port_2/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Tier-three ordinary Harbour includes Mist Mage recruitment. Check available hero capacity before paying to upgrade a distant port for a caster."
+  },
+  {
+    "id": "anlec",
+    "title": "Black Citadel of Anlec",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh2_main_special_anlec_citadel_hef/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Tier-five landmark at Tor Anlec in Nagarythe, Ulthuan. The current database lists a base cost of 10,000 and five construction turns before modifiers. Owning some other Nagarythe settlement is not enough."
+  },
+  {
+    "id": "smart",
+    "title": "Smart Autoresolve • scope of assumptions",
+    "url": "https://steamcommunity.com/app/1142710/workshop/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Exact local implementation was not supplied. The atlas uses balanced armies and predicted casualties, not vanilla ranged-bias claims. Campaign ambushes, healing, decoys, poison and spell combinations are not assigned invented numerical autoresolve bonuses. This link is a Workshop entry point, not the author page or verification of the particular mod."
+  },
+  {
+    "id": "grove",
+    "title": "Greater Grove • White Lions",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh2_main_hef_hunters_2/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Tier-three Greater Grove recruits White Lions of Chrace infantry. This is not the paid War Lions monster unit."
+  },
+  {
+    "id": "repository",
+    "title": "Grand Repository • elite infantry",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh2_main_hef_mages_2/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Tier-four recruitment includes Swordmasters of Hoeth and the WH3 Sea Elemental. Mage and Loremaster capacity effects are separate from the unit unlocks."
+  },
+  {
+    "id": "mage-tower",
+    "title": "Tower of Mages • Merwyrm",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh2_main_hef_mages_3/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Tier-five magical recruitment includes the Merwyrm. A route-two monster is a late purchase, not an early expedition prerequisite."
+  },
+  {
+    "id": "asuryan-temple",
+    "title": "Temple of Asuryan • guards and phoenix",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh2_main_hef_worship_2/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Current tier-four Temple of Asuryan supplies Phoenix Guard and the Frostheart Phoenix. Older tier-five Phoenix Guard advice is not used here."
+  },
+  {
+    "id": "dragon-lair",
+    "title": "Dragon’s Lair • dragons",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh2_main_hef_dragons_1/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Tier-four Dragon’s Lair offers Sun and Moon Dragons. Alith himself does not gain a dragon mount."
+  },
+  {
+    "id": "garrison",
+    "title": "Royal Garrison • minor settlement defence",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh2_main_hef_defence_minor_2/",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Tier-three minor defence supplies a settlement battle without walls. Do not interpret a stronger garrison as a walled siege."
+  },
+  {
+    "id": "rite-script",
+    "title": "9.0 • rite unlock conditions",
+    "url": "https://github.com/Shazbot/WH3-Dump/blob/main/script/campaign/wh2_campaign_rites.lua",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. Direct script: Morai-Heg unlocks when the faction issues Reaver Patrols; Asuryan after the faction leader reaches rank five; Isha after three settlements; Vaul after three research completions. These unlock conditions are separate from paying for or completing the rite."
+  },
+  {
+    "id": "rite-ui",
+    "title": "9.0 • Hand summon location",
+    "url": "https://github.com/Shazbot/WH3-Dump/blob/main/text/db/ritual_additional_ui_explanation_texts__.loc.tsv",
+    "note": "Archived guide annotation; this source and its assertions were not independently rechecked in this registration package. The game UI explicitly says the Hand is summoned to the faction leader. The guide therefore positions Alith before summoning rather than assuming the original capital is its spawn point."
+  }
+]

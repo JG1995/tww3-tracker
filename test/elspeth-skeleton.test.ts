@@ -49,7 +49,7 @@ import { fileURLToPath } from "node:url";
 
 import { loadContentTree } from "../app/content/load.ts";
 import { getFlaggedEntries } from "../app/content/query.ts";
-import type { ContentReader, TitleBody } from "../app/content/types.ts";
+import type { ContentReader, ContentTree, Lord, TitleBody } from "../app/content/types.ts";
 
 /** The committed content root, resolved from this test file's own location. */
 const CONTENT = fileURLToPath(new URL("../content", import.meta.url));
@@ -76,11 +76,16 @@ function fsReader(root: string): ContentReader {
   };
 }
 
-test("the committed tree loads as one Elspeth lord with the three routes in order", async () => {
+function committedElspeth(tree: ContentTree): Lord {
+  const elspeth = tree.lords.find((lord) => lord.slug === "elspeth-von-draken");
+  assert.ok(elspeth, "the committed tree retains Elspeth");
+  return elspeth;
+}
+
+test("the committed tree retains Elspeth and her three routes in order", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
 
-  assert.equal(tree.lords.length, 1);
-  const elspeth = tree.lords[0];
+  const elspeth = committedElspeth(tree);
   assert.equal(elspeth.slug, "elspeth-von-draken");
   assert.equal(elspeth.guide.faction, "Empire");
   assert.deepEqual(elspeth.guide.version, { patch: "9.0", vco: "2026.09.30.1", checked: "2026-09-30" });
@@ -91,7 +96,7 @@ test("the committed tree loads as one Elspeth lord with the three routes in orde
 
 test("every route carries typed objective/reward claims and a null vcoTitle", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
-  const routes = tree.lords[0].routes;
+  const routes = committedElspeth(tree).routes;
 
   for (const route of routes) {
     assert.equal(route.vcoTitle, null, `${route.id} official title is unresearched`);
@@ -105,7 +110,7 @@ test("every route carries typed objective/reward claims and a null vcoTitle", as
 
 test("the sources dataset round-trips the extract's 35 sources including vco-guide and ca", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
-  const datasets = tree.lords[0].datasets;
+  const datasets = committedElspeth(tree).datasets;
 
   const sources = datasets.find((d) => d.name === "sources");
   assert.ok(sources !== undefined && sources.name === "sources");
@@ -123,7 +128,7 @@ test("the sources dataset round-trips the extract's 35 sources including vco-gui
 test("all seven datasets are present in the committed tree in canonical order", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
 
-  const datasets = tree.lords[0].datasets;
+  const datasets = committedElspeth(tree).datasets;
   assert.equal(datasets.length, 7);
   assert.deepEqual(
     datasets.map((d) => d.name),
@@ -133,7 +138,7 @@ test("all seven datasets are present in the committed tree in canonical order", 
 
 test("the committed skills dataset is the atlas's ten typed item entries", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
-  const datasets = tree.lords[0].datasets;
+  const datasets = committedElspeth(tree).datasets;
 
   const sources = datasets.find((d) => d.name === "sources");
   assert.ok(sources !== undefined && sources.name === "sources");
@@ -186,7 +191,7 @@ test("the committed skills dataset is the atlas's ten typed item entries", async
 
 test("the committed research dataset is the atlas's eight typed item entries with the 15 folded techs", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
-  const datasets = tree.lords[0].datasets;
+  const datasets = committedElspeth(tree).datasets;
 
   const sources = datasets.find((d) => d.name === "sources");
   assert.ok(sources !== undefined && sources.name === "sources");
@@ -334,7 +339,7 @@ test("the committed research dataset is the atlas's eight typed item entries wit
 
 test("the committed buildings dataset is the atlas's nine typed settlement-role entries", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
-  const datasets = tree.lords[0].datasets;
+  const datasets = committedElspeth(tree).datasets;
 
   const sources = datasets.find((d) => d.name === "sources");
   assert.ok(sources !== undefined && sources.name === "sources");
@@ -407,7 +412,7 @@ test("the committed buildings dataset is the atlas's nine typed settlement-role 
 
 test("the committed mechanics dataset is the atlas's five typed item entries with the folded field tests", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
-  const datasets = tree.lords[0].datasets;
+  const datasets = committedElspeth(tree).datasets;
 
   const sources = datasets.find((d) => d.name === "sources");
   assert.ok(sources !== undefined && sources.name === "sources");
@@ -635,7 +640,7 @@ test("the committed mechanics dataset is the atlas's five typed item entries wit
 
 test("the committed armies dataset is the atlas's fifteen typed army templates with the legendary column", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
-  const datasets = tree.lords[0].datasets;
+  const datasets = committedElspeth(tree).datasets;
 
   const sources = datasets.find((d) => d.name === "sources");
   assert.ok(sources !== undefined && sources.name === "sources");
@@ -734,7 +739,7 @@ test("the committed armies dataset is the atlas's fifteen typed army templates w
 
 test("the committed vco dataset is the three-route objective items with the stable F5 id surface", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
-  const datasets = tree.lords[0].datasets;
+  const datasets = committedElspeth(tree).datasets;
 
   const sources = datasets.find((d) => d.name === "sources");
   assert.ok(sources !== undefined && sources.name === "sources");
@@ -820,8 +825,9 @@ test("the committed vco dataset is the three-route objective items with the stab
 
 test("every route's panelOrder has the five canonical keys; each route's atlas lists resolve through the loader", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
-  const routes = tree.lords[0].routes;
-  const datasets = tree.lords[0].datasets;
+  const elspeth = committedElspeth(tree);
+  const routes = elspeth.routes;
+  const datasets = elspeth.datasets;
 
   const canonicalGroups = ["armies", "skills", "research", "buildings", "mechanics"];
   const routeOne = routes.find((r) => r.id === "route-1");
@@ -956,7 +962,7 @@ test("every route's panelOrder has the five canonical keys; each route's atlas l
 
 test("every route keeps exactly its two transition gaps and its eight registry sections in order", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
-  const routes = tree.lords[0].routes;
+  const routes = committedElspeth(tree).routes;
 
   const routeOne = routes.find((r) => r.id === "route-1");
   assert.ok(routeOne !== undefined, "route-1 loads");
@@ -1044,7 +1050,7 @@ test("every route keeps exactly its two transition gaps and its eight registry s
 
 test("getFlaggedEntries returns the committed 36-entry flagged set: family counts, sections, and flat dedupe", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
-  const elspeth = tree.lords[0];
+  const elspeth = committedElspeth(tree);
   const flagged = getFlaggedEntries(elspeth);
 
   assert.equal(flagged.length, 36);
@@ -1160,7 +1166,7 @@ test("getFlaggedEntries returns the committed 36-entry flagged set: family count
 
 test("the committed guide names the crest path and the atlas environment topline verbatim", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
-  const elspeth = tree.lords[0];
+  const elspeth = committedElspeth(tree);
 
   assert.equal(elspeth.guide.crest, "crest.svg", "the guide names the crest file inside the lord directory");
   assert.equal(
@@ -1187,7 +1193,7 @@ test("the committed crest file exists with the atlas crest symbol verbatim in an
 
 test("each route carries exactly its five atlas phases in order, title and note verbatim", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
-  const routes = tree.lords[0].routes;
+  const routes = committedElspeth(tree).routes;
 
   const expected: Record<string, Array<[string, string]>> = {
     "route-1": [

@@ -1,6 +1,6 @@
 /**
  * Contract proof for the data-driven views: the home card list over the real
- * committed Elspeth tree (package `home-real`, commit 6); the reference desk
+ * committed multi-guide tree (including Elspeth-specific coverage); the reference desk
  * (package `reference-desk-view`), the route plan with the section walk,
  * transitions, source panels, gap markers, VCO undercard, and campaign action
  * region (packages `route-plan-view` / `ledger-route-start`), the three detail
@@ -209,18 +209,45 @@ function transitionAnchors(view: unknown): VNodeRecord[] {
   return recordVNodes(view).filter((n) => n.tag === "a" && n.props.className === "route-section__heading-link");
 }
 
-test("home renders one card per lord with faction and the patch · VCO version context", async () => {
+test("home renders a discoverable card and version context for every committed guide", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
-  const text = vnodeText(HomeView({ tree }));
+  const cards = recordVNodes(HomeView({ tree })).filter((node) => node.props.className === "lord-card");
 
-  assert.ok(text.includes("Elspeth von Draken"), "the lord name is on the card");
-  assert.ok(text.includes("Empire"), "the faction is on the card");
-  assert.equal(
-    countOccurrences(text, "patch 9.0 · VCO 2026.09.30.1"),
-    1,
-    "one committed lord ⇒ exactly one version-context label",
-  );
-  assert.ok(!text.includes("NO GUIDES YET"), "the empty state is not shown while a lord exists");
+  assert.equal(cards.length, tree.lords.length, "the home renders one card for each supplied guide");
+  for (const lord of tree.lords) {
+    const card = cards.find((node) => node.props.href === `#/${lord.slug}`);
+    assert.ok(card, `${lord.guide.lord} has a home link to its guide`);
+    const cardText = vnodeText(card);
+    assert.ok(cardText.includes(lord.guide.lord), `${lord.guide.lord} is named on its card`);
+    assert.ok(cardText.includes(lord.guide.faction), `${lord.guide.faction} is named on its card`);
+    assert.ok(cardText.includes(versionContext(lord)), `${lord.guide.lord} carries its own version context`);
+  }
+  assert.ok(tree.lords.some((lord) => lord.guide.lord === "Alith Anar"), "Alith Anar is discoverable");
+  assert.ok(!vnodeText(HomeView({ tree })).includes("NO GUIDES YET"), "the empty state is not shown while guides exist");
+});
+
+test("ordinary source IDs on selected cards resolve within each guide", async () => {
+  const tree = await loadContentTree(fsReader(CONTENT));
+  let citationCount = 0;
+
+  for (const lord of tree.lords) {
+    for (const route of lord.routes) {
+      const panels = getPanelEntries(lord, route);
+      for (const group of PANEL_GROUPS) {
+        panels[group].forEach((entry, index) => {
+          const resolvedIds = resolveSources(lord, entry.sources).map((source) => source.id);
+          assert.deepEqual(
+            resolvedIds,
+            [...entry.sources],
+            `${lord.guide.lord}/${route.id}/${group}[${index}] resolves its ordinary source links`,
+          );
+          citationCount += entry.sources.length;
+        });
+      }
+    }
+  }
+
+  assert.ok(citationCount > 0, "the committed corpus exercises selected-card source resolution");
 });
 
 test("home keeps the explicit empty state when the tree holds no lords", () => {
