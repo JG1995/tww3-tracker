@@ -3,25 +3,31 @@
     "id": "vco",
     "title": "VCO • current Immortal Empires objectives",
     "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084",
-    "note": "Archive annotation; not independently checked in this registration package. Author guide labelled updated 25 September 2026. Zhao Ming’s Immortal Empires section supplies all three objective lists and rewards. Do not substitute the different Realms of Chaos settlement and province lists. Your active save’s objective panel takes precedence if the Workshop implementation changes."
+    "note": "Read 2026-10-06. The author's Immortal Empires entry publishes Zhao Ming's Route I–III objectives and rewards; its extracted Route III faction list names targets without an action verb. The archive reports an update date of 2026-09-25, but that timestamp was not exposed in the page extraction and is not independently verified. Published text is not verification of a particular installed VCO or game build."
   },
   {
     "id": "vco-script",
-    "title": "VCO • archived Zhao Ming missions",
-    "url": "https://github.com/msolefonte/vco/blob/main/src/script/vco-ie/main_warhammer/wh3_main_cth_the_western_provinces/missions.lua",
-    "note": "Archive annotation; not independently checked in this registration package. Older public source, not certified as the current installed Workshop build. Confirms the gross-income, caravan, Embassy, fixed-site and province/faction objective structure. The guide uses the current author checklist rather than treating archive age as proof of current behaviour."
+    "title": "VCO • pinned Zhao Ming Immortal Empires missions",
+    "url": "https://github.com/msolefonte/vco/blob/0319bd67e58503b0ff6ca00ff4fee7e9e208020d/src/script/vco-ie/main_warhammer/wh3_main_cth_the_western_provinces/missions.lua",
+    "note": "Pinned public VCO source at commit 0319bd67e58503b0ff6ca00ff4fee7e9e208020d (v5.16.0, dated 2024-02-29), checked 2026-10-06. Historical mission definitions identify the Great Embassy in Warpstone Desert, Route II's five RAZE_OR_OWN_SETTLEMENTS region keys, and Route III's CONTROL_N_PROVINCES_INCLUDING total 4 and DESTROY_FACTION/confederation_valid predicates. Not evidence of current installed trigger semantics."
   },
   {
     "id": "vco-listener",
-    "title": "VCO • archived Cathay counters",
-    "url": "https://github.com/msolefonte/vco/blob/main/src/script/campaign/mod/vco-listeners-cth.lua",
-    "note": "Archive annotation; not independently checked in this registration package. The archive checks faction income, completed caravans and goods moved through separate conditions. Income is checked at turn start; caravan counters are checked at turn end. This supports separating these ledgers, but is not a promise about the exact timing in your installed version."
+    "title": "VCO • pinned Cathay counters",
+    "url": "https://github.com/msolefonte/vco/blob/0319bd67e58503b0ff6ca00ff4fee7e9e208020d/src/script/campaign/mod/vco-listeners-cth.lua",
+    "note": "Pinned public VCO v5.16.0 source at commit 0319bd67e58503b0ff6ca00ff4fee7e9e208020d (2024-02-29), checked 2026-10-06. It samples the 25,000 income threshold at human FactionTurnStart and reads separate 9-caravan and 13,140-goods saved counters at FactionTurnEnd. The goods counter alone does not establish a west-only filter or current-build timing."
   },
   {
     "id": "vco-names",
-    "title": "VCO • route localisation",
-    "url": "https://github.com/msolefonte/vco/blob/main/src/text/db/vco_victory_types.loc.tsv",
-    "note": "Archive annotation; not independently checked in this registration package. Public localisation names the routes The Silver Tongue, All That Glitters Is Not Gold, and Don’t Tread on Ming. Army names, stages and strategic subtitles in this atlas are recommendations, not additional mod requirements."
+    "title": "VCO • pinned English route localisation",
+    "url": "https://github.com/msolefonte/vco/blob/0319bd67e58503b0ff6ca00ff4fee7e9e208020d/src/text/db/vco_victory_types.loc.tsv",
+    "note": "Pinned public VCO v5.16.0 English localization at commit 0319bd67e58503b0ff6ca00ff4fee7e9e208020d, checked 2026-10-06. The Western Provinces Immortal Empires route keys name The Silver Tongue, All That Glitters Is Not Gold, and Don't Tread on Ming. These official strings are kept separate from guide-created thematic subtitles; the pinned localization does not certify a player's installed version."
+  },
+  {
+    "id": "vco-listener-general",
+    "title": "VCO • pinned generic mission listener",
+    "url": "https://github.com/msolefonte/vco/blob/0319bd67e58503b0ff6ca00ff4fee7e9e208020d/src/script/campaign/mod/vco-listeners.lua",
+    "note": "Pinned public VCO v5.16.0 listener at commit 0319bd67e58503b0ff6ca00ff4fee7e9e208020d, checked 2026-10-06. For human factions it completes the vco_dummy mission at FactionTurnStart. Together with the historical Route III mission this explains why its Black Fortress dummy text was not a separate required battle; current installed behavior is unknown."
   },
   {
     "id": "ca8",
