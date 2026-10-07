@@ -1,0 +1,266 @@
+[
+  {
+    "id": "vco-guide",
+    "title": "VCO author’s faction and quest guide",
+    "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084",
+    "note": "Author’s Immortal Empires route requirements and Route-3 follow-up battle rechecked 30 September 2026; guide header says updated 25 September 2026. Route nicknames and strategic sequences in this ledger are our recommendations."
+  },
+  {
+    "id": "vco",
+    "title": "VCO Workshop page",
+    "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3140200173",
+    "note": "Install/start and update information. Keep the mod enabled for the campaign. Objective completion, awarded victory and received rewards are tracked separately here."
+  },
+  {
+    "id": "ca-malakai",
+    "title": "Creative Assembly: Thrones of Decay — Dwarfs",
+    "url": "https://community.creative-assembly.com/total-war/total-war-warhammer/blogs/15",
+    "note": "Primary overview of the Spirit of Grungni, Adventures, Forge, grudges and the Dwarf rework. Original release documentation—not a promise that all initial numerical values still apply."
+  },
+  {
+    "id": "patch9",
+    "title": "Creative Assembly: update 9.0 release notes",
+    "url": "https://community.creative-assembly.com/total-war/total-war-warhammer/blogs/110-total-war-warhammer-iii-update-9-0-release-notes",
+    "note": "Current major-version context, including fixes to Malakai quest content. New vanilla Dark Fortresses are not automatically additions to VCO’s named list."
+  },
+  {
+    "id": "skill-malakai",
+    "title": "Game-data reference: Malakai skills",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/dwf_dwarfs/wh3_dlc25_skill_node_set_dwf_malakai_makaisson.json",
+    "note": "Public vanilla3 game-data extract, checked 29 September 2026. Used for named skills, scopes and explicit gates. Not your installed modded files; priorities are the guide’s recommendations, not database-prescribed builds."
+  },
+  {
+    "id": "skill-engineer",
+    "title": "Game-data reference: Dwarf Master Engineer",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/dwf_dwarfs/wh_main_skill_node_set_all_engineer.json",
+    "note": "Public vanilla3 game-data extract, checked 29 September 2026. Used for named skills, scopes and explicit gates. Not your installed modded files; priorities are the guide’s recommendations, not database-prescribed builds."
+  },
+  {
+    "id": "skill-gotrek",
+    "title": "Game-data reference: Gotrek",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/dwf_dwarfs/wh2_pro08_skill_node_neu_gotrek.json",
+    "note": "Public vanilla3 game-data extract, checked 29 September 2026. Used for named skills, scopes and explicit gates. Not your installed modded files; priorities are the guide’s recommendations, not database-prescribed builds."
+  },
+  {
+    "id": "skill-felix",
+    "title": "Game-data reference: Felix",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/dwf_dwarfs/wh2_pro08_skill_node_neu_felix.json",
+    "note": "Public vanilla3 game-data extract, checked 29 September 2026. Used for named skills, scopes and explicit gates. Not your installed modded files; priorities are the guide’s recommendations, not database-prescribed builds."
+  },
+  {
+    "id": "skill-runesmith",
+    "title": "Game-data reference: Runesmith",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/dwf_dwarfs/wh_main_skill_node_set_all_runesmith.json",
+    "note": "Public vanilla3 game-data extract, checked 29 September 2026. Used for named skills, scopes and explicit gates. Not your installed modded files; priorities are the guide’s recommendations, not database-prescribed builds."
+  },
+  {
+    "id": "techs",
+    "title": "Game-data reference: Dwarf technology tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/techs/vanilla3/dwf_mil.json",
+    "note": "Vanilla3 technology names, connections and effects. Follow the live prerequisite-count gates rather than assuming this guide’s priorities are all immediately clickable."
+  },
+  {
+    "id": "tech-wiki",
+    "title": "Dwarf WH3 technology reference",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Dwarfs_tech_tree_%28Total_War%3A_Warhammer_III%29",
+    "note": "Cross-check of the Guilds/Clans paths; not the old WH1 tree."
+  },
+  {
+    "id": "roster",
+    "title": "Dwarf roster and Thunderbarge recruitment",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Thunderbarge",
+    "note": "Base versus paid-DLC roster, recruited Thunderbarge versus summoned Spirit, land and ship recruitment."
+  },
+  {
+    "id": "faction",
+    "title": "Masters of Innovation",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Masters_of_Innovation",
+    "note": "Kraka Drak start and the starting Gotrek/Felix companions."
+  },
+  {
+    "id": "adventures",
+    "title": "Malakai’s Adventures reference",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Malakai%27s_Adventures",
+    "note": "Preparation counts, unlock progression and unit-specific tasks. Detailed tasks are version-sensitive; record discrepancies from your save."
+  },
+  {
+    "id": "dragons",
+    "title": "Legendary Battle: Dragonsbane",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Legendary_Battle%3A_Dragonsbane",
+    "note": "Cannon Adventure finale; used alongside the main Adventures reference."
+  },
+  {
+    "id": "blood",
+    "title": "Legendary Battle: Bloodletting",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Legendary_Battle%3A_Bloodletting",
+    "note": "Organ Gun Adventure finale and its Gyrocopter Launch reward."
+  },
+  {
+    "id": "skaven",
+    "title": "Legendary Battle: The Skaven Scheme",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Legendary_Battle%3A_The_Skaven_Scheme",
+    "note": "Final Adventure battle with a movement/objective task. A stationary corner-camp is not its entire solution."
+  },
+  {
+    "id": "beer",
+    "title": "Airship economy: Beer Hall",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Beer_Hall",
+    "note": "Beer Hall → Mess Hall → Air Distillery. Upkeep/recruitment economy, not crew growth."
+  },
+  {
+    "id": "cargo",
+    "title": "Airship growth: Cargo Racks",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Cargo_Racks",
+    "note": "Tier-II crew-growth and casualty-replenishment compartment."
+  },
+  {
+    "id": "engine-room",
+    "title": "Airship engine: Engine Room",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Engine_Room",
+    "note": "Tier-II movement and added Spirit battle duration."
+  },
+  {
+    "id": "storage",
+    "title": "Airship recovery: Storage Hold",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Storage_Hold",
+    "note": "Tier-IV recovery, attrition resistance and crew growth."
+  },
+  {
+    "id": "propellers",
+    "title": "Airship capstone: Larger Propellers",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Larger_Propellers",
+    "note": "Removes disengagement timer and extends eligible summon access in the influence radius."
+  },
+  {
+    "id": "hull",
+    "title": "Airship hull progression",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Hardened_Hull",
+    "note": "Hull upgrades gate compartment access."
+  },
+  {
+    "id": "assembly",
+    "title": "Ship recruitment: Assembly Line",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Assembly_Line",
+    "note": "Final aviation recruitment building; Thunderbarge access at tier V."
+  },
+  {
+    "id": "ship-recruit",
+    "title": "Ship artillery: Streamlined Smelters",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Streamlined_Smelters",
+    "note": "Cannon and Goblin Hewer recruitment; Compact Forge upgrade path."
+  },
+  {
+    "id": "signals",
+    "title": "Airship support radius",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Signals_System",
+    "note": "Radius/recruitment support; an investment for armies actually operating nearby."
+  },
+  {
+    "id": "barley",
+    "title": "Growth and recovery: Barley Field",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Barley_Field",
+    "note": "Provincial growth/replenishment support; foundation for settlement role recipes."
+  },
+  {
+    "id": "income",
+    "title": "Dwarf income branches",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Trading_Depot",
+    "note": "Trading and toolmaking are alternative economic chains; actual output and scope depend on tier and modifiers."
+  },
+  {
+    "id": "runeforge",
+    "title": "Ironbreakers and Runesmiths: Runeforge",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Runeforge",
+    "note": "Current smithy chain and recruitment, distinct from older Hall of Oaths instructions."
+  },
+  {
+    "id": "runesmith",
+    "title": "Runesmith roles and active runes",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Runesmith",
+    "note": "Runic support, alternative embedded effects and the distinction from ordinary spellcasting."
+  },
+  {
+    "id": "thane",
+    "title": "Thane specialisations",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/The_Hammers_%26_Herdstones_Update",
+    "note": "Origin of Ironbeard / Keeper of the Gate / Wanderer. The guide deliberately does not invent exact modern rank gates for these choices."
+  },
+  {
+    "id": "hero-actions",
+    "title": "Hero campaign actions",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Heroes",
+    "note": "Felix and Dragon Slayer replenishment; Engineer mobility and Runesmith embedded roles."
+  },
+  {
+    "id": "seal",
+    "title": "Deeps defence: Seal the Hold!",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Seal_the_Hold%21",
+    "note": "Conditional benefits and trade-offs. Five settlements is not five provinces."
+  },
+  {
+    "id": "deeps",
+    "title": "Creative Assembly: the Deeps design",
+    "url": "https://community.creative-assembly.com/total-war/total-war-warhammer/blogs/29-total-war-warhammer-iii-patch-5-2-dev-blog",
+    "note": "Primary introduction to developing fewer, stronger Dwarf settlements. Later balance and tooltip values may differ."
+  },
+  {
+    "id": "deep-data",
+    "title": "Guild Foundries: game-data building reference",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_main_underdeep_dwf_tall_2/",
+    "note": "Local-region tall-income scope, campaign-turn scaling and total-owned-settlement penalty. Do not substitute province count."
+  },
+  {
+    "id": "smart",
+    "title": "Smart Autoresolve — evidence boundary",
+    "url": "",
+    "note": "Your supplied mod name and description are the only implementation evidence available. Its exact weights, ability/summon handling, quest support and mission-credit behaviour were not independently verified. Recommendations are not simulated or benchmark-tested. Normal / Normal is the guide’s baseline."
+  },
+  {
+    "id": "slayer-recruit",
+    "title": "Recruiting the expedition crew: Hardened Hull",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_dlc25_dwarf_spirit_of_grungni_airship_hull_2/",
+    "note": "Public building-data reference: Slayers and Slayer Pirates from the tier-II hull. Rechecked for this revision; live modded tooltips remain authoritative."
+  },
+  {
+    "id": "slayer-frame",
+    "title": "Advanced Slayer access: Rune Inscribed Frame",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_dlc25_dwarf_spirit_of_grungni_airship_hull_3/",
+    "note": "Public building-data reference: Giant Slayers and Doomseekers from the next hull tier. Do not confuse the guide’s early/mid/late budget stages with an exact unit unlock turn."
+  },
+  {
+    "id": "slayer-shrine",
+    "title": "Independent land recruitment: Slayer Shrine",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh_main_dwf_slayer_1/",
+    "note": "The surface shrine recruits Slayers and Slayer Pirates. Useful for a supporting-army recruitment base, not a universal income-town purchase."
+  },
+  {
+    "id": "silver-hall",
+    "title": "Silver Hall: location, tier and building data",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh2_main_special_silver_hall/",
+    "note": "Checked 30 September 2026: Kraka Drak, tier IV, base 8,000 gold / four turns. Costs can be modified. This replaces the previous guide’s unresolved landmark location."
+  },
+  {
+    "id": "counting",
+    "title": "Deeps: Counting Room building data",
+    "url": "https://www.honga.net/totalwar/en/warhammer3/factions/wh3_dlc25_dwf_malakai/buildings/wh3_main_underdeep_dwf_economy_counting_room_2",
+    "note": "Reference for a surface-income-linked Deeps investment. Compare actual gold gained and upkeep rather than assuming a tall-scaling branch is the universal best choice."
+  },
+  {
+    "id": "counting-scope",
+    "title": "Creative Assembly: Counting Room threshold scope",
+    "url": "https://community.creative-assembly.com/total-war/total-war-warhammer/bugs/4113-deeps-income-not-contributing-to-counting-room-requirement",
+    "note": "Developer clarification: the threshold uses surface settlement income. Underground income does not count towards that requirement."
+  },
+  {
+    "id": "locations",
+    "title": "Immortal Empires settlement and province reference",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Immortal_Empires_province_list",
+    "note": "Geographic reference only. Starting owners and map details can change; use the current mission’s settlement search and your actual map to choose an expedition leg."
+  },
+  {
+    "id": "route-edition",
+    "title": "Route-led edition · 30 September 2026",
+    "url": "",
+    "note": "Three independent strategies for Normal campaign / Normal battles with Smart Autoresolve. No empire-size ceiling. Theme-first armies remain sensible combined-arms forces. Browser QA checks the website, not the game’s campaign or autoresolve engine."
+  }
+]

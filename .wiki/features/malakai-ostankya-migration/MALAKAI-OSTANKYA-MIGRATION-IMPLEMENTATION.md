@@ -182,7 +182,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `malakai-registration` — Commit 1: Register Malakai's archival guide context
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 1
 **Depends on:** []
 **Write scope:** ["content/index.json", "content/malakai/guide.json", "content/malakai/shared.md", "content/malakai/routes/route-1.md", "content/malakai/routes/route-2.md", "content/malakai/routes/route-3.md", "content/malakai/data/armies.json", "content/malakai/data/skills.json", "content/malakai/data/research.json", "content/malakai/data/buildings.json", "content/malakai/data/mechanics.json", "content/malakai/data/vco.json", "content/malakai/data/sources.json"]
