@@ -452,7 +452,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `alith-route-one` — Commit 17: Complete Alith's conquest route
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 10
 **Depends on:** ["alith-armies"]
 **Write scope:** ["content/alith-anar/routes/route-1.md"]
@@ -466,6 +466,9 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 **Validation:** Common package gate; no new test cases or assets.
 **Stop conditions:** Common stops; source-supported requirements contradict the archive strategy materially.
 **Review mandate:** End-to-end geography/economy/readiness coherence and full route coverage, not merely eight headings/counts.
+- [x] All eight route sections completed with archive coverage (actions/aims/checkpoints/city guidance/use notes); five phase summaries; Naggarond elimination vs retained qualifying cities and funded recovery; both transition slots present with anchors resolving to frozen-base Openings.
+- [x] Established identity/objective/reward/VCO rows and all panelOrder selections byte-preserved; checked claims retained, only the route's operational partial notices removed.
+- [x] Worker PlanView/VNode probe: no CONTENT GAP, both transition anchors resolve, panelOrder exact; gates green (214/214). Fresh reviewer 17 (4848e7e9) Accept, no findings at any tier; Jev suitable .99 / review .78. Aggregate whole-guide destination reconciliation remains serial post-integration close-out.
 
 #### Package `zhao-route-one` — Commit 18: Complete Zhao's trade route
 
