@@ -472,7 +472,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `zhao-route-one` — Commit 18: Complete Zhao's trade route
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 10
 **Depends on:** ["zhao-armies"]
 **Write scope:** ["content/zhao-ming/routes/route-1.md"]
@@ -486,6 +486,9 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 **Validation:** Common package gate; no new test cases or assets.
 **Stop conditions:** Common stops; a strategy-changing income/caravan/landmark correction.
 **Review mandate:** Complete usable commercial sequence, funding/readiness and factual limits rather than checked-heading coverage alone.
+- [x] All eight sections and five phase summaries completed with archive coverage; four separate bottlenecks, gross/net/cargo/treasury distinctions, Embassy timing and rewards-only-after-victory all in visible homes.
+- [x] Established identity/objective/reward/VCO rows and all panelOrder selections byte-preserved; checked claims retained, only the route's operational partial notices removed; 50+ worker probe checks incl. no CONTENT GAP and both transition anchors resolving to sibling Opening anchors.
+- [x] Gates green (214/214); fresh reviewer 18 (c4530660) Accept, no findings at any tier; Jev suitable .99 / review .83. shared.md stale Opening sentence deferred to close-out whole-guide reconciliation; aggregate destination reconciliation remains serial post-integration.
 
 #### Package `alith-route-two` — Commit 19: Complete Alith's relic-search route
 
