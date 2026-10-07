@@ -1403,6 +1403,11 @@ test("the search dialog is a labelled native dialog: head, labelled field, and t
     const dialog = nodes.find((n) => n.tag === "dialog" && cls(n).split(/\s+/).includes("search-dialog"));
     assert.ok(dialog !== undefined, "the native <dialog class=search-dialog> root renders");
     assert.equal(dialog.props["aria-label"], "Search the guides", "the dialog is labelled by its title");
+    assert.equal(
+      dialog.props.open,
+      undefined,
+      "the builder never renders the native open attribute — the wrapper's showModal() owns the open state (a rendered open would make showModal throw InvalidStateError)",
+    );
     const text = vnodeText(dialog);
     assert.ok(text.includes("ALL GUIDES") && text.includes("Search the guides"), "the mono eyebrow + serif title render");
     assert.ok(text.includes("Unit, skill, building, mechanic or objective"), "the field's visible label renders");

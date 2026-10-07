@@ -16,9 +16,11 @@
  * owns every `document`/`window`/`<dialog>` interaction — the open/close
  * effect (showModal + field focus; `close()` on close), the ~150 ms
  * debounced results, the field keydown (wrapping arrows, Enter to navigate),
- * the global `/` shortcut, and the close event's focus restore with the
- * `isConnected` guard (the reference atlases' `lastFocus` pattern, covering
- * Enter navigation where the opener page is replaced).
+ * the backdrop click (a click whose target is the `<dialog>` element itself
+ * closes it — DESIGN §2/§6), the global `/` shortcut, and the close event's
+ * focus restore with the `isConnected` guard (the reference atlases'
+ * `lastFocus` pattern, covering Enter navigation where the opener page is
+ * replaced).
  *
  * Controlled-dialog note (recorded for the coordinator): the builder never
  * renders the native `open` attribute, even though `open` is part of its
@@ -253,11 +255,14 @@ export function SearchDialogMarkup(props: SearchDialogMarkupProps): JSX.Element 
  * ~150 ms debounced `searchContent` results, the native dialog open/focus
  * lifecycle with the `lastFocus` restore on `close` (guarded by
  * `isConnected`, covering Enter navigation where the opener page is
- * replaced), the field keydown (wrapping ArrowUp/ArrowDown with the clamped
- * selection, Enter navigating the selected hit — inert with no result),
- * and the global `/` shortcut (guarded by typing targets and any open
- * dialog; registered only while this component is mounted, so the zero-lord
- * shell — which never mounts it — has no shortcut).
+ * replaced), the backdrop click dismissal (a click whose target is the
+ * dialog element itself closes it, per DESIGN §2/§6 — the close event's
+ * restore then owns the hand-back), the field keydown (wrapping
+ * ArrowUp/ArrowDown with the clamped selection, Enter navigating the
+ * selected hit — inert with no result), and the global `/` shortcut
+ * (guarded by typing targets and any open dialog; registered only while
+ * this component is mounted, so the zero-lord shell — which never mounts
+ * it — has no shortcut).
  */
 export function SearchDialog(props: SearchDialogProps): JSX.Element {
   const { tree, open, onOpen, onClose, onNavigate } = props;
@@ -307,6 +312,22 @@ export function SearchDialog(props: SearchDialogProps): JSX.Element {
       dialog.close();
     }
   }, [open]);
+
+  // Backdrop dismissal (DESIGN §2/§6 "backdrop-click-closing"): in a modal
+  // dialog a click on the ::backdrop is delivered to the <dialog> element
+  // itself, so the listener closes the dialog exactly when the click target
+  // IS the dialog — clicks inside the panel land on inner content and never
+  // match. On an already-closed dialog `close()` is a no-op; the close
+  // event's focus restore then covers the hand-back exactly like Escape.
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (dialog === null) return;
+    const onDialogClick = (event: MouseEvent): void => {
+      if (event.target === dialog) dialog.close();
+    };
+    dialog.addEventListener("click", onDialogClick);
+    return () => dialog.removeEventListener("click", onDialogClick);
+  }, []);
 
   // The global "/" shortcut — active only while this component is mounted:
   // firing while no typing element is focused and no other dialog is open.
