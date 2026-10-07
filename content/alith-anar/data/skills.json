@@ -1,1 +1,442 @@
-{}
+{
+  "alith": {
+    "label": "Alith Anar",
+    "title": "The Shadow King's priorities",
+    "intro": "A bow commander and campaign hunter. These are inferred priority blocks, not an in-game test or a point-by-point leveling script. The archive-cited skill tree is not pinned to the installed build; verify names, ranks, prerequisites and effect scope in the live character panel before spending.",
+    "steps": [
+      {
+        "title": "Route Marcher",
+        "note": "Take movement first so early victories and pursuits do not end just short of their objective."
+      },
+      {
+        "title": "Inspiring Presence → Bow Master",
+        "note": "Improve the actual bow section; raise Bow Master while retaining a useful escort."
+      },
+      {
+        "title": "Infiltration",
+        "note": "The archive associates this with personal Stalk so Alith's deployment matches his walkers. Do not assume his whole escort becomes hidden.",
+        "gate": "Archive reports rank 8; verify the live gate"
+      },
+      {
+        "title": "Revenant → Ruthless",
+        "note": "Open the unique line, then improve the walkers' speed, ammunition and combat utility. Check whether each effect applies to Alith personally or to his own army.",
+        "gate": "Archive reports rank 10; verify the live gate"
+      },
+      {
+        "title": "No Rest for the Wicked; Shadow King",
+        "note": "Take the post-victory movement skill at the archive-reported rank. Build the displayed unique-line prerequisites for Shadow King; the archive describes its control support as useful for conquests.",
+        "gate": "Archive reports rank 12 / parent gate; verify both"
+      },
+      {
+        "title": "Ancient Cunning / personal bow skills",
+        "note": "After the blue-line prerequisites, prioritise ambush utility. Fill missile damage and durability rather than buying every melee upgrade."
+      }
+    ],
+    "details": [
+      [
+        "Priority blocks, not imaginary levels",
+        "A row can take multiple points or require a rank gate; six rows do not equal six skill points. Spend useful red-line and bow points while waiting for ranks 8/10/12 instead of banking levels to imitate this short queue. Follow the live tree if its gates differ."
+      ],
+      [
+        "Personal, army and faction scope",
+        "The archive describes Infiltration as personal Stalk and Ruthless as an Alith-army benefit; a Princess does not inherit Alith's personal skills or items. It describes Shadow King as control support but does not establish its current effect scope. Check each tooltip and do not assign Alith-only effects to another commander."
+      ],
+      [
+        "No Rest for the Wicked is not infinite movement",
+        "The archive reports a 15% campaign-movement restoration after a won battle. Its current value and trigger are unverified. Check the tooltip and displayed movement after a victory; account for the remaining path, enemy zones and exposure rather than assuming unlimited movement."
+      ],
+      [
+        "Renegade and diplomacy",
+        "The archive says Renegade trades a faction missile benefit for a High Elf diplomatic penalty. Current values and scope are unverified; inspect its live effects. It is optional later, not a free opening purchase while building a coalition."
+      ],
+      [
+        "Automatic unlocks and mounts",
+        "Mounts and Immortality may unlock automatically. Do not spend a skill point for an automatic unlock the game does not ask you to buy. Alith has no mount progression in the archive-cited tree; check the current tree rather than borrowing another lord's mount path."
+      ],
+      [
+        "Live-tree check",
+        "Known: this is the priority in the archived 30 September 2026 / 2026.09.30.1 guide. Unknown: whether its mutable, unpinned tree citation matches the installed build. Inspect Alith's node ranks, parents and personal-versus-army tooltips; if they differ, follow the live prerequisites and use this queue only as role advice."
+      ]
+    ],
+    "sources": ["alith-skill"],
+    "state": "verify-in-campaign",
+    "src": ["alith-skill"]
+  },
+  "princess": {
+    "label": "Princess",
+    "title": "A repeatable field commander",
+    "intro": "Use a Princess for supporting bow armies. She still needs a caster and a plan for engagements that do not ambush. This role recommendation is inferred, not an in-game test; confirm the live tree before spending.",
+    "steps": [
+      {
+        "title": "Route Marcher",
+        "note": "Movement is useful on both a reinforcement column and an independent expedition."
+      },
+      {
+        "title": "Inspiring Presence → Bow Master",
+        "note": "Your first commitment is to the army's bow section, not merely the commander's damage."
+      },
+      {
+        "title": "Militia Master for the escort",
+        "note": "Invest where the troop list is largest. Do not buy elite-infantry buffs for a spear-and-archer budget force."
+      },
+      {
+        "title": "Useful blue-line campaign support",
+        "note": "Follow the actual prerequisites for the mobility and replenishment options shown in this commander's tree; do not copy Alith's unique line."
+      },
+      {
+        "title": "Personal bow and survival skills",
+        "note": "Improve the Princess's shooting and keep her out of prolonged melee until you deliberately change her role."
+      },
+      {
+        "title": "Optional mount; finish relevant red skills",
+        "note": "Keep a foot or mobile support identity. A later dragon is useful for a siege column, not compulsory for every shadow army; confirm what the live tree unlocks automatically."
+      }
+    ],
+    "details": [
+      [
+        "Prince alternative",
+        "A Prince is suitable for a conventional holding or siege army. Keep the same troop-support priorities, replacing personal bow spending with defensive melee skills."
+      ],
+      [
+        "Traits before perfection",
+        "Buy a useful Influence trait when the budget supports it, but do not leave a threatened province undefended while waiting for the perfect recruitment roll."
+      ],
+      [
+        "Generic still means Nagarythe",
+        "The archive treats the faction's campaign stance as available beyond Alith, but his unique buffs and personal item abilities are not automatically shared. Check the selected commander's own tree and the faction tooltip for effect scope."
+      ],
+      [
+        "No duplicate Shadow King",
+        "A supporting Princess does not receive Alith's unique skills, personal decoy or items. Faction campaign tools are a separate scope; do not confuse them with Alith's personal effects."
+      ],
+      [
+        "Automatic unlocks and alternatives",
+        "Mounts and Immortality may unlock automatically; spend no point unless the live tree asks for one. The archive also names a WH3 Sea Helm as optional coastal flavour, not a required commander or a reason to use Aislinn's unique tree. Check actual availability before planning around it."
+      ],
+      [
+        "Live-tree check",
+        "Known: the archive recommends a Princess as a repeatable missile commander and cites a mutable, unpinned extracted tree. Unknown: current node names, rank gates and automatic mount unlocks. Inspect the recruited Princess's tree; if it differs, follow its visible prerequisites and keep the role as a troop-support recommendation only."
+      ]
+    ],
+    "sources": ["princess-skill", "alith-skill", "flc", "tides"],
+    "state": "verify-in-campaign",
+    "src": ["princess-skill", "alith-skill", "flc", "tides"]
+  },
+  "field-noble": {
+    "label": "Field Noble",
+    "title": "Keep the hunters alive",
+    "intro": "This Noble stays embedded in the army. The separate Agent Noble entry is for detached assassination work. The role is inferred from the archive, not an in-game test; verify current skill nodes and effect scope.",
+    "steps": [
+      {
+        "title": "Replenish Troops",
+        "note": "Prioritise the embedded campaign job so casualties do not repeatedly halt the expedition."
+      },
+      {
+        "title": "Hard to Hit",
+        "note": "Your bodyguard needs to survive the cavalry or monster that reaches the screen."
+      },
+      {
+        "title": "Weapon Master / Blade Master",
+        "note": "Add enough melee competence to intervene effectively, without replacing the whole army's damage."
+      },
+      {
+        "title": "Ward of Loec / protection",
+        "note": "Missile defence helps a conspicuous character near a lightly armoured line. Use the live prerequisites."
+      },
+      {
+        "title": "Choose the mount for the job",
+        "note": "A steed is practical ground interception; an eagle trades that role for flying mobility. Automatic unlocks cost no skill points."
+      },
+      {
+        "title": "Useful late combat and Mentor",
+        "note": "Finish defence and damage that support the role. Mentor becomes a later investment, not an early emergency tool."
+      }
+    ],
+    "details": [
+      [
+        "Embedded support is a real trade-off",
+        "The archive assigns this Noble's replenishment contribution while embedded with the army. A detached Noble performing distant actions is not simultaneously supporting that force. Check the current skill tooltip for whether its replenishment effect applies to this own army."
+      ],
+      [
+        "Intercept, do not solo",
+        "Let the Noble support braced infantry or the focused-fire zone against a large threat; do not send him alone into a surrounded duel."
+      ],
+      [
+        "Do not chase every hero",
+        "Keep this Noble with the company. Route III's separate detached agents handle repeated actions rather than stripping the field army of support."
+      ],
+      [
+        "Automatic mounts and current gates",
+        "The archive says mounts can unlock automatically and does not pin every current rank gate to a game build. Read this Noble's live tree and tooltip; choose only an available mount and do not spend a point on an automatic unlock. If gates differ, use the displayed prerequisites."
+      ]
+    ],
+    "sources": ["noble-skill"],
+    "state": "verify-in-campaign",
+    "src": ["noble-skill"]
+  },
+  "agent-noble": {
+    "label": "Agent Noble",
+    "title": "The assassination cell",
+    "intro": "A detached agent for Route III's repeated Assassinate actions, distinct from the Noble embedded for army support. This queue is an inferred priority, not an in-game test or a guarantee of success or VCO credit.",
+    "steps": [
+      {
+        "title": "Assassinate",
+        "note": "Start with ordinary enemy heroes and sensible success odds. Check which actions the live VCO counter credits."
+      },
+      {
+        "title": "Specialist",
+        "note": "Reduce action cost and improve reliability; use the displayed target chance rather than an assumed fixed percentage."
+      },
+      {
+        "title": "Improve Assassinate as rank allows",
+        "note": "Second and third levels have rank gates. Do not postpone actions until the agent has a perfect build.",
+        "gate": "Archive reports ranks 5 / 10; verify the live gates"
+      },
+      {
+        "title": "Secure Influence between targets",
+        "note": "Generate political resources when no suitable assassination is available. This does not replace required Assassinate credits."
+      },
+      {
+        "title": "Useful diplomacy specialism",
+        "note": "High Elf affairs serves Ulthuan partnerships. Pick a theatre-relevant specialism rather than buying all three."
+      },
+      {
+        "title": "Survival, mobility and late Mentor",
+        "note": "Protect an experienced agent, move before spending the action, and share experience later where useful."
+      }
+    ],
+    "details": [
+      [
+        "Successful does not mean guaranteed",
+        "Ordinary Nobles still make success checks. Failed attempts are not successful credits; the archive-cited historical script does not verify the installed counter's action semantics."
+      ],
+      [
+        "Agent target restriction",
+        "The archive distinguishes normal Noble Assassinate targets (heroes) from the Hand of the Shadow Crown, the exceptional tool that can target an enemy army's lord. Do not assign that special permission to an ordinary agent."
+      ],
+      [
+        "Gold is an operational resource",
+        "Budget action fees and replacement risk alongside army upkeep. The archive suggests two or three active trained agents can progress the counter while Alith pursues military objectives; this is staffing advice, not a required number or guaranteed credit rate."
+      ],
+      [
+        "Observe the first credit",
+        "Known: historical public VCO 5.16.0 code has a 25-Assassinate condition. Unknown: whether the installed counter credits the same action or when it updates. Record the live counter, perform one successful ordinary Assassinate, then check again after the game processes it. If it does not advance, inspect the live objective before repeating; a Mage's Wound action is separate."
+      ],
+      [
+        "Keep the agent detached",
+        "This Noble performs actions away from the army; keep the Field Noble embedded for its support role. One character cannot provide both services at once."
+      ],
+      [
+        "Live-tree check",
+        "The cited skill source is an archive annotation to a mutable, unpinned tree. Check the actual Assassinate ranks, Specialist effects, cost, target chance and diplomatic gates in this Noble's live panel. If they differ, follow the displayed values and do not wait for a perfect build before taking a viable action."
+      ]
+    ],
+    "sources": ["noble-skill", "vco-script", "hand"],
+    "state": "verify-in-campaign",
+    "src": ["noble-skill", "vco-script", "hand"]
+  },
+  "shadow-caster": {
+    "label": "Shadows",
+    "title": "A shadow caster for the hunt",
+    "intro": "The archive's default lore for a land expedition: slow the approach, weaken a dangerous opponent and punish packed infantry. This inferred spell order is not an in-game test; check names and gates against the live lore tree.",
+    "steps": [
+      {
+        "title": "Melkoth's Mystifying Miasma",
+        "note": "A useful opening tool for slowing a target into the bow kill zone."
+      },
+      {
+        "title": "The Enfeebling Foe",
+        "note": "Support a threatened Noble or escort against a dangerous combatant."
+      },
+      {
+        "title": "The Penumbral Pendulum",
+        "note": "Add controlled damage along a committed enemy line. Leave space for friendly troops."
+      },
+      {
+        "title": "Evasion when prerequisites are met",
+        "note": "This opens later spell choices; the displayed gate counts points, not simply named spells."
+      },
+      {
+        "title": "Pit of Shades + Magical Reserves",
+        "note": "Choose reliable area damage when enemies are already pinned; keep enough Winds for the encounter."
+      },
+      {
+        "title": "Arcane Conduit; complete useful spells",
+        "note": "Take the late casting support after its gate. One upgraded damage spell is usually more useful than many one-point buttons."
+      }
+    ],
+    "details": [
+      [
+        "Simple battle rhythm",
+        "Slow a valuable threat, concentrate bows, then use a damage spell on infantry that can no longer easily move. Keep the caster behind the screen."
+      ],
+      [
+        "No shared Lileath stance shortcut",
+        "The archive warns that Nagarythe's unusual stance set does not provide every standard High Elf stance. Check the live faction stance list; do not budget around another lord's magic-channeling advice if it is absent."
+      ],
+      [
+        "Later alternative",
+        "A Mist Mage is a good expedition substitute; use the Mist reference. Avoid two full casters in a cash-strapped army merely because both themes fit."
+      ],
+      [
+        "Live lore-tree check",
+        "The archive's magic reference says to follow the available lore's displayed prerequisite points; it does not pin this caster's current gates or costs. Check the recruited caster's live spell tree and Winds tooltips. If gates differ, follow the visible prerequisites and reserve enough Winds for the intended fight."
+      ]
+    ],
+    "sources": ["magic", "nagarythe"],
+    "state": "verify-in-campaign",
+    "src": ["magic", "nagarythe"]
+  },
+  "mist-mage": {
+    "label": "Mist",
+    "title": "Fog for the expedition",
+    "intro": "A WH3 addition that suits the route without turning Alith into Aislinn. This is an inferred role priority, not an in-game test. The hero can support campaign mobility as well as the battle line; verify current access and the effect's own-army scope.",
+    "steps": [
+      {
+        "title": "Increase Mobility",
+        "note": "The embedded skill supports a travelling company. Balance early levels against having one effective spell."
+      },
+      {
+        "title": "Obscuring Haze / Ladrielle's Shroud",
+        "note": "Prioritise the protective tools you will actually use for the exposed screen or hunters."
+      },
+      {
+        "title": "Flensing Haar",
+        "note": "Add a slowing, damaging tool for concentrating the army's fire."
+      },
+      {
+        "title": "Evasion → The Writhing Mist",
+        "note": "Invest the required earlier spell points before the later area spell becomes available."
+      },
+      {
+        "title": "Supernatural Mist / Cloak of Dew",
+        "note": "Improve the personal support line after its prerequisites; do not assume every unit always receives all bonuses."
+      },
+      {
+        "title": "Magical Reserves → Arcane Conduit",
+        "note": "Finish spell efficiency and sustain before spreading into unrelated agent actions."
+      }
+    ],
+    "details": [
+      [
+        "Obtain one legally",
+        "The archive-cited ordinary Harbour lists Mist Mage recruitment at tier three. Current building tier, local access and hero capacity are unverified. Check the settlement and recruitment panels before upgrading a remote port; if unavailable, use an accessible caster or proceed without one."
+      ],
+      [
+        "Wound is not Assassinate",
+        "A Mist Mage's Wound action must not automatically be counted toward Route III's 25-assassination advice. Check the live counter after one successful ordinary Assassinate; do not substitute a wound action if it gives no credit."
+      ],
+      [
+        "Flying mounts are optional",
+        "An eagle or Skycutter increases mobility and visibility according to the archive. Keeping a caster unobtrusive near the company can be better while learning the army; inspect the current mount options and automatic unlocks before spending."
+      ],
+      [
+        "Shared Winds of Magic",
+        "The archive cautions that two mages draw from the same army Winds pool. Verify the live battle UI; adding a second lore does not by itself establish a second independent magic budget."
+      ],
+      [
+        "Live access and tree check",
+        "Known: the archive cites an extracted Mist Mage tree and tier-three Harbour access. Unknown: the source build, current recruitment gate, rank prerequisites and effect scope. Check the current building, capacity, spell tree and embedded-army tooltip; if they differ, use available access and the live gates rather than building around the archived values."
+      ]
+    ],
+    "sources": ["mist-skill", "port", "tides", "vco-script"],
+    "state": "verify-in-campaign",
+    "src": ["mist-skill", "port", "tides", "vco-script"]
+  },
+  "life-mage": {
+    "label": "Life",
+    "title": "Preserve expensive companions",
+    "intro": "Use when a route includes a phoenix, Merwyrm or dragon. This is an inferred support recommendation, not an in-game test. A single bodyguard and a few valuable units can justify the lore; choose the lore to support the army, not the other way around.",
+    "steps": [
+      {
+        "title": "Earth Blood",
+        "note": "Efficient healing for a small cluster. Heal surviving models; it does not restore a wiped regiment."
+      },
+      {
+        "title": "Lifebloom / Flesh to Stone",
+        "note": "Use the lore passive and defence to reduce damage during the next contact."
+      },
+      {
+        "title": "Meet the first casting gate",
+        "note": "Invest in useful early spells, then take Evasion when available."
+      },
+      {
+        "title": "Regrowth",
+        "note": "Prioritise recovery on a valuable surviving single entity or badly hurt character."
+      },
+      {
+        "title": "The Dwellers Below, when affordable",
+        "note": "Add damage if you are actually using it; do not empty the pool and then discover the monster needs healing."
+      },
+      {
+        "title": "Magical Reserves → Arcane Conduit",
+        "note": "Invest in the sustained casting role and respect the later prerequisite gate."
+      }
+    ],
+    "details": [
+      [
+        "Healing is not resurrection",
+        "The archive says missing infantry models remain missing and campaign replenishment is still necessary; a phoenix or dragon may also reach a battle healing cap. Check current healing tooltips and remaining caps rather than promising a recovered regiment."
+      ],
+      [
+        "Do not add a monster just to justify the mage",
+        "The company determines the support lore, not the other way around. Shadows or Light often fit a mostly infantry force better."
+      ],
+      [
+        "Live lore-tree check",
+        "The archive-cited general High Elf magic reference does not pin current spell names, point gates or healing caps to the installed build. Inspect this Mage's live spell prerequisites and healing tooltip; if they differ, follow the displayed costs/effects and keep replenishment separate from battle healing."
+      ]
+    ],
+    "sources": ["magic"],
+    "state": "verify-in-campaign",
+    "src": ["magic"]
+  },
+  "light-mage": {
+    "label": "Light",
+    "title": "Hold the target in the kill zone",
+    "intro": "A straightforward support alternative when cavalry and monsters are slipping through the formation. This is an inferred role priority; confirm spell availability and gates in the live tree.",
+    "steps": [
+      {
+        "title": "Shem's Burning Gaze",
+        "note": "A basic ranged spell while building towards the control tools."
+      },
+      {
+        "title": "Pha's Protection",
+        "note": "Use defensive support on the unit actually receiving the charge."
+      },
+      {
+        "title": "Reach Evasion through useful spells",
+        "note": "Meet the displayed early-point gate; avoid an invented one-point shortcut."
+      },
+      {
+        "title": "Net of Amyntok",
+        "note": "Pin a high-value target, then immediately focus the bow and bolt section."
+      },
+      {
+        "title": "Birona's Timewarp / Banishment",
+        "note": "Choose support or area damage according to what the army lacks, rather than buying every button equally."
+      },
+      {
+        "title": "Magical Reserves → Arcane Conduit",
+        "note": "Finish the casting support path and upgrade the spells you regularly use."
+      }
+    ],
+    "details": [
+      [
+        "One plan, one spell",
+        "A timely Net plus concentrated fire is easier to execute than simultaneously kiting, duelling, bombing and cycling cavalry."
+      ],
+      [
+        "Miscast and targeting",
+        "Overcast only when the larger effect justifies its cost and risk. Confirm the target is in range before moving the entire army."
+      ],
+      [
+        "Live lore-tree check",
+        "The archive's general High Elf magic citation does not pin current point gates or spell effects to the installed build. Check the live Evasion prerequisite, overcast cost and target range; if they differ, follow the displayed tree and choose the support or damage spell the force can afford."
+      ]
+    ],
+    "sources": ["magic"],
+    "state": "verify-in-campaign",
+    "src": ["magic"]
+  }
+}

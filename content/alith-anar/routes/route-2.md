@@ -13,7 +13,7 @@ reward:
   src: [vco, vco-script, vco-effects]
 panelOrder:
   armies: []
-  skills: []
+  skills: [alith, princess, field-noble, agent-noble, shadow-caster, mist-mage, life-mage, light-mage]
   research: []
   buildings: []
   mechanics: []
