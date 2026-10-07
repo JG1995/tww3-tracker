@@ -1,1 +1,258 @@
-{}
+{
+  "opening": {
+    "label": "Opening",
+    "title": "Protect the early Jade company",
+    "intro": "Improve troops you own before funding a distant technology capstone. These rows are the archive's early Military-tree priorities, not a verified current order: exact node names, effect values and prerequisites in the installed tree are unverified. Follow the live research screen's visible nodes and actual prerequisite links, and keep recruitment and army upgrades moving when a row is blocked.",
+    "steps": [
+      {
+        "title": "Mastery of Yang",
+        "note": "Military root. Early melee-infantry support; no campaign Harmony change."
+      },
+      {
+        "title": "Chelonian Stance",
+        "note": "Mastery of Yang → this node. Melee-infantry recruit rank and cost; intermediate toward Contained Aggression."
+      },
+      {
+        "title": "Contained Aggression",
+        "note": "Mastery of Yang → Chelonian Stance → Contained Aggression. Prepare the army for Jade Stance; improves the early provincial escort."
+      },
+      {
+        "title": "Jade Stance",
+        "note": "Contained Aggression. Armour and melee defence for Jade, Peasant and Tiger troops; preserves useful mid-tier units."
+      },
+      {
+        "title": "Moon Reflecting",
+        "note": "Military root. Missile-infantry strength and Yin leadership; good immediately with bows/crossbows."
+      },
+      {
+        "title": "Fletching Mentors",
+        "note": "Target Ranges. Bow/crossbow ammunition and improved damage; supports all three routes."
+      }
+    ],
+    "details": [
+      [
+        "Missing missile prerequisite",
+        "Fletching Mentors requires Target Ranges after Moon Reflecting. The compact row is a destination; take the intermediate node rather than assuming it can be clicked immediately."
+      ],
+      [
+        "Available-node rule",
+        "These are priorities, not simultaneous research. When a prerequisite is blocked, use the next useful available node. Keep recruitment and army upgrades moving."
+      ],
+      [
+        "Shared progress",
+        "A checked technology is shared across routes. Switching to a new victory plan does not make you research it again."
+      ],
+      [
+        "Military and Provinces trees",
+        "The archive describes research as split between the Military and Provinces trees: the Military side supports the army (melee defence, missile work, artillery and recruitment); the Provinces side supports income, recovery, trade and caravan capacity. The older habit of alternating technologies to repair a faction-wide Harmony balance is not used here: the archive treats Harmony as provincial and building-driven, and a row's Yin or Yang mention is that provincial effect scope, not a faction-wide lever."
+      ]
+    ],
+    "sources": ["tech", "ca8"],
+    "state": "verify-in-campaign",
+    "src": ["tech", "ca8"]
+  },
+  "opening-route-1": {
+    "label": "Opening · Route I",
+    "title": "Protect the early Jade company",
+    "intro": "Route I's effective opening sequence: it puts the missile foundations (Moon Reflecting → Target Ranges → Fletching Mentors) before the melee branch, which the common Opening entry selected on Routes II and III starts from instead. Contained Aggression is not separately listed in this six-row view but still applies on the way to Jade Stance (see the detail below). Exact node names, effect values and prerequisites in the installed tree are unverified; follow the live research screen's visible nodes and actual prerequisite links.",
+    "steps": [
+      {
+        "title": "Moon Reflecting",
+        "note": "Military root. Missile-infantry strength and Yin leadership; good immediately with bows/crossbows."
+      },
+      {
+        "title": "Target Ranges",
+        "note": "Moon Reflecting. Missile-infantry recruitment economy and ranks."
+      },
+      {
+        "title": "Fletching Mentors",
+        "note": "Target Ranges. Bow/crossbow ammunition and improved damage; supports all three routes."
+      },
+      {
+        "title": "Mastery of Yang",
+        "note": "Military root. Early melee-infantry support; no campaign Harmony change."
+      },
+      {
+        "title": "Chelonian Stance",
+        "note": "Mastery of Yang → this node. Melee-infantry recruit rank and cost; intermediate toward Contained Aggression."
+      },
+      {
+        "title": "Jade Stance",
+        "note": "Contained Aggression. Armour and melee defence for Jade, Peasant and Tiger troops; preserves useful mid-tier units."
+      }
+    ],
+    "details": [
+      [
+        "Jade Stance has an intermediate step",
+        "Chelonian Stance → Contained Aggression → Jade Stance. Take Contained Aggression on the way even though it is not separately listed in this six-row view."
+      ],
+      [
+        "Available-node rule",
+        "These are priorities, not simultaneous research. When a prerequisite is blocked, use the next useful available node. Keep recruitment and army upgrades moving."
+      ],
+      [
+        "Shared progress",
+        "A checked technology is shared across routes. Switching to a new victory plan does not make you research it again."
+      ]
+    ],
+    "sources": ["tech", "ca8"],
+    "state": "verify-in-campaign",
+    "src": ["tech", "ca8"]
+  },
+  "road": {
+    "label": "Caravans",
+    "title": "More delivered cargo, then more departures",
+    "intro": "Caravan research is a multi-step provincial investment, not one early button. The rows are the archive's Provinces-tree priorities, not a verified current order: exact node names, effect values and prerequisites in the installed tree are unverified. Follow the live research screen's visible nodes and actual prerequisite links, and only add caravan capacity when the dispatch budget and escort pool can use it.",
+    "steps": [
+      {
+        "title": "Yin Healing",
+        "note": "Provinces tree: take the visible approach to this node. Yin-unit recovery and item chance; opens Bureaucrat Training."
+      },
+      {
+        "title": "Bureaucrat Training",
+        "note": "Yin Healing. Provincial corruption reduction and reduced plague spread."
+      },
+      {
+        "title": "Sea Dragon Edict",
+        "note": "Bureaucrat Training. Trade tariffs and diplomatic relations; a useful commerce branch in every route."
+      },
+      {
+        "title": "Iron Dragon’s Mandate",
+        "note": "Sea Dragon Edict. Cargo sale value +10% and maximum cargo +10%."
+      },
+      {
+        "title": "Widened Roads",
+        "note": "Moon Wood. One additional active caravan and +20% maximum cargo."
+      },
+      {
+        "title": "Roads of Harmony and Honour",
+        "note": "Dragon Fleet Aegis. A separate +1 active caravan and extra unit from qualifying destination rewards."
+      }
+    ],
+    "details": [
+      [
+        "Full approach to Widened Roads",
+        "From Sea Dragon Edict, follow Yin Muse (Yin casting support and shared Winds capacity) → Alignment Calibration (Compass cooldown and Winds support) → Astromantic Choir (caster support and the approach to caravan-capacity technologies) → Moon Wood → Widened Roads. The archive also allows Yin Muse from Administrative Subsidies on the development side and Alignment Calibration from Dragon Emperor’s Blessing, and it says to ignore Bhashiva’s replacement node here: Zhao follows his visible ordinary node, not a hidden substitute."
+      ],
+      [
+        "The second extra slot",
+        "From Astromantic Choir, Dragon Fleet Aegis (port construction and income) leads to Roads of Harmony and Honour. This is a different +1 active-caravan benefit. Research it when you can fund and rotate enough masters."
+      ],
+      [
+        "Safety before payload",
+        "Harmonic Discipline helps dangerous routes — a lower chance of interception turning into an ambush and a higher Caravan Master recruitment rank — but it requires its own Thieves’ Guild → Harmonic Mastery approach. Compare that investment with sending a better escorted convoy to a safer destination."
+      ],
+      [
+        "Do not misread a building",
+        "Merchant Caravans is an income-building name. It does not itself increase active caravan capacity."
+      ]
+    ],
+    "sources": ["tech", "ca8"],
+    "state": "verify-in-campaign",
+    "src": ["tech", "ca8"]
+  },
+  "arsenal": {
+    "label": "Arsenal",
+    "title": "Armoured ranks and measured firepower",
+    "intro": "The expedition needs both the line that survives contact and the weapons which end the fight. These rows are the archive's Military-tree priorities for the mid wars, not a verified current order: exact node names, effect values and prerequisites in the installed tree are unverified. Follow the live research screen's visible nodes and actual prerequisite links, and spend on branches that match the units you actually field.",
+    "steps": [
+      {
+        "title": "Jade Stance",
+        "note": "Contained Aggression. Armour and melee defence for Jade, Peasant and Tiger troops; preserves useful mid-tier units."
+      },
+      {
+        "title": "Moon Reflecting",
+        "note": "Military root. Missile-infantry strength and Yin leadership; good immediately with bows/crossbows."
+      },
+      {
+        "title": "Target Ranges",
+        "note": "Moon Reflecting. Missile-infantry recruitment economy and ranks."
+      },
+      {
+        "title": "Fletching Mentors",
+        "note": "Target Ranges. Bow/crossbow ammunition and improved damage; supports all three routes."
+      },
+      {
+        "title": "Powder Mixing",
+        "note": "Fletching Mentors. Artillery recruitment support; intermediate toward Wadding Cartridges."
+      },
+      {
+        "title": "Wadding Cartridges",
+        "note": "Powder Mixing. Strong Cannon/Rocket support. Research when those units are doing real work."
+      }
+    ],
+    "details": [
+      [
+        "Crane branch",
+        "Jagged Shrapnel gives Iron Hail, grenade and Tiger Stalker support; do not rush it for a roster that has none. For regular Crane Gunners, take Fletching Mentors → Jagged Shrapnel → Crane Sights (Crane Gunners improve there — especially appropriate for the alchemical expedition). Skip this detour when your force has no relevant specialist."
+      ],
+      [
+        "Elite branch",
+        "Celestial Endurance Training follows Jade Stance and gives Celestial troops protection plus rank-gated benefits. Invest when the Celestial troops are arriving, not while most of the army is still Peasants."
+      ],
+      [
+        "Constructs",
+        "Blessed Temple Guardians and Sentinel Rites are relevant to Jade Lions, Jet Lions and Terracotta Sentinels. Take their actual prerequisite branches as you add constructs; neither applies merely because a unit has a metal-looking model."
+      ],
+      [
+        "Check the effect, not the title",
+        "Crane Gunners, Tigers, constructs, ordinary infantry and artillery use different effects. Read the highlighted card for the units you actually field rather than relying on a technology’s attractive title; the archive warns against buying irrelevant bonuses this way."
+      ]
+    ],
+    "sources": ["tech", "ca8"],
+    "state": "verify-in-campaign",
+    "src": ["tech", "ca8"]
+  },
+  "realm": {
+    "label": "Realm",
+    "title": "Income first; deep support when it pays",
+    "intro": "Pick branches that match actual provincial production and the distance to the front. These rows are the archive's Provinces-tree priorities, not a verified current order: exact node names, effect values and prerequisites in the installed tree are unverified. Follow the live research screen's visible nodes and actual prerequisite links, and treat the late branches as mid/late projects rather than opening shortcuts.",
+    "steps": [
+      {
+        "title": "Administrative Subsidies",
+        "note": "Provinces tree; visible approach from the development side. Lower settlement-main-building cost, useful for a wide realm or Shang-Yang tier five."
+      },
+      {
+        "title": "Nan-Gau Forges",
+        "note": "Bureaucrat Training. Supports the Yin income branch; extra benefit is conditional on provincial Yin."
+      },
+      {
+        "title": "Yang Kiln",
+        "note": "Thieves’ Guild. Supports the Yang income branch; extra benefit is conditional on provincial Yang."
+      },
+      {
+        "title": "Moon Wood",
+        "note": "Astromantic Choir. Resources, gold/gems and local material-based development benefits."
+      },
+      {
+        "title": "Kunlan Anvil",
+        "note": "Inner Strength → Jade Veteran Facility → Blessed Temple Guardians → Kunlan Anvil. Shorter global recruitment and extra local capacity, useful for distant replacements."
+      },
+      {
+        "title": "Grace of Xen Yang",
+        "note": "Dragon Scales OR Kunlan Anvil. Late factionwide replenishment and protection. A substantial branch, not an opening shortcut."
+      }
+    ],
+    "details": [
+      [
+        "Only the matching income branch",
+        "Nan-Gau Forges supports Yin industry; Yang Kiln supports Yang industry. Both can be worthwhile in a mixed realm, but neither is an automatic 30% bonus to every building."
+      ],
+      [
+        "Late recruitment recovery",
+        "Kunlan Anvil’s global-recruitment benefit is valuable for a long expedition, yet its approach is substantial. Don’t delay the opening army until it exists."
+      ],
+      [
+        "Real size of the investment",
+        "Grace of Xen Yang requires Dragon Scales or Kunlan Anvil; those have their own predecessors. Dragon Scales’ own approach runs Yin Hex → Sentinel Rites → Dragon Scales and supports army upkeep and recruitment economy as one route to Grace. This is a mid/late project, not a technology adjacent to your starting node."
+      ],
+      [
+        "Names can deceive",
+        "Current Hardened Bamboo supports ranked War Compass bound spells; don’t buy it assuming an old guide’s Peasant armour effect."
+      ]
+    ],
+    "sources": ["tech", "ca8"],
+    "state": "verify-in-campaign",
+    "src": ["tech", "ca8"]
+  }
+}

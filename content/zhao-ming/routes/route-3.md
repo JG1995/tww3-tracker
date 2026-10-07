@@ -15,7 +15,7 @@ bottleneck: "Four named provinces and three faction-level targets; province cont
 panelOrder:
   armies: []
   skills: [zhao-route-3, celestial-general, alchemist, gate-master, caravan-master, astromancer, yin-shugengan]
-  research: []
+  research: [opening, road, arsenal, realm]
   buildings: []
   mechanics: []
 gaps:

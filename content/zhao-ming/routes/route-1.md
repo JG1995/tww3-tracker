@@ -15,7 +15,7 @@ bottleneck: "Three independent economic counters plus a landmark; caravan comple
 panelOrder:
   armies: []
   skills: [zhao-route-1, celestial-general, alchemist, gate-master, caravan-master, astromancer, yin-shugengan]
-  research: []
+  research: [opening-route-1, road, arsenal, realm]
   buildings: []
   mechanics: []
 gaps:

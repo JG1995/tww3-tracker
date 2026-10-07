@@ -15,7 +15,7 @@ bottleneck: "Five fixed, distant settlement targets; the current author's wordin
 panelOrder:
   armies: []
   skills: [zhao-route-2, celestial-general, alchemist, gate-master, caravan-master, astromancer, yin-shugengan]
-  research: []
+  research: [opening, road, arsenal, realm]
   buildings: []
   mechanics: []
 gaps:
