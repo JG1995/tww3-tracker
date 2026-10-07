@@ -1,1 +1,555 @@
-{}
+{
+  "shang-route-1": {
+    "label": "Shang-Yang",
+    "title": "Shang-Yang • embassy and living forge",
+    "intro": "Your long-term headquarters; on the trade route the capital is deliberately pushed to tier five. These are the archive’s effective Route I capital priorities, not a verified current build order: settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified. Check the live building preview and the province’s actual slots before starting several expensive projects.",
+    "steps": [
+      {
+        "title": "Secure the city and province",
+        "note": "Repair useful buildings, establish Control and protect the approach before starting several expensive projects."
+      },
+      {
+        "title": "Growth + reliable income",
+        "note": "Build the appropriate Tea Parlour or conscription branch, and an ordinary income chain. Spread complementary Harmony choices across the province."
+      },
+      {
+        "title": "House of Secrets",
+        "note": "Recruit and support Alchemists through the distinctive landmark.",
+        "gate": "Settlement tier 3"
+      },
+      {
+        "title": "One coherent arsenal",
+        "note": "Jade infantry/crossbows plus the gunners chain. Keep basic recruitment in a suitable minor settlement if capital slots are crowded."
+      },
+      {
+        "title": "Advance the capital for actual unlocks",
+        "note": "Route I prioritises tier five; other routes go higher when the next troops or economics justify the cost."
+      },
+      {
+        "title": "Great Embassy / Celestial upgrades",
+        "note": "Build the Embassy for Route I. For another route, it is optional while missing field troops or recovery infrastructure take priority.",
+        "gate": "Embassy: tier 5"
+      }
+    ],
+    "details": [
+      [
+        "Two different landmarks",
+        "House of Secrets at tier three is not the Great Embassy at tier five. Having excellent Alchemists does not complete the Embassy victory checkbox."
+      ],
+      [
+        "Suggested mature slot priorities",
+        "Settlement main building + House of Secrets + Great Embassy when needed + income + advanced recruitment suited to the army. Fill only the slots your settlement actually offers; distribute growth/basic recruitment elsewhere once developed. Capital slots are scarce: specialist infantry, artillery and magic chains compete with landmarks, so keep ordinary income, resources, growth and basic recruitment in suitable other towns."
+      ],
+      [
+        "Queue savings while Zhao is present",
+        "Strange Alchemy reduces construction costs in his local province. Queue an already-planned major project during a normal visit; do not drag the army across the continent just for the discount."
+      ],
+      [
+        "Avoid an income assumption",
+        "House of Secrets has conflicting published income figures — see the shared fundamentals note for the two archive values. Its recruitment value is reliable enough for the plan; use the actual value in your own building preview rather than budgeting either published number."
+      ],
+      [
+        "Lions and Tigers are real recruitment projects",
+        "For the alchemical company, add the tier-three Celestial Tower for paired lions; it also provides Astromancer recruitment and the lion families. For the trading/frontier Tiger contingent, develop the Tiger chain — Tiger Warrior Den → Clawspeaker Shrine → Iron Claw Barracks, tier four in ordinary Cathay; do not copy the White Tigress’s faction-specific costs. Neither chain belongs in every income town."
+      ]
+    ],
+    "sources": ["secrets", "embassy", "buildings", "zhao-skill", "tower", "tigers"],
+    "state": "verify-in-campaign",
+    "src": ["secrets", "embassy", "buildings", "zhao-skill", "tower", "tigers"]
+  },
+  "shang-route-2": {
+    "label": "Shang-Yang",
+    "title": "Shang-Yang • embassy and living forge",
+    "intro": "Your long-term headquarters; the alchemical expedition develops the House of Secrets and one high-tier assembly hub without treating the Great Embassy as a priority. These are the archive’s effective Route II capital priorities, not a verified current build order: settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified. Check the live building preview and the province’s actual slots before starting several expensive projects.",
+    "steps": [
+      {
+        "title": "Secure the city and province",
+        "note": "Repair useful buildings, establish Control and protect the approach before starting several expensive projects."
+      },
+      {
+        "title": "Growth + reliable income",
+        "note": "Build the appropriate Tea Parlour or conscription branch, and an ordinary income chain. Spread complementary Harmony choices across the province."
+      },
+      {
+        "title": "House of Secrets",
+        "note": "Recruit and support Alchemists through the distinctive landmark.",
+        "gate": "Settlement tier 3"
+      },
+      {
+        "title": "One coherent arsenal",
+        "note": "Jade infantry/crossbows plus the gunners chain. Keep basic recruitment in a suitable minor settlement if capital slots are crowded."
+      },
+      {
+        "title": "Celestial Tower for the paired guardians",
+        "note": "Recruit the lions which define the Alchemical Survey; advance the capital only for the next real recruitment or income requirement.",
+        "gate": "Tier 3"
+      },
+      {
+        "title": "Fire Rain / Celestial assembly hub",
+        "note": "Prioritise the expedition’s late troops and a safe refit. The Great Embassy is optional in this route, not a reason to postpone the expedition."
+      }
+    ],
+    "details": [
+      [
+        "Two different landmarks",
+        "House of Secrets at tier three is not the Great Embassy at tier five. Having excellent Alchemists does not complete the Embassy victory checkbox."
+      ],
+      [
+        "Suggested mature slot priorities",
+        "Settlement main building + House of Secrets + Great Embassy when needed + income + advanced recruitment suited to the army. Fill only the slots your settlement actually offers; distribute growth/basic recruitment elsewhere once developed. Capital slots are scarce: specialist infantry, artillery and magic chains compete with landmarks, so keep ordinary income, resources, growth and basic recruitment in suitable other towns."
+      ],
+      [
+        "Queue savings while Zhao is present",
+        "Strange Alchemy reduces construction costs in his local province. Queue an already-planned major project during a normal visit; do not drag the army across the continent just for the discount."
+      ],
+      [
+        "Avoid an income assumption",
+        "House of Secrets has conflicting published income figures — see the shared fundamentals note for the two archive values. Its recruitment value is reliable enough for the plan; use the actual value in your own building preview rather than budgeting either published number."
+      ],
+      [
+        "Lions and Tigers are real recruitment projects",
+        "For the alchemical company, add the tier-three Celestial Tower for paired lions; it also provides Astromancer recruitment and the lion families. For the trading/frontier Tiger contingent, develop the Tiger chain — Tiger Warrior Den → Clawspeaker Shrine → Iron Claw Barracks, tier four in ordinary Cathay; do not copy the White Tigress’s faction-specific costs. Neither chain belongs in every income town."
+      ]
+    ],
+    "sources": ["secrets", "embassy", "buildings", "zhao-skill", "tower", "tigers"],
+    "state": "verify-in-campaign",
+    "src": ["secrets", "embassy", "buildings", "zhao-skill", "tower", "tigers"]
+  },
+  "shang-route-3": {
+    "label": "Shang-Yang",
+    "title": "Shang-Yang • embassy and living forge",
+    "intro": "Your long-term headquarters; before the western wars it must supply one coherent arsenal and a defensible economic base. These are the archive’s effective Route III capital priorities, not a verified current build order: settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified. Check the live building preview and the province’s actual slots before starting several expensive projects.",
+    "steps": [
+      {
+        "title": "Secure the city and province",
+        "note": "Repair useful buildings, establish Control and protect the approach before starting several expensive projects."
+      },
+      {
+        "title": "Growth + reliable income",
+        "note": "Build the appropriate Tea Parlour or conscription branch, and an ordinary income chain. Spread complementary Harmony choices across the province."
+      },
+      {
+        "title": "House of Secrets",
+        "note": "Recruit and support Alchemists through the distinctive landmark.",
+        "gate": "Settlement tier 3"
+      },
+      {
+        "title": "One coherent arsenal",
+        "note": "Jade infantry/crossbows plus the gunners chain. Keep basic recruitment in a suitable minor settlement if capital slots are crowded."
+      },
+      {
+        "title": "Tier-four line and frontier tools",
+        "note": "Celestial Barracks, the appropriate gun chain and optional Tiger/Longma recruitment support the westward armies."
+      },
+      {
+        "title": "Fund the western regional hub",
+        "note": "Do not keep all new money in Shang-Yang while the frontier lacks replacements. Tier five is useful when the actual economy supports it; the Embassy is optional."
+      }
+    ],
+    "details": [
+      [
+        "Two different landmarks",
+        "House of Secrets at tier three is not the Great Embassy at tier five. Having excellent Alchemists does not complete the Embassy victory checkbox."
+      ],
+      [
+        "Suggested mature slot priorities",
+        "Settlement main building + House of Secrets + Great Embassy when needed + income + advanced recruitment suited to the army. Fill only the slots your settlement actually offers; distribute growth/basic recruitment elsewhere once developed. Capital slots are scarce: specialist infantry, artillery and magic chains compete with landmarks, so keep ordinary income, resources, growth and basic recruitment in suitable other towns."
+      ],
+      [
+        "Queue savings while Zhao is present",
+        "Strange Alchemy reduces construction costs in his local province. Queue an already-planned major project during a normal visit; do not drag the army across the continent just for the discount."
+      ],
+      [
+        "Avoid an income assumption",
+        "House of Secrets has conflicting published income figures — see the shared fundamentals note for the two archive values. Its recruitment value is reliable enough for the plan; use the actual value in your own building preview rather than budgeting either published number."
+      ],
+      [
+        "Lions and Tigers are real recruitment projects",
+        "For the alchemical company, add the tier-three Celestial Tower for paired lions; it also provides Astromancer recruitment and the lion families. For the trading/frontier Tiger contingent, develop the Tiger chain — Tiger Warrior Den → Clawspeaker Shrine → Iron Claw Barracks, tier four in ordinary Cathay; do not copy the White Tigress’s faction-specific costs. Neither chain belongs in every income town."
+      ]
+    ],
+    "sources": ["secrets", "embassy", "buildings", "zhao-skill", "tower", "tigers"],
+    "state": "verify-in-campaign",
+    "src": ["secrets", "embassy", "buildings", "zhao-skill", "tower", "tigers"]
+  },
+  "muster": {
+    "label": "Muster hub",
+    "title": "Regional muster • replacements near the war",
+    "intro": "A second recruitment province makes sense when travel is the bottleneck, not simply because another province was captured. These are the archive’s muster-chain priorities, not a verified current build order: tiers, costs, capacity and recruitment access in the installed build are unverified. Read the live building and recruitment/capacity tooltips before duplicating an arsenal.",
+    "steps": [
+      {
+        "title": "Secure a defensible capital",
+        "note": "Choose a place your supporting army can reach. A recruitment hub lost next turn is not infrastructure."
+      },
+      {
+        "title": "Training Camp → Dormitory",
+        "note": "Develop basic Jade troops and crossbows. Keep using earlier units as the chain grows."
+      },
+      {
+        "title": "Jade Barracks + recovery/income",
+        "note": "At tier three, Jade Barracks adds halberds, shielded crossbows and Gate Master access/capacity. Add only the heroes that the local armies need."
+      },
+      {
+        "title": "Nan-Gau Forge → Powder Magazine",
+        "note": "Tier-three Powder Magazine provides Cannons, Crane Gunners and the War Drum. Tier-four Fire Rain Silo adds Rockets. Build this chain before writing these units into a new local army."
+      },
+      {
+        "title": "Fire Rain / Celestial recruitment as needed",
+        "note": "Build capital-level chains only for units you will recruit in that theatre."
+      },
+      {
+        "title": "Stop duplicating specialist buildings",
+        "note": "A forward hub usually needs replacement infantry, shooters and artillery—not a second copy of every landmark and flying-beast chain."
+      }
+    ],
+    "details": [
+      [
+        "Who needs it first?",
+        "Route III normally develops a western field hub earlier. Route II uses one dependable staging hub before the long march. Route I can delay another full arsenal while income provinces develop."
+      ],
+      [
+        "Recruit before departure",
+        "Upgrade the flagship in a safe location, replenish, then move. Do not leave the front immobilised while half the army waits through global recruitment."
+      ],
+      [
+        "Hero slots",
+        "Add capacity only when you have a real job for another hero. Read the actual recruitment/capacity tooltip rather than assuming one hero appears per province. Until a hero can be recruited, use an extra useful troop; the archive applies that substitution to the Home Guard’s intentional 12-slot size and basic early forces."
+      ],
+      [
+        "Elite line and shooters",
+        "Celestial Barracks at tier four supplies Dragon Guard; its tier-five Armoury upgrade supplies the elite crossbows. Keep Jade veterans until replacements are available and affordable."
+      ],
+      [
+        "Flying cavalry",
+        "Longma Paddocks moved to tier four in the 8.0 rework. A Longma unit remains optional; the grounded Mountain Column variant avoids an aerial-micro dependency."
+      ]
+    ],
+    "sources": ["buildings", "celestial", "barracks", "forge"],
+    "state": "verify-in-campaign",
+    "src": ["buildings", "celestial", "barracks", "forge"]
+  },
+  "income": {
+    "label": "Income town",
+    "title": "Safe income town • fund the realm",
+    "intro": "An ordinary town should earn money and support its province without becoming an expensive miniature capital. The archive’s income-chain and Harmony-branch pattern is a priority order, not a verified current build order: exact effects, tiers and slot requirements in the installed build are unverified. Check the live building preview before spending an economic slot.",
+    "steps": [
+      {
+        "title": "Repair + settlement upgrade",
+        "note": "Prioritise a useful income base and necessary slots."
+      },
+      {
+        "title": "Wares Market OR Spice Market",
+        "note": "Choose the economic branch that complements the province’s planned Harmony."
+      },
+      {
+        "title": "Tea Parlour OR conscription",
+        "note": "Support growth until the province reaches useful tiers; avoid building both exclusive versions in one town."
+      },
+      {
+        "title": "Upgrade the chosen income chain",
+        "note": "Merchant Caravans / Trade Exchange are the Yang chain; the Yin chain supports its own industry/trade pattern."
+      },
+      {
+        "title": "Resource or local support in the remaining slot",
+        "note": "Use a mine/port when present, Control if genuinely needed, or one missing basic-recruitment building."
+      },
+      {
+        "title": "Replace spent growth selectively",
+        "note": "Once development is complete, convert growth space only when the replacement earns more or solves a current problem."
+      }
+    ],
+    "details": [
+      [
+        "A simple provincial pattern",
+        "One town can run Yin growth plus Yang income; another can take the complementary branches. Include every existing military/resource building in the real province total before deciding."
+      ],
+      [
+        "Gross versus net",
+        "Income buildings help the gross-income objective. Removing an army saves upkeep, improving net income but not creating new gross revenue."
+      ],
+      [
+        "Defences are contextual",
+        "A safe interior town need not spend its best economic slot on a garrison chain. Reclassify it as a frontier town when a real hostile approach opens."
+      ]
+    ],
+    "sources": ["tea", "conscription", "income", "tech"],
+    "state": "verify-in-campaign",
+    "src": ["tea", "conscription", "income", "tech"]
+  },
+  "resource": {
+    "label": "Resources",
+    "title": "Resource settlement • develop the thing it owns",
+    "intro": "Useful in every route; particularly important when building a large recurring-income base. Resource buildings and their technologies are archive-driven priorities, not verified current values: actual income, trade production and development effects in the installed build are unverified. Read the live building effect and the province’s climate before planning around a mine.",
+    "steps": [
+      {
+        "title": "Check the resource and climate",
+        "note": "Read actual income, trade production and development penalties; map colour alone is not a business plan."
+      },
+      {
+        "title": "Repair the resource chain",
+        "note": "Gold/gems are direct-income priorities; other materials can still support trade and useful local benefits."
+      },
+      {
+        "title": "Add ordinary income",
+        "note": "Use the matching Yin/Yang branch for the province plan."
+      },
+      {
+        "title": "Support growth and secure the town",
+        "note": "Grow a permanent holding. Add defence earlier when the mine is an obvious enemy target."
+      },
+      {
+        "title": "Upgrade resource + main settlement",
+        "note": "Compare the actual income gain to cost. A small affordable upgrade can pay sooner than a grand capital project."
+      },
+      {
+        "title": "Apply relevant resource technology",
+        "note": "Moon Wood’s different benefits depend on the resource/building present. Do not assume every town gets every listed effect."
+      }
+    ],
+    "details": [
+      [
+        "Resource access is not caravan cargo",
+        "A new mine does not directly add its production to the VCO goods counter. Only observed completed caravan deliveries should be entered there."
+      ],
+      [
+        "Trade requires partners",
+        "A collection of resource buildings without useful agreements is not the same as a connected commercial network. Protect relations with practical customers."
+      ]
+    ],
+    "sources": ["tech", "buildings"],
+    "state": "verify-in-campaign",
+    "src": ["tech", "buildings"]
+  },
+  "depot": {
+    "label": "Recovery depot",
+    "title": "Forward depot • arrive, repair, move again",
+    "intro": "A limited-support settlement for campaigns beyond the developed heartland. These are the archive’s depot priorities, not a verified current build order: the installed build’s replenishment, recruitment and garrison behaviour are unverified. Check the army’s actual status and the settlement’s live options before assuming a forward stop supports the force.",
+    "steps": [
+      {
+        "title": "Take a defensible stop",
+        "note": "Choose where the next field army can actually recover and where you can hold the approach."
+      },
+      {
+        "title": "Repair the main building",
+        "note": "An occupied ruin is not instantly a useful resupply base."
+      },
+      {
+        "title": "Local income + growth/recovery support",
+        "note": "Spend modestly; check whether replenishment is actually available in the current stance and conditions."
+      },
+      {
+        "title": "Basic replacements only",
+        "note": "Jade infantry and crossbows are often more useful here than another late-game monster chain."
+      },
+      {
+        "title": "Garrison branch if the route stays exposed",
+        "note": "Pick Yang or Yin defence to suit province balance and the expected attacker."
+      },
+      {
+        "title": "Leave a response plan",
+        "note": "Name the army which will answer a raid before Zhao continues west."
+      }
+    ],
+    "details": [
+      [
+        "Do not overclaim healing",
+        "Growth buildings and a repair queue do not resurrect lost veteran units. Check the campaign replenishment tooltip; corruption, climate, stance and events can still obstruct recovery."
+      ],
+      [
+        "Ally access",
+        "Military access lets you travel, but does not automatically reproduce all your own recruitment and replenishment options. Inspect the army’s actual status before ending the turn."
+      ],
+      [
+        "Promote or stop",
+        "Promote a depot into a muster hub only when a longer war makes it necessary. Otherwise keep it cheap and functional."
+      ]
+    ],
+    "sources": ["buildings", "start"],
+    "state": "verify-in-campaign",
+    "src": ["buildings", "start"]
+  },
+  "frontier": {
+    "label": "Frontier",
+    "title": "Frontier capital • hold the new border",
+    "intro": "Especially important in the Mountains of Mourn, where distant provinces create more response time. The archive’s frontier guidance is a priority pattern, not a verified current build order: garrison chains, tiers and costs in the installed build are unverified. Decide who defends the place before founding a grand economy.",
+    "steps": [
+      {
+        "title": "Repair + stabilise Control",
+        "note": "Decide who will defend the place before laying foundations for a grand economy."
+      },
+      {
+        "title": "Ramparts OR Archer Platforms",
+        "note": "Start the garrison family suited to the province’s balance and the type of pressure."
+      },
+      {
+        "title": "Basic infantry and ranged replacement",
+        "note": "Use the regional hub nearby; do not automatically duplicate it in every town."
+      },
+      {
+        "title": "Cannon Emplacements / stronger defences",
+        "note": "Upgrade where it changes the settlement’s survival odds, not just because a slot is empty."
+      },
+      {
+        "title": "Income and provincial support",
+        "note": "A defended border still needs a budget. Preserve enough income to maintain its relief force."
+      },
+      {
+        "title": "Reassess after the front moves",
+        "note": "A former frontier can become an income town. Demolish redundant defence only once the new border is genuinely safer."
+      }
+    ],
+    "details": [
+      [
+        "Gate Master placement",
+        "Keep the hero with the army or settlement you intend to defend. A campaign assistance action must be applied and maintained according to its tooltip."
+      ],
+      [
+        "Different from the Great Bastion",
+        "An ordinary western frontier is not a Bastion Gate. Do not count on gate-only garrison bonuses or the Compass destroying every nearby enemy."
+      ],
+      [
+        "Full province checks",
+        "For Route III, inspect all settlement names in each required province. Owning its capital alone does not complete a province-control goal."
+      ]
+    ],
+    "sources": ["ca8", "buildings"],
+    "state": "verify-in-campaign",
+    "src": ["ca8", "buildings"]
+  },
+  "occupied": {
+    "label": "New province",
+    "title": "New province • stabilise before specialising",
+    "intro": "Use this category during a broad campaign, especially the four-province frontier route. The archive’s stabilisation pattern is not a verified current build order: climate effects, corruption, control and costs in the installed build are unverified. Read the province panel before committing buildings.",
+    "steps": [
+      {
+        "title": "Read climate, corruption and neighbours",
+        "note": "Identify whether this is a permanent holding, a supply link or merely an objective site."
+      },
+      {
+        "title": "Repair useful existing buildings",
+        "note": "Demolish redundant military chains rather than automatically rebuild everything from scratch."
+      },
+      {
+        "title": "Income + Control where required",
+        "note": "Restore recurring value first. Deal with disorder without creating an expensive idle army forever."
+      },
+      {
+        "title": "Complete the province when worthwhile",
+        "note": "Route III needs four whole provinces. Elsewhere, avoid an unnecessary war merely to own the last town."
+      },
+      {
+        "title": "Assign one capital role and town roles",
+        "note": "Choose the muster/frontier/income split. It need not match the last province you developed."
+      },
+      {
+        "title": "Balance the province after major changes",
+        "note": "Inspect the total once the planned builds finish. A conquered building or upgrade can change the arithmetic."
+      }
+    ],
+    "details": [
+      [
+        "Commandments",
+        "Jade Dragon supports growth, Iron Dragon development/research, Sea Dragon income and Storm Dragon corruption management. Choose the current local need; the names are not exclusive to the sibling you play."
+      ],
+      [
+        "High costs abroad",
+        "Low-suitability land can still be strategically necessary. Build the minimum support first, and do not assume Cathayan construction discounts erase every climate penalty."
+      ],
+      [
+        "Allied control",
+        "Treat direct control as the default for Route III unless the live VCO objective explicitly accepts an ally or vassal. Friendship and military access are not substitutes for that wording."
+      ]
+    ],
+    "sources": ["ca8", "vco", "harmony"],
+    "state": "verify-in-campaign",
+    "src": ["ca8", "vco", "harmony"]
+  },
+  "port": {
+    "label": "Trade port",
+    "title": "Port city • income and sea logistics",
+    "intro": "Build what the port actually contributes; Zhao’s victory routes do not automatically require conquering the coast. The archive’s port pattern is not a verified current build order: port income, naval effects and tiers in the installed build are unverified. Check the live building preview and the province plan before spending a coastal slot.",
+    "steps": [
+      {
+        "title": "Repair the port and secure the approach",
+        "note": "A sea route can add exposure as well as income."
+      },
+      {
+        "title": "Add income and useful resources",
+        "note": "Use the actual provincial Harmony plan."
+      },
+      {
+        "title": "Growth for a permanent commercial centre",
+        "note": "A port built as a temporary landing need not grow to tier five."
+      },
+      {
+        "title": "Defence if seaborne raids threaten",
+        "note": "Give the garrison time to survive until the relief force arrives."
+      },
+      {
+        "title": "Dragon Fleet Aegis when it pays",
+        "note": "The technology supports ports and is an approach to another caravan slot."
+      },
+      {
+        "title": "Use special naval landmarks opportunistically",
+        "note": "Shi-Wu’s high-tier naval landmark helps a long-range operation, but is not mandatory for any of these three routes."
+      }
+    ],
+    "details": [
+      [
+        "Ordinary travel, not teleportation",
+        "No route gives Zhao Elspeth’s Gardens or Ostankya’s forest travel. Plan sea lanes, landings and the return of ordinary field armies explicitly."
+      ],
+      [
+        "Ownership first",
+        "Do not attack a valuable ally merely to obtain an optional logistics landmark. The best route may be overland with friendly access."
+      ]
+    ],
+    "sources": ["ca81", "tech"],
+    "state": "verify-in-campaign",
+    "src": ["ca81", "tech"]
+  },
+  "raid": {
+    "label": "Temporary site",
+    "title": "Temporary objective • no rebuilding habit",
+    "intro": "For fixed sites taken during the alchemical expedition or land intended for a later handover. The archive’s temporary-site pattern keeps the objective’s live wording authoritative: the installed build’s raze/own credit and after-capture behaviour are unverified. Record the active VCO panel’s progress rather than assuming guide text grants credit.",
+    "steps": [
+      {
+        "title": "Check the exact objective verb",
+        "note": "Route II says raze or conquer, not merely sack."
+      },
+      {
+        "title": "Record the live VCO credit",
+        "note": "Do not infer success from guide text or planning ticks alone; the active objective panel decides credit."
+      },
+      {
+        "title": "Choose hold, ruin or future transfer",
+        "note": "Pick the option that preserves the objective and supports your next movement."
+      },
+      {
+        "title": "Repair only what has a near-term purpose",
+        "note": "A useful replenishment stop or an income building can be enough."
+      },
+      {
+        "title": "Defend the credit until confirmed",
+        "note": "Do not assume a raze/own condition stays complete after enemy recolonisation or a handover."
+      },
+      {
+        "title": "Move the expedition forward",
+        "note": "Skip costly recruitment and growth plans in a settlement you do not intend to keep."
+      }
+    ],
+    "details": [
+      [
+        "Mordheim can be politically awkward",
+        "It may be held by an Empire faction you want as a partner. Explore a legal settlement deal if available. A military alliance alone should not be treated as raze/own credit unless the actual objective confirms it."
+      ],
+      [
+        "No arbitrary occupation cap",
+        "Keep valuable land when doing so serves the campaign. The guide does not require either dumping every conquest or administering them all."
+      ]
+    ],
+    "sources": ["vco", "vco-script"],
+    "state": "verify-in-campaign",
+    "src": ["vco", "vco-script"]
+  }
+}

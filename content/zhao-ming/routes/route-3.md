@@ -16,7 +16,7 @@ panelOrder:
   armies: []
   skills: [zhao-route-3, celestial-general, alchemist, gate-master, caravan-master, astromancer, yin-shugengan]
   research: [opening, road, arsenal, realm]
-  buildings: []
+  buildings: [shang-route-3, muster, frontier, occupied, resource, depot, income, raid]
   mechanics: []
 gaps:
   - "Early → Mid"
