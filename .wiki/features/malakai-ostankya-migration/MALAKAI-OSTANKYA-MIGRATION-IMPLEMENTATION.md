@@ -250,7 +250,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `malakai-shared-fundamentals` — Commit 5: Migrate Malakai's shared campaign fundamentals
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 4
 **Depends on:** ["malakai-vco-contract"]
 **Write scope:** ["content/malakai/shared.md", "content/malakai/routes/route-1.md"]

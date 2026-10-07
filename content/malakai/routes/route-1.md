@@ -49,6 +49,10 @@ Checked 8 October 2026: the author's guide publishes the same eight-province and
 The archive assumes Smart Autoresolve on Normal / Normal but records no specific installed mod build, formula, or Malakai matchup benchmark. Follow its casualty-forecast advice as a recommendation, not a measured result: if a predicted outcome risks a veteran or the army's only answer to a major threat, reinforce, recover, or fight manually.
 ::
 
+::claim verify-in-campaign src=smart,vco-script
+The archive warns not to trust the battle-result screen for scripted credit: after a battle used for Cannon kills, an Adventure task or a VCO action, open the actual mission and confirm the counter advanced. The Smart Autoresolve source record limits the available evidence to the supplied mod name and description, and the public VCO mission-script source contains no Malakai mission file at the 8 October 2026 check — mission-credit behaviour is not independently verified.
+::
+
 ::claim verify-in-campaign src=roster,faction
 The archive's access assumption is all WH3 DLC plus WH1/WH2 free content only; its templates use the base Dwarf roster and Malakai's WH3 content without paid older-game units. Registration has not verified the player's installed content. Check the live recruitment panel; if an expected unit is unavailable, use an accessible base-Dwarf core.
 ::
