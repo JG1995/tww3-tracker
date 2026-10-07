@@ -6,7 +6,7 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
-- **alith-zhao-migration** (F4 × 2 — Alith Anar and Zhao Ming) — implementation complete; final feature review accepted; documentation close-out committed; publication in PR `alith-zhao-content` pending · [IMPLEMENTATION](features/alith-zhao-migration/ALITH-ZHAO-MIGRATION-IMPLEMENTATION.md) · [DESIGN](features/alith-zhao-migration/ALITH-ZHAO-MIGRATION-DESIGN.md). Automated proof protects site functionality; required manual CONTENT REVIEW and mapping prove complete, accurate content.
+_No active feature — alith-zhao-migration completed 2026-10-07 (see Completed below)._
 
 ## Next
 
@@ -22,7 +22,7 @@ Resolved at approval: pilot is **Elspeth von Draken**; the ledger tracks **one a
 | 4 | ~~**F3 — verification notes UI**~~ — **Completed 2026-10-03** (see Completed below) | medium | Small once badges render; after F4 so the re-check view has real flagged items to show |
 | 5 | ~~**F7 — route transitions** (bidirectional cross-links)~~ — **Completed 2026-10-03** (see Completed below) | high | Mechanical; needs F2 route pages + F4 transition sections |
 | 6 | ~~**F5 — VCO campaign ledger**~~ — **Completed 2026-10-04** (see Completed below) | medium | Should (not Must) and the only feature touching the write path; keeping it last leaves the entire Must path shippable without it |
-| 7 (v1.1) | **F4 × 2 — Alith Anar, Zhao Ming** — **Active: accepted plan** (see Active above) | high | Cheapest; proves "second faction is content-only" |
+| 7 (v1.1) | ~~**F4 × 2 — Alith Anar, Zhao Ming**~~ — **Completed 2026-10-07** (see Completed below) | high | Cheapest; proves "second faction is content-only" |
 | 8 (v1.1) | **F6 — cross-guide search** | medium | Meaningful only with ≥ 2 migrated guides; corpus exists in `query.ts` from order 1 |
 | 9 (v1.1) | **F4 × 2 — Malakai, Mother Ostankya** | medium-low | Structurally different files; the model's real stress test, last so the model is corrected first |
 
@@ -43,10 +43,11 @@ F4 (Elspeth) + F4 (Alith or Zhao) + F2 ──► F6 cross-guide search          
 
 **Parallel note:** solo project — after order 3, orders 4–6 are mutually independent and can be reordered around a live campaign (pull F5 forward if an Elspeth campaign starts mid-build). In v1.1, the Alith/Zhao migrations are independent of F6.
 
-**Plan next:** Publish the completed Alith Anar/Zhao Ming migration through PR `alith-zhao-content`; keep order 7 Active until publication and immutable merge evidence are verified. Then proceed to F6 cross-guide search (order 8). Malakai and Mother Ostankya remain at order 9.
+**Plan next:** The Alith Anar/Zhao Ming migration (order 7) is complete and integrated to `main`. The next feature is F6 cross-guide search (order 8), which becomes meaningful now that three guides exist. Malakai and Mother Ostankya remain at order 9.
 
 ## Completed
 
+- **alith-zhao-migration** (F4 × 2 — Alith Anar and Zhao Ming) — delivered 2026-10-07 · [IMPLEMENTATION](features/alith-zhao-migration/ALITH-ZHAO-MIGRATION-IMPLEMENTATION.md) · [DESIGN](features/alith-zhao-migration/ALITH-ZHAO-MIGRATION-DESIGN.md) — migrated both reference atlases into the existing content surfaces: six full route plans and 30 army templates per pair, full skills/research/buildings/mechanics/VCO data, source libraries with confidence citations, append-only index registration, and the three bounded test-file adaptations. Twenty-two implementation packages plus bounded close-out commits, integrated to `main` by merge commit `9f3a539bb3e5605a395f88b834d29d40da22a665` (PR #1). Final feature review Accept with no findings; post-integration `main` is at the merge commit with local/remote in sync.
 - **atlas-ux-realignment** (F10 — atlas UX re-alignment) — delivered 2026-10-04 · [IMPLEMENTATION](features/atlas-ux-realignment/ATLAS-UX-REALIGNMENT-IMPLEMENTATION.md) · [DESIGN](features/atlas-ux-realignment/ATLAS-UX-REALIGNMENT-DESIGN.md) — re-aligned the site's chrome, eight-page IA, hash grammar, and visual system to the reference atlases; added optional crest/environment/phase content. Twelve implementation commits plus one reconciliation commit, integrated to `main` by fast-forward at `b2317f3031e7057c2de6ca7b8f4af91cda597527`. Feature review Needs fixes (2 MEDIUM, 2 LOW); all four findings were reconciled. Post-integration gates pass (213 tests, tsc, content lint, build).
 
 - **vco-campaign-ledger** (F5 — VCO campaign ledger) — delivered 2026-10-04 · [IMPLEMENTATION](features/vco-campaign-ledger/VCO-CAMPAIGN-LEDGER-IMPLEMENTATION.md) · [DESIGN](features/vco-campaign-ledger/VCO-CAMPAIGN-LEDGER-DESIGN.md) — one active VCO campaign persists as JSON outside Git through the local server; its planning and game-confirmed tracks remain separate, with on-demand loading, optimistic writes and visible rollback, and confirmed complete/delete lifecycle actions. Twelve commits integrated to `main` by fast-forward at `70ac3083ffdae6c66a9e5f6919249c7545f8cb40`; feature review Accept, zero findings.

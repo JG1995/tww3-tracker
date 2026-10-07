@@ -4,7 +4,7 @@
 
 ## Status
 
-Accepted
+Completed
 
 **Ledger schema:** 4
 
@@ -167,7 +167,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 **Status:** Planned
 **Depends on:** []
 **PR ref:** https://github.com/JG1995/tww3-tracker/pull/1
-**Merge ref:** Not merged
+**Merge ref:** `9f3a539bb3e5605a395f88b834d29d40da22a665`
 **Branch:** `feat/alith-zhao-migration`
 **Base branch:** `main`
 **Publication provider:** GitHub
