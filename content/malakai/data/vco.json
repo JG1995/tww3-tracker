@@ -1,1 +1,200 @@
-{}
+{
+  "route-1": [
+    {
+      "id": "province-helspire-mountains",
+      "text": "Requires control of Helspire Mountains — a published Route I condition (VCO author's guide and the archive agree).",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "province-vanaheim-mountains",
+      "text": "Requires control of Vanaheim Mountains — a published Route I condition (VCO author's guide and the archive agree).",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "province-ice-tooth-mountains",
+      "text": "Requires control of Ice Tooth Mountains — a published Route I condition (VCO author's guide and the archive agree).",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "province-mountains-of-naglfari",
+      "text": "Requires control of the Mountains of Naglfari — a published Route I condition (VCO author's guide and the archive agree).",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "province-trollheim-mountains",
+      "text": "Requires control of Trollheim Mountains — a published Route I condition (VCO author's guide and the archive agree).",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "province-mountains-of-hel",
+      "text": "Requires control of the Mountains of Hel — a published Route I condition (VCO author's guide and the archive agree).",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "province-gianthome-mountains",
+      "text": "Requires control of Gianthome Mountains — a published Route I condition (VCO author's guide and the archive agree).",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "province-goromadny-mountains",
+      "text": "Requires control of the Goromadny Mountains — a published Route I condition (VCO author's guide and the archive agree).",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "construct-silver-hall",
+      "text": "Construct The Silver Hall at tier-IV Kraka Drak — completed, not merely queued (archive's checked building data: base 8,000 gold / four turns; the author's guide publishes \"Build landmark: The Silver Hall\").",
+      "state": "confirmed",
+      "src": ["vco-guide", "silver-hall"]
+    }
+  ],
+  "route-2": [
+    {
+      "id": "fortress-red-fortress",
+      "text": "Red Fortress — one of the twelve eligible Dark Fortress sites under the published seven-of-twelve mission (\"Lay waste to at least 7\"). Tick only when this site receives mission credit; capture, repeatedly sacking one location, or beating its lord is not an automatic credit.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "fortress-bloodwind-keep",
+      "text": "Bloodwind Keep — one of the twelve eligible Dark Fortress sites under the published seven-of-twelve mission (\"Lay waste to at least 7\"). Tick only when this site receives mission credit; capture, repeatedly sacking one location, or beating its lord is not an automatic credit.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "fortress-fortress-of-eyes",
+      "text": "Fortress of Eyes — one of the twelve eligible Dark Fortress sites under the published seven-of-twelve mission (\"Lay waste to at least 7\"). Tick only when this site receives mission credit; capture, repeatedly sacking one location, or beating its lord is not an automatic credit.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "fortress-zanbaijin",
+      "text": "Zanbaijin — one of the twelve eligible Dark Fortress sites under the published seven-of-twelve mission (\"Lay waste to at least 7\"). Tick only when this site receives mission credit; capture, repeatedly sacking one location, or beating its lord is not an automatic credit.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "fortress-the-writhing-fortress",
+      "text": "The Writhing Fortress — one of the twelve eligible Dark Fortress sites under the published seven-of-twelve mission (\"Lay waste to at least 7\"). Tick only when this site receives mission credit; capture, repeatedly sacking one location, or beating its lord is not an automatic credit.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "fortress-the-howling-citadel",
+      "text": "The Howling Citadel — one of the twelve eligible Dark Fortress sites under the published seven-of-twelve mission (\"Lay waste to at least 7\"). Tick only when this site receives mission credit; capture, repeatedly sacking one location, or beating its lord is not an automatic credit.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "fortress-the-crystal-spires",
+      "text": "The Crystal Spires — one of the twelve eligible Dark Fortress sites under the published seven-of-twelve mission (\"Lay waste to at least 7\"). Tick only when this site receives mission credit; capture, repeatedly sacking one location, or beating its lord is not an automatic credit.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "fortress-black-rock",
+      "text": "Black Rock — one of the twelve eligible Dark Fortress sites under the published seven-of-twelve mission (\"Lay waste to at least 7\"). Tick only when this site receives mission credit; capture, repeatedly sacking one location, or beating its lord is not an automatic credit.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "fortress-the-twisted-towers",
+      "text": "The Twisted Towers — one of the twelve eligible Dark Fortress sites under the published seven-of-twelve mission (\"Lay waste to at least 7\"). Tick only when this site receives mission credit; capture, repeatedly sacking one location, or beating its lord is not an automatic credit.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "fortress-fortress-of-the-damned",
+      "text": "Fortress of the Damned — one of the twelve eligible Dark Fortress sites under the published seven-of-twelve mission (\"Lay waste to at least 7\"). Tick only when this site receives mission credit; capture, repeatedly sacking one location, or beating its lord is not an automatic credit.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "fortress-the-frozen-city",
+      "text": "The Frozen City — one of the twelve eligible Dark Fortress sites under the published seven-of-twelve mission (\"Lay waste to at least 7\"). Tick only when this site receives mission credit; capture, repeatedly sacking one location, or beating its lord is not an automatic credit.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "fortress-the-palace-of-ruin",
+      "text": "The Palace of Ruin — one of the twelve eligible Dark Fortress sites under the published seven-of-twelve mission (\"Lay waste to at least 7\"). Tick only when this site receives mission credit; capture, repeatedly sacking one location, or beating its lord is not an automatic credit.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide"]
+    }
+  ],
+  "route-3": [
+    {
+      "id": "eliminate-clan-moulder",
+      "text": "Eliminate Clan Moulder (Throt) — a published Route III target (the author's guide names the faction's lord; the archive names the faction). A defeated lord is not a destroyed faction.",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "eliminate-wintertooth",
+      "text": "Eliminate Wintertooth (Throgg) — a published Route III target (the author's guide and the archive agree). A defeated lord is not a destroyed faction.",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "eliminate-the-ecstatic-legions",
+      "text": "Eliminate The Ecstatic Legions (Azazel) — a published Route III target (the author's guide names the faction's lord; the archive names the faction). A defeated lord is not a destroyed faction.",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "eliminate-bonerattlaz",
+      "text": "Eliminate Bonerattlaz (Azhag) — a published Route III target (the author's guide and the archive agree). A defeated lord is not a destroyed faction.",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "eliminate-wargrove-of-woe",
+      "text": "Eliminate Wargrove of Woe (Drycha) — a published Route III target (the author's guide and the archive agree). A defeated lord is not a destroyed faction.",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "eliminate-the-fecundites",
+      "text": "Eliminate The Fecundites (Festus) — a published Route III target (the author's guide and the archive agree). A defeated lord is not a destroyed faction.",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "eliminate-sylvania",
+      "text": "Eliminate Sylvania (Vlad) — a published Route III target (the author's guide and the archive agree). A defeated lord is not a destroyed faction.",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "eliminate-the-deceivers",
+      "text": "Eliminate The Deceivers (The Changeling) — a published Route III target (the author's guide names the faction's lord; the archive names the faction). A defeated lord is not a destroyed faction.",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "eliminate-warherd-of-the-one-eye",
+      "text": "Eliminate Warherd of the One-Eye (Khazrak the One-Eye) — a published Route III target (the author's guide names the faction's lord; the archive names the faction). A defeated lord is not a destroyed faction.",
+      "state": "confirmed",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "secure-altdorf",
+      "text": "Secure Altdorf by direct control or qualifying diplomatic control — published wording is \"Control the following regions directly or via diplomacy\". No opened source establishes which diplomacy qualifies, so inspect the live mission after the first proposed alliance.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide"]
+    },
+    {
+      "id": "secure-nuln",
+      "text": "Secure Nuln by direct control or qualifying diplomatic control — published wording is \"Control the following regions directly or via diplomacy\". No opened source establishes which diplomacy qualifies, so inspect the live mission after the first proposed alliance.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide"]
+    }
+  ]
+}

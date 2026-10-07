@@ -262,5 +262,23 @@
     "title": "Route-led edition · 30 September 2026",
     "url": "",
     "note": "Three independent strategies for Normal campaign / Normal battles with Smart Autoresolve. No empire-size ceiling. Theme-first armies remain sensible combined-arms forces. Browser QA checks the website, not the game’s campaign or autoresolve engine."
+  },
+  {
+    "id": "vco-guide-check",
+    "title": "VCO author’s guide — Malakai IE routes (scoped check 8 October 2026)",
+    "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084",
+    "note": "Opened 8 October 2026. The guide's current publication lists Malakai Makaisson (Immortal Empires) Route 1 as controlling the eight named provinces (Helspire, Vanaheim, Ice Tooth, Mountains of Naglfari, Trollheim, Mountains of Hel, Gianthome, Goromadny Mountains) and building The Silver Hall; Route 2 as \"Lay waste to at least 7\" of the twelve named Dark Fortresses; Route 3 as destroying the nine named factions and controlling Altdorf and Nuln directly or via diplomacy, each with a published reward effect list. This is publication evidence of the published routes only: it does not establish live objective-panel behaviour, the qualifying control or credit rules, or reward grants. The guide names the routes only as Route 1/2/3, so official per-route titles remain unverified."
+  },
+  {
+    "id": "vco-script",
+    "title": "VCO source repository — faction mission scripts (scoped check 8 October 2026)",
+    "url": "https://github.com/msolefonte/vco",
+    "note": "Opened 8 October 2026 (main branch). The Immortal Empires custom-mission folder src/script/vco-ie/main_warhammer holds 60 faction mission scripts including three Dwarf factions (the Ancestral Throng, Karak Izor, Karak Kadrin); there is no Malakai Makaisson / Masters of Innovation mission file and no Malakai mention in the CHANGELOG at that date. The public repository text therefore does not establish Malakai's live route scripting; his routes are evidenced at current-published-guide level and trigger/credit behaviour remains a live campaign check. The repository README's workshop badge points to item 2858059010, which is not reconciled with the 3140200173 workshop record in this catalogue."
+  },
+  {
+    "id": "vco-check",
+    "title": "VCO Workshop page — install and update context (scoped check 8 October 2026)",
+    "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3140200173",
+    "note": "Opened 8 October 2026. The item by Wolfy lists 93/109 (85%) factions supported and its latest patch is dated 25 September 2026 (Boris Todbringer conditions). Installation guidance states victory conditions are set on turn one and disabling the mod mid-campaign removes the objectives. The page names no VCO version string and no Malakai-specific route content; it links the author's guide for the objective lists."
   }
 ]

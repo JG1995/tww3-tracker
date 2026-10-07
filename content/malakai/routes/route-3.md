@@ -4,13 +4,13 @@ number: III
 name: "The Empire-Relief Expedition"
 vcoTitle: null
 objective:
-  text: "The archive's route catalogue states this route eliminates nine named factions and secures Altdorf and Nuln directly or through qualifying diplomacy. That is the archive's published wording, read at registration; the named list, the control rule, and the trigger sequence have not been checked."
+  text: "Checked 8 October 2026: the VCO author's guide publishes this route as destroying the nine named factions — Clan Moulder, Wintertooth, The Ecstatic Legions, Bonerattlaz, Wargrove of Woe, The Fecundites, Sylvania, The Deceivers and Warherd of the One-Eye — and controlling Altdorf and Nuln directly or via diplomacy, matching the archive's catalogue. Publication does not establish which diplomacy the live mission recognises for the two cities, and the public VCO repository at this date contains no Malakai mission script."
   state: verify-in-campaign
-  src: [vco-guide]
+  src: [vco-guide-check, vco-script]
 reward:
-  text: "The archive's route catalogue reports a published reward supporting research, Empire alliances, trade and replenishment abroad, and treats foreign replenishment as a reward, not a pre-victory logistics assumption. Its exact scope, grant timing, and installed-build application are unverified."
+  text: "The current author's guide publishes this route's reward as +50% research rate, +100% allegiance points gained for alliances with the Empire, armies replenishing in foreign territory and +10% income from trade for every ally (checked 8 October 2026). Published reward effects do not establish the grant: exact scope, timing and installed-build application remain unverified, so foreign replenishment is a reward, not a pre-victory logistics assumption."
   state: verify-in-campaign
-  src: [vco-guide]
+  src: [vco-guide-check]
 interpretation: "A travelling workshop answers a coalition's crises: diplomacy secures the two cities while connected campaigns finish the named threats, keeping useful conquests rather than all conquests."
 bottleneck: "Surviving target factions + recognised city control"
 panelOrder:
@@ -37,8 +37,8 @@ The archive frames Route III as The Empire-Relief Expedition: a travelling works
 The archive retains “The Empire-Relief Expedition” as the guide-created route subtitle; the official VCO title is unresearched at registration and the manifest keeps vcoTitle null. Compare the installed route panel before treating any title as installed proof.
 ::
 
-::claim verify-in-campaign src=vco-guide
-The archive's own wording warns that a wounded enemy lord does not mean its faction is gone, and that friendly city owners are not attacked simply for their objective markers. The exact elimination and city-control rules — including which diplomacy the live mission recognises — are unverified at registration; the later VCO contract checks them before any counting is installed.
+::claim verify-in-campaign src=vco-guide,vco-guide-check,vco-script
+The author's guide publishes the same nine-faction and Altdorf/Nuln set as the archive, so the condition rows are sourced; the archive's cautions stand — a wounded enemy lord does not mean its faction is gone, and friendly city owners are not attacked simply for their objective markers. Which diplomacy the live mission recognises for the two cities remains unverified: the guide says \"directly or via diplomacy\" and the archive prefers a military alliance, but no opened source defines the qualifying treaty and the current public VCO repository (checked 8 October 2026) contains no Malakai mission script. Inspect the live mission after the first proposed alliance before committing the route to a diplomatic plan.
 ::
 
 ::claim verify-in-campaign src=smart

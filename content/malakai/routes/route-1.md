@@ -4,13 +4,13 @@ number: I
 name: "The Northern Reconquest"
 vcoTitle: null
 objective:
-  text: "The archive's route catalogue states this route controls eight named provinces and constructs The Silver Hall. That is the archive's published wording, read at registration; the live objective panel, the qualifying control rule, and the trigger sequence have not been checked."
+  text: "Checked 8 October 2026: the VCO author's guide publishes this route as controlling eight named provinces — Helspire Mountains, Vanaheim Mountains, Ice Tooth Mountains, Mountains of Naglfari, Trollheim Mountains, Mountains of Hel, Gianthome Mountains and Goromadny Mountains — and building The Silver Hall, the same set as the archive's catalogue; the archive's checked building data adds that the landmark sits at tier-IV Kraka Drak. That is publication evidence, not a live check: the mission's qualifying-control rule (direct versus allied or diplomatic ownership) and trigger sequence are not established by any opened source."
   state: verify-in-campaign
-  src: [vco-guide]
+  src: [vco-guide-check, vco-script]
 reward:
-  text: "The archive's route catalogue reports a published reward favouring aviation and experience against Chaos and treats it as a post-victory benefit, not part of your pre-victory army statistics. Its exact scope, grant timing, and installed-build application are unverified."
+  text: "The current author's guide publishes this route's reward as +100% experience when fighting Forces of Chaos, +10% range, +10% missile resistance and +25% speed for Gyrocopters, Gyrobombers and Thunderbarge units (checked 8 October 2026). Published reward effects do not establish the grant: exact scope, timing and installed-build application remain unverified, so treat it as a post-victory benefit, not part of your pre-victory army statistics."
   state: verify-in-campaign
-  src: [vco-guide]
+  src: [vco-guide-check]
 interpretation: "A territorial campaign across the northern mountains, with Kraka Drak as the industrial capital and an aviation-led flagship covering a growing realm."
 bottleneck: "Secure province ownership + Kraka Drak tier IV"
 panelOrder:
@@ -39,6 +39,10 @@ The archive retains “The Northern Reconquest” as the guide-created route sub
 
 ::claim verify-in-campaign src=vco-guide,vco
 The archive records a September 2026 research pass but carries no VCO version string; the manifest keeps patch and VCO unverified and records the archive's research date only as scoped provenance, never a fresh whole-guide check. Keep the current VCO Workshop page and installed build separate from the archive's publication dates.
+::
+
+::claim verify-in-campaign src=vco-guide-check,vco-script
+Checked 8 October 2026: the author's guide publishes the same eight-province and Silver Hall set as the archive, so the route's condition rows are sourced. The qualifying-control rule is still open — the archive does not assume allied ownership satisfies a required province, and no opened source defines the accepted ownership. After the first province is secured, inspect the live mission's objective rows before relying on allied or gifted territory for the rest of the set.
 ::
 
 ::claim verify-in-campaign src=smart

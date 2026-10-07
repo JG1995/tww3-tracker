@@ -216,7 +216,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `malakai-vco-contract` — Commit 3: Establish Malakai's sourced victory contract
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 3
 **Depends on:** ["malakai-registration"]
 **Write scope:** ["content/malakai/data/vco.json", "content/malakai/data/sources.json", "content/malakai/routes/route-1.md", "content/malakai/routes/route-2.md", "content/malakai/routes/route-3.md"]
