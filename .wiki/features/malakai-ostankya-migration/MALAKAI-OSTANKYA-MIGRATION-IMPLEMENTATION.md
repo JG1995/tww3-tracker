@@ -267,7 +267,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `mother-ostankya-shared-fundamentals` — Commit 6: Migrate Mother Ostankya's shared campaign fundamentals
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 4
 **Depends on:** ["mother-ostankya-vco-contract"]
 **Write scope:** ["content/mother-ostankya/shared.md", "content/mother-ostankya/routes/route-1.md"]

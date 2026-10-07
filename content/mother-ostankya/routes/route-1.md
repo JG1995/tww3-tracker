@@ -56,3 +56,11 @@ The archive assumes Smart Autoresolve on Normal / Normal but records no specific
 ::claim verify-in-campaign src=roster,mother
 The archive's access assumption is all WH3 DLC plus WH1/WH2 free content only, with normal Kislev recruitment gated by city ownership or alliance and the special forest roster from the grove chain. Registration has not verified the player's installed content. Check the live recruitment panel; if an expected unit is unavailable, use an accessible warrior, Kossar or forest-recruit core.
 ::
+
+::claim verify-in-campaign src=patch61
+The shared Devotion thresholds this guide recommends around are archive- and 6.1-rework-sourced, not verified in-campaign: at least 50 Devotion permits an eligible invocation in owned territory, 75+ Devotion negates climate penalties, and −100 Devotion triggers a Chaos incursion. Known: the archive's stated values and the rework notes. Unknown: the live tooltips, costs and trip points in the installed build. Check: read the province Devotion trend and the invocation panel before heavy investment, then confirm the after-cost balance still protects a wounded army. Fallback: treat dropping below 75 while an army needs recovery as the red line until a live tooltip contradicts it.
+::
+
+::claim verify-in-campaign src=essence,tech,hex-guide
+The Hex chain's spending progression is not an Essence wallet total: research may cost Essence without adding equal credit to a Hex-spending objective, a cheaper Hex need not generate extra progress, and a treasury total does not by itself prove a Hex mission complete. These are the archive's own cautions plus player observations; the live credit rule is unverified. Check: record wallet and mission counter, perform one useful action, and read how much the counter moved before mass-producing anything. Fallback: keep a reserve and treat unobserved credit as zero until the mission panel shows otherwise.
+::
