@@ -202,7 +202,7 @@ Styles. `app/styles/app.css` dialog region (new classes, existing tokens only, p
 
 #### Package `search-header-controls` — Commit 3: The search trigger in both atlas header forms
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 3
 

@@ -321,6 +321,35 @@ button {
   min-width: var(--gap-lg);
 }
 
+/* ─── Search trigger (feature cross-guide-search, package
+   `search-header-controls`, Commit 3): the ghost search trigger with the
+   `<kbd>/</kbd>` chip, rendered in both header forms when the optional
+   `onOpenSearch` prop is supplied — the full form's reserved `topline__tools`
+   slot (the DESIGN's topline tenant) and, in the slim form, after the lord
+   links (DESIGN §6: wordmark and lord links keep their positions). Geometry:
+   the compact atlas `.button.button--ghost` padding and the global 3px kbd
+   chip ride comfortably inside the 58px topline/slim measure (the drawer's
+   env line absorbs the extra width — the crest/brand never move); hover is
+   the DESIGN button spec's colour-only shift (ink text + border — no layout
+   shift); the focus ring is the shared global `:focus-visible` rule; the
+   toggle slot keeps its reserved empty shape when the prop is absent (the
+   F10 zero-lord contract). Token-only. */
+
+.atlas-header__search {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-xs);
+}
+
+/* Slim placement: the trigger is the wrap's final flex item, AFTER the
+   lords nav — the nav's own auto left margin keeps wordmark and lord links
+   exactly where they were and brings the trigger to the wrap's right edge;
+   flex:none pins it outside the nav's horizontal scroll. */
+.atlas-header--slim .atlas-header__search {
+  flex: none;
+}
+
 /* ─── Routebar: the "YOUR CAMPAIGN / Victory route" eyebrow pair plus one
    route tab per manifest route; the tablist scrolls horizontally below
    ~900px (DESIGN §6). */

@@ -16,7 +16,11 @@
  * It also carries the atlas header contract (package `atlas-header-shell`,
  * Commit 10): the slim/full forms, the hash-derived routebar and pagenav
  * selections, and the keyboard contract the F2 TabStrip carried (its suite
- * was pruned with the component in Commit 11).
+ * was pruned with the component in Commit 11). The search-trigger contract
+ * (package `search-header-controls`, Commit 3 of the cross-guide-search
+ * feature) lives in the same section: the optional `onOpenSearch` prop
+ * renders the trigger in the topline slot / after the slim lord links, and
+ * its absence changes no header output (the F10 zero-lord contract).
  *
  * It also carries the ledger table panel contract (package
  * `ledger-table-panel`, commit 6 — DESIGN.md §Ledger Table): the two mono
@@ -1160,6 +1164,136 @@ test("the header's local tabNav copy keeps the TabStrip wrap/bounds decision (th
   assert.equal(headerTabNav("right", 1, 4), 2, "right in the middle steps up");
   assert.equal(headerTabNav("home", 2, 4), 0, "home lands on the first tab");
   assert.equal(headerTabNav("end", 0, 4), 3, "end lands on the last tab");
+});
+
+// ─── 10b. The search trigger (package `search-header-controls`, Commit 3 of
+//            the cross-guide-search feature, DESIGN §4/§6) ────────────────
+// The header's one rule: the optional `onOpenSearch` prop present → render
+// the trigger; absent → the header output stays exactly as before (the F10
+// zero-lord contract). The trigger is a real ghost button labelled "Search"
+// with the <kbd>/</kbd> chip and the aria-name "Open search ( / )", firing
+// the callback; WHICH pages pass the prop is the shell's decision (Commit
+// 4) — the header never page-scopes.
+
+/** The trigger button records of one header render (matched by its class). */
+function headerSearchTriggers(nodes: VNodeRecord[]): VNodeRecord[] {
+  return nodes.filter((n) => cls(n).split(/\s+/).includes("atlas-header__search"));
+}
+
+test("full form: onOpenSearch renders the trigger inside topline__tools, and its absence keeps the slot content-free", async () => {
+  const lord = await committedHeaderLord();
+  const without = recordVNodes(AtlasHeaderMarkup({ lords: [], lord, route: FULL_FORM_MEMBERS[0] }));
+  const withProp = recordVNodes(
+    AtlasHeaderMarkup({ lords: [], lord, route: FULL_FORM_MEMBERS[0], onOpenSearch: () => {} }),
+  );
+
+  const emptySlot = without.find((n) => cls(n) === "topline__tools");
+  assert.ok(emptySlot !== undefined, "the reserved toolbar slot renders");
+  assert.deepEqual(emptySlot.children, [], "absent prop: content-free exactly as today (the F10 zero-lord contract)");
+
+  const filledSlot = withProp.find((n) => cls(n) === "topline__tools");
+  assert.ok(filledSlot !== undefined, "the slot renders with the prop supplied too");
+  assert.equal(filledSlot.children.length, 1, "the slot's only child is the trigger");
+  assert.equal(headerSearchTriggers(recordVNodes(filledSlot)).length, 1, "that child is the search trigger");
+  assert.deepEqual(
+    recordVNodes(filledSlot).slice(1).map((n) => n.tag),
+    ["button", "kbd"],
+    "the slot holds nothing but the trigger button and its kbd chip",
+  );
+  assert.deepEqual(headerSearchTriggers(without), [], "no trigger anywhere on the prop-absent full form");
+});
+
+test("the trigger is a real ghost button: the Search label, the <kbd>/</kbd> chip, the aria-name, and the callback", async () => {
+  const onOpenSearch = (): void => {};
+  const nodes = recordVNodes(
+    AtlasHeaderMarkup({ lords: [], lord: await committedHeaderLord(), route: FULL_FORM_MEMBERS[0], onOpenSearch }),
+  );
+  const trigger = headerSearchTriggers(nodes)[0];
+  assert.ok(trigger !== undefined, "the trigger renders in the topline");
+  assert.equal(trigger.tag, "button", "a real button control — keyboard-reachable");
+  assert.equal(trigger.props.type, "button", "type=button — never a submit");
+  assert.ok(vnodeText(trigger).includes("Search"), "the visible label reads Search");
+  const chip = recordVNodes(trigger).find((n) => n.tag === "kbd");
+  assert.equal(chip?.children[0], "/", "the trigger carries the <kbd>/</kbd> chip");
+  assert.equal(trigger.props["aria-label"], "Open search ( / )", "the aria-name spells the shortcut");
+  assert.equal(trigger.props.onClick, onOpenSearch, "clicking the trigger fires the supplied callback");
+  assert.ok(
+    String(trigger.props.className).split(/\s+/).includes("button--ghost"),
+    "the trigger rides the shared ghost-button variant",
+  );
+});
+
+test("slim form: onOpenSearch renders the trigger after the lord links, and its absence renders none", async () => {
+  const lord = await committedHeaderLord();
+  const without = recordVNodes(AtlasHeaderMarkup({ lords: [lord], lord: null, route: null }));
+  assert.deepEqual(headerSearchTriggers(without), [], "absent prop: no trigger on the slim form");
+
+  const withProp = recordVNodes(
+    AtlasHeaderMarkup({ lords: [lord], lord: null, route: null, onOpenSearch: () => {} }),
+  );
+  assert.equal(headerSearchTriggers(withProp).length, 1, "the prop renders exactly one trigger on the slim form");
+
+  // wordmark and lord links keep their positions: the trigger is the wrap's
+  // final flex item, after the lords nav (the recorded slim-header deviation).
+  const wrap = withProp.find((n) => cls(n) === "atlas-header__wrap");
+  assert.ok(wrap !== undefined, "the slim wrap renders");
+  assert.deepEqual(
+    recordVNodes(wrap).filter((n) => n.tag === "p" || n.tag === "nav" || n.tag === "button").map((n) => n.tag),
+    ["p", "nav", "button"],
+    "wordmark first, the lord-links nav, then the trigger — order preserved",
+  );
+  const text = vnodeText(withProp);
+  assert.ok(
+    text.indexOf("VCO COMPANION") < text.indexOf("Elspeth von Draken") &&
+      text.indexOf("Elspeth von Draken") < text.indexOf("Search"),
+    "flattened order: wordmark → lord links → trigger",
+  );
+});
+
+/** A stable one-record signature: tag + the readable props (raw `children`
+ *  VNodes excluded — preact stamps per-instance internal field values on
+ *  them) + the flattened subtree text. The byte-identity comparator for two
+ *  renders: equal sig lists ⇒ identical readable output. */
+function recordSig(record: VNodeRecord): string {
+  const props: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(record.props)) {
+    if (key !== "children") props[key] = value;
+  }
+  return JSON.stringify([record.tag, props, vnodeText(record)]);
+}
+
+test("the onOpenSearch prop changes no other header output — the trigger (and its container chain) is the only difference in both forms", async () => {
+  const lord = await committedHeaderLord();
+  const stripSearch = (nodes: VNodeRecord[]): VNodeRecord[] =>
+    nodes.filter((n) => {
+      const classes = cls(n).split(/\s+/);
+      return (
+        !classes.includes("topline") &&            // the topline tier holding the slot
+        !classes.includes("topline__tools") &&     // the reserved slot itself
+        !classes.includes("atlas-header") &&       // the header root
+        !classes.includes("atlas-header__wrap") && // the slim/full wrap
+        !classes.includes("atlas-header__search") && // the trigger button
+        n.tag !== "kbd"                            // the trigger's kbd chip
+      );
+    });
+
+  const fullWithout = recordVNodes(AtlasHeaderMarkup({ lords: [], lord, route: FULL_FORM_MEMBERS[0] }));
+  const fullWith = recordVNodes(
+    AtlasHeaderMarkup({ lords: [], lord, route: FULL_FORM_MEMBERS[0], onOpenSearch: () => {} }),
+  );
+  assert.deepEqual(
+    stripSearch(fullWith).map(recordSig),
+    stripSearch(fullWithout).map(recordSig),
+    "the full form gains only the trigger",
+  );
+
+  const slimWithout = recordVNodes(AtlasHeaderMarkup({ lords: [lord], lord: null, route: null }));
+  const slimWith = recordVNodes(AtlasHeaderMarkup({ lords: [lord], lord: null, route: null, onOpenSearch: () => {} }));
+  assert.deepEqual(
+    stripSearch(slimWith).map(recordSig),
+    stripSearch(slimWithout).map(recordSig),
+    "the slim form gains only the trigger",
+  );
 });
 
 // ─── 11. The search dialog (package `search-dialog-component`, Commit 2 of
