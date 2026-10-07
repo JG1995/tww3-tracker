@@ -13,7 +13,7 @@ reward:
   src: [vco]
 bottleneck: "Four named provinces and three faction-level targets; province control, faction defeat, and character wounds are distinct conditions."
 panelOrder:
-  armies: []
+  armies: [early, mid, late, specialist, home]
   skills: [zhao-route-3, celestial-general, alchemist, gate-master, caravan-master, astromancer, yin-shugengan]
   research: [opening, road, arsenal, realm]
   buildings: [shang-route-3, muster, frontier, occupied, resource, depot, income, raid]

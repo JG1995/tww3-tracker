@@ -13,7 +13,7 @@ reward:
   src: [vco]
 bottleneck: "Three independent economic counters plus a landmark; caravan completions and goods moved are not interchangeable."
 panelOrder:
-  armies: []
+  armies: [early, mid, late, specialist, home]
   skills: [zhao-route-1, celestial-general, alchemist, gate-master, caravan-master, astromancer, yin-shugengan]
   research: [opening-route-1, road, arsenal, realm]
   buildings: [shang-route-1, income, resource, muster, frontier, port, depot, occupied]

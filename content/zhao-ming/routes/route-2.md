@@ -13,7 +13,7 @@ reward:
   src: [vco]
 bottleneck: "Five fixed, distant settlement targets; the current author's wording is ‘raze or conquer,’ not sack."
 panelOrder:
-  armies: []
+  armies: [early, mid, late, specialist, home]
   skills: [zhao-route-2, celestial-general, alchemist, gate-master, caravan-master, astromancer, yin-shugengan]
   research: [opening, road, arsenal, realm]
   buildings: [shang-route-2, muster, depot, raid, resource, frontier, income, port]
