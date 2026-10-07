@@ -1,1 +1,799 @@
-{}
+{
+  "mother-route-1": {
+    "label": "Ostankya · Route I",
+    "title": "Mother Ostankya · The Malediction of Ruin",
+    "intro": "A small spell toolkit first, then the forest and the rank-12 coven line.",
+    "steps": [
+      {
+        "title": "Route Marcher → Witchbrew → Fate of Interlopers",
+        "short": "Route Marcher → Witchbrew → Fate of Interlopers",
+        "note": "Take movement and a useful lore foundation; skip already granted spell points.",
+        "gate": "Start"
+      },
+      {
+        "title": "The Forbidden Fens → first-box spell upgrades",
+        "short": "The Forbidden Fens → early spell upgrades",
+        "note": "Build a familiar control/damage toolkit. Firing Drills can move ahead of deeper spells when you mostly autoresolve.",
+        "gate": "Early magic"
+      },
+      {
+        "title": "Wildlings → Embodiment of the Forest",
+        "short": "Wildlings → Embodiment of the Forest",
+        "note": "Improve eligible beasts, then personal resilience and army Woodsman.",
+        "gate": "Ranks 7 / 4"
+      },
+      {
+        "title": "Boszorka’s Wrath → Coven’s Will → Mothers Rally → Folklore",
+        "short": "Boszorka’s Wrath → coven line → Folklore",
+        "note": "Two side skills meet Folklore’s gate. Battle spell Hexes and campaign Hexes are not the same effect category.",
+        "gate": "Rank 12+"
+      },
+      {
+        "title": "Firing Drills 3/3 + Creatures of the Land 3/3",
+        "short": "Firing Drills 3/3 + Creatures of the Land 3/3",
+        "note": "Reach the useful army upgrades; budget Inspiring Presence first.",
+        "gate": "Army support"
+      },
+      {
+        "title": "Evasion → Cursed Cauldron; sustain / veteran skills",
+        "short": "Evasion → Cursed Cauldron → sustain",
+        "note": "Follow the four-point spell gate, then the relevant blue and red paths in the notes.",
+        "gate": "Later"
+      }
+    ],
+    "details": [
+      [
+        "Why this order?",
+        "Firing Drills is not just a shooting bonus. Its later points also improve the melee defence of Kislevite Warriors, so it supports both halves of your early formation. Creatures of the Land covers the forest animals, Things in the Woods and Incarnate Elementals used here. Wildlings improves eligible forest creatures in her army; it does not improve every human unit. Embodiment of the Forest mixes personal bonuses with army-wide Woodsman. Do not read its forest-battle ammunition bonus as an army-wide effect."
+      ],
+      [
+        "Two different kinds of “Hex”",
+        "Boszorka’s Wrath modifies battle spells classified as Hexes. Coven’s Will reduces the Essence cost of campaign Hexes. A cost discount is not the same as automatically advancing an Essence-spending mission."
+      ],
+      [
+        "After the core is working",
+        "For frequent auto-resolves, take the blue-line sustain route below. For manual battles, develop the first spell box until its four-point gate opens Evasion , then choose Cursed Cauldron and/or Malediction of Madness . Reach Arcane Conduit through its second four-point gate. Spend on the spells you actually use, not one point in every spell. Ostankya uses the Lore of Hags in the checked tree. Do not follow old mixed-lore skill lists that send her straight to Spirit Leech or Pit of Shades. Skirmisher Traditions supports your veteran human infantry; Ursun’s Favoured supports the eligible veteran beasts. Reach them through Rally! after completing the first red-line gate. It is the units that must be rank 7 or higher."
+      ],
+      [
+        "Shared blue-line path",
+        "Route Marcher → four points in the first blue group → Draftmaster → Logistician 3/3 and Quartermaster 3/3 → Renowned & Feared when the second gate is met. Choose useful first-group points for current recruitment, attrition or corruption needs; do not mistake Reassuring Presence for casualty replenishment. Lightning Strike needs all three points to isolate a battle. It is an optional response to enemy reinforcing armies, not an opening tax."
+      ],
+      [
+        "Priority blocks, not a levelling script",
+        "A rank gate means the earliest rank at which that node becomes available. The blocks are an order of investment, not an assertion that all listed points fit on that one level. Skip spells already granted at creation. Divert earlier to a favourite spell package when manual battles matter."
+      ]
+    ],
+    "sources": [
+      "mother"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "mother"
+    ]
+  },
+  "mother-route-2": {
+    "label": "Ostankya · Route II",
+    "title": "Mother Ostankya · Toil & Trouble",
+    "intro": "Keep the escort functional, strengthen the hunting beasts and support the journey.",
+    "steps": [
+      {
+        "title": "Route Marcher → Inspiring Presence → Firing Drills 3/3",
+        "short": "Route Marcher → Inspiring Presence → Firing Drills 3/3",
+        "note": "Movement, then permanent support for Warriors, Kossars and Akshina.",
+        "gate": "Start"
+      },
+      {
+        "title": "Wildlings → Creatures of the Land 3/3",
+        "short": "Wildlings → Creatures of the Land 3/3",
+        "note": "The hunting party has several eligible beast units. Take Inspiring Presence before the red skill.",
+        "gate": "Rank 7+ / beasts"
+      },
+      {
+        "title": "Witchbrew → Fate of Interlopers → The Forbidden Fens",
+        "short": "Witchbrew → Fate of Interlopers → The Forbidden Fens",
+        "note": "Develop a small spell toolkit. Move this block earlier when fighting manually.",
+        "gate": "Magic"
+      },
+      {
+        "title": "Boszorka’s Wrath → Coven’s Will → Mothers Rally → Folklore",
+        "short": "Boszorka’s Wrath → coven line → Folklore",
+        "note": "Follow this order: Folklore needs two of the intervening unique skills.",
+        "gate": "Rank 12+"
+      },
+      {
+        "title": "Logistician → Quartermaster; favourite spells",
+        "short": "Logistician → Quartermaster; favourite spells",
+        "note": "Follow the blue prerequisite path in the notes. Recovery and cost control support a long journey.",
+        "gate": "Mid-game"
+      },
+      {
+        "title": "Rally! → Skirmisher Traditions → Ursun’s Favoured",
+        "short": "Rally! → Skirmisher Traditions → Ursun’s Favoured",
+        "note": "Take the matching bonuses when your infantry and beasts reach unit rank 7+.",
+        "gate": "Veterans"
+      }
+    ],
+    "details": [
+      [
+        "Why this order?",
+        "Firing Drills is not just a shooting bonus. Its later points also improve the melee defence of Kislevite Warriors, so it supports both halves of your early formation. Creatures of the Land covers the forest animals, Things in the Woods and Incarnate Elementals used here. Wildlings improves eligible forest creatures in her army; it does not improve every human unit. Embodiment of the Forest mixes personal bonuses with army-wide Woodsman. Do not read its forest-battle ammunition bonus as an army-wide effect."
+      ],
+      [
+        "Two different kinds of “Hex”",
+        "Boszorka’s Wrath modifies battle spells classified as Hexes. Coven’s Will reduces the Essence cost of campaign Hexes. A cost discount is not the same as automatically advancing an Essence-spending mission."
+      ],
+      [
+        "After the core is working",
+        "For frequent auto-resolves, take the blue-line sustain route below. For manual battles, develop the first spell box until its four-point gate opens Evasion , then choose Cursed Cauldron and/or Malediction of Madness . Reach Arcane Conduit through its second four-point gate. Spend on the spells you actually use, not one point in every spell. Ostankya uses the Lore of Hags in the checked tree. Do not follow old mixed-lore skill lists that send her straight to Spirit Leech or Pit of Shades. Skirmisher Traditions supports your veteran human infantry; Ursun’s Favoured supports the eligible veteran beasts. Reach them through Rally! after completing the first red-line gate. It is the units that must be rank 7 or higher."
+      ],
+      [
+        "Shared blue-line path",
+        "Route Marcher → four points in the first blue group → Draftmaster → Logistician 3/3 and Quartermaster 3/3 → Renowned & Feared when the second gate is met. Choose useful first-group points for current recruitment, attrition or corruption needs; do not mistake Reassuring Presence for casualty replenishment. Lightning Strike needs all three points to isolate a battle. It is an optional response to enemy reinforcing armies, not an opening tax."
+      ],
+      [
+        "Priority blocks, not a levelling script",
+        "A rank gate means the earliest rank at which that node becomes available. The blocks are an order of investment, not an assertion that all listed points fit on that one level. Skip spells already granted at creation. Divert earlier to a favourite spell package when manual battles matter."
+      ]
+    ],
+    "sources": [
+      "mother"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "mother"
+    ]
+  },
+  "mother-route-3": {
+    "label": "Ostankya · Route III",
+    "title": "Mother Ostankya · The New Frontier",
+    "intro": "Support a sustainable frontline and hunting corps; keep the coven’s unique skills on schedule.",
+    "steps": [
+      {
+        "title": "Route Marcher → Inspiring Presence → Firing Drills 3/3",
+        "short": "Route Marcher → Inspiring Presence → Firing Drills 3/3",
+        "note": "Movement, then permanent support for Warriors, Kossars and Akshina.",
+        "gate": "Start"
+      },
+      {
+        "title": "Wildlings → Embodiment of the Forest",
+        "short": "Wildlings → Embodiment of the Forest",
+        "note": "Prioritise Wildlings with beasts present. Embodiment is already available at rank 4.",
+        "gate": "Rank 7+"
+      },
+      {
+        "title": "Witchbrew → Fate of Interlopers → The Forbidden Fens",
+        "short": "Witchbrew → Fate of Interlopers → The Forbidden Fens",
+        "note": "Develop a small spell toolkit. Move this block earlier when fighting manually.",
+        "gate": "Magic"
+      },
+      {
+        "title": "Boszorka’s Wrath → Coven’s Will → Mothers Rally → Folklore",
+        "short": "Boszorka’s Wrath → coven line → Folklore",
+        "note": "Follow this order: Folklore needs two of the intervening unique skills.",
+        "gate": "Rank 12+"
+      },
+      {
+        "title": "Creatures of the Land → Logistician / Quartermaster",
+        "short": "Creatures of the Land → Logistician / Quartermaster",
+        "note": "Sustain repeated field battles, then add Best of the Court only if the royal units are really present.",
+        "gate": "Mid-game"
+      },
+      {
+        "title": "Rally! → Skirmisher Traditions → Ursun’s Favoured",
+        "short": "Rally! → Skirmisher Traditions → Ursun’s Favoured",
+        "note": "Take the matching bonuses when your infantry and beasts reach unit rank 7+.",
+        "gate": "Veterans"
+      }
+    ],
+    "details": [
+      [
+        "Why this order?",
+        "Firing Drills is not just a shooting bonus. Its later points also improve the melee defence of Kislevite Warriors, so it supports both halves of your early formation. Creatures of the Land covers the forest animals, Things in the Woods and Incarnate Elementals used here. Wildlings improves eligible forest creatures in her army; it does not improve every human unit. Embodiment of the Forest mixes personal bonuses with army-wide Woodsman. Do not read its forest-battle ammunition bonus as an army-wide effect."
+      ],
+      [
+        "Two different kinds of “Hex”",
+        "Boszorka’s Wrath modifies battle spells classified as Hexes. Coven’s Will reduces the Essence cost of campaign Hexes. A cost discount is not the same as automatically advancing an Essence-spending mission."
+      ],
+      [
+        "After the core is working",
+        "For frequent auto-resolves, take the blue-line sustain route below. For manual battles, develop the first spell box until its four-point gate opens Evasion , then choose Cursed Cauldron and/or Malediction of Madness . Reach Arcane Conduit through its second four-point gate. Spend on the spells you actually use, not one point in every spell. Ostankya uses the Lore of Hags in the checked tree. Do not follow old mixed-lore skill lists that send her straight to Spirit Leech or Pit of Shades. Skirmisher Traditions supports your veteran human infantry; Ursun’s Favoured supports the eligible veteran beasts. Reach them through Rally! after completing the first red-line gate. It is the units that must be rank 7 or higher."
+      ],
+      [
+        "Shared blue-line path",
+        "Route Marcher → four points in the first blue group → Draftmaster → Logistician 3/3 and Quartermaster 3/3 → Renowned & Feared when the second gate is met. Choose useful first-group points for current recruitment, attrition or corruption needs; do not mistake Reassuring Presence for casualty replenishment. Lightning Strike needs all three points to isolate a battle. It is an optional response to enemy reinforcing armies, not an opening tax."
+      ],
+      [
+        "Priority blocks, not a levelling script",
+        "A rank gate means the earliest rank at which that node becomes available. The blocks are an order of investment, not an assertion that all listed points fit on that one level. Skip spells already granted at creation. Divert earlier to a favourite spell package when manual battles matter."
+      ]
+    ],
+    "sources": [
+      "mother"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "mother"
+    ]
+  },
+  "druzhina": {
+    "label": "Druzhina",
+    "title": "Druzhina",
+    "intro": "Support the same roster; add a Hag Witch rather than expecting Ostankya’s personal power.",
+    "steps": [
+      {
+        "title": "Route Marcher → Inspiring Presence → Firing Drills 3/3",
+        "short": "Route Marcher → Inspiring Presence → Firing Drills 3/3",
+        "note": "This also improves the melee defence of your inexpensive human screen.",
+        "gate": "Start"
+      },
+      {
+        "title": "Creatures of the Land 3/3",
+        "short": "Creatures of the Land 3/3",
+        "note": "Take it with several beast units. A pure home guard can defer this block.",
+        "gate": "Then"
+      },
+      {
+        "title": "Speaks to the Forest",
+        "short": "Speaks to the Forest",
+        "note": "Our choice with an embedded Hag Witch: the regeneration applies to Hags, not the army.",
+        "gate": "Rank 10"
+      },
+      {
+        "title": "Taal’s Judgement → Man of the Land → Ambusher",
+        "short": "Taal’s Judgement → Man of the Land → Ambusher",
+        "note": "Replenishment first, then Akshina reload support. Both follow Taal’s Judgement.",
+        "gate": "Rank 12+"
+      },
+      {
+        "title": "Draftmaster → Logistician → Quartermaster → Renowned & Feared",
+        "short": "Draftmaster → Logistician → Quartermaster → Renowned & Feared",
+        "note": "Use the prerequisite-aware blue route below, not a direct jump between these nodes.",
+        "gate": "Economy"
+      },
+      {
+        "title": "Restock! / Taal’s Fury • veteran red skills",
+        "short": "Restock! / Taal’s Fury • veteran red skills",
+        "note": "Active abilities are manual-battle tools; do not assume Smart Autoresolve values them equally.",
+        "gate": "Later"
+      }
+    ],
+    "details": [
+      [
+        "Cheap home-defence variant",
+        "Keep Firing Drills early. After Taal’s Judgement, favour Man of the People over Ambusher while the army is primarily Warriors and Kossars. Its upkeep reduction applies to those named basic units, not Akshina . Add Man of the Land for replenishment, then the blue economy path."
+      ],
+      [
+        "Do not mistake the mutually exclusive choice",
+        "Speaks to the Forest is selected instead of the other rank-10 choices. Its regeneration affects embedded Hag Witch heroes ; Vanguard Deployment is for the Druzhina himself. It is not a whole-army regeneration button. Taal’s Fury needs two of the side skills after Taal’s Judgement. Man of the Land plus Ambusher satisfies that path. Restock! is useful earlier when you manually fight long shooting battles, but is not a prerequisite for this army to work."
+      ],
+      [
+        "Do not budget points for automatic unlocks",
+        "The checked tree grants the Druzhina’s Warhorse at rank 8 and Immortality at rank 20 automatically. Their icons appearing in the tree does not mean they need a skill point."
+      ],
+      [
+        "Shared blue-line path",
+        "Route Marcher → four points in the first blue group → Draftmaster → Logistician 3/3 and Quartermaster 3/3 → Renowned & Feared when the second gate is met. Choose useful first-group points for current recruitment, attrition or corruption needs; do not mistake Reassuring Presence for casualty replenishment. Lightning Strike needs all three points to isolate a battle. It is an optional response to enemy reinforcing armies, not an opening tax."
+      ],
+      [
+        "Supporting commanders — recommendation, not a confirmed mechanic",
+        "A Druzhina-General-led home or support force is a generic-led army: the Druzhina is not Mother Ostankya with a different portrait, does not inherit her personal skill bonuses or spell suite, and no personal-effect carry-over to a supporting commander is asserted as an observed mechanic. Keep a Hag for spells, take the Druzhina's own support skills, and verify any inherited-effect claim on the live panel before relying on it."
+      ]
+    ],
+    "sources": [
+      "druzhina"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "druzhina"
+    ]
+  },
+  "patriarch": {
+    "label": "Patriarch",
+    "title": "Patriarch",
+    "intro": "A support addition for the unlocked army, not a prerequisite for your forest campaign.",
+    "steps": [
+      {
+        "title": "Replenish Troops",
+        "short": "Replenish Troops",
+        "note": "Develop the action as its next ranks unlock; keep him embedded in the army.",
+        "gate": "First"
+      },
+      {
+        "title": "Salyak’s Lullaby",
+        "short": "Salyak’s Lullaby",
+        "note": "Prioritise the healing prayer for manual battles, rather than buying every active at once.",
+        "gate": "Healing"
+      },
+      {
+        "title": "Personal melee defence and hit points",
+        "short": "Personal melee defence and hit points",
+        "note": "Keep the healer alive. Do not send a low-level Patriarch to duel an enemy lord.",
+        "gate": "Safety"
+      },
+      {
+        "title": "Healer",
+        "short": "Healer",
+        "note": "Choose this specialisation for extra replenishment and a shorter Lullaby cooldown.",
+        "gate": "Rank 20"
+      },
+      {
+        "title": "Finish replenishment and survivability",
+        "short": "Finish replenishment and survivability",
+        "note": "Campaign-map replenishment and healing during a battle are different effects.",
+        "gate": "After"
+      },
+      {
+        "title": "Damage Walls / Wound / Hinder Replenishment",
+        "short": "Damage Walls / Wound / Hinder Replenishment",
+        "note": "Those are field-agent investments, not the first job of this embedded support hero.",
+        "gate": "Defer"
+      }
+    ],
+    "details": [
+      [
+        "Usage notes",
+        "Healer is a rank-20 specialisation and blocks the other specialisation choices. In the checked tree it adds to the Replenish Troops action, improves personal hit points and reduces Salyak’s Lullaby’s cooldown. It is not an early-level purchase. Use him near the units that need healing, without exposing him to sustained damage. A healing ability does not restore dead units after a destructive auto-resolve, and the guide does not assume your mod simulates every cast. Only add this hero once your actual recruitment options permit it. The armoured template already reserves a slot; adding one to a different 20-stack means replacing a troop, not making a 21-stack."
+      ]
+    ],
+    "sources": [
+      "patriarch"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "patriarch"
+    ]
+  },
+  "ataman": {
+    "label": "Ataman",
+    "title": "Governor, not a field commander",
+    "intro": "Use the governor slot where stability, trade or an active border makes it valuable.",
+    "steps": [
+      {
+        "title": "Deploy to the province that needs governing",
+        "short": "Deploy to the province that needs governing",
+        "note": "Resource and defensive development can improve Ataman experience. Select the governor’s portrait to spend points."
+      },
+      {
+        "title": "Develop the provincial blue-line benefits",
+        "short": "Develop the provincial blue-line benefits",
+        "note": "Prioritise the displayed Devotion, income or recovery effects for this assignment; do not copy an army lord’s campaign path."
+      },
+      {
+        "title": "Court Sanctioned OR Orthodoxy Adherent",
+        "short": "Court Sanctioned OR Orthodoxy Adherent",
+        "note": "Choose the side whose support is lagging or whose next useful boon you are pursuing. These choices exclude each other.",
+        "gate": "Rank 5"
+      },
+      {
+        "title": "Warden OR Ambassador",
+        "short": "Warden OR Ambassador",
+        "note": "Warden suits a raiding frontier and improves sally reach. Ambassador suits a trading/resource province and diplomatic expansion.",
+        "gate": "Rank 12"
+      },
+      {
+        "title": "Continue the selected support branch",
+        "short": "Continue the selected support branch",
+        "note": "Take the branch’s later capacity benefit when the resulting hero is recruitable and useful; no need to race for an unused hero type.",
+        "gate": "Ranks 10–15"
+      },
+      {
+        "title": "Use a safe Garrison Sally Attack",
+        "short": "Use a safe Garrison Sally Attack",
+        "note": "Select an eligible settlement to see its attack radius. The garrison returns after the fight; do not mistake this for a roaming extra army."
+      }
+    ],
+    "details": [
+      [
+        "Your limited governor capacity",
+        "The rework retains roughly one governor slot per two provinces. Prioritise assignments rather than trying to appoint one everywhere. Move a governor only when the new job outweighs disrupting the old one."
+      ],
+      [
+        "Warden and Ambassador are different commitments",
+        "The rank-12 choices exclude each other. Warden is useful where you expect actual sally attacks; Ambassador’s resource and relations benefits fit a protected commercial base. A title is not proof of an army-wide combat buff in every theatre."
+      ],
+      [
+        "Do not build the training estate blindly",
+        "The special Ataman training building in the great Kislev cities has economic trade-offs. None of these New World strategies depends on constructing it or conquering Kislev to obtain it."
+      ]
+    ],
+    "sources": [
+      "patch61",
+      "ataman"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "patch61",
+      "ataman"
+    ]
+  },
+  "hag": {
+    "label": "Hag Witch",
+    "title": "Hag Witch",
+    "intro": "Develop one repeatable spell package; then protect the caster and support the journey.",
+    "steps": [
+      {
+        "title": "Spell package from the route's default lore",
+        "short": "Spell package: route lore",
+        "note": "The route-selected lore item in this panel is the spell path — Shadows on Routes I and III, Beasts on Route II. Follow its opener, gates and upper-spell order; skip spell points already granted at creation.",
+        "gate": "Open"
+      },
+      {
+        "title": "Evasion",
+        "short": "Evasion",
+        "note": "Requires four points in the first boxed group of the selected lore; the opener spell alone is not enough.",
+        "gate": "Gate"
+      },
+      {
+        "title": "Finish the selected upper path → Magical Reserves → Arcane Conduit",
+        "short": "Upper spell → reserves → conduit",
+        "note": "Complete the second box's prerequisite with the upper spells you actually use, then invest in sustained casting.",
+        "gate": "Finish"
+      },
+      {
+        "title": "Upheaval of Earth",
+        "short": "Upheaval of Earth",
+        "note": "Optional bound Assault of Stone bombardment; bring it forward for frequent manual battles.",
+        "gate": "Rank 10+"
+      },
+      {
+        "title": "Woodwarden / personal Protective Charms",
+        "short": "Protection side-picks",
+        "note": "Woodwarden's personal armour from rank 6 and the top-row Protective Charms' personal missile and spell resistance from rank 8 are different skills from the blue attrition-protection action while assisting the army.",
+        "gate": "Safety"
+      },
+      {
+        "title": "Automatic unlocks",
+        "short": "Automatic unlocks",
+        "note": "Immortality is automatic at rank 20; its icon in the tree is not a point cost, so do not budget a skill point for it.",
+        "gate": "Later"
+      }
+    ],
+    "details": [
+      [
+        "A caster first, not a general-purpose agent",
+        "For an embedded Hag, develop the spells in the selected lore before buying settlement actions. Take Woodwarden from rank 6 when she needs the personal armour, and Upheaval of Earth from rank 10 for its bound Assault of Stone in manual battles. One with Nature is optional local growth, not a replacement for a working spell kit."
+      ],
+      [
+        "There are two “Protective Charms” skills",
+        "The top-row skill at rank 8 provides personal missile/spell resistance . The blue action improves attrition protection while assisting the army. Neither is the Patriarch’s casualty-replenishment skill. Buy attrition protection when the route actually needs it. Immortality is automatic at rank 20. Magic, summons and bound attacks remain useful when you fight manually, but the exact way your Smart Autoresolve build values them has not been verified. Keep the army’s health and composition sensible."
+      ],
+      [
+        "One Winds pool",
+        "All casters in the army share Winds of Magic. A second Hag supplies another lore, a firing platform and useful support; it does not double your magic budget."
+      ],
+      [
+        "Curse versus blessing",
+        "Lore of Hags upgrades can invert a spell into a friendly effect. Read the two versions and save favourite combinations in your notes. The stronger-looking button is not necessarily the right target type."
+      ],
+      [
+        "Damage and protection are different jobs",
+        "Use damage magic against valuable dense targets; use protection on the unit actually taking pressure. Thematic casting remains sensible when it buys your army a specific advantage."
+      ],
+      [
+        "Map recovery is not battle healing",
+        "Convalescence, Logistician, Man of the Land and a Patriarch’s Replenish Troops support recovery between fights. A Hag’s blue Protective Charms reduces attrition. A prayer or battle regeneration repairs eligible living combatants during the battle, not a deleted unit after autoresolve."
+      ]
+    ],
+    "sources": [
+      "hag",
+      "hag-lore"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "hag",
+      "hag-lore"
+    ]
+  },
+  "shadows": {
+    "label": "Shadows",
+    "title": "Hag Witch · Shadows",
+    "intro": "Develop one repeatable spell package; then protect the caster and support the journey.",
+    "steps": [
+      {
+        "title": "Melkoth’s Mystifying Miasma → Smoke & Mirrors",
+        "short": "Melkoth’s Mystifying Miasma → Smoke & Mirrors",
+        "note": "A usable opening spell, then the lore passive.",
+        "gate": "Open"
+      },
+      {
+        "title": "The Penumbral Pendulum → The Enfeebling Foe",
+        "short": "The Penumbral Pendulum → The Enfeebling Foe",
+        "note": "Damage plus a way to protect a difficult melee. Develop these to meet the first gate.",
+        "gate": "Develop"
+      },
+      {
+        "title": "Evasion",
+        "short": "Evasion",
+        "note": "Requires four points in the first boxed group; the spell opener alone is not enough.",
+        "gate": "Gate"
+      },
+      {
+        "title": "Pit of Shades → Magical Reserves → Arcane Conduit",
+        "short": "Pit of Shades → Magical Reserves → Arcane Conduit",
+        "note": "Upgrade your chosen upper spell to satisfy the second four-point gate.",
+        "gate": "Finish"
+      },
+      {
+        "title": "Upheaval of Earth",
+        "short": "Upheaval of Earth",
+        "note": "Optional bound bombardment; bring it forward for frequent manual battles.",
+        "gate": "Rank 10+"
+      },
+      {
+        "title": "Woodwarden / personal Protective Charms",
+        "short": "Woodwarden / personal Protective Charms",
+        "note": "Take protection when she is under pressure; do not confuse it with the blue action.",
+        "gate": "Safety"
+      }
+    ],
+    "details": [
+      [
+        "A caster first, not a general-purpose agent",
+        "For an embedded Hag, develop the spells in the selected lore before buying settlement actions. Take Woodwarden from rank 6 when she needs the personal armour, and Upheaval of Earth from rank 10 for its bound Assault of Stone in manual battles. One with Nature is optional local growth, not a replacement for a working spell kit."
+      ],
+      [
+        "There are two “Protective Charms” skills",
+        "The top-row skill at rank 8 provides personal missile/spell resistance . The blue action improves attrition protection while assisting the army. Neither is the Patriarch’s casualty-replenishment skill. Buy attrition protection when the route actually needs it. Immortality is automatic at rank 20. Magic, summons and bound attacks remain useful when you fight manually, but the exact way your Smart Autoresolve build values them has not been verified. Keep the army’s health and composition sensible."
+      ],
+      [
+        "One Winds pool",
+        "All casters in the army share Winds of Magic. A second Hag supplies another lore, a firing platform and useful support; it does not double your magic budget."
+      ],
+      [
+        "Curse versus blessing",
+        "Lore of Hags upgrades can invert a spell into a friendly effect. Read the two versions and save favourite combinations in your notes. The stronger-looking button is not necessarily the right target type."
+      ],
+      [
+        "Damage and protection are different jobs",
+        "Use damage magic against valuable dense targets; use protection on the unit actually taking pressure. Thematic casting remains sensible when it buys your army a specific advantage."
+      ],
+      [
+        "Map recovery is not battle healing",
+        "Convalescence, Logistician, Man of the Land and a Patriarch’s Replenish Troops support recovery between fights. A Hag’s blue Protective Charms reduces attrition. A prayer or battle regeneration repairs eligible living combatants during the battle, not a deleted unit after autoresolve."
+      ]
+    ],
+    "sources": [
+      "hag",
+      "hag-lore"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "hag",
+      "hag-lore"
+    ]
+  },
+  "hags": {
+    "label": "Hags",
+    "title": "Hag Witch · Hags",
+    "intro": "Develop one repeatable spell package; then protect the caster and support the journey.",
+    "steps": [
+      {
+        "title": "Witchbrew → Fate of Interlopers",
+        "short": "Witchbrew → Fate of Interlopers",
+        "note": "An opening spell and the passive for this lore.",
+        "gate": "Open"
+      },
+      {
+        "title": "The Forbidden Fens → Curse of the Ancient Witch",
+        "short": "The Forbidden Fens → Curse of the Ancient Witch",
+        "note": "Develop a small control/debuff package in the first spell box.",
+        "gate": "Develop"
+      },
+      {
+        "title": "Evasion",
+        "short": "Evasion",
+        "note": "Meet the four-point first-box prerequisite before the upper spells.",
+        "gate": "Gate"
+      },
+      {
+        "title": "Cursed Cauldron / Malediction of Madness",
+        "short": "Cursed Cauldron / Malediction of Madness",
+        "note": "Pick the upper spell you will use; add Magical Reserves and work towards Arcane Conduit.",
+        "gate": "Finish"
+      },
+      {
+        "title": "Upheaval of Earth",
+        "short": "Upheaval of Earth",
+        "note": "A bound attack to complement your Winds-of-Magic spells.",
+        "gate": "Rank 10+"
+      },
+      {
+        "title": "Woodwarden / personal Protective Charms",
+        "short": "Woodwarden / personal Protective Charms",
+        "note": "Defensive side-picks when needed; Immortality is automatic at rank 20.",
+        "gate": "Safety"
+      }
+    ],
+    "details": [
+      [
+        "A caster first, not a general-purpose agent",
+        "For an embedded Hag, develop the spells in the selected lore before buying settlement actions. Take Woodwarden from rank 6 when she needs the personal armour, and Upheaval of Earth from rank 10 for its bound Assault of Stone in manual battles. One with Nature is optional local growth, not a replacement for a working spell kit."
+      ],
+      [
+        "There are two “Protective Charms” skills",
+        "The top-row skill at rank 8 provides personal missile/spell resistance . The blue action improves attrition protection while assisting the army. Neither is the Patriarch’s casualty-replenishment skill. Buy attrition protection when the route actually needs it. Immortality is automatic at rank 20. Magic, summons and bound attacks remain useful when you fight manually, but the exact way your Smart Autoresolve build values them has not been verified. Keep the army’s health and composition sensible."
+      ],
+      [
+        "One Winds pool",
+        "All casters in the army share Winds of Magic. A second Hag supplies another lore, a firing platform and useful support; it does not double your magic budget."
+      ],
+      [
+        "Curse versus blessing",
+        "Lore of Hags upgrades can invert a spell into a friendly effect. Read the two versions and save favourite combinations in your notes. The stronger-looking button is not necessarily the right target type."
+      ],
+      [
+        "Damage and protection are different jobs",
+        "Use damage magic against valuable dense targets; use protection on the unit actually taking pressure. Thematic casting remains sensible when it buys your army a specific advantage."
+      ],
+      [
+        "Map recovery is not battle healing",
+        "Convalescence, Logistician, Man of the Land and a Patriarch’s Replenish Troops support recovery between fights. A Hag’s blue Protective Charms reduces attrition. A prayer or battle regeneration repairs eligible living combatants during the battle, not a deleted unit after autoresolve."
+      ]
+    ],
+    "sources": [
+      "hag",
+      "hag-lore"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "hag",
+      "hag-lore"
+    ]
+  },
+  "death": {
+    "label": "Death",
+    "title": "Hag Witch · Death",
+    "intro": "Develop one repeatable spell package; then protect the caster and support the journey.",
+    "steps": [
+      {
+        "title": "Spirit Leech → Life Leeching",
+        "short": "Spirit Leech → Life Leeching",
+        "note": "Character pressure and the lore passive.",
+        "gate": "Open"
+      },
+      {
+        "title": "Doom & Darkness • useful first-box upgrades",
+        "short": "Doom & Darkness • useful first-box upgrades",
+        "note": "Build towards the Evasion prerequisite without collecting every spell.",
+        "gate": "Develop"
+      },
+      {
+        "title": "Evasion",
+        "short": "Evasion",
+        "note": "Four points in the first boxed group are needed for the upper spell section.",
+        "gate": "Gate"
+      },
+      {
+        "title": "Soulblight → Fate of Bjuna",
+        "short": "Soulblight → Fate of Bjuna",
+        "note": "Support a crowded fight first; add focused damage when useful.",
+        "gate": "Finish"
+      },
+      {
+        "title": "Magical Reserves → Arcane Conduit",
+        "short": "Magical Reserves → Arcane Conduit",
+        "note": "Complete the second box’s prerequisite with spell upgrades you actually use.",
+        "gate": "Sustain"
+      },
+      {
+        "title": "Upheaval of Earth / Woodwarden",
+        "short": "Upheaval of Earth / Woodwarden",
+        "note": "Bound damage from rank 10 or personal defence from rank 6.",
+        "gate": "Side-picks"
+      }
+    ],
+    "details": [
+      [
+        "A caster first, not a general-purpose agent",
+        "For an embedded Hag, develop the spells in the selected lore before buying settlement actions. Take Woodwarden from rank 6 when she needs the personal armour, and Upheaval of Earth from rank 10 for its bound Assault of Stone in manual battles. One with Nature is optional local growth, not a replacement for a working spell kit."
+      ],
+      [
+        "There are two “Protective Charms” skills",
+        "The top-row skill at rank 8 provides personal missile/spell resistance . The blue action improves attrition protection while assisting the army. Neither is the Patriarch’s casualty-replenishment skill. Buy attrition protection when the route actually needs it. Immortality is automatic at rank 20. Magic, summons and bound attacks remain useful when you fight manually, but the exact way your Smart Autoresolve build values them has not been verified. Keep the army’s health and composition sensible."
+      ],
+      [
+        "One Winds pool",
+        "All casters in the army share Winds of Magic. A second Hag supplies another lore, a firing platform and useful support; it does not double your magic budget."
+      ],
+      [
+        "Curse versus blessing",
+        "Lore of Hags upgrades can invert a spell into a friendly effect. Read the two versions and save favourite combinations in your notes. The stronger-looking button is not necessarily the right target type."
+      ],
+      [
+        "Damage and protection are different jobs",
+        "Use damage magic against valuable dense targets; use protection on the unit actually taking pressure. Thematic casting remains sensible when it buys your army a specific advantage."
+      ],
+      [
+        "Map recovery is not battle healing",
+        "Convalescence, Logistician, Man of the Land and a Patriarch’s Replenish Troops support recovery between fights. A Hag’s blue Protective Charms reduces attrition. A prayer or battle regeneration repairs eligible living combatants during the battle, not a deleted unit after autoresolve."
+      ]
+    ],
+    "sources": [
+      "hag",
+      "hag-lore"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "hag",
+      "hag-lore"
+    ]
+  },
+  "beasts": {
+    "label": "Beasts",
+    "title": "Hag Witch · Beasts",
+    "intro": "Develop one repeatable spell package; then protect the caster and support the journey.",
+    "steps": [
+      {
+        "title": "Wyssan’s Wildform → Wild Heart",
+        "short": "Wyssan’s Wildform → Wild Heart",
+        "note": "An army-support opening and the lore passive.",
+        "gate": "Open"
+      },
+      {
+        "title": "Flock of Doom → Pann’s Impenetrable Pelt",
+        "short": "Flock of Doom → Pann’s Impenetrable Pelt",
+        "note": "Efficient crowd damage and protection; invest enough for the first gate.",
+        "gate": "Develop"
+      },
+      {
+        "title": "Evasion",
+        "short": "Evasion",
+        "note": "Open the upper spell section through its four-point prerequisite.",
+        "gate": "Gate"
+      },
+      {
+        "title": "Transformation of Kadon",
+        "short": "Transformation of Kadon",
+        "note": "A manual-battle summon, not an extra campaign army slot.",
+        "gate": "Finish"
+      },
+      {
+        "title": "Magical Reserves → Arcane Conduit",
+        "short": "Magical Reserves → Arcane Conduit",
+        "note": "Use useful upper-spell upgrades to satisfy the final gate.",
+        "gate": "Sustain"
+      },
+      {
+        "title": "Upheaval of Earth / Woodwarden",
+        "short": "Upheaval of Earth / Woodwarden",
+        "note": "Take the bound attack or personal defence as the campaign demands.",
+        "gate": "Side-picks"
+      }
+    ],
+    "details": [
+      [
+        "A caster first, not a general-purpose agent",
+        "For an embedded Hag, develop the spells in the selected lore before buying settlement actions. Take Woodwarden from rank 6 when she needs the personal armour, and Upheaval of Earth from rank 10 for its bound Assault of Stone in manual battles. One with Nature is optional local growth, not a replacement for a working spell kit."
+      ],
+      [
+        "There are two “Protective Charms” skills",
+        "The top-row skill at rank 8 provides personal missile/spell resistance . The blue action improves attrition protection while assisting the army. Neither is the Patriarch’s casualty-replenishment skill. Buy attrition protection when the route actually needs it. Immortality is automatic at rank 20. Magic, summons and bound attacks remain useful when you fight manually, but the exact way your Smart Autoresolve build values them has not been verified. Keep the army’s health and composition sensible."
+      ],
+      [
+        "One Winds pool",
+        "All casters in the army share Winds of Magic. A second Hag supplies another lore, a firing platform and useful support; it does not double your magic budget."
+      ],
+      [
+        "Curse versus blessing",
+        "Lore of Hags upgrades can invert a spell into a friendly effect. Read the two versions and save favourite combinations in your notes. The stronger-looking button is not necessarily the right target type."
+      ],
+      [
+        "Damage and protection are different jobs",
+        "Use damage magic against valuable dense targets; use protection on the unit actually taking pressure. Thematic casting remains sensible when it buys your army a specific advantage."
+      ],
+      [
+        "Map recovery is not battle healing",
+        "Convalescence, Logistician, Man of the Land and a Patriarch’s Replenish Troops support recovery between fights. A Hag’s blue Protective Charms reduces attrition. A prayer or battle regeneration repairs eligible living combatants during the battle, not a deleted unit after autoresolve."
+      ]
+    ],
+    "sources": [
+      "hag",
+      "hag-lore"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "hag",
+      "hag-lore"
+    ]
+  }
+}

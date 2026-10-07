@@ -301,7 +301,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `mother-ostankya-skills` — Commit 8: Migrate Mother Ostankya's character and witch-lore reference
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 5
 **Depends on:** ["mother-ostankya-shared-fundamentals"]
 **Write scope:** ["content/mother-ostankya/data/skills.json", "content/mother-ostankya/routes/route-1.md", "content/mother-ostankya/routes/route-2.md", "content/mother-ostankya/routes/route-3.md"]

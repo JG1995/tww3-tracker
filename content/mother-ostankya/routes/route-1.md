@@ -15,7 +15,7 @@ interpretation: "A ritual campaign: secure a safe base and an active coven, then
 bottleneck: "Correct witchcraft progression + a prepared final battle"
 panelOrder:
   armies: []
-  skills: []
+  skills: [mother-route-1, druzhina, patriarch, hag, ataman, shadows]
   research: []
   buildings: []
   mechanics: []

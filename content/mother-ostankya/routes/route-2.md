@@ -15,7 +15,7 @@ interpretation: "A practical collecting expedition south from Naggaroth: choose 
 bottleneck: "Verified site credit + retained collection bases + campaign logistics"
 panelOrder:
   armies: []
-  skills: []
+  skills: [mother-route-2, druzhina, patriarch, hag, ataman, beasts]
   research: []
   buildings: []
   mechanics: []

@@ -15,7 +15,7 @@ interpretation: "A New World frontier campaign: secure the southern and coastal 
 bottleneck: "Sustained multi-army operations + the last surviving required faction"
 panelOrder:
   armies: []
-  skills: []
+  skills: [mother-route-3, druzhina, patriarch, hag, ataman, shadows]
   research: []
   buildings: []
   mechanics: []
