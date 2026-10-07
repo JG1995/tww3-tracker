@@ -236,7 +236,7 @@ Styles. `app/styles/app.css` header region: the topline trigger sizing (fits the
 
 #### Package `search-shell-wiring` — Commit 4: Wire the search dialog into the app shell
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 4
 
