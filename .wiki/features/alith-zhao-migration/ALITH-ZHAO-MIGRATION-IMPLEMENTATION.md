@@ -512,7 +512,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `zhao-route-two` — Commit 20: Complete Zhao's alchemy-expedition route
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 10
 **Depends on:** ["zhao-armies"]
 **Write scope:** ["content/zhao-ming/routes/route-2.md"]
@@ -526,6 +526,9 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 **Validation:** Common package gate; no new test cases or assets.
 **Stop conditions:** Common stops; a strategy-changing action/geography conflict.
 **Review mandate:** No lost target-theatre/recovery guidance, invented relic search or premature reward spending.
+- [x] All eight sections and five phase summaries completed; five site records (raze-or-conquer targets) and all phase/use guidance in visible homes; independent capital/skill priorities with common research selections linked (not restated); qualifying action/current-owner checks and post-victory corruption/tool limits retained.
+- [x] Established identity/selections/flags and the five `raze-or-conquer-<site>` VCO rows byte-preserved; both transition slots present with anchors resolving to frozen-base Openings.
+- [x] Gates green (214/214); fresh reviewer 20 (13da754f) Accept, no findings at any tier (brief explicitly checked the thin-phase-home class); Jev suitable .98 / review .80. Aggregate destination reconciliation remains serial close-out.
 
 #### Package `alith-route-three` — Commit 21: Complete Alith's vengeance route
 
