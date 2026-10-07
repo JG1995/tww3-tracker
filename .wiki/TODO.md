@@ -6,7 +6,7 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
-- **cross-guide-search** (F6 — cross-guide search, order 8) — planned 2026-10-07 · [IMPLEMENTATION](features/cross-guide-search/CROSS-GUIDE-SEARCH-IMPLEMENTATION.md) · [DESIGN](features/cross-guide-search/CROSS-GUIDE-SEARCH-DESIGN.md) — one site-wide search over all three migrated guides: a pure tokenized search contract in the query layer, a keyboard-first search dialog, the search trigger in both header forms, and the shell wiring; results grouped by faction/route and deep-linking into each guide's content.
+(none — F6 closed 2026-10-07; order 9, **F4 × 2 — Malakai, Mother Ostankya**, is next in the development sequence)
 
 ## Next
 
@@ -23,7 +23,7 @@ Resolved at approval: pilot is **Elspeth von Draken**; the ledger tracks **one a
 | 5 | ~~**F7 — route transitions** (bidirectional cross-links)~~ — **Completed 2026-10-03** (see Completed below) | high | Mechanical; needs F2 route pages + F4 transition sections |
 | 6 | ~~**F5 — VCO campaign ledger**~~ — **Completed 2026-10-04** (see Completed below) | medium | Should (not Must) and the only feature touching the write path; keeping it last leaves the entire Must path shippable without it |
 | 7 (v1.1) | ~~**F4 × 2 — Alith Anar, Zhao Ming**~~ — **Completed 2026-10-07** (see Completed below) | high | Cheapest; proves "second faction is content-only" |
-| 8 (v1.1) | **F6 — cross-guide search** | medium | Meaningful only with ≥ 2 migrated guides; corpus exists in `query.ts` from order 1 |
+| 8 (v1.1) | ~~**F6 — cross-guide search**~~ — **Completed 2026-10-07** (see Completed below) | medium | Meaningful only with ≥ 2 migrated guides; corpus exists in `query.ts` from order 1 |
 | 9 (v1.1) | **F4 × 2 — Malakai, Mother Ostankya** | medium-low | Structurally different files; the model's real stress test, last so the model is corrected first |
 
 Deferred by the PRD (not in this sequence): F8 (ledger database — needs a real campaign of ledger use), F9 (faction onboarding aid — needs the model proven across ≥ 3 factions), v2.0 candidates.
@@ -47,6 +47,7 @@ F4 (Elspeth) + F4 (Alith or Zhao) + F2 ──► F6 cross-guide search          
 
 ## Completed
 
+- **cross-guide-search** (F6 — cross-guide search) — delivered 2026-10-07 · [IMPLEMENTATION](features/cross-guide-search/CROSS-GUIDE-SEARCH-IMPLEMENTATION.md) · [DESIGN](features/cross-guide-search/CROSS-GUIDE-SEARCH-DESIGN.md) — one site-wide search over all three migrated guides: a pure tokenized search contract in `app/content/query.ts` (manifest-order corpus walk, 30-hit cap with explicit total, per-kind landing hrefs), a keyboard-first native-`<dialog>` search dialog (zero-DOM builder + wrapper seam, grouped faction/route/section hits with breadcrumbs, categories, match highlights, wrapping arrows, Enter navigation with `#main` focus handover, Escape/backdrop dismissal with opener focus restore, the `/` shortcut), the search trigger in both atlas header forms, and the shell wiring. Six commits — four packages plus two independently reviewed fixes (backdrop dismissal + open-state assertion; a Chromium-153 workaround owning Escape close, since that Chromium build stops the native `cancel` → `close` chain once the search input's value is set) — integrated to `main` by merge commit (ref recorded in the next ordinary documentation update). Final feature review Accept with no findings; 233/233 tests, tsc, content lint, build clean; 43/43-check manual boot; `searchContent` 11.16 ms minimum over the committed corpus (< 100 ms bound).
 - **alith-zhao-migration** (F4 × 2 — Alith Anar and Zhao Ming) — delivered 2026-10-07 · [IMPLEMENTATION](features/alith-zhao-migration/ALITH-ZHAO-MIGRATION-IMPLEMENTATION.md) · [DESIGN](features/alith-zhao-migration/ALITH-ZHAO-MIGRATION-DESIGN.md) — migrated both reference atlases into the existing content surfaces: six full route plans and 30 army templates per pair, full skills/research/buildings/mechanics/VCO data, source libraries with confidence citations, append-only index registration, and the three bounded test-file adaptations. Twenty-two implementation packages plus bounded close-out commits, integrated to `main` by merge commit `9f3a539bb3e5605a395f88b834d29d40da22a665` (PR #1). Final feature review Accept with no findings; post-integration `main` is at the merge commit with local/remote in sync.
 - **atlas-ux-realignment** (F10 — atlas UX re-alignment) — delivered 2026-10-04 · [IMPLEMENTATION](features/atlas-ux-realignment/ATLAS-UX-REALIGNMENT-IMPLEMENTATION.md) · [DESIGN](features/atlas-ux-realignment/ATLAS-UX-REALIGNMENT-DESIGN.md) — re-aligned the site's chrome, eight-page IA, hash grammar, and visual system to the reference atlases; added optional crest/environment/phase content. Twelve implementation commits plus one reconciliation commit, integrated to `main` by fast-forward at `b2317f3031e7057c2de6ca7b8f4af91cda597527`. Feature review Needs fixes (2 MEDIUM, 2 LOW); all four findings were reconciled. Post-integration gates pass (213 tests, tsc, content lint, build).
 

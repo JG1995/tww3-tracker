@@ -4,7 +4,7 @@
 
 ## Status
 
-Accepted
+Completed
 
 **Ledger schema:** 4
 
@@ -100,13 +100,13 @@ The four packages in order; after Commit 4 the thinnest path is live end-to-end:
 
 ### PR `cross-guide-search` — Add cross-guide search
 
-**Status:** Planned
+**Status:** Merged
 
 **Depends on:** []
 
-**PR ref:** Not published
+**PR ref:** https://github.com/JG1995/tww3-tracker/pull/2
 
-**Merge ref:** Not merged
+**Merge ref:** reconciled in the next ordinary documentation update after verified integration (no self-referential metadata-only commit)
 
 **Branch:** `feat/cross-guide-search`
 
@@ -120,7 +120,7 @@ The four packages in order; after Commit 4 the thinnest path is live end-to-end:
 
 **Required checks:** Local gates `npm test`, `npx tsc --noEmit`, `node tools/content-lint.mjs`, `npm run build`, plus the Final validation HTTP/rendered-capture evidence. No CI workflow or provider-required check names exist; verify live checks, review rules, and exact-head approval through the publication skill before merge (PR #1 precedent: merge commit to `main`).
 
-**Feature close-out:** Not run
+**Feature close-out:** Current
 
 **Provisional PR title:** `feat(search): add cross-guide search`
 
@@ -268,6 +268,8 @@ In `App`: `const [searchOpen, setSearchOpen] = useState(false)`. Availability: `
 
 ## Discoveries and replanning
 
+- Manual boot (close-out, 2026-10-07): Chromium 153 stops firing the native keydown → `cancel` → `close` chain for a modal `<dialog>` once a `type=search` input inside it has had its value set — Escape silently stopped closing the search dialog after any query was typed. Reproduced on a bare page (no app code); fixed by a wrapper-owned dialog `keydown` listener in `app/components/search.ts` that closes on Escape, converging with the native path on the single `close` event (focus restore and shell sync run once). Independent commit-review Accept; the 43-check boot passes post-fix (the pre-fix boot failed its post-typing Escape checks). Retained: `.pi/work/cross-guide-search/debug-*.mjs`, `captures/`.
+
 - Commit 2 commit review (fresh reviewer, Mode: commit): verdict Accept, no CRITICAL/HIGH. One MEDIUM retained for the close-out bundle (advisory until delegated per policy): the wrapper has no backdrop-click dismissal — DESIGN §2/§6 names backdrop click as a closing means; the fix is wrapper-owned in `app/components/search.ts` (a click listener closing when `event.target` is the dialog element), with the strongest-available-seam proof. Same bundle: the reviewer's suggested one-line assertion that the builder never renders the native `open` attribute (controlled-dialog invariant). No scope, architecture, delivery-boundary, or package-order change.
 
 - Plan review, round 1 (fresh reviewer, Mode: plan, 2026-10-07): one MEDIUM — Commit 4's trigger scoping condition was built on the raw `route.name` and would have rendered the search control on the slim not-found header for unresolvable lord/route hashes (`#/unknown-lord`, `#/<lord>/plan/<bad-route>` — well-formed to the parser, unresolvable in `headerContext`). Corrected: the condition now derives from the resolved header context (`headerLord !== null`), with the unresolvable hashes named in the Commit 4 review mandate and Final validation. Adopted in the same round (reviewer validation-gap and investigation notes): the measured sub-100 ms `searchContent` timing must be recorded in integration evidence and be under 100 ms for acceptance; the corpus indexes ALL plain-string rendered fields (army `label`, unit `role`/`kind`, `size`, item `label`); matching runs over `title + " " + text`; and the retain-all `panelOrder` decision is recorded (Uncertainty register → Decisions). No scope, architecture, delivery-boundary, or package-order change.
@@ -283,9 +285,11 @@ Exact gates, in order, on the integrated HEAD before final feature review:
 5. Manual HTTP boot (`npm run build` + `npm run serve`), rendered capture as evidence: the trigger renders on home (slim) and on every resolvable full-form page (topline slot), and renders not on not-found — neither the explicit not-found route nor the unresolvable-hash renders `#/unknown-lord` and `#/<lord>/plan/<bad-route>`; `/` opens the dialog on home and on a plan page and types normally in the field; typing `garrison` (or another verified cross-guide term) shows grouped hits from multiple factions in manifest order with breadcrumbs, categories, and highlighted matches, and the count line; ArrowUp/ArrowDown wrap across the grouped list, Enter lands each kind on its DESIGN §4 target with focus in the page (a section hit scrolls the plan H2 into view; the panel kinds land on the right detail page; VCO on the undercard; shared on the desk; sources on `sources`); Escape and backdrop close restore focus to the opener; a non-matching query shows the no-match text; a reload with the dialog open restores the page with the dialog closed.
 6. The DESIGN §7 acceptance criteria checked item by item, plus the DESIGN.md pre-delivery checklist on the new surfaces (keyboard-operable, `:focus-visible`, no colour-only meaning, z-index scale, no new tokens).
 
+**Serial close-out progress (coordinator, 2026-10-07):** All 4 packages Integrated in order (`e686f8e` query layer, `aa7b37f` dialog component, `f70d56b` header triggers, `c8d9219` shell wiring). Gates at integrated HEAD `0c5228b`: `npm test` 233/233, `npx tsc --noEmit` 0, `node tools/content-lint.mjs` 0, `npm run build` 0; `package.json`/lockfile diff vs base `47723db` empty. Measured `searchContent` over the committed corpus: min 11.16 ms over 20 passes (< 100 ms bound); 30-cap: term `the` → total 521, hits 30. Manual boot (headless Chromium 153.0.8010.12 over the built bundle + project server): 43/43 checks, 0 page errors — trigger present on 7 resolved routes / absent on not-found and unresolvable hashes, `/` shortcut + field focus, `garrison` grouped across 3 factions with breadcrumbs/categories/highlights/30+ count line, arrow wrap + Enter landings per kind with `#main` focus, Escape and backdrop close with focus restore (post-typing state), no-match line, per-kind landings (section/army/skill/research/building/mechanic/vco/shared/source), `/` types in the field, no nested modal, reload restores closed. Evidence: `.pi/work/cross-guide-search/final-validation-evidence.md` + `captures/` (JSON, 12 screenshots, boot script). Close-out correction `54af8e0` (backdrop dismissal + open-attribute assertion) correction-review Accept. Chromium-153 Escape fix `0c5228b` commit-review Accept (one NITPICK applied in-commit). Fresh feature review (fresh reviewer, Mode: feature, range `47723db..0c5228b`): Accept — no CRITICAL/HIGH/MEDIUM/NITPICK, all eight DESIGN §7 criteria met (table in the retained report), zero-DOM seam and no-new-dependency constraint hold across the set. PR published and merged to `main` after this reconciliation (merge ref recorded in the next ordinary documentation update).
+
 ## Documentation impact
 
-Complete during reconciliation.
+Reconciled at close-out (2026-10-07): `CROSS-GUIDE-SEARCH-DESIGN.md` §7 acceptance checkboxes ticked against the boot and gate evidence; `TODO.md` — F6 moved from Active to Completed and its backlog table row struck. Retain DESIGN and IMPLEMENTATION in their native directory; no BACKLOG/ADR change. The PR/merge refs reconcile in the next ordinary documentation update after verified integration (no self-referential metadata-only commit).
 
 ## Abandonment record
 
