@@ -1,0 +1,18 @@
+{
+  "id": "mother-ostankya",
+  "lord": "Mother Ostankya",
+  "faction": "Daughters of the Forest",
+  "version": {
+    "patch": "unverified",
+    "vco": "unverified",
+    "checked": "2026-09-30"
+  },
+  "environment": "Immortal Empires · VCO · Normal / Normal · Smart Autoresolve · All WH3 DLC · WH1/WH2 free content only · default start: Bleak Hold Fortress / Volksgrad in Naggaroth, with the optional Plesk homecoming — the archive notes Creative Assembly describes Plesk as the harder start",
+  "routes": [
+    { "id": "route-1", "file": "routes/route-1.md", "number": "I" },
+    { "id": "route-2", "file": "routes/route-2.md", "number": "II" },
+    { "id": "route-3", "file": "routes/route-3.md", "number": "III" }
+  ],
+  "shared": "shared.md",
+  "datasets": ["armies", "skills", "research", "buildings", "mechanics", "vco", "sources"]
+}

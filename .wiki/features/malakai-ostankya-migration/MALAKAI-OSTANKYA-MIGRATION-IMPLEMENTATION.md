@@ -199,7 +199,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `mother-ostankya-registration` — Commit 2: Register Mother Ostankya's archival guide context
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 2
 **Depends on:** ["malakai-registration"]
 **Write scope:** ["content/index.json", "content/mother-ostankya/guide.json", "content/mother-ostankya/shared.md", "content/mother-ostankya/routes/route-1.md", "content/mother-ostankya/routes/route-2.md", "content/mother-ostankya/routes/route-3.md", "content/mother-ostankya/data/armies.json", "content/mother-ostankya/data/skills.json", "content/mother-ostankya/data/research.json", "content/mother-ostankya/data/buildings.json", "content/mother-ostankya/data/mechanics.json", "content/mother-ostankya/data/vco.json", "content/mother-ostankya/data/sources.json"]

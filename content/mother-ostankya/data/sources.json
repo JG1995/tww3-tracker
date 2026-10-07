@@ -1,0 +1,176 @@
+[
+  {
+    "id": "vco-guide",
+    "title": "VCO • current route guide",
+    "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084",
+    "note": "Author’s guide, labelled 25 September 2026; rechecked 30 September. Use its Immortal Empires Kislev section, not the different Realms of Chaos section. Route II names the three ingredient groups but does not state the numeric quotas or exact interaction."
+  },
+  {
+    "id": "vco-code",
+    "title": "VCO • archived mission implementation",
+    "url": "https://github.com/msolefonte/vco/blob/main/src/script/vco-ie/main_warhammer/wh3_dlc24_ksl_daughters_of_the_forest/missions.lua",
+    "note": "Historical public source (2024 archive), not the current installed Workshop package. Route I checks the final Malediction set-piece battle; Route II directly controls three regions from each six-region group; Route III counts 32 settlements and six defeated factions. These details inform clearly labelled provisional defaults, not a claim of current code verification."
+  },
+  {
+    "id": "vco-names",
+    "title": "VCO • route title localisation",
+    "url": "https://github.com/msolefonte/vco/blob/main/src/text/db/vco_victory_types.loc.tsv",
+    "note": "The public localisation supplies The Malediction of Ruin, Toil & Trouble, and The New Frontier. Strategic subtitles and army names in this atlas are guide interpretations, not invented VCO requirements."
+  },
+  {
+    "id": "vco-changes",
+    "title": "VCO • 9.0 change notes",
+    "url": "https://steamcommunity.com/sharedfiles/filedetails/changelog/3140200173",
+    "note": "Version 6.8.4 (27 September 2026) fixes missing victory rewards. The author says affected campaigns must load a save before victory: the fix is not retroactive. Earlier 6.8.1 notes that vanilla objectives run alongside VCO under 9.0."
+  },
+  {
+    "id": "vco",
+    "title": "VCO • Workshop description",
+    "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3140200173",
+    "note": "Keep the mod active throughout the campaign. Objective and quest scripts may be affected by other mods; this atlas has not tested the user’s complete mod stack."
+  },
+  {
+    "id": "patch61",
+    "title": "Creative Assembly • Kislev rework",
+    "url": "https://community.creative-assembly.com/total-war/total-war-warhammer/blogs/49-total-war-warhammer-iii-patch-notes-6-1",
+    "note": "Primary documentation for provincial Devotion, Court & Orthodoxy, revised Atamans, the early return-to-Kislev choice, Volksgrad’s alternative Hut, and Purification curing plagues. These systems supersede launch-era guides saying Ostankya has no Kislev administration."
+  },
+  {
+    "id": "patch9",
+    "title": "Creative Assembly • update 9.0",
+    "url": "https://community.creative-assembly.com/total-war/total-war-warhammer/blogs/110",
+    "note": "Base-game version context. Values in your live 9.x tooltips take precedence over a static reference or the extracted vanilla-data snapshot."
+  },
+  {
+    "id": "release",
+    "title": "Shadows of Change • faction overview",
+    "url": "https://store.steampowered.com/app/3301130/?l=english",
+    "note": "Publisher overview of Mother Ostankya, the Witch’s Hut, Spirit Essence, Incantations, and campaign Hexes. Not used to reconstruct current economic values."
+  },
+  {
+    "id": "mother",
+    "title": "Game data • Ostankya skills",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/ksl_kislev/wh3_dlc24_skill_node_set_ksl_mother_ostankya.json",
+    "note": "Extracted vanilla skill tree, checked through the repository. It distinguishes army effects, personal effects, rank gates, and point prerequisites. Priority blocks in the atlas are recommendations, not literal one-point-per-character-rank builds."
+  },
+  {
+    "id": "druzhina",
+    "title": "Game data • Druzhina skills",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/ksl_kislev/wh3_dlc24_skill_node_set_ksl_druzhina.json",
+    "note": "Speaks to the Forest regenerates embedded Hag Witches, not the whole army. Man of the Land provides replenishment; Man of the People benefits basic units, not Akshina. Automatic mounts and Immortality should not consume planned points."
+  },
+  {
+    "id": "hag",
+    "title": "Game data • Hag Witches",
+    "url": "https://github.com/krmarshall/TWPData/tree/main/skills/vanilla3/ksl_kislev",
+    "note": "Separate Hag, Shadows, Death and Beasts trees. Personal Protective Charms and the blue attrition-protection action are different skills. Hag Witches are not the Patriarch’s Replenish Troops replacement."
+  },
+  {
+    "id": "patriarch",
+    "title": "Game data • Patriarch skills",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/ksl_kislev/wh3_main_skill_node_set_ksl_patriarch.json",
+    "note": "Healer is a rank-20 specialisation. Campaign replenishment and Salyak’s battle healing are different mechanics."
+  },
+  {
+    "id": "ataman",
+    "title": "Game data • Ataman skills",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/ksl_kislev/wh3_main_skill_node_set_ksl_ataman.json",
+    "note": "Current governor tree: Court Sanctioned / Orthodoxy Adherent at rank 5; mutually exclusive Warden / Ambassador at rank 12. The official rework confirms Atamans cannot become ordinary field lords."
+  },
+  {
+    "id": "tech",
+    "title": "Game data • Kislev research",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/techs/vanilla3/ksl_mil.json",
+    "note": "Named technologies and prerequisite links checked in the extracted vanilla tree, including the unique Ostankya branch. Scripted gates and faction restrictions are not erased by a displayed short research duration. Research targets are not all one continuous branch."
+  },
+  {
+    "id": "woods",
+    "title": "Recruitment • Silent Grove",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_dlc24_ksl_woods_2/",
+    "note": "Tier-3 grove in the Eerie Woods chain: the practical Things in the Woods / Hag Witch recruitment milestone. Use the capital for the tier-5 continuation rather than expecting a minor settlement to complete it."
+  },
+  {
+    "id": "haunted",
+    "title": "Recruitment • Haunted Forest",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_dlc24_ksl_woods_3/",
+    "note": "Tier-5 continuation supporting the Incarnate Elemental. Haunted Forest (military) is distinct from Hallowed Forest (recovery/economy)."
+  },
+  {
+    "id": "hut",
+    "title": "Landmark • Ostankya’s Hut",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_dlc24_special_ostankyas_hut/",
+    "note": "Tier-3 landmark; reference effects include passive Essence, income, cheaper Hexes and Kislev relations. Official patch 6.1 documents Bleak Hold Fortress or Volksgrad, one active location at a time. It is not the Witch’s Hut crafting interface."
+  },
+  {
+    "id": "weald",
+    "title": "Recovery • Hallowed Weald",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_main_ksl_corruption_land_2/",
+    "note": "Recovery chain effects and scope. Use the actual region containing the building to replenish; do not read every effect as factionwide. Farming multipliers differ between reference snapshots, so no fixed farming percentage is budgeted."
+  },
+  {
+    "id": "buildings",
+    "title": "Kislev • building-chain index",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Kislev_buildings",
+    "note": "Secondary index for building names. It mixes older and newer effect descriptions, so current Devotion and administration rules are taken from Creative Assembly rather than its obsolete Control entries."
+  },
+  {
+    "id": "defence",
+    "title": "Defence • Stanitsa Defences",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Stanitsa_Defences",
+    "note": "Minor-settlement defence chain, garrison, Devotion and Ataman experience. It grants an unwalled settlement battle, not a promise of a walled siege."
+  },
+  {
+    "id": "church",
+    "title": "Administration • Orthodoxy Church",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Orthodoxy_Church",
+    "note": "Reference for provincial Devotion, Orthodoxy support, corruption reduction and Patriarch recruitment/capacity. Recruitment access still needs to be available to your faction."
+  },
+  {
+    "id": "roster",
+    "title": "Ostankya • recruitment restrictions",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Daughters_of_the_Forest",
+    "note": "Used only for the city/alliance gate for normal Kislev recruitment and the special forest roster. Its statement about having no Devotion/supporter mechanics is obsolete after 6.1 and is NOT followed here."
+  },
+  {
+    "id": "units",
+    "title": "Forest units • battlefield roles",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/The_Things_in_the_Woods",
+    "note": "Things in the Woods are fast monstrous infantry with armour-piercing anti-infantry attacks; large bodies and physical resistance are not universal protection from arrows, magic or anti-large counters. Templates are thematic recommendations, not controlled autoresolve tests."
+  },
+  {
+    "id": "hag-lore",
+    "title": "Hag magic • practical reference",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Hag_Witch_(Hag)",
+    "note": "Hag spellcasting, recruitment, and the important blessing/curse flip in upgraded spells. Re-read the target and effect instead of assuming overcasting simply adds damage."
+  },
+  {
+    "id": "hex-guide",
+    "title": "Witchcraft • launch-era explanation",
+    "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3031240593",
+    "note": "SusaVile’s September 2023 overview is used selectively for the five Hex roles and trinket crafting. Its old economy, administration, start-only advice and vanilla victory checklist are superseded here."
+  },
+  {
+    "id": "essence",
+    "title": "Essence accounting • player observations",
+    "url": "https://community.creative-assembly.com/total-war/total-war-warhammer/forums/9-campaign/threads/3899-mother-ostankya-is-kinda-bad-no-matter-which-campaign-you-play-roc",
+    "note": "Player observations, not current mod code: Essence spent on research may not count for Hex-spending progression. This is why the calculator asks for the observed mission credit separately from your wallet."
+  },
+  {
+    "id": "boons",
+    "title": "Court & Orthodoxy • Foundations example",
+    "url": "https://medias.community.creative-assembly.com/forums/ca-pingu-2295/6.1_PATCH_NOTES_IMAGE_5.png",
+    "note": "Official example includes Spirit of Community → Unity in Toil in Foundations. Use this as an economic branch to inspect, not a promise that every version or boon tier is identical."
+  },
+  {
+    "id": "invocation",
+    "title": "Army invocation • Ursun example",
+    "url": "https://medias.community.creative-assembly.com/forums/ca-pingu-2295/6.1_PATCH_NOTES_IMAGE_7.png",
+    "note": "Official army tooltip: movement boost, Bitterness of Winter and damage for War Bear Riders / Elemental Bears. The bear-specific damage is not a blanket benefit for Feral Bears, spiders or Incarnates."
+  },
+  {
+    "id": "smart",
+    "title": "Smart Autoresolve • scope of this guide",
+    "url": "",
+    "note": "Based on the enabled mod title and description supplied in the conversation. Its exact installed calculations and treatment of spells, Incantations, summons and army abilities have NOT been inspected. No auto-resolve outcome or specialist weighting is guaranteed."
+  }
+]
