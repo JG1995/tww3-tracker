@@ -14,7 +14,7 @@ reward:
 panelOrder:
   armies: []
   skills: [alith, princess, field-noble, agent-noble, shadow-caster, mist-mage, life-mage, light-mage]
-  research: []
+  research: [opening, hunt-route-2, industry, agents]
   buildings: []
   mechanics: []
 gaps:

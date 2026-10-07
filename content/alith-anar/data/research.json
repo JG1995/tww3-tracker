@@ -1,1 +1,338 @@
-{}
+{
+  "opening": {
+    "label": "Opening",
+    "title": "First improve the army on the map",
+    "intro": "A militia foundation before specialist detours. The first five make a connected recommended path.",
+    "steps": [
+      {
+        "title": "The Endless Muster",
+        "note": "Open the shared militia branch.",
+        "gate": "Opening shared node."
+      },
+      {
+        "title": "Archery Prowess",
+        "note": "Support bows you already field.",
+        "gate": "The Endless Muster."
+      },
+      {
+        "title": "Spearwall",
+        "note": "Improve the spear and Sea Guard escort.",
+        "gate": "Archery Prowess."
+      },
+      {
+        "title": "Militia Training",
+        "note": "Improve the ordinary infantry’s campaign usefulness.",
+        "gate": "Spearwall is the recommended incoming route; an alternate branch also exists."
+      },
+      {
+        "title": "Precise Fletching",
+        "note": "Keep hunters and ordinary bow support useful as enemies improve.",
+        "gate": "Militia Training."
+      },
+      {
+        "title": "Light Ithilmar Armoury",
+        "note": "Reduce the fragility of the common infantry section.",
+        "gate": "The Endless Muster."
+      }
+    ],
+    "details": [
+      [
+        "Sequence versus availability",
+        "These are priority queues, not a promise that each next tile is immediately clickable. Follow the stated prerequisite path and live ordinary-building gates; do not construct Aislinn’s ship buildings."
+      ],
+      [
+        "No stale numeric bonuses",
+        "Current names and ordinary links were checked against the Patch_9_0 raw database. The TWPData display includes ship variants, so the guide does not copy their building requirements or old wiki percentages into Alith’s plan."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) names these technologies and their ordinary links from the raw 9.0 database, whose build timestamp is 18 September 2026. Unknown: whether that tree matches the player's installed build, hotfixes and mod setup. Open the live research panel and compare names and parents before spending; if a name or gate differs, follow the live prerequisites and treat this queue as priority advice, not a confirmed spending order."
+      ]
+    ],
+    "sources": [
+      "tech",
+      "tech-names",
+      "tech-links",
+      "build-info"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "tech",
+      "tech-names",
+      "tech-links",
+      "build-info"
+    ]
+  },
+  "hunt": {
+    "label": "Shadow war",
+    "title": "Veterans, ambushes and useful magic",
+    "intro": "Finish the common bow foundation, then follow the ordinary magic/intelligence path when available.",
+    "steps": [
+      {
+        "title": "Precise Fletching",
+        "note": "Keep hunters and ordinary bow support useful as enemies improve.",
+        "gate": "Militia Training."
+      },
+      {
+        "title": "Seasoned Militia",
+        "note": "The rank-seven benefits reward keeping veterans alive.",
+        "gate": "Precise Fletching."
+      },
+      {
+        "title": "Arcane Studies",
+        "note": "Support the travelling caster’s magic reserves.",
+        "gate": "Obtain its ordinary settlement/technology gate in your live tree, not Aislinn’s Blessed Hull."
+      },
+      {
+        "title": "Foretelling",
+        "note": "Reinforcement and item-search utility for an expedition.",
+        "gate": "Arcane Studies."
+      },
+      {
+        "title": "Protection of Loec",
+        "note": "Support ambush success and resistance to enemy ambushes.",
+        "gate": "Foretelling."
+      },
+      {
+        "title": "Disciplines of Hoeth",
+        "note": "Improve repeated casting once the army has a developed caster.",
+        "gate": "Protection of Loec."
+      }
+    ],
+    "details": [
+      [
+        "Avoid a premature long detour",
+        "Protection of Loec is valuable, but it is not a free first-turn ambush upgrade. Follow Arcane Studies and Foretelling rather than delaying the whole campaign for the last tile."
+      ],
+      [
+        "Sequence versus availability",
+        "These are priority queues, not a promise that each next tile is immediately clickable. Follow the stated prerequisite path and live ordinary-building gates; do not construct Aislinn’s ship buildings."
+      ],
+      [
+        "No stale numeric bonuses",
+        "Current names and ordinary links were checked against the Patch_9_0 raw database. The TWPData display includes ship variants, so the guide does not copy their building requirements or old wiki percentages into Alith’s plan."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) names these technologies and their ordinary links from the raw 9.0 database, whose build timestamp is 18 September 2026. Unknown: whether that tree matches the player's installed build, hotfixes and mod setup. Open the live research panel and compare names and parents before spending; if a name or gate differs, follow the live prerequisites and treat this queue as priority advice, not a confirmed spending order."
+      ]
+    ],
+    "sources": [
+      "tech",
+      "tech-names",
+      "tech-links",
+      "build-info"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "tech",
+      "tech-names",
+      "tech-links",
+      "build-info"
+    ]
+  },
+  "agents": {
+    "label": "Agents",
+    "title": "Build the institutions behind the hunt",
+    "intro": "More important for The Eternal War than for a short territorial offensive.",
+    "steps": [
+      {
+        "title": "Cultural Advancements",
+        "note": "Open the political/civic branch when it supports the route.",
+        "gate": "Its ordinary research gate; separate from Patrons of the Realms."
+      },
+      {
+        "title": "Waystone Network",
+        "note": "The left civic path towards better character infrastructure.",
+        "gate": "Cultural Advancements."
+      },
+      {
+        "title": "Court Advisors",
+        "note": "Prioritise before recruiting a new generation of agents.",
+        "gate": "Waystone Network."
+      },
+      {
+        "title": "Upholders of Order",
+        "note": "The other civic path towards intelligence and unification.",
+        "gate": "Cultural Advancements."
+      },
+      {
+        "title": "Spy Networks",
+        "note": "Improve the intelligence framework; still scout individual targets.",
+        "gate": "Upholders of Order."
+      },
+      {
+        "title": "Unite Local Nobility",
+        "note": "Develop the civic branch after its linked predecessors.",
+        "gate": "Court Advisors / Spy Networks links; meet the live parent-count gate."
+      }
+    ],
+    "details": [
+      [
+        "Sequence versus availability",
+        "These are priority queues, not a promise that each next tile is immediately clickable. Follow the stated prerequisite path and live ordinary-building gates; do not construct Aislinn’s ship buildings."
+      ],
+      [
+        "No stale numeric bonuses",
+        "Current names and ordinary links were checked against the Patch_9_0 raw database. The TWPData display includes ship variants, so the guide does not copy their building requirements or old wiki percentages into Alith’s plan."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) names these technologies and their ordinary links from the raw 9.0 database, whose build timestamp is 18 September 2026. Unknown: whether that tree matches the player's installed build, hotfixes and mod setup. Open the live research panel and compare names and parents before spending; if a name or gate differs, follow the live prerequisites and treat this queue as priority advice, not a confirmed spending order."
+      ]
+    ],
+    "sources": [
+      "tech",
+      "tech-names",
+      "tech-links",
+      "build-info"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "tech",
+      "tech-names",
+      "tech-links",
+      "build-info"
+    ]
+  },
+  "industry": {
+    "label": "Recovery",
+    "title": "Construction and expedition support",
+    "intro": "Choose based on what is actually built and recruited; do not chase a resource unlock through an unnecessary war.",
+    "steps": [
+      {
+        "title": "Marble Stockpiles",
+        "note": "Construction savings are strongest before a major building programme.",
+        "gate": "Use the ordinary resource/building unlock shown in the research panel."
+      },
+      {
+        "title": "Healing Salve",
+        "note": "General recovery is valuable for expensive veterans.",
+        "gate": "Use the ordinary resource/building unlock; not Aislinn’s Guest Cabin."
+      },
+      {
+        "title": "Light Ithilmar Armoury",
+        "note": "Reduce the fragility of the common infantry section.",
+        "gate": "The Endless Muster."
+      },
+      {
+        "title": "Cartridge Ammunition",
+        "note": "Support Eagle Claws or a meaningful Skycutter contingent.",
+        "gate": "Check its ordinary military branch; no Dragonship required."
+      },
+      {
+        "title": "Seasoned Militia",
+        "note": "The rank-seven benefits reward keeping veterans alive.",
+        "gate": "Precise Fletching."
+      },
+      {
+        "title": "Foretelling",
+        "note": "Reinforcement and item-search utility for an expedition.",
+        "gate": "Arcane Studies."
+      }
+    ],
+    "details": [
+      [
+        "Resource research is opportunistic",
+        "A useful captured resource can make a technology cheap to access. Its existence does not mean it is worth an ocean crossing before a live victory target."
+      ],
+      [
+        "No obsolete Shadowlands instruction",
+        "Old High Elf technology lists have changed. This guide uses current named research rather than treating an older From the Shadowlands recommendation as a guaranteed tile in every present tree."
+      ],
+      [
+        "Sequence versus availability",
+        "These are priority queues, not a promise that each next tile is immediately clickable. Follow the stated prerequisite path and live ordinary-building gates; do not construct Aislinn’s ship buildings."
+      ],
+      [
+        "No stale numeric bonuses",
+        "Current names and ordinary links were checked against the Patch_9_0 raw database. The TWPData display includes ship variants, so the guide does not copy their building requirements or old wiki percentages into Alith’s plan."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) names these technologies and their ordinary links from the raw 9.0 database, whose build timestamp is 18 September 2026. Unknown: whether that tree matches the player's installed build, hotfixes and mod setup. Open the live research panel and compare names and parents before spending; if a name or gate differs, follow the live prerequisites and treat this queue as priority advice, not a confirmed spending order."
+      ]
+    ],
+    "sources": [
+      "tech",
+      "tech-names",
+      "tech-links",
+      "build-info"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "tech",
+      "tech-names",
+      "tech-links",
+      "build-info"
+    ]
+  },
+  "hunt-route-2": {
+    "label": "Shadow war",
+    "title": "A protected, well-scouted expedition",
+    "intro": "Finish the common bow foundation, then follow the ordinary magic/intelligence path when available.",
+    "steps": [
+      {
+        "title": "Arcane Studies",
+        "note": "Support the travelling caster’s magic reserves.",
+        "gate": "Obtain its ordinary settlement/technology gate in your live tree, not Aislinn’s Blessed Hull."
+      },
+      {
+        "title": "Foretelling",
+        "note": "Reinforcement and item-search utility for an expedition.",
+        "gate": "Arcane Studies."
+      },
+      {
+        "title": "Protection of Loec",
+        "note": "Support ambush success and resistance to enemy ambushes.",
+        "gate": "Foretelling."
+      },
+      {
+        "title": "Disciplines of Hoeth",
+        "note": "Improve repeated casting once the army has a developed caster.",
+        "gate": "Protection of Loec."
+      },
+      {
+        "title": "Precise Fletching",
+        "note": "Keep hunters and ordinary bow support useful as enemies improve.",
+        "gate": "Militia Training."
+      },
+      {
+        "title": "Seasoned Militia",
+        "note": "The rank-seven benefits reward keeping veterans alive.",
+        "gate": "Precise Fletching."
+      }
+    ],
+    "details": [
+      [
+        "Avoid a premature long detour",
+        "Protection of Loec is valuable, but it is not a free first-turn ambush upgrade. Follow Arcane Studies and Foretelling rather than delaying the whole campaign for the last tile."
+      ],
+      [
+        "Sequence versus availability",
+        "These are priority queues, not a promise that each next tile is immediately clickable. Follow the stated prerequisite path and live ordinary-building gates; do not construct Aislinn’s ship buildings."
+      ],
+      [
+        "No stale numeric bonuses",
+        "Current names and ordinary links were checked against the Patch_9_0 raw database. The TWPData display includes ship variants, so the guide does not copy their building requirements or old wiki percentages into Alith’s plan."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) names these technologies and their ordinary links from the raw 9.0 database, whose build timestamp is 18 September 2026. Unknown: whether that tree matches the player's installed build, hotfixes and mod setup. Open the live research panel and compare names and parents before spending; if a name or gate differs, follow the live prerequisites and treat this queue as priority advice, not a confirmed spending order."
+      ]
+    ],
+    "sources": [
+      "tech",
+      "tech-names",
+      "tech-links",
+      "build-info"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "tech",
+      "tech-names",
+      "tech-links",
+      "build-info"
+    ]
+  }
+}
