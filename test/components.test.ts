@@ -48,6 +48,8 @@ import {
   type HeaderRoute,
 } from "../app/components/atlasHeader.ts";
 import { parseHash } from "../app/router.ts";
+import { SearchDialogMarkup, searchHitNav } from "../app/components/search.ts";
+import type { SearchHit, SearchResults } from "../app/content/query.ts";
 
 const CONTENT = fileURLToPath(new URL("../content", import.meta.url));
 const FIXTURES = fileURLToPath(new URL("fixtures/content", import.meta.url));
@@ -1158,4 +1160,240 @@ test("the header's local tabNav copy keeps the TabStrip wrap/bounds decision (th
   assert.equal(headerTabNav("right", 1, 4), 2, "right in the middle steps up");
   assert.equal(headerTabNav("home", 2, 4), 0, "home lands on the first tab");
   assert.equal(headerTabNav("end", 0, 4), 3, "end lands on the last tab");
+});
+
+// ─── 11. The search dialog (package `search-dialog-component`, Commit 2 of
+//                       the cross-guide-search feature) ──────────────────────
+// The DESIGN §2/§5 list rules proven over constructed `SearchResults` (two
+// factions, two routes, lord-wide entries, a 30+ total, the empty and
+// no-match states): the zero-DOM `SearchDialogMarkup` VNode builder is
+// flattened with the same helpers the views use, so every assertion is an
+// observable rendering rule, not class-name trivia beyond the selected-row
+// marker and the match spans.
+
+/** The route-scoped section hit — "garrison" matched inside the snippet. */
+const SEARCH_SECTION_HIT: SearchHit = {
+  kind: "section",
+  lordSlug: "als-rhyn-of-lorek",
+  faction: "Tomb Kings",
+  routeId: "dark-conduits",
+  routeLabel: "I · The Dark Conduits",
+  category: "Route plan",
+  title: "Early → Mid",
+  snippet: "Hold the gate against the garrison.",
+  occurrences: [{ start: 26, end: 34 }],
+  href: "#/als-rhyn-of-lorek/plan/dark-conduits/early-mid",
+};
+
+/** The lord-wide shared hit — same faction, no route label. */
+const SEARCH_SHARED_HIT: SearchHit = {
+  kind: "shared",
+  lordSlug: "als-rhyn-of-lorek",
+  faction: "Tomb Kings",
+  routeId: null,
+  routeLabel: null,
+  category: "Shared fundamentals",
+  title: "Shared fundamentals",
+  snippet: "The garrisons of the desert watch the passes.",
+  occurrences: [{ start: 4, end: 13 }],
+  href: "#/als-rhyn-of-lorek",
+};
+
+/** The second faction's route-scoped army hit. */
+const SEARCH_ARMY_HIT: SearchHit = {
+  kind: "army",
+  lordSlug: "second-lord",
+  faction: "Lizardmen",
+  routeId: "lone-route",
+  routeLabel: "II · The Lone Watch",
+  category: "Army templates",
+  title: "The first column",
+  snippet: "Skinks hold the line against the garrison.",
+  occurrences: [{ start: 33, end: 41 }],
+  href: "#/second-lord/armies/lone-route",
+};
+
+/** The second faction's lord-wide source hit — no match inside its snippet. */
+const SEARCH_SOURCE_HIT: SearchHit = {
+  kind: "source",
+  lordSlug: "second-lord",
+  faction: "Lizardmen",
+  routeId: null,
+  routeLabel: null,
+  category: "Sources",
+  title: "Spawning Pools archive",
+  snippet: "Source note for the lone watch.",
+  occurrences: [],
+  href: "#/second-lord/sources",
+};
+
+/** The four hits in hit order: two factions, two routes, both lord-wide kinds. */
+const SEARCH_GROUPED_RESULTS: SearchResults = {
+  total: 4,
+  hits: [SEARCH_SECTION_HIT, SEARCH_SHARED_HIT, SEARCH_ARMY_HIT, SEARCH_SOURCE_HIT],
+};
+
+/** Renders the dialog with the wrapper-less prop set the tests always control. */
+function renderSearchDialog(
+  query: string,
+  results: SearchResults,
+  selectedIndex = 0,
+  open = true,
+): VNodeRecord[] {
+  return recordVNodes(
+    SearchDialogMarkup({
+      open,
+      query,
+      results,
+      selectedIndex,
+      onQueryChange: () => {},
+      onOpenSelected: () => {},
+      onClose: () => {},
+    }),
+  );
+}
+
+/** The rows (real buttons) and the row's one part's text, from one rendered dialog. */
+function searchRows(nodes: VNodeRecord[]): VNodeRecord[] {
+  return nodes.filter((n) => n.tag === "button" && cls(n).split(/\s+/).includes("search-hit"));
+}
+
+function searchRowPart(row: VNodeRecord, part: string): string {
+  const child = recordVNodes(row).find((n) => cls(n).split(/\s+/).includes(part));
+  return child === undefined ? "" : vnodeText(child);
+}
+
+test("the search dialog is a labelled native dialog: head, labelled field, and the hint line — no hits for an empty or whitespace-only query", () => {
+  for (const query of ["", "   "]) {
+    const nodes = renderSearchDialog(query, { total: 0, hits: [] });
+    const dialog = nodes.find((n) => n.tag === "dialog" && cls(n).split(/\s+/).includes("search-dialog"));
+    assert.ok(dialog !== undefined, "the native <dialog class=search-dialog> root renders");
+    assert.equal(dialog.props["aria-label"], "Search the guides", "the dialog is labelled by its title");
+    const text = vnodeText(dialog);
+    assert.ok(text.includes("ALL GUIDES") && text.includes("Search the guides"), "the mono eyebrow + serif title render");
+    assert.ok(text.includes("Unit, skill, building, mechanic or objective"), "the field's visible label renders");
+
+    const field = nodes.find((n) => n.tag === "input" && n.props.type === "search");
+    assert.ok(field !== undefined, "the labelled type=search field renders");
+    assert.equal(field.props.value, query, "the field reflects the query text");
+
+    assert.ok(
+      text.includes("Search a unit, named skill, building, mechanic or objective."),
+      "an empty/whitespace query renders the hint line — never a blank list",
+    );
+    assert.ok(!text.includes("matching references."), "no count line for an empty query");
+    assert.deepEqual(searchRows(nodes), [], "no hit rows for an empty query");
+    assert.ok(!nodes.some((n) => cls(n).split(/\s+/).includes("search-dialog__group")), "no faction headers for an empty query");
+  }
+});
+
+test("a non-empty query with zero matches renders the explicit no-match line and no list", () => {
+  const nodes = renderSearchDialog("garzon", { total: 0, hits: [] });
+  const text = vnodeText(nodes);
+  assert.ok(
+    text.includes("No match in any guide. Try a shorter phrase."),
+    "the explicit no-match line renders — never a blank region",
+  );
+  assert.ok(!text.includes("Search a unit,"), "the empty-query hint does not render for a non-empty query");
+  assert.ok(!text.includes("matching references."), "no count line for a no-match query");
+  assert.deepEqual(searchRows(nodes), [], "no hit rows for a no-match query");
+});
+
+test("hits group by faction in hit order with route breadcrumbs, category eyebrows, exact match spans, and no raw HTML", () => {
+  const nodes = renderSearchDialog("garrison", SEARCH_GROUPED_RESULTS);
+  const dialogText = vnodeText(nodes);
+
+  const groupTexts = nodes
+    .filter((n) => cls(n).split(/\s+/).includes("search-dialog__group"))
+    .map((n) => vnodeText(n));
+  assert.deepEqual(groupTexts, ["Tomb Kings", "Lizardmen"], "one faction header per lord, in hit order — never re-sorted");
+
+  const rows = searchRows(nodes);
+  assert.equal(rows.length, 4, "one button row per hit");
+  assert.ok(rows.every((row) => row.props.type === "button"), "every hit row is a real button control");
+
+  const crumbs = rows.map((row) => searchRowPart(row, "search-hit__crumb"));
+  assert.deepEqual(
+    crumbs,
+    [
+      "Tomb Kings / I · The Dark Conduits / Early → Mid",
+      "Tomb Kings / Shared fundamentals",
+      "Lizardmen / II · The Lone Watch / Army templates",
+      "Lizardmen / Sources",
+    ],
+    "the mono breadcrumb is faction / route / section-or-category, with the route omitted for lord-wide hits",
+  );
+
+  const categories = rows.map((row) => searchRowPart(row, "search-hit__category"));
+  assert.deepEqual(
+    categories,
+    ["Route plan", "Shared fundamentals", "Army templates", "Sources"],
+    "each row renders its category eyebrow",
+  );
+
+  const titles = rows.map((row) => searchRowPart(row, "search-hit__title"));
+  assert.deepEqual(
+    titles,
+    ["Early → Mid", "Shared fundamentals", "The first column", "Spawning Pools archive"],
+    "rows keep hit order, never re-sorted",
+  );
+
+  // The snippet renders as plain text with each occurrence wrapped in exactly
+  // one search-hit__match span at its exact range — never HTML.
+  const matches = (row: VNodeRecord): VNodeRecord[] =>
+    recordVNodes(row).filter((n) => cls(n).split(/\s+/).includes("search-hit__match"));
+  assert.equal(String(matches(rows[0])[0].children[0]), "garrison", "the matched run is spelled exactly by the span");
+  assert.equal(String(matches(rows[1])[0].children[0]), "garrisons", "the second faction's shared hit spans its own match");
+  assert.equal(String(matches(rows[2])[0].children[0]), "garrison", "the second faction's route hit spans its match");
+  assert.deepEqual(matches(rows[3]), [], "a snippet without an occurrence carries no match span");
+
+  const snippet = recordVNodes(rows[0]).find((n) => cls(n).split(/\s+/).includes("search-hit__snippet"));
+  assert.equal(snippet?.children[0], "Hold the gate against the ", "text before the match renders as a plain text node");
+  assert.equal(snippet?.children[2], ".", "text after the match renders as a plain text node");
+
+  assert.ok(!dialogText.includes("<"), "the flattened dialog carries no raw markup");
+});
+
+test("the count line reports the total, and the 30+ convention when the list is capped", () => {
+  const small = vnodeText(renderSearchDialog("garrison", { total: 5, hits: [SEARCH_SECTION_HIT] }));
+  assert.ok(small.includes("5 matching references."), "the count reports the total");
+  assert.ok(!small.includes("30+"), "an under-cap total never claims the 30+ convention");
+
+  const capped = vnodeText(renderSearchDialog("the", { total: 42, hits: SEARCH_GROUPED_RESULTS.hits }));
+  assert.ok(capped.includes("30+ matching references."), "a total above the cap renders the explicit 30+ convention");
+});
+
+test("the dialog head carries the ghost Close button with the Esc kbd chip; the selected row is marked, non-colour-wise, exactly once", () => {
+  const nodes = renderSearchDialog("garrison", SEARCH_GROUPED_RESULTS, 1);
+  const close = nodes.find((n) => n.tag === "button" && cls(n).split(/\s+/).includes("search-dialog__close"));
+  assert.ok(close !== undefined, "the Close button renders");
+  assert.ok(typeof close?.props.onClick === "function", "the Close button calls the close handler");
+  assert.ok(vnodeText(close).includes("Close"), "the button is labelled Close");
+  const chip = recordVNodes(close).find((n) => n.tag === "kbd");
+  assert.ok(chip !== undefined && chip.children[0] === "Esc", "the button carries the <kbd>Esc</kbd> chip");
+
+  const rows = searchRows(nodes);
+  assert.equal(rows.length, 4);
+  assert.ok(cls(rows[1]).includes("search-hit--selected"), "the row at selectedIndex carries the --selected marker");
+  assert.ok(
+    rows.every((row, index) => index === 1 || !cls(row).includes("--selected")),
+    "no row other than the selected one carries the marker",
+  );
+  assert.equal(rows[1].props["aria-current"], "true", "the selected row is identified via aria-current — never colour alone");
+  assert.equal(
+    rows.filter((row) => row.props["aria-current"] === "true").length,
+    1,
+    "exactly one row carries the selection indicator",
+  );
+});
+
+test("searchHitNav wraps the selection over the flat hit list at both ends and stays inert at zero elements", () => {
+  assert.equal(searchHitNav("down", 2, 5), 3, "down in the middle steps up");
+  assert.equal(searchHitNav("up", 2, 5), 1, "up in the middle steps down");
+  assert.equal(searchHitNav("down", 4, 5), 0, "down from the last row wraps to the first");
+  assert.equal(searchHitNav("up", 0, 5), 4, "up from the first row wraps to the last");
+  assert.equal(searchHitNav("down", 0, 1), 0, "a single-element list wraps to itself going down");
+  assert.equal(searchHitNav("up", 0, 1), 0, "a single-element list wraps to itself going up");
+  assert.equal(searchHitNav("down", 0, 0), 0, "an empty list stays at 0");
+  assert.equal(searchHitNav("up", 7, 0), 0, "an empty list stays at 0 for any index");
 });

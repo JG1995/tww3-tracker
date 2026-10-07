@@ -2838,6 +2838,235 @@ aside.claim > .confidence-badge {
   background: var(--ink);
 }
 
+/* ─── Search dialog (DESIGN.md "Search Field & Results"; package
+   `search-dialog-component`, cross-guide-search Commit 2): the site's first
+   modal — a panel-like native <dialog> on the design system's z-index scale
+   (modal content 50, above the sticky header's 10) with a full-bleed
+   backdrop, the carbon-well search field (1px `--line` border, the 3px kbd
+   radius, muted placeholder — the repository retires its mono webfont and
+   forbids mono sentences, so the "mono placeholder" voice is the muted
+   instrument colour), the body-sm count/hint/no-match lines, and the
+   hairline-divided
+   grouped result list: one real button row per hit with the label-sm mono
+   breadcrumb, the category eyebrow, the serif title, and the body snippet
+   whose matched ranges shift to `--ink` against the `--muted` surroundings
+   (foreground shift only, never a chromatic fill). The selected row pairs
+   the accent state tint + 2px lead rail with aria-current, so the selection
+   is never colour-only. Focus rings on the field, close, and rows are the
+   global `:focus-visible` rule. Transitions ride the `--transition-standard`
+   band and are disabled by the prefers-reduced-motion block at the end of
+   this file. Token-only. */
+
+.search-dialog {
+  /* The modal-content layer of the DESIGN's z-index scale (above sticky 10). */
+  z-index: 50;
+  width: min(720px, calc(100% - 2 * var(--gap-lg)));
+  max-height: calc(100vh - 2 * var(--gap-lg));
+  overflow-y: auto;
+  padding: var(--gap-base);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+}
+
+/* The full-bleed scrim behind the modal — a darkening of the canvas colour. */
+.search-dialog::backdrop {
+  background: color-mix(in srgb, var(--bg) 65%, transparent);
+}
+
+/* The head: the eyebrow + serif title on the left, the ghost Close button
+   with its kbd chip on the right. */
+.search-dialog__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gap-base);
+  padding-bottom: var(--gap-xs);
+  border-bottom: 1px solid var(--line);
+}
+
+.search-dialog__titles {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--gap-xs) / 2);
+}
+
+/* The serif title "Search the guides" — the DESIGN typography voice. */
+.search-dialog__title {
+  font-family: var(--serif);
+  font-size: var(--h3-size);
+  font-weight: var(--heading-weight);
+  line-height: var(--heading-line-height);
+  color: var(--ink);
+}
+
+/* The ghost Close button rides the shared `.button.button--ghost` variant;
+   the kbd chip inside uses the global kbd treatment. */
+.search-dialog__close {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-xs);
+}
+
+.search-dialog__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-base);
+  padding-top: var(--gap-base);
+}
+
+/* The field's label is visually hidden — the visible prompt is the
+   placeholder; the labelled association keeps the input announced. */
+.search-dialog__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The carbon-well field: surface2 well, 1px `--line` border, the 3px kbd
+   radius, mono-placeholder voice in muted (see the region note). */
+.search-dialog__field {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--kbd-radius);
+  padding: var(--button-padding);
+  background: var(--surface2);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  transition: var(--transition-standard);
+}
+
+.search-dialog__field::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+/* The body-sm count/hint/no-match lines — the DESIGN's explicit empty
+   states, never blank space. */
+.search-dialog__count,
+.search-dialog__hint,
+.search-dialog__no-match {
+  font-family: var(--sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
+}
+
+/* The grouped result list: faction header per lord followed by its rows in
+   hit order — every row a real button (the global :focus-visible ring). */
+.search-dialog__results {
+  display: flex;
+  flex-direction: column;
+}
+
+/* The eyebrow voice shared by the "ALL GUIDES" head label, the faction
+   group headers, and the per-row category eyebrows (the grouped-selector
+   pattern of the ledger section). */
+.search-dialog__eyebrow,
+.search-dialog__group,
+.search-hit__category {
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--eyebrow-color);
+}
+
+/* The faction header's spacing (layout only — the voice is the shared
+   eyebrow rule above); later factions are hairline-divided off, like the
+   row dividers. */
+.search-dialog__group {
+  margin-top: var(--gap-xs);
+}
+
+.search-dialog__group ~ .search-dialog__group {
+  margin-top: var(--gap-base);
+  padding-top: var(--gap-base);
+  border-top: 1px solid var(--line);
+}
+
+/* One hit row — stack-sm padding, hairline-divided between rows, the 2px
+   lead rail reserved on every row so the selection shifts colour only. */
+.search-hit {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--gap-xs) / 2);
+  width: 100%;
+  padding: var(--gap-xs) var(--gap-base);
+  border: 0;
+  border-inline-start: 2px solid transparent;
+  background: transparent;
+  color: var(--ink);
+  text-align: start;
+  cursor: pointer;
+  transition: var(--transition-standard);
+}
+
+.search-hit + .search-hit {
+  border-top: 1px solid var(--line);
+}
+
+.search-hit:hover {
+  background: var(--surface2);
+}
+
+/* The selected row: the accent state tint + lead rail, paired with the
+   row's aria-current — colour is never the sole indicator. */
+.search-hit--selected,
+.search-hit--selected:hover {
+  background: color-mix(in srgb, transparent 88%, var(--accent));
+  border-inline-start-color: var(--accent);
+}
+
+/* The label-sm mono breadcrumb `faction / route / section-or-category` —
+   the instrument typography in the muted role (quiet chrome per row). */
+.search-hit__crumb {
+  font-family: var(--sans);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* The serif hit title and the body snippet with the match highlight — the
+   matched text reads on-surface (ink) against the on-surface-variant
+   surroundings (muted): foreground shift only, no chromatic fill. */
+.search-hit__title {
+  font-family: var(--serif);
+  font-size: var(--h4-size);
+  font-weight: var(--heading-weight);
+  line-height: var(--heading-line-height);
+  color: var(--ink);
+}
+
+.search-hit__snippet {
+  font-family: var(--sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--text-line-height);
+  color: var(--muted);
+}
+
+.search-hit__match {
+  color: var(--ink);
+}
+
 /* ─── Motion: mechanical 0.15s transitions; reduced motion disables all ─── */
 
 @media (prefers-reduced-motion: reduce) {

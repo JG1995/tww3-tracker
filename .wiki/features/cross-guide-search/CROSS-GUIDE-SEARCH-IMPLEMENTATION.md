@@ -164,7 +164,7 @@ Hits. `SearchHit` (exported): `{ kind, lordSlug, faction, routeId: string | null
 
 #### Package `search-dialog-component` — Commit 2: The keyboard-first search dialog component
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 2
 
@@ -267,6 +267,8 @@ In `App`: `const [searchOpen, setSearchOpen] = useState(false)`. Availability: `
 **Review mandate:** Exactly one new shell state; the availability/scoping conditions match the DESIGN (home + resolvable full-form members show the control; zero lords show nothing; not-found shows none — including the unresolvable lord/route hashes that render the slim not-found header, which the resolved-context condition excludes by construction); the dialog mounts as a sibling without altering the existing fragment structure or the skip link; `onNavigate` is close-then-navigate with the hit's own href, followed by the `#main` focus handover with `preventScroll`, and no other side effect; the boot section-anchor effect and view dispatch are byte-identical.
 
 ## Discoveries and replanning
+
+- Commit 2 commit review (fresh reviewer, Mode: commit): verdict Accept, no CRITICAL/HIGH. One MEDIUM retained for the close-out bundle (advisory until delegated per policy): the wrapper has no backdrop-click dismissal — DESIGN §2/§6 names backdrop click as a closing means; the fix is wrapper-owned in `app/components/search.ts` (a click listener closing when `event.target` is the dialog element), with the strongest-available-seam proof. Same bundle: the reviewer's suggested one-line assertion that the builder never renders the native `open` attribute (controlled-dialog invariant). No scope, architecture, delivery-boundary, or package-order change.
 
 - Plan review, round 1 (fresh reviewer, Mode: plan, 2026-10-07): one MEDIUM — Commit 4's trigger scoping condition was built on the raw `route.name` and would have rendered the search control on the slim not-found header for unresolvable lord/route hashes (`#/unknown-lord`, `#/<lord>/plan/<bad-route>` — well-formed to the parser, unresolvable in `headerContext`). Corrected: the condition now derives from the resolved header context (`headerLord !== null`), with the unresolvable hashes named in the Commit 4 review mandate and Final validation. Adopted in the same round (reviewer validation-gap and investigation notes): the measured sub-100 ms `searchContent` timing must be recorded in integration evidence and be under 100 ms for acceptance; the corpus indexes ALL plain-string rendered fields (army `label`, unit `role`/`kind`, `size`, item `label`); matching runs over `title + " " + text`; and the retain-all `panelOrder` decision is recorded (Uncertainty register → Decisions). No scope, architecture, delivery-boundary, or package-order change.
 
