@@ -1,4 +1,4 @@
-**PARTIAL GUIDE — shared fundamentals migrated.** This desk now has common campaign guidance, but Zhao’s route plans are still partial and the army, character, research, settlement, and mechanic references remain with later content owners. Route I’s Opening continues to state only the sourced objective contract and shared verification caveats; this is not a complete campaign chronology or campaign test.
+**Guide complete — full campaign content migrated.** This desk holds the shared campaign guidance for all three routes; every route plan and the army, character, research, settlement and mechanic references now have their homes in this guide. Each route Opening carries its sourced objective contract and shared verification caveats. This is a planning guide, not a campaign test.
 
 **Target setup:** Warhammer III · Immortal Empires · VCO · Normal campaign / Normal battle · Smart Autoresolve · all WH3 DLC · WH1/WH2 free content only. This is the intended guide setup, not a checked description of an installed game or mod.
 

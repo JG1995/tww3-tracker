@@ -1,6 +1,6 @@
 # Alith Anar — Shared Fundamentals
 
-**PARTIAL GUIDE — shared fundamentals migrated; campaign plans remain incomplete.** This reference collects Alith Anar's common campaign doctrine, equipment and access guidance, and practical economy safeguards. It does not make any route a usable full campaign plan: the operational chronology, route-specific army templates and other reference datasets remain with later packages. Route I's Opening contains sourced, discoverable checks for consequential shared uncertainties.
+**Guide complete — shared fundamentals and all route plans migrated.** This reference collects Alith Anar's common campaign doctrine, equipment and access guidance, and practical economy safeguards; the operational chronology, route-specific army templates and all reference datasets now have their homes in this guide. Route I's Opening contains sourced, discoverable checks for consequential shared uncertainties.
 
 **Target setup:** Warhammer III · Immortal Empires · VCO · Normal campaign / Normal battle · Smart Autoresolve · all WH3 DLC · WH1/WH2 free content only. This is the intended setup, not evidence of the player's installed versions or a tested campaign.
 
