@@ -492,7 +492,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `alith-route-two` — Commit 19: Complete Alith's relic-search route
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 10
 **Depends on:** ["alith-armies"]
 **Write scope:** ["content/alith-anar/routes/route-2.md"]
@@ -506,6 +506,9 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 **Validation:** Common package gate; no new test cases or assets.
 **Stop conditions:** Common stops; materially changed search premise.
 **Review mandate:** Candidate advice is not eight required conquests, independent queue/use notes survive, and uncertainty remains actionable.
+- [x] All eight sections and five phase summaries completed; eight candidate records with advice; `hunt-route-2` linked not restated; provisional quota/interaction limits preserved without an invented algorithm; both transition slots present with anchors resolving to frozen-base Openings.
+- [x] Reviewer 19 (a79e79e2) MEDIUM (Late-phase southern resolution had no body home) delegated as mandatory correction: same worker added the archive-faithful "Resolve the southern candidates" Late block (transport squashed to d79a16ef, tree byte-identical); bounded re-review: MEDIUM cleared, zero regression, original Accept stands.
+- [x] Established identity/selections/flags byte-preserved; gates green (214/214); Jev suitable .98. Aggregate destination reconciliation remains serial close-out.
 
 #### Package `zhao-route-two` — Commit 20: Complete Zhao's alchemy-expedition route
 
