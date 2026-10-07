@@ -32,6 +32,7 @@ import { createCampaign, itemsFor } from "./ledger/logic.ts";
 import { useCampaign, type LedgerIndexState } from "./ledger/useCampaign.ts";
 import { useHashRoute, type HashRoute, type RoutePage } from "./router.ts";
 import { AtlasHeader, type HeaderRoute } from "./components/atlasHeader.ts";
+import { SearchDialog } from "./components/search.ts";
 import { BootErrorView } from "./views/boot-error.ts";
 import { DeskView } from "./views/desk.ts";
 import { HomeView } from "./views/home.ts";
@@ -53,10 +54,31 @@ function contentRootUrl(): string {
   return new URL("content/", window.location.href).href;
 }
 
+/**
+ * The shell surface browsed by `render` (ADR-0001): the boot state, the
+ * hash-derived route, the two header forms, and the boot/loading/route
+ * views inside the `#main` region — plus the search wiring (feature
+ * cross-guide-search, package `search-shell-wiring`, Commit 4). The shell
+ * owns the dialog's `searchOpen` boolean and the trigger-scoping decision:
+ * availability is the ready tree with ≥ 1 lord, and the header trigger is
+ * derived from the RESOLVED header context (home + every resolvable
+ * full-form member), never the raw parsed route — a condition on
+ * `route.name` alone would leak the trigger onto the slim not-found header
+ * that unresolvable lord/route hashes render (those get no prop). While
+ * available the dialog mounts on every route — including not-found, so the
+ * `/` shortcut works there (DESIGN §4) — closed by default, so the skip
+ * link and page content keep their first-Tab order. A chosen hit navigates
+ * through its own §4 landing hash with a `#main` focus handover; the
+ * section-anchor effect stays authoritative for section landings.
+ */
 export function App(): VNode {
   const [boot, setBoot] = useState<Boot>({ kind: "loading" });
   const [attempt, setAttempt] = useState<number>(0);
   const route = useHashRoute();
+  // The ONE shell state this package adds: the search dialog's open boolean
+  // (the dialog component and the header trigger both read it; nothing else
+  // is shared with them).
+  const [searchOpen, setSearchOpen] = useState(false);
 
   // Exactly one load.ts pass per attempt (initial mount = attempt 0; Retry bumps it).
   useEffect(() => {
@@ -91,6 +113,35 @@ export function App(): VNode {
   const lords = boot.kind === "ready" ? listLords(boot.tree) : [];
   const { lord: headerLord, route: headerRoute } = headerContext(boot, route);
 
+  // Search availability: the ready tree with ≥ 1 lord — the same boot
+  // readiness branch the ready tree's views use, plus the DESIGN §4
+  // zero-lord guard (no search control and no dialog against an empty tree).
+  const searchAvailable = boot.kind === "ready" && lords.length > 0;
+  // The header trigger's page scope (the shell's version of the DESIGN §4
+  // Availability rule): the control shows on home (slim) and on every
+  // resolvable full-form member. `headerContext` is null exactly for home,
+  // boot, not-found, and the unresolvable lord/route hashes — which parse
+  // as well-formed members but render the slim not-found header and must
+  // get no prop.
+  const headerOnOpenSearch =
+    searchAvailable && (route.name === "home" || headerLord !== null) ? () => setSearchOpen(true) : undefined;
+
+  // Result navigation for a chosen hit (DESIGN §7 "Enter → land with focus
+  // in the page"): close the dialog, write the hit's own §4 landing hash
+  // (Commit 1 produced it; the router and the section-anchor effect do the
+  // rest — no new hash shapes and no scroll code of our own), then hand
+  // focus to the `#main` region (the skip link's `tabIndex={-1}` target)
+  // on the next frame — after the native close's focus restore settles —
+  // with `preventScroll` so the section-anchor effect's `scrollIntoView`
+  // stays authoritative on section landings. When the dialog closes
+  // without navigation (Escape/backdrop), the Commit 2 wrapper's
+  // opener-restore path owns focus instead; the shell focuses nothing then.
+  const navigateSearch = (href: string): void => {
+    setSearchOpen(false);
+    window.location.hash = href;
+    requestAnimationFrame(() => document.getElementById("main")?.focus({ preventScroll: true }));
+  };
+
   const view: VNode =
     boot.kind === "error" ? (
       <BootErrorView error={boot.error} onRetry={() => setAttempt((n) => n + 1)} />
@@ -117,10 +168,24 @@ export function App(): VNode {
       >
         Skip to content
       </a>
-      <AtlasHeader lords={lords} lord={headerLord} route={headerRoute} />
+      <AtlasHeader
+        lords={lords}
+        lord={headerLord}
+        route={headerRoute}
+        onOpenSearch={headerOnOpenSearch}
+      />
       <main id="main" className="site-main" tabIndex={-1}>
         {view}
       </main>
+      {searchAvailable && (
+        <SearchDialog
+          tree={boot.tree}
+          open={searchOpen}
+          onOpen={() => setSearchOpen(true)}
+          onClose={() => setSearchOpen(false)}
+          onNavigate={navigateSearch}
+        />
+      )}
     </>
   );
 }

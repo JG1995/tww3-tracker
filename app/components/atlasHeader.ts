@@ -7,11 +7,22 @@
  * Two forms (DESIGN §4 "The shell renders two header forms"): the SLIM form
  * (home, not-found, boot loading/error) carries the wordmark plus one link
  * per lord to `#/<lord>`; the FULL form (every lord-scoped page) carries the
- * three tiers — the topline (crest + brand + environment line + the empty
- * reserved toolbar slot), the routebar ("YOUR CAMPAIGN / Victory route"
+ * three tiers — the topline (crest + brand + environment line + the reserved
+ * toolbar slot), the routebar ("YOUR CAMPAIGN / Victory route"
  * eyebrow pair + one route tab per manifest route, SELECTED derived from the
  * hash), and the pagenav (the DESIGN's generic eight page tabs + the static
  * save-state line "Saved locally · offline").
+ *
+ * Search trigger (feature cross-guide-search, DESIGN §4/§6; package
+ * `search-header-controls`, Commit 3): the optional `onOpenSearch` callback
+ * threads through every seam — when supplied, the full form renders the
+ * trigger in the reserved `topline__tools` slot and the slim form renders it
+ * after the lord links (wordmark and lord links keep their positions — the
+ * recorded slim-header deviation). When the prop is absent both forms render
+ * exactly as before: the slot stays the empty reserved div and the slim form
+ * shows no trigger (the F10 zero-lord contract). The header's only rule is
+ * prop-present → render; WHICH pages pass the prop is the shell's
+ * page-scoping decision (Commit 4), never the header's.
  *
  * Selection rules (DESIGN §2 rule 3 + the recorded decisions): route tabs are
  * route switches that KEEP THE PAGE — from a route-scoped member (a route
@@ -62,6 +73,12 @@ export interface AtlasHeaderProps {
   readonly lord: Lord | null;
   /** The current route member; null renders the slim form. */
   readonly route: HeaderRoute | null;
+  /** Optional search opener (feature cross-guide-search, Commit 3): when
+   *  supplied, the search trigger renders in the full form's reserved
+   *  `topline__tools` slot and in the slim form after the lord links; absent,
+   *  neither form renders a trigger — the component never decides which
+   *  pages show it (the shell's page-scoping decision, Commit 4). */
+  readonly onOpenSearch?: () => void;
 }
 
 /** The markup seam: the same props plus the two tablists' focus/handler wiring. */
@@ -201,16 +218,39 @@ function versionLabel(lord: Lord): string {
 }
 
 /**
+ * The search trigger (feature cross-guide-search, package
+ * `search-header-controls`, Commit 3): a real ghost button labelled "Search"
+ * with the `<kbd>/</kbd>` chip and the aria-name spelling the global `/`
+ * shortcut, firing the header's `onOpenSearch` on click. The button's only
+ * rule is to render when the prop is supplied — which pages get the prop is
+ * the shell's page-scoping decision (Commit 4), never the header's.
+ */
+function searchTrigger(onOpenSearch: () => void): JSX.Element {
+  return h(
+    "button",
+    {
+      type: "button",
+      className: "button button--ghost atlas-header__search",
+      "aria-label": "Open search ( / )",
+      onClick: onOpenSearch,
+    },
+    "Search",
+    h("kbd", null, "/"),
+  );
+}
+
+/**
  * The topline tier (DESIGN §2): the crest (the boot-validated `crestSvg`
  * inlined `aria-hidden`; an absent crest renders the brand WITHOUT it, never
  * a placeholder box), the brand (faction uppercase / the serif "EXPEDITION
  * ATLAS · <lord>" title) linking to `#/<lord>`, the environment line (the
  * status dot + `guide.environment` when present, plus the patch/VCO pairing
  * that always renders — the reduced form omits the string, not the line),
- * and the empty toolbar slot (no buttons — reserved for F6/search and state
- * export).
+ * and the reserved toolbar slot: the search trigger when `onOpenSearch` is
+ * supplied, otherwise the empty reserved div exactly as before (F6/search
+ * and state export are the slot's reserved tenants).
  */
-function topline(lord: Lord): JSX.Element {
+function topline(lord: Lord, onOpenSearch?: () => void): JSX.Element {
   return h(
     "div",
     { className: "topline" },
@@ -232,7 +272,11 @@ function topline(lord: Lord): JSX.Element {
         : h("span", { className: "topline__environment" }, lord.guide.environment),
       h("span", { className: "topline__version" }, versionLabel(lord)),
     ),
-    h("div", { className: "topline__tools" }),
+    h(
+      "div",
+      { className: "topline__tools" },
+      ...(onOpenSearch === undefined ? [] : [searchTrigger(onOpenSearch)]),
+    ),
   );
 }
 
@@ -340,8 +384,11 @@ function pagenav(
   );
 }
 
-/** The slim form (home, not-found, boot states): the wordmark + one link per lord to `#/<lord>`. */
-function slimMarkup(lords: readonly Lord[]): JSX.Element {
+/** The slim form (home, not-found, boot states): the wordmark + one link per
+ *  lord to `#/<lord>`, and — when `onOpenSearch` is supplied — the search
+ *  trigger AFTER the lord links (wordmark and lord links keep their
+ *  positions — the recorded slim-header deviation from DESIGN §6). */
+function slimMarkup(lords: readonly Lord[], onOpenSearch?: () => void): JSX.Element {
   return h(
     "header",
     { className: "atlas-header atlas-header--slim" },
@@ -362,6 +409,7 @@ function slimMarkup(lords: readonly Lord[]): JSX.Element {
               ),
             ),
           ),
+      ...(onOpenSearch === undefined ? [] : [searchTrigger(onOpenSearch)]),
     ),
   );
 }
@@ -377,7 +425,7 @@ function fullMarkup(lord: Lord, route: HeaderRoute, props: AtlasHeaderMarkupProp
     h(
       "div",
       { className: "atlas-header__wrap" },
-      topline(lord),
+      topline(lord, props.onOpenSearch),
       routebar(lord, route, selected, routebarRef, routebarOnKeyDown),
       pagenav(route, selectedPage(route), resolved, pagenavRef, pagenavOnKeyDown),
     ),
@@ -386,11 +434,14 @@ function fullMarkup(lord: Lord, route: HeaderRoute, props: AtlasHeaderMarkupProp
 
 /**
  * The header's pure VNode surface: the slim form when no lord/route member is
- * supplied (home, not-found, boot), the full three-tier form otherwise.
+ * supplied (home, not-found, boot), the full three-tier form otherwise. The
+ * optional `onOpenSearch` prop renders the search trigger in the full form's
+ * topline slot or after the slim form's lord links; absent, neither form
+ * changes (the component never decides page scoping — the shell does).
  */
 export function AtlasHeaderMarkup(props: AtlasHeaderMarkupProps): JSX.Element {
-  const { lords, lord, route } = props;
-  return lord === null || route === null ? slimMarkup(lords) : fullMarkup(lord, route, props);
+  const { lords, lord, route, onOpenSearch } = props;
+  return lord === null || route === null ? slimMarkup(lords, onOpenSearch) : fullMarkup(lord, route, props);
 }
 
 const KEY_TO_DIRECTION: Readonly<Record<string, TabNavDirection>> = {
@@ -409,7 +460,9 @@ const KEY_TO_DIRECTION: Readonly<Record<string, TabNavDirection>> = {
  * navigation changes BOTH tablists' selections at once); the first mount is
  * skipped so a page load never hijacks focus from the skip link (DESIGN
  * Pre-Delivery Checklist). Everything else is pure derivation from the route
- * member + the content tree — no `useState` for selection.
+ * member + the content tree — no `useState` for selection. The optional
+ * `onOpenSearch` prop is passed straight through to the markup seam — the
+ * header holds no search state of its own.
  */
 export function AtlasHeader(props: AtlasHeaderProps): JSX.Element {
   const routebarRef = useRef<HTMLElement | null>(null);
@@ -417,7 +470,7 @@ export function AtlasHeader(props: AtlasHeaderProps): JSX.Element {
   const firstRender = useRef<boolean>(true);
   const lastStrip = useRef<"routebar" | "pagenav" | null>(null);
 
-  const { lords, lord, route } = props;
+  const { lords, lord, route, onOpenSearch } = props;
   const full = lord !== null && route !== null;
   const routebarItems = full ? routeTabItems(lord, route) : [];
   const routebarSelected = full ? selectedRouteId(lord, route) : null;
@@ -463,6 +516,7 @@ export function AtlasHeader(props: AtlasHeaderProps): JSX.Element {
     lords,
     lord,
     route,
+    onOpenSearch,
     routebarRef,
     routebarOnKeyDown: keydown("routebar", routebarItems, routebarSelected),
     pagenavRef,
