@@ -100,13 +100,13 @@ The four packages in order; after Commit 4 the thinnest path is live end-to-end:
 
 ### PR `cross-guide-search` — Add cross-guide search
 
-**Status:** Merged
+**Status:** Planned
 
 **Depends on:** []
 
 **PR ref:** https://github.com/JG1995/tww3-tracker/pull/2
 
-**Merge ref:** `ba28b8112ada7f612347eb6e020ff4db533abacc` (merge commit to `main`, 2026-10-07; post-merge gates: 233/233 tests, tsc, lint, build all clean)
+**Merge ref:** ba28b8112ada7f612347eb6e020ff4db533abacc
 
 **Branch:** `feat/cross-guide-search`
 
