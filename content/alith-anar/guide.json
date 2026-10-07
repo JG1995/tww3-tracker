@@ -1,0 +1,19 @@
+{
+  "id": "alith-anar",
+  "lord": "Alith Anar",
+  "faction": "Nagarythe",
+  "version": {
+    "patch": "unverified",
+    "vco": "archive-reported 2026.09.30.1 (installed version unverified)",
+    "checked": "unverified"
+  },
+  "environment": "Immortal Empires · VCO · Normal / Normal · Smart Autoresolve · All WH3 DLC · WH1/WH2 free content only",
+  "crest": "crest.svg",
+  "routes": [
+    { "id": "route-1", "file": "routes/route-1.md", "number": "I" },
+    { "id": "route-2", "file": "routes/route-2.md", "number": "II" },
+    { "id": "route-3", "file": "routes/route-3.md", "number": "III" }
+  ],
+  "shared": "shared.md",
+  "datasets": ["armies", "skills", "research", "buildings", "mechanics", "vco", "sources"]
+}

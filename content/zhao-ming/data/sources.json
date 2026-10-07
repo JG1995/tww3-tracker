@@ -1,0 +1,206 @@
+[
+  {
+    "id": "vco",
+    "title": "VCO • current Immortal Empires objectives",
+    "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084",
+    "note": "Read 2026-10-06. The author's Immortal Empires entry publishes Zhao Ming's Route I–III objectives and rewards; its extracted Route III faction list names targets without an action verb. The archive reports an update date of 2026-09-25, but that timestamp was not exposed in the page extraction and is not independently verified. Published text is not verification of a particular installed VCO or game build."
+  },
+  {
+    "id": "vco-script",
+    "title": "VCO • pinned Zhao Ming Immortal Empires missions",
+    "url": "https://github.com/msolefonte/vco/blob/0319bd67e58503b0ff6ca00ff4fee7e9e208020d/src/script/vco-ie/main_warhammer/wh3_main_cth_the_western_provinces/missions.lua",
+    "note": "Pinned public VCO source at commit 0319bd67e58503b0ff6ca00ff4fee7e9e208020d (v5.16.0, dated 2024-02-29), checked 2026-10-06. Historical mission definitions identify the Great Embassy in Warpstone Desert, Route II's five RAZE_OR_OWN_SETTLEMENTS region keys, and Route III's CONTROL_N_PROVINCES_INCLUDING total 4 and DESTROY_FACTION/confederation_valid predicates. Not evidence of current installed trigger semantics."
+  },
+  {
+    "id": "vco-listener",
+    "title": "VCO • pinned Cathay counters",
+    "url": "https://github.com/msolefonte/vco/blob/0319bd67e58503b0ff6ca00ff4fee7e9e208020d/src/script/campaign/mod/vco-listeners-cth.lua",
+    "note": "Pinned public VCO v5.16.0 source at commit 0319bd67e58503b0ff6ca00ff4fee7e9e208020d (2024-02-29), checked 2026-10-06. It samples the 25,000 income threshold at human FactionTurnStart and reads separate 9-caravan and 13,140-goods saved counters at FactionTurnEnd. The goods counter alone does not establish a west-only filter or current-build timing."
+  },
+  {
+    "id": "vco-names",
+    "title": "VCO • pinned English route localisation",
+    "url": "https://github.com/msolefonte/vco/blob/0319bd67e58503b0ff6ca00ff4fee7e9e208020d/src/text/db/vco_victory_types.loc.tsv",
+    "note": "Pinned public VCO v5.16.0 English localization at commit 0319bd67e58503b0ff6ca00ff4fee7e9e208020d, checked 2026-10-06. The Western Provinces Immortal Empires route keys name The Silver Tongue, All That Glitters Is Not Gold, and Don't Tread on Ming. These official strings are kept separate from guide-created thematic subtitles; the pinned localization does not certify a player's installed version."
+  },
+  {
+    "id": "vco-listener-general",
+    "title": "VCO • pinned generic mission listener",
+    "url": "https://github.com/msolefonte/vco/blob/0319bd67e58503b0ff6ca00ff4fee7e9e208020d/src/script/campaign/mod/vco-listeners.lua",
+    "note": "Pinned public VCO v5.16.0 listener at commit 0319bd67e58503b0ff6ca00ff4fee7e9e208020d, checked 2026-10-06. For human factions it completes the vco_dummy mission at FactionTurnStart. Together with the historical Route III mission this explains why its Black Fortress dummy text was not a separate required battle; current installed behavior is unknown."
+  },
+  {
+    "id": "ca8",
+    "title": "CA • Cathay’s 8.0 rework",
+    "url": "https://community.creative-assembly.com/total-war/total-war-warhammer/blogs/98-total-war-warhammer-iii-update-8-0-patch-notes",
+    "note": "Archive annotation; not independently checked in this registration package. Primary patch notes for the Military/Provinces technology split, buildings, commandments, Alchemist and Gate Master changes. Names shared with older technologies can now have different effects. Tiger Warrior additions are distinguished from Bhashiva’s exclusive campaign systems."
+  },
+  {
+    "id": "ca81",
+    "title": "CA • 8.1 landmarks and caravan skills",
+    "url": "https://community.creative-assembly.com/total-war/total-war-warhammer/blogs/101-total-war-warhammer-iii-patch-8-1-release-notes",
+    "note": "Archive annotation; not independently checked in this registration package. Primary details for House of Secrets at Shang-Yang, Terracotta Road, naval landmark, new caravan attrition skills and other updates. The patch text gives House of Secrets income as 500; the indexed game-data page gives 300. The atlas deliberately does not base a budget on either number."
+  },
+  {
+    "id": "ca52",
+    "title": "CA • Caravan improvements",
+    "url": "https://community.creative-assembly.com/total-war/total-war-warhammer/blogs/30-total-war-warhammer-iii-patch-5-2-0",
+    "note": "Archive annotation; not independently checked in this registration package. Primary update introducing two simultaneously active Cathayan caravans and additional destination rewards. Later technology can increase the active limit further. Current dispatch UI, not an old single-caravan guide, is authoritative."
+  },
+  {
+    "id": "ca4",
+    "title": "CA • provincial Harmony rework",
+    "url": "https://store.steampowered.com/news/app/1142710/view/3641775142542410815",
+    "note": "Archive annotation; not independently checked in this registration package. Official Grand Cathay developer update for the 4.0 rework. Campaign Harmony is provincial and building-driven, separate from the proximity system used in battles. There is no need to alternate research or recruit heroes to repair a faction-wide Yin/Yang total."
+  },
+  {
+    "id": "compass",
+    "title": "Wu Xing Compass • current cross-check",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Wu_Xing_Compass",
+    "note": "Archive annotation; not independently checked in this registration package. Secondary reference for the four ordinary directions, cooldown/energy behaviour and updated Warpstone Desert caravan bonuses. Read exact scope in the game. Zhao does not choose Yuan Bo’s extra directions or construct his astromantic relays."
+  },
+  {
+    "id": "harmony",
+    "title": "Harmony • provincial and battle rules",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/Harmony",
+    "note": "Archive annotation; not independently checked in this registration package. Secondary cross-check of the post-rework provincial building balance and the separate battle-proximity rule. The atlas calculates only your entered Yin/Yang arithmetic; it does not invent exact income or growth output from that total."
+  },
+  {
+    "id": "start",
+    "title": "Western Provinces • Immortal Empires start",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/The_Western_Provinces",
+    "note": "Archive annotation; not independently checked in this registration package. Secondary starting-position cross-check: Qiang in the Wastelands of Jinshen for Immortal Empires. Hanyu Port is the local capital to secure, not a reason to import a Realms of Chaos opening. Starting treaties and nearby owners should be rechecked in your save."
+  },
+  {
+    "id": "bhashiva",
+    "title": "CA • Bhashiva and the Bone Road",
+    "url": "https://community.creative-assembly.com/total-war/total-war-warhammer/blogs/97-total-war-warhammer-iii-bhashiva-character-pack-what-s-included",
+    "note": "Archive annotation; not independently checked in this registration package. Bhashiva’s start and Tiger Warrior expansion. Her Vale of Titans / Bone Road position matters for Route III. Her Iron Favour, Zhao Ming’s Goals, special armies and factional systems must not be mistaken for mechanics available when playing Zhao himself."
+  },
+  {
+    "id": "tech",
+    "title": "Cathay • current research data",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/techs/vanilla3/cth_mil.json",
+    "note": "Archive annotation; not independently checked in this registration package. Extracted vanilla research effects and prerequisite nodes. Used to verify Jade Stance, Fletching Mentors, the separate caravan-capacity technologies, and economic routes. Some nodes are Bhashiva-specific alternatives: Zhao follows his visible ordinary node, not a hidden substitute."
+  },
+  {
+    "id": "zhao-skill",
+    "title": "Zhao Ming • vanilla skill tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/cth_cathay/wh3_main_skill_node_set_cth_zhao_ming.json",
+    "note": "Archive annotation; not independently checked in this registration package. Extracted vanilla skill-tree reference. Orders here are recommended priority blocks, not a fabricated exact level-by-level build. Use the tree’s rank and parent gates. Mounts/Immortality may unlock automatically; mutually exclusive specialisations are alternatives."
+  },
+  {
+    "id": "general-skill",
+    "title": "Celestial General • vanilla skill tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/cth_cathay/wh3_dlc24_skill_node_set_cth_celestial_general_yang.json",
+    "note": "Archive annotation; not independently checked in this registration package. Extracted vanilla skill-tree reference. Orders here are recommended priority blocks, not a fabricated exact level-by-level build. Use the tree’s rank and parent gates. Mounts/Immortality may unlock automatically; mutually exclusive specialisations are alternatives."
+  },
+  {
+    "id": "alchemist-skill",
+    "title": "Alchemist • vanilla skill tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/cth_cathay/wh3_main_skill_node_set_cth_alchemist.json",
+    "note": "Archive annotation; not independently checked in this registration package. Extracted vanilla skill-tree reference. Orders here are recommended priority blocks, not a fabricated exact level-by-level build. Use the tree’s rank and parent gates. Mounts/Immortality may unlock automatically; mutually exclusive specialisations are alternatives."
+  },
+  {
+    "id": "gate-skill",
+    "title": "Gate Master • vanilla skill tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/cth_cathay/wh3_dlc24_skill_node_set_cth_gate_master.json",
+    "note": "Archive annotation; not independently checked in this registration package. Extracted vanilla skill-tree reference. Orders here are recommended priority blocks, not a fabricated exact level-by-level build. Use the tree’s rank and parent gates. Mounts/Immortality may unlock automatically; mutually exclusive specialisations are alternatives."
+  },
+  {
+    "id": "astro-skill",
+    "title": "Astromancer • vanilla skill tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/cth_cathay/wh3_main_skill_node_set_cth_astromancer.json",
+    "note": "Archive annotation; not independently checked in this registration package. Extracted vanilla skill-tree reference. Orders here are recommended priority blocks, not a fabricated exact level-by-level build. Use the tree’s rank and parent gates. Mounts/Immortality may unlock automatically; mutually exclusive specialisations are alternatives."
+  },
+  {
+    "id": "yin-skill",
+    "title": "Yin Shugengan • vanilla skill tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/cth_cathay/wh3_main_skill_node_set_cth_dragon_blooded_shugengan_yin.json",
+    "note": "Archive annotation; not independently checked in this registration package. Extracted vanilla skill-tree reference. Orders here are recommended priority blocks, not a fabricated exact level-by-level build. Use the tree’s rank and parent gates. Mounts/Immortality may unlock automatically; mutually exclusive specialisations are alternatives."
+  },
+  {
+    "id": "caravan-skill",
+    "title": "Caravan Master • vanilla skill tree",
+    "url": "https://github.com/krmarshall/TWPData/blob/main/skills/vanilla3/cth_cathay/wh3_main_skill_node_set_cth_lord_caravan_master.json",
+    "note": "Archive annotation; not independently checked in this registration package. Extracted vanilla skill-tree reference. Orders here are recommended priority blocks, not a fabricated exact level-by-level build. Use the tree’s rank and parent gates. Mounts/Immortality may unlock automatically; mutually exclusive specialisations are alternatives."
+  },
+  {
+    "id": "embassy",
+    "title": "The Great Embassy • tier-five landmark",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_main_special_the_great_embassy/",
+    "note": "Archive annotation; not independently checked in this registration package. Shang-Yang, Warpstone Desert, tier 5. This is Route I’s required building, distinct from House of Secrets. Base construction prices and durations change with your modifiers; use the current cost in your budget."
+  },
+  {
+    "id": "secrets",
+    "title": "House of Secrets • tier-three landmark",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_cp1_cth_special_house_of_secrets/",
+    "note": "Archive annotation; not independently checked in this registration package. Tier-three Shang-Yang landmark: Alchemist access/capacity/recruit-rank and elixir support. Its income differs between the public 8.1 patch description and the indexed data. Use your in-game preview; neither the Embassy requirement nor the recommended building order depends on that disputed income."
+  },
+  {
+    "id": "buildings",
+    "title": "Cathay building reference",
+    "url": "https://www.honga.net/totalwar/en/warhammer3/factions/wh3_main_cth_the_western_provinces/buildings",
+    "note": "Archive annotation; not independently checked in this registration package. Building-chain reference for the Western Provinces. Do not import Commercial District or Fortress City modifiers from a Celestial Court faction page. Construction recipes are spending priorities, with capital tier, slots and local resources determining what actually fits."
+  },
+  {
+    "id": "celestial",
+    "title": "Celestial Barracks • recruitment gate",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_main_cth_celestial_1/",
+    "note": "Archive annotation; not independently checked in this registration package. Tier-four Celestial Barracks recruits Celestial Dragon Guard. The upgraded Celestial Armoury supplies the advanced crossbow troops. This is late recruitment, not a prerequisite for the opening war."
+  },
+  {
+    "id": "tea",
+    "title": "Tea Parlour • Yin development",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_main_cth_growth_yin_1/",
+    "note": "Archive annotation; not independently checked in this registration package. Yin growth branch with provincial economic support. It excludes the Yang conscription branch in the same settlement. Opposite branches can instead be assigned to different towns in the same province."
+  },
+  {
+    "id": "conscription",
+    "title": "Labour Conscription Bureau • Yang development",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_main_cth_growth_yang_1/",
+    "note": "Archive annotation; not independently checked in this registration package. Yang growth/construction branch. Read local-province scope and any conditional modifiers; do not treat every displayed faction-specific modifier as a global Zhao bonus."
+  },
+  {
+    "id": "income",
+    "title": "Spice Market • Yin income chain",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_main_cth_income_yin_1/",
+    "note": "Archive annotation; not independently checked in this registration package. Ordinary Yin income and trade support. The counterpart is Wares Market / Merchant Caravans / Trade Exchange. The building called Merchant Caravans is not an extra active caravan slot."
+  },
+  {
+    "id": "smart",
+    "title": "Smart Autoresolve • working assumption",
+    "url": "https://steamcommunity.com/app/1142710/workshop/",
+    "note": "Archive annotation; not independently checked in this registration package. The exact Smart Autoresolve pack was not available for inspection. This is a Workshop directory, not a claimed mod-specific source. The atlas assumes the user’s named mod is enabled and avoids vanilla ranged-bias exploits, invented matchup multipliers and promises about active-ability scoring. Army compositions have not been benchmarked under that pack."
+  },
+  {
+    "id": "caravans",
+    "title": "Ivory Road • caravan operation",
+    "url": "https://totalwarwarhammer.fandom.com/wiki/The_Ivory_Road",
+    "note": "Archive annotation; not independently checked in this registration package. Secondary operational reference for dispatch, route events, cargo, return times, destination rewards and caravan roster development. Use your dispatch panel for current destination availability, journey risk and actual active capacity."
+  },
+  {
+    "id": "tower",
+    "title": "Celestial Tower • lions and Astromancer",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_main_cth_magic_tower_1/",
+    "note": "Archive annotation; not independently checked in this registration package. Tier-three Celestial Tower recruits the Astromancer and the Celestial/Jade/Jet Lion families. Ignore the conditional IsJadeDragonFortressCity effect: that is not an ordinary Zhao Ming bonus."
+  },
+  {
+    "id": "barracks",
+    "title": "Jade Barracks • Gate Master access",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_main_cth_jade_barracks_3/",
+    "note": "Archive annotation; not independently checked in this registration package. Tier-three Jade Barracks provides Gate Master recruitment/capacity, Jade Halberds and shielded Jade crossbows. Its conditional Jade Dragon Fortress City recruitment modifier is not counted for Zhao."
+  },
+  {
+    "id": "forge",
+    "title": "Fire Rain Silo • artillery tier",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_main_cth_gunners_3/",
+    "note": "Archive annotation; not independently checked in this registration package. Tier-four Fire Rain Silo recruits the Rocket Battery. The preceding Powder Magazine is the practical tier-three Cannon/Crane/War Drum gate. Conditional Celestial Court effects are not counted."
+  },
+  {
+    "id": "tigers",
+    "title": "Iron Claw Barracks • ordinary Cathay",
+    "url": "https://twdb.io/warhammer3/database/buildings/wh3_cp1_cth_den_tigers_3/",
+    "note": "Archive annotation; not independently checked in this registration package. Tier-four ordinary Cathay building unlocks Iron Claw Tiger Warriors and Clawspeaker recruitment/capacity. Bhashiva has a separate version with different prices/bonuses; this atlas does not substitute it."
+  }
+]

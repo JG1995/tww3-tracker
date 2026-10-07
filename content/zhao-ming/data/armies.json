@@ -1,0 +1,3141 @@
+{
+  "route-1": {
+    "early": {
+      "label": "Early",
+      "name": "The Jinshen Company",
+      "supportName": "Jade road wardens",
+      "units": [
+        {
+          "n": 4,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Peasant Long Spearmen",
+          "role": "Budget screen; replace gradually",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Peasant Archers",
+          "role": "Cheap ranged support",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Jade Warrior Crossbowmen",
+          "role": "Core ranged damage",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Iron Hail Gunners",
+          "role": "Close-range armour-piercing lane",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lancers",
+          "role": "Single reserve / flanking group",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 4,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Peasant Long Spearmen",
+          "role": "Budget screen; replace gradually",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Peasant Archers",
+          "role": "Cheap ranged support",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Jade Warrior Crossbowmen",
+          "role": "Core ranged damage",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Iron Hail Gunners",
+          "role": "Close-range armour-piercing lane",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lancers",
+          "role": "Single reserve / flanking group",
+          "kind": "cavalry"
+        },
+        {
+          "n": 1,
+          "name": "Zhao Ming",
+          "role": "Human-form support → dragon intervention",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Metal magic / imbuements",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 4,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Peasant Long Spearmen",
+          "role": "Budget screen; replace gradually",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Peasant Archers",
+          "role": "Cheap ranged support",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Jade Warrior Crossbowmen",
+          "role": "Core ranged damage",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Iron Hail Gunners",
+          "role": "Close-range armour-piercing lane",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lancers",
+          "role": "Single reserve / flanking group",
+          "kind": "cavalry"
+        },
+        {
+          "n": 1,
+          "name": "Celestial General",
+          "role": "Armoured supporting commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Caster / support",
+          "kind": "character"
+        }
+      ],
+      "context": "A first developed full stack—not an instruction to wait for every specialist before clearing Jinshen.",
+      "notes": [
+        [
+          "Progression, not a turn-one shopping list",
+          "Recruit this as the needed tiers and budget arrive. Retain starting specialists, replace the weakest unit a few at a time, and use a basic troop for an unavailable hero slot."
+        ],
+        [
+          "Supporting-army distinction",
+          "A Celestial General gains neither Zhao’s transformation nor his unique personal army bonuses. The Alchemist retains a caster; the supporting force should be budgeted at its own actual upkeep."
+        ],
+        [
+          "Smart Autoresolve",
+          "These are thematic, combined-arms recommendations. Inspect the forecast and preserve important troops; they are not benchmark-tested stacks for the mod."
+        ],
+        [
+          "Before the cannon or halberds",
+          "Use more available Peasant/Jade troops and starting units. Upgrade to the displayed version when local recruitment exists, without stopping the first war."
+        ],
+        [
+          "One mobile group",
+          "The single Lancer is a reserve, not an invitation to manage an elaborate cavalry manoeuvre. Retain a different starting specialist in that slot if useful."
+        ]
+      ],
+      "plan": [
+        [
+          "1 • Build a real line",
+          "Put the shielded troops on the obvious approach, anti-large on the threatened side, and keep one unit able to turn around. Do not stretch to cover the entire map."
+        ],
+        [
+          "2 • Support with nearby fire",
+          "Keep crossbows close enough to their protectors for battle Harmony. Leave proper lanes for Iron Hail and cannons; stop firing into friendly backs."
+        ],
+        [
+          "3 • One deliberate intervention",
+          "Use Zhao, the lions or the single mobile group to fix the dangerous part of the fight. Do not launch every specialist into a separate fight at once."
+        ],
+        [
+          "4 • Restore the formation",
+          "After a rout or breakthrough, stop the chase, turn the screen, and select the next high-value target. Keep the backline protected while the enemy’s next wave arrives."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ]
+    },
+    "mid": {
+      "label": "Mid",
+      "name": "The Merchant Prince’s Retinue",
+      "supportName": "Ivory Road protection force",
+      "units": [
+        {
+          "n": 4,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warrior Crossbowmen (Shields)",
+          "role": "Protected ranged core",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Iron Hail Gunners",
+          "role": "Close-range armour-piercing lane",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lion",
+          "role": "Alchemical guardian / local counterattack",
+          "kind": "monster"
+        },
+        {
+          "n": 2,
+          "name": "Tiger Warriors (Dual Axes)",
+          "role": "Supported flank strike",
+          "kind": "infantry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 4,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warrior Crossbowmen (Shields)",
+          "role": "Protected ranged core",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Iron Hail Gunners",
+          "role": "Close-range armour-piercing lane",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lion",
+          "role": "Alchemical guardian / local counterattack",
+          "kind": "monster"
+        },
+        {
+          "n": 2,
+          "name": "Tiger Warriors (Dual Axes)",
+          "role": "Supported flank strike",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Zhao Ming",
+          "role": "Human-form support → dragon intervention",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Metal magic / imbuements",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gate Master",
+          "role": "Keep the screen and shooters protected",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 4,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warrior Crossbowmen (Shields)",
+          "role": "Protected ranged core",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Iron Hail Gunners",
+          "role": "Close-range armour-piercing lane",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lion",
+          "role": "Alchemical guardian / local counterattack",
+          "kind": "monster"
+        },
+        {
+          "n": 2,
+          "name": "Tiger Warriors (Dual Axes)",
+          "role": "Supported flank strike",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Celestial General",
+          "role": "Armoured supporting commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Caster / support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gate Master",
+          "role": "Formation bodyguard",
+          "kind": "character"
+        }
+      ],
+      "context": "Jade regulars, a forge guardian and one Tiger strike group: a defended trading power rather than a fragile gun parade.",
+      "notes": [
+        [
+          "Progression, not a turn-one shopping list",
+          "Recruit this as the needed tiers and budget arrive. Retain starting specialists, replace the weakest unit a few at a time, and use a basic troop for an unavailable hero slot."
+        ],
+        [
+          "Supporting-army distinction",
+          "A Celestial General gains neither Zhao’s transformation nor his unique personal army bonuses. The Alchemist retains a caster; the supporting force should be budgeted at its own actual upkeep."
+        ],
+        [
+          "Smart Autoresolve",
+          "These are thematic, combined-arms recommendations. Inspect the forecast and preserve important troops; they are not benchmark-tested stacks for the mod."
+        ]
+      ],
+      "plan": [
+        [
+          "1 • Build a real line",
+          "Put the shielded troops on the obvious approach, anti-large on the threatened side, and keep one unit able to turn around. Do not stretch to cover the entire map."
+        ],
+        [
+          "2 • Support with nearby fire",
+          "Keep crossbows close enough to their protectors for battle Harmony. Leave proper lanes for Iron Hail and cannons; stop firing into friendly backs."
+        ],
+        [
+          "3 • One deliberate intervention",
+          "Use Zhao, the lions or the single mobile group to fix the dangerous part of the fight. Do not launch every specialist into a separate fight at once."
+        ],
+        [
+          "4 • Restore the formation",
+          "After a rout or breakthrough, stop the chase, turn the screen, and select the next high-value target. Keep the backline protected while the enemy’s next wave arrives."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ]
+    },
+    "late": {
+      "label": "Late",
+      "name": "Shang-Yang’s Grand Retinue",
+      "supportName": "The commercial league guard",
+      "units": [
+        {
+          "n": 4,
+          "name": "Celestial Dragon Guard",
+          "role": "Armoured anti-large anchor",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 5,
+          "name": "Celestial Dragon Crossbowmen",
+          "role": "Elite armour-piercing volleys",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 2,
+          "name": "Iron Claw Tiger Warriors",
+          "role": "Elite melee specialist",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Sky Junk",
+          "role": "One signature aerial battery",
+          "kind": "artillery"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 4,
+          "name": "Celestial Dragon Guard",
+          "role": "Armoured anti-large anchor",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 5,
+          "name": "Celestial Dragon Crossbowmen",
+          "role": "Elite armour-piercing volleys",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 2,
+          "name": "Iron Claw Tiger Warriors",
+          "role": "Elite melee specialist",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Sky Junk",
+          "role": "One signature aerial battery",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Zhao Ming",
+          "role": "Human-form support → dragon intervention",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Metal magic / imbuements",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gate Master",
+          "role": "Keep the screen and shooters protected",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 4,
+          "name": "Celestial Dragon Guard",
+          "role": "Armoured anti-large anchor",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 5,
+          "name": "Celestial Dragon Crossbowmen",
+          "role": "Elite armour-piercing volleys",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 2,
+          "name": "Iron Claw Tiger Warriors",
+          "role": "Elite melee specialist",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Sky Junk",
+          "role": "One signature aerial battery",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Celestial General",
+          "role": "Armoured supporting commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Caster / support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gate Master",
+          "role": "Formation bodyguard",
+          "kind": "character"
+        }
+      ],
+      "context": "A prosperous court’s varied field company. The Sky Junk is a single centrepiece; the Jade veterans can remain.",
+      "notes": [
+        [
+          "Progression, not a turn-one shopping list",
+          "Recruit this as the needed tiers and budget arrive. Retain starting specialists, replace the weakest unit a few at a time, and use a basic troop for an unavailable hero slot."
+        ],
+        [
+          "Supporting-army distinction",
+          "A Celestial General gains neither Zhao’s transformation nor his unique personal army bonuses. The Alchemist retains a caster; the supporting force should be budgeted at its own actual upkeep."
+        ],
+        [
+          "Smart Autoresolve",
+          "These are thematic, combined-arms recommendations. Inspect the forecast and preserve important troops; they are not benchmark-tested stacks for the mod."
+        ]
+      ],
+      "plan": [
+        [
+          "1 • Build a real line",
+          "Put the shielded troops on the obvious approach, anti-large on the threatened side, and keep one unit able to turn around. Do not stretch to cover the entire map."
+        ],
+        [
+          "2 • Support with nearby fire",
+          "Keep crossbows close enough to their protectors for battle Harmony. Leave proper lanes for Iron Hail and cannons; stop firing into friendly backs."
+        ],
+        [
+          "3 • One deliberate intervention",
+          "Use Zhao, the lions or the single mobile group to fix the dangerous part of the fight. Do not launch every specialist into a separate fight at once."
+        ],
+        [
+          "4 • Restore the formation",
+          "After a rout or breakthrough, stop the chase, turn the screen, and select the next high-value target. Keep the backline protected while the enemy’s next wave arrives."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ]
+    },
+    "specialist": {
+      "label": "Ogre pact",
+      "name": "The Western Fellowship",
+      "supportName": "Pact escort of Shang-Yang",
+      "units": [
+        {
+          "n": 4,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Celestial Dragon Guard",
+          "role": "Armoured anti-large anchor",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warrior Crossbowmen (Shields)",
+          "role": "Protected ranged core",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 2,
+          "name": "Ironguts • access required",
+          "role": "Western ally; supported melee hitter",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Leadbelchers • access required",
+          "role": "Ogre fire support; keep lane clear",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lion",
+          "role": "Alchemical guardian / local counterattack",
+          "kind": "monster"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 4,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Celestial Dragon Guard",
+          "role": "Armoured anti-large anchor",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warrior Crossbowmen (Shields)",
+          "role": "Protected ranged core",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 2,
+          "name": "Ironguts • access required",
+          "role": "Western ally; supported melee hitter",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Leadbelchers • access required",
+          "role": "Ogre fire support; keep lane clear",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lion",
+          "role": "Alchemical guardian / local counterattack",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Zhao Ming",
+          "role": "Human-form support → dragon intervention",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Metal magic / imbuements",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gate Master",
+          "role": "Keep the screen and shooters protected",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 4,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Celestial Dragon Guard",
+          "role": "Armoured anti-large anchor",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warrior Crossbowmen (Shields)",
+          "role": "Protected ranged core",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 2,
+          "name": "Ironguts • access required",
+          "role": "Western ally; supported melee hitter",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Leadbelchers • access required",
+          "role": "Ogre fire support; keep lane clear",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lion",
+          "role": "Alchemical guardian / local counterattack",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Celestial General",
+          "role": "Armoured supporting commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Caster / support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gate Master",
+          "role": "Formation bodyguard",
+          "kind": "character"
+        }
+      ],
+      "context": "Optional mercenary/allied contingent; use only the Ogre units your current recruitment pool genuinely provides.",
+      "notes": [
+        [
+          "Progression, not a turn-one shopping list",
+          "Recruit this as the needed tiers and budget arrive. Retain starting specialists, replace the weakest unit a few at a time, and use a basic troop for an unavailable hero slot."
+        ],
+        [
+          "Supporting-army distinction",
+          "A Celestial General gains neither Zhao’s transformation nor his unique personal army bonuses. The Alchemist retains a caster; the supporting force should be budgeted at its own actual upkeep."
+        ],
+        [
+          "Smart Autoresolve",
+          "These are thematic, combined-arms recommendations. Inspect the forecast and preserve important troops; they are not benchmark-tested stacks for the mod."
+        ],
+        [
+          "Native substitution",
+          "Replace two Ironguts with two available Tiger melee units or Celestial Dragon Guard; replace the Leadbelchers with Iron Hail Gunners or another crossbow. The army remains 20 slots."
+        ],
+        [
+          "Not a caravan roster",
+          "This is an ordinary field army protecting the western interests. A travelling Ivory Road convoy does not buy this list from normal recruitment."
+        ]
+      ],
+      "plan": [
+        [
+          "1 • Build a real line",
+          "Put the shielded troops on the obvious approach, anti-large on the threatened side, and keep one unit able to turn around. Do not stretch to cover the entire map."
+        ],
+        [
+          "2 • Support with nearby fire",
+          "Keep crossbows close enough to their protectors for battle Harmony. Leave proper lanes for Iron Hail and cannons; stop firing into friendly backs."
+        ],
+        [
+          "3 • One deliberate intervention",
+          "Use Zhao, the lions or the single mobile group to fix the dangerous part of the fight. Do not launch every specialist into a separate fight at once."
+        ],
+        [
+          "4 • Restore the formation",
+          "After a rout or breakthrough, stop the chase, turn the screen, and select the next high-value target. Keep the backline protected while the enemy’s next wave arrives."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ]
+    },
+    "home": {
+      "label": "Home Guard",
+      "name": "Western provincial guard",
+      "supportName": "Western provincial guard",
+      "units": [
+        {
+          "n": 5,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 3,
+          "name": "Jade Warrior Crossbowmen",
+          "role": "Core ranged damage",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        }
+      ],
+      "legendary": [],
+      "generic": [
+        {
+          "n": 5,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 3,
+          "name": "Jade Warrior Crossbowmen",
+          "role": "Core ranged damage",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Celestial General",
+          "role": "Armoured supporting commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Caster / support",
+          "kind": "character"
+        }
+      ],
+      "context": "A 12-slot relief force for a settlement or pass. Not a promise it beats a late-game enemy stack alone.",
+      "notes": [
+        [
+          "Progression, not a turn-one shopping list",
+          "Recruit this as the needed tiers and budget arrive. Retain starting specialists, replace the weakest unit a few at a time, and use a basic troop for an unavailable hero slot."
+        ],
+        [
+          "Supporting-army distinction",
+          "A Celestial General gains neither Zhao’s transformation nor his unique personal army bonuses. The Alchemist retains a caster; the supporting force should be budgeted at its own actual upkeep."
+        ],
+        [
+          "Smart Autoresolve",
+          "These are thematic, combined-arms recommendations. Inspect the forecast and preserve important troops; they are not benchmark-tested stacks for the mod."
+        ],
+        [
+          "Budget option",
+          "Peasant spears/bows can hold some slots initially. If the army will routinely fight independent field battles, grow it towards a full template."
+        ],
+        [
+          "Generic-led local relief",
+          "The archive labels this 12-slot force 'Local relief · generic lord': it fields a Celestial General, not Zhao Ming. The empty legendary column is deliberate explicit absence, not a missing roster."
+        ]
+      ],
+      "plan": [
+        [
+          "1 • Build a real line",
+          "Put the shielded troops on the obvious approach, anti-large on the threatened side, and keep one unit able to turn around. Do not stretch to cover the entire map."
+        ],
+        [
+          "2 • Support with nearby fire",
+          "Keep crossbows close enough to their protectors for battle Harmony. Leave proper lanes for Iron Hail and cannons; stop firing into friendly backs."
+        ],
+        [
+          "3 • One deliberate intervention",
+          "Use Zhao, the lions or the single mobile group to fix the dangerous part of the fight. Do not launch every specialist into a separate fight at once."
+        ],
+        [
+          "4 • Restore the formation",
+          "After a rout or breakthrough, stop the chase, turn the screen, and select the next high-value target. Keep the backline protected while the enemy’s next wave arrives."
+        ]
+      ],
+      "size": 12,
+      "sources": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ]
+    }
+  },
+  "route-2": {
+    "early": {
+      "label": "Early",
+      "name": "The Jinshen Company",
+      "supportName": "Jade road wardens",
+      "units": [
+        {
+          "n": 4,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Peasant Long Spearmen",
+          "role": "Budget screen; replace gradually",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Peasant Archers",
+          "role": "Cheap ranged support",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Jade Warrior Crossbowmen",
+          "role": "Core ranged damage",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Iron Hail Gunners",
+          "role": "Close-range armour-piercing lane",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lancers",
+          "role": "Single reserve / flanking group",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 4,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Peasant Long Spearmen",
+          "role": "Budget screen; replace gradually",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Peasant Archers",
+          "role": "Cheap ranged support",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Jade Warrior Crossbowmen",
+          "role": "Core ranged damage",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Iron Hail Gunners",
+          "role": "Close-range armour-piercing lane",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lancers",
+          "role": "Single reserve / flanking group",
+          "kind": "cavalry"
+        },
+        {
+          "n": 1,
+          "name": "Zhao Ming",
+          "role": "Human-form support → dragon intervention",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Metal magic / imbuements",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 4,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Peasant Long Spearmen",
+          "role": "Budget screen; replace gradually",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Peasant Archers",
+          "role": "Cheap ranged support",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Jade Warrior Crossbowmen",
+          "role": "Core ranged damage",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Iron Hail Gunners",
+          "role": "Close-range armour-piercing lane",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lancers",
+          "role": "Single reserve / flanking group",
+          "kind": "cavalry"
+        },
+        {
+          "n": 1,
+          "name": "Celestial General",
+          "role": "Armoured supporting commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Caster / support",
+          "kind": "character"
+        }
+      ],
+      "context": "A first developed full stack—not an instruction to wait for every specialist before clearing Jinshen.",
+      "notes": [
+        [
+          "Progression, not a turn-one shopping list",
+          "Recruit this as the needed tiers and budget arrive. Retain starting specialists, replace the weakest unit a few at a time, and use a basic troop for an unavailable hero slot."
+        ],
+        [
+          "Supporting-army distinction",
+          "A Celestial General gains neither Zhao’s transformation nor his unique personal army bonuses. The Alchemist retains a caster; the supporting force should be budgeted at its own actual upkeep."
+        ],
+        [
+          "Smart Autoresolve",
+          "These are thematic, combined-arms recommendations. Inspect the forecast and preserve important troops; they are not benchmark-tested stacks for the mod."
+        ],
+        [
+          "Before the cannon or halberds",
+          "Use more available Peasant/Jade troops and starting units. Upgrade to the displayed version when local recruitment exists, without stopping the first war."
+        ],
+        [
+          "One mobile group",
+          "The single Lancer is a reserve, not an invitation to manage an elaborate cavalry manoeuvre. Retain a different starting specialist in that slot if useful."
+        ]
+      ],
+      "plan": [
+        [
+          "1 • Build a real line",
+          "Put the shielded troops on the obvious approach, anti-large on the threatened side, and keep one unit able to turn around. Do not stretch to cover the entire map."
+        ],
+        [
+          "2 • Support with nearby fire",
+          "Keep crossbows close enough to their protectors for battle Harmony. Leave proper lanes for Iron Hail and cannons; stop firing into friendly backs."
+        ],
+        [
+          "3 • One deliberate intervention",
+          "Use Zhao, the lions or the single mobile group to fix the dangerous part of the fight. Do not launch every specialist into a separate fight at once."
+        ],
+        [
+          "4 • Restore the formation",
+          "After a rout or breakthrough, stop the chase, turn the screen, and select the next high-value target. Keep the backline protected while the enemy’s next wave arrives."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ]
+    },
+    "mid": {
+      "label": "Mid",
+      "name": "The Alchemical Survey",
+      "supportName": "House of Secrets field company",
+      "units": [
+        {
+          "n": 4,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warrior Crossbowmen (Shields)",
+          "role": "Protected ranged core",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Iron Hail Gunners",
+          "role": "Close-range armour-piercing lane",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lion",
+          "role": "Alchemical guardian / local counterattack",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Jet Lion",
+          "role": "Paired guardian / protect a flank",
+          "kind": "monster"
+        },
+        {
+          "n": 2,
+          "name": "Tiger Warriors (Dual Axes)",
+          "role": "Supported flank strike",
+          "kind": "infantry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 4,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warrior Crossbowmen (Shields)",
+          "role": "Protected ranged core",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Iron Hail Gunners",
+          "role": "Close-range armour-piercing lane",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lion",
+          "role": "Alchemical guardian / local counterattack",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Jet Lion",
+          "role": "Paired guardian / protect a flank",
+          "kind": "monster"
+        },
+        {
+          "n": 2,
+          "name": "Tiger Warriors (Dual Axes)",
+          "role": "Supported flank strike",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Zhao Ming",
+          "role": "Human-form support → dragon intervention",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Metal magic / imbuements",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gate Master",
+          "role": "Keep the screen and shooters protected",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 4,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warrior Crossbowmen (Shields)",
+          "role": "Protected ranged core",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Iron Hail Gunners",
+          "role": "Close-range armour-piercing lane",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lion",
+          "role": "Alchemical guardian / local counterattack",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Jet Lion",
+          "role": "Paired guardian / protect a flank",
+          "kind": "monster"
+        },
+        {
+          "n": 2,
+          "name": "Tiger Warriors (Dual Axes)",
+          "role": "Supported flank strike",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Celestial General",
+          "role": "Armoured supporting commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Caster / support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gate Master",
+          "role": "Formation bodyguard",
+          "kind": "character"
+        }
+      ],
+      "context": "The paired lions are an alchemical signature; a substantial native escort prevents them being the entire plan.",
+      "notes": [
+        [
+          "Progression, not a turn-one shopping list",
+          "Recruit this as the needed tiers and budget arrive. Retain starting specialists, replace the weakest unit a few at a time, and use a basic troop for an unavailable hero slot."
+        ],
+        [
+          "Supporting-army distinction",
+          "A Celestial General gains neither Zhao’s transformation nor his unique personal army bonuses. The Alchemist retains a caster; the supporting force should be budgeted at its own actual upkeep."
+        ],
+        [
+          "Smart Autoresolve",
+          "These are thematic, combined-arms recommendations. Inspect the forecast and preserve important troops; they are not benchmark-tested stacks for the mod."
+        ]
+      ],
+      "plan": [
+        [
+          "1 • Build a real line",
+          "Put the shielded troops on the obvious approach, anti-large on the threatened side, and keep one unit able to turn around. Do not stretch to cover the entire map."
+        ],
+        [
+          "2 • Support with nearby fire",
+          "Keep crossbows close enough to their protectors for battle Harmony. Leave proper lanes for Iron Hail and cannons; stop firing into friendly backs."
+        ],
+        [
+          "3 • One deliberate intervention",
+          "Use Zhao, the lions or the single mobile group to fix the dangerous part of the fight. Do not launch every specialist into a separate fight at once."
+        ],
+        [
+          "4 • Restore the formation",
+          "After a rout or breakthrough, stop the chase, turn the screen, and select the next high-value target. Keep the backline protected while the enemy’s next wave arrives."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ]
+    },
+    "late": {
+      "label": "Late",
+      "name": "The Living Forge Expedition",
+      "supportName": "The expedition’s second echelon",
+      "units": [
+        {
+          "n": 5,
+          "name": "Celestial Dragon Guard",
+          "role": "Armoured anti-large anchor",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Celestial Dragon Crossbowmen",
+          "role": "Elite armour-piercing volleys",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Crane Gunners",
+          "role": "Long-range priority targets",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Fire Rain Rocket Battery",
+          "role": "Infantry bombardment",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lion",
+          "role": "Alchemical guardian / local counterattack",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Jet Lion",
+          "role": "Paired guardian / protect a flank",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Terracotta Sentinel",
+          "role": "Large anchor; screen against missiles",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 5,
+          "name": "Celestial Dragon Guard",
+          "role": "Armoured anti-large anchor",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Celestial Dragon Crossbowmen",
+          "role": "Elite armour-piercing volleys",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Crane Gunners",
+          "role": "Long-range priority targets",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Fire Rain Rocket Battery",
+          "role": "Infantry bombardment",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lion",
+          "role": "Alchemical guardian / local counterattack",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Jet Lion",
+          "role": "Paired guardian / protect a flank",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Terracotta Sentinel",
+          "role": "Large anchor; screen against missiles",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 1,
+          "name": "Zhao Ming",
+          "role": "Human-form support → dragon intervention",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Metal magic / imbuements",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gate Master",
+          "role": "Keep the screen and shooters protected",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 5,
+          "name": "Celestial Dragon Guard",
+          "role": "Armoured anti-large anchor",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Celestial Dragon Crossbowmen",
+          "role": "Elite armour-piercing volleys",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Crane Gunners",
+          "role": "Long-range priority targets",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Fire Rain Rocket Battery",
+          "role": "Infantry bombardment",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lion",
+          "role": "Alchemical guardian / local counterattack",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Jet Lion",
+          "role": "Paired guardian / protect a flank",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Terracotta Sentinel",
+          "role": "Large anchor; screen against missiles",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 1,
+          "name": "Celestial General",
+          "role": "Armoured supporting commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Caster / support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gate Master",
+          "role": "Formation bodyguard",
+          "kind": "character"
+        }
+      ],
+      "context": "A moving laboratory guarded by disciplined troops. One Sentinel, paired lions and selected guns—not a construct doomstack.",
+      "notes": [
+        [
+          "Progression, not a turn-one shopping list",
+          "Recruit this as the needed tiers and budget arrive. Retain starting specialists, replace the weakest unit a few at a time, and use a basic troop for an unavailable hero slot."
+        ],
+        [
+          "Supporting-army distinction",
+          "A Celestial General gains neither Zhao’s transformation nor his unique personal army bonuses. The Alchemist retains a caster; the supporting force should be budgeted at its own actual upkeep."
+        ],
+        [
+          "Smart Autoresolve",
+          "These are thematic, combined-arms recommendations. Inspect the forecast and preserve important troops; they are not benchmark-tested stacks for the mod."
+        ]
+      ],
+      "plan": [
+        [
+          "1 • Build a real line",
+          "Put the shielded troops on the obvious approach, anti-large on the threatened side, and keep one unit able to turn around. Do not stretch to cover the entire map."
+        ],
+        [
+          "2 • Support with nearby fire",
+          "Keep crossbows close enough to their protectors for battle Harmony. Leave proper lanes for Iron Hail and cannons; stop firing into friendly backs."
+        ],
+        [
+          "3 • One deliberate intervention",
+          "Use Zhao, the lions or the single mobile group to fix the dangerous part of the fight. Do not launch every specialist into a separate fight at once."
+        ],
+        [
+          "4 • Restore the formation",
+          "After a rout or breakthrough, stop the chase, turn the screen, and select the next high-value target. Keep the backline protected while the enemy’s next wave arrives."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ]
+    },
+    "specialist": {
+      "label": "Siege train",
+      "name": "The Warpstone Reclamation Train",
+      "supportName": "The siege escort",
+      "units": [
+        {
+          "n": 6,
+          "name": "Celestial Dragon Guard",
+          "role": "Armoured anti-large anchor",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warrior Crossbowmen (Shields)",
+          "role": "Protected ranged core",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Crane Gunners",
+          "role": "Long-range priority targets",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Fire Rain Rocket Battery",
+          "role": "Infantry bombardment",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Terracotta Sentinel",
+          "role": "Large anchor; screen against missiles",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 6,
+          "name": "Celestial Dragon Guard",
+          "role": "Armoured anti-large anchor",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warrior Crossbowmen (Shields)",
+          "role": "Protected ranged core",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Crane Gunners",
+          "role": "Long-range priority targets",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Fire Rain Rocket Battery",
+          "role": "Infantry bombardment",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Terracotta Sentinel",
+          "role": "Large anchor; screen against missiles",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 1,
+          "name": "Zhao Ming",
+          "role": "Human-form support → dragon intervention",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Metal magic / imbuements",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gate Master",
+          "role": "Keep the screen and shooters protected",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 6,
+          "name": "Celestial Dragon Guard",
+          "role": "Armoured anti-large anchor",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warrior Crossbowmen (Shields)",
+          "role": "Protected ranged core",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Crane Gunners",
+          "role": "Long-range priority targets",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Fire Rain Rocket Battery",
+          "role": "Infantry bombardment",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Terracotta Sentinel",
+          "role": "Large anchor; screen against missiles",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 1,
+          "name": "Celestial General",
+          "role": "Armoured supporting commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Caster / support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gate Master",
+          "role": "Formation bodyguard",
+          "kind": "character"
+        }
+      ],
+      "context": "For entrenched objective sites: fewer roaming specialists, more reliable protection and counter-fire.",
+      "notes": [
+        [
+          "Progression, not a turn-one shopping list",
+          "Recruit this as the needed tiers and budget arrive. Retain starting specialists, replace the weakest unit a few at a time, and use a basic troop for an unavailable hero slot."
+        ],
+        [
+          "Supporting-army distinction",
+          "A Celestial General gains neither Zhao’s transformation nor his unique personal army bonuses. The Alchemist retains a caster; the supporting force should be budgeted at its own actual upkeep."
+        ],
+        [
+          "Smart Autoresolve",
+          "These are thematic, combined-arms recommendations. Inspect the forecast and preserve important troops; they are not benchmark-tested stacks for the mod."
+        ],
+        [
+          "Optional legendary company",
+          "A genuinely recruited Saytang can replace the Gate Master in Zhao’s own company. That is an optional single-hero substitution, not a requirement or a copyable second Saytang."
+        ]
+      ],
+      "plan": [
+        [
+          "1 • Build a real line",
+          "Put the shielded troops on the obvious approach, anti-large on the threatened side, and keep one unit able to turn around. Do not stretch to cover the entire map."
+        ],
+        [
+          "2 • Support with nearby fire",
+          "Keep crossbows close enough to their protectors for battle Harmony. Leave proper lanes for Iron Hail and cannons; stop firing into friendly backs."
+        ],
+        [
+          "3 • One deliberate intervention",
+          "Use Zhao, the lions or the single mobile group to fix the dangerous part of the fight. Do not launch every specialist into a separate fight at once."
+        ],
+        [
+          "4 • Restore the formation",
+          "After a rout or breakthrough, stop the chase, turn the screen, and select the next high-value target. Keep the backline protected while the enemy’s next wave arrives."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ]
+    },
+    "home": {
+      "label": "Home Guard",
+      "name": "Western provincial guard",
+      "supportName": "Western provincial guard",
+      "units": [
+        {
+          "n": 5,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 3,
+          "name": "Jade Warrior Crossbowmen",
+          "role": "Core ranged damage",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        }
+      ],
+      "legendary": [],
+      "generic": [
+        {
+          "n": 5,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 3,
+          "name": "Jade Warrior Crossbowmen",
+          "role": "Core ranged damage",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Celestial General",
+          "role": "Armoured supporting commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Caster / support",
+          "kind": "character"
+        }
+      ],
+      "context": "A 12-slot relief force for a settlement or pass. Not a promise it beats a late-game enemy stack alone.",
+      "notes": [
+        [
+          "Progression, not a turn-one shopping list",
+          "Recruit this as the needed tiers and budget arrive. Retain starting specialists, replace the weakest unit a few at a time, and use a basic troop for an unavailable hero slot."
+        ],
+        [
+          "Supporting-army distinction",
+          "A Celestial General gains neither Zhao’s transformation nor his unique personal army bonuses. The Alchemist retains a caster; the supporting force should be budgeted at its own actual upkeep."
+        ],
+        [
+          "Smart Autoresolve",
+          "These are thematic, combined-arms recommendations. Inspect the forecast and preserve important troops; they are not benchmark-tested stacks for the mod."
+        ],
+        [
+          "Budget option",
+          "Peasant spears/bows can hold some slots initially. If the army will routinely fight independent field battles, grow it towards a full template."
+        ],
+        [
+          "Generic-led local relief",
+          "The archive labels this 12-slot force 'Local relief · generic lord': it fields a Celestial General, not Zhao Ming. The empty legendary column is deliberate explicit absence, not a missing roster."
+        ]
+      ],
+      "plan": [
+        [
+          "1 • Build a real line",
+          "Put the shielded troops on the obvious approach, anti-large on the threatened side, and keep one unit able to turn around. Do not stretch to cover the entire map."
+        ],
+        [
+          "2 • Support with nearby fire",
+          "Keep crossbows close enough to their protectors for battle Harmony. Leave proper lanes for Iron Hail and cannons; stop firing into friendly backs."
+        ],
+        [
+          "3 • One deliberate intervention",
+          "Use Zhao, the lions or the single mobile group to fix the dangerous part of the fight. Do not launch every specialist into a separate fight at once."
+        ],
+        [
+          "4 • Restore the formation",
+          "After a rout or breakthrough, stop the chase, turn the screen, and select the next high-value target. Keep the backline protected while the enemy’s next wave arrives."
+        ]
+      ],
+      "size": 12,
+      "sources": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ]
+    }
+  },
+  "route-3": {
+    "early": {
+      "label": "Early",
+      "name": "The Jinshen Company",
+      "supportName": "Jade road wardens",
+      "units": [
+        {
+          "n": 4,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Peasant Long Spearmen",
+          "role": "Budget screen; replace gradually",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Peasant Archers",
+          "role": "Cheap ranged support",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Jade Warrior Crossbowmen",
+          "role": "Core ranged damage",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Iron Hail Gunners",
+          "role": "Close-range armour-piercing lane",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lancers",
+          "role": "Single reserve / flanking group",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 4,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Peasant Long Spearmen",
+          "role": "Budget screen; replace gradually",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Peasant Archers",
+          "role": "Cheap ranged support",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Jade Warrior Crossbowmen",
+          "role": "Core ranged damage",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Iron Hail Gunners",
+          "role": "Close-range armour-piercing lane",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lancers",
+          "role": "Single reserve / flanking group",
+          "kind": "cavalry"
+        },
+        {
+          "n": 1,
+          "name": "Zhao Ming",
+          "role": "Human-form support → dragon intervention",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Metal magic / imbuements",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 4,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Peasant Long Spearmen",
+          "role": "Budget screen; replace gradually",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Peasant Archers",
+          "role": "Cheap ranged support",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Jade Warrior Crossbowmen",
+          "role": "Core ranged damage",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Iron Hail Gunners",
+          "role": "Close-range armour-piercing lane",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lancers",
+          "role": "Single reserve / flanking group",
+          "kind": "cavalry"
+        },
+        {
+          "n": 1,
+          "name": "Celestial General",
+          "role": "Armoured supporting commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Caster / support",
+          "kind": "character"
+        }
+      ],
+      "context": "A first developed full stack—not an instruction to wait for every specialist before clearing Jinshen.",
+      "notes": [
+        [
+          "Progression, not a turn-one shopping list",
+          "Recruit this as the needed tiers and budget arrive. Retain starting specialists, replace the weakest unit a few at a time, and use a basic troop for an unavailable hero slot."
+        ],
+        [
+          "Supporting-army distinction",
+          "A Celestial General gains neither Zhao’s transformation nor his unique personal army bonuses. The Alchemist retains a caster; the supporting force should be budgeted at its own actual upkeep."
+        ],
+        [
+          "Smart Autoresolve",
+          "These are thematic, combined-arms recommendations. Inspect the forecast and preserve important troops; they are not benchmark-tested stacks for the mod."
+        ],
+        [
+          "Before the cannon or halberds",
+          "Use more available Peasant/Jade troops and starting units. Upgrade to the displayed version when local recruitment exists, without stopping the first war."
+        ],
+        [
+          "One mobile group",
+          "The single Lancer is a reserve, not an invitation to manage an elaborate cavalry manoeuvre. Retain a different starting specialist in that slot if useful."
+        ]
+      ],
+      "plan": [
+        [
+          "1 • Build a real line",
+          "Put the shielded troops on the obvious approach, anti-large on the threatened side, and keep one unit able to turn around. Do not stretch to cover the entire map."
+        ],
+        [
+          "2 • Support with nearby fire",
+          "Keep crossbows close enough to their protectors for battle Harmony. Leave proper lanes for Iron Hail and cannons; stop firing into friendly backs."
+        ],
+        [
+          "3 • One deliberate intervention",
+          "Use Zhao, the lions or the single mobile group to fix the dangerous part of the fight. Do not launch every specialist into a separate fight at once."
+        ],
+        [
+          "4 • Restore the formation",
+          "After a rout or breakthrough, stop the chase, turn the screen, and select the next high-value target. Keep the backline protected while the enemy’s next wave arrives."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ]
+    },
+    "mid": {
+      "label": "Mid",
+      "name": "The Iron Frontier Host",
+      "supportName": "Mountain road garrison column",
+      "units": [
+        {
+          "n": 3,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warrior Crossbowmen (Shields)",
+          "role": "Protected ranged core",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Tiger Warriors (Dual Axes)",
+          "role": "Supported flank strike",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lion",
+          "role": "Alchemical guardian / local counterattack",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 3,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warrior Crossbowmen (Shields)",
+          "role": "Protected ranged core",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Tiger Warriors (Dual Axes)",
+          "role": "Supported flank strike",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lion",
+          "role": "Alchemical guardian / local counterattack",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 1,
+          "name": "Zhao Ming",
+          "role": "Human-form support → dragon intervention",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Metal magic / imbuements",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gate Master",
+          "role": "Keep the screen and shooters protected",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 3,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warrior Crossbowmen (Shields)",
+          "role": "Protected ranged core",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Tiger Warriors (Dual Axes)",
+          "role": "Supported flank strike",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Jade Lion",
+          "role": "Alchemical guardian / local counterattack",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 1,
+          "name": "Celestial General",
+          "role": "Armoured supporting commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Caster / support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gate Master",
+          "role": "Formation bodyguard",
+          "kind": "character"
+        }
+      ],
+      "context": "A stronger anti-large screen for the western fighting; Tigers and the guardian counterattack from behind that screen.",
+      "notes": [
+        [
+          "Progression, not a turn-one shopping list",
+          "Recruit this as the needed tiers and budget arrive. Retain starting specialists, replace the weakest unit a few at a time, and use a basic troop for an unavailable hero slot."
+        ],
+        [
+          "Supporting-army distinction",
+          "A Celestial General gains neither Zhao’s transformation nor his unique personal army bonuses. The Alchemist retains a caster; the supporting force should be budgeted at its own actual upkeep."
+        ],
+        [
+          "Smart Autoresolve",
+          "These are thematic, combined-arms recommendations. Inspect the forecast and preserve important troops; they are not benchmark-tested stacks for the mod."
+        ]
+      ],
+      "plan": [
+        [
+          "1 • Build a real line",
+          "Put the shielded troops on the obvious approach, anti-large on the threatened side, and keep one unit able to turn around. Do not stretch to cover the entire map."
+        ],
+        [
+          "2 • Support with nearby fire",
+          "Keep crossbows close enough to their protectors for battle Harmony. Leave proper lanes for Iron Hail and cannons; stop firing into friendly backs."
+        ],
+        [
+          "3 • One deliberate intervention",
+          "Use Zhao, the lions or the single mobile group to fix the dangerous part of the fight. Do not launch every specialist into a separate fight at once."
+        ],
+        [
+          "4 • Restore the formation",
+          "After a rout or breakthrough, stop the chase, turn the screen, and select the next high-value target. Keep the backline protected while the enemy’s next wave arrives."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ]
+    },
+    "late": {
+      "label": "Late",
+      "name": "The Iron Dragon’s Western Host",
+      "supportName": "Mournland holding army",
+      "units": [
+        {
+          "n": 6,
+          "name": "Celestial Dragon Guard",
+          "role": "Armoured anti-large anchor",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Celestial Dragon Crossbowmen",
+          "role": "Elite armour-piercing volleys",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Fire Rain Rocket Battery",
+          "role": "Infantry bombardment",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 2,
+          "name": "Great Longma Riders",
+          "role": "Interception / one aerial strike group",
+          "kind": "cavalry"
+        },
+        {
+          "n": 1,
+          "name": "Terracotta Sentinel",
+          "role": "Large anchor; screen against missiles",
+          "kind": "monster"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 6,
+          "name": "Celestial Dragon Guard",
+          "role": "Armoured anti-large anchor",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Celestial Dragon Crossbowmen",
+          "role": "Elite armour-piercing volleys",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Fire Rain Rocket Battery",
+          "role": "Infantry bombardment",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 2,
+          "name": "Great Longma Riders",
+          "role": "Interception / one aerial strike group",
+          "kind": "cavalry"
+        },
+        {
+          "n": 1,
+          "name": "Terracotta Sentinel",
+          "role": "Large anchor; screen against missiles",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Zhao Ming",
+          "role": "Human-form support → dragon intervention",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Metal magic / imbuements",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gate Master",
+          "role": "Keep the screen and shooters protected",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 6,
+          "name": "Celestial Dragon Guard",
+          "role": "Armoured anti-large anchor",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Celestial Dragon Crossbowmen",
+          "role": "Elite armour-piercing volleys",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Fire Rain Rocket Battery",
+          "role": "Infantry bombardment",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 2,
+          "name": "Great Longma Riders",
+          "role": "Interception / one aerial strike group",
+          "kind": "cavalry"
+        },
+        {
+          "n": 1,
+          "name": "Terracotta Sentinel",
+          "role": "Large anchor; screen against missiles",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Celestial General",
+          "role": "Armoured supporting commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Caster / support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gate Master",
+          "role": "Formation bodyguard",
+          "kind": "character"
+        }
+      ],
+      "context": "A developed frontier army: elite spear anchors, measured artillery and one aerial group for interceptions.",
+      "notes": [
+        [
+          "Progression, not a turn-one shopping list",
+          "Recruit this as the needed tiers and budget arrive. Retain starting specialists, replace the weakest unit a few at a time, and use a basic troop for an unavailable hero slot."
+        ],
+        [
+          "Supporting-army distinction",
+          "A Celestial General gains neither Zhao’s transformation nor his unique personal army bonuses. The Alchemist retains a caster; the supporting force should be budgeted at its own actual upkeep."
+        ],
+        [
+          "Smart Autoresolve",
+          "These are thematic, combined-arms recommendations. Inspect the forecast and preserve important troops; they are not benchmark-tested stacks for the mod."
+        ]
+      ],
+      "plan": [
+        [
+          "1 • Build a real line",
+          "Put the shielded troops on the obvious approach, anti-large on the threatened side, and keep one unit able to turn around. Do not stretch to cover the entire map."
+        ],
+        [
+          "2 • Support with nearby fire",
+          "Keep crossbows close enough to their protectors for battle Harmony. Leave proper lanes for Iron Hail and cannons; stop firing into friendly backs."
+        ],
+        [
+          "3 • One deliberate intervention",
+          "Use Zhao, the lions or the single mobile group to fix the dangerous part of the fight. Do not launch every specialist into a separate fight at once."
+        ],
+        [
+          "4 • Restore the formation",
+          "After a rout or breakthrough, stop the chase, turn the screen, and select the next high-value target. Keep the backline protected while the enemy’s next wave arrives."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ]
+    },
+    "specialist": {
+      "label": "Ground column",
+      "name": "The Mountain Convoy Guard",
+      "supportName": "The high-pass relief column",
+      "units": [
+        {
+          "n": 4,
+          "name": "Celestial Dragon Guard",
+          "role": "Armoured anti-large anchor",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warrior Crossbowmen (Shields)",
+          "role": "Protected ranged core",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Iron Claw Tiger Warriors",
+          "role": "Elite melee specialist",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 4,
+          "name": "Celestial Dragon Guard",
+          "role": "Armoured anti-large anchor",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warrior Crossbowmen (Shields)",
+          "role": "Protected ranged core",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Iron Claw Tiger Warriors",
+          "role": "Elite melee specialist",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 1,
+          "name": "Zhao Ming",
+          "role": "Human-form support → dragon intervention",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Metal magic / imbuements",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gate Master",
+          "role": "Keep the screen and shooters protected",
+          "kind": "character"
+        }
+      ],
+      "generic": [
+        {
+          "n": 4,
+          "name": "Celestial Dragon Guard",
+          "role": "Armoured anti-large anchor",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 2,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Jade Warrior Crossbowmen (Shields)",
+          "role": "Protected ranged core",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Iron Claw Tiger Warriors",
+          "role": "Elite melee specialist",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Zhangu War Drum",
+          "role": "Formation support, stay protected",
+          "kind": "support"
+        },
+        {
+          "n": 1,
+          "name": "Celestial General",
+          "role": "Armoured supporting commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Caster / support",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gate Master",
+          "role": "Formation bodyguard",
+          "kind": "character"
+        }
+      ],
+      "context": "A grounded alternative to the aerial late army, easier to keep together in a narrow or messy battle.",
+      "notes": [
+        [
+          "Progression, not a turn-one shopping list",
+          "Recruit this as the needed tiers and budget arrive. Retain starting specialists, replace the weakest unit a few at a time, and use a basic troop for an unavailable hero slot."
+        ],
+        [
+          "Supporting-army distinction",
+          "A Celestial General gains neither Zhao’s transformation nor his unique personal army bonuses. The Alchemist retains a caster; the supporting force should be budgeted at its own actual upkeep."
+        ],
+        [
+          "Smart Autoresolve",
+          "These are thematic, combined-arms recommendations. Inspect the forecast and preserve important troops; they are not benchmark-tested stacks for the mod."
+        ],
+        [
+          "Lower micro alternative",
+          "Use this when two Longma units plus the Sentinel ask for more attention than you enjoy. A less flashy force that remains coherent is a sensible thematic choice."
+        ]
+      ],
+      "plan": [
+        [
+          "1 • Build a real line",
+          "Put the shielded troops on the obvious approach, anti-large on the threatened side, and keep one unit able to turn around. Do not stretch to cover the entire map."
+        ],
+        [
+          "2 • Support with nearby fire",
+          "Keep crossbows close enough to their protectors for battle Harmony. Leave proper lanes for Iron Hail and cannons; stop firing into friendly backs."
+        ],
+        [
+          "3 • One deliberate intervention",
+          "Use Zhao, the lions or the single mobile group to fix the dangerous part of the fight. Do not launch every specialist into a separate fight at once."
+        ],
+        [
+          "4 • Restore the formation",
+          "After a rout or breakthrough, stop the chase, turn the screen, and select the next high-value target. Keep the backline protected while the enemy’s next wave arrives."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ]
+    },
+    "home": {
+      "label": "Home Guard",
+      "name": "Western provincial guard",
+      "supportName": "Western provincial guard",
+      "units": [
+        {
+          "n": 5,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 3,
+          "name": "Jade Warrior Crossbowmen",
+          "role": "Core ranged damage",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        }
+      ],
+      "legendary": [],
+      "generic": [
+        {
+          "n": 5,
+          "name": "Jade Warriors",
+          "role": "Shielded line / hold contact",
+          "kind": "infantry"
+        },
+        {
+          "n": 3,
+          "name": "Jade Warrior Crossbowmen",
+          "role": "Core ranged damage",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Jade Warriors (Halberds)",
+          "role": "Anti-large screen / rear reserve",
+          "kind": "infantry"
+        },
+        {
+          "n": 1,
+          "name": "Grand Cannon",
+          "role": "Large targets, counter-battery, sieges",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Celestial General",
+          "role": "Armoured supporting commander",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Alchemist",
+          "role": "Caster / support",
+          "kind": "character"
+        }
+      ],
+      "context": "A 12-slot relief force for a settlement or pass. Not a promise it beats a late-game enemy stack alone.",
+      "notes": [
+        [
+          "Progression, not a turn-one shopping list",
+          "Recruit this as the needed tiers and budget arrive. Retain starting specialists, replace the weakest unit a few at a time, and use a basic troop for an unavailable hero slot."
+        ],
+        [
+          "Supporting-army distinction",
+          "A Celestial General gains neither Zhao’s transformation nor his unique personal army bonuses. The Alchemist retains a caster; the supporting force should be budgeted at its own actual upkeep."
+        ],
+        [
+          "Smart Autoresolve",
+          "These are thematic, combined-arms recommendations. Inspect the forecast and preserve important troops; they are not benchmark-tested stacks for the mod."
+        ],
+        [
+          "Budget option",
+          "Peasant spears/bows can hold some slots initially. If the army will routinely fight independent field battles, grow it towards a full template."
+        ],
+        [
+          "Generic-led local relief",
+          "The archive labels this 12-slot force 'Local relief · generic lord': it fields a Celestial General, not Zhao Ming. The empty legendary column is deliberate explicit absence, not a missing roster."
+        ]
+      ],
+      "plan": [
+        [
+          "1 • Build a real line",
+          "Put the shielded troops on the obvious approach, anti-large on the threatened side, and keep one unit able to turn around. Do not stretch to cover the entire map."
+        ],
+        [
+          "2 • Support with nearby fire",
+          "Keep crossbows close enough to their protectors for battle Harmony. Leave proper lanes for Iron Hail and cannons; stop firing into friendly backs."
+        ],
+        [
+          "3 • One deliberate intervention",
+          "Use Zhao, the lions or the single mobile group to fix the dangerous part of the fight. Do not launch every specialist into a separate fight at once."
+        ],
+        [
+          "4 • Restore the formation",
+          "After a rout or breakthrough, stop the chase, turn the screen, and select the next high-value target. Keep the backline protected while the enemy’s next wave arrives."
+        ]
+      ],
+      "size": 12,
+      "sources": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "zhao-skill",
+        "ca8",
+        "smart"
+      ]
+    }
+  }
+}

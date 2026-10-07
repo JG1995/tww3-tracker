@@ -1,0 +1,585 @@
+{
+  "hub": {
+    "label": "War hub",
+    "title": "The Monoliths: the first war hub",
+    "intro": "Build a production spine in Granite Hills. This is the actual Immortal Empires start, not Alith’s older Arnheim opening.",
+    "steps": [
+      {
+        "title": "Retain Militia recruitment; add Homestead",
+        "note": "Keep cheap reinforcements available while growing the capital. Move basic recruitment only after a replacement exists."
+      },
+      {
+        "title": "Tier 2 → Aesanar Camp",
+        "note": "The single-tier camp unlocks the signature Shadow-walkers. Recruit a few before replacing the entire bow line."
+      },
+      {
+        "title": "Elven Craftsman / useful resource",
+        "note": "Establish recurring income so the next building does not depend on winning another battle."
+      },
+      {
+        "title": "Elven Workshop at tier 2",
+        "note": "Recruit one or two Eagle Claws when affordable. This is the current early smith tier, before Elven Forge."
+      },
+      {
+        "title": "Tier 3 → Archive or Harbour caster",
+        "note": "Obtain the desired Mage; a coastal Harbour is the alternative for a Mist Mage. Check hero capacity.",
+        "gate": "Archive tier 3; confirm the live chain"
+      },
+      {
+        "title": "Tier 4: one deliberate specialist",
+        "note": "Add the infantry, phoenix or naval support you will actually recruit. A second hub can take work that does not fit here."
+      }
+    ],
+    "details": [
+      [
+        "A sequence, not six simultaneous empty slots",
+        "The capital’s main building and any resource or port occupy space. Homestead, ordinary income and basic Militia can be distributed across the province. Do not bulldoze your only recruiting source."
+      ],
+      [
+        "The camp does not need an imaginary tier three",
+        "Aesanar Camp is a single-level tier-two building. Greater settlement development unlocks other chains, not a second Aesanar Camp upgrade."
+      ],
+      [
+        "First purchases",
+        "A small walker contingent, an Eagle Claw and recovery infrastructure are more useful than an expensive elite building with no treasury left to recruit its units."
+      ],
+      [
+        "After the start",
+        "For a southern expedition this remains the fallback depot. For a northern conquest it can be supplemented by a captured regional capital rather than being the only source of every replacement."
+      ],
+      [
+        "Infantry and creature recruitment ladder",
+        "Grove (tier 2) gives the Great Eagle; Greater Grove (tier 3) adds White Lions infantry. Grand Repository (tier 4), upgrading the Archive, adds Swordmasters and the Sea Elemental. Use the troops you can already recruit while a higher-tier chain develops."
+      ],
+      [
+        "Phoenix Guard and Frostheart Phoenix",
+        "Both come from the tier-four Temple of Asuryan in the worship chain. One specialised building can support the two premium additions used in the late template; neither is required before your first major war."
+      ],
+      [
+        "The late coastal beast and dragon branch",
+        "A Merwyrm needs the tier-five Tower of Mages, so keep a useful earlier unit until that investment is affordable. The optional Moon Dragon uses a separate tier-four Dragon’s Lair. These are alternative thematic investments, not a command to construct every elite chain."
+      ],
+      [
+        "Choose a procurement hub, not a perfect capital",
+        "Put one specialist chain in the current capital and another in a well-developed forward capital when slots demand it. Keep basic recruitment available, and check the construction browser before demolishing a source needed for a veteran replacement."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) places Aesanar Camp and Elven Workshop at tier two, Archive and the ordinary Harbour at tier three, and the elite chains behind them at tiers three to five, from annotated raw-data leads rather than a verified installed build. Unknown: whether the player’s installed tree, tiers, prices, effects and hero capacity match. Open each live settlement panel and compare the chain, tier, price, upkeep effects and hero-capacity entries before spending; if a tier or effect differs, follow the live values and treat this hub as priority guidance, not a confirmed construction order."
+      ]
+    ],
+    "sources": [
+      "nagarythe",
+      "camp",
+      "workshop",
+      "archive",
+      "port",
+      "farm",
+      "grove",
+      "repository",
+      "mage-tower",
+      "asuryan-temple",
+      "dragon-lair"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "nagarythe",
+      "camp",
+      "workshop",
+      "archive",
+      "port",
+      "farm",
+      "grove",
+      "repository",
+      "mage-tower",
+      "asuryan-temple",
+      "dragon-lair"
+    ]
+  },
+  "income": {
+    "label": "Income",
+    "title": "A quiet town that pays for the hunt",
+    "intro": "Use secure interior settlements to fund the army and replenish your shared Influence reserve.",
+    "steps": [
+      {
+        "title": "Repair the settlement and income source",
+        "note": "Keep useful captured economic buildings. Do not pay for military duplicates without a route-specific job."
+      },
+      {
+        "title": "Elven Craftsman → income upgrades",
+        "note": "Use the Craftsman chain for recurring income and goods. Trade partners determine how useful those goods become."
+      },
+      {
+        "title": "Homestead while the province grows",
+        "note": "Keep growth until your priority capital reaches its useful tier; replenishment can still justify retaining the building later."
+      },
+      {
+        "title": "Plaza → Colonnade → Promenade",
+        "note": "Use Entertainment for Control, Influence and income, not only to rescue an impending rebellion."
+      },
+      {
+        "title": "Elven Gardens if Influence is scarce",
+        "note": "A tier-two support site can recruit Nobles and supply Influence; judge it against the remaining slot and economy.",
+        "gate": "Archive tier 2; confirm the live chain"
+      },
+      {
+        "title": "Replace temporary growth deliberately",
+        "note": "Once the province is mature, choose the profitable resource, Influence or defence role rather than upgrading everything by habit."
+      }
+    ],
+    "details": [
+      [
+        "Prosperity is conditional",
+        "The current Craftsman/Entertainment chains reward high Control. Count the extra income across the province before paying a large sum to cross a threshold."
+      ],
+      [
+        "Not every town needs both political chains",
+        "Elven Gardens and Entertainment perform overlapping but different jobs. A scarce resource or exposed border can take priority."
+      ],
+      [
+        "Positive income matters more than symmetry",
+        "A mixed province with one productive resource town and one recovery site is fine. There is no requirement to make all three minors identical."
+      ],
+      [
+        "Route III funding note",
+        "The archive’s Route III advice is to keep construction and agent fees funded together and not to treat Influence income as a substitute for the gold needed for Anlec. The later route plan carries the full funding sequence; this role keeps the budget distinction visible."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) describes the Craftsman, Homestead, Entertainment and Elven Gardens chains and their Control/Influence roles from annotated data, not a verified installed build. Unknown: current tiers, bonuses, Control thresholds and whether the installed tree matches. Open the live settlement and province panels and compare the chain effects, tier cost and current Control before spending; if a value differs, follow the live numbers and treat this role as priority guidance."
+      ]
+    ],
+    "sources": [
+      "industry",
+      "order",
+      "court",
+      "farm"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "industry",
+      "order",
+      "court",
+      "farm"
+    ]
+  },
+  "resource": {
+    "label": "Resource",
+    "title": "A strategic resource province",
+    "intro": "Exploit what the province is good at; do not force an expensive capital template into a small town.",
+    "steps": [
+      {
+        "title": "Repair the resource building",
+        "note": "Read its actual local and factionwide benefits before choosing a second investment."
+      },
+      {
+        "title": "Add Homestead for development",
+        "note": "Grow the resource’s capital and provide a useful replenishment stop."
+      },
+      {
+        "title": "Add Craftsman or Entertainment",
+        "note": "Income when safe; Control when prosperity, corruption or occupation makes it worthwhile."
+      },
+      {
+        "title": "Use recruitment synergies selectively",
+        "note": "Wood-related benefits suit bows and bolts; concentrate relevant recruitment where the live tooltip actually applies."
+      },
+      {
+        "title": "Upgrade the resource before a duplicate barracks",
+        "note": "A profitable resource is often a better provincial contribution than another unused recruitment menu."
+      },
+      {
+        "title": "Research its unlocked option when useful",
+        "note": "A resource technology is an opportunity, not a mandatory reason to conquer a distant settlement."
+      }
+    ],
+    "details": [
+      [
+        "Trade is a relationship",
+        "Goods production is not a guaranteed gold amount. Keep appropriate trade partners and check the trade panel."
+      ],
+      [
+        "Route III exception",
+        "A resource-rich court province can help finance the agent network, but Tor Anlec’s landmark and growth remain their own priorities."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) advises repairing the resource chain, pairing it with growth or income, and treating resource technologies as opportunities. Unknown: the installed resource effects, caps, and whether any captured resource matches the archive’s assumed catalogue. Open the live building and trade panels and read the resource’s actual local/factionwide bonuses before choosing a second investment; if the tooltip differs, follow the displayed effect."
+      ]
+    ],
+    "sources": [
+      "industry",
+      "tech",
+      "farm"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "industry",
+      "tech",
+      "farm"
+    ]
+  },
+  "frontier": {
+    "label": "Frontier",
+    "title": "A watched frontier and recovery stop",
+    "intro": "Hold a dangerous approach so Alith does not spend every second turn walking back to fix it.",
+    "steps": [
+      {
+        "title": "Repair and stabilise the settlement",
+        "note": "Restore the garrison and Control before assuming the town can hold anything."
+      },
+      {
+        "title": "Defensive chain before luxury income",
+        "note": "Use the available Watchtower/garrison line where an actual attack is likely."
+      },
+      {
+        "title": "Homestead → replenishment base",
+        "note": "A town beside the army’s operating area should shorten the recovery cycle."
+      },
+      {
+        "title": "Aesanar Camp on a relevant approach",
+        "note": "Local ambush/action benefits and walker replacement can justify a forward camp; read the exact scope."
+      },
+      {
+        "title": "One cheap recruitment source",
+        "note": "Spears and bows are enough for a relief force. Do not install the whole elite roster."
+      },
+      {
+        "title": "Nearby Home Guard, not just buildings",
+        "note": "A garrison plus an affordable response force is more credible than an expensive unsupported frontier."
+      }
+    ],
+    "details": [
+      [
+        "Defence is geographic",
+        "A frontier settlement should protect a pass, port, crossing or active invasion route visible in your game. A town is not defensible merely because it belongs to a complete province."
+      ],
+      [
+        "After the front moves",
+        "Keep useful recovery infrastructure. Convert redundant military buildings into income or Influence only when the next line is genuinely secure."
+      ],
+      [
+        "A garrison is not automatically a wall",
+        "The current Royal Garrison for minor settlements gives an unwalled settlement battle. Plan defenders and reinforcements around the actual battle type, not a wall that the building does not provide."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) pairs a frontier town with a defensive chain, recovery growth and one cheap recruitment source, and notes that the Royal Garrison defence does not change the battle type. Unknown: the installed garrison effects and whether the live battle type or building set differs. Open the live garrison tooltip and settlement battle preview for a representative border town; if the displayed battle type is walled or the chain differs, plan defenders and reinforcement around what the building actually provides."
+      ]
+    ],
+    "sources": [
+      "camp",
+      "farm",
+      "order",
+      "garrison"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "camp",
+      "farm",
+      "order",
+      "garrison"
+    ]
+  },
+  "occupation": {
+    "label": "Occupied city",
+    "title": "A conquered Druchii city you need to keep",
+    "intro": "Route I’s objective is control. Turn the six named cities into a functioning chain of support, not six ruins.",
+    "steps": [
+      {
+        "title": "Occupy the required city",
+        "note": "Razing does not satisfy a control requirement. Check which diplomatic control your live mission accepts."
+      },
+      {
+        "title": "Repair the garrison and stabilise Control",
+        "note": "Keep the city from rebelling or falling while Alith moves on."
+      },
+      {
+        "title": "Income/resource → Homestead",
+        "note": "Develop productive recovery capacity instead of rebuilding every military chain."
+      },
+      {
+        "title": "Defence at the exposed edge",
+        "note": "Prioritise the city facing the next major enemy or a vulnerable sea approach."
+      },
+      {
+        "title": "Pick one regional recruitment capital",
+        "note": "Use its existing tier and buildings. Move specialist recruitment forward only where it saves repeated travel."
+      },
+      {
+        "title": "Retain it through victory confirmation",
+        "note": "Do not hand off a required city because its checklist happened to flash once."
+      }
+    ],
+    "details": [
+      [
+        "A practical northern pair",
+        "Hag Graef and Naggarond form a useful operational pairing when the map permits. Capturing them is not the same as destroying every surviving Naggarond settlement or army."
+      ],
+      [
+        "Follow current ownership",
+        "Clar Karond, Karond Kar, Ghrond and Har Ganeth can change hands before you arrive. The city checklist, not its initial ruler, decides which war or agreement is relevant."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) recommends occupying and retaining the required cities and turning them into support links. Unknown: which ownership rule the installed VCO control condition accepts and whether credit must persist to the victory check. Check the live route objective before and after the first candidate capture or diplomatic transfer; if razing or an unretained transfer does not credit, keep direct ownership and hold it through the victory confirmation rather than repeating an action shown not to count."
+      ]
+    ],
+    "sources": [
+      "vco",
+      "farm",
+      "order"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "vco",
+      "farm",
+      "order"
+    ]
+  },
+  "port": {
+    "label": "Port",
+    "title": "An expedition’s harbour",
+    "intro": "A staging base that can recruit, recover and let the next movement happen without gambling the army at sea.",
+    "steps": [
+      {
+        "title": "Keep or secure a usable landing point",
+        "note": "Choose a port near the actual operation, not simply the closest pin on the coast."
+      },
+      {
+        "title": "Docks → Harbour when useful",
+        "note": "A tier-three Harbour supports a Mist Mage and the expedition’s economy; check capacity first.",
+        "gate": "Archive tier 3; confirm the live chain"
+      },
+      {
+        "title": "Homestead and Control support",
+        "note": "Recover between operations. New conquests may need stabilisation before they can safely host a reduced army."
+      },
+      {
+        "title": "War Hall for shielded Sea Guard",
+        "note": "Create the escort where you can afford it, instead of sending every unit all the way from the original capital."
+      },
+      {
+        "title": "Elven Forge for the optional Skycutters",
+        "note": "A small paired flight can fit a coastal theme; it is not required to complete a land objective."
+      },
+      {
+        "title": "One defender and a return route",
+        "note": "Keep enough defence to survive a raid while the expedition is inland. Use ordinary sea travel, not imaginary Alith Dragonships."
+      }
+    ],
+    "details": [
+      [
+        "A mage is not a fleet mechanic",
+        "Mist Mage access belongs to the roster. Alith does not acquire Aislinn’s Sea Lanes or Sea Patrol Outposts by constructing a Harbour."
+      ],
+      [
+        "Selective investment",
+        "For a brief search, one safe port with ordinary replacements is enough. For The Eternal War’s overseas operations, a durable regional base can be worth a much larger investment."
+      ],
+      [
+        "Late magical recruitment stays on land",
+        "An optional Merwyrm comes from a tier-five Tower of Mages, not simply from upgrading the port. Build it in a durable magical recruitment centre only when the expedition’s budget can support both recruitment and upkeep."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) places the useful Harbour at tier three and separates Mist Mage access and the land-based Tower of Mages chain from Aislinn’s naval buildings. Unknown: the installed harbour tiers, effects and hero-capacity rules. Check the live Harbour chain, its caster recruitment entry and the current hero capacity before building; if the tier or unit differs, follow the live panel and treat the port as a logistic base, not a naval-mechanic unlock."
+      ]
+    ],
+    "sources": [
+      "port",
+      "forge",
+      "barracks",
+      "farm",
+      "tides",
+      "mage-tower"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "port",
+      "forge",
+      "barracks",
+      "farm",
+      "tides",
+      "mage-tower"
+    ]
+  },
+  "anlec": {
+    "label": "Anlec",
+    "title": "Rebuild the ancestral citadel",
+    "intro": "Tor Anlec in Nagarythe, Ulthuan. Start the growth problem early while agents and field armies handle the other requirements.",
+    "steps": [
+      {
+        "title": "Secure Tor Anlec itself",
+        "note": "Confirm the exact settlement and its owner. A different Nagarythe town cannot host this landmark."
+      },
+      {
+        "title": "Homesteads across the province",
+        "note": "Push provincial growth; protect the investments long enough to reach tier five."
+      },
+      {
+        "title": "Income and Entertainment support",
+        "note": "Keep construction funded and Control stable. The capital is not only a ceremonial expense."
+      },
+      {
+        "title": "Upgrade the main settlement towards tier 5",
+        "note": "Make growth and the main-chain cost your priority over unnecessary elite branches.",
+        "gate": "Archive gate: tier 5; confirm the live tree"
+      },
+      {
+        "title": "Build Black Citadel of Anlec",
+        "note": "Base database cost is 10,000 gold and five turns before modifiers. Reserve room and cash.",
+        "gate": "Tier 5"
+      },
+      {
+        "title": "Keep it while finishing the assassinations",
+        "note": "The campaign has three parallel jobs: citadel, successful actions and the six named lords. Record actual completion in game."
+      }
+    ],
+    "details": [
+      [
+        "Reach Ulthuan without self-sabotage",
+        "Do not abandon The Monoliths in the middle of a dangerous local war. Secure the departure, leave a defender or bring a supporting lord to Ulthuan once it is affordable."
+      ],
+      [
+        "Friendly ownership",
+        "Start with diplomacy and an eligible peaceful transfer/confederation rather than assuming war with every High Elf. Access to a region through an alliance is not the same as being able to construct its landmark yourself."
+      ],
+      [
+        "Patron seat is a separate mechanic",
+        "Holding the Nagarythe patronage is thematically fitting, but does not build the Black Citadel or substitute for Tor Anlec ownership."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) places the Black Citadel of Anlec behind a tier-five Tor Anlec and reports an unmodified base cost of 10,000 gold and five turns. Unknown: the installed tier, price, build time, modifiers, and whether the player’s diplomacy grants construction access at all. Inspect the live Tor Anlec building browser when the settlement is owned or changes hands; if the landmark, tier, cost or time differs from the archived values, follow the live panel and keep growth and funding ready. Do not spend for the landmark just because a treaty or alliance touches the region — construction access is a settlement-level fact, not a diplomatic assumption."
+      ]
+    ],
+    "sources": [
+      "anlec",
+      "vco",
+      "ca7",
+      "farm"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "anlec",
+      "vco",
+      "ca7",
+      "farm"
+    ]
+  },
+  "agents": {
+    "label": "Agent court",
+    "title": "A court that sends useful agents",
+    "intro": "A mature, safe capital that can support The Eternal War’s assassination network and diplomatic budget.",
+    "steps": [
+      {
+        "title": "Elven Gardens at tier 2",
+        "note": "Recruit the first Noble for field actions without waiting for a late-game palace.",
+        "gate": "Archive tier 2; confirm the live chain"
+      },
+      {
+        "title": "Provide steady income and Influence",
+        "note": "Use the economic and Entertainment chains to support action costs as well as political purchases."
+      },
+      {
+        "title": "Develop the capital to tier 4",
+        "note": "Do not leave the agent-capacity upgrade as the final missing piece of the route.",
+        "gate": "Archive gate: tier 4; confirm the live tree"
+      },
+      {
+        "title": "Upgrade to Elven Court",
+        "note": "Additional Noble capacity and recruitment support make a repeatable network possible."
+      },
+      {
+        "title": "Recruit distinct field and agent Nobles",
+        "note": "Leave the army’s replenishment Noble embedded. Send the new agents to suitable enemy heroes."
+      },
+      {
+        "title": "Train and deploy in overlapping cycles",
+        "note": "Do not march every Noble to the same empty theatre. Keep targets, costs and failures in the ledger."
+      }
+    ],
+    "details": [
+      [
+        "Quality matters, but so does time",
+        "A reasonable Influence trait and useful skill line are enough to start. Waiting indefinitely for the perfect trait also has a campaign cost."
+      ],
+      [
+        "Not every capital needs to be a court",
+        "Expand capacity only to the number of agents you can finance and use. Two or three dedicated agents are a sensible initial plan, not a hard mechanical cap."
+      ],
+      [
+        "Two agent centres, two different jobs",
+        "The tier-two Elven Gardens gives the first Noble and Influence; the tier-four Elven Court adds capacity for a repeatable network. Keep the embedded field Noble separate from the detached agent Nobles that perform Assassinate actions — one character cannot provide both services at once."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) places Elven Gardens at tier two and Elven Court at tier four and distinguishes the embedded field Noble from detached agents. Unknown: the installed tiers, capacity bonuses, influence income and hero caps. Open the live Gardens and Court chains and the current Noble capacity before expanding; if a tier, effect or cap differs, follow the live values and scale the network to the agents you can actually finance and use."
+      ]
+    ],
+    "sources": [
+      "court",
+      "court2",
+      "noble-skill",
+      "vco-script"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "court",
+      "court2",
+      "noble-skill",
+      "vco-script"
+    ]
+  },
+  "temporary": {
+    "label": "Temporary",
+    "title": "A foothold, not a new building project",
+    "intro": "Use for a short-lived search point, a temporary landing or territory you expect to transfer.",
+    "steps": [
+      {
+        "title": "Check objective credit before deciding",
+        "note": "A live control requirement may need continued ownership. Do not immediately give away a credited search location."
+      },
+      {
+        "title": "Repair what the operation needs",
+        "note": "A garrison, replenishment stop or recruitment source can justify limited spending."
+      },
+      {
+        "title": "Avoid long payback investments",
+        "note": "A building that only pays off after you leave is not part of this operation’s budget."
+      },
+      {
+        "title": "Replenish and confirm the next leg",
+        "note": "Do not move merely because the army has gained a new settlement."
+      },
+      {
+        "title": "Transfer or retain deliberately",
+        "note": "Give land only to a suitable recipient under the rules of your installed settlement-trading mods."
+      },
+      {
+        "title": "Record the new owner and mission status",
+        "note": "A diplomatic agreement is only objective credit if the actual VCO panel accepts it."
+      }
+    ],
+    "details": [
+      [
+        "The limit is purpose, not province count",
+        "Some routes warrant broad ownership; others gain more from a secure chain of bases. Neither is automatically the correct answer for every captured settlement."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) uses this role for footholds whose purpose is shorter than a full development programme. Unknown: whether the live VCO credit rule requires continued ownership or accepts a transfer, and what the installed settlement-trading mod rules are. Check the live objective before and after any transfer of a credited location; if credit disappears or the panel does not accept the agreement, keep the settlement until the route’s completion rule is clear."
+      ]
+    ],
+    "sources": [
+      "vco",
+      "vco-script"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "vco",
+      "vco-script"
+    ]
+  }
+}

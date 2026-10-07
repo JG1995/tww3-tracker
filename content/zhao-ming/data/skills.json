@@ -1,0 +1,511 @@
+{
+  "zhao-route-1": {
+    "label": "Zhao Ming · Route I",
+    "title": "The Iron Dragon’s foundations — trade route",
+    "intro": "Archive-effective Route I priority blocks for Zhao, not a fixed six-level buy order. Current skill availability, exact rank gates, and point costs are unverified; inspect Zhao’s live skill panel and follow its visible prerequisites rather than banking points for an unavailable node.",
+    "steps": [
+      {
+        "title": "Route Marcher",
+        "note": "Buy campaign mobility first. More reach helps secure a province and finish an enemy rather than trade raids."
+      },
+      {
+        "title": "Desert Armour → Warding Iron",
+        "note": "Give the actual army a stronger front; position Zhao near the contested section when using his aura."
+      },
+      {
+        "title": "Dragon’s Breath + Plague of Rust",
+        "note": "One dependable infantry-damage spell and one armour debuff. Do not look for Searing Doom in Zhao’s mixed spell tree; that is the Alchemist’s job."
+      },
+      {
+        "title": "Master of Metal → Strange Alchemy",
+        "note": "Open his unique branch, then support the home-development programme while Zhao is in the local province. The archive ties the construction saving to Zhao’s presence in the local province, not a factionwide bonus; do not keep him idle at home permanently for it.",
+        "gate": "Archive-reported gate: Master of Metal, rank 9; verify in the live tree"
+      },
+      {
+        "title": "Iron Scale → Lord of Shang-Yang",
+        "note": "Personal regeneration for safe intervention, then diplomacy and genuinely available Ogre troops. Reverse this order briefly only when an immediate diplomatic or recruitment need is decisive."
+      },
+      {
+        "title": "Desert Weapons → Iron Strength",
+        "note": "Continue improving a melee-heavy army; then matching red-line troops, magic reserves and useful spell upgrades. Keep armoured escorts even with a powerful dragon."
+      }
+    ],
+    "details": [
+      [
+        "Priority blocks, not six levels",
+        "Each row is a priority block and may require several points, a rank, or parent skills. Follow the current tree; do not bank an entire early build for a rank-locked skill."
+      ],
+      [
+        "Spell development",
+        "After the early toolkit, spend the required lower spell points for Evasion and consider Constellation of the Dragon or Final Transmutation when it solves a real matchup. Constellation punishes packed troops; consider Final Transmutation for valuable characters or monsters rather than one cheap regiment. Confirm the current tree and costs before spending."
+      ],
+      [
+        "Human first, dragon when needed",
+        "Cast and apply human-form support before transforming to intercept a monster, reach artillery, or rescue a flank. Return to casting when the ground fight is stable; flight is not an obligation to duel the entire enemy army."
+      ],
+      [
+        "Alchemy specialisation",
+        "After Master of Alchemy, choose one Flaming, Piercing, or Poison upgrade according to the opposing army and visible tree. The archive recommends Piercing for late armour, Poison for defensive utility, and Flaming contextually; do not plan on simultaneously taking blocked branches."
+      ],
+      [
+        "Personal and own-army effects",
+        "Desert Armour, Desert Weapons, Iron Strength, and some upkeep effects are described as Lord’s army effects. Iron Scale regenerates Zhao personally. A Celestial General does not inherit Zhao’s personal discounts, spells, or dragon form. Check the live effect tooltip before assigning any effect to a different commander."
+      ],
+      [
+        "Archive gate reconciliation",
+        "The archive’s common Zhao entry and all three route overrides label Master of Metal as rank 9. The installed tree is unknown: inspect Zhao’s live skill panel and obey any displayed rank or parent requirement; do not treat rank 9 as verified for any route."
+      ],
+      [
+        "Automatic unlocks versus points",
+        "The archive’s skill-source note says mounts or Immortality may unlock automatically. Check the live panel to distinguish automatic unlocks from nodes that cost skill points; do not spend or reserve a point unless the game shows one is required."
+      ]
+    ],
+    "sources": ["zhao-skill"],
+    "state": "verify-in-campaign",
+    "src": ["zhao-skill"]
+  },
+  "zhao-route-2": {
+    "label": "Zhao Ming · Route II",
+    "title": "The Iron Dragon’s foundations — alchemy expedition",
+    "intro": "Archive-effective Route II priority blocks for Zhao, not a fixed six-level buy order. Current skill availability, exact rank gates, and point costs are unverified; inspect Zhao’s live skill panel and follow its visible prerequisites rather than banking points for an unavailable node.",
+    "steps": [
+      {
+        "title": "Route Marcher",
+        "note": "Buy campaign mobility first. More reach helps secure a province and finish an enemy rather than trade raids."
+      },
+      {
+        "title": "Dragon’s Breath + Plague of Rust",
+        "note": "Establish the mixed spell toolkit for the early fights; Searing Doom belongs to the accompanying Alchemist."
+      },
+      {
+        "title": "Desert Armour → Warding Iron",
+        "note": "Protect the escort that lets the travelling laboratory operate."
+      },
+      {
+        "title": "Master of Metal → Iron Scale",
+        "note": "Open his unique branch, then gain personal regeneration. This heals Zhao, not every soldier.",
+        "gate": "Archive-reported gate: Master of Metal, rank 9; verify in the live tree"
+      },
+      {
+        "title": "Master of Alchemy → chosen imbuement",
+        "note": "The archive defaults to Piercing against armour; Poison or Flaming are matchup alternatives. Add Strange Alchemy on a normal home-development visit; the archive ties its construction saving to Zhao’s presence in the local province, not a factionwide bonus. Do not force a return."
+      },
+      {
+        "title": "Desert Weapons → Iron Strength",
+        "note": "Continue improving a melee-heavy army; then matching red-line troops, magic reserves and useful spell upgrades. Keep armoured escorts even with a powerful dragon."
+      }
+    ],
+    "details": [
+      [
+        "Priority blocks, not six levels",
+        "Each row is a priority block and may require several points, a rank, or parent skills. Follow the current tree; do not bank an entire early build for a rank-locked skill."
+      ],
+      [
+        "Spell development",
+        "After the early toolkit, spend the required lower spell points for Evasion and consider Constellation of the Dragon or Final Transmutation when it solves a real matchup. Constellation punishes packed troops; consider Final Transmutation for valuable characters or monsters rather than one cheap regiment. Confirm the current tree and costs before spending."
+      ],
+      [
+        "Human first, dragon when needed",
+        "Cast and apply human-form support before transforming to intercept a monster, reach artillery, or rescue a flank. Return to casting when the ground fight is stable; flight is not an obligation to duel the entire enemy army."
+      ],
+      [
+        "Alchemy specialisation",
+        "After Master of Alchemy, choose one Flaming, Piercing, or Poison upgrade according to the opposing army and visible tree. The archive recommends Piercing for late armour, Poison for defensive utility, and Flaming contextually; do not plan on simultaneously taking blocked branches."
+      ],
+      [
+        "Personal and own-army effects",
+        "Desert Armour, Desert Weapons, Iron Strength, and some upkeep effects are described as Lord’s army effects. Iron Scale regenerates Zhao personally. A Celestial General does not inherit Zhao’s personal discounts, spells, or dragon form. Check the live effect tooltip before assigning any effect to a different commander."
+      ],
+      [
+        "Automatic unlocks versus points",
+        "The archive’s skill-source note says mounts or Immortality may unlock automatically. Check the live panel to distinguish automatic unlocks from nodes that cost skill points; do not spend or reserve a point unless the game shows one is required."
+      ]
+    ],
+    "sources": ["zhao-skill"],
+    "state": "verify-in-campaign",
+    "src": ["zhao-skill"]
+  },
+  "zhao-route-3": {
+    "label": "Zhao Ming · Route III",
+    "title": "The Iron Dragon’s foundations — western frontier",
+    "intro": "Archive-effective Route III priority blocks for Zhao, not a fixed six-level buy order. Current skill availability, exact rank gates, and point costs are unverified; inspect Zhao’s live skill panel and follow its visible prerequisites rather than banking points for an unavailable node.",
+    "steps": [
+      {
+        "title": "Route Marcher",
+        "note": "Buy campaign mobility first. More reach helps secure a province and finish an enemy rather than trade raids."
+      },
+      {
+        "title": "Desert Armour → Warding Iron",
+        "note": "Give the actual army a stronger front; position Zhao near the contested section when using his aura."
+      },
+      {
+        "title": "Dragon’s Breath + Plague of Rust",
+        "note": "One dependable infantry-damage spell and one armour debuff. Do not look for Searing Doom in Zhao’s mixed spell tree; that is the Alchemist’s job."
+      },
+      {
+        "title": "Master of Metal → Iron Scale",
+        "note": "Open his unique branch, then gain personal regeneration. This heals Zhao, not every soldier.",
+        "gate": "Archive-reported gate: Master of Metal, rank 9; verify in the live tree"
+      },
+      {
+        "title": "Desert Weapons → Iron Strength",
+        "note": "Develop the army-wide melee role that fits a sustained western-frontier war."
+      },
+      {
+        "title": "Matching troop skills → campaign support",
+        "note": "Support the actual anti-large infantry and ranged core. Add Strange Alchemy on a normal local development visit—the archive ties its saving to Zhao’s presence in that province, not a factionwide bonus—or Lord of Shang-Yang when a real Ogre partnership warrants it."
+      }
+    ],
+    "details": [
+      [
+        "Priority blocks, not six levels",
+        "Each row is a priority block and may require several points, a rank, or parent skills. Follow the current tree; do not bank an entire early build for a rank-locked skill."
+      ],
+      [
+        "Spell development",
+        "After the early toolkit, spend the required lower spell points for Evasion and consider Constellation of the Dragon or Final Transmutation when it solves a real matchup. Constellation punishes packed troops; consider Final Transmutation for valuable characters or monsters rather than one cheap regiment. Confirm the current tree and costs before spending."
+      ],
+      [
+        "Human first, dragon when needed",
+        "Cast and apply human-form support before transforming to intercept a monster, reach artillery, or rescue a flank. Return to casting when the ground fight is stable; flight is not an obligation to duel the entire enemy army."
+      ],
+      [
+        "Alchemy specialisation",
+        "After Master of Alchemy, choose one Flaming, Piercing, or Poison upgrade according to the opposing army and visible tree. The archive recommends Piercing for late armour, Poison for defensive utility, and Flaming contextually; do not plan on simultaneously taking blocked branches."
+      ],
+      [
+        "Personal and own-army effects",
+        "Desert Armour, Desert Weapons, Iron Strength, and some upkeep effects are described as Lord’s army effects. Iron Scale regenerates Zhao personally. A Celestial General does not inherit Zhao’s personal discounts, spells, or dragon form. Check the live effect tooltip before assigning any effect to a different commander."
+      ],
+      [
+        "Automatic unlocks versus points",
+        "The archive’s skill-source note says mounts or Immortality may unlock automatically. Check the live panel to distinguish automatic unlocks from nodes that cost skill points; do not spend or reserve a point unless the game shows one is required."
+      ]
+    ],
+    "sources": ["zhao-skill"],
+    "state": "verify-in-campaign",
+    "src": ["zhao-skill"]
+  },
+  "celestial-general": {
+    "label": "Celestial General",
+    "title": "Celestial General · supporting field army",
+    "intro": "The archive’s default repeatable supporting commander: an armoured leader with an Alchemist supplying magic. Tree availability, skill costs, and exact scopes are unverified; inspect the recruited General’s live panel and use its actual rank and parent gates.",
+    "steps": [
+      {
+        "title": "Route Marcher",
+        "note": "Take practical campaign reach before overbuilding personal combat."
+      },
+      {
+        "title": "Red-line support for the actual roster",
+        "note": "Prioritise infantry and missile categories present in the template; read the highlighted unit cards, especially with Tigers or allied troops."
+      },
+      {
+        "title": "Leader of Men",
+        "note": "Unlock the General’s specialisation branch.",
+        "gate": "Archive-reported gate: rank 8; verify in the live tree"
+      },
+      {
+        "title": "Bulwark of Wei-Jin",
+        "note": "The archive defaults to Bulwark for personal protection and army armour. Hammer and Comet are alternative builds, not later additions."
+      },
+      {
+        "title": "Army support + campaign sustain",
+        "note": "Continue the relevant troop lines and available replenishment or upkeep choices. A second army should be affordable and ready to fight without Zhao."
+      },
+      {
+        "title": "Defence → useful mount → elite support",
+        "note": "Keep the commander with the main formation. A flying mount adds another job; use it once you can keep it safe."
+      }
+    ],
+    "details": [
+      [
+        "Three exclusive identities",
+        "Bulwark supports holding power; Hammer of Wei-Jin fits an aggressive melee expedition; Comet of Wei-Jin suits a charge-based army. The archive defaults to Bulwark because these combined-arms forces are not charge specialists. These are alternatives, not a queue to buy all three."
+      ],
+      [
+        "One spellcaster still matters",
+        "Do not replace Zhao with a General and accidentally remove all magic. The supporting templates retain an Alchemist; a Yin Shugengan is another option when a caster lord is preferred. A General does not inherit Zhao’s personal effects, spells, or dragon transformation."
+      ],
+      [
+        "Automatic unlocks versus points",
+        "The archive’s skill-source note says mounts or Immortality may unlock automatically. Check the General’s live panel to distinguish automatic unlocks from skill-point purchases; spend only where the game shows a point cost and follow visible gates."
+      ]
+    ],
+    "sources": ["general-skill"],
+    "state": "verify-in-campaign",
+    "src": ["general-skill"]
+  },
+  "alchemist": {
+    "label": "Alchemist",
+    "title": "Alchemist · travelling House of Secrets",
+    "intro": "A permanent companion for Zhao’s company, useful even when Zhao also casts. The archive-derived skill names, rework-specific actions, and unlock ranks are unverified for the installed build; inspect the Alchemist’s live skill panel and action tooltips before investing.",
+    "steps": [
+      {
+        "title": "Searing Doom → Plague of Rust",
+        "note": "Choose one affordable damage spell and an armour debuff. If a spell is already granted, improve it rather than counting it as an unspent point."
+      },
+      {
+        "title": "Enchanted Metallurgy",
+        "note": "Use the short buff on units that are actually shooting or fighting, not while they are still walking."
+      },
+      {
+        "title": "Piercing OR Poison metallurgy",
+        "note": "Piercing for the armour-piercing strike; Poison for slowing and weakening a threat. Flaming is a matchup alternative, not a mandatory tax."
+      },
+      {
+        "title": "Student of the House of Secrets",
+        "note": "Enter the newer personal support chain when its gate opens. This skill is not the Shang-Yang landmark."
+      },
+      {
+        "title": "Steel-Sheathing → Alchemical Wrath",
+        "note": "Follow the branch prerequisites; add the bound support and stronger alchemy while retaining enough magic development to be useful."
+      },
+      {
+        "title": "Living Forge → Harmonic Anchoring",
+        "note": "Late support progression; finish useful spell reserves or conduit when accessible. This is a project across levels, not six free early buttons."
+      }
+    ],
+    "details": [
+      [
+        "Do not double-spend the same Winds",
+        "With Zhao present, let him handle his distinctive spells and use this hero for Rust, Searing Doom, and short support windows. Two casters do not establish two independent Winds pools; check the live battle interface rather than planning duplicate reserves."
+      ],
+      [
+        "Army assistance actions",
+        "The archive attributes army-assistance functionality to the 8.0 rework. Check the current action’s target, duration, and cooldown; do not assume every campaign action is a permanent embedded passive."
+      ],
+      [
+        "Mount choice and automatic unlocks",
+        "The archive reports a Warhorse unlock at rank 7 and the newer Sky Lantern at rank 15, described as automatic unlocks. The Lantern offers ranged support but is a large, vulnerable aerial target; remaining on a horse is a valid low-babysitting choice. Check the live panel to distinguish automatic unlocks from point costs and follow its displayed ranks."
+      ],
+      [
+        "Local development",
+        "A separate high-ranked Alchemist may help local development, but do not strip the flagship of its caster merely to chase a small income bonus. Main-army continuity is worth money."
+      ],
+      [
+        "Branch choices and gate check",
+        "The archive presents Flaming, Piercing, and Poison as alternatives, not simultaneous purchases. Inspect the live skill panel and prerequisites; if a named node or rank differs, follow the displayed tree and defer optional specialization rather than inventing a gate."
+      ]
+    ],
+    "sources": ["alchemist-skill", "ca8", "ca81"],
+    "state": "verify-in-campaign",
+    "src": ["alchemist-skill", "ca8", "ca81"]
+  },
+  "gate-master": {
+    "label": "Gate Master",
+    "title": "Gate Master · keeper of the firing line",
+    "intro": "An armoured blocker and formation-support hero; the archive recommends one with each developed standard army. Current skill effects and unlock requirements are unverified; inspect the live skill panel and assistance-action tooltip before relying on them.",
+    "steps": [
+      {
+        "title": "Bulwark of the Gate",
+        "note": "Begin personal and support development. Keep him between the threat and the missile section, not isolated across the field."
+      },
+      {
+        "title": "The Jade Standard",
+        "note": "The archive defaults to this infantry-support branch for an armoured escort. Sentry Mettle is an alternative for a strongly ranged force."
+      },
+      {
+        "title": "Hard to Hit / available defence",
+        "note": "Take the defensive node shown in the current tree; build a blocker before a duellist."
+      },
+      {
+        "title": "Implacable Spirit",
+        "note": "Use stationary firing opportunities. Constant repositioning can defeat the point of its preparation requirement; verify the current effect tooltip."
+      },
+      {
+        "title": "Drill Disciple → Wall Veteran",
+        "note": "Develop nearby troop support along its actual prerequisites; keep him with the formation it benefits."
+      },
+      {
+        "title": "Volleymaster OR another self role",
+        "note": "The archive recommends Volleymaster’s Restock for ranged support. Celestial Hunter or Protective Oversight are alternatives; later finish useful personal shooting and defence rather than trying to buy every exclusive choice.",
+        "gate": "Archive-reported self-specialisation gate: rank 12; verify in the live tree"
+      }
+    ],
+    "details": [
+      [
+        "Exclusive choices and troop scope",
+        "The Jade Standard, Sentry Mettle, and Guerrilla Guard describe different specialisations; do not plan on collecting all three. The archive prefers Jade Standard for frontier and expedition escorts, Sentry Mettle for more crossbows, and says Jade Standard’s Cathayan melee support excludes Tiger Warriors in the rework description. Check the live effect and roster before applying that advice."
+      ],
+      [
+        "Bodyguard, not entire frontline",
+        "A single character does not physically stop every cavalry model. Keep halberds or a reserve unit nearby rather than assuming the hero seals a large gap."
+      ],
+      [
+        "Army assistance versus battle support",
+        "Campaign assistance actions and battle support are different interfaces. Confirm the action’s duration and whether embedding is required before counting on an effect."
+      ],
+      [
+        "Rank-twelve self-specialisation",
+        "Volleymaster, Celestial Hunter, and Protective Oversight are a separate exclusive self-specialisation choice. Volleymaster adds Restock and fits a shooting support hero; inspect the alternatives before selecting. The archive-reported rank is not current-build verification."
+      ],
+      [
+        "Current-tree check and fallback",
+        "The archive’s Gate Master tree and 8.0/8.1 notes were not independently rechecked. Inspect the recruited hero’s live panel, rank labels, branch locks, and action tooltip. If a named skill or scope is absent, follow the current tree and retain nearby troops for the role rather than assuming the archived effect."
+      ]
+    ],
+    "sources": ["gate-skill", "ca8", "ca81"],
+    "state": "verify-in-campaign",
+    "src": ["gate-skill", "ca8", "ca81"]
+  },
+  "caravan-master": {
+    "label": "Caravan Master",
+    "title": "Caravan Master · cargo delivered, not cargo promised",
+    "intro": "A priority reference for the separate Ivory Road force, not an ordinary army commander: caravan travel is not an ordinary army movement bar. Exact current skill effects, gates, capacity, and event interactions are unverified; inspect the caravan’s own skill panel and dispatch interface.",
+    "steps": [
+      {
+        "title": "Hidden Stores",
+        "note": "Prioritise the caravan’s recovery skill before increasing cargo you cannot yet defend."
+      },
+      {
+        "title": "Escort skills for the actual roster",
+        "note": "Strengthen troops the caravan has received. Event companions and foreign troops may not benefit from every Cathay-only red skill."
+      },
+      {
+        "title": "Smuggler’s Space OR Wheelwright",
+        "note": "The archive defaults to Smuggler’s Space for the cargo target. Wheelwright fits a veteran focused on faster completed journeys; these are alternatives.",
+        "gate": "Archive-reported choice gate: rank 10; verify in the live tree"
+      },
+      {
+        "title": "Wayfarer",
+        "note": "Reduce most attrition when the road makes it relevant; the archive describes this as the newer caravan-specific safeguard.",
+        "gate": "Archive-reported first rank: 11; verify in the live tree"
+      },
+      {
+        "title": "Upgrade the chosen speciality",
+        "note": "Improve Smuggler’s Space or Wheelwright, not both mutually exclusive branches.",
+        "gate": "Archive-reported second rank: 15; verify in the live tree"
+      },
+      {
+        "title": "Wayfarer II → further escort support",
+        "note": "The archive says Wayfarer II improves protection from most attrition; it does not make ambush battles harmless.",
+        "gate": "Archive-reported Wayfarer II gate: rank 16; verify in the live tree"
+      }
+    ],
+    "details": [
+      [
+        "Route I counter trade-off",
+        "The archive recommends cargo capacity when completed journeys are done but goods lag, and safer faster completion when goods are done but journey count lags. Check the live Route I counters and caravan panel before choosing between the alternatives; these are not instructions to buy both branches."
+      ],
+      [
+        "Smuggler’s Space",
+        "The archive reports that its first rank adds 20% maximum cargo and reduces cargo demanded in extortion events, with the second rank improving those effects. Extra capacity must still be paid for and delivered. Confirm the live tooltip and current cost before relying on either effect."
+      ],
+      [
+        "Wheelwright",
+        "The archive describes lower shortcut-event cost and a chance of a double move. It is not a guaranteed twice-normal speed; inspect the current event and skill text."
+      ],
+      [
+        "Reserve captain and return timing",
+        "Develop more than one master so a destroyed or injured convoy does not halt all route progress. A master returning home is not immediately ready to dispatch again; use the current dispatch panel to check readiness."
+      ],
+      [
+        "Caravan roster and effect scope",
+        "A caravan is not a copied 20-stack. Its roster develops through its starting package, encounters, and destination rewards; do not assume normal local recruitment or ordinary army transfers. Apply caravan-specific skills to the Ivory Road force only, not Zhao’s field army."
+      ],
+      [
+        "Gate and points check",
+        "Ranks 10, 11, 15, and 16 and the named effects are archive-reported, not verified for the installed build. Inspect the Caravan Master’s live skill panel and dispatch interface; follow displayed rank and point costs, and if a branch differs, defer the optional choice rather than treating ordinary army movement as caravan speed."
+      ]
+    ],
+    "sources": ["caravan-skill", "caravans", "ca81"],
+    "state": "verify-in-campaign",
+    "src": ["caravan-skill", "caravans", "ca81"]
+  },
+  "astromancer": {
+    "label": "Astromancer",
+    "title": "Astromancer · optional heavens support",
+    "intro": "An optional specialist, not a compulsory fourth character in every army. The archive-derived tree and spell availability are unverified for the installed build; inspect the recruited Astromancer’s live skill panel and spell gates before spending.",
+    "steps": [
+      {
+        "title": "Harmonic Convergence",
+        "note": "Use support for the unit actually receiving the charge or making the interception."
+      },
+      {
+        "title": "Wind Blast / Urannon’s Thunderbolt",
+        "note": "Choose a practical early damage tool and develop its visible prerequisite spell points."
+      },
+      {
+        "title": "Evasion through the visible spell gate",
+        "note": "Follow the current tree rather than buying every spell equally."
+      },
+      {
+        "title": "Comet of Casandora",
+        "note": "Punish a stationary formation or choke. Do not cast an expensive delayed spell on fast-moving skirmishers."
+      },
+      {
+        "title": "Magical Reserves → Arcane Conduit",
+        "note": "Take the required visible prerequisites and invest in sustained casting."
+      },
+      {
+        "title": "Mount and support skills to match the job",
+        "note": "The archive calls the War Compass thematic but a large target. Prioritise keeping the army’s only caster alive; check the current mount and skill options."
+      }
+    ],
+    "details": [
+      [
+        "Optional role in Zhao’s army",
+        "Replace a specialist slot only for a specific reason. The normal Alchemist fits Zhao’s identity and offers support without adding another competing expensive spell list."
+      ],
+      [
+        "Friendly fire",
+        "Aim damaging bombardments away from the melee you are trying to preserve. A spectacular spell that kills its own escort is not a good trade."
+      ],
+      [
+        "Gate and automatic-unlock check",
+        "The archive does not give a complete point-by-point budget here, and its mount/tree facts are not current-build verification. Inspect the live panel for automatic unlocks, parent nodes, and spell costs; spend only displayed points and defer a spell if its live prerequisite is unavailable."
+      ]
+    ],
+    "sources": ["astro-skill"],
+    "state": "verify-in-campaign",
+    "src": ["astro-skill"]
+  },
+  "yin-shugengan": {
+    "label": "Yin Shugengan",
+    "title": "Dragon-Blooded Shugengan · Yin alternative",
+    "intro": "An optional role-based spell path, not a fully point-budgeted replacement for the default General. The archive-derived Yin tree, subtype bonuses, and spell gates are unverified for the installed build; check the live character panel and follow its actual prerequisites.",
+    "steps": [
+      {
+        "title": "Route Marcher",
+        "note": "Campaign reach first."
+      },
+      {
+        "title": "A dependable Lore of Yin toolkit",
+        "note": "Prioritise a useful control or support spell and one damage option; do not spread early points over every spell."
+      },
+      {
+        "title": "Storm of Shadows / useful control",
+        "note": "Slow the target the crossbows are actually focusing rather than trying to debuff the whole battlefield."
+      },
+      {
+        "title": "Talons of Night through the spell gate",
+        "note": "Consider the stronger infantry-damage tool once the visible prerequisites are paid."
+      },
+      {
+        "title": "Magic reserves/conduit + relevant army buffs",
+        "note": "Support units in the real roster. A General build cannot simply be pasted into this tree."
+      },
+      {
+        "title": "Unique Yin support, then mount preference",
+        "note": "Use the newer specialised line to support the army’s role. A flying mount is optional; Zhao’s dragon transformation is not inherited."
+      }
+    ],
+    "details": [
+      [
+        "Roster substitution",
+        "Replace the Celestial General with the Shugengan. Keep the Alchemist for metal support, or replace that hero with another normal troop once satisfied with the single-caster toolkit."
+      ],
+      [
+        "Subtype and effect scope",
+        "The archive says Yin Lord campaign bonuses refer to the correct subtype. Do not apply them to every male or female character, or to every army merely because it contains Yin troops; verify the current effect tooltip and eligible lord type."
+      ],
+      [
+        "Gate, mount, and point check",
+        "The archive gives a role-based path rather than exact ranks or a point budget. Inspect the live Yin Shugengan tree for spell prerequisites and automatic mount unlocks; follow visible costs and gates, and do not borrow Zhao’s transformation or a Celestial General’s branch."
+      ]
+    ],
+    "sources": ["yin-skill", "ca81"],
+    "state": "verify-in-campaign",
+    "src": ["yin-skill", "ca81"]
+  }
+}

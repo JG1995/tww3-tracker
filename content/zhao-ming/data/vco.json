@@ -1,0 +1,104 @@
+{
+  "route-1": [
+    {
+      "id": "gross-income-25000",
+      "text": "Have gross income of 25,000 (published wording; current-build trigger and measurement point are unverified).",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-listener"]
+    },
+    {
+      "id": "complete-9-caravan-runs",
+      "text": "Complete 9 caravan runs (a separate target from goods moved; current-build trigger is unverified).",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-listener"]
+    },
+    {
+      "id": "trade-13140-goods-with-west",
+      "text": "Trade at least 13,140 goods with the west (published wording; west-only filtering in the historical counter is unverified).",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-listener"]
+    },
+    {
+      "id": "construct-great-embassy",
+      "text": "Construct the Great Embassy in the Warpstone Desert (historical script specifies the province; current-build credit is unverified).",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    }
+  ],
+  "route-2": [
+    {
+      "id": "raze-or-conquer-skavenblight",
+      "text": "Raze or conquer Skavenblight (published wording; verify the qualifying action in the live objective panel).",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "raze-or-conquer-hell-pit",
+      "text": "Raze or conquer Hell Pit (published wording; verify the qualifying action in the live objective panel).",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "raze-or-conquer-mordheim",
+      "text": "Raze or conquer Mordheim (published wording; verify the qualifying action in the live objective panel).",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "raze-or-conquer-nagashizzar",
+      "text": "Raze or conquer Nagashizzar (published wording; verify the qualifying action in the live objective panel).",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "raze-or-conquer-crookback-mountain",
+      "text": "Raze or conquer Crookback Mountain (published wording; verify the qualifying action in the live objective panel).",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    }
+  ],
+  "route-3": [
+    {
+      "id": "control-gnoblar-country",
+      "text": "Control Gnoblar Country.",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "control-ivory-road",
+      "text": "Control the Ivory Road.",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "control-mountains-of-mourn",
+      "text": "Control the Mountains of Mourn.",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "control-bone-road",
+      "text": "Control the Bone Road.",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "destroy-caravan-of-blue-roses",
+      "text": "Destroy the Caravan of Blue Roses faction (historical mission condition; verify current action and credit).",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "destroy-legion-of-azgorh",
+      "text": "Destroy the Legion of Azgorh faction (historical mission condition; verify current action and credit).",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    },
+    {
+      "id": "destroy-poxmakers-of-nurgle",
+      "text": "Destroy the Poxmakers of Nurgle faction (historical mission condition; verify current action and credit).",
+      "state": "verify-in-campaign",
+      "src": ["vco", "vco-script"]
+    }
+  ]
+}

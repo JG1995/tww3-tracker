@@ -5,8 +5,8 @@
  * states, with one trailing link per provided source (zero-DOM VNode flatten),
  * and the boot-time `::claim` callout renderer emits the same badged anatomy —
 * icon, mono label, resolved per-`src` links — inside the existing classed aside
-* markup, and the committed content's migrated `::claim` callouts render through
-* the same contract.
+* markup, and the migrated Elspeth `::claim` callouts render through the same
+* contract.
 *
  * Seam: zero-DOM. The component is a plain `h()`-built preact VNode flattened
  * with the same text helper the views tests use; the callout output is the
@@ -231,11 +231,12 @@ test("the fixture callout renders the badged anatomy with resolved per-src links
   );
 });
 
-// ─── 4. The committed content: Routes I–III's migrated callouts, shared callout-free ──
+// ─── 4. Elspeth's migrated route callouts; shared fundamentals stay callout-free ──
 
-test("the committed routes' migrated ::claim callouts render the badged anatomy; the shared fundamentals stay callout-free", async () => {
+test("Elspeth's migrated callouts render with badges; its shared fundamentals stay callout-free", async () => {
   const tree = await loadContentTree(fsReader(CONTENT));
-  for (const lord of tree.lords) {
+  assert.ok(getLord(tree, "elspeth-von-draken").found, "the committed Elspeth guide remains in the corpus");
+  for (const lord of tree.lords.filter((candidate) => candidate.slug === "elspeth-von-draken")) {
     assert.ok(
       !lord.sharedHtml.includes('<aside class="claim'),
       `${lord.slug}: no callout in the committed shared fundamentals`,
