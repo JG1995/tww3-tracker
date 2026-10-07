@@ -174,7 +174,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 **PR template:** .github/pull_request_template.md
 **Merge method:** merge
 **Required checks:** Local gates `npm run lint:content`, `npm test`, `npx tsc --noEmit`, `npm run build`, and the Final validation HTTP/coverage evidence. No current provider-required check names or CI workflow are evidenced. Verify live checks, review rules and exact-head approval through the publication skill before merge.
-**Feature close-out:** Not run
+**Feature close-out:** Current
 **Provisional PR title:** `feat(content): migrate Alith Anar and Zhao Ming atlases`
 **Purpose:** Deliver six complete plans and their references as one content-only review/merge boundary with green atomic prefixes. No separate prerequisite needs to land on trunk. Publish/merge only after implementation, final feature review and current close-out; bind merge approval to the verified head and synchronize `main` with ff-only pull. In this tracked wiki, record the final immutable merge ref/Completed reconciliation at the next ordinary documentation update, not a self-referential metadata-only commit. Planning authorizes no Git/publication operation.
 

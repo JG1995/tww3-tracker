@@ -6,7 +6,7 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
-- **alith-zhao-migration** (F4 × 2 — Alith Anar and Zhao Ming) — content-only plan and bounded concurrency revision reviewed and accepted; implementation not started · [IMPLEMENTATION](features/alith-zhao-migration/ALITH-ZHAO-MIGRATION-IMPLEMENTATION.md) · [DESIGN](features/alith-zhao-migration/ALITH-ZHAO-MIGRATION-DESIGN.md). Automated proof protects site functionality; required manual CONTENT REVIEW and mapping prove complete, accurate content. Planning does not authorize implementation or Git operations.
+- **alith-zhao-migration** (F4 × 2 — Alith Anar and Zhao Ming) — implementation complete; final feature review accepted; documentation close-out committed; publication in PR `alith-zhao-content` pending · [IMPLEMENTATION](features/alith-zhao-migration/ALITH-ZHAO-MIGRATION-IMPLEMENTATION.md) · [DESIGN](features/alith-zhao-migration/ALITH-ZHAO-MIGRATION-DESIGN.md). Automated proof protects site functionality; required manual CONTENT REVIEW and mapping prove complete, accurate content.
 
 ## Next
 
@@ -43,7 +43,7 @@ F4 (Elspeth) + F4 (Alith or Zhao) + F2 ──► F6 cross-guide search          
 
 **Parallel note:** solo project — after order 3, orders 4–6 are mutually independent and can be reordered around a live campaign (pull F5 forward if an Elspeth campaign starts mid-build). In v1.1, the Alith/Zhao migrations are independent of F6.
 
-**Plan next:** Commit the reviewed and accepted Alith Anar/Zhao Ming DESIGN, revised IMPLEMENTATION, TODO reconciliation and separately approved PR template in an authorized operation before explicitly starting delivery (active order 7). The next feature is F6 cross-guide search (order 8), after this two-lord migration. Malakai and Mother Ostankya remain at order 9.
+**Plan next:** Publish the completed Alith Anar/Zhao Ming migration through PR `alith-zhao-content`; keep order 7 Active until publication and immutable merge evidence are verified. Then proceed to F6 cross-guide search (order 8). Malakai and Mother Ostankya remain at order 9.
 
 ## Completed
 
