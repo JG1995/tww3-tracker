@@ -1,1 +1,2894 @@
-{}
+{
+  "route-1": {
+    "early": {
+      "label": "Early",
+      "name": "The first black-fletched company",
+      "supportName": "The reserve levy",
+      "units": [
+        {
+          "n": 6,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 6,
+          "name": "Archers",
+          "role": "Affordable ranged support",
+          "kind": "missile"
+        },
+        {
+          "n": 3,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Alith Anar",
+          "role": "Foot bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Shadows)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 6,
+          "name": "Archers",
+          "role": "Affordable ranged support",
+          "kind": "missile"
+        },
+        {
+          "n": 3,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Princess",
+          "role": "Repeatable bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Shadows)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 6,
+          "name": "Archers",
+          "role": "Affordable ranged support",
+          "kind": "missile"
+        },
+        {
+          "n": 3,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "context": "Upgrade in batches. Keep useful starting units; explanations and substitutions are in Read notes.",
+      "notes": [
+        [
+          "These are destination rosters",
+          "Keep useful starting units. An unavailable Noble, Mage or artillery slot can temporarily be another spear or archer; do not wait for a perfect army to fight a necessary early war."
+        ],
+        [
+          "Shadow-walkers are not Sisters of Avelorn",
+          "The army keeps a conventional screen and armour-piercing support. Do not assume the expensive bow unit replaces every tactical role."
+        ],
+        [
+          "Generic company",
+          "The supporting version uses a recruitable Princess, not another copy of Alith. The walkers are faction recruits, but Alith’s personal speed, ammo and unique skill effects do not follow them."
+        ],
+        [
+          "Under Smart Autoresolve",
+          "Accept a result based on actual losses and the next enemy turn. Stalk, poison, healing and decoys are not assigned a guessed numerical multiplier in this guide."
+        ],
+        [
+          "Affordable opening",
+          "Three walkers are a staged first investment, not a requirement to disband a starting specialist. A bolt slot can stay an archer until the Workshop is affordable."
+        ],
+        [
+          "Alternatives, not simultaneous armies",
+          "Early, mid and late are progression stages of the same evolving company; the specialist template is an optional variant for a chosen second force, and the home template is emergency local relief. Do not treat all five templates as separate permanent armies or clone Alith and his embedded Noble into more than one."
+        ]
+      ],
+      "plan": [
+        [
+          "Deploy an anchor",
+          "Keep the shielded escort together. Place bolt throwers where they can shoot without putting the entire army in one narrow corridor. Give walkers a nearby fallback position."
+        ],
+        [
+          "Use two hunter sections",
+          "Divide walkers into two manageable groups on or beside the flanks. Start within support distance; do not deploy every unit in isolation merely because it can hide."
+        ],
+        [
+          "Break one threat first",
+          "Use Alith and concentrated missiles on the enemy unit that would disrupt your plan. Slow or pin it with the caster, then switch targets after it is neutralised."
+        ],
+        [
+          "After contact",
+          "Keep reserves off the initial line. Commit White Lions, Swordmasters or the flying support to a specific problem; restore the formation with pause/slow speed when necessary."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ]
+    },
+    "mid": {
+      "label": "Mid",
+      "name": "The punitive host",
+      "supportName": "The occupation column",
+      "units": [
+        {
+          "n": 4,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 6,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "White Lions of Chrace",
+          "role": "Armour-piercing reserve",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Alith Anar",
+          "role": "Foot bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Shadows)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 6,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "White Lions of Chrace",
+          "role": "Armour-piercing reserve",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Princess",
+          "role": "Repeatable bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Shadows)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "White Lions of Chrace",
+          "role": "Armour-piercing reserve",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Silver Helms (Shields)",
+          "role": "Single reserve cavalry group",
+          "kind": "cavalry"
+        }
+      ],
+      "context": "Upgrade in batches. Keep useful starting units; explanations and substitutions are in Read notes.",
+      "notes": [
+        [
+          "These are destination rosters",
+          "Keep useful starting units. An unavailable Noble, Mage or artillery slot can temporarily be another spear or archer; do not wait for a perfect army to fight a necessary early war."
+        ],
+        [
+          "Shadow-walkers are not Sisters of Avelorn",
+          "The army keeps a conventional screen and armour-piercing support. Do not assume the expensive bow unit replaces every tactical role."
+        ],
+        [
+          "Generic company",
+          "The supporting version uses a recruitable Princess, not another copy of Alith. The walkers are faction recruits, but Alith’s personal speed, ammo and unique skill effects do not follow them."
+        ],
+        [
+          "Under Smart Autoresolve",
+          "Accept a result based on actual losses and the next enemy turn. Stalk, poison, healing and decoys are not assigned a guessed numerical multiplier in this guide."
+        ]
+      ],
+      "plan": [
+        [
+          "Deploy an anchor",
+          "Keep the shielded escort together. Place bolt throwers where they can shoot without putting the entire army in one narrow corridor. Give walkers a nearby fallback position."
+        ],
+        [
+          "Use two hunter sections",
+          "Divide walkers into two manageable groups on or beside the flanks. Start within support distance; do not deploy every unit in isolation merely because it can hide."
+        ],
+        [
+          "Break one threat first",
+          "Use Alith and concentrated missiles on the enemy unit that would disrupt your plan. Slow or pin it with the caster, then switch targets after it is neutralised."
+        ],
+        [
+          "After contact",
+          "Keep reserves off the initial line. Commit White Lions, Swordmasters or the flying support to a specific problem; restore the formation with pause/slow speed when necessary."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ]
+    },
+    "late": {
+      "label": "Late",
+      "name": "The shadow king’s reconquest",
+      "supportName": "The northern holding host",
+      "units": [
+        {
+          "n": 4,
+          "name": "Phoenix Guard",
+          "role": "Heavy anti-large screen",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 6,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "Swordmasters of Hoeth",
+          "role": "Elite infantry counterattack",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Frostheart Phoenix",
+          "role": "Protect a committed melee",
+          "kind": "machine"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Alith Anar",
+          "role": "Foot bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Shadows)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Phoenix Guard",
+          "role": "Heavy anti-large screen",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 6,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "Swordmasters of Hoeth",
+          "role": "Elite infantry counterattack",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Frostheart Phoenix",
+          "role": "Protect a committed melee",
+          "kind": "machine"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Princess",
+          "role": "Repeatable bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Shadows)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Phoenix Guard",
+          "role": "Heavy anti-large screen",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "Swordmasters of Hoeth",
+          "role": "Elite infantry counterattack",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Frostheart Phoenix",
+          "role": "Protect a committed melee",
+          "kind": "machine"
+        }
+      ],
+      "context": "Upgrade in batches. Keep useful starting units; explanations and substitutions are in Read notes.",
+      "notes": [
+        [
+          "These are destination rosters",
+          "Keep useful starting units. An unavailable Noble, Mage or artillery slot can temporarily be another spear or archer; do not wait for a perfect army to fight a necessary early war."
+        ],
+        [
+          "Shadow-walkers are not Sisters of Avelorn",
+          "The army keeps a conventional screen and armour-piercing support. Do not assume the expensive bow unit replaces every tactical role."
+        ],
+        [
+          "Generic company",
+          "The supporting version uses a recruitable Princess, not another copy of Alith. The walkers are faction recruits, but Alith’s personal speed, ammo and unique skill effects do not follow them."
+        ],
+        [
+          "Under Smart Autoresolve",
+          "Accept a result based on actual losses and the next enemy turn. Stalk, poison, healing and decoys are not assigned a guessed numerical multiplier in this guide."
+        ],
+        [
+          "Why the heavier escort",
+          "The route requires repeated sieges and retention. Phoenix Guard and Swordmasters turn the punitive expedition into a host without removing the six-unit hunter core."
+        ]
+      ],
+      "plan": [
+        [
+          "Deploy an anchor",
+          "Keep the shielded escort together. Place bolt throwers where they can shoot without putting the entire army in one narrow corridor. Give walkers a nearby fallback position."
+        ],
+        [
+          "Use two hunter sections",
+          "Divide walkers into two manageable groups on or beside the flanks. Start within support distance; do not deploy every unit in isolation merely because it can hide."
+        ],
+        [
+          "Break one threat first",
+          "Use Alith and concentrated missiles on the enemy unit that would disrupt your plan. Slow or pin it with the caster, then switch targets after it is neutralised."
+        ],
+        [
+          "After contact",
+          "Keep reserves off the initial line. Commit White Lions, Swordmasters or the flying support to a specific problem; restore the formation with pause/slow speed when necessary."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ]
+    },
+    "specialist": {
+      "label": "Night raid",
+      "name": "The night-road hunters",
+      "supportName": "The second shadow company",
+      "units": [
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 9,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "White Lions of Chrace",
+          "role": "Armour-piercing reserve",
+          "kind": "line"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Alith Anar",
+          "role": "Foot bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Shadows)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 9,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "White Lions of Chrace",
+          "role": "Armour-piercing reserve",
+          "kind": "line"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Princess",
+          "role": "Repeatable bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Shadows)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 9,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "White Lions of Chrace",
+          "role": "Armour-piercing reserve",
+          "kind": "line"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "context": "Upgrade in batches. Keep useful starting units; explanations and substitutions are in Read notes.",
+      "notes": [
+        [
+          "These are destination rosters",
+          "Keep useful starting units. An unavailable Noble, Mage or artillery slot can temporarily be another spear or archer; do not wait for a perfect army to fight a necessary early war."
+        ],
+        [
+          "Shadow-walkers are not Sisters of Avelorn",
+          "The army keeps a conventional screen and armour-piercing support. Do not assume the expensive bow unit replaces every tactical role."
+        ],
+        [
+          "Generic company",
+          "The supporting version uses a recruitable Princess, not another copy of Alith. The walkers are faction recruits, but Alith’s personal speed, ammo and unique skill effects do not follow them."
+        ],
+        [
+          "Under Smart Autoresolve",
+          "Accept a result based on actual losses and the next enemy turn. Stalk, poison, healing and decoys are not assigned a guessed numerical multiplier in this guide."
+        ],
+        [
+          "More thematic, more fragile",
+          "This is the optional ambush-focused variant. Its lighter holding element is less forgiving in a bad siege or failed ambush. Keep the late main roster for a safer all-purpose army."
+        ]
+      ],
+      "plan": [
+        [
+          "Deploy an anchor",
+          "Keep the shielded escort together. Place bolt throwers where they can shoot without putting the entire army in one narrow corridor. Give walkers a nearby fallback position."
+        ],
+        [
+          "Use two hunter sections",
+          "Divide walkers into two manageable groups on or beside the flanks. Start within support distance; do not deploy every unit in isolation merely because it can hide."
+        ],
+        [
+          "Break one threat first",
+          "Use Alith and concentrated missiles on the enemy unit that would disrupt your plan. Slow or pin it with the caster, then switch targets after it is neutralised."
+        ],
+        [
+          "After contact",
+          "Keep reserves off the initial line. Commit White Lions, Swordmasters or the flying support to a specific problem; restore the formation with pause/slow speed when necessary."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ]
+    },
+    "home": {
+      "label": "Home guard",
+      "name": "Alith as emergency relief only",
+      "supportName": "The city watch",
+      "units": [
+        {
+          "n": 5,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Archers",
+          "role": "Affordable ranged support",
+          "kind": "missile"
+        },
+        {
+          "n": 1,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Alith Anar",
+          "role": "Foot bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 5,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Archers",
+          "role": "Affordable ranged support",
+          "kind": "missile"
+        },
+        {
+          "n": 1,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Princess",
+          "role": "Repeatable bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 5,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Archers",
+          "role": "Affordable ranged support",
+          "kind": "missile"
+        },
+        {
+          "n": 1,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        }
+      ],
+      "context": "A 12-slot relief force, not an independent conquest stack.",
+      "notes": [
+        [
+          "These are destination rosters",
+          "Keep useful starting units. An unavailable Noble, Mage or artillery slot can temporarily be another spear or archer; do not wait for a perfect army to fight a necessary early war."
+        ],
+        [
+          "Shadow-walkers are not Sisters of Avelorn",
+          "The army keeps a conventional screen and armour-piercing support. Do not assume the expensive bow unit replaces every tactical role."
+        ],
+        [
+          "Generic company",
+          "The supporting version uses a recruitable Princess, not another copy of Alith. The walkers are faction recruits, but Alith’s personal speed, ammo and unique skill effects do not follow them."
+        ],
+        [
+          "Under Smart Autoresolve",
+          "Accept a result based on actual losses and the next enemy turn. Stalk, poison, healing and decoys are not assigned a guessed numerical multiplier in this guide."
+        ],
+        [
+          "Keep the distinction",
+          "The field Noble belongs in this roster; detached assassination agents do not. The Home Guard is intentionally 12 slots — a local relief force, not an independent conquest stack."
+        ]
+      ],
+      "plan": [
+        [
+          "Deploy an anchor",
+          "Keep the shielded escort together. Place bolt throwers where they can shoot without putting the entire army in one narrow corridor. Give walkers a nearby fallback position."
+        ],
+        [
+          "Use two hunter sections",
+          "Divide walkers into two manageable groups on or beside the flanks. Start within support distance; do not deploy every unit in isolation merely because it can hide."
+        ],
+        [
+          "Break one threat first",
+          "Use Alith and concentrated missiles on the enemy unit that would disrupt your plan. Slow or pin it with the caster, then switch targets after it is neutralised."
+        ],
+        [
+          "After contact",
+          "Keep reserves off the initial line. Commit White Lions, Swordmasters or the flying support to a specific problem; restore the formation with pause/slow speed when necessary."
+        ]
+      ],
+      "size": 12,
+      "sources": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ]
+    }
+  },
+  "route-2": {
+    "early": {
+      "label": "Early",
+      "name": "The moonlit trail",
+      "supportName": "The rearward company",
+      "units": [
+        {
+          "n": 6,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 5,
+          "name": "Archers",
+          "role": "Affordable ranged support",
+          "kind": "missile"
+        },
+        {
+          "n": 4,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Alith Anar",
+          "role": "Foot bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Shadows)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 5,
+          "name": "Archers",
+          "role": "Affordable ranged support",
+          "kind": "missile"
+        },
+        {
+          "n": 4,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Princess",
+          "role": "Repeatable bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Shadows)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 5,
+          "name": "Archers",
+          "role": "Affordable ranged support",
+          "kind": "missile"
+        },
+        {
+          "n": 4,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "context": "Upgrade in batches. Keep useful starting units; explanations and substitutions are in Read notes.",
+      "notes": [
+        [
+          "These are destination rosters",
+          "Keep useful starting units. An unavailable Noble, Mage or artillery slot can temporarily be another spear or archer; do not wait for a perfect army to fight a necessary early war."
+        ],
+        [
+          "Shadow-walkers are not Sisters of Avelorn",
+          "The army keeps a conventional screen and armour-piercing support. Do not assume the expensive bow unit replaces every tactical role."
+        ],
+        [
+          "Generic company",
+          "The supporting version uses a recruitable Princess, not another copy of Alith. The walkers are faction recruits, but Alith’s personal speed, ammo and unique skill effects do not follow them."
+        ],
+        [
+          "Under Smart Autoresolve",
+          "Accept a result based on actual losses and the next enemy turn. Stalk, poison, healing and decoys are not assigned a guessed numerical multiplier in this guide."
+        ],
+        [
+          "Alternatives, not simultaneous armies",
+          "Early, mid and late are progression stages of the same evolving company; the specialist template is an optional variant for a chosen second force, and the home template is emergency local relief. Do not treat all five templates as separate permanent armies or clone Alith and his embedded Noble into more than one."
+        ]
+      ],
+      "plan": [
+        [
+          "Deploy an anchor",
+          "Keep the shielded escort together. Place bolt throwers where they can shoot without putting the entire army in one narrow corridor. Give walkers a nearby fallback position."
+        ],
+        [
+          "Use two hunter sections",
+          "Divide walkers into two manageable groups on or beside the flanks. Start within support distance; do not deploy every unit in isolation merely because it can hide."
+        ],
+        [
+          "Break one threat first",
+          "Use Alith and concentrated missiles on the enemy unit that would disrupt your plan. Slow or pin it with the caster, then switch targets after it is neutralised."
+        ],
+        [
+          "After contact",
+          "Keep reserves off the initial line. Commit White Lions, Swordmasters or the flying support to a specific problem; restore the formation with pause/slow speed when necessary."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ]
+    },
+    "mid": {
+      "label": "Mid",
+      "name": "The corsair-hunting company",
+      "supportName": "The expedition escort",
+      "units": [
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 6,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "White Lions of Chrace",
+          "role": "Armour-piercing reserve",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Alith Anar",
+          "role": "Foot bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mist Mage",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 6,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "White Lions of Chrace",
+          "role": "Armour-piercing reserve",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Princess",
+          "role": "Repeatable bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mist Mage",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 6,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "White Lions of Chrace",
+          "role": "Armour-piercing reserve",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "context": "Upgrade in batches. Keep useful starting units; explanations and substitutions are in Read notes.",
+      "notes": [
+        [
+          "These are destination rosters",
+          "Keep useful starting units. An unavailable Noble, Mage or artillery slot can temporarily be another spear or archer; do not wait for a perfect army to fight a necessary early war."
+        ],
+        [
+          "Shadow-walkers are not Sisters of Avelorn",
+          "The army keeps a conventional screen and armour-piercing support. Do not assume the expensive bow unit replaces every tactical role."
+        ],
+        [
+          "Generic company",
+          "The supporting version uses a recruitable Princess, not another copy of Alith. The walkers are faction recruits, but Alith’s personal speed, ammo and unique skill effects do not follow them."
+        ],
+        [
+          "Under Smart Autoresolve",
+          "Accept a result based on actual losses and the next enemy turn. Stalk, poison, healing and decoys are not assigned a guessed numerical multiplier in this guide."
+        ],
+        [
+          "Before a Mist Mage is available",
+          "Keep an existing Shadows Mage. The lore swap is thematic, not worth dismissing a developed caster purely to match the table."
+        ]
+      ],
+      "plan": [
+        [
+          "Deploy an anchor",
+          "Keep the shielded escort together. Place bolt throwers where they can shoot without putting the entire army in one narrow corridor. Give walkers a nearby fallback position."
+        ],
+        [
+          "Use two hunter sections",
+          "Divide walkers into two manageable groups on or beside the flanks. Start within support distance; do not deploy every unit in isolation merely because it can hide."
+        ],
+        [
+          "Break one threat first",
+          "Use Alith and concentrated missiles on the enemy unit that would disrupt your plan. Slow or pin it with the caster, then switch targets after it is neutralised."
+        ],
+        [
+          "After contact",
+          "Keep reserves off the initial line. Commit White Lions, Swordmasters or the flying support to a specific problem; restore the formation with pause/slow speed when necessary."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ]
+    },
+    "late": {
+      "label": "Late",
+      "name": "The company of the pale moon",
+      "supportName": "The southern relief host",
+      "units": [
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 6,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "Oceanids",
+          "role": "Magical flanking support",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "White Lions of Chrace",
+          "role": "Armour-piercing reserve",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Merwyrm",
+          "role": "Signature coastal bruiser",
+          "kind": "machine"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Alith Anar",
+          "role": "Foot bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Life)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 6,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "Oceanids",
+          "role": "Magical flanking support",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "White Lions of Chrace",
+          "role": "Armour-piercing reserve",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Merwyrm",
+          "role": "Signature coastal bruiser",
+          "kind": "machine"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Princess",
+          "role": "Repeatable bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Life)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "Oceanids",
+          "role": "Magical flanking support",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "White Lions of Chrace",
+          "role": "Armour-piercing reserve",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Merwyrm",
+          "role": "Signature coastal bruiser",
+          "kind": "machine"
+        }
+      ],
+      "context": "Upgrade in batches. Keep useful starting units; explanations and substitutions are in Read notes.",
+      "notes": [
+        [
+          "These are destination rosters",
+          "Keep useful starting units. An unavailable Noble, Mage or artillery slot can temporarily be another spear or archer; do not wait for a perfect army to fight a necessary early war."
+        ],
+        [
+          "Shadow-walkers are not Sisters of Avelorn",
+          "The army keeps a conventional screen and armour-piercing support. Do not assume the expensive bow unit replaces every tactical role."
+        ],
+        [
+          "Generic company",
+          "The supporting version uses a recruitable Princess, not another copy of Alith. The walkers are faction recruits, but Alith’s personal speed, ammo and unique skill effects do not follow them."
+        ],
+        [
+          "Under Smart Autoresolve",
+          "Accept a result based on actual losses and the next enemy turn. Stalk, poison, healing and decoys are not assigned a guessed numerical multiplier in this guide."
+        ],
+        [
+          "One creature, not a monster collection",
+          "The Merwyrm is the coastal expedition’s signature beast and a Life Mage supports it. Retain a skilled Mist Mage instead if already invested; then play more cautiously around sustained damage."
+        ],
+        [
+          "Oceanids are flank support",
+          "They add a magical expedition element, not an excuse to remove the shielded centre. Replace them with two White Lions when the simpler physical reserve better suits you."
+        ]
+      ],
+      "plan": [
+        [
+          "Deploy an anchor",
+          "Keep the shielded escort together. Place bolt throwers where they can shoot without putting the entire army in one narrow corridor. Give walkers a nearby fallback position."
+        ],
+        [
+          "Use two hunter sections",
+          "Divide walkers into two manageable groups on or beside the flanks. Start within support distance; do not deploy every unit in isolation merely because it can hide."
+        ],
+        [
+          "Break one threat first",
+          "Use Alith and concentrated missiles on the enemy unit that would disrupt your plan. Slow or pin it with the caster, then switch targets after it is neutralised."
+        ],
+        [
+          "After contact",
+          "Keep reserves off the initial line. Commit White Lions, Swordmasters or the flying support to a specific problem; restore the formation with pause/slow speed when necessary."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ]
+    },
+    "specialist": {
+      "label": "Mist wing",
+      "name": "The fogbound pursuit",
+      "supportName": "The coastal relief company",
+      "units": [
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 8,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "White Lions of Chrace",
+          "role": "Armour-piercing reserve",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Lothern Skycutters (Bolt Thrower)",
+          "role": "Paired mobile bolt support",
+          "kind": "machine"
+        },
+        {
+          "n": 1,
+          "name": "Frostheart Phoenix",
+          "role": "Protect a committed melee",
+          "kind": "machine"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Alith Anar",
+          "role": "Foot bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mist Mage",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 8,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "White Lions of Chrace",
+          "role": "Armour-piercing reserve",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Lothern Skycutters (Bolt Thrower)",
+          "role": "Paired mobile bolt support",
+          "kind": "machine"
+        },
+        {
+          "n": 1,
+          "name": "Frostheart Phoenix",
+          "role": "Protect a committed melee",
+          "kind": "machine"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Princess",
+          "role": "Repeatable bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mist Mage",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 8,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "White Lions of Chrace",
+          "role": "Armour-piercing reserve",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Lothern Skycutters (Bolt Thrower)",
+          "role": "Paired mobile bolt support",
+          "kind": "machine"
+        },
+        {
+          "n": 1,
+          "name": "Frostheart Phoenix",
+          "role": "Protect a committed melee",
+          "kind": "machine"
+        }
+      ],
+      "context": "Upgrade in batches. Keep useful starting units; explanations and substitutions are in Read notes.",
+      "notes": [
+        [
+          "These are destination rosters",
+          "Keep useful starting units. An unavailable Noble, Mage or artillery slot can temporarily be another spear or archer; do not wait for a perfect army to fight a necessary early war."
+        ],
+        [
+          "Shadow-walkers are not Sisters of Avelorn",
+          "The army keeps a conventional screen and armour-piercing support. Do not assume the expensive bow unit replaces every tactical role."
+        ],
+        [
+          "Generic company",
+          "The supporting version uses a recruitable Princess, not another copy of Alith. The walkers are faction recruits, but Alith’s personal speed, ammo and unique skill effects do not follow them."
+        ],
+        [
+          "Under Smart Autoresolve",
+          "Accept a result based on actual losses and the next enemy turn. Stalk, poison, healing and decoys are not assigned a guessed numerical multiplier in this guide."
+        ],
+        [
+          "Optional WH3 aviation branch",
+          "The Skycutters are one paired control group. This roster intentionally trades a conventional artillery park for a more mobile escort; it needs more supervision than the main late roster."
+        ],
+        [
+          "A simple substitute",
+          "Replace the two Skycutters with two Eagle Claws, and the phoenix with a Great Eagle or another walker while developing. The route does not require air units."
+        ]
+      ],
+      "plan": [
+        [
+          "Deploy an anchor",
+          "Keep the shielded escort together. Place bolt throwers where they can shoot without putting the entire army in one narrow corridor. Give walkers a nearby fallback position."
+        ],
+        [
+          "Use two hunter sections",
+          "Divide walkers into two manageable groups on or beside the flanks. Start within support distance; do not deploy every unit in isolation merely because it can hide."
+        ],
+        [
+          "Break one threat first",
+          "Use Alith and concentrated missiles on the enemy unit that would disrupt your plan. Slow or pin it with the caster, then switch targets after it is neutralised."
+        ],
+        [
+          "After contact",
+          "Keep reserves off the initial line. Commit White Lions, Swordmasters or the flying support to a specific problem; restore the formation with pause/slow speed when necessary."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ]
+    },
+    "home": {
+      "label": "Home guard",
+      "name": "Alith as emergency relief only",
+      "supportName": "The harbour watch",
+      "units": [
+        {
+          "n": 4,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Archers",
+          "role": "Affordable ranged support",
+          "kind": "missile"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Alith Anar",
+          "role": "Foot bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Archers",
+          "role": "Affordable ranged support",
+          "kind": "missile"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Princess",
+          "role": "Repeatable bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Archers",
+          "role": "Affordable ranged support",
+          "kind": "missile"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        }
+      ],
+      "context": "A 12-slot relief force, not an independent conquest stack.",
+      "notes": [
+        [
+          "These are destination rosters",
+          "Keep useful starting units. An unavailable Noble, Mage or artillery slot can temporarily be another spear or archer; do not wait for a perfect army to fight a necessary early war."
+        ],
+        [
+          "Shadow-walkers are not Sisters of Avelorn",
+          "The army keeps a conventional screen and armour-piercing support. Do not assume the expensive bow unit replaces every tactical role."
+        ],
+        [
+          "Generic company",
+          "The supporting version uses a recruitable Princess, not another copy of Alith. The walkers are faction recruits, but Alith’s personal speed, ammo and unique skill effects do not follow them."
+        ],
+        [
+          "Under Smart Autoresolve",
+          "Accept a result based on actual losses and the next enemy turn. Stalk, poison, healing and decoys are not assigned a guessed numerical multiplier in this guide."
+        ],
+        [
+          "Keep the distinction",
+          "The field Noble belongs in this roster; detached assassination agents do not. The Home Guard is intentionally 12 slots — a local relief force, not an independent conquest stack."
+        ]
+      ],
+      "plan": [
+        [
+          "Deploy an anchor",
+          "Keep the shielded escort together. Place bolt throwers where they can shoot without putting the entire army in one narrow corridor. Give walkers a nearby fallback position."
+        ],
+        [
+          "Use two hunter sections",
+          "Divide walkers into two manageable groups on or beside the flanks. Start within support distance; do not deploy every unit in isolation merely because it can hide."
+        ],
+        [
+          "Break one threat first",
+          "Use Alith and concentrated missiles on the enemy unit that would disrupt your plan. Slow or pin it with the caster, then switch targets after it is neutralised."
+        ],
+        [
+          "After contact",
+          "Keep reserves off the initial line. Commit White Lions, Swordmasters or the flying support to a specific problem; restore the formation with pause/slow speed when necessary."
+        ]
+      ],
+      "size": 12,
+      "sources": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ]
+    }
+  },
+  "route-3": {
+    "early": {
+      "label": "Early",
+      "name": "The first oathbound hunters",
+      "supportName": "The first household guard",
+      "units": [
+        {
+          "n": 6,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 5,
+          "name": "Archers",
+          "role": "Affordable ranged support",
+          "kind": "missile"
+        },
+        {
+          "n": 4,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Alith Anar",
+          "role": "Foot bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Shadows)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 5,
+          "name": "Archers",
+          "role": "Affordable ranged support",
+          "kind": "missile"
+        },
+        {
+          "n": 4,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Princess",
+          "role": "Repeatable bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Shadows)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 5,
+          "name": "Archers",
+          "role": "Affordable ranged support",
+          "kind": "missile"
+        },
+        {
+          "n": 4,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "context": "Upgrade in batches. Keep useful starting units; explanations and substitutions are in Read notes.",
+      "notes": [
+        [
+          "These are destination rosters",
+          "Keep useful starting units. An unavailable Noble, Mage or artillery slot can temporarily be another spear or archer; do not wait for a perfect army to fight a necessary early war."
+        ],
+        [
+          "Shadow-walkers are not Sisters of Avelorn",
+          "The army keeps a conventional screen and armour-piercing support. Do not assume the expensive bow unit replaces every tactical role."
+        ],
+        [
+          "Generic company",
+          "The supporting version uses a recruitable Princess, not another copy of Alith. The walkers are faction recruits, but Alith’s personal speed, ammo and unique skill effects do not follow them."
+        ],
+        [
+          "Under Smart Autoresolve",
+          "Accept a result based on actual losses and the next enemy turn. Stalk, poison, healing and decoys are not assigned a guessed numerical multiplier in this guide."
+        ],
+        [
+          "Alternatives, not simultaneous armies",
+          "Early, mid and late are progression stages of the same evolving company; the specialist template is an optional variant for a chosen second force, and the home template is emergency local relief. Do not treat all five templates as separate permanent armies or clone Alith and his embedded Noble into more than one."
+        ]
+      ],
+      "plan": [
+        [
+          "Deploy an anchor",
+          "Keep the shielded escort together. Place bolt throwers where they can shoot without putting the entire army in one narrow corridor. Give walkers a nearby fallback position."
+        ],
+        [
+          "Use two hunter sections",
+          "Divide walkers into two manageable groups on or beside the flanks. Start within support distance; do not deploy every unit in isolation merely because it can hide."
+        ],
+        [
+          "Break one threat first",
+          "Use Alith and concentrated missiles on the enemy unit that would disrupt your plan. Slow or pin it with the caster, then switch targets after it is neutralised."
+        ],
+        [
+          "After contact",
+          "Keep reserves off the initial line. Commit White Lions, Swordmasters or the flying support to a specific problem; restore the formation with pause/slow speed when necessary."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ]
+    },
+    "mid": {
+      "label": "Mid",
+      "name": "The vengeance company",
+      "supportName": "The Anlec field guard",
+      "units": [
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 7,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "White Lions of Chrace",
+          "role": "Armour-piercing reserve",
+          "kind": "line"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Alith Anar",
+          "role": "Foot bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Shadows)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 7,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "White Lions of Chrace",
+          "role": "Armour-piercing reserve",
+          "kind": "line"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Great Eagle",
+          "role": "Intercept / disrupt / pursue",
+          "kind": "cavalry"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Princess",
+          "role": "Repeatable bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Shadows)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Silver Helms (Shields)",
+          "role": "Single reserve cavalry group",
+          "kind": "cavalry"
+        }
+      ],
+      "context": "Upgrade in batches. Keep useful starting units; explanations and substitutions are in Read notes.",
+      "notes": [
+        [
+          "These are destination rosters",
+          "Keep useful starting units. An unavailable Noble, Mage or artillery slot can temporarily be another spear or archer; do not wait for a perfect army to fight a necessary early war."
+        ],
+        [
+          "Shadow-walkers are not Sisters of Avelorn",
+          "The army keeps a conventional screen and armour-piercing support. Do not assume the expensive bow unit replaces every tactical role."
+        ],
+        [
+          "Generic company",
+          "The supporting version uses a recruitable Princess, not another copy of Alith. The walkers are faction recruits, but Alith’s personal speed, ammo and unique skill effects do not follow them."
+        ],
+        [
+          "Under Smart Autoresolve",
+          "Accept a result based on actual losses and the next enemy turn. Stalk, poison, healing and decoys are not assigned a guessed numerical multiplier in this guide."
+        ]
+      ],
+      "plan": [
+        [
+          "Deploy an anchor",
+          "Keep the shielded escort together. Place bolt throwers where they can shoot without putting the entire army in one narrow corridor. Give walkers a nearby fallback position."
+        ],
+        [
+          "Use two hunter sections",
+          "Divide walkers into two manageable groups on or beside the flanks. Start within support distance; do not deploy every unit in isolation merely because it can hide."
+        ],
+        [
+          "Break one threat first",
+          "Use Alith and concentrated missiles on the enemy unit that would disrupt your plan. Slow or pin it with the caster, then switch targets after it is neutralised."
+        ],
+        [
+          "After contact",
+          "Keep reserves off the initial line. Commit White Lions, Swordmasters or the flying support to a specific problem; restore the formation with pause/slow speed when necessary."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ]
+    },
+    "late": {
+      "label": "Late",
+      "name": "The shadow king’s oath",
+      "supportName": "The reclaimed kingdom’s host",
+      "units": [
+        {
+          "n": 4,
+          "name": "Phoenix Guard",
+          "role": "Heavy anti-large screen",
+          "kind": "line"
+        },
+        {
+          "n": 7,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Swordmasters of Hoeth",
+          "role": "Elite infantry counterattack",
+          "kind": "line"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Frostheart Phoenix",
+          "role": "Protect a committed melee",
+          "kind": "machine"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Alith Anar",
+          "role": "Foot bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Light)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Phoenix Guard",
+          "role": "Heavy anti-large screen",
+          "kind": "line"
+        },
+        {
+          "n": 7,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Swordmasters of Hoeth",
+          "role": "Elite infantry counterattack",
+          "kind": "line"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Frostheart Phoenix",
+          "role": "Protect a committed melee",
+          "kind": "machine"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Princess",
+          "role": "Repeatable bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Light)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Phoenix Guard",
+          "role": "Heavy anti-large screen",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "Swordmasters of Hoeth",
+          "role": "Elite infantry counterattack",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Moon Dragon",
+          "role": "Siege and shock reserve",
+          "kind": "machine"
+        }
+      ],
+      "context": "Upgrade in batches. Keep useful starting units; explanations and substitutions are in Read notes.",
+      "notes": [
+        [
+          "These are destination rosters",
+          "Keep useful starting units. An unavailable Noble, Mage or artillery slot can temporarily be another spear or archer; do not wait for a perfect army to fight a necessary early war."
+        ],
+        [
+          "Shadow-walkers are not Sisters of Avelorn",
+          "The army keeps a conventional screen and armour-piercing support. Do not assume the expensive bow unit replaces every tactical role."
+        ],
+        [
+          "Generic company",
+          "The supporting version uses a recruitable Princess, not another copy of Alith. The walkers are faction recruits, but Alith’s personal speed, ammo and unique skill effects do not follow them."
+        ],
+        [
+          "Under Smart Autoresolve",
+          "Accept a result based on actual losses and the next enemy turn. Stalk, poison, healing and decoys are not assigned a guessed numerical multiplier in this guide."
+        ],
+        [
+          "An army for the lord hunt",
+          "The Light Mage holds a dangerous target for focused fire; the Noble and heavy screen keep the company stable. Detached assassin Nobles are outside this twenty-stack."
+        ],
+        [
+          "Alith is still on foot",
+          "The supporting army’s optional Moon Dragon is a separate unit. It does not imply a mount for Alith."
+        ]
+      ],
+      "plan": [
+        [
+          "Deploy an anchor",
+          "Keep the shielded escort together. Place bolt throwers where they can shoot without putting the entire army in one narrow corridor. Give walkers a nearby fallback position."
+        ],
+        [
+          "Use two hunter sections",
+          "Divide walkers into two manageable groups on or beside the flanks. Start within support distance; do not deploy every unit in isolation merely because it can hide."
+        ],
+        [
+          "Break one threat first",
+          "Use Alith and concentrated missiles on the enemy unit that would disrupt your plan. Slow or pin it with the caster, then switch targets after it is neutralised."
+        ],
+        [
+          "After contact",
+          "Keep reserves off the initial line. Commit White Lions, Swordmasters or the flying support to a specific problem; restore the formation with pause/slow speed when necessary."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ]
+    },
+    "specialist": {
+      "label": "Overseas",
+      "name": "The far-horizon task force",
+      "supportName": "The eastern expedition",
+      "units": [
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 6,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "Phoenix Guard",
+          "role": "Heavy anti-large screen",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Swordmasters of Hoeth",
+          "role": "Elite infantry counterattack",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Moon Dragon",
+          "role": "Siege and shock reserve",
+          "kind": "machine"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Alith Anar",
+          "role": "Foot bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Life)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 6,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "Phoenix Guard",
+          "role": "Heavy anti-large screen",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Swordmasters of Hoeth",
+          "role": "Elite infantry counterattack",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Moon Dragon",
+          "role": "Siege and shock reserve",
+          "kind": "machine"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Princess",
+          "role": "Repeatable bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Noble",
+          "role": "Embedded bodyguard / recovery",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Mage (Life)",
+          "role": "Campaign support and casting",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 6,
+          "name": "Shadow-walkers",
+          "role": "Stalking hunter sections",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "Phoenix Guard",
+          "role": "Heavy anti-large screen",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Swordmasters of Hoeth",
+          "role": "Elite infantry counterattack",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Moon Dragon",
+          "role": "Siege and shock reserve",
+          "kind": "machine"
+        }
+      ],
+      "context": "Upgrade in batches. Keep useful starting units; explanations and substitutions are in Read notes.",
+      "notes": [
+        [
+          "These are destination rosters",
+          "Keep useful starting units. An unavailable Noble, Mage or artillery slot can temporarily be another spear or archer; do not wait for a perfect army to fight a necessary early war."
+        ],
+        [
+          "Shadow-walkers are not Sisters of Avelorn",
+          "The army keeps a conventional screen and armour-piercing support. Do not assume the expensive bow unit replaces every tactical role."
+        ],
+        [
+          "Generic company",
+          "The supporting version uses a recruitable Princess, not another copy of Alith. The walkers are faction recruits, but Alith’s personal speed, ammo and unique skill effects do not follow them."
+        ],
+        [
+          "Under Smart Autoresolve",
+          "Accept a result based on actual losses and the next enemy turn. Stalk, poison, healing and decoys are not assigned a guessed numerical multiplier in this guide."
+        ],
+        [
+          "For a real distant target",
+          "Use this heavier combined-arms company when a remaining lord is behind a serious army or fortress. An agent may be enough for another target; do not ship a premium army where the Hand can solve the actual requirement."
+        ],
+        [
+          "Travel is still ordinary travel",
+          "Prepare a port, access and recovery before sending the force. Neither a dragon nor a Sea Guard escort creates Aislinn’s faction travel mechanics."
+        ]
+      ],
+      "plan": [
+        [
+          "Deploy an anchor",
+          "Keep the shielded escort together. Place bolt throwers where they can shoot without putting the entire army in one narrow corridor. Give walkers a nearby fallback position."
+        ],
+        [
+          "Use two hunter sections",
+          "Divide walkers into two manageable groups on or beside the flanks. Start within support distance; do not deploy every unit in isolation merely because it can hide."
+        ],
+        [
+          "Break one threat first",
+          "Use Alith and concentrated missiles on the enemy unit that would disrupt your plan. Slow or pin it with the caster, then switch targets after it is neutralised."
+        ],
+        [
+          "After contact",
+          "Keep reserves off the initial line. Commit White Lions, Swordmasters or the flying support to a specific problem; restore the formation with pause/slow speed when necessary."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ]
+    },
+    "home": {
+      "label": "Home guard",
+      "name": "Alith as emergency relief only",
+      "supportName": "The Anlec household",
+      "units": [
+        {
+          "n": 4,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Archers",
+          "role": "Affordable ranged support",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Alith Anar",
+          "role": "Foot bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Archers",
+          "role": "Affordable ranged support",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Princess",
+          "role": "Repeatable bow commander",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Spearmen",
+          "role": "Brace and protect bows",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Archers",
+          "role": "Affordable ranged support",
+          "kind": "missile"
+        },
+        {
+          "n": 2,
+          "name": "Lothern Sea Guard (Shields)",
+          "role": "Shielded hybrid escort",
+          "kind": "line"
+        },
+        {
+          "n": 1,
+          "name": "Eagle Claw Bolt Throwers",
+          "role": "Siege / anti-armour support",
+          "kind": "artillery"
+        }
+      ],
+      "context": "A 12-slot relief force, not an independent conquest stack.",
+      "notes": [
+        [
+          "These are destination rosters",
+          "Keep useful starting units. An unavailable Noble, Mage or artillery slot can temporarily be another spear or archer; do not wait for a perfect army to fight a necessary early war."
+        ],
+        [
+          "Shadow-walkers are not Sisters of Avelorn",
+          "The army keeps a conventional screen and armour-piercing support. Do not assume the expensive bow unit replaces every tactical role."
+        ],
+        [
+          "Generic company",
+          "The supporting version uses a recruitable Princess, not another copy of Alith. The walkers are faction recruits, but Alith’s personal speed, ammo and unique skill effects do not follow them."
+        ],
+        [
+          "Under Smart Autoresolve",
+          "Accept a result based on actual losses and the next enemy turn. Stalk, poison, healing and decoys are not assigned a guessed numerical multiplier in this guide."
+        ],
+        [
+          "Keep the distinction",
+          "The field Noble belongs in this roster; detached assassination agents do not. The Home Guard is intentionally 12 slots — a local relief force, not an independent conquest stack."
+        ]
+      ],
+      "plan": [
+        [
+          "Deploy an anchor",
+          "Keep the shielded escort together. Place bolt throwers where they can shoot without putting the entire army in one narrow corridor. Give walkers a nearby fallback position."
+        ],
+        [
+          "Use two hunter sections",
+          "Divide walkers into two manageable groups on or beside the flanks. Start within support distance; do not deploy every unit in isolation merely because it can hide."
+        ],
+        [
+          "Break one threat first",
+          "Use Alith and concentrated missiles on the enemy unit that would disrupt your plan. Slow or pin it with the caster, then switch targets after it is neutralised."
+        ],
+        [
+          "After contact",
+          "Keep reserves off the initial line. Commit White Lions, Swordmasters or the flying support to a specific problem; restore the formation with pause/slow speed when necessary."
+        ]
+      ],
+      "size": 12,
+      "sources": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "flc",
+        "smart",
+        "alith-skill",
+        "tides"
+      ]
+    }
+  }
+}
