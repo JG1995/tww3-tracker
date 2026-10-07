@@ -15,7 +15,7 @@ interpretation: "A travelling workshop answers a coalition's crises: diplomacy s
 bottleneck: "Surviving target factions + recognised city control"
 panelOrder:
   armies: []
-  skills: []
+  skills: [malakai-route-3, lord-route-3, engineer, gotrek, felix, runesmith, thane]
   research: []
   buildings: []
   mechanics: []

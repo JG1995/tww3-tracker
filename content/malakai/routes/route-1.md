@@ -15,7 +15,7 @@ interpretation: "A territorial campaign across the northern mountains, with Krak
 bottleneck: "Secure province ownership + Kraka Drak tier IV"
 panelOrder:
   armies: []
-  skills: []
+  skills: [malakai-route-1, lord-route-1, engineer, gotrek, felix, runesmith, thane]
   research: []
   buildings: []
   mechanics: []

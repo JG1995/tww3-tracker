@@ -284,7 +284,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `malakai-skills` — Commit 7: Migrate Malakai's character-priority reference
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 5
 **Depends on:** ["malakai-shared-fundamentals"]
 **Write scope:** ["content/malakai/data/skills.json", "content/malakai/routes/route-1.md", "content/malakai/routes/route-2.md", "content/malakai/routes/route-3.md"]

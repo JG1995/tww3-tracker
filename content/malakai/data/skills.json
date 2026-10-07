@@ -1,1 +1,632 @@
-{}
+{
+  "malakai-route-1": {
+    "label": "Malakai",
+    "title": "Malakai · Northern kingdom",
+    "intro": "An engineer’s test fleet backed by permanent hold garrisons. Archive-effective Route I priority blocks for Malakai, not a fixed buy order or an installed-build test — current skill availability, exact rank gates and point costs are unverified; inspect the live character panel and follow its visible prerequisites before spending.",
+    "steps": [
+      {
+        "title": "Route Marcher",
+        "note": "The first campaign point; useful for covering a widening operational area.",
+        "gate": "First point"
+      },
+      {
+        "title": "Inspiring Presence → Tactician ×3",
+        "note": "Support the Cannon battery and later the Hewer. One early Axe Lord point is a reasonable escort detour.",
+        "gate": "Opening"
+      },
+      {
+        "title": "Tradition & Innovation / Grimnir’s Heirs",
+        "note": "Prioritise aviation when the flight is established; Grimnir’s Heirs supports the Slayer infantry and later Ironbreakers. Do not take flight buffs for units you do not yet own.",
+        "gate": "Match the army"
+      },
+      {
+        "title": "Inventor → Tinkerer → Architect",
+        "note": "Inventor opens at rank 12. Tinkerer benefits artillery/aircraft; take Architect before substantial ship construction when practical.",
+        "gate": "Rank 12 branch"
+      },
+      {
+        "title": "Master Engineer → Slayer / Artillery Master",
+        "note": "The capstone requires two unique-block investments. Take the other useful unique skills afterwards as the crew and battle style justify them.",
+        "gate": "Two-block gate"
+      },
+      {
+        "title": "Rally! → Dawi Firepower / Morgrim’s Favoured",
+        "note": "Six first-block red points open Rally. The veteran effects require eligible rank-7 units; inspect the covered units. Add Honoured by Grimnir for the veteran escort.",
+        "gate": "Veterans"
+      }
+    ],
+    "details": [
+      [
+        "Priority order, not exact level arithmetic",
+        "Buy prerequisites first and interrupt the queue at important rank gates. One row can contain several points. You do not need to finish every row before using the army."
+      ],
+      [
+        "Blue-line detour",
+        "Later, full Lightning Strike requires its three points and earlier prerequisites. It is useful against grouped armies, but rushing it is not mandatory on Normal. Iron-Willed’s replenishment applies to the lord, not the whole force."
+      ],
+      [
+        "Automatic unlocks",
+        "Do not spend points on an ability or mount that the game already unlocks automatically. Current in-game tooltips take precedence over a database snapshot."
+      ]
+    ],
+    "sources": [
+      "skill-malakai"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "skill-malakai"
+    ]
+  },
+  "lord-route-1": {
+    "label": "Dwarf Lord",
+    "title": "Dwarf Lord · Northern kingdom support",
+    "intro": "The repeatable armoured commander. Pair with support heroes rather than trying to reproduce Malakai’s personal toolkit. Route I priority blocks for the supporting Dwarf Lord are archive-derived recommendations, not confirmed orders; follow the live panel’s visible ranks and gates.",
+    "steps": [
+      {
+        "title": "Route Marcher → Inspiring Presence",
+        "note": "Movement first; then open the troop-support line."
+      },
+      {
+        "title": "Axe Lord ×3",
+        "note": "Protect the Warriors/Longbeards in your early and mid armies."
+      },
+      {
+        "title": "Thunderer ×3",
+        "note": "Buff the missile infantry already doing the damage."
+      },
+      {
+        "title": "Tactician ×3",
+        "note": "When the army has its artillery component; move this ahead of Axe Lord for a safe, artillery-heavy army."
+      },
+      {
+        "title": "Rally! → relevant veteran skills",
+        "note": "Read the unit-rank requirement. A rank-7 bonus does nothing for a newly recruited rank-1 regiment."
+      },
+      {
+        "title": "Late infantry and survival / Lightning Strike",
+        "note": "Shift investment towards Ironbreakers and your own durability. Use the full blue-line path only when needed for enemy reinforcement stacks."
+      }
+    ],
+    "details": [
+      [
+        "No forced respec",
+        "Axe Lord is still useful while any Longbeards remain. You do not have to respec the moment you recruit your first Ironbreaker."
+      ],
+      [
+        "Home guard variant",
+        "Movement matters less for a Lord who stays at one hold. Infantry and crossbow support come before deep artillery, personal damage or expensive campaign detours."
+      ],
+      [
+        "Roster ownership",
+        "This template uses the base Dwarf Lord. It does not require the Runelord from the paid King and the Warlord pack."
+      ],
+      [
+        "Operational role",
+        "The supporting lord defends and holds on the northern route, or stabilises the relief corridor on the Empire route. Spend on those actual units, not on a theoretical copy of the flagship."
+      ]
+    ],
+    "sources": [
+      "skill-malakai",
+      "roster"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "skill-malakai",
+      "roster"
+    ]
+  },
+  "malakai-route-2": {
+    "label": "Malakai",
+    "title": "Malakai · Dark Fortresses",
+    "intro": "Slayer shock troops, paired axe machines and a siege-capable escort. Archive-effective Route II priority blocks for Malakai, not a fixed buy order or an installed-build test — current skill availability, exact rank gates and point costs are unverified; inspect the live character panel and follow its visible prerequisites before spending.",
+    "steps": [
+      {
+        "title": "Route Marcher",
+        "note": "Useful for the invasion and retreat/recovery legs.",
+        "gate": "First point"
+      },
+      {
+        "title": "Inspiring Presence → Tactician ×3",
+        "note": "The Cannon/Hewer battery makes a supported assault possible.",
+        "gate": "Opening"
+      },
+      {
+        "title": "Grimnir’s Heirs ×3",
+        "note": "Invest in the Slayer infantry. Use shielded escorts to absorb missiles rather than treating unbreakable as armour.",
+        "gate": "Slayer crew"
+      },
+      {
+        "title": "Inventor → Tinkerer → Slayer",
+        "note": "The rank-12 line gives Engineer access, machine support and factionwide Slayer benefits.",
+        "gate": "Rank 12 branch"
+      },
+      {
+        "title": "Master Engineer → Architect / Artillery Master",
+        "note": "Two unique-block picks open the capstone. Add construction savings before a large ship purchase; do not delay recovery or useful units solely to wait for it.",
+        "gate": "Unique line"
+      },
+      {
+        "title": "Rally! → Honoured by Grimnir / Morgrim’s Favoured",
+        "note": "Apply the relevant rank-7 infantry/artillery benefits. Later take the blue-line prerequisites for full Lightning Strike when enemy supporting armies are the bottleneck.",
+        "gate": "Veterans / later"
+      }
+    ],
+    "details": [
+      [
+        "Priority order, not exact level arithmetic",
+        "Buy prerequisites first and interrupt the queue at important rank gates. One row can contain several points. You do not need to finish every row before using the army."
+      ],
+      [
+        "Blue-line detour",
+        "Later, full Lightning Strike requires its three points and earlier prerequisites. It is useful against grouped armies, but rushing it is not mandatory on Normal. Iron-Willed’s replenishment applies to the lord, not the whole force."
+      ],
+      [
+        "Automatic unlocks",
+        "Do not spend points on an ability or mount that the game already unlocks automatically. Current in-game tooltips take precedence over a database snapshot."
+      ]
+    ],
+    "sources": [
+      "skill-malakai"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "skill-malakai"
+    ]
+  },
+  "lord-route-2": {
+    "label": "Dwarf Lord",
+    "title": "Dwarf Lord · Dark Fortresses support",
+    "intro": "The repeatable armoured commander. Pair with support heroes rather than trying to reproduce Malakai’s personal toolkit. Route II priority blocks for the supporting Dwarf Lord are archive-derived recommendations, not confirmed orders; follow the live panel’s visible ranks and gates.",
+    "steps": [
+      {
+        "title": "Route Marcher → Inspiring Presence",
+        "note": "Movement first; then open the troop-support line."
+      },
+      {
+        "title": "Axe Lord ×3",
+        "note": "Support the holding escort until its replacement is actually recruited."
+      },
+      {
+        "title": "Grimnir’s Heirs ×3",
+        "note": "The relief column has Slayer units and later Ironbreakers; match points to the real troops."
+      },
+      {
+        "title": "Tactician ×3 → Thunderer",
+        "note": "Protect the gun battery’s value and the supporting shooters. These lords do not inherit Malakai’s unique buffs."
+      },
+      {
+        "title": "Rally! → relevant veteran skills",
+        "note": "Read the unit-rank requirement. A rank-7 bonus does nothing for a newly recruited rank-1 regiment."
+      },
+      {
+        "title": "Late infantry and survival / Lightning Strike",
+        "note": "Shift investment towards Ironbreakers and your own durability. Use the full blue-line path only when needed for enemy reinforcement stacks."
+      }
+    ],
+    "details": [
+      [
+        "No forced respec",
+        "Axe Lord is still useful while any Longbeards remain. You do not have to respec the moment you recruit your first Ironbreaker."
+      ],
+      [
+        "Home guard variant",
+        "Movement matters less for a Lord who stays at one hold. Infantry and crossbow support come before deep artillery, personal damage or expensive campaign detours."
+      ],
+      [
+        "Roster ownership",
+        "This template uses the base Dwarf Lord. It does not require the Runelord from the paid King and the Warlord pack."
+      ]
+    ],
+    "sources": [
+      "skill-malakai",
+      "roster"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "skill-malakai",
+      "roster"
+    ]
+  },
+  "malakai-route-3": {
+    "label": "Malakai",
+    "title": "Malakai · Empire relief",
+    "intro": "The famous companions, Slayer crew, mixed artillery and escort airships. Archive-effective Route III priority blocks for Malakai, not a fixed buy order or an installed-build test — current skill availability, exact rank gates and point costs are unverified; inspect the live character panel and follow its visible prerequisites before spending.",
+    "steps": [
+      {
+        "title": "Route Marcher",
+        "note": "The first point supports every relief operation.",
+        "gate": "First point"
+      },
+      {
+        "title": "Inspiring Presence → Tactician ×3",
+        "note": "Cannons and the later Hewer remain the engineering centrepiece.",
+        "gate": "Opening"
+      },
+      {
+        "title": "Grimnir’s Heirs ×3; Thunderer next",
+        "note": "Support the Slayer crew and eventual Ironbreakers, then the regular shooters as the army develops.",
+        "gate": "Mixed company"
+      },
+      {
+        "title": "Inventor → Tinkerer → Slayer",
+        "note": "Use the rank-12 window for the unique branch; add Architect before major ship spending.",
+        "gate": "Rank 12 branch"
+      },
+      {
+        "title": "Master Engineer → Artillery Master",
+        "note": "The capstone needs two choices from its preceding unique block. This is a skill, not a second Engineer hero.",
+        "gate": "Unique line"
+      },
+      {
+        "title": "Rally! → the relevant veteran effects",
+        "note": "Honoured by Grimnir for eligible infantry, Morgrim’s Favoured for artillery, Dawi Firepower for named shooters/flyers. Do not assume one covers every gun.",
+        "gate": "Rank-7 units"
+      }
+    ],
+    "details": [
+      [
+        "Priority order, not exact level arithmetic",
+        "Buy prerequisites first and interrupt the queue at important rank gates. One row can contain several points. You do not need to finish every row before using the army."
+      ],
+      [
+        "Blue-line detour",
+        "Later, full Lightning Strike requires its three points and earlier prerequisites. It is useful against grouped armies, but rushing it is not mandatory on Normal. Iron-Willed’s replenishment applies to the lord, not the whole force."
+      ],
+      [
+        "Automatic unlocks",
+        "Do not spend points on an ability or mount that the game already unlocks automatically. Current in-game tooltips take precedence over a database snapshot."
+      ]
+    ],
+    "sources": [
+      "skill-malakai"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "skill-malakai"
+    ]
+  },
+  "lord-route-3": {
+    "label": "Dwarf Lord",
+    "title": "Dwarf Lord · Empire relief support",
+    "intro": "The repeatable armoured commander. Pair with support heroes rather than trying to reproduce Malakai’s personal toolkit. Route III priority blocks for the supporting Dwarf Lord are archive-derived recommendations, not confirmed orders; follow the live panel’s visible ranks and gates.",
+    "steps": [
+      {
+        "title": "Route Marcher → Inspiring Presence",
+        "note": "Movement first; then open the troop-support line."
+      },
+      {
+        "title": "Axe Lord ×3",
+        "note": "Protect the Warriors/Longbeards in your early and mid armies."
+      },
+      {
+        "title": "Thunderer ×3",
+        "note": "Buff the missile infantry already doing the damage."
+      },
+      {
+        "title": "Tactician ×3",
+        "note": "When the army has its artillery component; move this ahead of Axe Lord for a safe, artillery-heavy army."
+      },
+      {
+        "title": "Rally! → relevant veteran skills",
+        "note": "Read the unit-rank requirement. A rank-7 bonus does nothing for a newly recruited rank-1 regiment."
+      },
+      {
+        "title": "Late infantry and survival / Lightning Strike",
+        "note": "Shift investment towards Ironbreakers and your own durability. Use the full blue-line path only when needed for enemy reinforcement stacks."
+      }
+    ],
+    "details": [
+      [
+        "No forced respec",
+        "Axe Lord is still useful while any Longbeards remain. You do not have to respec the moment you recruit your first Ironbreaker."
+      ],
+      [
+        "Home guard variant",
+        "Movement matters less for a Lord who stays at one hold. Infantry and crossbow support come before deep artillery, personal damage or expensive campaign detours."
+      ],
+      [
+        "Roster ownership",
+        "This template uses the base Dwarf Lord. It does not require the Runelord from the paid King and the Warlord pack."
+      ],
+      [
+        "Operational role",
+        "The supporting lord defends and holds on the northern route, or stabilises the relief corridor on the Empire route. Spend on those actual units, not on a theoretical copy of the flagship."
+      ]
+    ],
+    "sources": [
+      "skill-malakai",
+      "roster"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "skill-malakai",
+      "roster"
+    ]
+  },
+  "engineer": {
+    "label": "Engineer",
+    "title": "Engineer",
+    "intro": "Dwarf Master Engineer = hero. Prioritise the army’s reach and sustained fire over a personal shotgun build. This queue is an archive-derived recommendation, not an in-game test; verify names, ranks and gates in the live hero panel before spending.",
+    "steps": [
+      {
+        "title": "Increase Mobility",
+        "note": "Upgrade the embedded-army movement action whenever the next level is available. Check that the hero is actually embedded."
+      },
+      {
+        "title": "Break Open the Casks!",
+        "note": "Open the support line; this improves Restock rather than turning the hero into a frontline unit."
+      },
+      {
+        "title": "Requisition ×3 → missile support",
+        "note": "More ammunition for the army. Continue into the support skills that match your guns; do not assume a personal stat is an army bonus."
+      },
+      {
+        "title": "Flash Bomb",
+        "note": "An emergency slow for a breakthrough near the guns. Do not advance the hero just to use it.",
+        "gate": "Rank 6"
+      },
+      {
+        "title": "Ballistics Calibration branch",
+        "note": "Choose a useful ranged-support branch and satisfy its prerequisites. Keep personal weapon specialisations secondary."
+      },
+      {
+        "title": "Rune of Grimnir → protection / Mentor later",
+        "note": "Preserve a developed hero. Immortality is automatic at rank 20 in the checked export, not a point to buy.",
+        "gate": "Rank 8 / later"
+      }
+    ],
+    "details": [
+      [
+        "Requisition versus Restock",
+        "Requisition changes the army’s ammunition stat. Restock is an active in-battle refill. Use Restock on the battery doing the most useful damage—not just the first unit to empty."
+      ],
+      [
+        "Do not copy the Empire tree",
+        "The Dwarf Engineer and Elspeth’s Engineer are not the same skill tree. This order uses the Dwarf support root Break Open the Casks! rather than the Empire’s Master of Ballistics branch."
+      ],
+      [
+        "Support skills are not an AR promise",
+        "Flash Bomb and Ballistics Calibration are manual control tools. Invest in them for battles you actually play; their presence is not evidence that the autoresolver will simulate the combo."
+      ],
+      [
+        "Support is not automatic everywhere",
+        "A campaign stat modifier and a battle ability are different effects. Do not assume Smart Autoresolve uses every active ability, banner or summon in the same way as a manual battle."
+      ]
+    ],
+    "sources": [
+      "skill-engineer"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "skill-engineer"
+    ]
+  },
+  "gotrek": {
+    "label": "Gotrek",
+    "title": "Gotrek",
+    "intro": "Develop a dependable interceptor, not an excuse to remove all infantry. Keep Felix close enough to help. This priority list is inferred from the archive’s checked data, not an in-game test; verify the live tree’s names, ranks and gates before spending.",
+    "steps": [
+      {
+        "title": "Defensive combat stats first",
+        "note": "Use available hit-point and melee-defence skills before stacking more charge damage. Follow the links in the actual combat tree."
+      },
+      {
+        "title": "Skavenslayer for the northern opening",
+        "note": "Prioritise the anti-Skaven/ambush utility when Clan Moulder is your next war; then return to general durability."
+      },
+      {
+        "title": "Rune of Grimnir",
+        "note": "Personal missile resistance helps when enemy shooters notice him.",
+        "gate": "Rank 8"
+      },
+      {
+        "title": "Getting Stuck In!",
+        "note": "Useful melee defence and terrain mobility.",
+        "gate": "Rank 12"
+      },
+      {
+        "title": "General damage after survival",
+        "note": "Add melee attack and weapon strength once he survives his assigned interception job."
+      },
+      {
+        "title": "Keep the pair supported",
+        "note": "In manual battles, fight beside infantry rather than so far ahead that the enemy can surround and focus him."
+      }
+    ],
+    "details": [
+      [
+        "Automatic passives",
+        "Determined Deathblow and Extremely Daring Deathblow are automatic at ranks 5 and 10 in the checked data. Do not reserve paid skill points for them."
+      ],
+      [
+        "Battle healing is not replacement",
+        "Healing a character or damaged models during combat is different from replacing losses on the campaign map. Check the post-battle army, not just the duel result."
+      ],
+      [
+        "Skill order scope",
+        "This is a role-first priority list, not an invented rank-by-rank allocation. Names and gates explicitly shown here were checked; choose the linked defensive nodes available in your save."
+      ]
+    ],
+    "sources": [
+      "skill-gotrek"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "skill-gotrek"
+    ]
+  },
+  "felix": {
+    "label": "Felix",
+    "title": "Felix",
+    "intro": "Keep your starting companion: campaign recovery and support are valuable in a repeated-autoresolve campaign. These priorities are inferred from the archive’s checked data, not an in-game test; verify the live tree’s names, ranks and gates before spending.",
+    "steps": [
+      {
+        "title": "Replenish Troops",
+        "note": "Prioritise its upgrades at the available gates. This is the campaign recovery action, not battle healing."
+      },
+      {
+        "title": "Blade Master → defensive combat picks",
+        "note": "Open the combat line, then favour Hard to Hit / Full Plate Armour over charge damage."
+      },
+      {
+        "title": "Sprightly Manling → Sigmar’s Ward",
+        "note": "Mobility/defence at rank 6 and personal missile protection at rank 8.",
+        "gate": "Ranks 6 / 8"
+      },
+      {
+        "title": "Helping Hand",
+        "note": "A strong manual-battle assist for Gotrek or another threatened character.",
+        "gate": "Rank 12"
+      },
+      {
+        "title": "Lethal Romancer → Prodigious Swordsman",
+        "note": "The former sits behind Helping Hand; the latter brings additional melee attack/defence at rank 15.",
+        "gate": "Rank 15 for Swordsman"
+      },
+      {
+        "title": "Finish durability before luxury damage",
+        "note": "Use spare points on survival and practical support; do not send him ahead to farm an ability trigger."
+      }
+    ],
+    "details": [
+      [
+        "Replenishment matters",
+        "Felix’s embedded recovery role makes him useful beyond being a second melee character. Do not replace him automatically with another artillery piece."
+      ],
+      [
+        "Positioning",
+        "Keep him close to Gotrek and the supporting infantry. Helping Hand is a targeted ability for a Lord or Hero, not a whole-army heal."
+      ],
+      [
+        "Generic replacement",
+        "A Runesmith fills the generic army’s support slot, but does not duplicate Felix’s replenishment. A Dragon Slayer can replace the Thane in a generic army when campaign recovery matters more than a heavily armoured interceptor."
+      ]
+    ],
+    "sources": [
+      "skill-felix",
+      "hero-actions"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "skill-felix",
+      "hero-actions"
+    ]
+  },
+  "runesmith": {
+    "label": "Runesmith",
+    "title": "Runesmith",
+    "intro": "One embedded effect, plus a small useful rune toolkit. Not every attractive branch needs buying immediately. This build is inferred from the archive’s checked data, not an in-game test; verify the live tree’s names, ranks and gates before spending.",
+    "steps": [
+      {
+        "title": "Harden Armour: choose the embed role",
+        "note": "For the shielded generic template, prioritise this defensive option. Select it when embedding; buying the skill is not the same as choosing the action."
+      },
+      {
+        "title": "Rune of Wrath & Ruin",
+        "note": "Build a dependable answer to clustered infantry and a way to disrupt a threatening approach."
+      },
+      {
+        "title": "Rune of Oath & Steel / Rune of Negation",
+        "note": "Choose defensive support as the tree unlocks it. Use the rune that solves the current engagement."
+      },
+      {
+        "title": "Runic Imbuement",
+        "note": "Opens the rank-12 unique branch. Its immediate weapon benefits are personal.",
+        "gate": "Rank 12"
+      },
+      {
+        "title": "Learned Intuition → Stubborn Mastery",
+        "note": "Ambush defence and army spell resistance are useful passive support for a field force."
+      },
+      {
+        "title": "Accomplished Runesmithing later",
+        "note": "Reduce rune cooldowns when you regularly fight manually. Otherwise finish the campaign/army support first."
+      }
+    ],
+    "details": [
+      [
+        "Do not triple-count embed actions",
+        "Scouting, Harden Armour and Sharpen Weapons are alternative embedded roles, not three simultaneous bonuses from one hero. Read the selected action and army tooltip after embedding."
+      ],
+      [
+        "An offensive alternative",
+        "Sharpen Weapons is a valid alternative when your army already survives well. Do not spend early points maximising both embed branches without a reason."
+      ],
+      [
+        "Runes are not ordinary spells",
+        "They use their own cooldown system rather than a conventional Winds of Magic spell queue. Casting one can delay the others: a small, purposeful toolkit is easier to manage."
+      ],
+      [
+        "Availability",
+        "Runesmith recruitment arrives through the smithy chain. Use an extra Warrior or a currently available support hero until that infrastructure and capacity exist."
+      ]
+    ],
+    "sources": [
+      "skill-runesmith",
+      "runesmith",
+      "hero-actions"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "skill-runesmith",
+      "runesmith",
+      "hero-actions"
+    ]
+  },
+  "thane": {
+    "label": "Thane",
+    "title": "Thane",
+    "intro": "Armoured bodyguard and lane-holder for your additional armies. His job is keeping threats off the guns. These role priorities are inferred from the archive’s checked data, not an in-game test; verify the live tree’s names, ranks and gates before spending.",
+    "steps": [
+      {
+        "title": "Defensive combat line",
+        "note": "Start with the available melee-defence and armour/health route rather than a charge-only build."
+      },
+      {
+        "title": "Personal missile protection",
+        "note": "A character stationed in a firing lane can attract enemy focus. Preserve him before buying luxury damage."
+      },
+      {
+        "title": "Ironbeard for an Ironbreaker army",
+        "note": "Take the specialised option when available and relevant. Its ammunition support is for Ironbreakers/Irondrakes, not every gun in the army."
+      },
+      {
+        "title": "Guardian-style support when applicable",
+        "note": "Keeper of the Gate is the alternative to consider for a bodyguard/Hammerer role. Check exclusivity before selecting a specialisation."
+      },
+      {
+        "title": "Melee attack and weapon strength",
+        "note": "Buy damage after he reliably holds for your shooters."
+      },
+      {
+        "title": "Keep him with the screen",
+        "note": "He can reinforce a lane or flank without being an independent army. Avoid chasing routed units away from the guns."
+      }
+    ],
+    "details": [
+      [
+        "No Ranger investment",
+        "Wanderer is a Ranger-oriented route. Rangers and Bugman’s Rangers are outside the paid WH1/WH2 content you said you own, and outside this template."
+      ],
+      [
+        "Upgrade order, not fictional level list",
+        "This panel gives role priorities where exact node gates vary. Inspect the actual linked combat nodes; it does not promise that every defensive skill is accessible at rank 2."
+      ],
+      [
+        "Recovery alternative",
+        "A Dragon Slayer is available through your WH3 DLC and supplies Replenish Troops. Swapping the Thane for one gives up some armoured anchoring but can improve campaign recovery."
+      ]
+    ],
+    "sources": [
+      "thane",
+      "hero-actions",
+      "roster"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "thane",
+      "hero-actions",
+      "roster"
+    ]
+  }
+}

@@ -15,7 +15,7 @@ interpretation: "A Slayer–engineer expedition into hostile territory, won thro
 bottleneck: "Seven credited sites + a viable recovery chain"
 panelOrder:
   armies: []
-  skills: []
+  skills: [malakai-route-2, lord-route-2, engineer, gotrek, felix, runesmith, thane]
   research: []
   buildings: []
   mechanics: []
