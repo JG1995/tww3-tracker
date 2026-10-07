@@ -16,7 +16,7 @@ panelOrder:
   skills: [alith, princess, field-noble, agent-noble, shadow-caster, mist-mage, life-mage, light-mage]
   research: [opening, hunt-route-2, industry, agents]
   buildings: [hub, income, port, resource, frontier, temporary]
-  mechanics: []
+  mechanics: [shadow, marks, hand, influence, patrons, rites]
 gaps:
   - "Early → Mid"
   - "Mid → Late"

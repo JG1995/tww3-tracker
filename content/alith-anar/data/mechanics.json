@@ -1,1 +1,433 @@
-{}
+{
+  "shadow": {
+    "label": "Shadow war",
+    "title": "Choose the engagement before the volley",
+    "intro": "Stalking, terrain travel and tactical concealment are three related but different tools.",
+    "steps": [
+      {
+        "title": "Scout before committing the move",
+        "note": "Look for enemy support armies, garrisons and a safe end position. A hidden route does not reveal the whole map."
+      },
+      {
+        "title": "Attack in Stalking when appropriate",
+        "note": "Nagarythe can ambush on the attack. Check the actual chance and the target's state; it can fail."
+      },
+      {
+        "title": "Use Shadow Realm Pathways for position",
+        "note": "Cross obstructive terrain where the preview permits. Inspect the exit and leave the army somewhere defensible."
+      },
+      {
+        "title": "Build a forward Aesanar Camp selectively",
+        "note": "Local bonuses and replacement walkers are most useful on a real operating front."
+      },
+      {
+        "title": "Take Alith's mobility and ambush support",
+        "note": "No Rest for the Wicked and the gated Ancient Cunning path improve a campaign already winning sensible battles.",
+        "gate": "Ancient Cunning path is gated"
+      },
+      {
+        "title": "Keep a formation for a failed ambush",
+        "note": "A spear screen, bolt support and a nearby reserve make the army functional when the ideal battle does not happen."
+      }
+    ],
+    "details": [
+      [
+        "Stalk is not Stalking",
+        "A unit's Stalk hides it tactically. Stalking is the campaign attack stance. Adding a visible artillery unit does not mechanically remove the faction's campaign stance."
+      ],
+      [
+        "Pathways are not teleportation",
+        "There is no Garden network, magical-forest destination list or free global return. Use the actual movement preview and any interception warning in your version."
+      ],
+      [
+        "Alith's decoy",
+        "Mislead and its upgraded shadow help disrupt or bait a threat in a manual battle. They do not make Alith invulnerable and are not assumed to generate an autoresolve multiplier."
+      ],
+      [
+        "Use global recruitment as a replacement tool",
+        "Nagarythe's shorter global recruitment can reduce a long return journey. Compare the live duration and cost with local recruitment, recover in a safe recruiting stance, and keep enough cash for the actual units. A duration reduction does not make the units free or remove their building requirements."
+      ],
+      [
+        "Route emphasis across the three routes",
+        "The conquest route leads with stalking and forward camps to fight the opening war from The Monoliths. The relic expedition relies on Pathways and a secure staging line so the search does not stall on travel. The Eternal War keeps the stalking core campaigning while detached agents build the repeated-action counter."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) describes Stalking attacks, Shadow Realm Pathways, the forward Aesanar Camp and Alith's mobility/ambush skills as campaign tools from annotated sources, not a verified installed build. Unknown: the current stance availability, chance, preview behaviour and skill gates. Open the live stance/movement preview and skill panel before committing; if a stance, path or gate differs from the archive, follow the displayed values and treat this row as priority guidance, not a confirmed rule."
+      ]
+    ],
+    "sources": [
+      "flc",
+      "camp",
+      "alith-skill"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "flc",
+      "camp",
+      "alith-skill"
+    ]
+  },
+  "marks": {
+    "label": "Marked targets",
+    "title": "A target board, not an obligation to detour",
+    "intro": "Treat Marked for Death as paid opportunities that can support the chosen VCO route. Marks are optional side work: the archive's board records them and never changes the VCO checklist.",
+    "steps": [
+      {
+        "title": "Check location and expiry together",
+        "note": "Record the live deadline and where the character actually is, not where the faction started."
+      },
+      {
+        "title": "Prefer marks on the planned route",
+        "note": "A local target can fund progress; a distant one can consume the entire operation."
+      },
+      {
+        "title": "Choose army or assassin deliberately",
+        "note": "Battle, ordinary agent action and the Hand have different target permissions and travel costs. An ordinary Noble's Assassinate targets enemy heroes; the Hand's exceptional assassination can target a general; beating a target's army suits a target already on the route. Do not plan a normal Noble action on a general it cannot target."
+      },
+      {
+        "title": "Estimate travel with a spare turn",
+        "note": "Use the mission's displayed expiry turn, add any preparation or recovery wait, and keep a safety buffer. An exact last-turn arrival is not a reliable plan and the target may move or be destroyed before you arrive."
+      },
+      {
+        "title": "Collect and check the actual reward",
+        "note": "Read the completed mission rather than assuming every target pays the same amount."
+      },
+      {
+        "title": "Keep the VCO counters separate",
+        "note": "A marked character defeated in battle does not automatically count as one of Route III's 25 successful Assassinate actions."
+      }
+    ],
+    "details": [
+      [
+        "Failure to pursue is a choice",
+        "Let an impractical mark expire rather than dragging the only defending army across the continent. The route's main objective outranks a side bounty."
+      ],
+      [
+        "A single kill can serve two plans",
+        "A marked Dark Elf lord required by the route can be efficient to pursue. Confirm each objective separately; do not let one checkbox imply the other."
+      ],
+      [
+        "Choose the method",
+        "Alith's army: appropriate when the target is already on the route and beating its army advances the campaign; do not strip the homeland for a marginal bounty. Ordinary Noble: useful for enemy heroes and the repeated Assassinate objective; it cannot target a general. The Hand: a special single-use assassination on a reachable target; summoning happens near Alith, so his location is part of the plan. An already wounded target: wait or pursue a different live objective — a wounded portrait is not an army you can assassinate again this turn."
+      ],
+      [
+        "The deadline desk is a travel estimate, not a guarantee",
+        "The archive's timing desk estimated arrival from the live expiry turn, travel turns and a safety buffer. Treat its spare-turns result as assumptions: 'not safely within the entered deadline' means delay or abandon the bounty; 'potentially feasible' still depends on the target staying put. Record the observed location and turn, then re-scout before the final move."
+      ],
+      [
+        "The target board is a note, not the mission",
+        "The archive's shared target board tracked optional marks and operations — target, last known location (region · observed turn), expiry turn (0 if none) and method/preparation (Army / Noble / Hand) — with Scouted / En route / Resolved status. It never silently changed the VCO checklist. When a mark is resolved, still verify any VCO credit in the live mission; an atlas tick is not in-game credit."
+      ],
+      [
+        "Route I and II use",
+        "Use a mark that advances the current operation. Do not abandon the route to chase a remote bounty."
+      ],
+      [
+        "Route III use",
+        "Use a mark that advances the current operation. Track its outcome separately from the 25-action counter."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) treats Marked for Death bounties as optional paid work, with a travel estimate and method guidance from annotated sources. Unknown: live bounty access, deadline behaviour, rewards and whether the installed build changes how marks credit. Open the live mission panel for each mark and compare the displayed deadline, reward and credited action before committing an army or agent; if a credit is unclear, verify it before and after the kill rather than assuming one action type counts."
+      ]
+    ],
+    "sources": [
+      "flc",
+      "vco-script",
+      "hand",
+      "noble-skill"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "flc",
+      "vco-script",
+      "hand",
+      "noble-skill"
+    ]
+  },
+  "hand": {
+    "label": "Shadow Crown",
+    "title": "Use the Hand on the hardest reachable target",
+    "intro": "A powerful specialist, not a replacement for a whole agent network.",
+    "steps": [
+      {
+        "title": "Reaver Patrols → unlock Morai-Heg",
+        "note": "When you can issue a provincial commandment, select Reaver Patrols to satisfy the rite unlock. Then check the actual treasury cost and cooldown; unlocking does not automatically summon the Hand."
+      },
+      {
+        "title": "Position Alith before summoning",
+        "note": "The Hand appears near him. Summoning on the wrong continent can waste most of a target deadline."
+      },
+      {
+        "title": "Identify the lord or hero you need",
+        "note": "The Hand's exceptional assassination can target a general. Ordinary Nobles do not inherit that permission."
+      },
+      {
+        "title": "Move into position without inventing a timer",
+        "note": "Use the hero's live movement and expiry information. Do not assume it teleports to the target."
+      },
+      {
+        "title": "Assassinate; expect the Hand to vanish",
+        "note": "It is a single-use tool. Legendary lords are wounded, not removed permanently from the campaign."
+      },
+      {
+        "title": "Record the result, then plan the cooldown",
+        "note": "Route III still needs a parallel stream of ordinary successful actions and verified wounded-lord credits. Keep a save before the route's final trigger and note what the live panel actually credits or awards."
+      }
+    ],
+    "details": [
+      [
+        "Why not summon on every cooldown?",
+        "It spends money and creates another traveller. A ready rite may be worth keeping until a dangerous or inaccessible lord presents a useful window."
+      ],
+      [
+        "What guaranteed means here",
+        "The documented special assassination succeeds, but reaching a valid target is still your responsibility. A target already wounded, destroyed or moved is not an actionable army on the map."
+      ],
+      [
+        "The Hand is not the whole network",
+        "The public sources do not settle wound-flag persistence. Until you observe it, preserve a plan for overlapping final strikes. The Hand cannot replace all the ordinary agent work, and a revered seat is not 25 successful actions."
+      ],
+      [
+        "Summon location is a live check",
+        "The archived 9.0 UI note says the Hand is summoned to the faction leader, so this guide positions Alith before summoning rather than assuming the starting capital is its spawn point. This package did not verify the player's current game or mod. Inspect the live summon preview and Alith's location before committing the one-use agent to a distant target; if the displayed location or route is unsafe, move Alith into reach first or use another available agent or army."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) describes the Morai-Heg unlock via Reaver Patrols, a summon near Alith, a guaranteed special assassination, a single use, and wounds rather than permanent removal, from annotated sources and an older public script. Unknown: the installed rite cost, cooldown, summon preview, target permission and wound behaviour. Check the live rite panel and the target's current state before spending the rite; if the summon location or permission differs, follow the live values and do not assume a remote spawn or a general target for an ordinary agent."
+      ]
+    ],
+    "sources": [
+      "hand",
+      "rites",
+      "flc",
+      "rite-script",
+      "rite-ui"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "hand",
+      "rites",
+      "flc",
+      "rite-script",
+      "rite-ui"
+    ]
+  },
+  "influence": {
+    "label": "Influence",
+    "title": "Spend political capital where it changes the route",
+    "intro": "Separate gold, Influence and Favour of the Phoenix King. None is an automatic substitute for the others.",
+    "steps": [
+      {
+        "title": "Build a repeatable Influence income",
+        "note": "Elven Gardens, Entertainment and useful agent work reduce dependence on sporadic rewards. Count only confirmed passive income; do not plan on speculative mission rewards."
+      },
+      {
+        "title": "Reserve for useful recruit traits",
+        "note": "Buy a solid character for the next real army or agent slot, not an endless speculative collection."
+      },
+      {
+        "title": "Fund one valuable patronage improvement",
+        "note": "Alith's initial Tiranoc seat is a practical starting point; check the current level and upgrade price."
+      },
+      {
+        "title": "Use Intrigue for a specific agreement",
+        "note": "Adjust relations to enable a useful trade, access or eligible alliance, not simply to make every portrait green."
+      },
+      {
+        "title": "Leave a contingency reserve",
+        "note": "The spending desk separates trait, patronage and diplomacy purchases so one click does not consume the next operation's budget. Keep the reserve intact and do not spend future income ahead of it."
+      },
+      {
+        "title": "Evaluate confederation as an acquisition",
+        "note": "A Court of Unity opportunity is not a command. Assess income, armies, exposed borders and ownership restrictions first."
+      }
+    ],
+    "details": [
+      [
+        "Espionage and trade",
+        "High Elf trade relationships can improve information as well as income. Use revealed territory as a search lead, not proof that the target remained there."
+      ],
+      [
+        "A treaty type matters",
+        "Non-aggression and trade alone are not equivalent to military-allied control for a VCO search. Confirm the actual accepted relationship in the objective."
+      ],
+      [
+        "No character-trait exploitation required",
+        "The plans do not rely on stacking dozens of identical economic traits or repeatedly fishing the recruitment pool."
+      ],
+      [
+        "Enter the actual wallet",
+        "The archive's Influence desk used the current Influence balance and confirmed passive income only; gold and Favour of the Phoenix King were not added to that balance. Keep reserve and planning turns in mind: an estimate that consumes the contingency reserve is not a safe purchase, an unaffordable one means removing a purchase or waiting for real income, and the actual price must still be checked before committing."
+      ],
+      [
+        "What earns a purchase, by route",
+        "Conquest: a meaningful upkeep/recovery patronage or a useful new field commander; do not empty the wallet on diplomacy with someone you do not need. Relic expedition: an agreement that can legitimately credit a candidate or make a staging region safer; keep a character reserve rather than buying every seat. The Eternal War: useful Noble recruitment, the court supporting the agents, and agreements that shorten the hunt; a prestigious seat is not 25 successful actions."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) advises repeatable Influence income, a character/diplomacy reserve, per-purpose purchases and separate budgets, from annotated sources. Unknown: current Influence income, trait costs, seat prices and Intrigue interactions, and whether the installed build assigns credit as the archive assumes. Open the live political panel and current balance before spending; if prices, income or credit differ, follow the live values and keep the reserve rather than trusting an archived estimate."
+      ]
+    ],
+    "sources": [
+      "ca7",
+      "court",
+      "order",
+      "nagarythe",
+      "court2"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "ca7",
+      "court",
+      "order",
+      "nagarythe",
+      "court2"
+    ]
+  },
+  "patrons": {
+    "label": "Patrons",
+    "title": "A patronage plan, not eleven mandatory seats",
+    "intro": "The shared High Elf rework gives Alith political tools without giving him Tyrion's or Teclis's personal mechanics.",
+    "steps": [
+      {
+        "title": "Inspect the starting Tiranoc seat",
+        "note": "Alith does not automatically start as Nagarythe's patron. Read the level and own-army upkeep benefit."
+      },
+      {
+        "title": "Upgrade the seat serving the main army",
+        "note": "A stronger Tiranoc position is a sensible first investment when it pays back against actual upkeep."
+      },
+      {
+        "title": "Add Avelorn for sustained campaigning",
+        "note": "Replenishment support suits veterans, provided the seat is accessible and affordable."
+      },
+      {
+        "title": "Match a later seat to the route",
+        "note": "Saphery suits a caster-led expedition; Nagarythe suits the reclaimed homeland's theme and its displayed benefits."
+      },
+      {
+        "title": "Build Favour through the actual activities",
+        "note": "The Phoenix King's Favour is distinct from Influence. Check its current tasks and the court's requirements."
+      },
+      {
+        "title": "Use Court of Unity selectively",
+        "note": "Required patronages and Favour can open eligible confederations; do not assume the feature unlocks paid WH2 legendary lords."
+      }
+    ],
+    "details": [
+      [
+        "Who must own the capital?",
+        "The relevant capital must be under High Elf control for its seat to be available. It need not always be under your direct ownership. Losing High Elf control can affect access."
+      ],
+      [
+        "Not every themed seat buffs walkers",
+        "Nagarythe is an attractive narrative choice, but read the troop list. Do not mistake a militia or march benefit for a unique Shadow-walker damage bonus."
+      ],
+      [
+        "The other lords' buttons stay theirs",
+        "Champion of Ulthuan, Secrets of the White Tower, Asur Domination and Dragonships are not a shared Alith upgrade tree."
+      ],
+      [
+        "A seat is not a province",
+        "Holding a patronage seat is not ownership of its entire province, and a military alliance is not permission to build Tor Anlec's landmark yourself. Keep those conditions separate."
+      ],
+      [
+        "Review like a record, not an automation",
+        "The archive's political ledger was a manual priority record, not a promise that every seat is currently available. Review the Tiranoc starting seat and its own-army upkeep value, buy the first useful upgrade only with a reserve still held for characters and diplomacy, buy Avelorn only when accessible and useful for the active forces, pick the route-specific later seat (Saphery or Nagarythe can fit, but read the actual benefits) and check Court of Unity requirements with Favour and other patronages separate from Influence. Record seats as seat → patron → current tier → why it matters, and note the next useful agreement with its expected benefit and Influence budget."
+      ],
+      [
+        "Route I priority",
+        "Stalking and forward camps first; Tiranoc/recovery patronage and well-timed rites keep the army active. Marks are useful side work, not a reason to leave the cities undefended."
+      ],
+      [
+        "Route II priority",
+        "Pathways, target intelligence and a reserved political budget matter most. Use patronage and rites to reduce downtime instead of chasing every marked bounty."
+      ],
+      [
+        "Route III priority",
+        "Agents and Influence become early investments. Save Morai-Heg for difficult reachable lords; normal Nobles build the repeated-action counter. Record wound evidence instead of assuming universal recovery timing."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) describes Alith's starting Tiranoc patronage, seat-level upgrades, Avelorn recovery, route-matched later seats and the Court of Unity from the rework overview and secondary references, not a verified installed build. Unknown: current seat levels, Influence costs, accessibility and Favour tasks. Open the live Patrons panel and check each seat's level, price and effect before upgrading; if the seat set or benefits differ, follow the displayed values and treat this plan as priority guidance."
+      ]
+    ],
+    "sources": [
+      "ca7",
+      "patrons"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "ca7",
+      "patrons"
+    ]
+  },
+  "rites": {
+    "label": "Rites",
+    "title": "Time rites around a useful window",
+    "intro": "There is no universal best rite on every cooldown. Match the purchase to a construction, recovery or assassination operation.",
+    "steps": [
+      {
+        "title": "Asuryan before a building programme",
+        "note": "Use the current construction/economic benefits when several worthwhile buildings are ready, not when the treasury is empty."
+      },
+      {
+        "title": "Isha before a recovery-heavy operation",
+        "note": "Read its duration and effects, then use the recovery window to get valuable armies moving again."
+      },
+      {
+        "title": "Morai-Heg for a prepared assassination",
+        "note": "Position Alith, verify the target and use the Hand purposefully. See the Shadow Crown tab."
+      },
+      {
+        "title": "Vaul for an item or siege opportunity",
+        "note": "Check the actual reward and any accompanying battle ability. It is not a substitute for owning the VCO amulet."
+      },
+      {
+        "title": "Avoid spending the emergency reserve",
+        "note": "A useful rite is still optional when it leaves you unable to replace a lost unit or defend a port."
+      },
+      {
+        "title": "Record cooldowns and target deadlines",
+        "note": "The shared operation planning should prevent a faction-wide tool being promised to two theatres at once."
+      }
+    ],
+    "details": [
+      [
+        "Morai-Heg replaces Hoeth",
+        "Do not follow a generic High Elf guide that tells Alith to trigger the standard Hoeth rite."
+      ],
+      [
+        "Route emphasis",
+        "Conquest values coordinated recovery and construction. The relic expedition values travel support and selective spending. The Eternal War schedules Morai-Heg around named-lord windows rather than trying to generate all 25 actions from it."
+      ],
+      [
+        "Unlocks before spending",
+        "Asuryan: your faction leader reaches rank 5. Isha: hold three settlements. Morai-Heg: issue Reaver Patrols. Vaul: complete three technologies. These unlock conditions are separate from paying for or completing the rite; an existing campaign may already have met the triggers."
+      ],
+      [
+        "Rites have their own costs and cooldowns",
+        "Each rite has a separate treasury cost and cooldown once unlocked. Read the current tooltip values and the displayed cooldown before buying; do not schedule one faction-wide rite for two theatres at once or assume a met unlock automatically also funds or completes the rite."
+      ],
+      [
+        "Archive scope and live check",
+        "Known: the archived 30 September 2026 atlas (version 2026.09.30.1) lists the four High Elf rites — Isha, Asuryan, Vaul and Alith's Morai-Heg replacing the standard Hoeth — with unlock conditions from archived script and UI notes. Unknown: the installed costs, durations, cooldowns, effects and unlock state. Open the live rites panel and compare each cost, duration, cooldown and any displayed unlock trigger before spending; if values or unlocks differ, follow the live panel and keep the emergency reserve."
+      ]
+    ],
+    "sources": [
+      "rites",
+      "hand",
+      "rite-script",
+      "rite-ui"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "rites",
+      "hand",
+      "rite-script",
+      "rite-ui"
+    ]
+  }
+}
