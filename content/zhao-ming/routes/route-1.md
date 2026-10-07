@@ -14,7 +14,7 @@ reward:
 bottleneck: "Three independent economic counters plus a landmark; caravan completions and goods moved are not interchangeable."
 panelOrder:
   armies: []
-  skills: []
+  skills: [zhao-route-1, celestial-general, alchemist, gate-master, caravan-master, astromancer, yin-shugengan]
   research: []
   buildings: []
   mechanics: []

@@ -14,7 +14,7 @@ reward:
 bottleneck: "Four named provinces and three faction-level targets; province control, faction defeat, and character wounds are distinct conditions."
 panelOrder:
   armies: []
-  skills: []
+  skills: [zhao-route-3, celestial-general, alchemist, gate-master, caravan-master, astromancer, yin-shugengan]
   research: []
   buildings: []
   mechanics: []

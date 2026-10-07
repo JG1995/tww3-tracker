@@ -14,7 +14,7 @@ reward:
 bottleneck: "Five fixed, distant settlement targets; the current author's wording is ‘raze or conquer,’ not sack."
 panelOrder:
   armies: []
-  skills: []
+  skills: [zhao-route-2, celestial-general, alchemist, gate-master, caravan-master, astromancer, yin-shugengan]
   research: []
   buildings: []
   mechanics: []
