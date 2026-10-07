@@ -128,7 +128,7 @@ The four packages in order; after Commit 4 the thinnest path is live end-to-end:
 
 #### Package `search-query-layer` — Commit 1: The tokenized cross-guide search contract in the query layer
 
-**Status:** Planned
+**Status:** Integrated
 
 **Wave:** 1
 

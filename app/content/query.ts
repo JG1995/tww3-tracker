@@ -3,6 +3,12 @@
  * No I/O and no mutation: every lookup returns either the value or a typed
  * not-found result, exactly like the hash router's unknown routes render an
  * explicit not-found view instead of a blank page.
+ *
+ * The module also owns the cross-guide search (F6; ARCHITECTURE names this
+ * file as the engine's home): `buildSearchIndex` and `searchContent` build
+ * the searchable corpus from and match tokenized queries over the same
+ * immutable tree, keeping the naive tokenized engine and its MiniSearch
+ * upgrade path inside this file (ARCHITECTURE §1.1 performance).
  */
 
 import {
@@ -17,6 +23,7 @@ import {
   type Route,
   type Section,
   type Source,
+  type UnitRow,
   type VcoItem,
   PANEL_GROUPS,
 } from "./types.ts";
@@ -308,4 +315,426 @@ export function getFlaggedEntries(lord: Lord): readonly FlaggedEntry[] {
     }
   }
   return entries;
+}
+
+// ─── Cross-guide search (F6; DESIGN §2 corpus, §4 landing targets) ──────────
+
+/**
+ * The nine searchable corpus families (DESIGN §2 "Corpus"): every rendered
+ * content family the search indexes, closed so hits can never name a new one.
+ */
+export type SearchIndexEntryKind =
+  | "section"
+  | "shared"
+  | "army"
+  | "skill"
+  | "research"
+  | "building"
+  | "mechanic"
+  | "vco"
+  | "source";
+
+/**
+ * One searchable corpus entry (DESIGN §2): a single unit of searchable text
+ * with its stable breadcrumb identity. `routeId` is the manifest route id for
+ * the route-scoped kinds and `null` for the lord-wide kinds (`shared`,
+ * `source`). `text` and `title` are plain strings — the two HTML-stored
+ * families (`Section.html`, `sharedHtml`) are tag-stripped at index time.
+ */
+export interface SearchIndexEntry {
+  readonly kind: SearchIndexEntryKind;
+  readonly lordSlug: string;
+  readonly routeId: string | null;
+  readonly title: string;
+  readonly text: string;
+}
+
+/** One matched range inside a hit's snippet, relative to the snippet text. */
+export interface SearchOccurrence {
+  readonly start: number;
+  readonly end: number;
+}
+
+/**
+ * One search result hit (DESIGN §4): the entry's breadcrumb identity, the
+ * fixed per-kind category label, the plain-text snippet, the matched ranges
+ * inside it, and the DESIGN §4 landing-target hash. Never HTML: the view
+ * renders text nodes around `occurrences`.
+ */
+export interface SearchHit {
+  readonly kind: SearchIndexEntryKind;
+  readonly lordSlug: string;
+  readonly faction: string;
+  readonly routeId: string | null;
+  /** `${route.number} · ${route.name}`, or `null` for the lord-wide kinds. */
+  readonly routeLabel: string | null;
+  readonly category: string;
+  readonly title: string;
+  readonly snippet: string;
+  readonly occurrences: readonly SearchOccurrence[];
+  readonly href: string;
+}
+
+/** The result of one tokenized query: the full match count plus the first 30 hits. */
+export interface SearchResults {
+  readonly total: number;
+  readonly hits: readonly SearchHit[];
+}
+
+/** The fixed category eyebrow per kind (DESIGN §2/§4). */
+const CATEGORY_LABEL: Readonly<Record<SearchIndexEntryKind, string>> = {
+  section: "Route plan",
+  shared: "Shared fundamentals",
+  army: "Army templates",
+  skill: "Lord & hero skills",
+  research: "Research priorities",
+  building: "Settlement builds",
+  mechanic: "Unique mechanics",
+  vco: "VCO objective",
+  source: "Sources",
+};
+
+/** The four flat item dataset names, as their per-kind label maps to them. */
+const isItemKind = (name: LordDataset["name"]): name is ItemDatasetName =>
+  name === "skills" || name === "research" || name === "buildings" || name === "mechanics";
+
+/** Dataset name → index kind (the four flat datasets use plural names; the kinds are singular). */
+const ITEM_KIND_BY_NAME: Readonly<Record<ItemDatasetName, "skill" | "research" | "building" | "mechanic">> = {
+  skills: "skill",
+  research: "research",
+  buildings: "building",
+  mechanics: "mechanic",
+};
+
+/** The result list cap (DESIGN §2 "30+" convention). */
+const MAX_HITS = 30;
+/** Whole-text shortcut threshold and half-window size for the snippet. */
+const SNIPPET_WHOLE = 200;
+const SNIPPET_HALF = 100;
+/** The vco title lead-in cap (first sentence, truncated with an ellipsis). */
+const VCO_LEAD_MAX = 72;
+
+/**
+ * Tag-strips one rendered HTML string by replacing every tag with a space
+ * (DESIGN §2 corpus: the two HTML-stored families). Recorded naivety: no
+ * entity decoding, so `&amp;` survives verbatim — snippets are plain text
+ * nodes, so this is never a markup- or injection risk.
+ */
+function stripTags(html: string): string {
+  return html.replace(/<[^>]*>/g, " ");
+}
+
+/** ASCII alphanumeric test on a code point (the tokenizer's character class). */
+function isAlnum(code: number): boolean {
+  return (code >= 48 && code <= 57) || (code >= 97 && code <= 122);
+}
+
+/**
+ * Case-folds and splits text into whole tokens on non-alphanumerics, dropping
+ * empties — the match rule's tokenization (plan: tokenize on non-alphanumerics).
+ */
+function toTokens(text: string): readonly string[] {
+  const tokens = text.toLowerCase().split(/[^a-z0-9]+/);
+  return tokens.filter((t) => t.length > 0);
+}
+
+/**
+ * All plain-string rendered fields of one army template (DESIGN §2 armies
+ * corpus): label, name, supportName, every unit/legendary/generic row's name,
+ * role and kind, the size (rendered), the context, and the notes/plan
+ * TitleBody pairs (title and body of each).
+ */
+function armyText(army: Army): string {
+  const rowFields = (rows: readonly UnitRow[]): readonly string[] =>
+    rows.flatMap((row) => [row.name, row.role, row.kind]);
+  return [
+    army.label,
+    army.name,
+    army.supportName ?? "",
+    String(army.size),
+    army.context ?? "",
+    ...rowFields(army.units),
+    ...rowFields(army.legendary),
+    ...rowFields(army.generic),
+    ...army.notes.flatMap(([title, body]) => [title, body]),
+    ...army.plan.flatMap(([title, body]) => [title, body]),
+  ].join(" ");
+}
+
+/**
+ * All plain-string fields of one flat dataset item (DESIGN §2 items corpus):
+ * label, title, intro, every step's title/note/gate/short, and the details
+ * TitleBody pairs (title and body of each).
+ */
+function itemText(item: Item): string {
+  return [
+    item.label,
+    item.title,
+    item.intro,
+    ...item.steps.flatMap((step) => [step.title, step.note, step.gate ?? "", step.short ?? ""]),
+    ...(item.details ?? []).flatMap(([title, body]) => [title, body]),
+  ].join(" ");
+}
+
+/**
+ * The vco entry title: `id · lead` where `lead` is the first sentence of the
+ * item text (up to the first `". "`, else the whole text), truncated at 72
+ * chars with a trailing ellipsis when truncated.
+ */
+function vcoTitle(item: VcoItem): string {
+  const dot = item.text.indexOf(". ");
+  const firstSentence = dot === -1 ? item.text : item.text.slice(0, dot + 1);
+  const lead =
+    firstSentence.length > VCO_LEAD_MAX ? `${firstSentence.slice(0, VCO_LEAD_MAX)}…` : firstSentence;
+  return `${item.id} · ${lead}`;
+}
+
+/**
+ * The internal corpus walk result: the public index shape plus the section
+ * anchor id, which the section landing href needs (DESIGN §4) but the public
+ * `SearchIndexEntry` contract does not carry.
+ */
+type CorpusEntry =
+  | (SearchIndexEntry & { readonly kind: "section"; readonly sectionId: string })
+  | (SearchIndexEntry & { readonly kind: Exclude<SearchIndexEntryKind, "section"> });
+
+/**
+ * Builds the searchable corpus in exact hit order (DESIGN §2): lords in
+ * manifest order; within a lord, routes in manifest order, each contributing
+ * sections (document order), armies of `armies[route.id]` (dataset key
+ * order), the four flat item datasets in `lord.datasets` (manifest) order,
+ * and VCO items of `vco[route.id]` (list order) — then, after the routes,
+ * the shared fundamentals and the source entries. `panelOrder`-excluded
+ * entries stay in the corpus (recorded plan decision). Pure: reads the
+ * immutable tree, never throws.
+ */
+function walkCorpus(tree: ContentTree): readonly CorpusEntry[] {
+  const entries: CorpusEntry[] = [];
+  for (const lord of tree.lords) {
+    for (const route of lord.routes) {
+      for (const section of route.sections) {
+        entries.push({
+          kind: "section",
+          lordSlug: lord.slug,
+          routeId: route.id,
+          title: section.title,
+          text: stripTags(section.html),
+          sectionId: section.id,
+        });
+      }
+      const routeArmies = lord.datasets.find((d) => d.name === "armies")?.value[route.id];
+      for (const army of Object.values(routeArmies ?? {})) {
+        entries.push({
+          kind: "army",
+          lordSlug: lord.slug,
+          routeId: route.id,
+          title: army.name,
+          text: armyText(army),
+        });
+      }
+      for (const dataset of lord.datasets) {
+        if (!isItemKind(dataset.name)) continue;
+        for (const item of Object.values(dataset.value)) {
+          entries.push({
+            kind: ITEM_KIND_BY_NAME[dataset.name],
+            lordSlug: lord.slug,
+            routeId: route.id,
+            title: item.title,
+            text: itemText(item),
+          });
+        }
+      }
+      for (const item of getVcoObjectives(lord, route.id)) {
+        entries.push({
+          kind: "vco",
+          lordSlug: lord.slug,
+          routeId: route.id,
+          title: vcoTitle(item),
+          text: `${item.id} ${item.text}`,
+        });
+      }
+    }
+    entries.push({
+      kind: "shared",
+      lordSlug: lord.slug,
+      routeId: null,
+      title: "Shared fundamentals",
+      text: stripTags(lord.sharedHtml),
+    });
+    const sources = lord.datasets.find((d) => d.name === "sources");
+    if (sources !== undefined) {
+      for (const source of sources.value) {
+        entries.push({
+          kind: "source",
+          lordSlug: lord.slug,
+          routeId: null,
+          title: source.title,
+          text: `${source.title} ${source.note}`,
+        });
+      }
+    }
+  }
+  return entries;
+}
+
+/**
+ * The searchable corpus in hit order (DESIGN §2), in the public read-only
+ * shape — the internal walk minus the section anchor. Index order is hit
+ * order: stable, never re-sorted.
+ */
+export function buildSearchIndex(tree: ContentTree): readonly SearchIndexEntry[] {
+  return walkCorpus(tree).map((entry) => ({
+    kind: entry.kind,
+    lordSlug: entry.lordSlug,
+    routeId: entry.routeId,
+    title: entry.title,
+    text: entry.text,
+  }));
+}
+
+/**
+ * The DESIGN §4 landing-target hash for one entry — the seven shapes
+ * verbatim. Route-scoped kinds always have a `routeId`; the lord-wide kinds
+ * take the fixed shapes.
+ */
+function landingHref(entry: CorpusEntry): string {
+  const root = `#/${entry.lordSlug}`;
+  switch (entry.kind) {
+    case "section":
+      return `${root}/plan/${entry.routeId}/${entry.sectionId}`;
+    case "shared":
+      return root;
+    case "army":
+    case "skill":
+    case "research":
+      return `${root}/armies/${entry.routeId}`;
+    case "building":
+      return `${root}/settlements/${entry.routeId}`;
+    case "mechanic":
+      return `${root}/workshop/${entry.routeId}`;
+    case "vco":
+      return `${root}/plan/${entry.routeId}`;
+    case "source":
+      return `${root}/sources`;
+    default: {
+      // Unreachable: the kind union is closed and every case returns above.
+      // The never guard turns a new kind into a compile error at this case
+      // instead of a silently empty landing hash.
+      const exhaustive: never = entry;
+      return exhaustive;
+    }
+  }
+}
+
+/**
+ * The first left-boundary prefix occurrence of `token` in the folded text,
+ * or -1. A match starts where an alphanumeric run begins (start of text or
+ * after a non-alphanumeric) and that run starts with the query token.
+ */
+function firstMatchPosition(folded: string, token: string): number {
+  for (let i = 0; i <= folded.length - token.length; i++) {
+    if (!isAlnum(folded.charCodeAt(i))) continue;
+    if (i > 0 && isAlnum(folded.charCodeAt(i - 1))) continue;
+    if (folded.startsWith(token, i)) return i;
+  }
+  return -1;
+}
+
+/**
+ * The plain-text snippet (DESIGN §2): the whole joined text when it is short,
+ * otherwise a ~200-char window around the first occurrence of the first query
+ * token, widened to token boundaries and clamped at the text edges. Positions
+ * come from the case-folded text; the slice is taken from the original, which
+ * is index-identical over the ASCII token runs this corpus produces.
+ */
+function makeSnippet(joined: string, folded: string, firstToken: string): string {
+  if (joined.length <= SNIPPET_WHOLE) return joined;
+  const match = firstMatchPosition(folded, firstToken);
+  let start = Math.max(0, match - SNIPPET_HALF);
+  let end = Math.min(joined.length, match + SNIPPET_HALF);
+  while (start > 0 && isAlnum(folded.charCodeAt(start - 1))) start--;
+  while (end < joined.length && isAlnum(folded.charCodeAt(end))) end++;
+  return joined.slice(start, end);
+}
+
+/**
+ * Every non-overlapping left-boundary prefix match of any query token inside
+ * the snippet, as `{ start, end }` ranges relative to the snippet. At a run
+ * start that several query tokens prefix, the longest token is recorded (the
+ * most informative highlight); scanning continues past each recorded match,
+ * so ranges never overlap.
+ */
+function findOccurrences(snippet: string, queryTokens: readonly string[]): readonly SearchOccurrence[] {
+  const folded = snippet.toLowerCase();
+  const occurrences: SearchOccurrence[] = [];
+  let i = 0;
+  while (i < folded.length) {
+    if (isAlnum(folded.charCodeAt(i)) && (i === 0 || !isAlnum(folded.charCodeAt(i - 1)))) {
+      let best: string | null = null;
+      for (const token of queryTokens) {
+        if (folded.startsWith(token, i) && (best === null || token.length > best.length)) best = token;
+      }
+      if (best !== null) {
+        occurrences.push({ start: i, end: i + best.length });
+        i += best.length;
+        continue;
+      }
+    }
+    i++;
+  }
+  return occurrences;
+}
+
+/** Assembles one hit for a matched entry (faction/route lookup + snippet/href). */
+function assembleHit(
+  entry: CorpusEntry,
+  queryTokens: readonly string[],
+  joined: string,
+  folded: string,
+  lordsBySlug: Map<string, Lord>,
+): SearchHit {
+  const lord = lordsBySlug.get(entry.lordSlug);
+  // The walk emits only real routes, so route-scoped entries always resolve.
+  const route = entry.routeId === null ? undefined : lord?.routes.find((r) => r.id === entry.routeId);
+  const snippet = makeSnippet(joined, folded, queryTokens[0]);
+  return {
+    kind: entry.kind,
+    lordSlug: entry.lordSlug,
+    faction: lord?.guide.faction ?? "",
+    routeId: entry.routeId,
+    routeLabel: route === undefined ? null : `${route.number} · ${route.name}`,
+    category: CATEGORY_LABEL[entry.kind],
+    title: entry.title,
+    snippet,
+    occurrences: findOccurrences(snippet, queryTokens),
+    href: landingHref(entry),
+  };
+}
+
+/**
+ * Tokenized cross-guide search (DESIGN §2/§4, ARCHITECTURE §1.1). Case-folds
+ * the query and every entry's joined `title + " " + text`; an entry matches
+ * when every query token is a left-word-boundary prefix of at least one entry
+ * token (AND). A query with no tokens (empty, whitespace, punctuation-only)
+ * returns zero hits. No ranking: hits keep index order; `total` counts every
+ * match and `hits` holds the first 30. Pure: reads the immutable tree only,
+ * never throws.
+ */
+export function searchContent(tree: ContentTree, query: string): SearchResults {
+  const queryTokens = toTokens(query);
+  if (queryTokens.length === 0) return { total: 0, hits: [] };
+
+  const lordsBySlug = new Map(tree.lords.map((lord) => [lord.slug, lord]));
+  const hits: SearchHit[] = [];
+  let total = 0;
+  for (const entry of walkCorpus(tree)) {
+    const joined = `${entry.title} ${entry.text}`;
+    const folded = joined.toLowerCase();
+    const entryTokens = toTokens(folded);
+    if (!queryTokens.every((queryToken) => entryTokens.some((t) => t.startsWith(queryToken)))) continue;
+    total++;
+    if (hits.length >= MAX_HITS) continue;
+    hits.push(assembleHit(entry, queryTokens, joined, folded, lordsBySlug));
+  }
+  return { total, hits };
 }
