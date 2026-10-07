@@ -16,6 +16,8 @@
  * owns every `document`/`window`/`<dialog>` interaction — the open/close
  * effect (showModal + field focus; `close()` on close), the ~150 ms
  * debounced results, the field keydown (wrapping arrows, Enter to navigate),
+ * the dialog keydown (Escape closes — owned here because Chromium 153 stops
+ * the native cancel → close chain once the search input's value is set),
  * the backdrop click (a click whose target is the `<dialog>` element itself
  * closes it — DESIGN §2/§6), the global `/` shortcut, and the close event's
  * focus restore with the `isConnected` guard (the reference atlases'
@@ -327,6 +329,23 @@ export function SearchDialog(props: SearchDialogProps): JSX.Element {
     };
     dialog.addEventListener("click", onDialogClick);
     return () => dialog.removeEventListener("click", onDialogClick);
+  }, []);
+
+  // Escape close, owned here rather than by the UA (Chromium 153 bug, found
+  // in the feature's manual boot): once the search input's value is set while
+  // the modal is open, Chromium stops firing the native keydown → cancel →
+  // close chain, so Escape silently stops closing the dialog. Closing here on
+  // keydown keeps dismissal deterministic in every state; the native path and
+  // this one converge on the same `close` event, so focus restore and shell
+  // sync run once through that single path.
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (dialog === null) return;
+    const onDialogKeyDown = (event: KeyboardEvent): void => {
+      if (event.key === "Escape") dialog.close();
+    };
+    dialog.addEventListener("keydown", onDialogKeyDown);
+    return () => dialog.removeEventListener("keydown", onDialogKeyDown);
   }, []);
 
   // The global "/" shortcut — active only while this component is mounted:
