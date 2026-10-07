@@ -532,7 +532,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `alith-route-three` — Commit 21: Complete Alith's vengeance route
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 10
 **Depends on:** ["alith-armies"]
 **Write scope:** ["content/alith-anar/routes/route-3.md"]
@@ -546,6 +546,9 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 **Validation:** Common package gate; no new test cases or assets.
 **Stop conditions:** Common stops; owned meaningful Alith route material without a visible home or a strategy-changing wound/action correction. Expected sibling incompleteness on the frozen base is not a blocker.
 **Review mandate:** Complete chronology/targets/condition separation and route-local coverage report; no missing continuation, hidden consequential uncertainty or premature whole-guide proof claim.
+- [x] All eight sections and five phase summaries completed with full archive coverage; all named-target advice, phase/use notes and both continuations (III→I, III→II) in visible homes with anchors resolving on the candidate base.
+- [x] Anlec/action/wound distinctions and conservative persistence fallback preserved (linked, not restated); route-III hand/marks swap linked; established identity/selections/flags byte-preserved; exactly 5 operational gap markers + Opening PARTIAL notice removed, checked claims retained.
+- [x] Gates green (214/214); fresh reviewer 21 (f370b26a) Accept, no findings at any tier; Jev suitable .98 / review .79. Alith plan coverage now complete; whole-guide destination proof remains serial close-out.
 
 #### Package `zhao-route-three` — Commit 22: Complete Zhao's western-realm route
 
