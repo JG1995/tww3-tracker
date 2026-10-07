@@ -552,7 +552,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `zhao-route-three` — Commit 22: Complete Zhao's western-realm route
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 10
 **Depends on:** ["zhao-armies"]
 **Write scope:** ["content/zhao-ming/routes/route-3.md"]
@@ -566,6 +566,9 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 **Validation:** Common package gate; no new test cases or assets.
 **Stop conditions:** Common stops; unrepresented owned meaningful Zhao route material or a correction changing corridor strategy. Expected sibling incompleteness on the frozen base is not a blocker.
 **Review mandate:** Whole-province control and faction elimination are not friendship, one town or a wounded lord; all owned meaningful guidance remains visible without a premature whole-guide proof claim.
+- [x] All eight sections and five phase summaries completed with full archive coverage; all four province/three faction records, phase/use advice and both continuations (III→I, III→II) in visible homes with anchors resolving on the candidate base.
+- [x] Independent skill/capital priorities, control-versus-elimination distinctions and post-victory capacity/tariff limits preserved; established identity/selections/flags byte-preserved; only this route's operational partial notices removed, checked claims retained.
+- [x] Gates green (214/214); fresh reviewer 22 (f518ad19) Accept, no findings at any tier; Jev suitable .99 / review .83. All 22 packages Integrated; whole-guide destination proof, aggregate reconciliation and browser validation remain serial close-out.
 
 ## Discoveries and replanning
 
