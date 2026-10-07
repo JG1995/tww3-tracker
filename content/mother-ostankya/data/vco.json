@@ -1,1 +1,104 @@
-{}
+{
+  "route-1": [
+    {
+      "id": "hex-purification-chant",
+      "text": "Purification Chant — one of the five campaign Hexes the route's objective requires (published wording: “obtain the 5 Hexes”). Check how this Hex's completion is counted in the live objective panel before repeating similar work.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide-check"]
+    },
+    {
+      "id": "hex-covens-cursemark",
+      "text": "Coven's Cursemark — one of the five campaign Hexes the route's objective requires (published wording: “obtain the 5 Hexes”). Check how this Hex's completion is counted in the live objective panel before repeating similar work.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide-check", "vco-missions-v516"]
+    },
+    {
+      "id": "hex-jinxed-land",
+      "text": "Jinxed Land — one of the five campaign Hexes the route's objective requires (published wording: “obtain the 5 Hexes”). Check how this Hex's completion is counted in the live objective panel before repeating similar work.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide-check"]
+    },
+    {
+      "id": "hex-bewitching-lure",
+      "text": "Bewitching Lure — one of the five campaign Hexes the route's objective requires (published wording: “obtain the 5 Hexes”). Check how this Hex's completion is counted in the live objective panel before repeating similar work.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide-check"]
+    },
+    {
+      "id": "hex-recreant-spirit",
+      "text": "Recreant Spirit — one of the five campaign Hexes the route's objective requires (published wording: “obtain the 5 Hexes”). Check how this Hex's completion is counted in the live objective panel before repeating similar work.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide-check"]
+    },
+    {
+      "id": "complete-malediction-ritual",
+      "text": "Unleash the Malediction of Ruin — the final ritual condition. The pinned v5.16.0 mission checks the final set-piece battle; the current guide's wording is broad. The atlas does not silently add a separate map-cast requirement: track a map cast only when your actual mission requests one. Check the live final trigger before preparing the finale.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide-check", "vco-missions-v516"]
+    }
+  ],
+  "route-2": [
+    {
+      "id": "collect-itxi-grubs",
+      "text": "Complete the Itxi Grubs settlement objective. Published wording is to “search” the six candidate settlements (Skeggi, Hexoatl, Pahuax, Floating Pyramid, Spektazuma, The Blood Hall) — search candidates, not eighteen mandatory conquests. The pinned v5.16.0 mission required direct control of three of the six. Installed credit rule unverified: read the live mission and inspect credit after the first representative action.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide-check", "vco-missions-v516"]
+    },
+    {
+      "id": "collect-jungle-lotus-leaves",
+      "text": "Complete the Jungle Lotus Leaves settlement objective. Published wording is to “search” the six candidate settlements (Tlaxtlan, Xlanhuapec, The Sacred Pools, The Awakening, The Star Tower, Altar of the Horned Rat) — search candidates, not eighteen mandatory conquests. The pinned v5.16.0 mission required direct control of three of the six. Installed credit rule unverified: read the live mission and inspect credit after the first representative action.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide-check", "vco-missions-v516"]
+    },
+    {
+      "id": "collect-coatl-feathers",
+      "text": "Complete the Coatl Feathers settlement objective. Published wording is to “search” the six candidate settlements (Hualotal, Great Turtle Isle, The Golden Colossus, Mine of the Bearded Skulls, Oyxl, Kaiax) — search candidates, not eighteen mandatory conquests. The pinned v5.16.0 mission required direct control of three of the six. Installed credit rule unverified: read the live mission and inspect credit after the first representative action.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide-check", "vco-missions-v516"]
+    }
+  ],
+  "route-3": [
+    {
+      "id": "occupy-32-settlements",
+      "text": "Occupy, loot, raze or sack 32 different settlements — a counter of qualifying actions at different locations, not 32 settlements held simultaneously (published wording matches the pinned v5.16.0 OCCUPY_LOOT_RAZE_OR_SACK_X_SETTLEMENTS total 32). Check the live counter's counting rule before planning the frontier war.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide-check", "vco-missions-v516"]
+    },
+    {
+      "id": "eliminate-cult-of-pleasure",
+      "text": "Eliminate the Cult of Pleasure (Morathi). Published faction list; the pinned v5.16.0 mission destroys the faction with confederation_valid — a wounded Morathi is not evidence the faction is gone. Verify the current destruction/credit wording before ceasing operations.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide-check", "vco-missions-v516"]
+    },
+    {
+      "id": "eliminate-exiles-of-nehek",
+      "text": "Eliminate the Exiles of Nehek (Khatep). Published faction list; the pinned v5.16.0 mission destroys the faction with confederation_valid. Verify the current destruction/credit wording before relying on a short-term pact with a target you intend to break.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide-check", "vco-missions-v516"]
+    },
+    {
+      "id": "eliminate-slaughterhorn-tribe",
+      "text": "Eliminate the Slaughterhorn Tribe (Taurox). Published faction list; the pinned v5.16.0 mission destroys the faction with confederation_valid. A ruined settlement alone does not prove a Beastmen faction is gone — scout the surviving army and holdings.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide-check", "vco-missions-v516"]
+    },
+    {
+      "id": "eliminate-the-drowned",
+      "text": "Eliminate The Drowned (Cylostra). Published faction list; the pinned v5.16.0 mission destroys the faction with confederation_valid. Watch coastal approaches and surviving armies rather than assuming a single defeat finishes the faction.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide-check", "vco-missions-v516"]
+    },
+    {
+      "id": "eliminate-naggarond",
+      "text": "Eliminate Naggarond (Malekith). Published faction list; the pinned v5.16.0 mission destroys the faction with confederation_valid. Prepare regional replacements and stable forward provinces before the deep northern campaign.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide-check", "vco-missions-v516"]
+    },
+    {
+      "id": "eliminate-legion-of-the-gorequeen",
+      "text": "Eliminate the Legion of the Gorequeen (Valkia). Published faction list; the pinned v5.16.0 mission destroys the faction with confederation_valid. Avoid banishing a surviving required force with Jinxed Land simply to remove it from view.",
+      "state": "verify-in-campaign",
+      "src": ["vco-guide-check", "vco-missions-v516"]
+    }
+  ]
+}

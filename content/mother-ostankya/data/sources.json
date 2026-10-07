@@ -172,5 +172,35 @@
     "title": "Smart Autoresolve • scope of this guide",
     "url": "",
     "note": "Based on the enabled mod title and description supplied in the conversation. Its exact installed calculations and treatment of spells, Incantations, summons and army abilities have NOT been inspected. No auto-resolve outcome or specialist weighting is guaranteed."
+  },
+  {
+    "id": "vco-guide-check",
+    "title": "VCO • current route guide — Ostankya IE re-read",
+    "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2964052084",
+    "note": "Re-read 2026-10-07 for the VCO contract. The current Immortal Empires section publishes: Route I — obtain the 5 Hexes and unleash the Malediction of Ruin; Route II — “search the following settlements for” Itxi Grubs / Jungle Lotus Leaves / Coatl Feathers with six candidate settlements each and no numeric quota; Route III — occupy, loot, raze or sack 32 different settlements and destroy Cult of Pleasure, Exiles of Nehek, Slaughterhorn Tribe, The Drowned, Naggarond and Legion of the Gorequeen. The three published rewards match the atlas's route reward text. Published wording is not verification of a live trigger, counter credit, or the installed Workshop build."
+  },
+  {
+    "id": "vco-missions-v516",
+    "title": "VCO • pinned Ostankya IE missions (v5.16.0)",
+    "url": "https://github.com/msolefonte/vco/blob/0319bd67e58503b0ff6ca00ff4fee7e9e208020d/src/script/vco-ie/main_warhammer/wh3_dlc24_ksl_daughters_of_the_forest/missions.lua",
+    "note": "Pinned public VCO source at commit 0319bd67e58503b0ff6ca00ff4fee7e9e208020d (v5.16.0, dated 2024-02-29), checked 2026-10-07; the repository's main branch points at this same 2024 commit. Route I pairs a SCRIPTED display objective with FIGHT_SET_PIECE_BATTLE wh3_dlc24_ksl_mother_ostankya_hex_malediction_of_ruin; Route II requires CONTROL_N_REGIONS_FROM total 3 from each six-region group; Route III counts OCCUPY_LOOT_RAZE_OR_SACK_X_SETTLEMENTS total 32 and DESTROY_FACTION over the six factions with confederation_valid. Historical definitions, not the installed Workshop build; the current guide's “search” wording and this old quota are not reconciled by any checked source."
+  },
+  {
+    "id": "vco-payloads-v516",
+    "title": "VCO • pinned payload definitions (v5.16.0)",
+    "url": "https://github.com/msolefonte/vco/blob/0319bd67e58503b0ff6ca00ff4fee7e9e208020d/src/db/effect_bundles_to_effects_junctions_tables/vco.tsv",
+    "note": "Pinned v5.16.0 effect-bundle junctions, checked 2026-10-07, for the three Ostankya victory payloads plus ancillary vco_anc_talisman_lustrian_concoction. Values differ in places from the current guide's published reward text (Route I ward save 10 to the faction leader's force versus published 5% for all armies; Route II charge bonus 20 versus published 25; Route III shows building-cost/income/replenishment effects rather than the published Devotion/recruit-rank/global-recruitment list). Neither side is installed-proof; the live victory panel and tooltips take precedence."
+  },
+  {
+    "id": "vco-changelog-check",
+    "title": "VCO • changelog re-read (reward-fix dates)",
+    "url": "https://steamcommunity.com/sharedfiles/filedetails/changelog/3140200173",
+    "note": "Re-read 2026-10-07. The changelog dates the missing-victory-rewards fix at 6.8.3 (27 September) and describes 6.8.4 (30 September) as the Boris Todbringer Hour of the Wolf hotfix; this corrects the archive catalogue's registration annotation that dated the reward fix at 6.8.4. The reward fix still requires loading a save from before the victory trigger and is not retroactive. No installed-mod version number is asserted."
+  },
+  {
+    "id": "vco-names-check",
+    "title": "VCO • pinned English route localisation (v5.16.0)",
+    "url": "https://github.com/msolefonte/vco/blob/0319bd67e58503b0ff6ca00ff4fee7e9e208020d/src/text/db/vco_victory_types.loc.tsv",
+    "note": "Pinned v5.16.0 English localisation, checked 2026-10-07: the Daughters of the Forest Immortal Empires keys ksl_mot_1/2/3 display “Route I/II/III - The Malediction of Ruin / Toil & Trouble / The New Frontier”. These official strings verify the guide's route titles; the displayed string includes the route-numeral prefix, and the pinned localisation does not certify the player's installed build."
   }
 ]

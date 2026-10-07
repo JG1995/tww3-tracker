@@ -2,15 +2,15 @@
 id: route-1
 number: I
 name: "The Malediction of Ruin"
-vcoTitle: null
+vcoTitle: "The Malediction of Ruin"
 objective:
-  text: "The archive's route catalogue states this route obtains all five campaign Hexes and completes the Malediction of Ruin ritual. That is the archive's published wording, read at registration; the live objective panel, the Hex-spending rule, the final-battle trigger, and the reward sequence have not been checked."
-  state: verify-in-campaign
-  src: [vco-guide]
+  text: "The VCO author's Immortal Empires guide, re-read 2026-10-07, publishes two conditions for this route: obtain the 5 campaign Hexes and unleash the Malediction of Ruin. The pinned v5.16.0 mission pairs the display wording with a final set-piece battle (wh3_dlc24_ksl_mother_ostankya_hex_malediction_of_ruin). This is published wording and a historical definition, not a verified live trigger: the Hex-credit rule and the final-battle trigger remain unobserved."
+  state: confirmed
+  src: [vco-guide-check, vco-missions-v516]
 reward:
-  text: "The archive's route catalogue reports a published reward of corruption reduction for the faction leader and defensive bonuses against Chaos for all armies, and treats it as a post-victory benefit, not part of your pre-victory statistics. Its exact scope, grant timing, and installed-build application are unverified."
-  state: verify-in-campaign
-  src: [vco-guide]
+  text: "Published reward, re-read 2026-10-07: the Malediction of Ruin, corruption −5 for the faction leader, ward save +5% against Chaos and weapon strength +5% against Chaos for all armies; treated as a post-victory benefit, not part of the opening statistics. The live grant, timing, and installed-build application have not been tested, and the pinned v5.16.0 payload definitions show different values and scope in places (see the sources notes)."
+  state: confirmed
+  src: [vco-guide-check, vco-payloads-v516]
 interpretation: "A ritual campaign: secure a safe base and an active coven, then let battles, Incantations and Hexes carry the witchcraft progression toward the great ritual; territory is a means to finance and protect that work, not a finish line."
 bottleneck: "Correct witchcraft progression + a prepared final battle"
 panelOrder:
@@ -33,8 +33,12 @@ gaps:
 
 The archive frames Route I as The Malediction of Ruin: a ritual campaign where a safe Naggaroth base and an active coven carry the witchcraft progression — the five campaign Hexes and the Malediction ritual — while territory pays for and protects the work. The opening sequence in its own words: stay in Naggaroth by default and finish the starting war, recruit humans around your starting creatures for an affordable early muster, build income to the tier-3 forest milestone and plan the Hut in its valid location, and begin a purposeful crafting habit that advances your live Essence-spending objective.
 
-::claim verify-in-campaign src=vco-guide,vco-names
-The archive attributes the route subtitle to VCO's published localisation, but title naming is check evidence, not installed proof: the manifest keeps vcoTitle null until the installed route panel is compared. Do not treat any archived title as a verified installed title.
+::claim confirmed src=vco-names-check
+The route's official VCO title is verified from the pinned English localisation (v5.16.0): the displayed string is "Route I - The Malediction of Ruin". The manifest's vcoTitle now holds the verified official title; the installed route panel has not been compared, and the pinned localisation does not certify the player's installed build.
+::
+
+::claim verify-in-campaign src=vco-guide-check,vco-missions-v516
+The final Malediction trigger: the current guide's wording is broad ("unleash the Malediction of Ruin"), while the pinned v5.16.0 mission checks the final set-piece battle. The ledger deliberately does not silently add a required extra map cast: a map cast is tracked separately only when the actual mission requests one. Check the live final objective before preparing the finale.
 ::
 
 ::claim verify-in-campaign src=vco-guide,vco

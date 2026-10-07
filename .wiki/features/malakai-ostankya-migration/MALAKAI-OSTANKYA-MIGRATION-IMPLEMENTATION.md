@@ -233,7 +233,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `mother-ostankya-vco-contract` — Commit 4: Establish Mother Ostankya's sourced victory contract
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 3
 **Depends on:** ["mother-ostankya-registration"]
 **Write scope:** ["content/mother-ostankya/data/vco.json", "content/mother-ostankya/data/sources.json", "content/mother-ostankya/routes/route-1.md", "content/mother-ostankya/routes/route-2.md", "content/mother-ostankya/routes/route-3.md"]
