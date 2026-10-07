@@ -1,1 +1,357 @@
-{}
+{
+  "caravans": {
+    "label": "Ivory Road",
+    "title": "The Ivory Road • invest, protect, deliver",
+    "intro": "A strategic income stream and the centre of Route I — not a licence to spend money that has not arrived. These are the archive’s operational priorities, not a verified current build: the two-active-caravan baseline, cargo and sale modifiers, active-capacity unlocks and live credit rules in the installed build are unverified. Check the live dispatch panel and objective counters before funding rotations.",
+    "steps": [
+      {
+        "title": "Inspect the master and starting escort",
+        "note": "Pick a coherent formation with a frontline and a way to hurt large/armoured threats."
+      },
+      {
+        "title": "Fund a survivable first dispatch",
+        "note": "Keep a home-war reserve. A smaller delivered load is better than losing all your construction money."
+      },
+      {
+        "title": "Choose destination by route and risk",
+        "note": "Compare travel time, payout, road threats and first-visit reward. Highest advertised sale is not always the best run."
+      },
+      {
+        "title": "Add a second rotation when affordable",
+        "note": "The archive records a current two-active baseline but later technology can raise it; inspect your own dispatch panel. Stagger returning masters; do not confuse employed masters with active slots."
+      },
+      {
+        "title": "Improve cargo and add later active slots",
+        "note": "Iron Dragon’s Mandate, then the relevant approach to Widened Roads and Roads of Harmony and Honour."
+      },
+      {
+        "title": "Reinvest arrivals deliberately",
+        "note": "Replace losses, queue key construction, retain dispatch capital; only then increase permanent upkeep."
+      }
+    ],
+    "details": [
+      [
+        "Real roster, not shopping list",
+        "Caravan escorts improve through starting packages, encounters and destination rewards. Use the escort-role guidance below; field-army templates are not normal recruitment recipes for the convoy."
+      ],
+      [
+        "Three separate money concepts",
+        "Cargo is the purchased goods at risk. Sale value is what those goods yield on arrival. Recurring income is what maintains your field armies between arrivals. Only the appropriate figure belongs in each ledger: a caravan receipt is not recurring gross income, and gross income is not net income after upkeep."
+      ],
+      [
+        "Capacity versus delivery",
+        "The 13,140 goal counts goods delivered, not theoretical maximum cargo. Cargo surrendered in events or lost with a convoy does not justify crediting the dispatch amount."
+      ],
+      [
+        "Do not eat your escort by habit",
+        "A small toll can be preferable to a costly battle when the alternative threatens a veteran caravan. Assess the specific encounter rather than always fighting or always paying."
+      ],
+      [
+        "Slots after research",
+        "Widened Roads and Roads of Harmony and Honour each add one active caravan. Check the actual maximum after each unlock; employ enough returning/ready captains to use it."
+      ],
+      [
+        "Delivery calculator: a lower-bound planner, not a counter",
+        "Use counters verified in the active VCO panel; a planning table does not automatically award completed runs or goods. Enter expected goods net of expected tolls and losses — not sale gold. The estimated successful runs are a planning count from your entered average, not a turn estimate: captains must return, slots must become free, cargo must be funded and journeys may fail. Do not divide that count into a guaranteed completion date."
+      ],
+      [
+        "Rotation ledger: it records, it does not move the game",
+        "This is a manual log: “Delivered” does not increase the VCO counter automatically; enter only what the game credits. Logged returning masters are not yet ready replacements, and ready masters still need funded cargo. Compare logged outbound with the actual dispatch panel rather than assuming your slots are used or free."
+      ],
+      [
+        "Capital reserve before and after dispatch",
+        "Before dispatch, leave enough treasury for the next home defence or replacement order: a route can be profitable in expectation and still be too risky for the current treasury. After delivery, record the live counters, repair the escort through available options and note when the captain returns; avoid immediately spending the next cargo fund on permanent upkeep."
+      ],
+      [
+        "Build the escort from what the convoy actually receives",
+        "These are role priorities, not a normal-recruitment 20-stack. Improve the starting escort through encounters and destination rewards: before choosing a master, prefer a usable screen and ranged damage, then an anti-large or armour-piercing answer; during an event pick the recruit or reward that fills a missing role; retain a spear/halberd or other plausible counter for large threats instead of trading the convoy’s only answer away for a small toll saving; after attrition and repeated battles prioritise Hidden Stores and the newer Wayfarer gates; destination rewards may create a mixed escort, so inspect skill and technology scope instead of assuming every Cathay-only bonus affects allied or event units. A difficult convoy encounter can matter more than an ordinary field skirmish — losing the escort also loses the cargo — so fight manually when the forecast threatens that investment."
+      ],
+      [
+        "Choose destinations by the remaining bottleneck",
+        "A first visit is worth a new destination’s reward balanced against its road risk; Nuln, Barak Varr and Gisoreux are examples from the expanded destination network, not guaranteed equally safe choices. Repeat a good route when reward novelty no longer matters. If goods are still missing, choose capacity and survivability and account for the goods likely to arrive rather than multiplying maximum cargo by a theoretical number of turns; if journeys are still missing, a shorter, safer loop may be preferable, including the master’s return in the rotation. Do not fund a fragile long convoy through a deteriorating war zone merely because the displayed sale is large; reassess after the map changes. A normal field army can clear strategic threats to a corridor, but it does not physically accompany every scripted caravan encounter or guarantee a risk-free route."
+      ]
+    ],
+    "sources": ["ca52", "caravans", "caravan-skill", "tech", "vco"],
+    "state": "verify-in-campaign",
+    "src": ["ca52", "caravans", "caravan-skill", "tech", "vco"]
+  },
+  "compass": {
+    "label": "Compass",
+    "title": "Wu Xing Compass • choose the current problem",
+    "intro": "Use a deliberate focus rather than turning it automatically whenever its cooldown expires. These are the archive’s operational priorities for Zhao’s four ordinary directions, not a verified current build: exact direction effects, energy behaviour, cooldown length and regional scope in the installed build are unverified. Check the live Compass panel and each effect’s own tooltip before planning around them.",
+    "steps": [
+      {
+        "title": "Warpstone Desert for the cargo phase",
+        "note": "The current direction supports caravan sale value and capacity. Check timing before dispatch and sale; don’t assume a departed load grows retroactively."
+      },
+      {
+        "title": "Celestial Lake for the income phase",
+        "note": "Useful when mature provinces and recurring income are the bottleneck. Compare its real economic benefit with the next caravan cycle."
+      },
+      {
+        "title": "Great Bastion when defence needs support",
+        "note": "Provides the ancestral-warrior support associated with that direction. Confirm its actual scope before relying on it abroad."
+      },
+      {
+        "title": "Dragon Emperor’s Wrath for the northern emergency",
+        "note": "Use its specific defensive/attrition and intervention effects; it is not a targeted global destroy-army button."
+      },
+      {
+        "title": "Let relevant energy accumulate",
+        "note": "Ordinary directions have their own energy/decay behaviour; Warpstone Desert does not use the same accumulation model."
+      },
+      {
+        "title": "Alignment Calibration when ready",
+        "note": "Reduce the realignment cooldown through research and note the actual next available turn in the planner.",
+        "gate": "Archive-reported research interaction; verify in the live research tree"
+      }
+    ],
+    "details": [
+      [
+        "Geography is not the only scope",
+        "The post-4.0 Compass extends its Cathayan-region scope to regions owned by Cathayan factions outside the home geography. Read each effect’s own target: this is not permission to apply every effect everywhere."
+      ],
+      [
+        "Direction is a phase choice",
+        "For the trade route, a useful default is Desert while increasing delivered cargo, then Lake while pushing the 25,000 gross-income finish. Once one counter is done, retune the Compass for the remaining bottleneck — make the change for the counters, not every time the cooldown expires."
+      ],
+      [
+        "Not Yuan Bo’s version",
+        "Zhao does not construct the Jade Dragon’s relays or select his four extra directions. Another Cathayan faction’s decisions may affect the wider system, but they are not buttons in your plan."
+      ],
+      [
+        "No compulsory nine-turn dance",
+        "The base realignment timer can be modified. Use the displayed next-switch turn. Keeping a productive direction is often better than rotating for its own sake."
+      ],
+      [
+        "Warpstone Desert record",
+        "Effect family: caravan sale value and cargo-capacity support; this direction does not use the same stored-energy progression as the others. Best use: Route I while delivered cargo is the main constraint, and all routes while several important caravans are being funded. Check before committing: read when capacity and sale modifiers apply in the current interface, and do not retroactively increase a caravan’s already-loaded cargo in your ledger."
+      ],
+      [
+        "Celestial Lake record",
+        "Effect family: economic and Winds support, with Control linked to its relevant energy. Best use: a mature recurring-income base, especially the last push toward Route I’s gross-income threshold. Check before committing: this is not a treasury grant; compare the income panel before and after the effect becomes active."
+      ],
+      [
+        "Great Bastion record",
+        "Effect family: defensive/ancestral-warrior support associated with the Bastion direction. Best use: a genuine defensive need at the relevant stage of the campaign. Check before committing: Ancestral Warriors are not awarded merely because your building Harmony happens to equal zero."
+      ],
+      [
+        "Dragon Emperor’s Wrath record",
+        "Effect family: northern defensive pressure and Celestial Intervention support according to its live conditions. Best use: an actual northern emergency, not an automatic priority for a western expedition. Check before committing: do not treat it as a global target-any-army destruction ability, and do not assume every effect applies to the Mountains of Mourn."
+      ],
+      [
+        "Planner and cooldown scope",
+        "Choosing a direction in the planner is a manual focus and does not change the game. Copy the displayed realignment result into your own record — the note uses your recorded timer and does not read the game — and write down the reason for the next switch so it tracks the current bottleneck rather than a habit."
+      ]
+    ],
+    "sources": ["compass", "ca4", "tech"],
+    "state": "verify-in-campaign",
+    "src": ["compass", "ca4", "tech"]
+  },
+  "harmony": {
+    "label": "Harmony",
+    "title": "Harmony • one province, two systems",
+    "intro": "Campaign development and battlefield positioning share a theme, not the same counting rule. These are the archive’s Harmony priorities, not a verified current build: exact building-point values, alignment benefits and battle conditions in the installed build are unverified. Check the live province panel and the battle indicator rather than trusting an arithmetic snapshot.",
+    "steps": [
+      {
+        "title": "Check the whole province",
+        "note": "Campaign Harmony is driven by buildings in each province, not by your faction-wide army or research."
+      },
+      {
+        "title": "Choose the province’s present job",
+        "note": "Balanced is a safe default. Deliberate Yin or Yang can be useful during a particular development/recruitment phase."
+      },
+      {
+        "title": "Pair construction across towns",
+        "note": "Plan the growth and income branches together, including existing military/resource buildings."
+      },
+      {
+        "title": "Review after conquest or a build batch",
+        "note": "Do not spend every turn demolishing and rebuilding to force a number. Fix meaningful imbalances when the next useful construction allows it."
+      },
+      {
+        "title": "In battle, keep opposite units close",
+        "note": "Position Yin shooters and Yang protectors to activate support. A numerical ten-and-ten roster is not required."
+      },
+      {
+        "title": "Keep Tigers/Ogres as supported specialists",
+        "note": "Do not assume every allied or special unit supplies ordinary Cathayan Harmony. Inspect its icon and keep the native line intact."
+      }
+    ],
+    "details": [
+      [
+        "Wrong old advice to discard",
+        "Hiring a hero or researching a Yin-labelled technology does not repair the modern provincial building balance. This atlas does not give alternating-research chores."
+      ],
+      [
+        "Extreme alignment",
+        "Read the current province panel for both benefits and penalties. The planner shows arithmetic only; it does not claim every surplus has the same effect or that one alignment is universally optimal."
+      ],
+      [
+        "Battle spacing and the two systems",
+        "Keep useful gaps for cannons and Iron Hail fire. Harmony is not a reason to stack every regiment on top of another or expose the whole army to a vortex. Proximity is battle advice — complementary units positioned near one another — while provincial Harmony is a building/placement balance in each province. Neither system is repaired by the other, and equal building points at home are not a battle bonus by themselves."
+      ],
+      [
+        "Income technology",
+        "The extra alignment-based benefits on Yang Kiln and Nan-Gau Forges are conditional. They do not turn an opposite-branch building into matching industry."
+      ],
+      [
+        "Count net provincial change",
+        "Point totals come from the actual buildings, not numbers of units or technologies. Replacing an existing Yin building means removing its old points and adding the replacement’s; an upgrade may have a different point value, so inspect it. Adding or removing points in a planner is a planning snapshot, not a game-state reader."
+      ],
+      [
+        "No invented output multiplier",
+        "No planner turns a point surplus into an assumed income or growth percentage — it cannot see special buildings, commandments or your save. For the alignment the province actually reaches, check the live benefits and penalties rather than automatically rebuilding everything."
+      ]
+    ],
+    "sources": ["ca4", "harmony", "tech"],
+    "state": "verify-in-campaign",
+    "src": ["ca4", "harmony", "tech"]
+  },
+  "alchemy": {
+    "label": "Alchemy",
+    "title": "The Iron Dragon • forge, spells and transformation",
+    "intro": "Use Zhao’s distinctive support to make a real army stronger instead of asking him to solo every battle. The archive’s alchemy priorities are recommendations, not a verified current build: skill rank gates, spell availability, landmark effects and transformation conditions in the installed build are unverified. Check the live skill tree and character sheet for the gates you intend to use.",
+    "steps": [
+      {
+        "title": "Establish House of Secrets",
+        "note": "Tier-three Shang-Yang improves your Alchemist recruitment/support; it is a settlement investment, not a separate forge-crafting menu.",
+        "gate": "Settlement tier 3"
+      },
+      {
+        "title": "Rank nine: Master of Metal → Iron Scale",
+        "note": "Personal staying power makes selective intervention safer.",
+        "gate": "Archive-reported gate: Master of Metal, rank 9; verify in the live tree"
+      },
+      {
+        "title": "Take Strange Alchemy during development",
+        "note": "Use the local construction reduction when Zhao is already present for a normal refit or defence."
+      },
+      {
+        "title": "Keep one Alchemist with the army",
+        "note": "Rust, damage and imbuements support the field company while Zhao handles his own spell toolkit."
+      },
+      {
+        "title": "Apply Master of Alchemy before the strike",
+        "note": "Use human-form support on troops actively engaging, then transform if mobility or mass is required."
+      },
+      {
+        "title": "Return to the formation after intervention",
+        "note": "Protect the flank or remove the dangerous target; avoid trading the entire battle plan for a long dragon chase."
+      }
+    ],
+    "details": [
+      [
+        "Two casting roles",
+        "Zhao has a mixed Metal/Yang toolkit with Dragon’s Breath. The ordinary Metal Alchemist supplies Searing Doom. Recommending the same spells to both without checking their trees is incorrect."
+      ],
+      [
+        "No fabricated crafting economy",
+        "Zhao’s alchemical identity is expressed through skills, heroes, items and the landmark. This atlas does not invent a Gunnery School-style crafting panel for him."
+      ],
+      [
+        "After Route II",
+        "Flensing Ruin and the Warpstone Doomrocket are victory rewards, not starting abilities. The accompanying Skaven corruption changes where you may want the faction leader to linger."
+      ]
+    ],
+    "sources": ["zhao-skill", "alchemist-skill", "secrets", "vco"],
+    "state": "verify-in-campaign",
+    "src": ["zhao-skill", "alchemist-skill", "secrets", "vco"]
+  },
+  "ogres": {
+    "label": "Ogres & allies",
+    "title": "The western court • partners before passengers",
+    "intro": "Ogre cooperation is thematic and supported by Zhao’s skills, but the recruitment mechanism must actually exist. These are the archive’s cooperation priorities, not a verified current build: ally and outpost access, capacity and skill effects in the installed build are unverified. Check the live diplomatic and recruitment interfaces before promising a contingent.",
+    "steps": [
+      {
+        "title": "Preserve a useful western relationship",
+        "note": "Check Greasus, Bhashiva and other neighbours before promising a permanent border."
+      },
+      {
+        "title": "Build trade and access where they serve the route",
+        "note": "A treaty is useful because it protects a corridor, supplies troops or generates income — not merely because the offer is green."
+      },
+      {
+        "title": "Lord of Shang-Yang when Ogres become useful",
+        "note": "It supports Ogre troops and diplomacy; it does not create a universal recruit-any-Ogre button."
+      },
+      {
+        "title": "Use the actual camp/outpost pool",
+        "note": "Recruit what your current mercenary or allied interface offers. Advanced units require genuine access and capacity."
+      },
+      {
+        "title": "Keep the contingent modest",
+        "note": "One or two Ogre hitters can reinforce a Jade screen. Avoid dropping all native Harmony-supporting troops for a thematic joke army."
+      },
+      {
+        "title": "Recheck borders against victory wording",
+        "note": "Route III needs four provinces; a friendly owner is not automatically qualifying control."
+      }
+    ],
+    "details": [
+      [
+        "Fallbacks are part of the template",
+        "Ironguts can be replaced by available native Tiger/Celestial melee support; Leadbelchers by a native short-range gun or crossbow unit. Do not pause a functioning army waiting for an ally to unlock the exact unit."
+      ],
+      [
+        "Diplomacy does not cancel every encounter",
+        "Scripted Ivory Road events can still occur despite good relations with an Ogre faction. Keep an escort and a toll reserve."
+      ],
+      [
+        "Bhashiva is a neighbour, not your subsystem",
+        "Her special Zhao Ming relationship and support-army interface belong to her faction. When you play Zhao, use your own diplomacy and recruitable units, not instructions written for the White Tigress."
+      ]
+    ],
+    "sources": ["zhao-skill", "bhashiva", "caravans"],
+    "state": "verify-in-campaign",
+    "src": ["zhao-skill", "bhashiva", "caravans"]
+  },
+  "govern": {
+    "label": "Edicts & upkeep",
+    "title": "Administration • turn victories into capacity",
+    "intro": "Shared economic habits, weighted toward the selected route. These are the archive’s administrative priorities, not verified current mechanics: commandment effects, income values and objective thresholds in the installed build are unverified. Check the live commandment tooltips and the active objective panel before spending.",
+    "steps": [
+      {
+        "title": "End the local war cleanly",
+        "note": "Secure Qiang’s province and Hanyu Port before expanding the number of directions you must defend."
+      },
+      {
+        "title": "Choose a commandment for the current job",
+        "note": "Jade: growth. Iron: development/research. Sea: income. Storm: corruption control. Read your current modified tooltip."
+      },
+      {
+        "title": "Fund steady upkeep from steady income",
+        "note": "Treat caravan arrivals and battle loot as investment money, not a guaranteed payment next turn."
+      },
+      {
+        "title": "Assign provincial roles",
+        "note": "One regional muster hub, income towns, resources and actual exposed frontiers. Do not copy the capital everywhere."
+      },
+      {
+        "title": "Add the second field army for a defined job",
+        "note": "Defend the pass, finish a dangerous faction or hold the new province while Zhao advances."
+      },
+      {
+        "title": "Audit the objective before the final spend",
+        "note": "When only a gross-income threshold remains, upkeep savings and another expensive army may solve the wrong problem."
+      }
+    ],
+    "details": [
+      [
+        "Emergency reserve",
+        "Keep enough money to recruit and repair after a bad battle or a lost caravan. Size it to the current front rather than a universal number; the shared fundamentals describe the funded-operation routine this replaces."
+      ],
+      [
+        "No imposed size limit",
+        "Route I needs enough productive territory and trade to reach its gross-income target. Route III deliberately creates a western realm. Route II can retain profitable conquests but does not need to own every road tile."
+      ],
+      [
+        "Victory and its rewards",
+        "Record the objective completion message and reward receipt separately. None of the atlas’s checkboxes award victory or alter the game; the live VCO panel decides credit, and rewards are not opening resources."
+      ]
+    ],
+    "sources": ["ca8", "vco", "vco-listener"],
+    "state": "verify-in-campaign",
+    "src": ["ca8", "vco", "vco-listener"]
+  }
+}

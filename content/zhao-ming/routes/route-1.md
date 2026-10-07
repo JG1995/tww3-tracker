@@ -17,7 +17,7 @@ panelOrder:
   skills: [zhao-route-1, celestial-general, alchemist, gate-master, caravan-master, astromancer, yin-shugengan]
   research: [opening-route-1, road, arsenal, realm]
   buildings: [shang-route-1, income, resource, muster, frontier, port, depot, occupied]
-  mechanics: []
+  mechanics: [caravans, compass, harmony, alchemy, ogres, govern]
 gaps:
   - "Early → Mid"
   - "Mid → Late"
