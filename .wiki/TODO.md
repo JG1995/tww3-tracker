@@ -6,7 +6,7 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
-_No active feature — alith-zhao-migration completed 2026-10-07 (see Completed below)._
+- **cross-guide-search** (F6 — cross-guide search, order 8) — planned 2026-10-07 · [IMPLEMENTATION](features/cross-guide-search/CROSS-GUIDE-SEARCH-IMPLEMENTATION.md) · [DESIGN](features/cross-guide-search/CROSS-GUIDE-SEARCH-DESIGN.md) — one site-wide search over all three migrated guides: a pure tokenized search contract in the query layer, a keyboard-first search dialog, the search trigger in both header forms, and the shell wiring; results grouped by faction/route and deep-linking into each guide's content.
 
 ## Next
 
@@ -43,7 +43,7 @@ F4 (Elspeth) + F4 (Alith or Zhao) + F2 ──► F6 cross-guide search          
 
 **Parallel note:** solo project — after order 3, orders 4–6 are mutually independent and can be reordered around a live campaign (pull F5 forward if an Elspeth campaign starts mid-build). In v1.1, the Alith/Zhao migrations are independent of F6.
 
-**Plan next:** The Alith Anar/Zhao Ming migration (order 7) is complete and integrated to `main`. The next feature is F6 cross-guide search (order 8), which becomes meaningful now that three guides exist. Malakai and Mother Ostankya remain at order 9.
+**Plan next:** The Alith Anar/Zhao Ming migration (order 7) is complete and integrated to `main`. F6 cross-guide search (order 8) is now Active under a reviewed plan (see Active above). Malakai and Mother Ostankya (order 9) are the next features to plan.
 
 ## Completed
 
