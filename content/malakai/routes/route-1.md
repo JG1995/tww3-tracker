@@ -17,7 +17,7 @@ panelOrder:
   armies: []
   skills: [malakai-route-1, lord-route-1, engineer, gotrek, felix, runesmith, thane]
   research: [route-route-1, opening, gunline, air, economy, slayers]
-  buildings: []
+  buildings: [hub-route-1, reclaim, income-route-1, frontier, recruit, resource-route-1, deep-route-1]
   mechanics: []
 gaps:
   - "Early → Mid"

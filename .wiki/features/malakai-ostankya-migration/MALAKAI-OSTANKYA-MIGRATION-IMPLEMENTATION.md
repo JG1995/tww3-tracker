@@ -352,7 +352,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `malakai-settlements` — Commit 11: Migrate Malakai's settlement-development reference
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 7
 **Depends on:** ["malakai-research"]
 **Write scope:** ["content/malakai/data/buildings.json", "content/malakai/routes/route-1.md", "content/malakai/routes/route-2.md", "content/malakai/routes/route-3.md"]
