@@ -16,7 +16,7 @@ bottleneck: "Verified site credit + retained collection bases + campaign logisti
 panelOrder:
   armies: []
   skills: [mother-route-2, druzhina, patriarch, hag, ataman, beasts]
-  research: []
+  research: [route-route-2, opening, forest, expedition, later]
   buildings: []
   mechanics: []
 gaps:

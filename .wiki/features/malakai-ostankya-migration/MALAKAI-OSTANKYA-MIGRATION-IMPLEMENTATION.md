@@ -335,7 +335,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `mother-ostankya-research` — Commit 10: Migrate Mother Ostankya's research reference
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 6
 **Depends on:** ["mother-ostankya-skills"]
 **Write scope:** ["content/mother-ostankya/data/research.json", "content/mother-ostankya/routes/route-1.md", "content/mother-ostankya/routes/route-2.md", "content/mother-ostankya/routes/route-3.md"]

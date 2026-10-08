@@ -16,7 +16,7 @@ bottleneck: "Sustained multi-army operations + the last surviving required facti
 panelOrder:
   armies: []
   skills: [mother-route-3, druzhina, patriarch, hag, ataman, shadows]
-  research: []
+  research: [route-route-3, opening, forest, expedition, later]
   buildings: []
   mechanics: []
 gaps:

@@ -16,7 +16,7 @@ bottleneck: "Correct witchcraft progression + a prepared final battle"
 panelOrder:
   armies: []
   skills: [mother-route-1, druzhina, patriarch, hag, ataman, shadows]
-  research: []
+  research: [route-route-1, opening, forest, expedition, later]
   buildings: []
   mechanics: []
 gaps:
