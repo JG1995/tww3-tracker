@@ -14,7 +14,7 @@ reward:
 interpretation: "A travelling workshop answers a coalition's crises: diplomacy secures the two cities while connected campaigns finish the named threats, keeping useful conquests rather than all conquests."
 bottleneck: "Surviving target factions + recognised city control"
 panelOrder:
-  armies: []
+  armies: [early, mid, late, airwing, home]
   skills: [malakai-route-3, lord-route-3, engineer, gotrek, felix, runesmith, thane]
   research: [route-route-3, opening, gunline, air, economy, slayers]
   buildings: [hub-route-3, income-route-3, depot, frontier, resource-route-3, outpost-route-3, deep-route-3]

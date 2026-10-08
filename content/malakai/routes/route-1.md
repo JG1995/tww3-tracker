@@ -14,7 +14,7 @@ reward:
 interpretation: "A territorial campaign across the northern mountains, with Kraka Drak as the industrial capital and an aviation-led flagship covering a growing realm."
 bottleneck: "Secure province ownership + Kraka Drak tier IV"
 panelOrder:
-  armies: []
+  armies: [early, mid, late, airwing, home]
   skills: [malakai-route-1, lord-route-1, engineer, gotrek, felix, runesmith, thane]
   research: [route-route-1, opening, gunline, air, economy, slayers]
   buildings: [hub-route-1, reclaim, income-route-1, frontier, recruit, resource-route-1, deep-route-1]

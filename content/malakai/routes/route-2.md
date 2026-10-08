@@ -14,7 +14,7 @@ reward:
 interpretation: "A Slayer–engineer expedition into hostile territory, won through a sequence of supported strikes rather than by administering every settlement along the way."
 bottleneck: "Seven credited sites + a viable recovery chain"
 panelOrder:
-  armies: []
+  armies: [early, mid, late, airwing, home]
   skills: [malakai-route-2, lord-route-2, engineer, gotrek, felix, runesmith, thane]
   research: [route-route-2, opening, gunline, air, economy, slayers]
   buildings: [hub-route-2, staging, frontier, income-route-2, resource-route-2, outpost-route-2, deep-route-2]

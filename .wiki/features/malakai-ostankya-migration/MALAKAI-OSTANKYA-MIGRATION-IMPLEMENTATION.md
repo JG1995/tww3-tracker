@@ -420,7 +420,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `malakai-armies` — Commit 15: Migrate Malakai's complete army reference
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 9
 **Depends on:** ["malakai-mechanics"]
 **Write scope:** ["content/malakai/data/armies.json", "content/malakai/routes/route-1.md", "content/malakai/routes/route-2.md", "content/malakai/routes/route-3.md"]
