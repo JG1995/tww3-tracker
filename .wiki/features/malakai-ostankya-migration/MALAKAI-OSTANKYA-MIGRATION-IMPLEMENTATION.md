@@ -454,7 +454,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `malakai-route-one` — Commit 17: Complete Malakai's reconquest route
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 10
 **Depends on:** ["malakai-armies"]
 **Write scope:** ["content/malakai/routes/route-1.md"]
