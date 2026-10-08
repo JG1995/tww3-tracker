@@ -386,7 +386,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `malakai-mechanics` — Commit 13: Migrate Malakai's faction-workshop reference
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 8
 **Depends on:** ["malakai-settlements"]
 **Write scope:** ["content/malakai/data/mechanics.json", "content/malakai/routes/route-1.md", "content/malakai/routes/route-2.md", "content/malakai/routes/route-3.md"]
