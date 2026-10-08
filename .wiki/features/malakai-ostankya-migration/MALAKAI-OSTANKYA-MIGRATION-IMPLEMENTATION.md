@@ -505,7 +505,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `mother-ostankya-route-two` — Commit 20: Complete Mother Ostankya's Lustrian expedition route
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 10
 **Depends on:** ["mother-ostankya-armies"]
 **Write scope:** ["content/mother-ostankya/routes/route-2.md"]
