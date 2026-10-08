@@ -18,7 +18,7 @@ panelOrder:
   skills: [mother-route-2, druzhina, patriarch, hag, ataman, beasts]
   research: [route-route-2, opening, forest, expedition, later]
   buildings: [hub, field, recovery, income, resource, frontier, hut, temporary]
-  mechanics: []
+  mechanics: [route-route-2, hut, hexes, devotion, court, access]
 gaps:
   - "Early → Mid"
   - "Mid → Late"

@@ -403,7 +403,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `mother-ostankya-mechanics` — Commit 14: Migrate Mother Ostankya's faction-workshop reference
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 8
 **Depends on:** ["mother-ostankya-settlements"]
 **Write scope:** ["content/mother-ostankya/data/mechanics.json", "content/mother-ostankya/routes/route-1.md", "content/mother-ostankya/routes/route-2.md", "content/mother-ostankya/routes/route-3.md"]

@@ -1,1 +1,508 @@
-{}
+{
+  "route-route-1": {
+    "label": "Route queue",
+    "title": "The mechanic schedule for Route I",
+    "intro": "Incantation use, verified Essence-spend progression, Hex quests and the final ritual are the main schedule.",
+    "steps": [
+      {
+        "title": "Fund the army and the tier-3 Grove",
+        "short": "Fund the army and the tier-3 Grove",
+        "note": "Battle-ready troops come before maximum resource hoarding."
+      },
+      {
+        "title": "Build the eligible Hut landmark",
+        "short": "Build the eligible Hut landmark",
+        "note": "Secure passive Essence and a safe base."
+      },
+      {
+        "title": "Craft and apply useful Incantations",
+        "short": "Craft and apply useful Incantations",
+        "note": "Observe which spending actually advances the current Hex mission."
+      },
+      {
+        "title": "Complete the next Hex quest",
+        "short": "Complete the next Hex quest",
+        "note": "Advance the real chain rather than only increasing the wallet."
+      },
+      {
+        "title": "Unlock Double, Double; empower what you use",
+        "short": "Unlock Double, Double; empower what you use",
+        "note": "The extra trinket slot and selected empowerments strengthen the ritual preparation."
+      },
+      {
+        "title": "Prepare the Malediction finale",
+        "short": "Prepare the Malediction finale",
+        "note": "Full health, equipped casters, planned Incantations and a pre-battle save."
+      }
+    ],
+    "details": [
+      [
+        "The next action should have a purpose",
+        "Build a safe base and an active coven, then use meaningful battles, Incantations and Hexes to progress toward the great ritual. Territory is a means to finance and protect that work, not the finish line."
+      ],
+      [
+        "No false sequencing",
+        "Hex unlock quests, empowerment research, the landmark and provincial administration are distinct progress systems. The queue is a practical order of attention, not an assertion that each item unlocks the next."
+      ]
+    ],
+    "sources": [
+      "patch61",
+      "vco-guide",
+      "tech"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "patch61",
+      "vco-guide",
+      "tech"
+    ]
+  },
+  "route-route-2": {
+    "label": "Route queue",
+    "title": "The mechanic schedule for Route II",
+    "intro": "Jinxed Land for useful transport, Purification for the route ahead, protective Incantations and stable provincial Devotion.",
+    "steps": [
+      {
+        "title": "Secure the base and verify the ingredient rules",
+        "short": "Secure the base and verify the ingredient rules",
+        "note": "Do this before planning an irreversible Lustrian war."
+      },
+      {
+        "title": "Develop the Grove and a hunting army",
+        "short": "Develop the Grove and a hunting army",
+        "note": "Replace missing specialists progressively."
+      },
+      {
+        "title": "Use Purification on the staging route",
+        "short": "Use Purification on the staging route",
+        "note": "Cure plagues and remove relevant corruption; manage Devotion separately."
+      },
+      {
+        "title": "Use Jinxed Land only to a useful destination",
+        "short": "Use Jinxed Land only to a useful destination",
+        "note": "A forest shortcut still needs safe arrival and onward access."
+      },
+      {
+        "title": "Protect collecting stations at 75+ Devotion",
+        "short": "Protect collecting stations at 75+ Devotion",
+        "note": "Do not spend away the climate protection without a good reason."
+      },
+      {
+        "title": "Hold credited sites until victory is awarded",
+        "short": "Hold credited sites until victory is awarded",
+        "note": "Ingredient control is different from a remembered visit or a crafted trinket."
+      }
+    ],
+    "details": [
+      [
+        "The next action should have a purpose",
+        "Lead a practical collecting expedition south from Naggaroth. Choose manageable candidate settlements, maintain the bases the objective actually requires, and develop the Devotion and recovery infrastructure that keeps a long journey viable."
+      ],
+      [
+        "No false sequencing",
+        "Hex unlock quests, empowerment research, the landmark and provincial administration are distinct progress systems. The queue is a practical order of attention, not an assertion that each item unlocks the next."
+      ]
+    ],
+    "sources": [
+      "patch61",
+      "vco-guide",
+      "tech"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "patch61",
+      "vco-guide",
+      "tech"
+    ]
+  },
+  "route-route-3": {
+    "label": "Route queue",
+    "title": "The mechanic schedule for Route III",
+    "intro": "Cursemark to catch armies, Purification to secure provinces, Incantations for hard matchups and administration to sustain the realm.",
+    "steps": [
+      {
+        "title": "Secure home; develop a recruiting capital",
+        "short": "Secure home; develop a recruiting capital",
+        "note": "A future six-target list is not permission to open six wars."
+      },
+      {
+        "title": "Craft for the next dangerous opponent",
+        "short": "Craft for the next dangerous opponent",
+        "note": "Protect the high-value unit the matchup will pressure."
+      },
+      {
+        "title": "Use Cursemark to catch the target army",
+        "short": "Use Cursemark to catch the target army",
+        "note": "Pinning beats repeated fruitless pursuit."
+      },
+      {
+        "title": "Purify and stabilise reclaimed provinces",
+        "short": "Purify and stabilise reclaimed provinces",
+        "note": "Corruption clearing and provincial Devotion are separate jobs."
+      },
+      {
+        "title": "Build useful Court / Orthodoxy support",
+        "short": "Build useful Court / Orthodoxy support",
+        "note": "Fund the growing realm and take permanent relevant boons."
+      },
+      {
+        "title": "Audit survivors and settlement-action credit",
+        "short": "Audit survivors and settlement-action credit",
+        "note": "Avoid banishing a final required army into a distant theatre."
+      }
+    ],
+    "details": [
+      [
+        "The next action should have a purpose",
+        "Secure the southern and coastal dangers, build a self-supporting frontier, then campaign north against the surviving major powers. Retain valuable provinces, maintain regional replacements and use diplomacy to keep unnecessary fronts quiet."
+      ],
+      [
+        "No false sequencing",
+        "Hex unlock quests, empowerment research, the landmark and provincial administration are distinct progress systems. The queue is a practical order of attention, not an assertion that each item unlocks the next."
+      ]
+    ],
+    "sources": [
+      "patch61",
+      "vco-guide",
+      "tech"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "patch61",
+      "vco-guide",
+      "tech"
+    ]
+  },
+  "hut": {
+    "label": "Incantations",
+    "title": "The crafting loop",
+    "intro": "Keep a small bank of useful blessings and curses, not a hoard of untouched Essence.",
+    "steps": [
+      {
+        "title": "Gather Essence and trinket options",
+        "short": "Gather Essence and trinket options",
+        "note": "Fight useful battles; inspect the Hut for available recipes. Treat race-related trinket unlocks as opportunities, not a reason to start bad wars."
+      },
+      {
+        "title": "Craft for the next matchup",
+        "short": "Craft for the next matchup",
+        "note": "Protect the unit that will absorb pressure; curse the dangerous enemy or strengthen the attacker that can exploit the opening."
+      },
+      {
+        "title": "Apply the Incantation before battle",
+        "short": "Apply the Incantation before battle",
+        "note": "Use the prebattle interface and confirm the intended recipient. Merely owning a crafted Incantation does not automatically assign it."
+      },
+      {
+        "title": "Charms → Undergrowth → Fighting Shadows",
+        "short": "Charms → Undergrowth → Fighting Shadows",
+        "note": "Complete the three opening unique technologies when their actual gates permit them."
+      },
+      {
+        "title": "Research Double, Double",
+        "short": "Research Double, Double",
+        "note": "Adds a secondary trinket slot, enabling more useful combinations. This is a research unlock, not a sixth Hex."
+      },
+      {
+        "title": "Keep one emergency package and spend the rest usefully",
+        "short": "Keep one emergency package and spend the rest usefully",
+        "note": "Record the observed Hex mission credit separately. Under Smart AR, do not assume every special effect has its full manual-battle value."
+      }
+    ],
+    "details": [
+      [
+        "Three layers of craft",
+        "The base Incantation has a purpose; trinkets customise its effects; the resulting item must be applied to a valid prebattle target. Choose by the final tooltip, not simply the race that supplied a trinket."
+      ],
+      [
+        "Good default packages",
+        "For a vulnerable monster: a compatible defensive blessing. For an expensive shooting group: a compatible missile-support blessing. Against a dangerous large attacker: a curse that weakens or slows it, then focus suitable anti-large damage. Exact combinations depend on your currently unlocked trinkets."
+      ],
+      [
+        "Not the VCO ingredient hunt",
+        "Itxi Grubs, Jungle Lotus Leaves and Coatl Feathers in Toil & Trouble are route-objective groups. Do not assume crafting a similarly named ingredient or gaining a generic race trinket replaces the settlement objective."
+      ]
+    ],
+    "sources": [
+      "release",
+      "hex-guide",
+      "tech",
+      "smart"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "release",
+      "hex-guide",
+      "tech",
+      "smart"
+    ]
+  },
+  "hexes": {
+    "label": "Hexes",
+    "title": "Five campaign tools, then the great ritual",
+    "intro": "Unlock order is progression; choosing where and when to cast is the strategy.",
+    "steps": [
+      {
+        "title": "Purification Chant: prepare the next operation",
+        "short": "Purification Chant: prepare the next operation",
+        "note": "Clear a relevant corrupted position or cure a plague. This is not the same as raising Devotion."
+      },
+      {
+        "title": "Coven’s Cursemark: pin the threat",
+        "short": "Coven’s Cursemark: pin the threat",
+        "note": "Use movement/stance disruption before the pursuit or attack. Confirm the affected force and duration."
+      },
+      {
+        "title": "Jinxed Land: move an army via a magical forest",
+        "short": "Jinxed Land: move an army via a magical forest",
+        "note": "Inspect a legal destination, arrival risk and the remaining journey. Do not assume it teleports to any settlement."
+      },
+      {
+        "title": "Bewitching Lure: fund a real expedition",
+        "short": "Bewitching Lure: fund a real expedition",
+        "note": "Target worthwhile income rather than an empty ruin. Treat the live duration and return as temporary support."
+      },
+      {
+        "title": "Recreant Spirit: pressure a useful enemy region",
+        "short": "Recreant Spirit: pressure a useful enemy region",
+        "note": "Use the disruption to support your own operation. Do not assume spawned forces are permanent recruitable troops."
+      },
+      {
+        "title": "Malediction of Ruin: follow the live final mission",
+        "short": "Malediction of Ruin: follow the live final mission",
+        "note": "Route I’s public code checks its named set-piece battle. Keep final-battle victory, a possible map cast and the actual route award separate."
+      }
+    ],
+    "details": [
+      [
+        "Purification Chant · cleanse and cure",
+        "Clear the corrupt staging region or cure a plague before it compromises the next operation. Use it where the consequence matters, not merely on the nearest patch of corruption. Devotion and corruption are separate. Cleansing does not itself refill the provincial invocation budget."
+      ],
+      [
+        "Coven’s Cursemark · pin and pursue",
+        "Cripple a threatening army’s ability to escape or exploit its stances, then make the planned interception. Check the live duration and affected army. It is not a battle spell and does not mean every army in the province is immobilised."
+      ],
+      [
+        "Jinxed Land · forest transit or banishment",
+        "Use the magical-forest destinations as campaign transport. Scout the arrival area, access permissions and the distance still left to your target. Not arbitrary city-to-city teleportation. Banishing a required final enemy may lengthen the victory chase; the guide does not assume every target or destination is always valid."
+      ],
+      [
+        "Bewitching Lure · temporary expedition income",
+        "Choose a worthwhile developed settlement and use the return to fund the next operation or defensive response. Inspect live income, duration and eligibility. Do not treat an estimated return as permanent ordinary tax income."
+      ],
+      [
+        "Recreant Spirit · regional disruption",
+        "Create pressure on the enemy’s region at a time your own army can exploit it. Do not budget the effect as a permanent controllable army, or assume its independent actions satisfy your VCO requirements."
+      ],
+      [
+        "A banishment can postpone the problem",
+        "Jinxed Land can be a strong emergency tool. On The New Frontier, sending a required enemy’s last army far away may create a very long chase. Prefer pinning and eliminating a finish-line target."
+      ],
+      [
+        "Do not spend merely to animate a counter",
+        "Useful casts and Incantations should serve the campaign. Where a spending gate is close, confirm the real credit per action before calculating how many more casts or crafts are needed. Research expenditure is not assumed to count."
+      ],
+      [
+        "Empowerment order follows use",
+        "For a travelling expedition, inspect Jinxed Land’s upgrade early; for a plague or corruption problem, prefer improved Purification; for a pursuit-heavy war, improve the pinning tool. Read each live research effect rather than treating all empowerments as mandatory."
+      ]
+    ],
+    "sources": [
+      "hex-guide",
+      "patch61",
+      "vco-code",
+      "essence"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "hex-guide",
+      "patch61",
+      "vco-code",
+      "essence"
+    ]
+  },
+  "devotion": {
+    "label": "Devotion",
+    "title": "A provincial resource with consequences",
+    "intro": "Devotion is not the old factionwide currency or an ignored Control meter.",
+    "steps": [
+      {
+        "title": "Inspect each province’s number and trend",
+        "short": "Inspect each province’s number and trend",
+        "note": "Devotion replaced Control for Kislev in the rework. Corruption is a separate system."
+      },
+      {
+        "title": "Stabilise high-value new provinces",
+        "short": "Stabilise high-value new provinces",
+        "note": "Build the appropriate Devotion-generating administration or defence, assign a governor where useful, and clear hostile pressure."
+      },
+      {
+        "title": "Protect the 75+ climate threshold",
+        "short": "Protect the 75+ climate threshold",
+        "note": "At 75 or more, climate penalties are neutralised. This can be decisive in Lustria and other unsuitable regions."
+      },
+      {
+        "title": "Budget 50 Devotion per invocation",
+        "short": "Budget 50 Devotion per invocation",
+        "note": "Army and settlement invocations use owned eligible territory. Spending can drop the province below its useful climate threshold."
+      },
+      {
+        "title": "Invoke before a meaningful offensive window",
+        "short": "Invoke before a meaningful offensive window",
+        "note": "An army movement invocation may help an expedition leave its staging base. Use only when the benefit outweighs the provincial cost."
+      },
+      {
+        "title": "Never let neglect reach −100",
+        "short": "Never let neglect reach −100",
+        "note": "A Chaos incursion is a new war problem, not a harmless bookkeeping penalty. Correct the trajectory before it gets there."
+      }
+    ],
+    "details": [
+      [
+        "A common trap",
+        "A province at 90 becomes 40 after a 50-cost invocation. The action can be legal while still removing its climate protection. Weigh the before-and-after balance before spending from a high-Devotion province."
+      ],
+      [
+        "Army and settlement versions differ",
+        "The rework has both types. A settlement’s local storm or defence effect is not automatically carried by a travelling army. Read the actual version selected."
+      ],
+      [
+        "Ursun does not buff all “bear-looking” units",
+        "The official army example includes movement, an ability and additional damage for War Bear Riders / Elemental Bears. Do not attribute its unit-specific damage to Feral Bears, spiders, Things or Incarnates."
+      ]
+    ],
+    "sources": [
+      "patch61",
+      "invocation"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "patch61",
+      "invocation"
+    ]
+  },
+  "court": {
+    "label": "Court",
+    "title": "Permanent support without needless fiddling",
+    "intro": "Use useful boons and maintain a tolerable balance between the two sides.",
+    "steps": [
+      {
+        "title": "Check both support tracks",
+        "short": "Check both support tracks",
+        "note": "Court & Orthodoxy is available to Ostankya too. It is no longer the old race to a supporter total against another Kislev leader."
+      },
+      {
+        "title": "Build aligned infrastructure where it has local value",
+        "short": "Build aligned infrastructure where it has local value",
+        "note": "Use Court or Orthodoxy buildings that also solve an economic, Devotion or recruitment need."
+      },
+      {
+        "title": "Dedicate an Ataman at rank 5",
+        "short": "Dedicate an Ataman at rank 5",
+        "note": "Court Sanctioned / Orthodoxy Adherent can support the chosen side. Select deliberately; they exclude one another."
+      },
+      {
+        "title": "Spend tokens on the next useful permanent boon",
+        "short": "Spend tokens on the next useful permanent boon",
+        "note": "Prefer economy for a growing realm, or benefits matching the current expedition. Follow the displayed prerequisite chain."
+      },
+      {
+        "title": "Inspect Foundations before wide development",
+        "short": "Inspect Foundations before wide development",
+        "note": "The official example shows Spirit of Community → Unity in Toil. Consider it as connected settlement development becomes substantial."
+      },
+      {
+        "title": "Support the lagging side before penalties grow",
+        "short": "Support the lagging side before penalties grow",
+        "note": "Inspect the live imbalance warning rather than memorising an assumed safe gap. Do not overbuild purely to optimise both bars every turn."
+      }
+    ],
+    "details": [
+      [
+        "Low-maintenance routine",
+        "Review the panel after a support tier or major construction milestone, not after every movement order. A sensible boon and a stable realm beat frequent rearrangement for tiny gains."
+      ],
+      [
+        "Army and faction scope",
+        "Prefer permanent bonuses for the units and provinces that will actually use them. A cavalry-specific boon does not suddenly improve all forest beasts."
+      ],
+      [
+        "Modern administration supersedes launch advice",
+        "Ostankya has Court & Orthodoxy and provincial Devotion under the rework. Old pages saying she has no such mechanics are not used for present strategy. Blue skills that retain older terminology should be read for their live effect."
+      ]
+    ],
+    "sources": [
+      "patch61",
+      "boons",
+      "ataman"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "patch61",
+      "boons",
+      "ataman"
+    ]
+  },
+  "access": {
+    "label": "Recruitment",
+    "title": "The royal roster is an optional alliance",
+    "intro": "The forest campaign works before you gain conventional Kislev troops.",
+    "steps": [
+      {
+        "title": "Recruit the forest core first",
+        "short": "Recruit the forest core first",
+        "note": "Warriors, Kossars, Akshina and eligible creatures are enough to begin. Keep useful starting troops."
+      },
+      {
+        "title": "Contact a Kislev capital-holder when convenient",
+        "short": "Contact a Kislev capital-holder when convenient",
+        "note": "An agent or established diplomatic contact is cheaper than diverting the entire army to the Old World."
+      },
+      {
+        "title": "Check the city / alliance recruitment gate",
+        "short": "Check the city / alliance recruitment gate",
+        "note": "Published faction references use ownership, or an alliance with the owner, of Kislev, Praag or Erengrad. Verify that your actual panel unlocks; a trade agreement is not an alliance."
+      },
+      {
+        "title": "Build only the new units’ required chains",
+        "short": "Build only the new units’ required chains",
+        "note": "A diplomatic unlock permits recruitment infrastructure; it does not instantly put Tzar Guard, Patriarchs or Little Grom in every pool."
+      },
+      {
+        "title": "Use the Pact template as a branch, not an obligation",
+        "short": "Use the Pact template as a branch, not an obligation",
+        "note": "The New Frontier especially supports a practical alliance of witches and soldiers. Other routes can remain entirely forest-led."
+      },
+      {
+        "title": "Keep trained support heroes in the right job",
+        "short": "Keep trained support heroes in the right job",
+        "note": "A Patriarch provides a distinct recovery/healing role. A Hag offers spellcasting and attrition protection. Neither makes the other a direct substitute."
+      }
+    ],
+    "details": [
+      [
+        "Do not confuse unlock conditions and VCO objectives",
+        "Owning or allying with a Kislev capital-holder is a roster consideration, not a requirement of the three published Immortal Empires routes."
+      ],
+      [
+        "Training is now more predictable",
+        "The reworked Ice Court offers a shorter sequence with more trait choices. When you actually choose to recruit a trained caster, build around the army’s job rather than continually rerolling characters. None of the core templates requires Frost Maiden training."
+      ],
+      [
+        "Witch-lore, spell access and personal spells are separate questions",
+        "The lore paths on the Armies & skills page describe a caster’s spell tree; a route’s default lore is a reference choice, not a confirmation that a recruited caster already has those spells. A Hag develops a repeatable spell package from the selected lore, and a second caster complements Ostankya’s Hags toolkit rather than carrying her personal spells or doubling the shared Winds budget. Availability is unverified: check the live skill and recruitment panels before assuming a package."
+      ]
+    ],
+    "sources": [
+      "roster",
+      "patch61",
+      "church"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "roster",
+      "patch61",
+      "church"
+    ]
+  }
+}
