@@ -6,7 +6,7 @@ Items that are not actively planned but worth remembering belong in [BACKLOG.md]
 
 ## Active
 
-- **malakai-ostankya-migration** (F4 × 2 — Malakai and Mother Ostankya) — content-only migration plan reviewed and accepted; implementation not started · [IMPLEMENTATION](features/malakai-ostankya-migration/MALAKAI-OSTANKYA-MIGRATION-IMPLEMENTATION.md) · [DESIGN](features/malakai-ostankya-migration/MALAKAI-OSTANKYA-MIGRATION-DESIGN.md). Mirrors the alith-zhao single-PR, 22-package migration structure for the model's real stress test: structurally different archives (Malakai's structured objectives and guide-local adventures/milestones/fortresses; Ostankya's derived prose conditions, witch lores, Hexes and ingredients). Automated proof protects site functionality; required manual CONTENT REVIEW and mapping prove complete, accurate content. Planning does not authorize implementation or Git operations.
+- **malakai-ostankya-migration** (F4 × 2 — Malakai and Mother Ostankya) — 22 packages integrated to `feat/malakai-ostankya-migration`; final feature review Accept with no findings; publication pending · [IMPLEMENTATION](features/malakai-ostankya-migration/MALAKAI-OSTANKYA-MIGRATION-IMPLEMENTATION.md) · [DESIGN](features/malakai-ostankya-migration/MALAKAI-OSTANKYA-MIGRATION-DESIGN.md). Content-only migration of the structurally different archives: Malakai's structured objectives and guide-local adventures/milestones/fortresses; Ostankya's derived prose conditions, witch lores, Hexes and ingredients. Automated proof protects site functionality; manual content review and mapping establish coverage. Keep Active until publication is verified.
 
 ## Next
 
@@ -24,7 +24,7 @@ Resolved at approval: pilot is **Elspeth von Draken**; the ledger tracks **one a
 | 6 | ~~**F5 — VCO campaign ledger**~~ — **Completed 2026-10-04** (see Completed below) | medium | Should (not Must) and the only feature touching the write path; keeping it last leaves the entire Must path shippable without it |
 | 7 (v1.1) | ~~**F4 × 2 — Alith Anar, Zhao Ming**~~ — **Completed 2026-10-07** (see Completed below) | high | Cheapest; proves "second faction is content-only" |
 | 8 (v1.1) | ~~**F6 — cross-guide search**~~ — **Completed 2026-10-07** (see Completed below) | medium | Meaningful only with ≥ 2 migrated guides; corpus exists in `query.ts` from order 1 |
-| 9 (v1.1) | **F4 × 2 — Malakai, Mother Ostankya** — **Active: accepted plan** (see Active above) | medium-low | Structurally different files; the model's real stress test, last so the model is corrected first |
+| 9 (v1.1) | **F4 × 2 — Malakai, Mother Ostankya** — **Active: integrated; publication pending** (see Active above) | medium-low | Structurally different files; the model's real stress test, last so the model is corrected first |
 
 Deferred by the PRD (not in this sequence): F8 (ledger database — needs a real campaign of ledger use), F9 (faction onboarding aid — needs the model proven across ≥ 3 factions), v2.0 candidates.
 
@@ -43,7 +43,7 @@ F4 (Elspeth) + F4 (Alith or Zhao) + F2 ──► F6 cross-guide search          
 
 **Parallel note:** solo project — after order 3, orders 4–6 are mutually independent and can be reordered around a live campaign (pull F5 forward if an Elspeth campaign starts mid-build). In v1.1, the Alith/Zhao migrations are independent of F6.
 
-**Plan next:** The Alith Anar/Zhao Ming migration (order 7) and F6 cross-guide search (order 8) are complete and integrated to `main` (see Completed below). Malakai and Mother Ostankya (order 9) are Active under a reviewed plan (see Active above); no further feature is queued in the development sequence.
+**Plan next:** The Alith Anar/Zhao Ming migration (order 7) and F6 cross-guide search (order 8) are complete and integrated to `main` (see Completed below). Malakai and Mother Ostankya (order 9) are integrated to their feature branch and have a final Accept review; publication remains pending (see Active above). No further feature is queued in the development sequence.
 
 ## Completed
 
