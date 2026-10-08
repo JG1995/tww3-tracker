@@ -488,7 +488,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `malakai-route-two` — Commit 19: Complete Malakai's fortress-expedition route
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 10
 **Depends on:** ["malakai-armies"]
 **Write scope:** ["content/malakai/routes/route-2.md"]
