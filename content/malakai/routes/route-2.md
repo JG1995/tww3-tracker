@@ -16,7 +16,7 @@ bottleneck: "Seven credited sites + a viable recovery chain"
 panelOrder:
   armies: []
   skills: [malakai-route-2, lord-route-2, engineer, gotrek, felix, runesmith, thane]
-  research: []
+  research: [route-route-2, opening, gunline, air, economy, slayers]
   buildings: []
   mechanics: []
 gaps:

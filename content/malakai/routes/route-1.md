@@ -16,7 +16,7 @@ bottleneck: "Secure province ownership + Kraka Drak tier IV"
 panelOrder:
   armies: []
   skills: [malakai-route-1, lord-route-1, engineer, gotrek, felix, runesmith, thane]
-  research: []
+  research: [route-route-1, opening, gunline, air, economy, slayers]
   buildings: []
   mechanics: []
 gaps:

@@ -16,7 +16,7 @@ bottleneck: "Surviving target factions + recognised city control"
 panelOrder:
   armies: []
   skills: [malakai-route-3, lord-route-3, engineer, gotrek, felix, runesmith, thane]
-  research: []
+  research: [route-route-3, opening, gunline, air, economy, slayers]
   buildings: []
   mechanics: []
 gaps:

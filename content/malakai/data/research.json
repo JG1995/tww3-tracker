@@ -1,1 +1,416 @@
-{}
+{
+  "opening": {
+    "label": "Opening",
+    "title": "Opening",
+    "intro": "Default: establish recovery and growth, then support the guns. These are priorities, not fixed turn deadlines. Archive-derived priority guidance from the atlas's September 2026 research, not a fixed buy order or a current-build test — live technology names, ordering and prerequisite gates are unverified; inspect the live technology tree and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "The Way of the Guilds → Heavy Quernstones",
+        "note": "Open the civilian branch and obtain early growth."
+      },
+      {
+        "title": "Khazid Subsidies → Rat Poison",
+        "note": "Settlement-development savings followed by campaign replenishment. Rat Poison is a practical priority for repeated battles."
+      },
+      {
+        "title": "Marching Songs → Gather the Throngs",
+        "note": "Open the military routes and lower infantry recruitment costs."
+      },
+      {
+        "title": "Vanguard Proficiency → Masterwork Crossbows",
+        "note": "Useful while Quarrellers dominate. Skip the crossbow follow-up if you are already converting rapidly to Thunderers."
+      },
+      {
+        "title": "Superior Black Powder → Renowned Deadeyes",
+        "note": "The gun-infantry branch after Vanguard Proficiency. It supports Thunderers and Slayer Pirates—not your Cannons."
+      },
+      {
+        "title": "Dwarf Treasuries when the capital grows",
+        "note": "Returns to the Khazid Subsidies branch. Use spare research time when immediate battle needs are covered."
+      }
+    ],
+    "details": [
+      [
+        "One decision rule",
+        "If losses are forcing idle turns, finish recovery first. If your screen collapses, detour through Militia Training → Call to Clan → Iron Readiness. If your existing army wins cleanly, develop income rather than buying irrelevant combat bonuses."
+      ],
+      [
+        "Research is separate from Adventures",
+        "Grapeshot comes from the Cannon Adventure preparation. It is not unlocked by Superior Black Powder, and you do not need to finish the entire technology tree before obtaining it."
+      ]
+    ],
+    "sources": [
+      "techs",
+      "tech-wiki"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "techs",
+      "tech-wiki"
+    ]
+  },
+  "gunline": {
+    "label": "Gunline",
+    "title": "Gunline",
+    "intro": "Build the artillery branch once its preceding military gate is open. Buy technology for your actual composition. Archive-derived priority guidance from the atlas's September 2026 research, not a fixed buy order or a current-build test — live technology names, ordering and prerequisite gates are unverified; inspect the live technology tree and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Militia Training → Call to Clan → Iron Readiness",
+        "note": "The shielded Warrior/Longbeard route. Interlocking Shields is an optional manual formation upgrade afterwards."
+      },
+      {
+        "title": "Warrior’s Guild gate → Retainers’ Vows",
+        "note": "Satisfy the preceding military block in your live tree. Do not treat Retainers’ Vows as a turn-one root."
+      },
+      {
+        "title": "Large Scale Shell Production",
+        "note": "The artillery ammunition/damage node after Retainers’ Vows."
+      },
+      {
+        "title": "Field Engineers → Artillery Entrenchment",
+        "note": "Follow the artillery chain for sustained fire and protection."
+      },
+      {
+        "title": "Renowned Deadeyes → Iron Price",
+        "note": "A useful upkeep follow-up for a Thunderer-heavy army."
+      },
+      {
+        "title": "Veteran Ironbreaker improvements",
+        "note": "Tales of Many Wars belongs later, with eligible high-rank infantry. Do not rush a rank-7 benefit for fresh recruits."
+      }
+    ],
+    "details": [
+      [
+        "Follow the gates",
+        "The military blocks have prerequisite-count requirements. Buy the highlighted prerequisites in your actual tree; these are priorities, not claims that every node is selectable immediately."
+      ],
+      [
+        "Support the actual army",
+        "Two Organ Guns do not justify neglecting a damaged screen. Replenishment and upkeep improvements can be more useful than another specialised weapon bonus."
+      ]
+    ],
+    "sources": [
+      "techs",
+      "tech-wiki"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "techs",
+      "tech-wiki"
+    ]
+  },
+  "air": {
+    "label": "Air wing",
+    "title": "Air wing",
+    "intro": "Only elevate these priorities when your recruited aircraft justify them. A summoned ship alone is not the whole template. Archive-derived priority guidance from the atlas's September 2026 research, not a fixed buy order or a current-build test — live technology names, ordering and prerequisite gates are unverified; inspect the live technology tree and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Retainers’ Vows",
+        "note": "The same later military gateway as the artillery branch."
+      },
+      {
+        "title": "Heavy Armour Plating",
+        "note": "Protection for Gyrocopters, Gyrobombers and Thunderbarges."
+      },
+      {
+        "title": "Interchangeable Parts",
+        "note": "Aircraft recovery and upkeep reduction; particularly useful for expensive recruited barges."
+      },
+      {
+        "title": "Improved Gyrocopter Engines",
+        "note": "Mobility and deployment benefits. Check the unit list: the fire-while-moving addition excludes Brimstone Guns."
+      },
+      {
+        "title": "Match the relevant Adventure",
+        "note": "Dreadquake for your gyro group; The Skaven Scheme for recruited Thunderbarges once unlocked."
+      },
+      {
+        "title": "Return to the ground army",
+        "note": "Keep the infantry and supporting Thunderers competitive. Your air wing still needs a functioning ground force."
+      }
+    ],
+    "details": [
+      [
+        "Generic armies",
+        "Faction-level research is reusable. Malakai’s personal skill effects, ship support radius and the Spirit summon are separate; do not silently add them to a distant generic force."
+      ]
+    ],
+    "sources": [
+      "techs",
+      "tech-wiki",
+      "adventures"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "techs",
+      "tech-wiki",
+      "adventures"
+    ]
+  },
+  "economy": {
+    "label": "Holds & economy",
+    "title": "Holds & economy",
+    "intro": "Develop the income and recruitment base needed for this route; there is no fixed province ceiling. Archive-derived priority guidance from the atlas's September 2026 research, not a fixed buy order or a current-build test — live technology names, ordering and prerequisite gates are unverified; inspect the live technology tree and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Dwarf Treasuries → High King’s Authority",
+        "note": "Improve settlement income/development after the early recovery foundation."
+      },
+      {
+        "title": "Construction Guilds when opening the Deeps",
+        "note": "A targeted detour when clearing blocked underground space is actually your next investment. Follow its highlighted prerequisites."
+      },
+      {
+        "title": "Income techs matching local buildings",
+        "note": "Favour improvements to the mines, trade and industry you really built—not a resource type your realm does not produce."
+      },
+      {
+        "title": "Operations Training when hero capacity is tight",
+        "note": "Consider the Engineer-capacity/research branch once its civilian prerequisites are met."
+      },
+      {
+        "title": "Oath Stones much later",
+        "note": "An all-unit upkeep goal after Ancestral Tombs. Do not abandon immediate needs to rush a distant capstone."
+      },
+      {
+        "title": "Stop buying irrelevant branches",
+        "note": "A completed campaign does not require an entirely completed research tree."
+      }
+    ],
+    "details": [
+      [
+        "Civilian and military progression",
+        "Alternate according to the bottleneck. A turn spent on growth or recovery can be more useful than advancing a specialist weapon you do not yet own."
+      ],
+      [
+        "Deeps caution",
+        "A technology that clears tunnels makes underground development possible; it does not make the project free. Budget the entrance, cleared space and income-producing buildings together."
+      ]
+    ],
+    "sources": [
+      "techs",
+      "tech-wiki",
+      "deeps"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "techs",
+      "tech-wiki",
+      "deeps"
+    ]
+  },
+  "slayers": {
+    "label": "Slayers",
+    "title": "Support the Slayer crew",
+    "intro": "Keep the crew alive long enough to do its job; do not confuse unbreakable with durable. Archive-derived priority guidance from the atlas's September 2026 research, not a fixed buy order or a current-build test — live technology names, ordering and prerequisite gates are unverified; inspect the live technology tree and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Marching Songs → Gather the Throngs",
+        "note": "Enter the military progression and support recruitment before pursuing a distant capstone."
+      },
+      {
+        "title": "Superior Black Powder → Renowned Deadeyes",
+        "note": "After Vanguard Proficiency; this gun-infantry branch includes Slayer Pirates. Cannon upgrades are a different branch."
+      },
+      {
+        "title": "Slayer upgrades: check the unit list",
+        "note": "Prioritise your live tree’s nodes explicitly covering the Slayers, Giant Slayers, Pirates or Doomseekers you are actually fielding."
+      },
+      {
+        "title": "Slayer’s Onslaught, once its gate opens",
+        "note": "A later charge/Slayer benefit, with an extra Doomseeker effect for eligible veterans. Do not rush a rank-gated effect for new units."
+      },
+      {
+        "title": "Artillery path for Goblin Hewers",
+        "note": "Retainers’ Vows and the artillery path support the Hewer’s weapon role. The infantry red-line skill Grimnir’s Heirs is not its direct substitute."
+      },
+      {
+        "title": "Return to recovery and the escort",
+        "note": "Rat Poison and the Warrior/Longbeard protection path remain useful; dead veterans cost more than a patient recovery turn."
+      }
+    ],
+    "details": [
+      [
+        "Skill points versus technology",
+        "Grimnir’s Heirs / Honoured by Grimnir are lord skills. Slayer’s Onslaught is technology. Adventures are a third, separate source of improvements."
+      ]
+    ],
+    "sources": [
+      "techs",
+      "skill-malakai"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "techs",
+      "skill-malakai"
+    ]
+  },
+  "route-route-1": {
+    "label": "Route order",
+    "title": "Research · Northern kingdom",
+    "intro": "A practical priority queue. The other tabs show the named branch paths and exceptions. Archive-derived Route I expedition order, not a fixed buy order or a current-build test — live technology names, ordering and prerequisite gates are unverified; inspect the live technology tree and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Guilds → Heavy Quernstones",
+        "note": "Growth is important because the capital landmark and the conquered realm both need development."
+      },
+      {
+        "title": "Khazid Subsidies → Rat Poison",
+        "note": "Development savings and replenishment help repeated conquest. Follow the civilian prerequisite chain."
+      },
+      {
+        "title": "Dwarf Treasuries → High King’s Authority",
+        "note": "Bring forward broad settlement development rather than an early tall-only project."
+      },
+      {
+        "title": "Military gates → Retainers’ Vows",
+        "note": "Work through the live military prerequisites while supporting the early escort and Cannon battery."
+      },
+      {
+        "title": "Heavy Armour Plating → Interchangeable Parts",
+        "note": "Aircraft defence, recovery and upkeep fit the larger recruited flight."
+      },
+      {
+        "title": "Improved Gyrocopter Engines; escort support",
+        "note": "Complete the useful aviation path, then maintain the infantry/artillery. The reward is not active until actually received."
+      }
+    ],
+    "details": [
+      [
+        "This is a strategic queue, not another technology tree",
+        "The named branch paths hold the detailed steps. This route card changes the order in which those paths matter; it does not duplicate shared research progress."
+      ],
+      [
+        "Change priority when the army changes",
+        "Air development and a sustainable second field army"
+      ],
+      [
+        "Research for the actual bottleneck",
+        "Surface growth, income and a tier-IV Kraka Drak"
+      ],
+      [
+        "The atlas's earlier expedition-path names",
+        "Growth and replenishment foundation; support the artillery you actually deploy; do not abandon the Slayer troop families; add the aviation path when the test flight grows; protect the escort rather than replacing the theme; revisit priorities when you change expedition."
+      ]
+    ],
+    "sources": [
+      "techs"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "techs"
+    ]
+  },
+  "route-route-2": {
+    "label": "Route order",
+    "title": "Research · Dark Fortresses",
+    "intro": "A practical priority queue. The other tabs show the named branch paths and exceptions. Archive-derived Route II expedition order, not a fixed buy order or a current-build test — live technology names, ordering and prerequisite gates are unverified; inspect the live technology tree and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Guilds → Quernstones → Khazid Subsidies",
+        "note": "Start the growth/development base; do not research the entire civil tree before leaving."
+      },
+      {
+        "title": "Rat Poison",
+        "note": "Recovery is a leading operational priority, especially with Slayer casualties."
+      },
+      {
+        "title": "Military opening → escort protection",
+        "note": "Use Marching Songs / Gather the Throngs and the Warrior/Longbeard path as the live gates require."
+      },
+      {
+        "title": "Retainers’ Vows → shell-production path",
+        "note": "Support Cannons and Hewers. Continue Field Engineers / Artillery Entrenchment as available."
+      },
+      {
+        "title": "Black Powder → Deadeyes; Slayer branch",
+        "note": "Pirates use gun-infantry support; Slayer infantry needs its own coverage. Use the Slayer tab for the distinction."
+      },
+      {
+        "title": "Aircraft recovery only for an actual flight",
+        "note": "Interchangeable Parts matters when aircraft are a recurring expense. Otherwise prioritise escort/Slayer improvements and the next operation."
+      }
+    ],
+    "details": [
+      [
+        "This is a strategic queue, not another technology tree",
+        "The named branch paths hold the detailed steps. This route card changes the order in which those paths matter; it does not duplicate shared research progress."
+      ],
+      [
+        "Change priority when the army changes",
+        "Supported Slayer/Hewer force with anti-armour fire"
+      ],
+      [
+        "Research for the actual bottleneck",
+        "Launch base, campaign reserve and recovery stops"
+      ],
+      [
+        "The atlas's earlier expedition-path names",
+        "Growth and replenishment foundation; support the artillery you actually deploy; do not abandon the Slayer troop families; add the aviation path when the test flight grows; protect the escort rather than replacing the theme; revisit priorities when you change expedition."
+      ]
+    ],
+    "sources": [
+      "techs"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "techs"
+    ]
+  },
+  "route-route-3": {
+    "label": "Route order",
+    "title": "Research · Empire relief",
+    "intro": "A practical priority queue. The other tabs show the named branch paths and exceptions. Archive-derived Route III expedition order, not a fixed buy order or a current-build test — live technology names, ordering and prerequisite gates are unverified; inspect the live technology tree and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Guilds → Heavy Quernstones",
+        "note": "A healthy home economy is the launch point, not the entire campaign."
+      },
+      {
+        "title": "Khazid Subsidies → Rat Poison",
+        "note": "Reduce development friction and spend less time unable to continue an operation."
+      },
+      {
+        "title": "Military opening → guns and escort",
+        "note": "Follow the Opening tab. Prioritise the units actually available; crossbow support is optional when transitioning quickly."
+      },
+      {
+        "title": "Retainers’ Vows → artillery path",
+        "note": "Invest in the Cannon/Hewer core, then the mixed battery. This is separate from Adventure upgrades."
+      },
+      {
+        "title": "Treasuries + matching trade / income",
+        "note": "Support a coalition and useful former-enemy holdings. Buy resource bonuses only when the economy uses them."
+      },
+      {
+        "title": "Aviation later; Oath Stones if worthwhile",
+        "note": "The barge escort is a destination, not a gate to victory. Do not delay the last faction war to complete an unrelated technology branch."
+      }
+    ],
+    "details": [
+      [
+        "This is a strategic queue, not another technology tree",
+        "The named branch paths hold the detailed steps. This route card changes the order in which those paths matter; it does not duplicate shared research progress."
+      ],
+      [
+        "Change priority when the army changes",
+        "A self-sufficient relief column and a reliable reserve"
+      ],
+      [
+        "Research for the actual bottleneck",
+        "Trade, useful captures and forward recovery depots"
+      ],
+      [
+        "The atlas's earlier expedition-path names",
+        "Growth and replenishment foundation; support the artillery you actually deploy; do not abandon the Slayer troop families; add the aviation path when the test flight grows; protect the escort rather than replacing the theme; revisit priorities when you change expedition."
+      ]
+    ],
+    "sources": [
+      "techs"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "techs"
+    ]
+  }
+}

@@ -318,7 +318,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `malakai-research` — Commit 9: Migrate Malakai's research reference
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 6
 **Depends on:** ["malakai-skills"]
 **Write scope:** ["content/malakai/data/research.json", "content/malakai/routes/route-1.md", "content/malakai/routes/route-2.md", "content/malakai/routes/route-3.md"]
