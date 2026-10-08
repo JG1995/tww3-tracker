@@ -169,7 +169,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 **Status:** Planned
 **Depends on:** []
 **PR ref:** https://github.com/JG1995/tww3-tracker/pull/3
-**Merge ref:** Not merged
+**Merge ref:** `c14b778f58782aa8da5cfdcb8c94b098c88865b8`
 **Branch:** `feat/malakai-ostankya-migration`
 **Base branch:** `main`
 **Publication provider:** GitHub

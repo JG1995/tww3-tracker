@@ -88,7 +88,7 @@ Cross-campaign querying/analysis (comparisons, history stats across many campaig
 
 ### 1.2 Current state
 
-F1–F5, F7, and F10 are implemented and merged to `main`; F10's final HEAD is `b2317f3031e7057c2de6ca7b8f4af91cda597527`. The Elspeth content includes six datasets, three route documents, and optional crest, environment, and phase summaries. F10 implements the atlas header, desk, plan, detail pages, sources and notes views, and new hash grammar; the F2 route and dashboard surfaces are deleted. The F5 ledger model, server contract, optimistic writes, and on-demand loading remain unchanged. F6 (search) remains approved-but-unbuilt. §2 and §3 describe the implemented system; §4–§11 remain placeholders.
+F1–F7 and F10 are implemented and merged to `main`; F10's final HEAD is `b2317f3031e7057c2de6ca7b8f4af91cda597527`. The Elspeth content includes six datasets, three route documents, and optional crest, environment, and phase summaries. F10 implements the atlas header, desk, plan, detail pages, sources and notes views, and new hash grammar; the F2 route and dashboard surfaces are deleted. The F5 ledger model, server contract, optimistic writes, and on-demand loading remain unchanged. The migrated corpus is the five-guide content model (Elspeth von Draken, Alith Anar, Zhao Ming, Malakai, Mother Ostankya) served from the `content/` layout in §2; F8 and F9 remain deferred per the PRD. §2 and §3 describe the implemented system; §4–§11 remain placeholders.
 
 ---
 
