@@ -1,1 +1,2435 @@
-{}
+{
+  "route-1": {
+    "early": {
+      "label": "Early",
+      "name": "The waking coven",
+      "supportName": "Druzhina’s waking coven",
+      "units": [
+        {
+          "n": 6,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 6,
+          "name": "Kossars",
+          "role": "Bow fire; inexpensive support",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Spider Hatchlings",
+          "role": "Cheap poison / flank support",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "Cave Bats",
+          "role": "One group to interrupt exposed shooters",
+          "kind": "beast"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Mother Ostankya",
+          "role": "Hag magic and mobile fire",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 6,
+          "name": "Kossars",
+          "role": "Bow fire; inexpensive support",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Spider Hatchlings",
+          "role": "Cheap poison / flank support",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "Cave Bats",
+          "role": "One group to interrupt exposed shooters",
+          "kind": "beast"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Druzhina",
+          "role": "Command and bow support",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 6,
+          "name": "Kossars",
+          "role": "Bow fire; inexpensive support",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Spider Hatchlings",
+          "role": "Cheap poison / flank support",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "Cave Bats",
+          "role": "One group to interrupt exposed shooters",
+          "kind": "beast"
+        }
+      ],
+      "context": "Recruit toward this composition without disbanding useful veterans. Substitute an unavailable animal with a Warrior or Kossar until the relevant pool or building is ready.",
+      "notes": [
+        [
+          "Before you copy the army",
+          "Each lord and hero uses a slot. Replace a troop when adding a hero. The supporting commander does not inherit Ostankya’s personal skill bonuses."
+        ],
+        [
+          "Manual-battle rhythm",
+          "Keep the human escort and reserve close enough to protect the hunters. Commit the beasts to selected fights; keep the witches out of sustained melee."
+        ],
+        [
+          "Unavailable starting specialists",
+          "The full opening muster is a practical early target, not a claim that every listed creature is in the starting army. Preserve whichever starting specialists you have; fill missing high-tier slots with affordable humans."
+        ]
+      ],
+      "plan": [
+        [
+          "Keep the identity",
+          "The hunters, witches and forest creatures are deliberate lasting parts of this force, not temporary mistakes to be replaced by an all-gun or all-monster stack."
+        ],
+        [
+          "Handle the weakness",
+          "Low armour and large bodies need careful matchups. Keep the health bars high before autoresolving difficult opponents."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ]
+    },
+    "mid": {
+      "label": "Mid",
+      "name": "The veiled procession",
+      "supportName": "Druzhina’s veiled procession",
+      "units": [
+        {
+          "n": 4,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 5,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        },
+        {
+          "n": 3,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Mother Ostankya",
+          "role": "Hag magic and mobile fire",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Beasts)",
+          "role": "Complementary support lore",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 5,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        },
+        {
+          "n": 3,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Druzhina",
+          "role": "Command and bow support",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Beasts)",
+          "role": "Complementary support lore",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 5,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        },
+        {
+          "n": 3,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        }
+      ],
+      "context": "Recruit toward this composition without disbanding useful veterans. Substitute an unavailable animal with a Warrior or Kossar until the relevant pool or building is ready.",
+      "notes": [
+        [
+          "Before you copy the army",
+          "Each lord and hero uses a slot. Replace a troop when adding a hero. The supporting commander does not inherit Ostankya’s personal skill bonuses."
+        ],
+        [
+          "Manual-battle rhythm",
+          "Keep the human escort and reserve close enough to protect the hunters. Commit the beasts to selected fights; keep the witches out of sustained melee."
+        ]
+      ],
+      "plan": [
+        [
+          "Keep the identity",
+          "The hunters, witches and forest creatures are deliberate lasting parts of this force, not temporary mistakes to be replaced by an all-gun or all-monster stack."
+        ],
+        [
+          "Handle the weakness",
+          "Low armour and large bodies need careful matchups. Keep the health bars high before autoresolving difficult opponents."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ]
+    },
+    "late": {
+      "label": "Late",
+      "name": "The ancient covenant",
+      "supportName": "Druzhina’s ancient covenant",
+      "units": [
+        {
+          "n": 2,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 5,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        },
+        {
+          "n": 3,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Incarnate Elemental of Beasts",
+          "role": "Large-threat hunter and spirit champion",
+          "kind": "monster"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Mother Ostankya",
+          "role": "Hag magic and mobile fire",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Beasts)",
+          "role": "Complementary support lore",
+          "kind": "hero"
+        },
+        {
+          "n": 2,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 5,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        },
+        {
+          "n": 3,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Incarnate Elemental of Beasts",
+          "role": "Large-threat hunter and spirit champion",
+          "kind": "monster"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Druzhina",
+          "role": "Command and bow support",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Beasts)",
+          "role": "Complementary support lore",
+          "kind": "hero"
+        },
+        {
+          "n": 2,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 5,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        },
+        {
+          "n": 3,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Incarnate Elemental of Beasts",
+          "role": "Large-threat hunter and spirit champion",
+          "kind": "monster"
+        }
+      ],
+      "context": "Recruit toward this composition without disbanding useful veterans. Substitute an unavailable animal with a Warrior or Kossar until the relevant pool or building is ready.",
+      "notes": [
+        [
+          "Before you copy the army",
+          "Each lord and hero uses a slot. Replace a troop when adding a hero. The supporting commander does not inherit Ostankya’s personal skill bonuses."
+        ],
+        [
+          "Manual-battle rhythm",
+          "Keep the human escort and reserve close enough to protect the hunters. Commit the beasts to selected fights; keep the witches out of sustained melee."
+        ]
+      ],
+      "plan": [
+        [
+          "Keep the identity",
+          "The hunters, witches and forest creatures are deliberate lasting parts of this force, not temporary mistakes to be replaced by an all-gun or all-monster stack."
+        ],
+        [
+          "Handle the weakness",
+          "Low armour and large bodies need careful matchups. Keep the health bars high before autoresolving difficult opponents."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ]
+    },
+    "special": {
+      "label": "Spirit host",
+      "name": "The great ritual host",
+      "supportName": "Druzhina’s great ritual host",
+      "units": [
+        {
+          "n": 4,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        },
+        {
+          "n": 4,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 3,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 3,
+          "name": "Incarnate Elemental of Beasts",
+          "role": "Large-threat hunter and spirit champion",
+          "kind": "monster"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Mother Ostankya",
+          "role": "Hag magic and mobile fire",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Beasts)",
+          "role": "Complementary support lore",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        },
+        {
+          "n": 4,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 3,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 3,
+          "name": "Incarnate Elemental of Beasts",
+          "role": "Large-threat hunter and spirit champion",
+          "kind": "monster"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Druzhina",
+          "role": "Command and bow support",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Beasts)",
+          "role": "Complementary support lore",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        },
+        {
+          "n": 4,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 3,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 3,
+          "name": "Incarnate Elemental of Beasts",
+          "role": "Large-threat hunter and spirit champion",
+          "kind": "monster"
+        }
+      ],
+      "context": "Optional late ritual variant after the ordinary host is comfortable. It deliberately removes the human melee screen; beasts and characters must share the holding job. This is more demanding, not the mandatory finale army.",
+      "notes": [
+        [
+          "Before you copy the army",
+          "Each lord and hero uses a slot. Replace a troop when adding a hero. The supporting commander does not inherit Ostankya’s personal skill bonuses."
+        ],
+        [
+          "Manual-battle rhythm",
+          "Keep the human escort and reserve close enough to protect the hunters. Commit the beasts to selected fights; keep the witches out of sustained melee."
+        ]
+      ],
+      "plan": [
+        [
+          "Keep the identity",
+          "The hunters, witches and forest creatures are deliberate lasting parts of this force, not temporary mistakes to be replaced by an all-gun or all-monster stack."
+        ],
+        [
+          "Handle the weakness",
+          "Low armour and large bodies need careful matchups. Keep the health bars high before autoresolving difficult opponents."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ]
+    },
+    "home": {
+      "label": "Home guard",
+      "name": "The village wardens",
+      "supportName": "The village wardens",
+      "units": [
+        {
+          "n": 6,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Kossars",
+          "role": "Bow fire; inexpensive support",
+          "kind": "ranged"
+        }
+      ],
+      "legendary": [],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Druzhina",
+          "role": "Command and bow support",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Kossars",
+          "role": "Bow fire; inexpensive support",
+          "kind": "ranged"
+        }
+      ],
+      "context": "A 12-slot force for garrison support and local response. Add actual reinforcements when a serious enemy approaches; it is not an independent late-game field army.",
+      "notes": [
+        [
+          "Before you copy the army",
+          "Each lord and hero uses a slot. Replace a troop when adding a hero. The supporting commander does not inherit Ostankya’s personal skill bonuses."
+        ],
+        [
+          "Manual-battle rhythm",
+          "Keep the human escort and reserve close enough to protect the hunters. Commit the beasts to selected fights; keep the witches out of sustained melee."
+        ],
+        [
+          "A reaction force first",
+          "Start the home guard as a smaller reaction force. Expand it into the selected field template only when it needs to operate independently."
+        ]
+      ],
+      "plan": [
+        [
+          "Keep the identity",
+          "The hunters, witches and forest creatures are deliberate lasting parts of this force, not temporary mistakes to be replaced by an all-gun or all-monster stack."
+        ],
+        [
+          "Handle the weakness",
+          "Low armour and large bodies need careful matchups. Keep the health bars high before autoresolving difficult opponents."
+        ]
+      ],
+      "size": 12,
+      "sources": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ]
+    }
+  },
+  "route-2": {
+    "early": {
+      "label": "Early",
+      "name": "The wandering gatherers",
+      "supportName": "Druzhina’s wandering gatherers",
+      "units": [
+        {
+          "n": 6,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 6,
+          "name": "Kossars",
+          "role": "Bow fire; inexpensive support",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Spider Hatchlings",
+          "role": "Cheap poison / flank support",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "Snow Leopard",
+          "role": "Mobile anti-large intervention",
+          "kind": "beast"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Mother Ostankya",
+          "role": "Hag magic and mobile fire",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Beasts)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 6,
+          "name": "Kossars",
+          "role": "Bow fire; inexpensive support",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Spider Hatchlings",
+          "role": "Cheap poison / flank support",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "Snow Leopard",
+          "role": "Mobile anti-large intervention",
+          "kind": "beast"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Druzhina",
+          "role": "Command and bow support",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Beasts)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 6,
+          "name": "Kossars",
+          "role": "Bow fire; inexpensive support",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Spider Hatchlings",
+          "role": "Cheap poison / flank support",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "Snow Leopard",
+          "role": "Mobile anti-large intervention",
+          "kind": "beast"
+        }
+      ],
+      "context": "Recruit toward this composition without disbanding useful veterans. Substitute an unavailable animal with a Warrior or Kossar until the relevant pool or building is ready.",
+      "notes": [
+        [
+          "Before you copy the army",
+          "Each lord and hero uses a slot. Replace a troop when adding a hero. The supporting commander does not inherit Ostankya’s personal skill bonuses."
+        ],
+        [
+          "Manual-battle rhythm",
+          "Keep the human escort and reserve close enough to protect the hunters. Commit the beasts to selected fights; keep the witches out of sustained melee."
+        ],
+        [
+          "Unavailable starting specialists",
+          "The full opening muster is a practical early target, not a claim that every listed creature is in the starting army. Preserve whichever starting specialists you have; fill missing high-tier slots with affordable humans."
+        ]
+      ],
+      "plan": [
+        [
+          "Keep the identity",
+          "The hunters, witches and forest creatures are deliberate lasting parts of this force, not temporary mistakes to be replaced by an all-gun or all-monster stack."
+        ],
+        [
+          "Handle the weakness",
+          "Low armour and large bodies need careful matchups. Keep the health bars high before autoresolving difficult opponents."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ]
+    },
+    "mid": {
+      "label": "Mid",
+      "name": "The jungle hunting party",
+      "supportName": "Druzhina’s jungle hunting party",
+      "units": [
+        {
+          "n": 5,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 5,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        },
+        {
+          "n": 3,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "Snow Leopard",
+          "role": "Mobile anti-large intervention",
+          "kind": "beast"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Mother Ostankya",
+          "role": "Hag magic and mobile fire",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Beasts)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 5,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 5,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        },
+        {
+          "n": 3,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "Snow Leopard",
+          "role": "Mobile anti-large intervention",
+          "kind": "beast"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Druzhina",
+          "role": "Command and bow support",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Beasts)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 5,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 5,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        },
+        {
+          "n": 3,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "Snow Leopard",
+          "role": "Mobile anti-large intervention",
+          "kind": "beast"
+        }
+      ],
+      "context": "Recruit toward this composition without disbanding useful veterans. Substitute an unavailable animal with a Warrior or Kossar until the relevant pool or building is ready.",
+      "notes": [
+        [
+          "Before you copy the army",
+          "Each lord and hero uses a slot. Replace a troop when adding a hero. The supporting commander does not inherit Ostankya’s personal skill bonuses."
+        ],
+        [
+          "Manual-battle rhythm",
+          "Keep the human escort and reserve close enough to protect the hunters. Commit the beasts to selected fights; keep the witches out of sustained melee."
+        ]
+      ],
+      "plan": [
+        [
+          "Keep the identity",
+          "The hunters, witches and forest creatures are deliberate lasting parts of this force, not temporary mistakes to be replaced by an all-gun or all-monster stack."
+        ],
+        [
+          "Handle the weakness",
+          "Low armour and large bodies need careful matchups. Keep the health bars high before autoresolving difficult opponents."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ]
+    },
+    "late": {
+      "label": "Late",
+      "name": "The feather-and-fang expedition",
+      "supportName": "Druzhina’s feather-and-fang expedition",
+      "units": [
+        {
+          "n": 4,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 5,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Incarnate Elemental of Beasts",
+          "role": "Large-threat hunter and spirit champion",
+          "kind": "monster"
+        },
+        {
+          "n": 2,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Mother Ostankya",
+          "role": "Hag magic and mobile fire",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Beasts)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 5,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Incarnate Elemental of Beasts",
+          "role": "Large-threat hunter and spirit champion",
+          "kind": "monster"
+        },
+        {
+          "n": 2,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Druzhina",
+          "role": "Command and bow support",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Beasts)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 5,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Incarnate Elemental of Beasts",
+          "role": "Large-threat hunter and spirit champion",
+          "kind": "monster"
+        },
+        {
+          "n": 2,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        }
+      ],
+      "context": "Recruit toward this composition without disbanding useful veterans. Substitute an unavailable animal with a Warrior or Kossar until the relevant pool or building is ready.",
+      "notes": [
+        [
+          "Before you copy the army",
+          "Each lord and hero uses a slot. Replace a troop when adding a hero. The supporting commander does not inherit Ostankya’s personal skill bonuses."
+        ],
+        [
+          "Manual-battle rhythm",
+          "Keep the human escort and reserve close enough to protect the hunters. Commit the beasts to selected fights; keep the witches out of sustained melee."
+        ]
+      ],
+      "plan": [
+        [
+          "Keep the identity",
+          "The hunters, witches and forest creatures are deliberate lasting parts of this force, not temporary mistakes to be replaced by an all-gun or all-monster stack."
+        ],
+        [
+          "Handle the weakness",
+          "Low armour and large bodies need careful matchups. Keep the health bars high before autoresolving difficult opponents."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ]
+    },
+    "special": {
+      "label": "Great hunt",
+      "name": "The great-beast hunters",
+      "supportName": "Druzhina’s great-beast hunters",
+      "units": [
+        {
+          "n": 4,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Snow Leopard",
+          "role": "Mobile anti-large intervention",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 3,
+          "name": "Incarnate Elemental of Beasts",
+          "role": "Large-threat hunter and spirit champion",
+          "kind": "monster"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Mother Ostankya",
+          "role": "Hag magic and mobile fire",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Beasts)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Snow Leopard",
+          "role": "Mobile anti-large intervention",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 3,
+          "name": "Incarnate Elemental of Beasts",
+          "role": "Large-threat hunter and spirit champion",
+          "kind": "monster"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Druzhina",
+          "role": "Command and bow support",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Beasts)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Snow Leopard",
+          "role": "Mobile anti-large intervention",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 3,
+          "name": "Incarnate Elemental of Beasts",
+          "role": "Large-threat hunter and spirit champion",
+          "kind": "monster"
+        }
+      ],
+      "context": "A matchup branch for a monster-heavy opponent. Trade some infantry-hunting and poison tools for more anti-large intervention. Keep the normal late template against a balanced force.",
+      "notes": [
+        [
+          "Before you copy the army",
+          "Each lord and hero uses a slot. Replace a troop when adding a hero. The supporting commander does not inherit Ostankya’s personal skill bonuses."
+        ],
+        [
+          "Manual-battle rhythm",
+          "Keep the human escort and reserve close enough to protect the hunters. Commit the beasts to selected fights; keep the witches out of sustained melee."
+        ]
+      ],
+      "plan": [
+        [
+          "Keep the identity",
+          "The hunters, witches and forest creatures are deliberate lasting parts of this force, not temporary mistakes to be replaced by an all-gun or all-monster stack."
+        ],
+        [
+          "Handle the weakness",
+          "Low armour and large bodies need careful matchups. Keep the health bars high before autoresolving difficult opponents."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ]
+    },
+    "home": {
+      "label": "Home guard",
+      "name": "The village wardens",
+      "supportName": "The village wardens",
+      "units": [
+        {
+          "n": 6,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Kossars",
+          "role": "Bow fire; inexpensive support",
+          "kind": "ranged"
+        }
+      ],
+      "legendary": [],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Druzhina",
+          "role": "Command and bow support",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Kossars",
+          "role": "Bow fire; inexpensive support",
+          "kind": "ranged"
+        }
+      ],
+      "context": "A 12-slot force for garrison support and local response. Add actual reinforcements when a serious enemy approaches; it is not an independent late-game field army.",
+      "notes": [
+        [
+          "Before you copy the army",
+          "Each lord and hero uses a slot. Replace a troop when adding a hero. The supporting commander does not inherit Ostankya’s personal skill bonuses."
+        ],
+        [
+          "Manual-battle rhythm",
+          "Keep the human escort and reserve close enough to protect the hunters. Commit the beasts to selected fights; keep the witches out of sustained melee."
+        ],
+        [
+          "A reaction force first",
+          "Start the home guard as a smaller reaction force. Expand it into the selected field template only when it needs to operate independently."
+        ]
+      ],
+      "plan": [
+        [
+          "Keep the identity",
+          "The hunters, witches and forest creatures are deliberate lasting parts of this force, not temporary mistakes to be replaced by an all-gun or all-monster stack."
+        ],
+        [
+          "Handle the weakness",
+          "Low armour and large bodies need careful matchups. Keep the health bars high before autoresolving difficult opponents."
+        ]
+      ],
+      "size": 12,
+      "sources": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ]
+    }
+  },
+  "route-3": {
+    "early": {
+      "label": "Early",
+      "name": "The frontier watch",
+      "supportName": "Druzhina’s frontier watch",
+      "units": [
+        {
+          "n": 6,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 6,
+          "name": "Kossars",
+          "role": "Bow fire; inexpensive support",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Spider Hatchlings",
+          "role": "Cheap poison / flank support",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "Cave Bats",
+          "role": "One group to interrupt exposed shooters",
+          "kind": "beast"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Mother Ostankya",
+          "role": "Hag magic and mobile fire",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 6,
+          "name": "Kossars",
+          "role": "Bow fire; inexpensive support",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Spider Hatchlings",
+          "role": "Cheap poison / flank support",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "Cave Bats",
+          "role": "One group to interrupt exposed shooters",
+          "kind": "beast"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Druzhina",
+          "role": "Command and bow support",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 6,
+          "name": "Kossars",
+          "role": "Bow fire; inexpensive support",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Spider Hatchlings",
+          "role": "Cheap poison / flank support",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "Cave Bats",
+          "role": "One group to interrupt exposed shooters",
+          "kind": "beast"
+        }
+      ],
+      "context": "Recruit toward this composition without disbanding useful veterans. Substitute an unavailable animal with a Warrior or Kossar until the relevant pool or building is ready.",
+      "notes": [
+        [
+          "Before you copy the army",
+          "Each lord and hero uses a slot. Replace a troop when adding a hero. The supporting commander does not inherit Ostankya’s personal skill bonuses."
+        ],
+        [
+          "Manual-battle rhythm",
+          "Keep the human escort and reserve close enough to protect the hunters. Commit the beasts to selected fights; keep the witches out of sustained melee."
+        ],
+        [
+          "Unavailable starting specialists",
+          "The full opening muster is a practical early target, not a claim that every listed creature is in the starting army. Preserve whichever starting specialists you have; fill missing high-tier slots with affordable humans."
+        ]
+      ],
+      "plan": [
+        [
+          "Keep the identity",
+          "The hunters, witches and forest creatures are deliberate lasting parts of this force, not temporary mistakes to be replaced by an all-gun or all-monster stack."
+        ],
+        [
+          "Handle the weakness",
+          "Low armour and large bodies need careful matchups. Keep the health bars high before autoresolving difficult opponents."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ]
+    },
+    "mid": {
+      "label": "Mid",
+      "name": "The hunters of the new frontier",
+      "supportName": "Druzhina’s hunters of the new frontier",
+      "units": [
+        {
+          "n": 6,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 6,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Mother Ostankya",
+          "role": "Hag magic and mobile fire",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 6,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Druzhina",
+          "role": "Command and bow support",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 6,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        }
+      ],
+      "context": "Recruit toward this composition without disbanding useful veterans. Substitute an unavailable animal with a Warrior or Kossar until the relevant pool or building is ready.",
+      "notes": [
+        [
+          "Before you copy the army",
+          "Each lord and hero uses a slot. Replace a troop when adding a hero. The supporting commander does not inherit Ostankya’s personal skill bonuses."
+        ],
+        [
+          "Manual-battle rhythm",
+          "Keep the human escort and reserve close enough to protect the hunters. Commit the beasts to selected fights; keep the witches out of sustained melee."
+        ]
+      ],
+      "plan": [
+        [
+          "Keep the identity",
+          "The hunters, witches and forest creatures are deliberate lasting parts of this force, not temporary mistakes to be replaced by an all-gun or all-monster stack."
+        ],
+        [
+          "Handle the weakness",
+          "Low armour and large bodies need careful matchups. Keep the health bars high before autoresolving difficult opponents."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ]
+    },
+    "late": {
+      "label": "Late",
+      "name": "The woodland host",
+      "supportName": "Druzhina’s woodland host",
+      "units": [
+        {
+          "n": 4,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 6,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Incarnate Elemental of Beasts",
+          "role": "Large-threat hunter and spirit champion",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Mother Ostankya",
+          "role": "Hag magic and mobile fire",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Beasts)",
+          "role": "Complementary support lore",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 6,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Incarnate Elemental of Beasts",
+          "role": "Large-threat hunter and spirit champion",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Druzhina",
+          "role": "Command and bow support",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Beasts)",
+          "role": "Complementary support lore",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 6,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Feral Bears",
+          "role": "Heavy support alongside the screen",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "Incarnate Elemental of Beasts",
+          "role": "Large-threat hunter and spirit champion",
+          "kind": "monster"
+        },
+        {
+          "n": 1,
+          "name": "Giant Spiders",
+          "role": "Forest attackers; avoid braced counters",
+          "kind": "beast"
+        }
+      ],
+      "context": "Recruit toward this composition without disbanding useful veterans. Substitute an unavailable animal with a Warrior or Kossar until the relevant pool or building is ready.",
+      "notes": [
+        [
+          "Before you copy the army",
+          "Each lord and hero uses a slot. Replace a troop when adding a hero. The supporting commander does not inherit Ostankya’s personal skill bonuses."
+        ],
+        [
+          "Manual-battle rhythm",
+          "Keep the human escort and reserve close enough to protect the hunters. Commit the beasts to selected fights; keep the witches out of sustained melee."
+        ]
+      ],
+      "plan": [
+        [
+          "Keep the identity",
+          "The hunters, witches and forest creatures are deliberate lasting parts of this force, not temporary mistakes to be replaced by an all-gun or all-monster stack."
+        ],
+        [
+          "Handle the weakness",
+          "Low armour and large bodies need careful matchups. Keep the health bars high before autoresolving difficult opponents."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ]
+    },
+    "special": {
+      "label": "The Pact",
+      "name": "The pact of crown and cauldron",
+      "supportName": "Druzhina’s pact of crown and cauldron",
+      "units": [
+        {
+          "n": 4,
+          "name": "Tzar Guard",
+          "role": "Durable royal infantry escort",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Streltsi",
+          "role": "Armour-piercing gunfire with clear lanes",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "War Bear Riders",
+          "role": "Heavy anti-large reserve",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "Incarnate Elemental of Beasts",
+          "role": "Large-threat hunter and spirit champion",
+          "kind": "monster"
+        },
+        {
+          "n": 2,
+          "name": "Little Grom",
+          "role": "Long-range pressure; protect its position",
+          "kind": "artillery"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Mother Ostankya",
+          "role": "Hag magic and mobile fire",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Patriarch",
+          "role": "Recovery and healing",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Tzar Guard",
+          "role": "Durable royal infantry escort",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Streltsi",
+          "role": "Armour-piercing gunfire with clear lanes",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "War Bear Riders",
+          "role": "Heavy anti-large reserve",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "Incarnate Elemental of Beasts",
+          "role": "Large-threat hunter and spirit champion",
+          "kind": "monster"
+        },
+        {
+          "n": 2,
+          "name": "Little Grom",
+          "role": "Long-range pressure; protect its position",
+          "kind": "artillery"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Druzhina",
+          "role": "Command and bow support",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 1,
+          "name": "Patriarch",
+          "role": "Recovery and healing",
+          "kind": "hero"
+        },
+        {
+          "n": 4,
+          "name": "Tzar Guard",
+          "role": "Durable royal infantry escort",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Akshina Ambushers",
+          "role": "Hunters and focused missile fire",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Streltsi",
+          "role": "Armour-piercing gunfire with clear lanes",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "War Bear Riders",
+          "role": "Heavy anti-large reserve",
+          "kind": "beast"
+        },
+        {
+          "n": 2,
+          "name": "The Things in the Woods",
+          "role": "Fast armour-piercing infantry hunters",
+          "kind": "beast"
+        },
+        {
+          "n": 1,
+          "name": "Incarnate Elemental of Beasts",
+          "role": "Large-threat hunter and spirit champion",
+          "kind": "monster"
+        },
+        {
+          "n": 2,
+          "name": "Little Grom",
+          "role": "Long-range pressure; protect its position",
+          "kind": "artillery"
+        }
+      ],
+      "context": "Optional late branch after genuine normal Kislev recruitment access and the relevant buildings. Keep the forest Late template until then; gaining the access flag does not instantly provide these units.",
+      "notes": [
+        [
+          "Before you copy the army",
+          "Each lord and hero uses a slot. Replace a troop when adding a hero. The supporting commander does not inherit Ostankya’s personal skill bonuses."
+        ],
+        [
+          "Manual-battle rhythm",
+          "Keep the human escort and reserve close enough to protect the hunters. Commit the beasts to selected fights; keep the witches out of sustained melee."
+        ]
+      ],
+      "plan": [
+        [
+          "Keep the identity",
+          "The hunters, witches and forest creatures are deliberate lasting parts of this force, not temporary mistakes to be replaced by an all-gun or all-monster stack."
+        ],
+        [
+          "Handle the weakness",
+          "Low armour and large bodies need careful matchups. Keep the health bars high before autoresolving difficult opponents."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ]
+    },
+    "home": {
+      "label": "Home guard",
+      "name": "The village wardens",
+      "supportName": "The village wardens",
+      "units": [
+        {
+          "n": 6,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Kossars",
+          "role": "Bow fire; inexpensive support",
+          "kind": "ranged"
+        }
+      ],
+      "legendary": [],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Druzhina",
+          "role": "Command and bow support",
+          "kind": "lord"
+        },
+        {
+          "n": 1,
+          "name": "Hag Witch (Shadows)",
+          "role": "Spellcasting and support",
+          "kind": "hero"
+        },
+        {
+          "n": 6,
+          "name": "Kislevite Warriors",
+          "role": "Escort and anti-large screen",
+          "kind": "infantry"
+        },
+        {
+          "n": 4,
+          "name": "Kossars",
+          "role": "Bow fire; inexpensive support",
+          "kind": "ranged"
+        }
+      ],
+      "context": "A 12-slot force for garrison support and local response. Add actual reinforcements when a serious enemy approaches; it is not an independent late-game field army.",
+      "notes": [
+        [
+          "Before you copy the army",
+          "Each lord and hero uses a slot. Replace a troop when adding a hero. The supporting commander does not inherit Ostankya’s personal skill bonuses."
+        ],
+        [
+          "Manual-battle rhythm",
+          "Keep the human escort and reserve close enough to protect the hunters. Commit the beasts to selected fights; keep the witches out of sustained melee."
+        ],
+        [
+          "A reaction force first",
+          "Start the home guard as a smaller reaction force. Expand it into the selected field template only when it needs to operate independently."
+        ]
+      ],
+      "plan": [
+        [
+          "Keep the identity",
+          "The hunters, witches and forest creatures are deliberate lasting parts of this force, not temporary mistakes to be replaced by an all-gun or all-monster stack."
+        ],
+        [
+          "Handle the weakness",
+          "Low armour and large bodies need careful matchups. Keep the health bars high before autoresolving difficult opponents."
+        ]
+      ],
+      "size": 12,
+      "sources": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "units",
+        "mother",
+        "druzhina",
+        "smart"
+      ]
+    }
+  }
+}

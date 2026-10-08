@@ -14,7 +14,7 @@ reward:
 interpretation: "A New World frontier campaign: secure the southern and coastal dangers, build a self-supporting frontier, then campaign north against the surviving major powers, retaining valuable provinces and keeping unnecessary fronts quiet."
 bottleneck: "Sustained multi-army operations + the last surviving required faction"
 panelOrder:
-  armies: []
+  armies: [early, mid, late, special, home]
   skills: [mother-route-3, druzhina, patriarch, hag, ataman, shadows]
   research: [route-route-3, opening, forest, expedition, later]
   buildings: [hub, reclaim, frontier, income, recovery, resource, hut, temporary]

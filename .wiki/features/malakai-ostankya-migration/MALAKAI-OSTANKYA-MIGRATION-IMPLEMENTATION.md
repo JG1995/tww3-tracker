@@ -437,7 +437,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `mother-ostankya-armies` — Commit 16: Migrate Mother Ostankya's complete army reference
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 9
 **Depends on:** ["mother-ostankya-mechanics"]
 **Write scope:** ["content/mother-ostankya/data/armies.json", "content/mother-ostankya/routes/route-1.md", "content/mother-ostankya/routes/route-2.md", "content/mother-ostankya/routes/route-3.md"]

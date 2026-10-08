@@ -14,7 +14,7 @@ reward:
 interpretation: "A ritual campaign: secure a safe base and an active coven, then let battles, Incantations and Hexes carry the witchcraft progression toward the great ritual; territory is a means to finance and protect that work, not a finish line."
 bottleneck: "Correct witchcraft progression + a prepared final battle"
 panelOrder:
-  armies: []
+  armies: [early, mid, late, special, home]
   skills: [mother-route-1, druzhina, patriarch, hag, ataman, shadows]
   research: [route-route-1, opening, forest, expedition, later]
   buildings: [hub, hut, income, recovery, resource, frontier, temporary]

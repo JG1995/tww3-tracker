@@ -14,7 +14,7 @@ reward:
 interpretation: "A practical collecting expedition south from Naggaroth: choose manageable candidate settlements, maintain the bases the objective actually requires, and support a long journey with Devotion and recovery infrastructure."
 bottleneck: "Verified site credit + retained collection bases + campaign logistics"
 panelOrder:
-  armies: []
+  armies: [early, mid, late, special, home]
   skills: [mother-route-2, druzhina, patriarch, hag, ataman, beasts]
   research: [route-route-2, opening, forest, expedition, later]
   buildings: [hub, field, recovery, income, resource, frontier, hut, temporary]
