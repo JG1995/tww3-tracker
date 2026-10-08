@@ -369,7 +369,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `mother-ostankya-settlements` — Commit 12: Migrate Mother Ostankya's settlement-development reference
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 7
 **Depends on:** ["mother-ostankya-research"]
 **Write scope:** ["content/mother-ostankya/data/buildings.json", "content/mother-ostankya/routes/route-1.md", "content/mother-ostankya/routes/route-2.md", "content/mother-ostankya/routes/route-3.md"]

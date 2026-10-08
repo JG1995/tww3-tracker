@@ -1,1 +1,521 @@
-{}
+{
+ "hub": {
+  "label": "Recruitment",
+  "title": "A forest recruitment capital",
+  "intro": "A safe provincial capital that can eventually reach tier 5. The archive's capital role is a priority plan, not a verified current build order: forest-chain tiers, slot totals and recruitment access in the installed build are unverified. Check the live building preview before starting several projects.",
+  "steps": [
+   {
+    "title": "Repair the settlement; retain useful recruitment",
+    "short": "Repair the settlement; retain useful recruitment",
+    "note": "Do not demolish a working starting chain to make an ideal slot diagram. Fill the basic army first."
+   },
+   {
+    "title": "Farmstead + Market Square",
+    "short": "Farmstead + Market Square",
+    "note": "Add growth and income as slots allow. In a cash shortage, build the affordable income improvement before another military side branch."
+   },
+   {
+    "title": "Eerie Woods → Silent Grove",
+    "short": "Eerie Woods → Silent Grove",
+    "note": "The tier-3 Grove is your first major forest milestone: Things in the Woods and Hag Witch recruitment.",
+    "gate": "Target settlement tier 3"
+   },
+   {
+    "title": "Earthen Hollow → Cavern of Silk → Animal Den",
+    "short": "Earthen Hollow → Cavern of Silk → Animal Den",
+    "note": "Develop the separate animal chain only for the spiders and bears you plan to recruit. Do not confuse it with the Woods chain."
+   },
+   {
+    "title": "Ostankya’s Hut, where eligible",
+    "short": "Ostankya’s Hut, where eligible",
+    "note": "Reserve its unique slot in Bleak Hold Fortress or Volksgrad. At another capital, use this space for recovery, resources or administration.",
+    "gate": "One landmark at a time"
+   },
+   {
+    "title": "Haunted Forest after funding the army",
+    "short": "Haunted Forest after funding the army",
+    "note": "The Woods chain’s tier-5 end supports Incarnates. Finance the buildings AND recruitment/upkeep before committing.",
+    "gate": "Target settlement tier 5"
+   }
+  ],
+  "details": [
+   [
+    "Slot plan, not six simultaneous buildings",
+    "Settlement upgrades add slots. One chain changes name as it upgrades; it does not occupy one slot per name. By the mid-game, aim for the needed Woods and animal chains, a sustainable economy and a purpose-built support slot."
+   ],
+   [
+    "Basic human recruitment",
+    "Use the live Kislevite Warriors, Kossar and Akshina recruitment options while the beasts are unavailable. Preserve useful starting infantry infrastructure. The special forest army does not require opening the entire royal Kislev roster."
+   ]
+  ],
+  "sources": [
+   "woods",
+   "haunted",
+   "hut",
+   "buildings"
+  ],
+  "state": "verify-in-campaign",
+  "src": [
+   "woods",
+   "haunted",
+   "hut",
+   "buildings"
+  ]
+ },
+ "hut": {
+  "label": "Hut",
+  "title": "The landmark’s home",
+  "intro": "Bleak Hold Fortress, or Volksgrad after a deliberate homecoming. The archive's landmark guidance is a priority plan, not a verified current build order: the Hut's effects, tier gate and current price in the installed build are unverified. Check the live landmark preview before committing the slot.",
+  "steps": [
+   {
+    "title": "Retain a safe, eligible landmark site",
+    "short": "Retain a safe, eligible landmark site",
+    "note": "Only one Hut landmark may stand at a time. Do not plan duplicate passive-essence farms."
+   },
+   {
+    "title": "Develop growth and income before the tier-3 purchase",
+    "short": "Develop growth and income before the tier-3 purchase",
+    "note": "An elite-looking ritual economy cannot substitute for a working army. Preserve cash for replacement troops."
+   },
+   {
+    "title": "Construct Ostankya’s Hut",
+    "short": "Construct Ostankya’s Hut",
+    "note": "Reference effects: +4 Essence each turn, income, cheaper Hexes and better Kislev relations. Check the actual current price.",
+    "gate": "Settlement tier 3"
+   },
+   {
+    "title": "Provide a defending force or credible local response",
+    "short": "Provide a defending force or credible local response",
+    "note": "The passive income and Essence make the site worth keeping safe even while Ostankya travels."
+   },
+   {
+    "title": "Treat Essence discounts as savings",
+    "short": "Treat Essence discounts as savings",
+    "note": "Cheaper casts conserve the wallet. They are not extra mission credit, and do not make research spending automatically qualify."
+   },
+   {
+    "title": "Keep the landmark distinct from the crafting menu",
+    "short": "Keep the landmark distinct from the crafting menu",
+    "note": "You use the Witch’s Hut interface for Incantations; the landmark is a settlement building supporting that loop."
+   }
+  ],
+  "details": [
+   [
+    "There is no VCO “build this Hut” shortcut",
+    "The landmark helps the campaign; it does not itself complete any of the three published VCO routes. Do not confuse a concurrent vanilla objective with your selected VCO goal."
+   ]
+  ],
+  "sources": [
+   "hut",
+   "patch61",
+   "vco-guide"
+  ],
+  "state": "verify-in-campaign",
+  "src": [
+   "hut",
+   "patch61",
+   "vco-guide"
+  ]
+ },
+ "income": {
+  "label": "Income",
+  "title": "A safe town that funds the coven",
+  "intro": "A protected settlement with no immediate defensive or ingredient-retention job. The archive's income-chain pattern is a priority order, not a verified current build order: exact effects, tiers and slot requirements in the installed build are unverified. Check the live building preview before spending an economic slot.",
+  "steps": [
+   {
+    "title": "Farmstead → Stud Farm → Farm Estate",
+    "short": "Farmstead → Stud Farm → Farm Estate",
+    "note": "Growth helps local development; the chain also produces income and recruitment discounts."
+   },
+   {
+    "title": "Market Square → Merchant Traders → Trade Quorum",
+    "short": "Market Square → Merchant Traders → Trade Quorum",
+    "note": "A straightforward income chain for ordinary settlements. The three great Kislev cities use their own market branch."
+   },
+   {
+    "title": "Build the resource chain, if one exists",
+    "short": "Build the resource chain, if one exists",
+    "note": "Unique local resources can justify replacing a generic slot; inspect actual trade demand and income."
+   },
+   {
+    "title": "Add Hallowed Wood when farms or recovery justify it",
+    "short": "Add Hallowed Wood when farms or recovery justify it",
+    "note": "Its recovery is regional. A farming multiplier must repay the cost of the slot as well as construction."
+   },
+   {
+    "title": "Add Court / Orthodoxy infrastructure for a need",
+    "short": "Add Court / Orthodoxy infrastructure for a need",
+    "note": "Use a Courthouse or Orthodoxy branch where Devotion or support is a real bottleneck. Avoid changing every town into a temple complex."
+   },
+   {
+    "title": "Retire growth only after the province is developed",
+    "short": "Retire growth only after the province is developed",
+    "note": "Roadhouse is a more natural temporary growth investment; a mature farm still earns income. Compare replacements rather than demolishing all farms."
+   }
+  ],
+  "details": [
+   [
+    "Not an empire-wide factory recipe",
+    "A safe town can be simple: farm, market and its best local resource or support building. A port is valuable where available; additional buildings depend on the settlement’s actual slots."
+   ],
+   [
+    "Great cities are exceptions",
+    "Kislev, Praag and Erengrad have special chains and wider slot plans. This ordinary-town recipe is not a literal blueprint for those three cities."
+   ]
+  ],
+  "sources": [
+   "buildings",
+   "weald",
+   "patch61"
+  ],
+  "state": "verify-in-campaign",
+  "src": [
+   "buildings",
+   "weald",
+   "patch61"
+  ]
+ },
+ "recovery": {
+  "label": "Recovery",
+  "title": "A regional recovery station",
+  "intro": "Place it where your expedition will really end turns. The archive's recovery pattern is a priority plan, not a verified current build order: the Hallowed chain's effects, tiers and regional scope in the installed build are unverified. Check the live building preview before spending the slot.",
+  "steps": [
+   {
+    "title": "Secure the region before constructing",
+    "short": "Secure the region before constructing",
+    "note": "A half-built recovery chain in a town you cannot defend is not logistics."
+   },
+   {
+    "title": "Hallowed Wood → Hallowed Weald → Hallowed Forest",
+    "short": "Hallowed Wood → Hallowed Weald → Hallowed Forest",
+    "note": "The replenishment chain is separate from Haunted Forest. Use the actual region containing it."
+   },
+   {
+    "title": "Farm + basic income",
+    "short": "Farm + basic income",
+    "note": "A station needs to pay part of its own upkeep. Local farm recruitment discounts help only when you recruit there."
+   },
+   {
+    "title": "Stabilise Devotion and clear corruption",
+    "short": "Stabilise Devotion and clear corruption",
+    "note": "Purification solves corruption/plague problems; it does not automatically raise provincial Devotion."
+   },
+   {
+    "title": "Add defence on a contested approach",
+    "short": "Add defence on a contested approach",
+    "note": "Use the settlement’s appropriate garrison chain and keep a nearby response force where the threat warrants one."
+   },
+   {
+    "title": "Add one forward recruiting branch only if needed",
+    "short": "Add one forward recruiting branch only if needed",
+    "note": "A Grove or human recruiting chain may avoid a long march home. Do not reproduce the entire capital here."
+   }
+  ],
+  "details": [
+   [
+    "Replenishment is not a universal province aura",
+    "The Hallowed chain’s recovery effect is tied to its region in the checked database. Park the army correctly and inspect its next-turn recovery arrows; proximity on the map is not enough."
+   ],
+   [
+    "Avoid imaginary healing",
+    "A Hag’s Protective Charms helps attrition, not battle losses. Use Convalescence, the lord’s recovery skills and a valid local recovery position; add a Patriarch only when recruitable."
+   ]
+  ],
+  "sources": [
+   "weald",
+   "tech",
+   "druzhina",
+   "hag"
+  ],
+  "state": "verify-in-campaign",
+  "src": [
+   "weald",
+   "tech",
+   "druzhina",
+   "hag"
+  ]
+ },
+ "resource": {
+  "label": "Resources",
+  "title": "A protected resource and trade node",
+  "intro": "Use natural advantages instead of forcing every settlement into one recipe. The archive's resource role is a priority plan, not a verified current build order: chain effects, tiers and slot requirements in the installed build are unverified. Check the live building preview before spending a slot.",
+  "steps": [
+   {
+    "title": "Repair and inspect its local resource",
+    "short": "Repair and inspect its local resource",
+    "note": "A rare resource or strong port can matter more than the generic market slot. Decide whether you can hold it."
+   },
+   {
+    "title": "Develop the resource chain and port where present",
+    "short": "Develop the resource chain and port where present",
+    "note": "Base the next upgrade on its actual income, tradable output and your trading partners."
+   },
+   {
+    "title": "Market income; growth while still developing",
+    "short": "Market income; growth while still developing",
+    "note": "Add a market and temporary growth as slots and the local benefit justify them."
+   },
+   {
+    "title": "Stabilise Devotion before a large climate-sensitive spend",
+    "short": "Stabilise Devotion before a large climate-sensitive spend",
+    "note": "A temporary good number is not permanent climate immunity. Watch the trend and nearby hostile corruption."
+   },
+   {
+    "title": "Use Ambassador on a secure commercial province",
+    "short": "Use Ambassador on a secure commercial province",
+    "note": "The rank-12 governor choice suits resources and diplomacy; Warden is the alternative for an active danger zone."
+   },
+   {
+    "title": "Protect the trade and the approach",
+    "short": "Protect the trade and the approach",
+    "note": "A small response force or a better diplomatic border may protect more value than another low-return income upgrade."
+   }
+  ],
+  "details": [
+   [
+    "Ostankya’s resource interest",
+    "The faction has additional magical value from resource development in the checked faction data. It is a nice synergy, not a reason to occupy every resource on the map."
+   ],
+   [
+    "Development still has an opportunity cost",
+    "Money spent on a distant port cannot simultaneously replace losses in your main army. Check payback and likely ownership duration."
+   ]
+  ],
+  "sources": [
+   "buildings",
+   "ataman",
+   "patch61"
+  ],
+  "state": "verify-in-campaign",
+  "src": [
+   "buildings",
+   "ataman",
+   "patch61"
+  ]
+ },
+ "frontier": {
+  "label": "Frontier",
+  "title": "A border or coast worth holding",
+  "intro": "A settlement on a real enemy approach, not every location with a shoreline. The archive's frontier guidance is a priority pattern, not a verified current build order: garrison chains, tiers and costs in the installed build are unverified. Check the live building preview before founding a grand economy.",
+  "steps": [
+   {
+    "title": "Repair; inspect the enemy’s actual reach",
+    "short": "Repair; inspect the enemy’s actual reach",
+    "note": "Keep reserve cash for immediate recruitment if an attack is likely before a building completes."
+   },
+   {
+    "title": "Palisade → Stanitsa Defences in minor towns",
+    "short": "Palisade → Stanitsa Defences in minor towns",
+    "note": "Adds a defended unwalled settlement battle, Devotion and garrison strength. Do not assume it gives city walls.",
+    "gate": "Minor settlements"
+   },
+   {
+    "title": "Use the capital’s own defensive chain there",
+    "short": "Use the capital’s own defensive chain there",
+    "note": "A provincial capital does not use the identical minor-town recipe. Upgrade the actual chain in its menu."
+   },
+   {
+    "title": "Hallowed recovery + Devotion support",
+    "short": "Hallowed recovery + Devotion support",
+    "note": "A forward army should have a place to recover, not simply a garrison waiting for its next siege."
+   },
+   {
+    "title": "Assign a Warden Ataman when useful",
+    "short": "Assign a Warden Ataman when useful",
+    "note": "A governor can support the frontier and enable regional garrison sallies. Check the displayed radius and preview."
+   },
+   {
+    "title": "Convert to income when the frontier moves",
+    "short": "Convert to income when the frontier moves",
+    "note": "Once the approach is protected by another secure province, stop overinvesting in yesterday’s border."
+   }
+  ],
+  "details": [
+   [
+    "Do not build for every hypothetical attack",
+    "A fortified town without an affordable response army can still fall to a major enemy stack. Defend a coherent corridor and scout the next approach."
+   ],
+   [
+    "Autoresolve and sallies",
+    "Use the same casualty discipline for a garrison sally as for a field battle. Losing the garrison to an avoidable win can make the next attack worse."
+   ]
+  ],
+  "sources": [
+   "defence",
+   "patch61",
+   "ataman"
+  ],
+  "state": "verify-in-campaign",
+  "src": [
+   "defence",
+   "patch61",
+   "ataman"
+  ]
+ },
+ "temporary": {
+  "label": "Temporary",
+  "title": "A gain with an exit plan",
+  "intro": "Captured for cash, movement, safety or a temporary replenishment stop. The archive's temporary-holding guidance is a retention plan, not a verified current build order: repair values, trading rules and credit behaviour in the installed build are unverified. Check the live options before promising a buffer.",
+  "steps": [
+   {
+    "title": "Check whether the route needs continued ownership",
+    "short": "Check whether the route needs continued ownership",
+    "note": "Never classify a Route II ingredient site as temporary until its actual control requirement is resolved."
+   },
+   {
+    "title": "Keep useful repairs cheap",
+    "short": "Keep useful repairs cheap",
+    "note": "Repair what buys the next few turns. Do not queue elite recruitment for a town you intend to leave."
+   },
+   {
+    "title": "Take the immediate strategic benefit",
+    "short": "Take the immediate strategic benefit",
+    "note": "Use the staging position, remove the enemy’s recruitment or obtain the verified settlement-action credit."
+   },
+   {
+    "title": "Decide the recipient before promising a buffer",
+    "short": "Decide the recipient before promising a buffer",
+    "note": "Vanilla settlement trading has restrictions. Trade Any Settlement is an optional convenience, not a required mod or assumed installed capability."
+   },
+   {
+    "title": "Transfer, leave or develop intentionally",
+    "short": "Transfer, leave or develop intentionally",
+    "note": "Choose based on the route and the live diplomatic options. A new conquest is not automatically a permanent responsibility."
+   },
+   {
+    "title": "Reassess if the operation changes",
+    "short": "Reassess if the operation changes",
+    "note": "A temporary port can become a useful long-term hub. Adapt to the objective, not an arbitrary territorial limit."
+   }
+  ],
+  "details": [
+   [
+    "Do not confuse a ruined enemy town with a safe flank",
+    "Destroying a settlement may remove its income, but an enemy army can still exist nearby. Scout and check faction elimination independently."
+   ]
+  ],
+  "sources": [
+   "vco-guide",
+   "vco-code"
+  ],
+  "state": "verify-in-campaign",
+  "src": [
+   "vco-guide",
+   "vco-code"
+  ]
+ },
+ "field": {
+  "label": "Field station",
+  "title": "A Lustrian collecting station",
+  "intro": "A required-site holding with a clear retention job, not a disposable raid. The archive's collecting-station role is a priority plan, not a verified current rule: the ingredient quota and live credit behaviour in the installed build are unverified. Verify the objective panel before committing to a whole war.",
+  "steps": [
+   {
+    "title": "Choose the site for the ingredient quota",
+    "short": "Choose the site for the ingredient quota",
+    "note": "Record its group and current controller. The current public guide omits the quota; the ledger’s three-per-group default is explicitly archival."
+   },
+   {
+    "title": "Occupy and check live objective credit",
+    "short": "Occupy and check live objective credit",
+    "note": "Do not invent a hero “search” action. The archived mission uses direct control; verify after the first action before committing to a whole war."
+   },
+   {
+    "title": "Repair; add regional recovery",
+    "short": "Repair; add regional recovery",
+    "note": "Hallowed Wood and affordable income make the site a useful expedition stop."
+   },
+   {
+    "title": "Raise provincial Devotion for the local climate",
+    "short": "Raise provincial Devotion for the local climate",
+    "note": "Devotion of 75+ neutralises climate penalties in the rework. Plan to keep that threshold rather than immediately spending it on invocations."
+   },
+   {
+    "title": "Defend the route between credited sites",
+    "short": "Defend the route between credited sites",
+    "note": "Use an escort army or a protected border. A distant ally is not assumed to satisfy an ownership requirement."
+   },
+   {
+    "title": "Hold credited locations until the route is awarded",
+    "short": "Hold credited locations until the route is awarded",
+    "note": "Do not sell a required station because you visited it once. After confirmed victory, choose the next route before disposing of it."
+   }
+  ],
+  "details": [
+   [
+    "Selection is flexible; requirements are not invented",
+    "Each ingredient group has six candidate sites. Under the public archived implementation, three controlled sites from each group suffice. The modern author guide does not prove that this exact quota still applies; verify the live panel and edit the ledger’s quotas if necessary."
+   ],
+   [
+    "Retain a coherent collecting corridor",
+    "Pick connected holdings and manageable current owners. Three easier sites may be better than attacking a powerful Lizardman capital simply because it is first in the list."
+   ]
+  ],
+  "sources": [
+   "vco-guide",
+   "vco-code",
+   "patch61",
+   "weald"
+  ],
+  "state": "verify-in-campaign",
+  "src": [
+   "vco-guide",
+   "vco-code",
+   "patch61",
+   "weald"
+  ]
+ },
+ "reclaim": {
+  "label": "Reclaimed",
+  "title": "A newly secured northern province",
+  "intro": "Convert conquest into a sustainable realm after eliminating the nearby threat. The archive's reclaimed-province pattern is a priority plan, not a verified current build order: chain effects, tiers and slot requirements in the installed build are unverified. Check the live building preview before overbuilding.",
+  "steps": [
+   {
+    "title": "Finish the local enemy before overbuilding",
+    "short": "Finish the local enemy before overbuilding",
+    "note": "A faction with a surviving stack behind you can undo expensive construction."
+   },
+   {
+    "title": "Repair income and resource buildings first",
+    "short": "Repair income and resource buildings first",
+    "note": "Keep useful inherited functions; avoid a complete rebuild merely for visual uniformity."
+   },
+   {
+    "title": "Hallowed recovery + provincial Devotion",
+    "short": "Hallowed recovery + provincial Devotion",
+    "note": "Clear corruption and create a reliable turn-ending region. Corruption and Devotion need separate attention."
+   },
+   {
+    "title": "Choose one capital as the next recruitment hub",
+    "short": "Choose one capital as the next recruitment hub",
+    "note": "A wider kingdom needs regional replacement capacity, not every settlement recruiting everything."
+   },
+   {
+    "title": "Fortify the exposed approach; assign a governor",
+    "short": "Fortify the exposed approach; assign a governor",
+    "note": "Warden fits the active front. Once it becomes interior territory, an economic assignment may be better."
+   },
+   {
+    "title": "Hand over surplus territory only after checking credit",
+    "short": "Hand over surplus territory only after checking credit",
+    "note": "The 32-settlement objective is an action counter, not an ownership quota. Retain what helps the next war; do not discard a useful base just to stay small."
+   }
+  ],
+  "details": [
+   [
+    "Wide when it serves the war",
+    "The New Frontier needs repeated operations across Naggaroth. Additional income and recruiting centres can be sensible. No province ceiling applies to this plan."
+   ]
+  ],
+  "sources": [
+   "vco-guide",
+   "patch61",
+   "defence"
+  ],
+  "state": "verify-in-campaign",
+  "src": [
+   "vco-guide",
+   "patch61",
+   "defence"
+  ]
+ }
+}

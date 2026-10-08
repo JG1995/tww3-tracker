@@ -17,7 +17,7 @@ panelOrder:
   armies: []
   skills: [mother-route-3, druzhina, patriarch, hag, ataman, shadows]
   research: [route-route-3, opening, forest, expedition, later]
-  buildings: []
+  buildings: [hub, reclaim, frontier, income, recovery, resource, hut, temporary]
   mechanics: []
 gaps:
   - "Early → Mid"
