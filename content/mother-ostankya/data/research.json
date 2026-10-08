@@ -1,0 +1,378 @@
+{
+  "opening": {
+    "label": "Opening",
+    "title": "The common opening",
+    "intro": "A useful default. These are separate branches, not a single uninterrupted research line.",
+    "steps": [
+      {
+        "title": "Convalescence",
+        "note": "Replenishment +3% and growth +10: useful from the first repeated battles.",
+        "gate": "Root / inspect live availability"
+      },
+      {
+        "title": "Hooked Axe Blades",
+        "note": "Adds melee defence to the human screen, including Warriors and Akshina.",
+        "gate": "Root / inspect live availability"
+      },
+      {
+        "title": "Oblast Scavenger",
+        "note": "More post-battle loot; prerequisite for the movement and Akshina upgrade.",
+        "gate": "Root / inspect live availability"
+      },
+      {
+        "title": "Troll Country Pathfinder",
+        "note": "Movement for armies plus speed and range for Akshina. Useful for all three expeditions.",
+        "gate": "After Oblast Scavenger"
+      },
+      {
+        "title": "Cold Storage",
+        "note": "Extra replenishment everywhere; its additional growth is specific to Frozen climates.",
+        "gate": "After Convalescence"
+      },
+      {
+        "title": "Ice Cade Collars",
+        "note": "Weapon strength for Things in the Woods and Snow Leopards, not all forest creatures.",
+        "gate": "Root / inspect live availability"
+      }
+    ],
+    "details": [
+      [
+        "Change order for an actual reason",
+        "Move Ice Cade Collars earlier with several Things or Snow Leopards. Move a newly available unique technology forward when it improves the units already doing the fighting. Skip completed entries rather than researching them twice."
+      ],
+      [
+        "Legacy research tokens",
+        "The earlier Ostankya field guide's research tokens — ice, pathfinder, scavenger, siege, cold, collars, charms, undergrowth, shadows, glacial, dogma, convalescence and hooked — map onto the named technologies in these queues; twelve of them appear as steps above with their checked names. The “ice” token names no technology in the archive's own lookup, so an old “ice” tick must be re-read against the live tree rather than assumed to migrate. Research facts are shared across all routes, so a checked technology stays checked when you change the strategy tab."
+      ]
+    ],
+    "sources": [
+      "tech"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "tech"
+    ]
+  },
+  "forest": {
+    "label": "Witchcraft",
+    "title": "Grow the forest’s power",
+    "intro": "Unlock the crafting improvement while strengthening the roster it supports.",
+    "steps": [
+      {
+        "title": "Charms Above the Door",
+        "note": "Scouting, item drops and spell resistance. Start the unique branch when the live conditions allow it.",
+        "gate": "Ostankya unique branch"
+      },
+      {
+        "title": "Sympathetic Undergrowth",
+        "note": "Akshina gain Snipe; stronger movement control and army speed. Snipe is not verified extra Smart AR value.",
+        "gate": "Ostankya unique branch"
+      },
+      {
+        "title": "Fighting Shadows",
+        "note": "Armour for Things and forest animals. Do not assign that armour bonus to every human or Incarnate.",
+        "gate": "Ostankya unique branch"
+      },
+      {
+        "title": "Double, Double",
+        "note": "Adds a secondary trinket slot in the Witch’s Hut: a meaningful crafting milestone.",
+        "gate": "All three opening unique technologies"
+      },
+      {
+        "title": "Howling in the Woods",
+        "note": "Things gain useful missile protection and their eligible attacks can discourage enemies.",
+        "gate": "After Double, Double"
+      },
+      {
+        "title": "Poacher’s Bane",
+        "note": "Forest spotting and additional armour-piercing damage for Incarnate Elementals.",
+        "gate": "After Double, Double"
+      }
+    ],
+    "details": [
+      [
+        "The three-parent gate matters",
+        "Double, Double follows Charms Above the Door, Sympathetic Undergrowth and Fighting Shadows. It is a trinket-slot upgrade, not a sixth campaign Hex. Script and resource conditions still apply."
+      ],
+      [
+        "Empowered Hexes are a separate decision",
+        "Inspect the specific empowerment research for the Hex you actually use. Prefer mobility for a distant expedition, cleansing for plague/corruption pressure, or the final ritual’s next requirement. Do not buy every research node simply to try to advance an Essence-spending objective."
+      ]
+    ],
+    "sources": [
+      "tech",
+      "essence"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "tech",
+      "essence"
+    ]
+  },
+  "expedition": {
+    "label": "Expedition",
+    "title": "Sustain the journey",
+    "intro": "Priorities for repeated distant battles and a growing roster of veteran characters.",
+    "steps": [
+      {
+        "title": "Cold Storage",
+        "note": "Extra replenishment everywhere; its additional growth is specific to Frozen climates.",
+        "gate": "After Convalescence"
+      },
+      {
+        "title": "Troll Country Pathfinder",
+        "note": "Movement for armies plus speed and range for Akshina. Useful for all three expeditions.",
+        "gate": "After Oblast Scavenger"
+      },
+      {
+        "title": "Oblast Tactics",
+        "note": "Ambush success for the campaign; its anti-infantry bonus is for Dervishes and Horse Archers, not Akshina.",
+        "gate": "Oblast Scavenger → Troll Country Pathfinder"
+      },
+      {
+        "title": "Lens Crafters",
+        "note": "More campaign visibility; prerequisite for the recruit-rank technology.",
+        "gate": "Root / inspect live availability"
+      },
+      {
+        "title": "Gospodar Bloodline",
+        "note": "Additional lord and hero recruit rank; useful before establishing another experienced expedition.",
+        "gate": "After Lens Crafters"
+      },
+      {
+        "title": "Glacial Prism",
+        "note": "Additional army Winds reserve; Ice Guard ammunition is relevant only when those units are fielded.",
+        "gate": "Root / inspect live availability"
+      }
+    ],
+    "details": [
+      [
+        "No blind research detours",
+        "Do not take a long chain solely because its name sounds thematic. Inspect its path, total time, cost and scope. A safe army with a modest income can continue while expensive research waits."
+      ]
+    ],
+    "sources": [
+      "tech"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "tech"
+    ]
+  },
+  "later": {
+    "label": "Later",
+    "title": "Match your next investment",
+    "intro": "Useful late pivots, not a mandatory shopping list.",
+    "steps": [
+      {
+        "title": "Aggressive Cultivation",
+        "note": "Melee attack for Incarnate Elementals, Frost Wyrms and Elemental Bears. Not a bonus for every feral beast.",
+        "gate": "Convalescence → Cold Storage"
+      },
+      {
+        "title": "Ur-Stones",
+        "note": "Reduces upkeep of Incarnates, Frost Wyrms and Elemental Bears. Pursue when several are actually recruited.",
+        "gate": "Follow its connected Land prerequisite"
+      },
+      {
+        "title": "Siege Mentality",
+        "note": "Extra ammunition; its melee-defence and reload bonuses apply during siege defence.",
+        "gate": "Root / inspect live availability"
+      },
+      {
+        "title": "Devotional Creed",
+        "note": "Reduces plague spread and hostile Slaaneshi unit-seduction budget. Also opens Norse Hatred.",
+        "gate": "Root / inspect live availability"
+      },
+      {
+        "title": "Norse Hatred",
+        "note": "Combat and psychology support against the named Chaos cultures. Not a bonus against all Dark Elves or Undead.",
+        "gate": "After Devotional Creed"
+      },
+      {
+        "title": "Formalised Dogma",
+        "note": "Patriarch capacity and recruit rank. Only pay for this when Patriarch access and an actual use exist.",
+        "gate": "Root / inspect live availability"
+      }
+    ],
+    "details": [
+      [
+        "Economy is also about costs avoided",
+        "Replenishment, movement and targeted monster upkeep can matter as much as a small income modifier. Build your actual recurring income first, then take a long economic branch when enough settlements will benefit."
+      ],
+      [
+        "Optional city-roster detour",
+        "After normal Kislev recruitment is genuinely unlocked, inspect the techs whose unit lists match Tzar Guard, War Bear Riders and Little Grom. Leave horse-cavalry or Ice Court capacity nodes until you intend to use those units."
+      ]
+    ],
+    "sources": [
+      "tech"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "tech"
+    ]
+  },
+  "route-route-1": {
+    "label": "Route order",
+    "title": "Research emphasis for Route I",
+    "intro": "A priority sequence for this campaign; skip completed entries and respect live gates.",
+    "steps": [
+      {
+        "title": "Convalescence",
+        "note": "Replenishment +3% and growth +10: useful from the first repeated battles.",
+        "gate": "Root / inspect live availability"
+      },
+      {
+        "title": "Charms Above the Door",
+        "note": "Scouting, item drops and spell resistance. Start the unique branch when the live conditions allow it.",
+        "gate": "Ostankya unique branch"
+      },
+      {
+        "title": "Sympathetic Undergrowth",
+        "note": "Akshina gain Snipe; stronger movement control and army speed. Snipe is not verified extra Smart AR value.",
+        "gate": "Ostankya unique branch"
+      },
+      {
+        "title": "Fighting Shadows",
+        "note": "Armour for Things and forest animals. Do not assign that armour bonus to every human or Incarnate.",
+        "gate": "Ostankya unique branch"
+      },
+      {
+        "title": "Double, Double",
+        "note": "Adds a secondary trinket slot in the Witch’s Hut: a meaningful crafting milestone.",
+        "gate": "All three opening unique technologies"
+      },
+      {
+        "title": "Glacial Prism",
+        "note": "Additional army Winds reserve; Ice Guard ammunition is relevant only when those units are fielded.",
+        "gate": "Root / inspect live availability"
+      }
+    ],
+    "details": [
+      [
+        "After these priorities",
+        "Invest in a small usable Hag spell kit and the specific beasts in the procession. Fund the Hut and a tier-3 forest recruiting base, then the tier-5 spirit recruitment when affordable."
+      ],
+      [
+        "Shared completion",
+        "A technology researched on one route remains researched on all routes. Changing tabs changes advice, not the state of your actual campaign."
+      ]
+    ],
+    "sources": [
+      "tech"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "tech"
+    ]
+  },
+  "route-route-2": {
+    "label": "Route order",
+    "title": "Research emphasis for Route II",
+    "intro": "A priority sequence for this campaign; skip completed entries and respect live gates.",
+    "steps": [
+      {
+        "title": "Convalescence",
+        "note": "Replenishment +3% and growth +10: useful from the first repeated battles.",
+        "gate": "Root / inspect live availability"
+      },
+      {
+        "title": "Oblast Scavenger",
+        "note": "More post-battle loot; prerequisite for the movement and Akshina upgrade.",
+        "gate": "Root / inspect live availability"
+      },
+      {
+        "title": "Troll Country Pathfinder",
+        "note": "Movement for armies plus speed and range for Akshina. Useful for all three expeditions.",
+        "gate": "After Oblast Scavenger"
+      },
+      {
+        "title": "Cold Storage",
+        "note": "Extra replenishment everywhere; its additional growth is specific to Frozen climates.",
+        "gate": "After Convalescence"
+      },
+      {
+        "title": "Ice Cade Collars",
+        "note": "Weapon strength for Things in the Woods and Snow Leopards, not all forest creatures.",
+        "gate": "Root / inspect live availability"
+      },
+      {
+        "title": "Fighting Shadows",
+        "note": "Armour for Things and forest animals. Do not assign that armour bonus to every human or Incarnate.",
+        "gate": "Ostankya unique branch"
+      }
+    ],
+    "details": [
+      [
+        "After these priorities",
+        "Armour-piercing infantry hunters and anti-large protection alongside the thematic collecting caravan. A funded home base, a few real recovery stations, and high Devotion in retained unsuitable-climate provinces."
+      ],
+      [
+        "Shared completion",
+        "A technology researched on one route remains researched on all routes. Changing tabs changes advice, not the state of your actual campaign."
+      ]
+    ],
+    "sources": [
+      "tech"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "tech"
+    ]
+  },
+  "route-route-3": {
+    "label": "Route order",
+    "title": "Research emphasis for Route III",
+    "intro": "A priority sequence for this campaign; skip completed entries and respect live gates.",
+    "steps": [
+      {
+        "title": "Convalescence",
+        "note": "Replenishment +3% and growth +10: useful from the first repeated battles.",
+        "gate": "Root / inspect live availability"
+      },
+      {
+        "title": "Hooked Axe Blades",
+        "note": "Adds melee defence to the human screen, including Warriors and Akshina.",
+        "gate": "Root / inspect live availability"
+      },
+      {
+        "title": "Oblast Scavenger",
+        "note": "More post-battle loot; prerequisite for the movement and Akshina upgrade.",
+        "gate": "Root / inspect live availability"
+      },
+      {
+        "title": "Troll Country Pathfinder",
+        "note": "Movement for armies plus speed and range for Akshina. Useful for all three expeditions.",
+        "gate": "After Oblast Scavenger"
+      },
+      {
+        "title": "Fighting Shadows",
+        "note": "Armour for Things and forest animals. Do not assign that armour bonus to every human or Incarnate.",
+        "gate": "Ostankya unique branch"
+      },
+      {
+        "title": "Devotional Creed",
+        "note": "Reduces plague spread and hostile Slaaneshi unit-seduction budget. Also opens Norse Hatred.",
+        "gate": "Root / inspect live availability"
+      }
+    ],
+    "details": [
+      [
+        "After these priorities",
+        "A repeatable forest-led main army and affordable supporting forces; a royal Pact branch only once its recruitment exists. Income and Devotion in reclaimed provinces, forward recovery and regional recruiting hubs as the war moves north."
+      ],
+      [
+        "Shared completion",
+        "A technology researched on one route remains researched on all routes. Changing tabs changes advice, not the state of your actual campaign."
+      ]
+    ],
+    "sources": [
+      "tech"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "tech"
+    ]
+  }
+}

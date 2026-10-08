@@ -114,7 +114,7 @@ tww3-tracker/
 │   │   └── query.ts      # pure reads: getLord, getRoute, getPanelEntries, getFlaggedEntries, etc.
 │   ├── ledger/           # campaign types, pure logic/state, isolated I/O, on-demand hook
 │   └── styles/           # tokens.css (atlas hex tokens) and app.css
-├── content/              # git-versioned guide source; Elspeth manifest, route docs and datasets
+├── content/              # git-versioned five-guide corpus: manifests, route docs and datasets
 ├── tools/                # content-lint.mjs and dependency-free local server
 ├── test/                 # node:test suites, content fixtures, router/view/component coverage
 └── dist/                 # gitignored Vite build output, served at /

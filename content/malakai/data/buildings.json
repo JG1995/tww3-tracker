@@ -1,0 +1,1043 @@
+{
+  "frontier": {
+    "label": "Frontier",
+    "title": "Frontier and recovery stop",
+    "intro": "A settlement covering a real approach. Defensive spending is purposeful here. Archive-derived settlement guidance from the atlas’s September 2026 research, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Repair → a realistic response plan",
+        "note": "A damaged garrison and no nearby army is not fixed by queueing an expensive building."
+      },
+      {
+        "title": "Applicable gate / garrison chain",
+        "note": "Use the defensive building offered by this settlement. Major and minor settlements have different chains."
+      },
+      {
+        "title": "Barley Field → upgraded recovery",
+        "note": "Provide a place where your returning army can restore losses."
+      },
+      {
+        "title": "Income when the position is secure",
+        "note": "Border towns still need to contribute; avoid turning every slot into military infrastructure."
+      },
+      {
+        "title": "Control / corruption support if needed",
+        "note": "Use a Refectory or the appropriate local support only when it addresses a real problem."
+      },
+      {
+        "title": "Stage the home guard within reach",
+        "note": "A 12-unit guard plus a garrison is the intended defensive partnership, not a promise of invulnerability."
+      }
+    ],
+    "details": [
+      [
+        "Garrisons do not replace field response",
+        "Use the offered defensive chain where a real attack is likely. A holding army should be close enough to join a battle; the garrison is not a guarantee against several hostile stacks."
+      ],
+      [
+        "Defend the current frontier",
+        "Reclassify yesterday’s border town as an income settlement after the frontier moves. Do not pay to turn every interior town into a fortress."
+      ]
+    ],
+    "sources": [
+      "barley"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "barley"
+    ]
+  },
+  "hub-route-1": {
+    "label": "Kraka Drak",
+    "title": "Kraka Drak · capital & landmark",
+    "intro": "Your main surface recruitment and economic centre. The ship complements it; it does not turn supporting armies into independent hordes. Archive-effective Route I settlement guidance, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Repair → Barley Field + income",
+        "note": "Start surface growth, replenishment and recurring income. Support this from nearby towns when capital slots are tight."
+      },
+      {
+        "title": "Clan Barracks + necessary recruitment",
+        "note": "Open the basic roster you really need. Reserve high-tier specialised chains for the capital; the ship can cover Malakai’s immediate specialists."
+      },
+      {
+        "title": "Develop income while climbing to tier IV",
+        "note": "Upgrade the main settlement as growth allows, but retain upkeep and emergency-recruitment money."
+      },
+      {
+        "title": "Reserve a slot → The Silver Hall",
+        "note": "At tier IV in Kraka Drak, build the required landmark. The checked unmodified cost is 8,000 gold and four turns.",
+        "gate": "Tier IV"
+      },
+      {
+        "title": "Armoury → Gromril Forge → Runeforge",
+        "note": "Use this for the veteran holding army and Ironbreaker recruitment. It is not an automatic purchase in every provincial capital."
+      },
+      {
+        "title": "Aviation support or selective Deeps",
+        "note": "Once the landmark, defence and income are secure, choose the next useful specialisation. Do not sacrifice a required province for an expensive flagship upgrade."
+      }
+    ],
+    "details": [
+      [
+        "Capital slot policy",
+        "Keep specialised chains that need high settlement tiers in the capital. Put growth, income and basic recruitment in supporting towns where possible. A free slot is not an instruction to fill it with something you will never use."
+      ],
+      [
+        "Airship versus land recruitment",
+        "The airship supports Malakai’s expeditions. A home recruitment centre still matters for a second army and rebuilding after a serious loss. Choose where the next actual army will be recruited before paying for duplicate infrastructure."
+      ],
+      [
+        "Ironbreakers",
+        "The current unit/building references identify the Runeforge in the smithy chain as Ironbreaker access. Do not use the old “Hall of Oaths plus Gromril Forge” instructions from earlier games."
+      ],
+      [
+        "Slayer recruitment for supporting armies",
+        "A tier-III surface Slayer Shrine recruits Slayers and Slayer Pirates. Add it where a supporting army needs an independent supply; Malakai can use Hardened Hull instead. Develop the shrine’s higher tier when the live tooltip offers the advanced Slayer units you need. Do not build this chain in every income town."
+      ]
+    ],
+    "sources": [
+      "runeforge",
+      "ship-recruit",
+      "slayer-recruit",
+      "slayer-shrine",
+      "silver-hall"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "runeforge",
+      "ship-recruit",
+      "slayer-recruit",
+      "slayer-shrine",
+      "silver-hall"
+    ]
+  },
+  "hub-route-2": {
+    "label": "Launch base",
+    "title": "Kraka Drak · expedition launch base",
+    "intro": "Your main surface recruitment and economic centre. The ship complements it; it does not turn supporting armies into independent hordes. Archive-effective Route II settlement guidance, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Repair → Barley Field + an income source",
+        "note": "Preserve useful existing buildings. Get growth/replenishment and recurring money running before unlocking every unit."
+      },
+      {
+        "title": "Sparring Chamber → Clan Barracks",
+        "note": "Basic troops and Quarrellers. A nearby minor can host the basic chain when capital slots are tight."
+      },
+      {
+        "title": "Trading Depot or valuable local resource",
+        "note": "Keep enough income to pay the army while the capital develops."
+      },
+      {
+        "title": "Siege Workshop → Gunsmith’s Forge",
+        "note": "Choose a land artillery supply if it serves your generic armies. Do not duplicate it immediately when ship/pool recruitment already solves the current need."
+      },
+      {
+        "title": "Armoury → Gromril Forge → Runeforge",
+        "note": "Advance the smithy chain towards Ironbreakers and Runesmith support. Match upgrades to the unit tooltip; old WH1 building charts differ."
+      },
+      {
+        "title": "Stop at the useful launch standard",
+        "note": "Fund the ship, recovery reserve and the field force before an optional Silver Hall or Deeps project. Neither is required for the fortress route."
+      }
+    ],
+    "details": [
+      [
+        "Capital slot policy",
+        "Keep specialised chains that need high settlement tiers in the capital. Put growth, income and basic recruitment in supporting towns where possible. A free slot is not an instruction to fill it with something you will never use."
+      ],
+      [
+        "Airship versus land recruitment",
+        "The airship supports Malakai’s expeditions. A home recruitment centre still matters for a second army and rebuilding after a serious loss. Choose where the next actual army will be recruited before paying for duplicate infrastructure."
+      ],
+      [
+        "Ironbreakers",
+        "The current unit/building references identify the Runeforge in the smithy chain as Ironbreaker access. Do not use the old “Hall of Oaths plus Gromril Forge” instructions from earlier games."
+      ],
+      [
+        "Slayer recruitment for supporting armies",
+        "A tier-III surface Slayer Shrine recruits Slayers and Slayer Pirates. Add it where a supporting army needs an independent supply; Malakai can use Hardened Hull instead. Develop the shrine’s higher tier when the live tooltip offers the advanced Slayer units you need. Do not build this chain in every income town."
+      ]
+    ],
+    "sources": [
+      "runeforge",
+      "ship-recruit",
+      "slayer-recruit",
+      "slayer-shrine"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "runeforge",
+      "ship-recruit",
+      "slayer-recruit",
+      "slayer-shrine"
+    ]
+  },
+  "hub-route-3": {
+    "label": "Home base",
+    "title": "Kraka Drak · coalition supply base",
+    "intro": "Your main surface recruitment and economic centre. The ship complements it; it does not turn supporting armies into independent hordes. Archive-effective Route III settlement guidance, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Repair → Barley Field + an income source",
+        "note": "Preserve useful existing buildings. Get growth/replenishment and recurring money running before unlocking every unit."
+      },
+      {
+        "title": "Sparring Chamber → Clan Barracks",
+        "note": "Basic troops and Quarrellers. A nearby minor can host the basic chain when capital slots are tight."
+      },
+      {
+        "title": "Trading Depot or valuable local resource",
+        "note": "Keep enough income to pay the army while the capital develops."
+      },
+      {
+        "title": "Siege Workshop → Gunsmith’s Forge",
+        "note": "Choose a land artillery supply if it serves your generic armies. Do not duplicate it immediately when ship/pool recruitment already solves the current need."
+      },
+      {
+        "title": "Armoury → Gromril Forge → Runeforge",
+        "note": "Advance the smithy chain towards Ironbreakers and Runesmith support. Match upgrades to the unit tooltip; old WH1 building charts differ."
+      },
+      {
+        "title": "A useful reserve, then optional projects",
+        "note": "The Silver Hall is valuable but optional here. Do not delay saving a required city to finish a non-required landmark or Deeps branch."
+      }
+    ],
+    "details": [
+      [
+        "Capital slot policy",
+        "Keep specialised chains that need high settlement tiers in the capital. Put growth, income and basic recruitment in supporting towns where possible. A free slot is not an instruction to fill it with something you will never use."
+      ],
+      [
+        "Airship versus land recruitment",
+        "The airship supports Malakai’s expeditions. A home recruitment centre still matters for a second army and rebuilding after a serious loss. Choose where the next actual army will be recruited before paying for duplicate infrastructure."
+      ],
+      [
+        "Ironbreakers",
+        "The current unit/building references identify the Runeforge in the smithy chain as Ironbreaker access. Do not use the old “Hall of Oaths plus Gromril Forge” instructions from earlier games."
+      ],
+      [
+        "Slayer recruitment for supporting armies",
+        "A tier-III surface Slayer Shrine recruits Slayers and Slayer Pirates. Add it where a supporting army needs an independent supply; Malakai can use Hardened Hull instead. Develop the shrine’s higher tier when the live tooltip offers the advanced Slayer units you need. Do not build this chain in every income town."
+      ]
+    ],
+    "sources": [
+      "runeforge",
+      "ship-recruit",
+      "slayer-recruit",
+      "slayer-shrine"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "runeforge",
+      "ship-recruit",
+      "slayer-recruit",
+      "slayer-shrine"
+    ]
+  },
+  "reclaim": {
+    "label": "Reclaimed",
+    "title": "Newly reclaimed objective province",
+    "intro": "An unfinished required province needs occupation, stability and a response plan before prestige buildings. Archive-effective Route I settlement guidance, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Occupy → repair useful infrastructure",
+        "note": "Keep objective settlements rather than razing them. Check provincial completeness while the army is still nearby."
+      },
+      {
+        "title": "Barley Field + control where needed",
+        "note": "Support development and replenishment; use a Refectory or other applicable control/corruption tools only where the numbers require them."
+      },
+      {
+        "title": "One reliable source of income",
+        "note": "Begin paying for the occupation; do not build three recruitment chains in a ruined province."
+      },
+      {
+        "title": "Defend the exposed approach",
+        "note": "Use the offered garrison chain and position a holding force where it can actually reinforce."
+      },
+      {
+        "title": "Finish the province → assign its roles",
+        "note": "Choose one hub/frontier role as necessary and let the safe towns become income settlements."
+      },
+      {
+        "title": "Advance only with a handover plan",
+        "note": "The next cluster should not force Malakai to abandon every previous capture. Leave a budgeted force or a credible quiet border."
+      }
+    ],
+    "details": [
+      [
+        "A conquest is not yet a stable province",
+        "After the field army leaves, the new province needs enough control, income and military cover to survive. Repair useful existing buildings before spending on an entirely new recruitment complex."
+      ],
+      [
+        "What to build next",
+        "Use growth when it advances a settlement you intend to develop; use income when upkeep is the bottleneck; move defence forward when the new frontier is exposed. The construction recipe is a priority order, not six simultaneous building slots."
+      ],
+      [
+        "When to change its role",
+        "Once the frontier passes it, the settlement can become an income town or regional recruitment hub. Keep required province ownership intact while changing its economic job."
+      ]
+    ],
+    "sources": [
+      "barley",
+      "income",
+      "vco-guide"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "barley",
+      "income",
+      "vco-guide"
+    ]
+  },
+  "recruit": {
+    "label": "Army hub",
+    "title": "Secondary recruitment & recovery hub",
+    "intro": "Build one when the front is too far from Kraka Drak, not in every province. Archive-effective Route I settlement guidance, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Choose a secure forward capital",
+        "note": "Distance to the actual front and defensibility matter more than a resource icon alone."
+      },
+      {
+        "title": "Barley Field + ordinary income",
+        "note": "The hub should replenish troops and help pay its own costs."
+      },
+      {
+        "title": "Basic infantry → relevant higher tiers",
+        "note": "Build the chain that recruits the holding army’s shielded troops. Retain serviceable Warriors and Longbeards while upgrading."
+      },
+      {
+        "title": "Siege Workshop → Gunsmith’s Forge",
+        "note": "Open the artillery/gun supply the supporting army lacks. Check local versus global recruitment costs and time."
+      },
+      {
+        "title": "Runeforge / Slayer Shrine as required",
+        "note": "Choose the troop supply you actually need. A shrine fits Slayer crew recruitment; the smithy path fits the veteran escort."
+      },
+      {
+        "title": "Stop once the army can be supplied",
+        "note": "No requirement for every final recruitment building. Return the budget to province control and the Silver Hall until those are complete."
+      }
+    ],
+    "details": [
+      [
+        "Choose a hub, not a duplicate in every province",
+        "Pick a secure capital close enough to supply the next conquest front. Build the chains required by its supporting army; the ship remains Malakai’s specialist workshop."
+      ],
+      [
+        "Fund the army before its luxury roster",
+        "An affordable infantry-and-crossbow column can hold territory while the advanced buildings finish. Do not postpone a necessary defensive army until every slot can contain an elite unit."
+      ],
+      [
+        "The test for another hub",
+        "A second hub earns its cost when reinforcement travel has become a repeated problem. One unused advanced recruitment building is not an economic benefit just because the construction queue is free."
+      ]
+    ],
+    "sources": [
+      "runeforge",
+      "slayer-shrine",
+      "barley"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "runeforge",
+      "slayer-shrine",
+      "barley"
+    ]
+  },
+  "income-route-1": {
+    "label": "Income town",
+    "title": "Safe income town",
+    "intro": "An interior settlement with no immediate front-line job. Its income helps finance the selected campaign. Required-province interiors are your default income network; preserve the ownership needed for victory. Archive-effective Route I settlement guidance, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Barley Field",
+        "note": "Early provincial growth plus replenishment. Keep while the province still needs development."
+      },
+      {
+        "title": "Trading Depot",
+        "note": "My low-fuss default economic branch; also contributes to Oathgold availability."
+      },
+      {
+        "title": "Upgrade settlement → upgrade income",
+        "note": "Unlock the slots and next economic tier you can actually afford to exploit."
+      },
+      {
+        "title": "Resource building if the site has one",
+        "note": "Compare its actual income and bonuses with a generic economic upgrade."
+      },
+      {
+        "title": "Refectory only when control needs it",
+        "note": "Do not buy control automatically in a stable interior province."
+      },
+      {
+        "title": "Replace obsolete growth later",
+        "note": "Once provincial growth has stopped being useful, convert that slot to income or a specific support job."
+      }
+    ],
+    "details": [
+      [
+        "The simple slot recipe",
+        "Growth/recovery + income + resource or the province’s needed support. This is a role recipe, not a promise that every settlement has three free slots immediately."
+      ],
+      [
+        "Trading Depot versus Trinket Maker",
+        "These are alternative economic branches in a settlement. A Trinket Maker branch can help a heavily developing province; do not assume you can place both branches in the same town. Avoid constant demolition/rebuild cycles merely for a marginal discount."
+      ]
+    ],
+    "sources": [
+      "barley",
+      "income"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "barley",
+      "income"
+    ]
+  },
+  "income-route-2": {
+    "label": "Income town",
+    "title": "Safe income town",
+    "intro": "An interior settlement with no immediate front-line job. Its income helps finance the selected campaign. Fund the expedition from safe sites. A marginal forward holding may cost more to defend than it earns. Archive-effective Route II settlement guidance, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Barley Field",
+        "note": "Early provincial growth plus replenishment. Keep while the province still needs development."
+      },
+      {
+        "title": "Trading Depot",
+        "note": "My low-fuss default economic branch; also contributes to Oathgold availability."
+      },
+      {
+        "title": "Upgrade settlement → upgrade income",
+        "note": "Unlock the slots and next economic tier you can actually afford to exploit."
+      },
+      {
+        "title": "Resource building if the site has one",
+        "note": "Compare its actual income and bonuses with a generic economic upgrade."
+      },
+      {
+        "title": "Refectory only when control needs it",
+        "note": "Do not buy control automatically in a stable interior province."
+      },
+      {
+        "title": "Replace obsolete growth later",
+        "note": "Once provincial growth has stopped being useful, convert that slot to income or a specific support job."
+      }
+    ],
+    "details": [
+      [
+        "The simple slot recipe",
+        "Growth/recovery + income + resource or the province’s needed support. This is a role recipe, not a promise that every settlement has three free slots immediately."
+      ],
+      [
+        "Trading Depot versus Trinket Maker",
+        "These are alternative economic branches in a settlement. A Trinket Maker branch can help a heavily developing province; do not assume you can place both branches in the same town. Avoid constant demolition/rebuild cycles merely for a marginal discount."
+      ]
+    ],
+    "sources": [
+      "barley",
+      "income"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "barley",
+      "income"
+    ]
+  },
+  "income-route-3": {
+    "label": "Income town",
+    "title": "Safe income town",
+    "intro": "An interior settlement with no immediate front-line job. Its income helps finance the selected campaign. Use trade and useful former-enemy holdings to fund allied relief; no need to confederate every friend. Archive-effective Route III settlement guidance, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Barley Field",
+        "note": "Early provincial growth plus replenishment. Keep while the province still needs development."
+      },
+      {
+        "title": "Trading Depot",
+        "note": "My low-fuss default economic branch; also contributes to Oathgold availability."
+      },
+      {
+        "title": "Upgrade settlement → upgrade income",
+        "note": "Unlock the slots and next economic tier you can actually afford to exploit."
+      },
+      {
+        "title": "Resource building if the site has one",
+        "note": "Compare its actual income and bonuses with a generic economic upgrade."
+      },
+      {
+        "title": "Refectory only when control needs it",
+        "note": "Do not buy control automatically in a stable interior province."
+      },
+      {
+        "title": "Replace obsolete growth later",
+        "note": "Once provincial growth has stopped being useful, convert that slot to income or a specific support job."
+      }
+    ],
+    "details": [
+      [
+        "The simple slot recipe",
+        "Growth/recovery + income + resource or the province’s needed support. This is a role recipe, not a promise that every settlement has three free slots immediately."
+      ],
+      [
+        "Trading Depot versus Trinket Maker",
+        "These are alternative economic branches in a settlement. A Trinket Maker branch can help a heavily developing province; do not assume you can place both branches in the same town. Avoid constant demolition/rebuild cycles merely for a marginal discount."
+      ]
+    ],
+    "sources": [
+      "barley",
+      "income"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "barley",
+      "income"
+    ]
+  },
+  "resource-route-1": {
+    "label": "Resource hold",
+    "title": "Mine or trade-resource settlement",
+    "intro": "A valuable resource or mine. Keep and develop it when its real return justifies its defensive and administrative cost. Required-province interiors are your default income network; preserve the ownership needed for victory. Archive-effective Route I settlement guidance, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Repair the useful resource building",
+        "note": "Read the income and military effects on that specific resource."
+      },
+      {
+        "title": "Add Barley Field if growing the province",
+        "note": "Do not delay an already profitable resource just to force a universal first-build rule."
+      },
+      {
+        "title": "Add generic income",
+        "note": "A valuable resource does not replace the rest of the economy."
+      },
+      {
+        "title": "Upgrade resource before decorative support",
+        "note": "Prioritise substantial recurring returns or a relevant military bonus."
+      },
+      {
+        "title": "Defence when the location is exposed",
+        "note": "An isolated lucrative town may cost more to guard than it earns."
+      },
+      {
+        "title": "Consider Deeps only for a safe rich capital",
+        "note": "Evaluate the whole regional income base. Do not open a separate underground project in every resource town."
+      }
+    ],
+    "details": [
+      [
+        "Use the actual tooltip",
+        "A military discount may be local while an upkeep effect is broader. Check scope before recruiting half your army somewhere merely because the building icon looks relevant."
+      ],
+      [
+        "Retention test",
+        "Keep it when it funds the campaign, improves a recovery route, protects a needed border or belongs to a required province. Resource icons alone are not a reason to open a detached new front."
+      ]
+    ],
+    "sources": [
+      "deeps"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "deeps"
+    ]
+  },
+  "resource-route-2": {
+    "label": "Resource hold",
+    "title": "Mine or trade-resource settlement",
+    "intro": "A valuable resource or mine. Keep and develop it when its real return justifies its defensive and administrative cost. Fund the expedition from safe sites. A marginal forward holding may cost more to defend than it earns. Archive-effective Route II settlement guidance, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Repair the useful resource building",
+        "note": "Read the income and military effects on that specific resource."
+      },
+      {
+        "title": "Add Barley Field if growing the province",
+        "note": "Do not delay an already profitable resource just to force a universal first-build rule."
+      },
+      {
+        "title": "Add generic income",
+        "note": "A valuable resource does not replace the rest of the economy."
+      },
+      {
+        "title": "Upgrade resource before decorative support",
+        "note": "Prioritise substantial recurring returns or a relevant military bonus."
+      },
+      {
+        "title": "Defence when the location is exposed",
+        "note": "An isolated lucrative town may cost more to guard than it earns."
+      },
+      {
+        "title": "Consider Deeps only for a safe rich capital",
+        "note": "Evaluate the whole regional income base. Do not open a separate underground project in every resource town."
+      }
+    ],
+    "details": [
+      [
+        "Use the actual tooltip",
+        "A military discount may be local while an upkeep effect is broader. Check scope before recruiting half your army somewhere merely because the building icon looks relevant."
+      ],
+      [
+        "Retention test",
+        "Keep it when it funds the campaign, improves a recovery route, protects a needed border or belongs to a required province. Resource icons alone are not a reason to open a detached new front."
+      ]
+    ],
+    "sources": [
+      "deeps"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "deeps"
+    ]
+  },
+  "resource-route-3": {
+    "label": "Resource hold",
+    "title": "Mine or trade-resource settlement",
+    "intro": "A valuable resource or mine. Keep and develop it when its real return justifies its defensive and administrative cost. Use trade and useful former-enemy holdings to fund allied relief; no need to confederate every friend. Archive-effective Route III settlement guidance, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Repair the useful resource building",
+        "note": "Read the income and military effects on that specific resource."
+      },
+      {
+        "title": "Add Barley Field if growing the province",
+        "note": "Do not delay an already profitable resource just to force a universal first-build rule."
+      },
+      {
+        "title": "Add generic income",
+        "note": "A valuable resource does not replace the rest of the economy."
+      },
+      {
+        "title": "Upgrade resource before decorative support",
+        "note": "Prioritise substantial recurring returns or a relevant military bonus."
+      },
+      {
+        "title": "Defence when the location is exposed",
+        "note": "An isolated lucrative town may cost more to guard than it earns."
+      },
+      {
+        "title": "Consider Deeps only for a safe rich capital",
+        "note": "Evaluate the whole regional income base. Do not open a separate underground project in every resource town."
+      }
+    ],
+    "details": [
+      [
+        "Use the actual tooltip",
+        "A military discount may be local while an upkeep effect is broader. Check scope before recruiting half your army somewhere merely because the building icon looks relevant."
+      ],
+      [
+        "Retention test",
+        "Keep it when it funds the campaign, improves a recovery route, protects a needed border or belongs to a required province. Resource icons alone are not a reason to open a detached new front."
+      ]
+    ],
+    "sources": [
+      "deeps"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "deeps"
+    ]
+  },
+  "deep-route-1": {
+    "label": "Deeps capital",
+    "title": "Your principal underground investment",
+    "intro": "A selected regional investment. Compare the current return against your next army, ship upgrade and victory bottleneck. Archive-effective Route I settlement guidance, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Secure surface income and a cash reserve",
+        "note": "Do this before paying for the Great Gate and underground space."
+      },
+      {
+        "title": "Great Gate → develop the entrance",
+        "note": "Budget the useful rooms and blocked-space clearance, not just the visible entrance price."
+      },
+      {
+        "title": "Income-producing underground rooms",
+        "note": "Build a productive base before expensive optional defensive effects."
+      },
+      {
+        "title": "Prefer returns that suit a wide realm",
+        "note": "Compare Counting Room and other productive rooms first. Buy Guild Foundries only when its live net modifier is genuinely attractive despite the required settlement count."
+      },
+      {
+        "title": "Extend the productive rooms gradually",
+        "note": "Expand one finished project before starting several empty entrances."
+      },
+      {
+        "title": "Only then add specialist defences",
+        "note": "Read Seal the Hold!’s drawbacks. It is not a default growth upgrade or a benefit guaranteed by owning five provinces."
+      }
+    ],
+    "details": [
+      [
+        "Surface income is the relevant threshold",
+        "The Counting Room’s conditional thresholds refer to surface income, not the total including the Deeps. Check the active tooltip before assuming an upgrade tier will pay for itself."
+      ],
+      [
+        "No universal underground build",
+        "A wide conquest, one expedition base and an alliance network have different economics. A strong surface economy and a reserve come first. Do not automatically seal a growing capital or damage important relations for a marginal siege bonus."
+      ],
+      [
+        "A complete project beats an empty entrance",
+        "Budget entrance, clearing and productive rooms together. Several unopened investment plans do not fund an army."
+      ]
+    ],
+    "sources": [
+      "deeps",
+      "deep-data",
+      "counting",
+      "counting-scope",
+      "seal"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "deeps",
+      "deep-data",
+      "counting",
+      "counting-scope",
+      "seal"
+    ]
+  },
+  "deep-route-2": {
+    "label": "Deeps capital",
+    "title": "Your principal underground investment",
+    "intro": "A selected regional investment. Compare the current return against your next army, ship upgrade and victory bottleneck. Archive-effective Route II settlement guidance, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Secure surface income and a cash reserve",
+        "note": "Do this before paying for the Great Gate and underground space."
+      },
+      {
+        "title": "Great Gate → develop the entrance",
+        "note": "Budget the useful rooms and blocked-space clearance, not just the visible entrance price."
+      },
+      {
+        "title": "Income-producing underground rooms",
+        "note": "Build a productive base before expensive optional defensive effects."
+      },
+      {
+        "title": "Use Guild Foundries only if it pays now",
+        "note": "A small base can suit the branch, but smaller ownership is a chosen logistics policy—not a rule. If extra land is helping fund the invasion, keep it and choose the better live income option."
+      },
+      {
+        "title": "Extend the productive rooms gradually",
+        "note": "Expand one finished project before starting several empty entrances."
+      },
+      {
+        "title": "Only then add specialist defences",
+        "note": "Read Seal the Hold!’s drawbacks. It is not a default growth upgrade or a benefit guaranteed by owning five provinces."
+      }
+    ],
+    "details": [
+      [
+        "Surface income is the relevant threshold",
+        "The Counting Room’s conditional thresholds refer to surface income, not the total including the Deeps. Check the active tooltip before assuming an upgrade tier will pay for itself."
+      ],
+      [
+        "No universal underground build",
+        "A wide conquest, one expedition base and an alliance network have different economics. A strong surface economy and a reserve come first. Do not automatically seal a growing capital or damage important relations for a marginal siege bonus."
+      ],
+      [
+        "A complete project beats an empty entrance",
+        "Budget entrance, clearing and productive rooms together. Several unopened investment plans do not fund an army."
+      ]
+    ],
+    "sources": [
+      "deeps",
+      "deep-data",
+      "counting",
+      "counting-scope",
+      "seal"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "deeps",
+      "deep-data",
+      "counting",
+      "counting-scope",
+      "seal"
+    ]
+  },
+  "deep-route-3": {
+    "label": "Deeps capital",
+    "title": "Your principal underground investment",
+    "intro": "A selected regional investment. Compare the current return against your next army, ship upgrade and victory bottleneck. Archive-effective Route III settlement guidance, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Secure surface income and a cash reserve",
+        "note": "Do this before paying for the Great Gate and underground space."
+      },
+      {
+        "title": "Great Gate → develop the entrance",
+        "note": "Budget the useful rooms and blocked-space clearance, not just the visible entrance price."
+      },
+      {
+        "title": "Income-producing underground rooms",
+        "note": "Build a productive base before expensive optional defensive effects."
+      },
+      {
+        "title": "Choose the branch for your real economy",
+        "note": "Counting Room suits surface income; Guild Foundries can suit a smaller realm only when the live modifier pays. Evaluate the trade network and owned-settlement count without a pre-set size target."
+      },
+      {
+        "title": "Extend the productive rooms gradually",
+        "note": "Expand one finished project before starting several empty entrances."
+      },
+      {
+        "title": "Only then add specialist defences",
+        "note": "Read Seal the Hold!’s drawbacks. It is not a default growth upgrade or a benefit guaranteed by owning five provinces."
+      }
+    ],
+    "details": [
+      [
+        "Surface income is the relevant threshold",
+        "The Counting Room’s conditional thresholds refer to surface income, not the total including the Deeps. Check the active tooltip before assuming an upgrade tier will pay for itself."
+      ],
+      [
+        "No universal underground build",
+        "A wide conquest, one expedition base and an alliance network have different economics. A strong surface economy and a reserve come first. Do not automatically seal a growing capital or damage important relations for a marginal siege bonus."
+      ],
+      [
+        "A complete project beats an empty entrance",
+        "Budget entrance, clearing and productive rooms together. Several unopened investment plans do not fund an army."
+      ]
+    ],
+    "sources": [
+      "deeps",
+      "deep-data",
+      "counting",
+      "counting-scope",
+      "seal"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "deeps",
+      "deep-data",
+      "counting",
+      "counting-scope",
+      "seal"
+    ]
+  },
+  "staging": {
+    "label": "Staging",
+    "title": "A staging & recovery base",
+    "intro": "A place from which to launch the next leg—not a high-tier showcase in hostile territory. Archive-effective Route II settlement guidance, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Pick a defensible recovery position",
+        "note": "Know where reinforcements can reach it and where the next eligible targets are."
+      },
+      {
+        "title": "Repair → verify replenishment",
+        "note": "Check the actual army preview. Ownership, stance, corruption and climate can matter; a percentage bonus alone is not permission to heal anywhere."
+      },
+      {
+        "title": "Barley Field / basic recovery support",
+        "note": "Build only when the projected length of stay justifies waiting for completion."
+      },
+      {
+        "title": "Control + garrison if under real pressure",
+        "note": "Preserve the staging point without paying for a huge province that does not serve the objective."
+      },
+      {
+        "title": "Use the ship for specialist replacement",
+        "note": "Keep an independent surface chain only when another army genuinely needs it."
+      },
+      {
+        "title": "Move or retire the base after the leg",
+        "note": "Leave minimal investment, keep it if still valuable, or transfer when possible. The next replenishment location must be chosen before departure."
+      }
+    ],
+    "details": [
+      [
+        "A recovery stop is not a fortress credit",
+        "Keep the site you depend on for staging separate from a target you intend to raze. Your first credited objective should validate the mission interaction before you commit to a long itinerary."
+      ],
+      [
+        "Verify the next leg",
+        "Before leaving, identify the next qualifying target, the hostile armies that can reach you, and the place you will recover afterwards. One interrupted expedition costs more than a turn spent replenishing."
+      ],
+      [
+        "Match spending to the expected stay",
+        "A temporary stop rarely needs a full elite recruitment chain. Repair, basic recovery and real defensive needs come first; the ship can supply specialists. Extend surface recruitment when another army actually requires it."
+      ],
+      [
+        "Retire the base deliberately",
+        "After the front moves, retain it when it still supports supply or income; otherwise leave minimal investment or transfer it where eligible. Do not remove your only safe recovery position before the next one works."
+      ]
+    ],
+    "sources": [
+      "barley",
+      "ca-malakai"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "barley",
+      "ca-malakai"
+    ]
+  },
+  "outpost-route-2": {
+    "label": "Target town",
+    "title": "An eligible target is not automatically a base",
+    "intro": "Captured for an operation, route objective or transfer—not intended to become a permanent province. Archive-effective Route II settlement guidance, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Check eligibility before the assault",
+        "note": "Use the twelve-site VCO list and the actual mission. Fortress status alone is insufficient."
+      },
+      {
+        "title": "Earn the “lay waste” credit first",
+        "note": "Razing an occupied hostile qualifying site is our conservative recommendation; verify the very first action in the mission. Do not queue an economy on a location you intend to raze."
+      },
+      {
+        "title": "Separate the recovery point from the target",
+        "note": "Use another staging site or valid encampment. A demolished fortress does not supply ordinary town infrastructure."
+      },
+      {
+        "title": "Decide keep / transfer / leave",
+        "note": "Make the decision while the army is present. Do not create an orphaned expensive town by accident."
+      },
+      {
+        "title": "Transfer where diplomacy permits",
+        "note": "Use the game’s available settlement-trade options. This guide does not require Trade Any Settlement to be installed."
+      },
+      {
+        "title": "Record the exit plan",
+        "note": "Where does the army recover, and who will hold the approach once you leave?"
+      }
+    ],
+    "details": [
+      [
+        "Occupation is a tool",
+        "A temporary foothold can be correct even on an invasion route. Identify the planned duration, recovery benefit and exit before investing. There is no arbitrary ownership cap."
+      ],
+      [
+        "The objective controls the decision",
+        "Do not hand away territory still required for live control. Do not assume occupying a fortress has credited the “lay waste” mission."
+      ]
+    ],
+    "sources": [
+      "vco-guide",
+      "ca-malakai"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "vco-guide",
+      "ca-malakai"
+    ]
+  },
+  "outpost-route-3": {
+    "label": "Handover",
+    "title": "Liberation & settlement handover",
+    "intro": "Captured for an operation, route objective or transfer—not intended to become a permanent province. Archive-effective Route III settlement guidance, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Check who needs to control the site",
+        "note": "Altdorf and Nuln accept direct or qualifying diplomatic control. Other captured territory is an operational decision, not an automatic objective."
+      },
+      {
+        "title": "Repair only what helps the operation",
+        "note": "Replenishment, minimal stability or a necessary recruitment point can be enough."
+      },
+      {
+        "title": "Do not start a full recruitment complex",
+        "note": "Malakai’s mobile infrastructure is the reason you need not build a permanent corridor."
+      },
+      {
+        "title": "Match the recipient to the frontier",
+        "note": "Prefer a faction that can keep the position and does not create an unwanted new war. A small relationship gain does not justify losing a crucial recovery base."
+      },
+      {
+        "title": "Transfer where diplomacy permits",
+        "note": "Use the game’s available settlement-trade options. This guide does not require Trade Any Settlement to be installed."
+      },
+      {
+        "title": "Record the exit plan",
+        "note": "Where does the army recover, and who will hold the approach once you leave?"
+      }
+    ],
+    "details": [
+      [
+        "Occupation is a tool",
+        "A temporary foothold can be correct even on an invasion route. Identify the planned duration, recovery benefit and exit before investing. There is no arbitrary ownership cap."
+      ],
+      [
+        "The objective controls the decision",
+        "Do not hand away territory still required for live control. Do not assume occupying a fortress has credited the “lay waste” mission."
+      ]
+    ],
+    "sources": [
+      "vco-guide",
+      "ca-malakai"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "vco-guide",
+      "ca-malakai"
+    ]
+  },
+  "depot": {
+    "label": "Relief depot",
+    "title": "Owned relief depot",
+    "intro": "A useful former-enemy town supplies the southern operation without requiring an unbroken empire. Archive-effective Route III settlement guidance, not a fixed build order or an installed-build test — settlement tiers, slot totals, construction costs and recruitment access in the installed build are unverified; inspect the live building preview and follow its visible gates before spending.",
+    "steps": [
+      {
+        "title": "Choose the next operation’s recovery point",
+        "note": "Use an owned town where feasible; get access and check the replenishment preview in friendly territory. The foreign-replenishment route reward is not assumed yet."
+      },
+      {
+        "title": "Repair useful buildings immediately",
+        "note": "Income and recovery are more useful than demolishing everything into an ideal layout while armies are approaching."
+      },
+      {
+        "title": "Barley Field + necessary stability",
+        "note": "Recover the relief army and prevent a rebellion undoing the operation."
+      },
+      {
+        "title": "Income / resource if keeping it",
+        "note": "A valuable captured province can remain yours. There is no four- or five-province cap."
+      },
+      {
+        "title": "Defence only on the relevant approach",
+        "note": "Budget a response force or garrison where it protects the coalition route."
+      },
+      {
+        "title": "Keep or hand over deliberately",
+        "note": "After the operation, keep a useful supply base or transfer a liability to a suitable neighbour where diplomacy permits. Recheck live city control after transfers."
+      }
+    ],
+    "details": [
+      [
+        "Support the coalition’s active front",
+        "A relief depot is a useful foothold near the next named threat. It need not turn into an annexation programme through friendly Empire land."
+      ],
+      [
+        "Your town and an allied town are not the same interface",
+        "You can only construct your own buildings in a settlement you own. When operating from friendly territory instead, use the access, reinforcement and replenishment options actually available in your campaign."
+      ],
+      [
+        "Make a post-war decision",
+        "When the nearby threat is gone, decide whether the settlement is now a useful income holding, a supply hub for the next operation, or a good handover to an ally. Do not keep or transfer it automatically."
+      ],
+      [
+        "Do not spend an unearned reward",
+        "Route III’s foreign-replenishment bonus is a victory reward. Until it has actually been awarded, plan using the recovery conditions shown by the current army preview."
+      ]
+    ],
+    "sources": [
+      "barley",
+      "income",
+      "vco-guide"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "barley",
+      "income",
+      "vco-guide"
+    ]
+  }
+}

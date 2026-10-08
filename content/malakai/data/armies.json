@@ -1,0 +1,3330 @@
+{
+  "route-1": {
+    "early": {
+      "label": "Early",
+      "name": "The engineer’s company",
+      "supportName": "The first supporting company",
+      "units": [
+        {
+          "n": 5,
+          "name": "Dwarf Warriors",
+          "role": "Shielded deck guards. Fix the enemy in place; keep one block back.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Quarrellers",
+          "role": "Starting marksmen. Arcing fire makes them useful on awkward ground.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters",
+          "role": "A small engineering test flight. Work together against suitable exposed targets.",
+          "kind": "machine"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Malakai Makaisson",
+          "role": "Expedition leader and ranged engineer. Support the battery, not a solo frontline.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gotrek",
+          "role": "The Slayer at the heart of the expedition. Intercept the dangerous opponent alongside support.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Felix",
+          "role": "Gotrek’s companion and the expedition’s recovery support. Keep the pair fighting together.",
+          "kind": "character"
+        },
+        {
+          "n": 5,
+          "name": "Dwarf Warriors",
+          "role": "Shielded deck guards. Fix the enemy in place; keep one block back.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Quarrellers",
+          "role": "Starting marksmen. Arcing fire makes them useful on awkward ground.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters",
+          "role": "A small engineering test flight. Work together against suitable exposed targets.",
+          "kind": "machine"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Dwarf Lord",
+          "role": "Armoured commander and local anchor.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Thane",
+          "role": "Hold a threatened lane, not a distant solo adventure.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Runesmith",
+          "role": "Runic support and the chosen embedded-army effect.",
+          "kind": "character"
+        },
+        {
+          "n": 6,
+          "name": "Dwarf Warriors",
+          "role": "Shielded deck guards. Fix the enemy in place; keep one block back.",
+          "kind": "line"
+        },
+        {
+          "n": 5,
+          "name": "Quarrellers",
+          "role": "Starting marksmen. Arcing fire makes them useful on awkward ground.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters",
+          "role": "A small engineering test flight. Work together against suitable exposed targets.",
+          "kind": "machine"
+        }
+      ],
+      "context": "A developing expedition, not your exact starting roster. Keep useful starting troops until replacements are available.",
+      "notes": [
+        [
+          "Thematic recommendation",
+          "The composition is a thematic recommendation, not a lore-mandated roster or a tested optimum for Smart Autoresolve. Losing some efficiency is an intentional trade for a recognisable expedition."
+        ],
+        [
+          "Unique characters stay with Malakai",
+          "Malakai, Gotrek and Felix stay together in his field army. The supporting-army version uses ordinary Dwarf characters; it does not duplicate unique companions or inherit all his personal bonuses."
+        ],
+        [
+          "Escort, counterattack and experiment",
+          "Treat shielded infantry as the escort, Slayers as the counterattack and the machines as the experiment. Do not order every unit into a single continuous melee line."
+        ],
+        [
+          "The Spirit is not a recruited slot",
+          "The Spirit of Grungni is additional summoned support. It is not one of the twenty recruited slots, and its exact treatment by Smart Autoresolve remains unverified."
+        ],
+        [
+          "Availability comes first",
+          "Availability comes first: an unfilled Pirate, Cannon or gyro slot can remain a starting unit, Warrior or Quarreller. This is a first developed twenty, not a claim that every listed unit can be recruited on turn one."
+        ],
+        [
+          "Unavailable unit or hero",
+          "Use another useful existing troop in that slot until recruitment, capacity and budget allow the intended unit. A template is a destination, not a reason to stop an otherwise viable war."
+        ],
+        [
+          "No old paid-DLC dependency",
+          "The core templates use the base Dwarf roster and Malakai’s WH3 content. They do not require Rangers, Bolt Throwers or Runelords from paid WH1 content."
+        ],
+        [
+          "Optional flavour: traditional holding force",
+          "Use the holding army as a recognisably traditional Dwarf force, while Malakai carries the experimental air group. Your defending lord does not need a personal copy of the flagship."
+        ]
+      ],
+      "plan": [
+        [
+          "Near-term assembly target",
+          "This is a near-term assembly target, not turn-one starting units."
+        ],
+        [
+          "Fill and replace gradually",
+          "Fill with Warriors/Quarrellers, keep useful starting specialists, add available Cannons and Pirates, then replace gradually."
+        ],
+        [
+          "Substitute, do not stall",
+          "Substitute an unavailable hero with a useful troop; do not stall the campaign."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ]
+    },
+    "mid": {
+      "label": "Mid",
+      "name": "The northern test column",
+      "supportName": "The supporting field column",
+      "units": [
+        {
+          "n": 4,
+          "name": "Longbeards",
+          "role": "Veteran escort. Hold the firing lanes while the less sensible Dawi get to work.",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Malakai’s signature axe machine. A protected close-range lane, then its Slayer crew if needed.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters",
+          "role": "A small engineering test flight. Work together against suitable exposed targets.",
+          "kind": "machine"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Malakai Makaisson",
+          "role": "Expedition leader and ranged engineer. Support the battery, not a solo frontline.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gotrek",
+          "role": "The Slayer at the heart of the expedition. Intercept the dangerous opponent alongside support.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Felix",
+          "role": "Gotrek’s companion and the expedition’s recovery support. Keep the pair fighting together.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Workshop officer: movement, ammunition and ranged support. Protect him from melee.",
+          "kind": "character"
+        },
+        {
+          "n": 4,
+          "name": "Longbeards",
+          "role": "Veteran escort. Hold the firing lanes while the less sensible Dawi get to work.",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Malakai’s signature axe machine. A protected close-range lane, then its Slayer crew if needed.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters",
+          "role": "A small engineering test flight. Work together against suitable exposed targets.",
+          "kind": "machine"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Dwarf Lord",
+          "role": "Armoured commander and local anchor.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Thane",
+          "role": "Hold a threatened lane, not a distant solo adventure.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Runesmith",
+          "role": "Runic support and the chosen embedded-army effect.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Hero: movement and missile support. Keep out of melee.",
+          "kind": "character"
+        },
+        {
+          "n": 5,
+          "name": "Longbeards",
+          "role": "Veteran escort. Hold the firing lanes while the less sensible Dawi get to work.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Malakai’s signature axe machine. A protected close-range lane, then its Slayer crew if needed.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters",
+          "role": "A small engineering test flight. Work together against suitable exposed targets.",
+          "kind": "machine"
+        }
+      ],
+      "context": "Keep the Slayer crew and test aircraft. Add the Hewer rather than replacing every specialist with more guns.",
+      "notes": [
+        [
+          "Thematic recommendation",
+          "The composition is a thematic recommendation, not a lore-mandated roster or a tested optimum for Smart Autoresolve. Losing some efficiency is an intentional trade for a recognisable expedition."
+        ],
+        [
+          "Unique characters stay with Malakai",
+          "Malakai, Gotrek and Felix stay together in his field army. The supporting-army version uses ordinary Dwarf characters; it does not duplicate unique companions or inherit all his personal bonuses."
+        ],
+        [
+          "Escort, counterattack and experiment",
+          "Treat shielded infantry as the escort, Slayers as the counterattack and the machines as the experiment. Do not order every unit into a single continuous melee line."
+        ],
+        [
+          "The Spirit is not a recruited slot",
+          "The Spirit of Grungni is additional summoned support. It is not one of the twenty recruited slots, and its exact treatment by Smart Autoresolve remains unverified."
+        ],
+        [
+          "Unavailable unit or hero",
+          "Use another useful existing troop in that slot until recruitment, capacity and budget allow the intended unit. A template is a destination, not a reason to stop an otherwise viable war."
+        ],
+        [
+          "No old paid-DLC dependency",
+          "The core templates use the base Dwarf roster and Malakai’s WH3 content. They do not require Rangers, Bolt Throwers or Runelords from paid WH1 content."
+        ],
+        [
+          "Optional flavour: traditional holding force",
+          "Use the holding army as a recognisably traditional Dwarf force, while Malakai carries the experimental air group. Your defending lord does not need a personal copy of the flagship."
+        ]
+      ],
+      "plan": [
+        [
+          "Upgrade the escort and crew",
+          "Promote the escort to Longbeards, add a Master Engineer and the Hewer, and keep the paired gyro flight."
+        ],
+        [
+          "Hold before flagship luxury",
+          "Build a separate holding column before buying every flagship luxury."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ]
+    },
+    "late": {
+      "label": "Late",
+      "name": "The northern kingdom’s test fleet",
+      "supportName": "The reconquest holding column",
+      "units": [
+        {
+          "n": 3,
+          "name": "Ironbreakers",
+          "role": "Shielded veteran escort. Protect the firing lanes and reinforce threatened ground troops.",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters (Brimstone Guns)",
+          "role": "An optional anti-large air group. Avoid sending it ahead of the ground army’s support.",
+          "kind": "machine"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Malakai’s signature axe machine. A protected close-range lane, then its Slayer crew if needed.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Organ Gun",
+          "role": "Rapid-fire support for the relief column. Protect its direct firing lane.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Thunderbarges",
+          "role": "Recruited escort airships. Operate as one group; do not burn their health merely to travel faster.",
+          "kind": "machine"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Malakai Makaisson",
+          "role": "Expedition leader and ranged engineer. Support the battery, not a solo frontline.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gotrek",
+          "role": "The Slayer at the heart of the expedition. Intercept the dangerous opponent alongside support.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Felix",
+          "role": "Gotrek’s companion and the expedition’s recovery support. Keep the pair fighting together.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Workshop officer: movement, ammunition and ranged support. Protect him from melee.",
+          "kind": "character"
+        },
+        {
+          "n": 3,
+          "name": "Ironbreakers",
+          "role": "Shielded veteran escort. Protect the firing lanes and reinforce threatened ground troops.",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters (Brimstone Guns)",
+          "role": "An optional anti-large air group. Avoid sending it ahead of the ground army’s support.",
+          "kind": "machine"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Malakai’s signature axe machine. A protected close-range lane, then its Slayer crew if needed.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Organ Gun",
+          "role": "Rapid-fire support for the relief column. Protect its direct firing lane.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Thunderbarges",
+          "role": "Recruited escort airships. Operate as one group; do not burn their health merely to travel faster.",
+          "kind": "machine"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Dwarf Lord",
+          "role": "Armoured commander and local anchor.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Thane",
+          "role": "Hold a threatened lane, not a distant solo adventure.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Runesmith",
+          "role": "Runic support and the chosen embedded-army effect.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Hero: movement and missile support. Keep out of melee.",
+          "kind": "character"
+        },
+        {
+          "n": 5,
+          "name": "Ironbreakers",
+          "role": "Shielded veteran escort. Protect the firing lanes and reinforce threatened ground troops.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Organ Gun",
+          "role": "Rapid-fire support for the relief column. Protect its direct firing lane.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Malakai’s signature axe machine. A protected close-range lane, then its Slayer crew if needed.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Thunderbarge",
+          "role": "A recruited escort vessel, distinct from the Spirit of Grungni summon. Keep anti-air threats in mind.",
+          "kind": "machine"
+        }
+      ],
+      "context": "Aviation receives the larger share; the ground escort, Slayer Pirates and signature Hewer remain.",
+      "notes": [
+        [
+          "Thematic recommendation",
+          "The composition is a thematic recommendation, not a lore-mandated roster or a tested optimum for Smart Autoresolve. Losing some efficiency is an intentional trade for a recognisable expedition."
+        ],
+        [
+          "Unique characters stay with Malakai",
+          "Malakai, Gotrek and Felix stay together in his field army. The supporting-army version uses ordinary Dwarf characters; it does not duplicate unique companions or inherit all his personal bonuses."
+        ],
+        [
+          "Escort, counterattack and experiment",
+          "Treat shielded infantry as the escort, Slayers as the counterattack and the machines as the experiment. Do not order every unit into a single continuous melee line."
+        ],
+        [
+          "The Spirit is not a recruited slot",
+          "The Spirit of Grungni is additional summoned support. It is not one of the twenty recruited slots, and its exact treatment by Smart Autoresolve remains unverified."
+        ],
+        [
+          "Monster-heavy substitution",
+          "Against a monster-heavy opponent, retain regular Slayers or substitute Giant Slayers for the two Doomseekers. That is a change of job, not an automatic upgrade ladder."
+        ],
+        [
+          "Optional allied-relief flavour",
+          "For an optional allied-relief flavour, an outpost-provided Empire infantry or gunpowder detachment can replace one or two ordinary Thunderer slots. Use only what your actual alliance and recruitment panel offers; it is not required for this guide or for VCO."
+        ],
+        [
+          "Unavailable unit or hero",
+          "Use another useful existing troop in that slot until recruitment, capacity and budget allow the intended unit. A template is a destination, not a reason to stop an otherwise viable war."
+        ],
+        [
+          "No old paid-DLC dependency",
+          "The core templates use the base Dwarf roster and Malakai’s WH3 content. They do not require Rangers, Bolt Throwers or Runelords from paid WH1 content."
+        ],
+        [
+          "Optional flavour: traditional holding force",
+          "Use the holding army as a recognisably traditional Dwarf force, while Malakai carries the experimental air group. Your defending lord does not need a personal copy of the flagship."
+        ],
+        [
+          "When the screen fails",
+          "Add or upgrade one escort unit, keep the Slayer counterattack protected, and restore losses before another assault. Theme does not require every unit to be a fragile attacker."
+        ],
+        [
+          "When the budget fails",
+          "Retain Warriors/Longbeards, buy elite replacements gradually and reduce the number of expensive airships before abandoning the whole campaign plan. A functioning field army now beats a perfect roster twenty turns later."
+        ]
+      ],
+      "plan": [
+        [
+          "Anchor ground, establish air",
+          "Three Ironbreakers anchor the ground company; the Brimstone gyro flight and two recruited barges establish the air identity."
+        ],
+        [
+          "Keep the signature units",
+          "Keep the Pirates and signature Hewer."
+        ],
+        [
+          "One force strikes, one holds",
+          "A supporting force holds captured provinces while Malakai strikes."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ]
+    },
+    "airwing": {
+      "label": "Air wing",
+      "name": "The northern air wing",
+      "supportName": "The supporting air escort",
+      "units": [
+        {
+          "n": 3,
+          "name": "Ironbreakers",
+          "role": "Shielded veteran escort. Protect the firing lanes and reinforce threatened ground troops.",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Signature short-range axe machine; a protected firing lane and ammunition discipline.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters (Brimstone Guns)",
+          "role": "An optional anti-large air group. Avoid sending it ahead of the ground army’s support.",
+          "kind": "machine"
+        },
+        {
+          "n": 2,
+          "name": "Thunderbarges",
+          "role": "Recruited escort airships. Operate as one group; do not burn their health merely to travel faster.",
+          "kind": "machine"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Malakai Makaisson",
+          "role": "Expedition leader and ranged engineer. Support the battery, not a solo frontline.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gotrek",
+          "role": "The Slayer at the heart of the expedition. Intercept the dangerous opponent alongside support.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Felix",
+          "role": "Gotrek’s companion and the expedition’s recovery support. Keep the pair fighting together.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Workshop officer: movement, ammunition and ranged support. Protect him from melee.",
+          "kind": "character"
+        },
+        {
+          "n": 3,
+          "name": "Ironbreakers",
+          "role": "Shielded veteran escort. Protect the firing lanes and reinforce threatened ground troops.",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Signature short-range axe machine; a protected firing lane and ammunition discipline.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters (Brimstone Guns)",
+          "role": "An optional anti-large air group. Avoid sending it ahead of the ground army’s support.",
+          "kind": "machine"
+        },
+        {
+          "n": 2,
+          "name": "Thunderbarges",
+          "role": "Recruited escort airships. Operate as one group; do not burn their health merely to travel faster.",
+          "kind": "machine"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Dwarf Lord",
+          "role": "Armoured commander and local anchor.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Thane",
+          "role": "Hold a threatened lane, not a distant solo adventure.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Runesmith",
+          "role": "Runic support and the chosen embedded-army effect.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Hero: movement and missile support. Keep out of melee.",
+          "kind": "character"
+        },
+        {
+          "n": 3,
+          "name": "Ironbreakers",
+          "role": "Shielded veteran escort. Protect the firing lanes and reinforce threatened ground troops.",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Signature short-range axe machine; a protected firing lane and ammunition discipline.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters (Brimstone Guns)",
+          "role": "An optional anti-large air group. Avoid sending it ahead of the ground army’s support.",
+          "kind": "machine"
+        },
+        {
+          "n": 2,
+          "name": "Thunderbarges",
+          "role": "Recruited escort airships. Operate as one group; do not burn their health merely to travel faster.",
+          "kind": "machine"
+        }
+      ],
+      "context": "An optional aviation-heavy branch. Retain ground troops and protect flyers from concentrated anti-air; no route requires this specific roster.",
+      "notes": [
+        [
+          "Thematic recommendation",
+          "The composition is a thematic recommendation, not a lore-mandated roster or a tested optimum for Smart Autoresolve. Losing some efficiency is an intentional trade for a recognisable expedition."
+        ],
+        [
+          "Unique characters stay with Malakai",
+          "Malakai, Gotrek and Felix stay together in his field army. The supporting-army version uses ordinary Dwarf characters; it does not duplicate unique companions or inherit all his personal bonuses."
+        ],
+        [
+          "Escort, counterattack and experiment",
+          "Treat shielded infantry as the escort, Slayers as the counterattack and the machines as the experiment. Do not order every unit into a single continuous melee line."
+        ],
+        [
+          "The Spirit is not a recruited slot",
+          "The Spirit of Grungni is additional summoned support. It is not one of the twenty recruited slots, and its exact treatment by Smart Autoresolve remains unverified."
+        ],
+        [
+          "Unavailable unit or hero",
+          "Use another useful existing troop in that slot until recruitment, capacity and budget allow the intended unit. A template is a destination, not a reason to stop an otherwise viable war."
+        ],
+        [
+          "No old paid-DLC dependency",
+          "The core templates use the base Dwarf roster and Malakai’s WH3 content. They do not require Rangers, Bolt Throwers or Runelords from paid WH1 content."
+        ],
+        [
+          "Optional flavour: traditional holding force",
+          "Use the holding army as a recognisably traditional Dwarf force, while Malakai carries the experimental air group. Your defending lord does not need a personal copy of the flagship."
+        ]
+      ],
+      "plan": [
+        [
+          "An option, not a default",
+          "Choose it only when recruited aircraft are doing a major job."
+        ],
+        [
+          "Keep the ground escort funded",
+          "Keep the ground escort funded and use the air group together."
+        ],
+        [
+          "Do not delay victory for a barge",
+          "Do not postpone a nearly completed victory just to purchase the final barge."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ]
+    },
+    "home": {
+      "label": "Hold guard",
+      "name": "Kraka Drak’s hold guard",
+      "supportName": "The local hold guard",
+      "units": [
+        {
+          "n": 6,
+          "name": "Dwarf Warriors",
+          "role": "Shielded. Hold with the settlement garrison.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Quarrellers",
+          "role": "Flexible, inexpensive supporting fire.",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Grudge Thrower",
+          "role": "Encourage an attacker to advance into your defenders.",
+          "kind": "artillery"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Dwarf Lord",
+          "role": "This template always uses an ordinary Lord.",
+          "kind": "character"
+        },
+        {
+          "n": 6,
+          "name": "Dwarf Warriors",
+          "role": "Shielded. Hold with the settlement garrison.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Quarrellers",
+          "role": "Flexible, inexpensive supporting fire.",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Grudge Thrower",
+          "role": "Encourage an attacker to advance into your defenders.",
+          "kind": "artillery"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Dwarf Lord",
+          "role": "Defensive commander; supplement the local garrison.",
+          "kind": "character"
+        },
+        {
+          "n": 6,
+          "name": "Dwarf Warriors",
+          "role": "Shielded. Hold with the settlement garrison.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Quarrellers",
+          "role": "Flexible, inexpensive supporting fire.",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Grudge Thrower",
+          "role": "Encourage an attacker to advance into your defenders.",
+          "kind": "artillery"
+        }
+      ],
+      "context": "Use with a settlement garrison or nearby reinforcements, not as a guaranteed standalone answer to an elite 20-stack.",
+      "notes": [
+        [
+          "Raise only what the border needs",
+          "Raise only what the actual border needs. Upgrade Warriors to Longbeards before turning an inexpensive guard into a full premium army."
+        ],
+        [
+          "A budget tool, not a guarantee",
+          "A threatened major front may need a real 20-stack. This template is a budget tool, not a guarantee that half an army holds any siege."
+        ],
+        [
+          "Keep budget for emergencies",
+          "Keep spare budget for emergency recruitment. Do not count a distant Malakai army as immediate home defence."
+        ],
+        [
+          "Companions stay with Malakai",
+          "Its conventional roster is intentional: the famous companions and experimental machines belong with Malakai, not in every minor settlement defence."
+        ],
+        [
+          "Unavailable unit or hero",
+          "Use another useful existing troop in that slot until recruitment, capacity and budget allow the intended unit. A template is a destination, not a reason to stop an otherwise viable war."
+        ],
+        [
+          "No old paid-DLC dependency",
+          "The core templates use the base Dwarf roster and Malakai’s WH3 content. They do not require Rangers, Bolt Throwers or Runelords from paid WH1 content."
+        ],
+        [
+          "Optional flavour: traditional holding force",
+          "Use the holding army as a recognisably traditional Dwarf force, while Malakai carries the experimental air group. Your defending lord does not need a personal copy of the flagship."
+        ]
+      ],
+      "plan": [
+        [
+          "Twelve slots",
+          "Twelve slots for garrison support."
+        ],
+        [
+          "Grow it when it must fight alone",
+          "Enlarge into a full field column when it must fight an independent enemy stack; the guide imposes no army-count or territory ceiling."
+        ]
+      ],
+      "size": 12,
+      "sources": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ]
+    }
+  },
+  "route-2": {
+    "early": {
+      "label": "Early",
+      "name": "The engineer’s company",
+      "supportName": "The first supporting company",
+      "units": [
+        {
+          "n": 5,
+          "name": "Dwarf Warriors",
+          "role": "Shielded deck guards. Fix the enemy in place; keep one block back.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Quarrellers",
+          "role": "Starting marksmen. Arcing fire makes them useful on awkward ground.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters",
+          "role": "A small engineering test flight. Work together against suitable exposed targets.",
+          "kind": "machine"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Malakai Makaisson",
+          "role": "Expedition leader and ranged engineer. Support the battery, not a solo frontline.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gotrek",
+          "role": "The Slayer at the heart of the expedition. Intercept the dangerous opponent alongside support.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Felix",
+          "role": "Gotrek’s companion and the expedition’s recovery support. Keep the pair fighting together.",
+          "kind": "character"
+        },
+        {
+          "n": 5,
+          "name": "Dwarf Warriors",
+          "role": "Shielded deck guards. Fix the enemy in place; keep one block back.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Quarrellers",
+          "role": "Starting marksmen. Arcing fire makes them useful on awkward ground.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters",
+          "role": "A small engineering test flight. Work together against suitable exposed targets.",
+          "kind": "machine"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Dwarf Lord",
+          "role": "Armoured commander and local anchor.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Thane",
+          "role": "Hold a threatened lane, not a distant solo adventure.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Runesmith",
+          "role": "Runic support and the chosen embedded-army effect.",
+          "kind": "character"
+        },
+        {
+          "n": 6,
+          "name": "Dwarf Warriors",
+          "role": "Shielded deck guards. Fix the enemy in place; keep one block back.",
+          "kind": "line"
+        },
+        {
+          "n": 5,
+          "name": "Quarrellers",
+          "role": "Starting marksmen. Arcing fire makes them useful on awkward ground.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters",
+          "role": "A small engineering test flight. Work together against suitable exposed targets.",
+          "kind": "machine"
+        }
+      ],
+      "context": "A developing expedition, not your exact starting roster. Keep useful starting troops until replacements are available.",
+      "notes": [
+        [
+          "Thematic recommendation",
+          "The composition is a thematic recommendation, not a lore-mandated roster or a tested optimum for Smart Autoresolve. Losing some efficiency is an intentional trade for a recognisable expedition."
+        ],
+        [
+          "Unique characters stay with Malakai",
+          "Malakai, Gotrek and Felix stay together in his field army. The supporting-army version uses ordinary Dwarf characters; it does not duplicate unique companions or inherit all his personal bonuses."
+        ],
+        [
+          "Escort, counterattack and experiment",
+          "Treat shielded infantry as the escort, Slayers as the counterattack and the machines as the experiment. Do not order every unit into a single continuous melee line."
+        ],
+        [
+          "The Spirit is not a recruited slot",
+          "The Spirit of Grungni is additional summoned support. It is not one of the twenty recruited slots, and its exact treatment by Smart Autoresolve remains unverified."
+        ],
+        [
+          "Availability comes first",
+          "Availability comes first: an unfilled Pirate, Cannon or gyro slot can remain a starting unit, Warrior or Quarreller. This is a first developed twenty, not a claim that every listed unit can be recruited on turn one."
+        ],
+        [
+          "Unavailable unit or hero",
+          "Use another useful existing troop in that slot until recruitment, capacity and budget allow the intended unit. A template is a destination, not a reason to stop an otherwise viable war."
+        ],
+        [
+          "No old paid-DLC dependency",
+          "The core templates use the base Dwarf roster and Malakai’s WH3 content. They do not require Rangers, Bolt Throwers or Runelords from paid WH1 content."
+        ],
+        [
+          "Optional flavour: Slayer-led secondary column",
+          "A Slayer-led secondary column can be a later flavour choice, but the default supporting Dwarf Lord keeps the escort and gun battery reliable. Do not abandon those roles just to increase the number of mohawks."
+        ]
+      ],
+      "plan": [
+        [
+          "Near-term assembly target",
+          "This is a near-term assembly target, not turn-one starting units."
+        ],
+        [
+          "Fill and replace gradually",
+          "Fill with Warriors/Quarrellers, keep useful starting specialists, add available Cannons and Pirates, then replace gradually."
+        ],
+        [
+          "Substitute, do not stall",
+          "Substitute an unavailable hero with a useful troop; do not stall the campaign."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ]
+    },
+    "mid": {
+      "label": "Mid",
+      "name": "The fortress-bound workshop",
+      "supportName": "The supporting field column",
+      "units": [
+        {
+          "n": 3,
+          "name": "Longbeards",
+          "role": "Veteran escort. Hold the firing lanes while the less sensible Dawi get to work.",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Goblin Hewers",
+          "role": "Paired signature axe machines. Short-range bursts; their ammunition is not limitless.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Gyrocopters",
+          "role": "A small engineering test flight. Work together against suitable exposed targets.",
+          "kind": "machine"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Malakai Makaisson",
+          "role": "Expedition leader and ranged engineer. Support the battery, not a solo frontline.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gotrek",
+          "role": "The Slayer at the heart of the expedition. Intercept the dangerous opponent alongside support.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Felix",
+          "role": "Gotrek’s companion and the expedition’s recovery support. Keep the pair fighting together.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Workshop officer: movement, ammunition and ranged support. Protect him from melee.",
+          "kind": "character"
+        },
+        {
+          "n": 3,
+          "name": "Longbeards",
+          "role": "Veteran escort. Hold the firing lanes while the less sensible Dawi get to work.",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Goblin Hewers",
+          "role": "Paired signature axe machines. Short-range bursts; their ammunition is not limitless.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Gyrocopters",
+          "role": "A small engineering test flight. Work together against suitable exposed targets.",
+          "kind": "machine"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Dwarf Lord",
+          "role": "Armoured commander and local anchor.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Thane",
+          "role": "Hold a threatened lane, not a distant solo adventure.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Runesmith",
+          "role": "Runic support and the chosen embedded-army effect.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Hero: movement and missile support. Keep out of melee.",
+          "kind": "character"
+        },
+        {
+          "n": 3,
+          "name": "Longbeards",
+          "role": "Veteran escort. Hold the firing lanes while the less sensible Dawi get to work.",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 3,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Goblin Hewers",
+          "role": "Paired signature axe machines. Short-range bursts; their ammunition is not limitless.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Gyrocopters",
+          "role": "A small engineering test flight. Work together against suitable exposed targets.",
+          "kind": "machine"
+        }
+      ],
+      "context": "More Slayer fighters and a second Hewer for the Dark Fortress expedition; still a supported combined-arms force.",
+      "notes": [
+        [
+          "Thematic recommendation",
+          "The composition is a thematic recommendation, not a lore-mandated roster or a tested optimum for Smart Autoresolve. Losing some efficiency is an intentional trade for a recognisable expedition."
+        ],
+        [
+          "Unique characters stay with Malakai",
+          "Malakai, Gotrek and Felix stay together in his field army. The supporting-army version uses ordinary Dwarf characters; it does not duplicate unique companions or inherit all his personal bonuses."
+        ],
+        [
+          "Escort, counterattack and experiment",
+          "Treat shielded infantry as the escort, Slayers as the counterattack and the machines as the experiment. Do not order every unit into a single continuous melee line."
+        ],
+        [
+          "The Spirit is not a recruited slot",
+          "The Spirit of Grungni is additional summoned support. It is not one of the twenty recruited slots, and its exact treatment by Smart Autoresolve remains unverified."
+        ],
+        [
+          "Unavailable unit or hero",
+          "Use another useful existing troop in that slot until recruitment, capacity and budget allow the intended unit. A template is a destination, not a reason to stop an otherwise viable war."
+        ],
+        [
+          "No old paid-DLC dependency",
+          "The core templates use the base Dwarf roster and Malakai’s WH3 content. They do not require Rangers, Bolt Throwers or Runelords from paid WH1 content."
+        ],
+        [
+          "Optional flavour: Slayer-led secondary column",
+          "A Slayer-led secondary column can be a later flavour choice, but the default supporting Dwarf Lord keeps the escort and gun battery reliable. Do not abandon those roles just to increase the number of mohawks."
+        ]
+      ],
+      "plan": [
+        [
+          "Add the second Hewer",
+          "Add the second Hewer and a slightly larger Slayer section only as recruitment and recovery support them."
+        ],
+        [
+          "Keep the shielded core",
+          "Keep three shielded escorts and three Thunderers."
+        ],
+        [
+          "A supported expedition",
+          "This is a supported expedition, not a race to remove every armoured Dwarf."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ]
+    },
+    "late": {
+      "label": "Late",
+      "name": "The fortress-breaker expedition",
+      "supportName": "The expedition’s relief column",
+      "units": [
+        {
+          "n": 3,
+          "name": "Ironbreakers",
+          "role": "Shielded veteran escort. Protect the firing lanes and reinforce threatened ground troops.",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Giant Slayers",
+          "role": "The fortress expedition’s dedicated large-target killers. Shelter them from missiles.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Doomseekers",
+          "role": "The shock group. Commit into engaged infantry; do not use them to absorb the approach.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Goblin Hewers",
+          "role": "Paired signature axe machines. Short-range bursts; their ammunition is not limitless.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Thunderbarge",
+          "role": "A recruited escort vessel, distinct from the Spirit of Grungni summon. Keep anti-air threats in mind.",
+          "kind": "machine"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Malakai Makaisson",
+          "role": "Expedition leader and ranged engineer. Support the battery, not a solo frontline.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gotrek",
+          "role": "The Slayer at the heart of the expedition. Intercept the dangerous opponent alongside support.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Felix",
+          "role": "Gotrek’s companion and the expedition’s recovery support. Keep the pair fighting together.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Workshop officer: movement, ammunition and ranged support. Protect him from melee.",
+          "kind": "character"
+        },
+        {
+          "n": 3,
+          "name": "Ironbreakers",
+          "role": "Shielded veteran escort. Protect the firing lanes and reinforce threatened ground troops.",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Giant Slayers",
+          "role": "The fortress expedition’s dedicated large-target killers. Shelter them from missiles.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Doomseekers",
+          "role": "The shock group. Commit into engaged infantry; do not use them to absorb the approach.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Goblin Hewers",
+          "role": "Paired signature axe machines. Short-range bursts; their ammunition is not limitless.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Thunderbarge",
+          "role": "A recruited escort vessel, distinct from the Spirit of Grungni summon. Keep anti-air threats in mind.",
+          "kind": "machine"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Dwarf Lord",
+          "role": "Armoured commander and local anchor.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Thane",
+          "role": "Hold a threatened lane, not a distant solo adventure.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Runesmith",
+          "role": "Runic support and the chosen embedded-army effect.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Hero: movement and missile support. Keep out of melee.",
+          "kind": "character"
+        },
+        {
+          "n": 3,
+          "name": "Ironbreakers",
+          "role": "Shielded veteran escort. Protect the firing lanes and reinforce threatened ground troops.",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Giant Slayers",
+          "role": "The fortress expedition’s dedicated large-target killers. Shelter them from missiles.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Doomseekers",
+          "role": "The shock group. Commit into engaged infantry; do not use them to absorb the approach.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Goblin Hewers",
+          "role": "Paired signature axe machines. Short-range bursts; their ammunition is not limitless.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Thunderbarge",
+          "role": "A recruited escort vessel, distinct from the Spirit of Grungni summon. Keep anti-air threats in mind.",
+          "kind": "machine"
+        }
+      ],
+      "context": "A Slayer-led northern expedition with two Hewers and one recruited airship—not a naked Slayer rush.",
+      "notes": [
+        [
+          "Thematic recommendation",
+          "The composition is a thematic recommendation, not a lore-mandated roster or a tested optimum for Smart Autoresolve. Losing some efficiency is an intentional trade for a recognisable expedition."
+        ],
+        [
+          "Unique characters stay with Malakai",
+          "Malakai, Gotrek and Felix stay together in his field army. The supporting-army version uses ordinary Dwarf characters; it does not duplicate unique companions or inherit all his personal bonuses."
+        ],
+        [
+          "Escort, counterattack and experiment",
+          "Treat shielded infantry as the escort, Slayers as the counterattack and the machines as the experiment. Do not order every unit into a single continuous melee line."
+        ],
+        [
+          "The Spirit is not a recruited slot",
+          "The Spirit of Grungni is additional summoned support. It is not one of the twenty recruited slots, and its exact treatment by Smart Autoresolve remains unverified."
+        ],
+        [
+          "Monster-heavy substitution",
+          "Against a monster-heavy opponent, retain regular Slayers or substitute Giant Slayers for the two Doomseekers. That is a change of job, not an automatic upgrade ladder."
+        ],
+        [
+          "Optional allied-relief flavour",
+          "For an optional allied-relief flavour, an outpost-provided Empire infantry or gunpowder detachment can replace one or two ordinary Thunderer slots. Use only what your actual alliance and recruitment panel offers; it is not required for this guide or for VCO."
+        ],
+        [
+          "Unavailable unit or hero",
+          "Use another useful existing troop in that slot until recruitment, capacity and budget allow the intended unit. A template is a destination, not a reason to stop an otherwise viable war."
+        ],
+        [
+          "No old paid-DLC dependency",
+          "The core templates use the base Dwarf roster and Malakai’s WH3 content. They do not require Rangers, Bolt Throwers or Runelords from paid WH1 content."
+        ],
+        [
+          "Optional flavour: Slayer-led secondary column",
+          "A Slayer-led secondary column can be a later flavour choice, but the default supporting Dwarf Lord keeps the escort and gun battery reliable. Do not abandon those roles just to increase the number of mohawks."
+        ],
+        [
+          "When the screen fails",
+          "Add or upgrade one escort unit, keep the Slayer counterattack protected, and restore losses before another assault. Theme does not require every unit to be a fragile attacker."
+        ],
+        [
+          "When the budget fails",
+          "Retain Warriors/Longbeards, buy elite replacements gradually and reduce the number of expensive airships before abandoning the whole campaign plan. A functioning field army now beats a perfect roster twenty turns later."
+        ]
+      ],
+      "plan": [
+        [
+          "Answer large targets",
+          "Giant Slayers answer large targets; Doomseekers supply a supported infantry counterattack."
+        ],
+        [
+          "One barge is enough",
+          "Paired Hewers retain the engineering signature and one recruited barge is enough aerial spectacle."
+        ],
+        [
+          "Keep the reliable core",
+          "Keep three Ironbreakers and two Thunderers."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ]
+    },
+    "airwing": {
+      "label": "Air wing",
+      "name": "The northern air wing",
+      "supportName": "The supporting air escort",
+      "units": [
+        {
+          "n": 3,
+          "name": "Ironbreakers",
+          "role": "Shielded veteran escort. Protect the firing lanes and reinforce threatened ground troops.",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Signature short-range axe machine; a protected firing lane and ammunition discipline.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters (Brimstone Guns)",
+          "role": "An optional anti-large air group. Avoid sending it ahead of the ground army’s support.",
+          "kind": "machine"
+        },
+        {
+          "n": 2,
+          "name": "Thunderbarges",
+          "role": "Recruited escort airships. Operate as one group; do not burn their health merely to travel faster.",
+          "kind": "machine"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Malakai Makaisson",
+          "role": "Expedition leader and ranged engineer. Support the battery, not a solo frontline.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gotrek",
+          "role": "The Slayer at the heart of the expedition. Intercept the dangerous opponent alongside support.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Felix",
+          "role": "Gotrek’s companion and the expedition’s recovery support. Keep the pair fighting together.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Workshop officer: movement, ammunition and ranged support. Protect him from melee.",
+          "kind": "character"
+        },
+        {
+          "n": 3,
+          "name": "Ironbreakers",
+          "role": "Shielded veteran escort. Protect the firing lanes and reinforce threatened ground troops.",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Signature short-range axe machine; a protected firing lane and ammunition discipline.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters (Brimstone Guns)",
+          "role": "An optional anti-large air group. Avoid sending it ahead of the ground army’s support.",
+          "kind": "machine"
+        },
+        {
+          "n": 2,
+          "name": "Thunderbarges",
+          "role": "Recruited escort airships. Operate as one group; do not burn their health merely to travel faster.",
+          "kind": "machine"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Dwarf Lord",
+          "role": "Armoured commander and local anchor.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Thane",
+          "role": "Hold a threatened lane, not a distant solo adventure.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Runesmith",
+          "role": "Runic support and the chosen embedded-army effect.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Hero: movement and missile support. Keep out of melee.",
+          "kind": "character"
+        },
+        {
+          "n": 3,
+          "name": "Ironbreakers",
+          "role": "Shielded veteran escort. Protect the firing lanes and reinforce threatened ground troops.",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Signature short-range axe machine; a protected firing lane and ammunition discipline.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters (Brimstone Guns)",
+          "role": "An optional anti-large air group. Avoid sending it ahead of the ground army’s support.",
+          "kind": "machine"
+        },
+        {
+          "n": 2,
+          "name": "Thunderbarges",
+          "role": "Recruited escort airships. Operate as one group; do not burn their health merely to travel faster.",
+          "kind": "machine"
+        }
+      ],
+      "context": "An optional aviation-heavy branch. Retain ground troops and protect flyers from concentrated anti-air; no route requires this specific roster.",
+      "notes": [
+        [
+          "Thematic recommendation",
+          "The composition is a thematic recommendation, not a lore-mandated roster or a tested optimum for Smart Autoresolve. Losing some efficiency is an intentional trade for a recognisable expedition."
+        ],
+        [
+          "Unique characters stay with Malakai",
+          "Malakai, Gotrek and Felix stay together in his field army. The supporting-army version uses ordinary Dwarf characters; it does not duplicate unique companions or inherit all his personal bonuses."
+        ],
+        [
+          "Escort, counterattack and experiment",
+          "Treat shielded infantry as the escort, Slayers as the counterattack and the machines as the experiment. Do not order every unit into a single continuous melee line."
+        ],
+        [
+          "The Spirit is not a recruited slot",
+          "The Spirit of Grungni is additional summoned support. It is not one of the twenty recruited slots, and its exact treatment by Smart Autoresolve remains unverified."
+        ],
+        [
+          "Unavailable unit or hero",
+          "Use another useful existing troop in that slot until recruitment, capacity and budget allow the intended unit. A template is a destination, not a reason to stop an otherwise viable war."
+        ],
+        [
+          "No old paid-DLC dependency",
+          "The core templates use the base Dwarf roster and Malakai’s WH3 content. They do not require Rangers, Bolt Throwers or Runelords from paid WH1 content."
+        ],
+        [
+          "Optional flavour: Slayer-led secondary column",
+          "A Slayer-led secondary column can be a later flavour choice, but the default supporting Dwarf Lord keeps the escort and gun battery reliable. Do not abandon those roles just to increase the number of mohawks."
+        ]
+      ],
+      "plan": [
+        [
+          "An option, not a default",
+          "Choose it only when recruited aircraft are doing a major job."
+        ],
+        [
+          "Keep the ground escort funded",
+          "Keep the ground escort funded and use the air group together."
+        ],
+        [
+          "Do not delay victory for a barge",
+          "Do not postpone a nearly completed victory just to purchase the final barge."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ]
+    },
+    "home": {
+      "label": "Hold guard",
+      "name": "Kraka Drak’s hold guard",
+      "supportName": "The local hold guard",
+      "units": [
+        {
+          "n": 6,
+          "name": "Dwarf Warriors",
+          "role": "Shielded. Hold with the settlement garrison.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Quarrellers",
+          "role": "Flexible, inexpensive supporting fire.",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Grudge Thrower",
+          "role": "Encourage an attacker to advance into your defenders.",
+          "kind": "artillery"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Dwarf Lord",
+          "role": "This template always uses an ordinary Lord.",
+          "kind": "character"
+        },
+        {
+          "n": 6,
+          "name": "Dwarf Warriors",
+          "role": "Shielded. Hold with the settlement garrison.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Quarrellers",
+          "role": "Flexible, inexpensive supporting fire.",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Grudge Thrower",
+          "role": "Encourage an attacker to advance into your defenders.",
+          "kind": "artillery"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Dwarf Lord",
+          "role": "Defensive commander; supplement the local garrison.",
+          "kind": "character"
+        },
+        {
+          "n": 6,
+          "name": "Dwarf Warriors",
+          "role": "Shielded. Hold with the settlement garrison.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Quarrellers",
+          "role": "Flexible, inexpensive supporting fire.",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Grudge Thrower",
+          "role": "Encourage an attacker to advance into your defenders.",
+          "kind": "artillery"
+        }
+      ],
+      "context": "Use with a settlement garrison or nearby reinforcements, not as a guaranteed standalone answer to an elite 20-stack.",
+      "notes": [
+        [
+          "Raise only what the border needs",
+          "Raise only what the actual border needs. Upgrade Warriors to Longbeards before turning an inexpensive guard into a full premium army."
+        ],
+        [
+          "A budget tool, not a guarantee",
+          "A threatened major front may need a real 20-stack. This template is a budget tool, not a guarantee that half an army holds any siege."
+        ],
+        [
+          "Keep budget for emergencies",
+          "Keep spare budget for emergency recruitment. Do not count a distant Malakai army as immediate home defence."
+        ],
+        [
+          "Companions stay with Malakai",
+          "Its conventional roster is intentional: the famous companions and experimental machines belong with Malakai, not in every minor settlement defence."
+        ],
+        [
+          "Unavailable unit or hero",
+          "Use another useful existing troop in that slot until recruitment, capacity and budget allow the intended unit. A template is a destination, not a reason to stop an otherwise viable war."
+        ],
+        [
+          "No old paid-DLC dependency",
+          "The core templates use the base Dwarf roster and Malakai’s WH3 content. They do not require Rangers, Bolt Throwers or Runelords from paid WH1 content."
+        ],
+        [
+          "Optional flavour: Slayer-led secondary column",
+          "A Slayer-led secondary column can be a later flavour choice, but the default supporting Dwarf Lord keeps the escort and gun battery reliable. Do not abandon those roles just to increase the number of mohawks."
+        ]
+      ],
+      "plan": [
+        [
+          "Twelve slots",
+          "Twelve slots for garrison support."
+        ],
+        [
+          "Grow it when it must fight alone",
+          "Enlarge into a full field column when it must fight an independent enemy stack; the guide imposes no army-count or territory ceiling."
+        ]
+      ],
+      "size": 12,
+      "sources": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ]
+    }
+  },
+  "route-3": {
+    "early": {
+      "label": "Early",
+      "name": "The engineer’s company",
+      "supportName": "The first supporting company",
+      "units": [
+        {
+          "n": 5,
+          "name": "Dwarf Warriors",
+          "role": "Shielded deck guards. Fix the enemy in place; keep one block back.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Quarrellers",
+          "role": "Starting marksmen. Arcing fire makes them useful on awkward ground.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters",
+          "role": "A small engineering test flight. Work together against suitable exposed targets.",
+          "kind": "machine"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Malakai Makaisson",
+          "role": "Expedition leader and ranged engineer. Support the battery, not a solo frontline.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gotrek",
+          "role": "The Slayer at the heart of the expedition. Intercept the dangerous opponent alongside support.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Felix",
+          "role": "Gotrek’s companion and the expedition’s recovery support. Keep the pair fighting together.",
+          "kind": "character"
+        },
+        {
+          "n": 5,
+          "name": "Dwarf Warriors",
+          "role": "Shielded deck guards. Fix the enemy in place; keep one block back.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Quarrellers",
+          "role": "Starting marksmen. Arcing fire makes them useful on awkward ground.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters",
+          "role": "A small engineering test flight. Work together against suitable exposed targets.",
+          "kind": "machine"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Dwarf Lord",
+          "role": "Armoured commander and local anchor.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Thane",
+          "role": "Hold a threatened lane, not a distant solo adventure.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Runesmith",
+          "role": "Runic support and the chosen embedded-army effect.",
+          "kind": "character"
+        },
+        {
+          "n": 6,
+          "name": "Dwarf Warriors",
+          "role": "Shielded deck guards. Fix the enemy in place; keep one block back.",
+          "kind": "line"
+        },
+        {
+          "n": 5,
+          "name": "Quarrellers",
+          "role": "Starting marksmen. Arcing fire makes them useful on awkward ground.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters",
+          "role": "A small engineering test flight. Work together against suitable exposed targets.",
+          "kind": "machine"
+        }
+      ],
+      "context": "A developing expedition, not your exact starting roster. Keep useful starting troops until replacements are available.",
+      "notes": [
+        [
+          "Thematic recommendation",
+          "The composition is a thematic recommendation, not a lore-mandated roster or a tested optimum for Smart Autoresolve. Losing some efficiency is an intentional trade for a recognisable expedition."
+        ],
+        [
+          "Unique characters stay with Malakai",
+          "Malakai, Gotrek and Felix stay together in his field army. The supporting-army version uses ordinary Dwarf characters; it does not duplicate unique companions or inherit all his personal bonuses."
+        ],
+        [
+          "Escort, counterattack and experiment",
+          "Treat shielded infantry as the escort, Slayers as the counterattack and the machines as the experiment. Do not order every unit into a single continuous melee line."
+        ],
+        [
+          "The Spirit is not a recruited slot",
+          "The Spirit of Grungni is additional summoned support. It is not one of the twenty recruited slots, and its exact treatment by Smart Autoresolve remains unverified."
+        ],
+        [
+          "Availability comes first",
+          "Availability comes first: an unfilled Pirate, Cannon or gyro slot can remain a starting unit, Warrior or Quarreller. This is a first developed twenty, not a claim that every listed unit can be recruited on turn one."
+        ],
+        [
+          "Unavailable unit or hero",
+          "Use another useful existing troop in that slot until recruitment, capacity and budget allow the intended unit. A template is a destination, not a reason to stop an otherwise viable war."
+        ],
+        [
+          "No old paid-DLC dependency",
+          "The core templates use the base Dwarf roster and Malakai’s WH3 content. They do not require Rangers, Bolt Throwers or Runelords from paid WH1 content."
+        ],
+        [
+          "Optional flavour: allied Empire detachment",
+          "A useful allied Empire unit can replace a comparable role after actual allied recruitment is available. Treat it as a small coalition detachment, not a requirement to buy another roster or weaken the army."
+        ]
+      ],
+      "plan": [
+        [
+          "Near-term assembly target",
+          "This is a near-term assembly target, not turn-one starting units."
+        ],
+        [
+          "Fill and replace gradually",
+          "Fill with Warriors/Quarrellers, keep useful starting specialists, add available Cannons and Pirates, then replace gradually."
+        ],
+        [
+          "Substitute, do not stall",
+          "Substitute an unavailable hero with a useful troop; do not stall the campaign."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ]
+    },
+    "mid": {
+      "label": "Mid",
+      "name": "The travelling workshop",
+      "supportName": "The supporting field column",
+      "units": [
+        {
+          "n": 4,
+          "name": "Longbeards",
+          "role": "Veteran escort. Hold the firing lanes while the less sensible Dawi get to work.",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Malakai’s signature axe machine. A protected close-range lane, then its Slayer crew if needed.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters",
+          "role": "A small engineering test flight. Work together against suitable exposed targets.",
+          "kind": "machine"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Malakai Makaisson",
+          "role": "Expedition leader and ranged engineer. Support the battery, not a solo frontline.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gotrek",
+          "role": "The Slayer at the heart of the expedition. Intercept the dangerous opponent alongside support.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Felix",
+          "role": "Gotrek’s companion and the expedition’s recovery support. Keep the pair fighting together.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Workshop officer: movement, ammunition and ranged support. Protect him from melee.",
+          "kind": "character"
+        },
+        {
+          "n": 4,
+          "name": "Longbeards",
+          "role": "Veteran escort. Hold the firing lanes while the less sensible Dawi get to work.",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Malakai’s signature axe machine. A protected close-range lane, then its Slayer crew if needed.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters",
+          "role": "A small engineering test flight. Work together against suitable exposed targets.",
+          "kind": "machine"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Dwarf Lord",
+          "role": "Armoured commander and local anchor.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Thane",
+          "role": "Hold a threatened lane, not a distant solo adventure.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Runesmith",
+          "role": "Runic support and the chosen embedded-army effect.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Hero: movement and missile support. Keep out of melee.",
+          "kind": "character"
+        },
+        {
+          "n": 5,
+          "name": "Longbeards",
+          "role": "Veteran escort. Hold the firing lanes while the less sensible Dawi get to work.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Malakai’s signature axe machine. A protected close-range lane, then its Slayer crew if needed.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters",
+          "role": "A small engineering test flight. Work together against suitable exposed targets.",
+          "kind": "machine"
+        }
+      ],
+      "context": "Keep the Slayer crew and test aircraft. Add the Hewer rather than replacing every specialist with more guns.",
+      "notes": [
+        [
+          "Thematic recommendation",
+          "The composition is a thematic recommendation, not a lore-mandated roster or a tested optimum for Smart Autoresolve. Losing some efficiency is an intentional trade for a recognisable expedition."
+        ],
+        [
+          "Unique characters stay with Malakai",
+          "Malakai, Gotrek and Felix stay together in his field army. The supporting-army version uses ordinary Dwarf characters; it does not duplicate unique companions or inherit all his personal bonuses."
+        ],
+        [
+          "Escort, counterattack and experiment",
+          "Treat shielded infantry as the escort, Slayers as the counterattack and the machines as the experiment. Do not order every unit into a single continuous melee line."
+        ],
+        [
+          "The Spirit is not a recruited slot",
+          "The Spirit of Grungni is additional summoned support. It is not one of the twenty recruited slots, and its exact treatment by Smart Autoresolve remains unverified."
+        ],
+        [
+          "Unavailable unit or hero",
+          "Use another useful existing troop in that slot until recruitment, capacity and budget allow the intended unit. A template is a destination, not a reason to stop an otherwise viable war."
+        ],
+        [
+          "No old paid-DLC dependency",
+          "The core templates use the base Dwarf roster and Malakai’s WH3 content. They do not require Rangers, Bolt Throwers or Runelords from paid WH1 content."
+        ],
+        [
+          "Optional flavour: allied Empire detachment",
+          "A useful allied Empire unit can replace a comparable role after actual allied recruitment is available. Treat it as a small coalition detachment, not a requirement to buy another roster or weaken the army."
+        ]
+      ],
+      "plan": [
+        [
+          "Add the engineer and Hewer",
+          "Add an Engineer and the Goblin Hewer, then upgrade the escort and marksmen gradually."
+        ],
+        [
+          "Keep the Slayer element small",
+          "Keep a small Slayer element and a paired test flight instead of buying six more conventional shooters."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ]
+    },
+    "late": {
+      "label": "Late",
+      "name": "The Empire-relief expedition",
+      "supportName": "The coalition’s watch company",
+      "units": [
+        {
+          "n": 3,
+          "name": "Ironbreakers",
+          "role": "Shielded veteran escort. Protect the firing lanes and reinforce threatened ground troops.",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Doomseekers",
+          "role": "The shock group. Commit into engaged infantry; do not use them to absorb the approach.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Malakai’s signature axe machine. A protected close-range lane, then its Slayer crew if needed.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Organ Gun",
+          "role": "Rapid-fire support for the relief column. Protect its direct firing lane.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Thunderbarges",
+          "role": "Recruited escort airships. Operate as one group; do not burn their health merely to travel faster.",
+          "kind": "machine"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Malakai Makaisson",
+          "role": "Expedition leader and ranged engineer. Support the battery, not a solo frontline.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gotrek",
+          "role": "The Slayer at the heart of the expedition. Intercept the dangerous opponent alongside support.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Felix",
+          "role": "Gotrek’s companion and the expedition’s recovery support. Keep the pair fighting together.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Workshop officer: movement, ammunition and ranged support. Protect him from melee.",
+          "kind": "character"
+        },
+        {
+          "n": 3,
+          "name": "Ironbreakers",
+          "role": "Shielded veteran escort. Protect the firing lanes and reinforce threatened ground troops.",
+          "kind": "line"
+        },
+        {
+          "n": 3,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Doomseekers",
+          "role": "The shock group. Commit into engaged infantry; do not use them to absorb the approach.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Malakai’s signature axe machine. A protected close-range lane, then its Slayer crew if needed.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Organ Gun",
+          "role": "Rapid-fire support for the relief column. Protect its direct firing lane.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Thunderbarges",
+          "role": "Recruited escort airships. Operate as one group; do not burn their health merely to travel faster.",
+          "kind": "machine"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Dwarf Lord",
+          "role": "Armoured commander and local anchor.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Thane",
+          "role": "Hold a threatened lane, not a distant solo adventure.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Runesmith",
+          "role": "Runic support and the chosen embedded-army effect.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Hero: movement and missile support. Keep out of melee.",
+          "kind": "character"
+        },
+        {
+          "n": 5,
+          "name": "Ironbreakers",
+          "role": "Shielded veteran escort. Protect the firing lanes and reinforce threatened ground troops.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Organ Gun",
+          "role": "Rapid-fire support for the relief column. Protect its direct firing lane.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Malakai’s signature axe machine. A protected close-range lane, then its Slayer crew if needed.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Thunderbarge",
+          "role": "A recruited escort vessel, distinct from the Spirit of Grungni summon. Keep anti-air threats in mind.",
+          "kind": "machine"
+        }
+      ],
+      "context": "A relief expedition: veteran escort, Slayer companions, signature machinery and two recruited escort airships.",
+      "notes": [
+        [
+          "Thematic recommendation",
+          "The composition is a thematic recommendation, not a lore-mandated roster or a tested optimum for Smart Autoresolve. Losing some efficiency is an intentional trade for a recognisable expedition."
+        ],
+        [
+          "Unique characters stay with Malakai",
+          "Malakai, Gotrek and Felix stay together in his field army. The supporting-army version uses ordinary Dwarf characters; it does not duplicate unique companions or inherit all his personal bonuses."
+        ],
+        [
+          "Escort, counterattack and experiment",
+          "Treat shielded infantry as the escort, Slayers as the counterattack and the machines as the experiment. Do not order every unit into a single continuous melee line."
+        ],
+        [
+          "The Spirit is not a recruited slot",
+          "The Spirit of Grungni is additional summoned support. It is not one of the twenty recruited slots, and its exact treatment by Smart Autoresolve remains unverified."
+        ],
+        [
+          "Monster-heavy substitution",
+          "Against a monster-heavy opponent, retain regular Slayers or substitute Giant Slayers for the two Doomseekers. That is a change of job, not an automatic upgrade ladder."
+        ],
+        [
+          "Optional allied-relief flavour",
+          "For an optional allied-relief flavour, an outpost-provided Empire infantry or gunpowder detachment can replace one or two ordinary Thunderer slots. Use only what your actual alliance and recruitment panel offers; it is not required for this guide or for VCO."
+        ],
+        [
+          "Unavailable unit or hero",
+          "Use another useful existing troop in that slot until recruitment, capacity and budget allow the intended unit. A template is a destination, not a reason to stop an otherwise viable war."
+        ],
+        [
+          "No old paid-DLC dependency",
+          "The core templates use the base Dwarf roster and Malakai’s WH3 content. They do not require Rangers, Bolt Throwers or Runelords from paid WH1 content."
+        ],
+        [
+          "Optional flavour: allied Empire detachment",
+          "A useful allied Empire unit can replace a comparable role after actual allied recruitment is available. Treat it as a small coalition detachment, not a requirement to buy another roster or weaken the army."
+        ],
+        [
+          "When the screen fails",
+          "Add or upgrade one escort unit, keep the Slayer counterattack protected, and restore losses before another assault. Theme does not require every unit to be a fragile attacker."
+        ],
+        [
+          "When the budget fails",
+          "Retain Warriors/Longbeards, buy elite replacements gradually and reduce the number of expensive airships before abandoning the whole campaign plan. A functioning field army now beats a perfect roster twenty turns later."
+        ]
+      ],
+      "plan": [
+        [
+          "Upgrade the escort and shock pair",
+          "Improve the escort to Ironbreakers; turn the shock pair into Doomseekers when available."
+        ],
+        [
+          "Barges replace the test flight",
+          "Two recruited Thunderbarges replace the earlier test-flight pair."
+        ],
+        [
+          "Keep the identity units",
+          "Keep the Hewer and Pirates as part of the army’s identity."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ]
+    },
+    "airwing": {
+      "label": "Air wing",
+      "name": "The northern air wing",
+      "supportName": "The supporting air escort",
+      "units": [
+        {
+          "n": 3,
+          "name": "Ironbreakers",
+          "role": "Shielded veteran escort. Protect the firing lanes and reinforce threatened ground troops.",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Signature short-range axe machine; a protected firing lane and ammunition discipline.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters (Brimstone Guns)",
+          "role": "An optional anti-large air group. Avoid sending it ahead of the ground army’s support.",
+          "kind": "machine"
+        },
+        {
+          "n": 2,
+          "name": "Thunderbarges",
+          "role": "Recruited escort airships. Operate as one group; do not burn their health merely to travel faster.",
+          "kind": "machine"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Malakai Makaisson",
+          "role": "Expedition leader and ranged engineer. Support the battery, not a solo frontline.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Gotrek",
+          "role": "The Slayer at the heart of the expedition. Intercept the dangerous opponent alongside support.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Felix",
+          "role": "Gotrek’s companion and the expedition’s recovery support. Keep the pair fighting together.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Workshop officer: movement, ammunition and ranged support. Protect him from melee.",
+          "kind": "character"
+        },
+        {
+          "n": 3,
+          "name": "Ironbreakers",
+          "role": "Shielded veteran escort. Protect the firing lanes and reinforce threatened ground troops.",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Signature short-range axe machine; a protected firing lane and ammunition discipline.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters (Brimstone Guns)",
+          "role": "An optional anti-large air group. Avoid sending it ahead of the ground army’s support.",
+          "kind": "machine"
+        },
+        {
+          "n": 2,
+          "name": "Thunderbarges",
+          "role": "Recruited escort airships. Operate as one group; do not burn their health merely to travel faster.",
+          "kind": "machine"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Dwarf Lord",
+          "role": "Armoured commander and local anchor.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Thane",
+          "role": "Hold a threatened lane, not a distant solo adventure.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Runesmith",
+          "role": "Runic support and the chosen embedded-army effect.",
+          "kind": "character"
+        },
+        {
+          "n": 1,
+          "name": "Master Engineer",
+          "role": "Hero: movement and missile support. Keep out of melee.",
+          "kind": "character"
+        },
+        {
+          "n": 3,
+          "name": "Ironbreakers",
+          "role": "Shielded veteran escort. Protect the firing lanes and reinforce threatened ground troops.",
+          "kind": "line"
+        },
+        {
+          "n": 2,
+          "name": "Thunderers",
+          "role": "The workshop’s long-range small arms. Shoot monsters and cover the Slayers.",
+          "kind": "ranged"
+        },
+        {
+          "n": 2,
+          "name": "Slayer Pirates",
+          "role": "The armed expedition crew. Close-range pistol volleys, then a supported counterattack.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Slayers",
+          "role": "Monster interceptors. Hold behind the escort until a worthwhile target arrives.",
+          "kind": "slayer"
+        },
+        {
+          "n": 2,
+          "name": "Cannons",
+          "role": "The tested prototype battery. Long shot for large targets; grapeshot after its Adventure unlock.",
+          "kind": "artillery"
+        },
+        {
+          "n": 1,
+          "name": "Goblin Hewer",
+          "role": "Signature short-range axe machine; a protected firing lane and ammunition discipline.",
+          "kind": "artillery"
+        },
+        {
+          "n": 2,
+          "name": "Gyrocopters (Brimstone Guns)",
+          "role": "An optional anti-large air group. Avoid sending it ahead of the ground army’s support.",
+          "kind": "machine"
+        },
+        {
+          "n": 2,
+          "name": "Thunderbarges",
+          "role": "Recruited escort airships. Operate as one group; do not burn their health merely to travel faster.",
+          "kind": "machine"
+        }
+      ],
+      "context": "An optional aviation-heavy branch. Retain ground troops and protect flyers from concentrated anti-air; no route requires this specific roster.",
+      "notes": [
+        [
+          "Thematic recommendation",
+          "The composition is a thematic recommendation, not a lore-mandated roster or a tested optimum for Smart Autoresolve. Losing some efficiency is an intentional trade for a recognisable expedition."
+        ],
+        [
+          "Unique characters stay with Malakai",
+          "Malakai, Gotrek and Felix stay together in his field army. The supporting-army version uses ordinary Dwarf characters; it does not duplicate unique companions or inherit all his personal bonuses."
+        ],
+        [
+          "Escort, counterattack and experiment",
+          "Treat shielded infantry as the escort, Slayers as the counterattack and the machines as the experiment. Do not order every unit into a single continuous melee line."
+        ],
+        [
+          "The Spirit is not a recruited slot",
+          "The Spirit of Grungni is additional summoned support. It is not one of the twenty recruited slots, and its exact treatment by Smart Autoresolve remains unverified."
+        ],
+        [
+          "Unavailable unit or hero",
+          "Use another useful existing troop in that slot until recruitment, capacity and budget allow the intended unit. A template is a destination, not a reason to stop an otherwise viable war."
+        ],
+        [
+          "No old paid-DLC dependency",
+          "The core templates use the base Dwarf roster and Malakai’s WH3 content. They do not require Rangers, Bolt Throwers or Runelords from paid WH1 content."
+        ],
+        [
+          "Optional flavour: allied Empire detachment",
+          "A useful allied Empire unit can replace a comparable role after actual allied recruitment is available. Treat it as a small coalition detachment, not a requirement to buy another roster or weaken the army."
+        ]
+      ],
+      "plan": [
+        [
+          "An option, not a default",
+          "Choose it only when recruited aircraft are doing a major job."
+        ],
+        [
+          "Keep the ground escort funded",
+          "Keep the ground escort funded and use the air group together."
+        ],
+        [
+          "Do not delay victory for a barge",
+          "Do not postpone a nearly completed victory just to purchase the final barge."
+        ]
+      ],
+      "size": 20,
+      "sources": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ]
+    },
+    "home": {
+      "label": "Hold guard",
+      "name": "Kraka Drak’s hold guard",
+      "supportName": "The local hold guard",
+      "units": [
+        {
+          "n": 6,
+          "name": "Dwarf Warriors",
+          "role": "Shielded. Hold with the settlement garrison.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Quarrellers",
+          "role": "Flexible, inexpensive supporting fire.",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Grudge Thrower",
+          "role": "Encourage an attacker to advance into your defenders.",
+          "kind": "artillery"
+        }
+      ],
+      "legendary": [
+        {
+          "n": 1,
+          "name": "Dwarf Lord",
+          "role": "This template always uses an ordinary Lord.",
+          "kind": "character"
+        },
+        {
+          "n": 6,
+          "name": "Dwarf Warriors",
+          "role": "Shielded. Hold with the settlement garrison.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Quarrellers",
+          "role": "Flexible, inexpensive supporting fire.",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Grudge Thrower",
+          "role": "Encourage an attacker to advance into your defenders.",
+          "kind": "artillery"
+        }
+      ],
+      "generic": [
+        {
+          "n": 1,
+          "name": "Dwarf Lord",
+          "role": "Defensive commander; supplement the local garrison.",
+          "kind": "character"
+        },
+        {
+          "n": 6,
+          "name": "Dwarf Warriors",
+          "role": "Shielded. Hold with the settlement garrison.",
+          "kind": "line"
+        },
+        {
+          "n": 4,
+          "name": "Quarrellers",
+          "role": "Flexible, inexpensive supporting fire.",
+          "kind": "ranged"
+        },
+        {
+          "n": 1,
+          "name": "Grudge Thrower",
+          "role": "Encourage an attacker to advance into your defenders.",
+          "kind": "artillery"
+        }
+      ],
+      "context": "Use with a settlement garrison or nearby reinforcements, not as a guaranteed standalone answer to an elite 20-stack.",
+      "notes": [
+        [
+          "Raise only what the border needs",
+          "Raise only what the actual border needs. Upgrade Warriors to Longbeards before turning an inexpensive guard into a full premium army."
+        ],
+        [
+          "A budget tool, not a guarantee",
+          "A threatened major front may need a real 20-stack. This template is a budget tool, not a guarantee that half an army holds any siege."
+        ],
+        [
+          "Keep budget for emergencies",
+          "Keep spare budget for emergency recruitment. Do not count a distant Malakai army as immediate home defence."
+        ],
+        [
+          "Companions stay with Malakai",
+          "Its conventional roster is intentional: the famous companions and experimental machines belong with Malakai, not in every minor settlement defence."
+        ],
+        [
+          "Unavailable unit or hero",
+          "Use another useful existing troop in that slot until recruitment, capacity and budget allow the intended unit. A template is a destination, not a reason to stop an otherwise viable war."
+        ],
+        [
+          "No old paid-DLC dependency",
+          "The core templates use the base Dwarf roster and Malakai’s WH3 content. They do not require Rangers, Bolt Throwers or Runelords from paid WH1 content."
+        ],
+        [
+          "Optional flavour: allied Empire detachment",
+          "A useful allied Empire unit can replace a comparable role after actual allied recruitment is available. Treat it as a small coalition detachment, not a requirement to buy another roster or weaken the army."
+        ]
+      ],
+      "plan": [
+        [
+          "Twelve slots",
+          "Twelve slots for garrison support."
+        ],
+        [
+          "Grow it when it must fight alone",
+          "Enlarge into a full field column when it must fight an independent enemy stack; the guide imposes no army-count or territory ceiling."
+        ]
+      ],
+      "size": 12,
+      "sources": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ],
+      "state": "verify-in-campaign",
+      "src": [
+        "ca-malakai",
+        "roster",
+        "skill-malakai"
+      ]
+    }
+  }
+}

@@ -14,7 +14,7 @@ The site is not only a static library. It also integrates the research work behi
 
 ## Problem Statement
 
-The guides currently exist as five standalone HTML files in `.work/references/` — one per Legendary Lord (Alith Anar, Elspeth von Draken, Malakai, Mother Ostankya, Zhao Ming). Each file is a self-contained page of roughly 270–425 KB with its own layout, styling, scripts, and embedded content.
+The five seed guides began as standalone HTML files in `.work/references/` — one per Legendary Lord (Alith Anar, Elspeth von Draken, Malakai, Mother Ostankya, Zhao Ming). Their content is now migrated into the shared content model; the original files remain there as read-only source archives. Each archive is a self-contained page of roughly 270–425 KB with its own layout, styling, scripts, and embedded content.
 
 That is not sustainable:
 
@@ -40,7 +40,7 @@ Each guide is organized as three independent route plans plus shared faction fun
 - **Route plans** — identity, exact current VCO objectives, reward, strategic interpretation, opening, early/mid/late game, victory push, diplomacy, territory policy, and a transition section into the other routes.
 - **Reference dashboards** — army templates (early/mid/late/specialist/home guard, with Legendary vs Generic lord versions), character skill orders, research priorities, settlement role build orders, and unique-mechanic references.
 
-Two of the seed guides (Mother Ostankya and Zhao Ming) are the same faction, Grand Cathay — the model must make "three distinct campaign stories for one faction" a first-class case, not an accident.
+Two of the migrated guides (Zhao Ming and Alith Anar) are both Grand Cathay lords — the model must make "three distinct campaign stories for one faction" a first-class case, not an accident. Mother Ostankya's integrated guide identifies her campaign as Kislev, not Grand Cathay.
 
 ### 3. Research and verification integrated
 

@@ -1,0 +1,1136 @@
+{
+  "ship-route-1": {
+    "label": "Ship start",
+    "title": "Ship: early",
+    "intro": "Your mobile workshop. Crew growth and population surplus are separate from settlement growth. Archive-derived workshop guidance from the atlas’s September 2026 research, not a fixed build order or an installed-build test — live hull tiers, compartment gates, crew surplus and costs in the installed build are unverified; inspect the live airship panel and follow its visible requirements before spending.",
+    "steps": [
+      {
+        "title": "Beer Hall",
+        "note": "A modest early upkeep/recruitment-cost investment. This is the economy compartment—not the crew-growth building.",
+        "gate": "Hull I"
+      },
+      {
+        "title": "Hardened Hull",
+        "note": "Hardened Hull is the tier-II air frame and unlocks Slayers and Slayer Pirates from the ship. This is a useful thematic recruitment milestone as well as a compartment gate.",
+        "gate": "Hull II"
+      },
+      {
+        "title": "Cargo Racks",
+        "note": "Crew growth and general casualty replenishment make future upgrades and repeated campaigning easier.",
+        "gate": "Tier II"
+      },
+      {
+        "title": "Engine Room",
+        "note": "Campaign movement plus more time for the summoned Spirit before it disengages. Move ahead of Cargo Racks when the next fight urgently needs it.",
+        "gate": "Tier II"
+      },
+      {
+        "title": "Cannon access → a paired gyro flight",
+        "note": "Fund the actual test fleet without postponing the capital’s tier-IV landmark project. Supporting armies still need surface recruitment or valid shared support."
+      },
+      {
+        "title": "Use Inventor → Architect before a major build",
+        "note": "At rank 12, Architect can reduce horde construction cost — the same rank-12 branch the Armies & skills panel’s Malakai queue describes. Do not delay a war-winning upgrade for many turns just to save money."
+      }
+    ],
+    "details": [
+      [
+        "Budget and hull progression",
+        "Beer Hall → Mess Hall → Air Distillery is the upkeep branch. Cargo Racks → Storage Hold → Optimised External Access Port is the growth/recovery branch. The first early hull and compartments matter more than a catalogue of unused recruitment buildings."
+      ],
+      [
+        "Ship interface",
+        "Construct and recruit when the relevant airship stance/interface allows it. Check the next upgrade’s crew-surplus and hull-tier requirements; land population surplus does not substitute for airship crew."
+      ],
+      [
+        "A useful manual summon",
+        "Bring the Spirit in when enemies have committed and you can protect it from concentrated anti-air. Keep a viable ground army. Its timer before full engine upgrades is a reason not to summon it at the first quiet second of every battle."
+      ],
+      [
+        "The crew comes with the hull",
+        "Hardened Hull gives the ship access to Slayers and Slayer Pirates. Rune Inscribed Frame (the next hull tier) opens Giant Slayers and Doomseekers. These are availability milestones, not an instruction to replace your troops immediately. Keep them affordable and supported."
+      ],
+      [
+        "Surface and ship tiers differ",
+        "Crew growth and hull upgrades govern the ship. Settlement growth governs your cities. Do not wait for Kraka Drak to reach tier V just to make a hull decision, or assume hull progress satisfies the Silver Hall objective."
+      ],
+      [
+        "Shared ship milestones",
+        "These record built/unlocked milestones, not a compulsory construction queue; this route’s steps above determine priority. Beer Hall (early running costs) → Hardened Hull (tier-II hull / Slayer crew access) → Cargo Racks (crew growth and recovery) → Engine Room (movement and Spirit duration) → Streamlined Smelters (Cannon / Hewer supply) → Inventor / Architect plan (rank-12 skill branch) → Storage Hold (later endurance) → Rune-Etched Hull (top hull gate) → Larger Propellers (late Spirit support) → Assembly Line (recruited Thunderbarge access)."
+      ],
+      [
+        "Using the Spirit: check availability first",
+        "The ship supports eligible armies through its campaign system. Do not assume every distant generic army has access, or count a summoned Spirit as a recruited unit in your army."
+      ],
+      [
+        "Using the Spirit: use the early timer deliberately",
+        "Bring it in when the fight will exploit its firing time. Avoid spending its short early window travelling from a poor arrival point. Keep the escort and companions in the fight; do not park under concentrated anti-air or abandon the ground company for a cinematic chase."
+      ],
+      [
+        "Using the Spirit: repairs and ammunition support",
+        "Read which machine an ability can affect. Spend a restoration on the important damaged or exhausted machine, not automatically at the start of the fight."
+      ],
+      [
+        "Using the Spirit: manual strength versus autoresolve",
+        "The exact summon weighting under your Smart Autoresolve version is unverified. A manual battle can be a sensible alternative when the forecast misses the value of your active tools."
+      ],
+      [
+        "Using the Spirit: this route",
+        "Use the mobile flagship to concentrate force on the current conquest front. It cannot be everywhere at once: permanent ownership still needs holding armies and sensible garrisons."
+      ]
+    ],
+    "sources": [
+      "beer",
+      "cargo",
+      "engine-room",
+      "ship-recruit",
+      "skill-malakai",
+      "slayer-recruit",
+      "ca-malakai",
+      "smart"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "beer",
+      "cargo",
+      "engine-room",
+      "ship-recruit",
+      "skill-malakai",
+      "slayer-recruit",
+      "ca-malakai",
+      "smart"
+    ]
+  },
+  "ship-route-2": {
+    "label": "Ship start",
+    "title": "Ship: early",
+    "intro": "Your mobile workshop. Crew growth and population surplus are separate from settlement growth. Archive-derived workshop guidance from the atlas’s September 2026 research, not a fixed build order or an installed-build test — live hull tiers, compartment gates, crew surplus and costs in the installed build are unverified; inspect the live airship panel and follow its visible requirements before spending.",
+    "steps": [
+      {
+        "title": "Beer Hall",
+        "note": "A modest early upkeep/recruitment-cost investment. This is the economy compartment—not the crew-growth building.",
+        "gate": "Hull I"
+      },
+      {
+        "title": "Hardened Hull",
+        "note": "Hardened Hull is the tier-II air frame and unlocks Slayers and Slayer Pirates from the ship. This is a useful thematic recruitment milestone as well as a compartment gate.",
+        "gate": "Hull II"
+      },
+      {
+        "title": "Cargo Racks",
+        "note": "Crew growth and general casualty replenishment make future upgrades and repeated campaigning easier.",
+        "gate": "Tier II"
+      },
+      {
+        "title": "Engine Room",
+        "note": "Campaign movement plus more time for the summoned Spirit before it disengages. Move ahead of Cargo Racks when the next fight urgently needs it.",
+        "gate": "Tier II"
+      },
+      {
+        "title": "Streamlined Smelters + Slayer access",
+        "note": "Use the available Cannon/Hewer recruitment and hull-granted Slayer troops. The two Hewers and supported Slayer force matter more than duplicating all land recruitment."
+      },
+      {
+        "title": "Use Inventor → Architect before a major build",
+        "note": "At rank 12, Architect can reduce horde construction cost — the same rank-12 branch the Armies & skills panel’s Malakai queue describes. Do not delay a war-winning upgrade for many turns just to save money."
+      }
+    ],
+    "details": [
+      [
+        "Budget and hull progression",
+        "Beer Hall → Mess Hall → Air Distillery is the upkeep branch. Cargo Racks → Storage Hold → Optimised External Access Port is the growth/recovery branch. The first early hull and compartments matter more than a catalogue of unused recruitment buildings."
+      ],
+      [
+        "Ship interface",
+        "Construct and recruit when the relevant airship stance/interface allows it. Check the next upgrade’s crew-surplus and hull-tier requirements; land population surplus does not substitute for airship crew."
+      ],
+      [
+        "A useful manual summon",
+        "Bring the Spirit in when enemies have committed and you can protect it from concentrated anti-air. Keep a viable ground army. Its timer before full engine upgrades is a reason not to summon it at the first quiet second of every battle."
+      ],
+      [
+        "The crew comes with the hull",
+        "Hardened Hull gives the ship access to Slayers and Slayer Pirates. Rune Inscribed Frame (the next hull tier) opens Giant Slayers and Doomseekers. These are availability milestones, not an instruction to replace your troops immediately. Keep them affordable and supported."
+      ],
+      [
+        "Surface and ship tiers differ",
+        "Crew growth and hull upgrades govern the ship. Settlement growth governs your cities. Do not wait for Kraka Drak to reach tier V just to make a hull decision, or assume hull progress satisfies the Silver Hall objective."
+      ],
+      [
+        "Shared ship milestones",
+        "These record built/unlocked milestones, not a compulsory construction queue; this route’s steps above determine priority. Beer Hall (early running costs) → Hardened Hull (tier-II hull / Slayer crew access) → Cargo Racks (crew growth and recovery) → Engine Room (movement and Spirit duration) → Streamlined Smelters (Cannon / Hewer supply) → Inventor / Architect plan (rank-12 skill branch) → Storage Hold (later endurance) → Rune-Etched Hull (top hull gate) → Larger Propellers (late Spirit support) → Assembly Line (recruited Thunderbarge access)."
+      ],
+      [
+        "Using the Spirit: check availability first",
+        "The ship supports eligible armies through its campaign system. Do not assume every distant generic army has access, or count a summoned Spirit as a recruited unit in your army."
+      ],
+      [
+        "Using the Spirit: use the early timer deliberately",
+        "Bring it in when the fight will exploit its firing time. Avoid spending its short early window travelling from a poor arrival point. Keep the escort and companions in the fight; do not park under concentrated anti-air or abandon the ground company for a cinematic chase."
+      ],
+      [
+        "Using the Spirit: repairs and ammunition support",
+        "Read which machine an ability can affect. Spend a restoration on the important damaged or exhausted machine, not automatically at the start of the fight."
+      ],
+      [
+        "Using the Spirit: manual strength versus autoresolve",
+        "The exact summon weighting under your Smart Autoresolve version is unverified. A manual battle can be a sensible alternative when the forecast misses the value of your active tools."
+      ],
+      [
+        "Using the Spirit: this route",
+        "Use the Spirit to help secure a difficult assault while retaining the expedition’s ground company. Surviving the battle and the following turn matters more than using every available ability."
+      ]
+    ],
+    "sources": [
+      "beer",
+      "cargo",
+      "engine-room",
+      "ship-recruit",
+      "skill-malakai",
+      "slayer-recruit",
+      "ca-malakai",
+      "smart"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "beer",
+      "cargo",
+      "engine-room",
+      "ship-recruit",
+      "skill-malakai",
+      "slayer-recruit",
+      "ca-malakai",
+      "smart"
+    ]
+  },
+  "ship-route-3": {
+    "label": "Ship start",
+    "title": "Ship: early",
+    "intro": "Your mobile workshop. Crew growth and population surplus are separate from settlement growth. Archive-derived workshop guidance from the atlas’s September 2026 research, not a fixed build order or an installed-build test — live hull tiers, compartment gates, crew surplus and costs in the installed build are unverified; inspect the live airship panel and follow its visible requirements before spending.",
+    "steps": [
+      {
+        "title": "Beer Hall",
+        "note": "A modest early upkeep/recruitment-cost investment. This is the economy compartment—not the crew-growth building.",
+        "gate": "Hull I"
+      },
+      {
+        "title": "Hardened Hull",
+        "note": "Hardened Hull is the tier-II air frame and unlocks Slayers and Slayer Pirates from the ship. This is a useful thematic recruitment milestone as well as a compartment gate.",
+        "gate": "Hull II"
+      },
+      {
+        "title": "Cargo Racks",
+        "note": "Crew growth and general casualty replenishment make future upgrades and repeated campaigning easier.",
+        "gate": "Tier II"
+      },
+      {
+        "title": "Engine Room",
+        "note": "Campaign movement plus more time for the summoned Spirit before it disengages. Move ahead of Cargo Racks when the next fight urgently needs it.",
+        "gate": "Tier II"
+      },
+      {
+        "title": "Add cannon, gyro and Hewer access",
+        "note": "Use Adventure recruitment where available, then develop the ship’s matching chains. Keep a small test flight and the signature axe machine instead of treating all non-Cannon recruits as distractions.",
+        "gate": "When affordable"
+      },
+      {
+        "title": "Use Inventor → Architect before a major build",
+        "note": "At rank 12, Architect can reduce horde construction cost — the same rank-12 branch the Armies & skills panel’s Malakai queue describes. Do not delay a war-winning upgrade for many turns just to save money."
+      }
+    ],
+    "details": [
+      [
+        "Budget and hull progression",
+        "Beer Hall → Mess Hall → Air Distillery is the upkeep branch. Cargo Racks → Storage Hold → Optimised External Access Port is the growth/recovery branch. The first early hull and compartments matter more than a catalogue of unused recruitment buildings."
+      ],
+      [
+        "Ship interface",
+        "Construct and recruit when the relevant airship stance/interface allows it. Check the next upgrade’s crew-surplus and hull-tier requirements; land population surplus does not substitute for airship crew."
+      ],
+      [
+        "A useful manual summon",
+        "Bring the Spirit in when enemies have committed and you can protect it from concentrated anti-air. Keep a viable ground army. Its timer before full engine upgrades is a reason not to summon it at the first quiet second of every battle."
+      ],
+      [
+        "The crew comes with the hull",
+        "Hardened Hull gives the ship access to Slayers and Slayer Pirates. Rune Inscribed Frame (the next hull tier) opens Giant Slayers and Doomseekers. These are availability milestones, not an instruction to replace your troops immediately. Keep them affordable and supported."
+      ],
+      [
+        "Surface and ship tiers differ",
+        "Crew growth and hull upgrades govern the ship. Settlement growth governs your cities. Do not wait for Kraka Drak to reach tier V just to make a hull decision, or assume hull progress satisfies the Silver Hall objective."
+      ],
+      [
+        "Shared ship milestones",
+        "These record built/unlocked milestones, not a compulsory construction queue; this route’s steps above determine priority. Beer Hall (early running costs) → Hardened Hull (tier-II hull / Slayer crew access) → Cargo Racks (crew growth and recovery) → Engine Room (movement and Spirit duration) → Streamlined Smelters (Cannon / Hewer supply) → Inventor / Architect plan (rank-12 skill branch) → Storage Hold (later endurance) → Rune-Etched Hull (top hull gate) → Larger Propellers (late Spirit support) → Assembly Line (recruited Thunderbarge access)."
+      ],
+      [
+        "Using the Spirit: check availability first",
+        "The ship supports eligible armies through its campaign system. Do not assume every distant generic army has access, or count a summoned Spirit as a recruited unit in your army."
+      ],
+      [
+        "Using the Spirit: use the early timer deliberately",
+        "Bring it in when the fight will exploit its firing time. Avoid spending its short early window travelling from a poor arrival point. Keep the escort and companions in the fight; do not park under concentrated anti-air or abandon the ground company for a cinematic chase."
+      ],
+      [
+        "Using the Spirit: repairs and ammunition support",
+        "Read which machine an ability can affect. Spend a restoration on the important damaged or exhausted machine, not automatically at the start of the fight."
+      ],
+      [
+        "Using the Spirit: manual strength versus autoresolve",
+        "The exact summon weighting under your Smart Autoresolve version is unverified. A manual battle can be a sensible alternative when the forecast misses the value of your active tools."
+      ],
+      [
+        "Using the Spirit: this route",
+        "Use the ship to support the active relief operation and nearby supporting column. Do not budget on the foreign-replenishment route reward before it has actually been granted."
+      ]
+    ],
+    "sources": [
+      "beer",
+      "cargo",
+      "engine-room",
+      "ship-recruit",
+      "skill-malakai",
+      "slayer-recruit",
+      "ca-malakai",
+      "smart"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "beer",
+      "cargo",
+      "engine-room",
+      "ship-recruit",
+      "skill-malakai",
+      "slayer-recruit",
+      "ca-malakai",
+      "smart"
+    ]
+  },
+  "shiplate-route-1": {
+    "label": "Ship late",
+    "title": "Ship: late",
+    "intro": "Turn a temporary battle reinforcement into durable support, without buying every compartment at once. Archive-derived workshop guidance from the atlas’s September 2026 research, not a fixed build order or an installed-build test — live hull tiers, compartment gates, crew surplus and costs in the installed build are unverified; inspect the live airship panel and follow its visible requirements before spending.",
+    "steps": [
+      {
+        "title": "Progress the hull to Rune-Etched Hull",
+        "note": "The hull gates the high-tier compartments. Keep crew growth running.",
+        "gate": "Hull V goal"
+      },
+      {
+        "title": "Storage Hold",
+        "note": "More crew growth/replenishment and attrition resistance. This is a recovery purchase, not direct income.",
+        "gate": "Tier IV"
+      },
+      {
+        "title": "Improved Engine Output → Larger Propellers",
+        "note": "The top engine upgrade removes the Spirit’s disengage timer and extends its availability to eligible armies in the circle of influence.",
+        "gate": "Tier V"
+      },
+      {
+        "title": "Engineering Workbench → Engineer’s Compartment → Assembly Line",
+        "note": "The final recruitment building opens recruited Thunderbarges. A recruited barge takes one army slot; the summoned Spirit does not.",
+        "gate": "Tier V final"
+      },
+      {
+        "title": "Hold the realm before enlarging the fleet",
+        "note": "Two recruited barges and a gyro pair give the flagship its identity. A holding army may be the better next purchase when the realm’s opposite end is threatened."
+      },
+      {
+        "title": "Signals / external access only when they serve another army",
+        "note": "Radius and shared support are more valuable when an actual second force operates nearby—not on the other side of the map."
+      }
+    ],
+    "details": [
+      [
+        "No global summon assumption",
+        "Larger Propellers refers to armies in the ship’s circle of influence. It does not mean every Dwarf army in the faction gains the Spirit everywhere."
+      ],
+      [
+        "Not immortality",
+        "No disengage timer is not invulnerability. Preserve the ship against dangerous ranged units and flyers. Read the summon’s current availability/cooldown if it has been lost."
+      ],
+      [
+        "Grounded late option",
+        "The Late ground variant remains valid. Spend on its guns and screen instead of building aviation infrastructure for aircraft you do not enjoy controlling."
+      ],
+      [
+        "The tier-III step matters too",
+        "Rune Inscribed Frame is an intermediate hull upgrade that unlocks Giant Slayers and Doomseekers. A thematic company may use these before its final Thunderbarge fleet; late-game labels are budget stages, not fabricated recruitment gates."
+      ]
+    ],
+    "sources": [
+      "hull",
+      "storage",
+      "propellers",
+      "assembly",
+      "signals",
+      "slayer-recruit",
+      "slayer-frame"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "hull",
+      "storage",
+      "propellers",
+      "assembly",
+      "signals",
+      "slayer-recruit",
+      "slayer-frame"
+    ]
+  },
+  "shiplate-route-2": {
+    "label": "Ship late",
+    "title": "Ship: late",
+    "intro": "Turn a temporary battle reinforcement into durable support, without buying every compartment at once. Archive-derived workshop guidance from the atlas’s September 2026 research, not a fixed build order or an installed-build test — live hull tiers, compartment gates, crew surplus and costs in the installed build are unverified; inspect the live airship panel and follow its visible requirements before spending.",
+    "steps": [
+      {
+        "title": "Hull gates + recovery before luxury",
+        "note": "Progress the hull when its next useful recovery, troop or engine gate is affordable."
+      },
+      {
+        "title": "Storage Hold",
+        "note": "A tier-IV endurance priority for the invasion: crew growth, replenishment and attrition resistance. Check whether replenishment is currently active."
+      },
+      {
+        "title": "Improved Engine Output → Larger Propellers",
+        "note": "Useful movement and the late Spirit improvement. Do not delay an achievable seventh target merely to finish the entire ship."
+      },
+      {
+        "title": "Engineering Workbench → Engineer’s Compartment → Assembly Line",
+        "note": "The final recruitment building opens recruited Thunderbarges. A recruited barge takes one army slot; the summoned Spirit does not.",
+        "gate": "Tier V final"
+      },
+      {
+        "title": "One recruited barge is a useful option",
+        "note": "The late fortress company uses one; it is not a required VCO investment. Compare its cost with recovery, an escort upgrade or reinforcement."
+      },
+      {
+        "title": "Signals / external access only when they serve another army",
+        "note": "Radius and shared support are more valuable when an actual second force operates nearby—not on the other side of the map."
+      }
+    ],
+    "details": [
+      [
+        "No global summon assumption",
+        "Larger Propellers refers to armies in the ship’s circle of influence. It does not mean every Dwarf army in the faction gains the Spirit everywhere."
+      ],
+      [
+        "Not immortality",
+        "No disengage timer is not invulnerability. Preserve the ship against dangerous ranged units and flyers. Read the summon’s current availability/cooldown if it has been lost."
+      ],
+      [
+        "Grounded late option",
+        "The Late ground variant remains valid. Spend on its guns and screen instead of building aviation infrastructure for aircraft you do not enjoy controlling."
+      ],
+      [
+        "The tier-III step matters too",
+        "Rune Inscribed Frame is an intermediate hull upgrade that unlocks Giant Slayers and Doomseekers. A thematic company may use these before its final Thunderbarge fleet; late-game labels are budget stages, not fabricated recruitment gates."
+      ]
+    ],
+    "sources": [
+      "hull",
+      "storage",
+      "propellers",
+      "assembly",
+      "signals",
+      "slayer-recruit",
+      "slayer-frame"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "hull",
+      "storage",
+      "propellers",
+      "assembly",
+      "signals",
+      "slayer-recruit",
+      "slayer-frame"
+    ]
+  },
+  "shiplate-route-3": {
+    "label": "Ship late",
+    "title": "Ship: late",
+    "intro": "Turn a temporary battle reinforcement into durable support, without buying every compartment at once. Archive-derived workshop guidance from the atlas’s September 2026 research, not a fixed build order or an installed-build test — live hull tiers, compartment gates, crew surplus and costs in the installed build are unverified; inspect the live airship panel and follow its visible requirements before spending.",
+    "steps": [
+      {
+        "title": "Progress the hull to Rune-Etched Hull",
+        "note": "The hull gates the high-tier compartments. Keep crew growth running.",
+        "gate": "Hull V goal"
+      },
+      {
+        "title": "Storage Hold",
+        "note": "More crew growth/replenishment and attrition resistance. This is a recovery purchase, not direct income.",
+        "gate": "Tier IV"
+      },
+      {
+        "title": "Improved Engine Output → Larger Propellers",
+        "note": "The top engine upgrade removes the Spirit’s disengage timer and extends its availability to eligible armies in the circle of influence.",
+        "gate": "Tier V"
+      },
+      {
+        "title": "Engineering Workbench → Engineer’s Compartment → Assembly Line",
+        "note": "The final recruitment building opens recruited Thunderbarges. A recruited barge takes one army slot; the summoned Spirit does not.",
+        "gate": "Tier V final"
+      },
+      {
+        "title": "Two escort barges, acquired gradually",
+        "note": "A fitting late relief company, not a price of admission to the next target. Keep the reserve and recovery depots funded."
+      },
+      {
+        "title": "Signals / external access only when they serve another army",
+        "note": "Radius and shared support are more valuable when an actual second force operates nearby—not on the other side of the map."
+      }
+    ],
+    "details": [
+      [
+        "No global summon assumption",
+        "Larger Propellers refers to armies in the ship’s circle of influence. It does not mean every Dwarf army in the faction gains the Spirit everywhere."
+      ],
+      [
+        "Not immortality",
+        "No disengage timer is not invulnerability. Preserve the ship against dangerous ranged units and flyers. Read the summon’s current availability/cooldown if it has been lost."
+      ],
+      [
+        "Grounded late option",
+        "The Late ground variant remains valid. Spend on its guns and screen instead of building aviation infrastructure for aircraft you do not enjoy controlling."
+      ],
+      [
+        "The tier-III step matters too",
+        "Rune Inscribed Frame is an intermediate hull upgrade that unlocks Giant Slayers and Doomseekers. A thematic company may use these before its final Thunderbarge fleet; late-game labels are budget stages, not fabricated recruitment gates."
+      ]
+    ],
+    "sources": [
+      "hull",
+      "storage",
+      "propellers",
+      "assembly",
+      "signals",
+      "slayer-recruit",
+      "slayer-frame"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "hull",
+      "storage",
+      "propellers",
+      "assembly",
+      "signals",
+      "slayer-recruit",
+      "slayer-frame"
+    ]
+  },
+  "adventures-route-1": {
+    "label": "Adventures",
+    "title": "Adventure order · Northern kingdom",
+    "intro": "Recommended sequence, adjusted to actual availability and attainable tasks. Archive-derived Adventure guidance from the atlas’s September 2026 research, not a fixed order or a current-build test — live Adventure availability, preparation counters, finale gates and task wording in the installed build are unverified; inspect the current Adventure card and follow its visible counters before pressing the finale.",
+    "steps": [
+      {
+        "title": "Dragonsbane: start the working battery",
+        "note": "Our default first chapter. Get the desired Cannon preparation before the finale."
+      },
+      {
+        "title": "Dreadquake Destruction: the test flight",
+        "note": "Bring the gyro upgrades forward once aircraft join the army. Do not manufacture a distant convoy war for an optional task."
+      },
+      {
+        "title": "Goblin’s Monstrosity: signature invention",
+        "note": "A third useful finale supports the Hewer; another accessible chapter can fill that role instead."
+      },
+      {
+        "title": "The Skaven Scheme after three finales",
+        "note": "Prioritise this when recruited barges are a major investment. Check current preparation and battle objectives."
+      },
+      {
+        "title": "Bloodletting / Vampireslayer as useful",
+        "note": "Optional Organ Gun or bomber support. Do not delay completing the eight provinces solely for an Adventure."
+      },
+      {
+        "title": "Finish wanted upgrades before the finale",
+        "note": "Four of six preparations open the battle. The required four need not be the same for every campaign."
+      }
+    ],
+    "details": [
+      [
+        "One active project with a reason",
+        "Begin the chapter that helps a fielded unit and can progress through realistic tasks. A mandatory serial order is not invented here; use the current game’s availability."
+      ],
+      [
+        "Before pressing the finale button",
+        "Secure the upgrades you actually want, verify which recipient the reward names, and save. Four preparations are a gate, not a requirement to complete all six."
+      ],
+      [
+        "One source of power at a time",
+        "A preparation can improve a unit family; the finale can improve the Spirit. Read the recipient and scope. Recruited Thunderbarges and the summoned Spirit are not interchangeable reward targets. A custom battle’s autoresolve availability and scripted mission credit are not inferred from another quest battle working; the live Adventure card and mission panel decide credit."
+      ],
+      [
+        "Smart Autoresolve boundary",
+        "Mission kills, summon usage and scripted battle tasks may not behave identically under autoresolve. Test the first counter; these templates do not simulate the mod."
+      ],
+      [
+        "Dragonsbane · Cannons",
+        "Opening pair. Focus: grapeshot first — use this as the first investment in your field battery and secure the useful Cannon preparation before taking the finale. Preparation tasks: 800 Cannon kills (grapeshot); a battle against cavalry; two mountain-climate battles; build a Refectory. Warning: these are four suggested preparations, not an extra set of VCO objectives; confirm the current counters before relying on autoresolve credit."
+      ],
+      [
+        "Dreadquake Destruction · Gyrocopters",
+        "Opening pair. Focus: the expedition’s test flight — take this branch when you are actually using Gyrocopters, keep the group together and maintain a ground screen, and do not redesign every army around aircraft. Preparation tasks: review the gyro-kill preparation; review trade/maintenance preparations; plan four achievable tasks; finish the legendary battle for repairs. Warning: some preparations involve convoys or particular enemies/climates; select attainable tasks in the live panel rather than starting an unnecessary war for an optional preparation."
+      ],
+      [
+        "Bloodletting · Organ Guns",
+        "After an earlier finale. Focus: mixed-battery continuation — the natural weapon match when Organ Guns join the army; look at the Khorne champion, kill and rank tasks and choose a feasible route to four. Preparation tasks: review Organ Gun kills (Dig in!); review the Champion of Khorne target; align tasks with current wars; the finale unlocks Gyrocopter Launch. Warning: the rank-25 preparation and the kill targets are not all mandatory simultaneously; rank and task wording follow your live panel."
+      ],
+      [
+        "Anger of the Forest · Flame Cannons",
+        "After an earlier finale. Focus: optional Drycha overlap — an optional Flame Cannon chapter that can fit the Empire route when already fighting Drycha, but it is not a reason to attack neutral Wood Elves on another route. Preparation tasks: review the Flame Cannon preparation; use existing Wood Elf hostility, not new allied wars; keep fire away from friendly infantry; inspect the Spirit defensive reward. Warning: do not buy a new recruitment complex solely because one Adventure exists; choose this over the gyro branch only when its tasks and units suit the campaign."
+      ],
+      [
+        "Goblin’s Monstrosity · Goblin Hewers",
+        "After an earlier finale. Focus: signature invention — a priority for the thematic workshop once an earlier finale unlocks it; the axe machine deserves a place because it belongs to Malakai’s identity, not because it wins every efficiency comparison. Preparation tasks: plan safe short-range use; check the Slayer maintenance task; complete desired Hewer upgrades; the finale improves Spear of Grungni uses. Warning: give it a short, protected firing lane and track ammunition; finish desired upgrades before the finale, and do not expose its crew merely to satisfy the theme."
+      ],
+      [
+        "Vampireslayer · Gyrobombers",
+        "After an earlier finale. Focus: optional Sylvania overlap — a bomber chapter when the aircraft and tasks fit the army; use existing Vampire fighting as an opportunity, and no route obliges you to rebuild around bombing runs. Preparation tasks: check the actual bomber tasks; group your aircraft; keep protected ground units alive; inspect the airship bomb reward. Warning: the Spirit and regular Thunderbarges are related but distinct units; read which recipient each preparation or final reward names."
+      ],
+      [
+        "The Skaven Scheme · Thunderbarges",
+        "Three completed finales. Focus: late aviation support — pick this once recruited barges become part of the army; choose four useful preparations, and you need not buy four barges for the optional maintenance task. Preparation tasks: earn the recruited-barge upgrades you want; check summon-use credit manually; save and enter the objective battle; move Malakai to the objective, then defend. Warning: the finale has a movement/objective component; autoresolve support for this custom/quest battle and its task credit has not been verified."
+      ]
+    ],
+    "sources": [
+      "ca-malakai",
+      "adventures",
+      "vco-guide",
+      "blood",
+      "skaven"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "ca-malakai",
+      "adventures",
+      "vco-guide",
+      "blood",
+      "skaven"
+    ]
+  },
+  "adventures-route-2": {
+    "label": "Adventures",
+    "title": "Adventure order · Dark Fortresses",
+    "intro": "Recommended sequence, adjusted to actual availability and attainable tasks. Archive-derived Adventure guidance from the atlas’s September 2026 research, not a fixed order or a current-build test — live Adventure availability, preparation counters, finale gates and task wording in the installed build are unverified; inspect the current Adventure card and follow its visible counters before pressing the finale.",
+    "steps": [
+      {
+        "title": "Dragonsbane first",
+        "note": "Cannons give the expedition long-range answers. Work towards grapeshot with the current preparation counter."
+      },
+      {
+        "title": "Goblin’s Monstrosity once unlocked",
+        "note": "The signature Hewer deserves early attention in the fortress plan. Use achievable preparations and protect its short-range crew."
+      },
+      {
+        "title": "Dreadquake Destruction if practical",
+        "note": "The small flight can support scouting and battles. Choose this earlier when current tasks fit better than the Hewer chapter."
+      },
+      {
+        "title": "Bloodletting when Organ Guns fit the force",
+        "note": "Useful on an invasion, not mandatory when the planned roster is already functioning."
+      },
+      {
+        "title": "The Skaven Scheme only for useful returns",
+        "note": "After three finales; an optional late barge investment. Seven VCO sites do not require seven Adventure finales."
+      },
+      {
+        "title": "Keep the expedition objective in sight",
+        "note": "An Adventure detour should improve the next leg, not produce three unnecessary wars."
+      }
+    ],
+    "details": [
+      [
+        "One active project with a reason",
+        "Begin the chapter that helps a fielded unit and can progress through realistic tasks. A mandatory serial order is not invented here; use the current game’s availability."
+      ],
+      [
+        "Before pressing the finale button",
+        "Secure the upgrades you actually want, verify which recipient the reward names, and save. Four preparations are a gate, not a requirement to complete all six."
+      ],
+      [
+        "One source of power at a time",
+        "A preparation can improve a unit family; the finale can improve the Spirit. Read the recipient and scope. Recruited Thunderbarges and the summoned Spirit are not interchangeable reward targets. A custom battle’s autoresolve availability and scripted mission credit are not inferred from another quest battle working; the live Adventure card and mission panel decide credit."
+      ],
+      [
+        "Smart Autoresolve boundary",
+        "Mission kills, summon usage and scripted battle tasks may not behave identically under autoresolve. Test the first counter; these templates do not simulate the mod."
+      ],
+      [
+        "Dragonsbane · Cannons",
+        "Opening pair. Focus: grapeshot first — use this as the first investment in your field battery and secure the useful Cannon preparation before taking the finale. Preparation tasks: 800 Cannon kills (grapeshot); a battle against cavalry; two mountain-climate battles; build a Refectory. Warning: these are four suggested preparations, not an extra set of VCO objectives; confirm the current counters before relying on autoresolve credit."
+      ],
+      [
+        "Dreadquake Destruction · Gyrocopters",
+        "Opening pair. Focus: the expedition’s test flight — take this branch when you are actually using Gyrocopters, keep the group together and maintain a ground screen, and do not redesign every army around aircraft. Preparation tasks: review the gyro-kill preparation; review trade/maintenance preparations; plan four achievable tasks; finish the legendary battle for repairs. Warning: some preparations involve convoys or particular enemies/climates; select attainable tasks in the live panel rather than starting an unnecessary war for an optional preparation."
+      ],
+      [
+        "Bloodletting · Organ Guns",
+        "After an earlier finale. Focus: mixed-battery continuation — the natural weapon match when Organ Guns join the army; look at the Khorne champion, kill and rank tasks and choose a feasible route to four. Preparation tasks: review Organ Gun kills (Dig in!); review the Champion of Khorne target; align tasks with current wars; the finale unlocks Gyrocopter Launch. Warning: the rank-25 preparation and the kill targets are not all mandatory simultaneously; rank and task wording follow your live panel."
+      ],
+      [
+        "Anger of the Forest · Flame Cannons",
+        "After an earlier finale. Focus: optional Drycha overlap — an optional Flame Cannon chapter that can fit the Empire route when already fighting Drycha, but it is not a reason to attack neutral Wood Elves on another route. Preparation tasks: review the Flame Cannon preparation; use existing Wood Elf hostility, not new allied wars; keep fire away from friendly infantry; inspect the Spirit defensive reward. Warning: do not buy a new recruitment complex solely because one Adventure exists; choose this over the gyro branch only when its tasks and units suit the campaign."
+      ],
+      [
+        "Goblin’s Monstrosity · Goblin Hewers",
+        "After an earlier finale. Focus: signature invention — a priority for the thematic workshop once an earlier finale unlocks it; the axe machine deserves a place because it belongs to Malakai’s identity, not because it wins every efficiency comparison. Preparation tasks: plan safe short-range use; check the Slayer maintenance task; complete desired Hewer upgrades; the finale improves Spear of Grungni uses. Warning: give it a short, protected firing lane and track ammunition; finish desired upgrades before the finale, and do not expose its crew merely to satisfy the theme."
+      ],
+      [
+        "Vampireslayer · Gyrobombers",
+        "After an earlier finale. Focus: optional Sylvania overlap — a bomber chapter when the aircraft and tasks fit the army; use existing Vampire fighting as an opportunity, and no route obliges you to rebuild around bombing runs. Preparation tasks: check the actual bomber tasks; group your aircraft; keep protected ground units alive; inspect the airship bomb reward. Warning: the Spirit and regular Thunderbarges are related but distinct units; read which recipient each preparation or final reward names."
+      ],
+      [
+        "The Skaven Scheme · Thunderbarges",
+        "Three completed finales. Focus: late aviation support — pick this once recruited barges become part of the army; choose four useful preparations, and you need not buy four barges for the optional maintenance task. Preparation tasks: earn the recruited-barge upgrades you want; check summon-use credit manually; save and enter the objective battle; move Malakai to the objective, then defend. Warning: the finale has a movement/objective component; autoresolve support for this custom/quest battle and its task credit has not been verified."
+      ]
+    ],
+    "sources": [
+      "ca-malakai",
+      "adventures",
+      "vco-guide",
+      "blood",
+      "skaven"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "ca-malakai",
+      "adventures",
+      "vco-guide",
+      "blood",
+      "skaven"
+    ]
+  },
+  "adventures-route-3": {
+    "label": "Adventures",
+    "title": "Adventure order · Empire relief",
+    "intro": "Recommended sequence, adjusted to actual availability and attainable tasks. Archive-derived Adventure guidance from the atlas’s September 2026 research, not a fixed order or a current-build test — live Adventure availability, preparation counters, finale gates and task wording in the installed build are unverified; inspect the current Adventure card and follow its visible counters before pressing the finale.",
+    "steps": [
+      {
+        "title": "Dragonsbane: core Cannon development",
+        "note": "Start with attainable preparations; secure wanted upgrades before ending the chapter."
+      },
+      {
+        "title": "Dreadquake Destruction: the crew’s aircraft",
+        "note": "Use the paired flight without breaking up the army into many isolated jobs."
+      },
+      {
+        "title": "Goblin’s Monstrosity: Hewer chapter",
+        "note": "A fitting overlap with Greenskin fighting when the tasks actually align."
+      },
+      {
+        "title": "Forest / Vampireslayer if wars align",
+        "note": "Drycha or Sylvania can offer convenient task overlap. Recruit the appropriate unit because it serves the army, not just to fill a checkbox."
+      },
+      {
+        "title": "Bloodletting / Skaven Scheme later",
+        "note": "Choose Organ Gun or barge support for the force you field. The late Skaven chapter requires three earlier finales."
+      },
+      {
+        "title": "VCO epilogue is a different battle",
+        "note": "The author’s Malakai/Elspeth follow-up comes after Route 3, not from completing all Adventures."
+      }
+    ],
+    "details": [
+      [
+        "One active project with a reason",
+        "Begin the chapter that helps a fielded unit and can progress through realistic tasks. A mandatory serial order is not invented here; use the current game’s availability."
+      ],
+      [
+        "Before pressing the finale button",
+        "Secure the upgrades you actually want, verify which recipient the reward names, and save. Four preparations are a gate, not a requirement to complete all six."
+      ],
+      [
+        "One source of power at a time",
+        "A preparation can improve a unit family; the finale can improve the Spirit. Read the recipient and scope. Recruited Thunderbarges and the summoned Spirit are not interchangeable reward targets. A custom battle’s autoresolve availability and scripted mission credit are not inferred from another quest battle working; the live Adventure card and mission panel decide credit."
+      ],
+      [
+        "Smart Autoresolve boundary",
+        "Mission kills, summon usage and scripted battle tasks may not behave identically under autoresolve. Test the first counter; these templates do not simulate the mod."
+      ],
+      [
+        "Dragonsbane · Cannons",
+        "Opening pair. Focus: grapeshot first — use this as the first investment in your field battery and secure the useful Cannon preparation before taking the finale. Preparation tasks: 800 Cannon kills (grapeshot); a battle against cavalry; two mountain-climate battles; build a Refectory. Warning: these are four suggested preparations, not an extra set of VCO objectives; confirm the current counters before relying on autoresolve credit."
+      ],
+      [
+        "Dreadquake Destruction · Gyrocopters",
+        "Opening pair. Focus: the expedition’s test flight — take this branch when you are actually using Gyrocopters, keep the group together and maintain a ground screen, and do not redesign every army around aircraft. Preparation tasks: review the gyro-kill preparation; review trade/maintenance preparations; plan four achievable tasks; finish the legendary battle for repairs. Warning: some preparations involve convoys or particular enemies/climates; select attainable tasks in the live panel rather than starting an unnecessary war for an optional preparation."
+      ],
+      [
+        "Bloodletting · Organ Guns",
+        "After an earlier finale. Focus: mixed-battery continuation — the natural weapon match when Organ Guns join the army; look at the Khorne champion, kill and rank tasks and choose a feasible route to four. Preparation tasks: review Organ Gun kills (Dig in!); review the Champion of Khorne target; align tasks with current wars; the finale unlocks Gyrocopter Launch. Warning: the rank-25 preparation and the kill targets are not all mandatory simultaneously; rank and task wording follow your live panel."
+      ],
+      [
+        "Anger of the Forest · Flame Cannons",
+        "After an earlier finale. Focus: optional Drycha overlap — an optional Flame Cannon chapter that can fit the Empire route when already fighting Drycha, but it is not a reason to attack neutral Wood Elves on another route. Preparation tasks: review the Flame Cannon preparation; use existing Wood Elf hostility, not new allied wars; keep fire away from friendly infantry; inspect the Spirit defensive reward. Warning: do not buy a new recruitment complex solely because one Adventure exists; choose this over the gyro branch only when its tasks and units suit the campaign."
+      ],
+      [
+        "Goblin’s Monstrosity · Goblin Hewers",
+        "After an earlier finale. Focus: signature invention — a priority for the thematic workshop once an earlier finale unlocks it; the axe machine deserves a place because it belongs to Malakai’s identity, not because it wins every efficiency comparison. Preparation tasks: plan safe short-range use; check the Slayer maintenance task; complete desired Hewer upgrades; the finale improves Spear of Grungni uses. Warning: give it a short, protected firing lane and track ammunition; finish desired upgrades before the finale, and do not expose its crew merely to satisfy the theme."
+      ],
+      [
+        "Vampireslayer · Gyrobombers",
+        "After an earlier finale. Focus: optional Sylvania overlap — a bomber chapter when the aircraft and tasks fit the army; use existing Vampire fighting as an opportunity, and no route obliges you to rebuild around bombing runs. Preparation tasks: check the actual bomber tasks; group your aircraft; keep protected ground units alive; inspect the airship bomb reward. Warning: the Spirit and regular Thunderbarges are related but distinct units; read which recipient each preparation or final reward names."
+      ],
+      [
+        "The Skaven Scheme · Thunderbarges",
+        "Three completed finales. Focus: late aviation support — pick this once recruited barges become part of the army; choose four useful preparations, and you need not buy four barges for the optional maintenance task. Preparation tasks: earn the recruited-barge upgrades you want; check summon-use credit manually; save and enter the objective battle; move Malakai to the objective, then defend. Warning: the finale has a movement/objective component; autoresolve support for this custom/quest battle and its task credit has not been verified."
+      ]
+    ],
+    "sources": [
+      "ca-malakai",
+      "adventures",
+      "vco-guide",
+      "blood",
+      "skaven"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "ca-malakai",
+      "adventures",
+      "vco-guide",
+      "blood",
+      "skaven"
+    ]
+  },
+  "deeps-route-1": {
+    "label": "Deeps",
+    "title": "Deeps policy · Northern kingdom",
+    "intro": "The workshop’s Deeps card. The full step-by-step Deeps policy for this route already lives on the Settlements panel (the Deeps capital entry) and is not repeated here: secure surface income and a cash reserve first, budget the Great Gate entrance and blocked-space clearance, build productive rooms before specialist defences, extend projects gradually and read Seal the Hold!’s drawbacks. Archive-derived policy from the atlas’s September 2026 research, not a fixed build order or an installed-build test — live room costs, thresholds and modifiers in the installed build are unverified; inspect the live building preview and tooltips before spending.",
+    "steps": [
+      {
+        "title": "This route’s branch choice",
+        "note": "Prefer returns that suit a wide realm: compare the Counting Room with other productive rooms first, and buy Guild Foundries only when its live net modifier is genuinely attractive despite the required settlement count."
+      },
+      {
+        "title": "Counting Room threshold",
+        "note": "Its conditional thresholds refer to surface income, not the total including the Deeps. Check the active tooltip before assuming an upgrade tier will pay for itself."
+      }
+    ],
+    "details": [
+      [
+        "Where the step-by-step policy lives",
+        "Open this route’s Settlements panel and read the Deeps capital card: it carries the complete queue and the same cautions. This workshop card keeps the archive’s Deeps slot in the workshop order without duplicating that entry."
+      ],
+      [
+        "Seal the Hold! is not a default",
+        "It has drawbacks and is not a growth upgrade or a benefit guaranteed by owning five provinces — check the live choice before sealing a growing capital."
+      ]
+    ],
+    "sources": [
+      "deeps",
+      "deep-data",
+      "counting",
+      "counting-scope",
+      "seal"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "deeps",
+      "deep-data",
+      "counting",
+      "counting-scope",
+      "seal"
+    ]
+  },
+  "deeps-route-2": {
+    "label": "Deeps",
+    "title": "Deeps policy · Dark Fortresses",
+    "intro": "The workshop’s Deeps card. The full step-by-step Deeps policy for this route already lives on the Settlements panel (the Deeps capital entry) and is not repeated here: secure surface income and a cash reserve first, budget the Great Gate entrance and blocked-space clearance, build productive rooms before specialist defences, extend projects gradually and read Seal the Hold!’s drawbacks. Archive-derived policy from the atlas’s September 2026 research, not a fixed build order or an installed-build test — live room costs, thresholds and modifiers in the installed build are unverified; inspect the live building preview and tooltips before spending.",
+    "steps": [
+      {
+        "title": "This route’s branch choice",
+        "note": "Use Guild Foundries only if it pays now: a small base can suit the branch, but smaller ownership is a chosen logistics policy for the expedition—not a rule. If extra land is helping fund the invasion, keep it and choose the better live income option."
+      },
+      {
+        "title": "Counting Room threshold",
+        "note": "Its conditional thresholds refer to surface income, not the total including the Deeps. Check the active tooltip before assuming an upgrade tier will pay for itself."
+      }
+    ],
+    "details": [
+      [
+        "Where the step-by-step policy lives",
+        "Open this route’s Settlements panel and read the Deeps capital card: it carries the complete queue and the same cautions. This workshop card keeps the archive’s Deeps slot in the workshop order without duplicating that entry."
+      ],
+      [
+        "Seal the Hold! is not a default",
+        "It has drawbacks and is not a growth upgrade or a benefit guaranteed by owning five provinces — check the live choice before sealing a growing capital."
+      ]
+    ],
+    "sources": [
+      "deeps",
+      "deep-data",
+      "counting",
+      "counting-scope",
+      "seal"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "deeps",
+      "deep-data",
+      "counting",
+      "counting-scope",
+      "seal"
+    ]
+  },
+  "deeps-route-3": {
+    "label": "Deeps",
+    "title": "Deeps policy · Empire relief",
+    "intro": "The workshop’s Deeps card. The full step-by-step Deeps policy for this route already lives on the Settlements panel (the Deeps capital entry) and is not repeated here: secure surface income and a cash reserve first, budget the Great Gate entrance and blocked-space clearance, build productive rooms before specialist defences, extend projects gradually and read Seal the Hold!’s drawbacks. Archive-derived policy from the atlas’s September 2026 research, not a fixed build order or an installed-build test — live room costs, thresholds and modifiers in the installed build are unverified; inspect the live building preview and tooltips before spending.",
+    "steps": [
+      {
+        "title": "This route’s branch choice",
+        "note": "Choose the branch for your real economy: the Counting Room suits surface income; Guild Foundries can suit a smaller realm only when the live modifier pays. Evaluate the trade network and owned-settlement count without a pre-set size target."
+      },
+      {
+        "title": "Counting Room threshold",
+        "note": "Its conditional thresholds refer to surface income, not the total including the Deeps. Check the active tooltip before assuming an upgrade tier will pay for itself."
+      }
+    ],
+    "details": [
+      [
+        "Where the step-by-step policy lives",
+        "Open this route’s Settlements panel and read the Deeps capital card: it carries the complete queue and the same cautions. This workshop card keeps the archive’s Deeps slot in the workshop order without duplicating that entry."
+      ],
+      [
+        "Seal the Hold! is not a default",
+        "It has drawbacks and is not a growth upgrade or a benefit guaranteed by owning five provinces — check the live choice before sealing a growing capital."
+      ]
+    ],
+    "sources": [
+      "deeps",
+      "deep-data",
+      "counting",
+      "counting-scope",
+      "seal"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "deeps",
+      "deep-data",
+      "counting",
+      "counting-scope",
+      "seal"
+    ]
+  },
+  "grudges-route-1": {
+    "label": "Grudges",
+    "title": "Reckoning without losing the campaign",
+    "intro": "Use existing operations to earn worthwhile grudge progress; the live timer and thresholds take precedence. Archive-derived Reckoning guidance from the atlas’s September 2026 research, not a fixed turn-count plan or a current-build test — the live Book of Grudges timer, brackets and thresholds in the installed build are unverified; read the current Reckoning window before planning around it.",
+    "steps": [
+      {
+        "title": "Read the current Reckoning window",
+        "note": "Choose a reachable bracket. Do not rely on an old fixed ten-turn guide."
+      },
+      {
+        "title": "Choose a target on this route",
+        "note": "Required provinces"
+      },
+      {
+        "title": "Compare value with travel and recovery",
+        "note": "A large grudge that takes your sole field army away from the actual campaign may not be worth it."
+      },
+      {
+        "title": "Use Grudge Settlers for a specific gap",
+        "note": "Treat them as limited reinforcements. Check upkeep and current pool/army caps before making the standard army depend on them."
+      },
+      {
+        "title": "Treat confederation as an operational choice",
+        "note": "Accept useful armies, territory and characters when you can manage the result. Do not accept a detached new front just because the offer exists."
+      },
+      {
+        "title": "Preserve the victory position",
+        "note": "Keep required captures defended."
+      }
+    ],
+    "details": [
+      [
+        "Make two objectives overlap",
+        "Prefer an attainable grudge that also secures a required province, removes a listed enemy, or protects the route. An unrelated maximum-reward chase is not automatically worth more than completing the selected victory."
+      ],
+      [
+        "Do not accept liabilities automatically",
+        "Check where a confederation or new war leaves your armies, borders and budget. Territory can be useful, but its value depends on this route’s next operation."
+      ],
+      [
+        "Use the current campaign timer",
+        "The live Book of Grudges panel and active cycle take precedence over an old guide’s fixed turn count. The ledger does not run or reset the game mechanic."
+      ]
+    ],
+    "sources": [
+      "ca-malakai",
+      "vco-guide"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "ca-malakai",
+      "vco-guide"
+    ]
+  },
+  "grudges-route-2": {
+    "label": "Grudges",
+    "title": "Reckoning without losing the campaign",
+    "intro": "Use existing operations to earn worthwhile grudge progress; the live timer and thresholds take precedence. Archive-derived Reckoning guidance from the atlas’s September 2026 research, not a fixed turn-count plan or a current-build test — the live Book of Grudges timer, brackets and thresholds in the installed build are unverified; read the current Reckoning window before planning around it.",
+    "steps": [
+      {
+        "title": "Read the current Reckoning window",
+        "note": "Choose a reachable bracket. Do not rely on an old fixed ten-turn guide."
+      },
+      {
+        "title": "Choose a target on this route",
+        "note": "Eligible fortress operations"
+      },
+      {
+        "title": "Compare value with travel and recovery",
+        "note": "A large grudge that takes your sole field army away from the actual campaign may not be worth it."
+      },
+      {
+        "title": "Use Grudge Settlers for a specific gap",
+        "note": "Treat them as limited reinforcements. Check upkeep and current pool/army caps before making the standard army depend on them."
+      },
+      {
+        "title": "Treat confederation as an operational choice",
+        "note": "Accept useful armies, territory and characters when you can manage the result. Do not accept a detached new front just because the offer exists."
+      },
+      {
+        "title": "Preserve the victory position",
+        "note": "Keep the expedition’s base and recovery route safe."
+      }
+    ],
+    "details": [
+      [
+        "Make two objectives overlap",
+        "Prefer an attainable grudge that also secures a required province, removes a listed enemy, or protects the route. An unrelated maximum-reward chase is not automatically worth more than completing the selected victory."
+      ],
+      [
+        "Do not accept liabilities automatically",
+        "Check where a confederation or new war leaves your armies, borders and budget. Territory can be useful, but its value depends on this route’s next operation."
+      ],
+      [
+        "Use the current campaign timer",
+        "The live Book of Grudges panel and active cycle take precedence over an old guide’s fixed turn count. The ledger does not run or reset the game mechanic."
+      ]
+    ],
+    "sources": [
+      "ca-malakai",
+      "vco-guide"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "ca-malakai",
+      "vco-guide"
+    ]
+  },
+  "grudges-route-3": {
+    "label": "Grudges",
+    "title": "Reckoning without losing the campaign",
+    "intro": "Use existing operations to earn worthwhile grudge progress; the live timer and thresholds take precedence. Archive-derived Reckoning guidance from the atlas’s September 2026 research, not a fixed turn-count plan or a current-build test — the live Book of Grudges timer, brackets and thresholds in the installed build are unverified; read the current Reckoning window before planning around it.",
+    "steps": [
+      {
+        "title": "Read the current Reckoning window",
+        "note": "Choose a reachable bracket. Do not rely on an old fixed ten-turn guide."
+      },
+      {
+        "title": "Choose a target on this route",
+        "note": "Named coalition threats"
+      },
+      {
+        "title": "Compare value with travel and recovery",
+        "note": "A large grudge that takes your sole field army away from the actual campaign may not be worth it."
+      },
+      {
+        "title": "Use Grudge Settlers for a specific gap",
+        "note": "Treat them as limited reinforcements. Check upkeep and current pool/army caps before making the standard army depend on them."
+      },
+      {
+        "title": "Treat confederation as an operational choice",
+        "note": "Accept useful armies, territory and characters when you can manage the result. Do not accept a detached new front just because the offer exists."
+      },
+      {
+        "title": "Preserve the victory position",
+        "note": "Keep the qualifying city relationships and named-target plan intact."
+      }
+    ],
+    "details": [
+      [
+        "Make two objectives overlap",
+        "Prefer an attainable grudge that also secures a required province, removes a listed enemy, or protects the route. An unrelated maximum-reward chase is not automatically worth more than completing the selected victory."
+      ],
+      [
+        "Do not accept liabilities automatically",
+        "Check where a confederation or new war leaves your armies, borders and budget. Territory can be useful, but its value depends on this route’s next operation."
+      ],
+      [
+        "Use the current campaign timer",
+        "The live Book of Grudges panel and active cycle take precedence over an old guide’s fixed turn count. The ledger does not run or reset the game mechanic."
+      ]
+    ],
+    "sources": [
+      "ca-malakai",
+      "vco-guide"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "ca-malakai",
+      "vco-guide"
+    ]
+  },
+  "forge": {
+    "label": "Forge",
+    "title": "Equip the company for its job",
+    "intro": "A short routine for useful equipment, not an invitation to spend all Oathgold at once. Archive-derived Forge guidance from the atlas’s September 2026 research, not a fixed craft order or an installed-build test — live Oathgold balance, unlock gates and item scopes in the installed build are unverified; inspect the live Forge and the selected item’s effect before spending.",
+    "steps": [
+      {
+        "title": "Protect exposed characters first",
+        "note": "Melee defence, health and appropriate resistance on the companions/frontline heroes; keep ranged support characters safe."
+      },
+      {
+        "title": "Match weapon bonuses to the recipient",
+        "note": "Melee weapon bonuses do not automatically strengthen an Engineer’s firearm. Read the actual effect and its scope."
+      },
+      {
+        "title": "Invest in the next decisive troop",
+        "note": "Artillery or unit banner/rune choices should match an eligible unit in your current formation. Confirm assignment in the pre-battle panel."
+      },
+      {
+        "title": "Keep an Oathgold reserve",
+        "note": "Leave room for a genuinely useful item or rune after the next unlock; crafting everything you can afford creates its own management burden."
+      },
+      {
+        "title": "Review after major recruits, not every turn",
+        "note": "Use a simple priority: flagship, field reserve, then utility characters. Re-equip idle useful items before crafting replacements."
+      },
+      {
+        "title": "Do not assume an autoresolve multiplier",
+        "note": "A tooltip benefit is evidence of an effect, not proof of the exact weight Smart Autoresolve gives it."
+      }
+    ],
+    "details": [
+      [
+        "Spend for a role",
+        "Protect the companions and other characters taking damage, and improve the weapons or units doing the work. A melee weapon bonus is not a substitute for a missile buff on an Engineer."
+      ],
+      [
+        "Put upgrades to work",
+        "A useful item on an active character is better than an unused expensive craft. Check unit eligibility when assigning runes or banners rather than assuming an artillery upgrade works on every machine."
+      ],
+      [
+        "Keep the routine light",
+        "Review equipment after a meaningful batch of battles or before a difficult operation. There is no need to open every character’s inventory at the end of every turn."
+      ]
+    ],
+    "sources": [
+      "ca-malakai",
+      "skill-engineer",
+      "smart"
+    ],
+    "state": "verify-in-campaign",
+    "src": [
+      "ca-malakai",
+      "skill-engineer",
+      "smart"
+    ]
+  }
+}
