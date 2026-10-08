@@ -539,7 +539,7 @@ Commits 1–2 prove new-guide discovery/context/source libraries through the rea
 
 #### Package `mother-ostankya-route-three` — Commit 22: Complete Mother Ostankya's new-frontier route
 
-**Status:** Planned
+**Status:** Integrated
 **Wave:** 10
 **Depends on:** ["mother-ostankya-armies"]
 **Write scope:** ["content/mother-ostankya/routes/route-3.md"]
